@@ -28,6 +28,7 @@ public class GcpConfig {
         FirestoreOptions.Builder builder = FirestoreOptions.newBuilder().setProjectId(props.projectId());
         String host = props.firestoreEmulatorHost();
         if (host != null && !host.isBlank()) {
+            // setEmulatorHost leaves the channel on googleapis.com:443 when credentials are NoCredentials
             builder.setHost(host).setCredentials(NoCredentials.getInstance());
         }
         return builder.build().getService();
