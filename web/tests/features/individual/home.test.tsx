@@ -137,3 +137,23 @@ test('a KPI tile opens its explanation drawer', async () => {
   expect(within(drawer).getByText('usual 132/82')).toBeInTheDocument()
   expect(within(drawer).getByText(/The top number has crept up/)).toBeInTheDocument()
 })
+
+const TODAY_STRINGS = ['Doing well', '64% · on wrist', '🍽️ Lunch chat · cheerful', 'Last chat 13:02 · cheerful']
+
+test('viewer without check-in access gets no Margaret-today data in the DOM', async () => {
+  const r = renderWithProviders(<HomePage />, { who: 'family', viewer: 'sarah' })
+  await ready()
+  expect(screen.getByText('Doing well')).toBeInTheDocument() // sarah sees check-ins by default
+  act(() => r.app().toggleShare('sarah', 'checkin'))
+  await waitFor(() => expect(screen.queryByText('Doing well')).toBeNull())
+  for (const t of TODAY_STRINGS) expect(document.body.innerHTML).not.toContain(t)
+  expect(screen.queryByRole('button', { name: 'Call Mum' })).toBeNull()
+})
+
+test('pausing sharing removes Margaret-today data for a family viewer', async () => {
+  const r = renderWithProviders(<HomePage />, { who: 'family', viewer: 'james' })
+  await ready()
+  act(() => r.app().togglePause())
+  await waitFor(() => expect(screen.queryByText('Doing well')).toBeNull())
+  for (const t of TODAY_STRINGS) expect(document.body.innerHTML).not.toContain(t)
+})
