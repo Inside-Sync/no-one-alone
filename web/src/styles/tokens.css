@@ -1,0 +1,28 @@
+/* Design tokens copied verbatim from docs/reference/prototype.html lines 9-35 */
+:root{
+  color-scheme:light;
+  --sky1:#bfe3f2; --sky2:#e4f1ee; --sky3:#fbe3c9; --sun:#ffd49b; --sun-o:.95;
+  --m1:#b3d3d8; --m2:#8fbfb5; --m3:#5f9f86; --water:#9fd3e0; --m4:#4b8a6c; --m5:#2f6b55; --city:#9fbcc8; --win:#fff3c4;
+  --stars:0; --glow:0; --cloud:.75;
+  --ink:#0d2a2a; --ink2:#2f4c4b; --muted:#56706e; --line:rgba(13,42,42,.10); --track:rgba(13,42,42,.08);
+  --brand:#0b7f71; --brand-2:#1fb39c; --jac:#8f6fd0; --sun-ink:#b8571a; --sos:#ef4e4a;
+  --good:#1f8f5f; --warn:#b97f04; --bad:#d9443f;
+  --glass:linear-gradient(155deg,rgba(255,255,255,.78) 0%,rgba(255,255,255,.56) 55%,rgba(255,255,255,.48) 100%);
+  --glass-2:rgba(255,255,255,.52);
+  --glass-edge:inset 0 0 0 1px rgba(255,255,255,.62),inset 0 1px 0 rgba(255,255,255,.95);
+  --glass-drop:0 14px 34px rgba(8,50,48,.14);
+  --frost:blur(24px) saturate(1.7);
+  --font:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+body.night{
+  --sky1:#0a1330; --sky2:#1b1a3c; --sky3:#47233f; --sun:#ff8a6a; --sun-o:0;
+  --m1:#1f2a4a; --m2:#19223e; --m3:#141c34; --water:#26305a; --m4:#0f1629; --m5:#0b1120; --city:#1b2444;
+  --stars:1; --glow:1; --cloud:.05;
+  --ink:#f4f1f6; --ink2:#d8d2de; --muted:#a8a2b6; --line:rgba(255,255,255,.12); --track:rgba(255,255,255,.12);
+  --glass:linear-gradient(155deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.09) 60%,rgba(255,255,255,.07) 100%);
+  --glass-2:rgba(255,255,255,.09);
+  --glass-edge:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.22);
+  --glass-drop:0 14px 34px rgba(0,0,0,.35);
+  color-scheme:dark;
+}
