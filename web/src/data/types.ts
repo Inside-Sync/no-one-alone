@@ -738,6 +738,24 @@ export interface OrbitRing {
   dashed?: boolean
 }
 
+/** The centre ball of the orbit (Margaret) and its tap text. */
+export interface OrbitCentre {
+  initials: string
+  /** Caption under the ball in calm mode ("Margaret, 78"). */
+  label: string
+  /** Tap toast: `${name} · ${calmSub | alertSub}`. */
+  name: string
+  calmSub: string
+  alertSub: string
+}
+
+/** Everything the 3D care-circle orbit draws (`CIRCLE`, `RINGS`, line 1340). */
+export interface OrbitScene {
+  nodes: OrbitNode[]
+  rings: OrbitRing[]
+  centre: OrbitCentre
+}
+
 /** A person Margaret can share with (`PEOPLE2`). */
 export interface SharePerson {
   id: PersonId
@@ -1016,4 +1034,53 @@ export interface WatchData {
   scamLabels: { phone: string; door: string; text: string }
   feed: WatchFeedItem[]
   callouts: Callout[]
+}
+
+/* ---------- 3D city model (city.ts) ---------- */
+
+export type CityBlockKind = 'shops' | 'res' | 'res1' | 'park' | 'lib'
+
+/** Camera preset of a City3D map (prototype `new City3D(el, o)` options). */
+export interface CityView {
+  /** Model footprint in model units [x, y]. */
+  size: readonly [number, number]
+  yaw: number
+  /** Vertical position of the model centre as a share of the height. */
+  cy: number
+  vpad: number
+  zmax: number
+  fill: number
+  compassY?: number
+  pitch?: number
+  zoom?: number
+}
+
+/** Inputs of the procedural Marrickville model (`buildSuburb`, line 1270). */
+export interface CityGeometry {
+  /** [x0, x1, y0, y1, kind]. */
+  blocks: readonly (readonly [number, number, number, number, CityBlockKind])[]
+  wallColours: readonly string[]
+  roofColours: readonly string[]
+  shopWallColours: readonly string[]
+  awningColours: readonly string[]
+  ground: {
+    slabTop: string
+    slabSide: string
+    river: string
+    riverBank: string
+    block: string
+    park: string
+    oval: readonly [string, string]
+    road: string
+    roadLight: string
+    rail: string
+    railLine: string
+    laneMark: string
+  }
+  trees: {
+    street: readonly [string, string]
+    jacaranda: readonly [string, string]
+    riverside: readonly [string, string]
+  }
+  views: { home: CityView; watch: CityView; district: CityView }
 }

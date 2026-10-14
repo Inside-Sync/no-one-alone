@@ -1,3 +1,5 @@
+import type { CityBlockKind, CityGeometry } from '../types'
+
 /**
  * Geometry inputs for the procedural Marrickville model (`buildSuburb`,
  * prototype lines 1270–1316). Rendering-only data for Task 6; the generator
@@ -14,7 +16,7 @@ export const ROOF_COLOURS = ['#8e4a3a', '#a2563f', '#6f7b80', '#5f6b70', '#9a4f3
 export const SHOP_WALL_COLOURS = ['#f1e4c8', '#e9d3b0', '#d8e4e8', '#f3d9c9', '#e2e9d6', '#efe0d0'] as const
 export const SHOP_AWNING_COLOURS = ['#d9443f', '#0b7f71', '#2f6fb0', '#c88a05'] as const
 
-export type CityBlockKind = 'shops' | 'res' | 'res1' | 'park' | 'lib'
+export type { CityBlockKind }
 
 /** City blocks: [x0, x1, y0, y1, kind] (line 1274). */
 export const CITY_BLOCKS: readonly [number, number, number, number, CityBlockKind][] = [
@@ -53,3 +55,15 @@ export const CITY_VIEWS = {
   watch: { size: [400, 400], yaw: 0.35, cy: 0.6, vpad: 110, zmax: 30, fill: 1.1 },
   district: { size: [400, 320], yaw: -0.5, cy: 0.66, vpad: 170, zmax: 120, fill: 1, compassY: 70 },
 } as const
+
+/** Everything the City3D generator needs, served by `getCityScene()`. */
+export const cityScene: CityGeometry = {
+  blocks: CITY_BLOCKS,
+  wallColours: WALL_COLOURS,
+  roofColours: ROOF_COLOURS,
+  shopWallColours: SHOP_WALL_COLOURS,
+  awningColours: SHOP_AWNING_COLOURS,
+  ground: CITY_GROUND,
+  trees: TREE_COLOURS,
+  views: CITY_VIEWS,
+}

@@ -4,6 +4,8 @@ import {
   getAudit,
   getCareCircle,
   getCareRecord,
+  getCityScene,
+  getOrbitScene,
   getCommunity,
   getDeviceFeed,
   getForecast,
@@ -271,4 +273,20 @@ describe('verbatim spot checks', () => {
     expect(h.inbox.map((m) => m.name)).toEqual(['Kostas P., 82', 'Joan W., 88'])
     expect(h.panel.rows.filter((r) => r.sex === 'M').map((r) => r.name)).toEqual(['Kostas P.', 'Nguyen Van T.', 'Giuseppe R.', 'Peter H.'])
   })
+})
+
+test('city scene: blocks, colours and the three camera presets', async () => {
+  const g = await getCityScene()
+  expect(g.blocks).toHaveLength(11)
+  expect(g.blocks[0]).toEqual([0, 102, 46, 142, 'shops'])
+  expect(g.views.home).toMatchObject({ size: [400, 400], yaw: -0.62, cy: 0.6, vpad: 110, zmax: 30, fill: 1.1 })
+  expect(g.views.district).toMatchObject({ size: [400, 320], yaw: -0.5, compassY: 70 })
+  expect(g.views.watch.yaw).toBe(0.35)
+})
+
+test('orbit scene: CIRCLE, RINGS and Margaret in the centre', async () => {
+  const o = await getOrbitScene()
+  expect(o.nodes.map((n) => n.id)).toEqual(['david', 'nurse', 'james', 'sarah', 'hosp'])
+  expect(o.rings.map((r) => r.radius)).toEqual([78, 126, 172])
+  expect(o.centre).toEqual({ initials: 'M', label: 'Margaret, 78', name: 'Margaret', calmSub: 'Safe at home', alertSub: 'Needs help now' })
 })

@@ -1,4 +1,5 @@
-import { careCircle, sharePeople } from '../fixtures/circle'
+import { careCircle, orbitScene, sharePeople } from '../fixtures/circle'
+import { cityScene } from '../fixtures/city'
 import { careRecord } from '../fixtures/record'
 import { community } from '../fixtures/community'
 import { deviceFeed } from '../fixtures/device'
@@ -64,6 +65,12 @@ export const mockSource: DataSource = {
   },
   async getWatch() {
     return clone(watch)
+  },
+  async getCityScene() {
+    return clone(cityScene)
+  },
+  async getOrbitScene() {
+    return clone(orbitScene)
   },
   async getShare() {
     return clone(share)

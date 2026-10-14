@@ -1,4 +1,4 @@
-import type { CircleMember, OrbitNode, OrbitRing, SharePerson } from '../types'
+import type { CircleMember, OrbitNode, OrbitRing, OrbitScene, SharePerson } from '../types'
 
 /**
  * `#circleList`, plain-language version (line 1804) with the original technical
@@ -27,6 +27,13 @@ export const orbitRings: OrbitRing[] = [
   { radius: 126, y: 2, speed: 0.1 },
   { radius: 172, y: 8, speed: 0.055, dashed: true },
 ]
+
+/** Orbit inputs (`Orbit`, line 1347): the balls, the rings and Margaret in the middle (lines 1381–1383). */
+export const orbitScene: OrbitScene = {
+  nodes: circleOrbit,
+  rings: orbitRings,
+  centre: { initials: 'M', label: 'Margaret, 78', name: 'Margaret', calmSub: 'Safe at home', alertSub: 'Needs help now' },
+}
 
 /** PEOPLE2 (line 1889): who Margaret can share with. `emergency` is the prototype's `em`. */
 export const sharePeople: SharePerson[] = [

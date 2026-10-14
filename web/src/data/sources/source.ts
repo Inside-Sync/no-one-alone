@@ -1,5 +1,5 @@
 import type {
-  AuditEntry, SharePerson, CareRecord, CategoryId, CircleMember, CommunityData, DeviceFeed, Forecast, HealthData,
+  AuditEntry, SharePerson, CareRecord, CategoryId, CircleMember, CityGeometry, OrbitScene, CommunityData, DeviceFeed, Forecast, HealthData,
   HospitalData, Lineage, Person, PersonId, ShareMatrix, SubjectId, Surroundings, WatchData,
 } from '../types'
 
@@ -22,6 +22,10 @@ export interface DataSource {
   getHospital(): Promise<HospitalData>
   getCommunity(): Promise<CommunityData>
   getWatch(): Promise<WatchData>
+  /** Inputs of the procedural 3D Marrickville model and the camera presets. */
+  getCityScene(): Promise<CityGeometry>
+  /** The 3D care-circle orbit (balls, rings, centre). */
+  getOrbitScene(): Promise<OrbitScene>
   /** Consent: the full viewer x category matrix (defaults to the prototype's SHARE). */
   getShare(): Promise<ShareMatrix>
   /** Consent: store one switch. Which switches may change is domain logic (Task 5). */

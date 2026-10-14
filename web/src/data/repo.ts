@@ -30,6 +30,8 @@ export const getSharePeople: DataSource['getSharePeople'] = () => source.getShar
 export const getHospital: DataSource['getHospital'] = () => source.getHospital()
 export const getCommunity: DataSource['getCommunity'] = () => source.getCommunity()
 export const getWatch: DataSource['getWatch'] = () => source.getWatch()
+export const getCityScene: DataSource['getCityScene'] = () => source.getCityScene()
+export const getOrbitScene: DataSource['getOrbitScene'] = () => source.getOrbitScene()
 export const getShare: DataSource['getShare'] = () => source.getShare()
 export const saveShare: DataSource['saveShare'] = (viewer, cat, on) => source.saveShare(viewer, cat, on)
 export const appendAudit: DataSource['appendAudit'] = (entry) => source.appendAudit(entry)
