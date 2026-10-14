@@ -74,9 +74,9 @@ export interface AppStateValue {
   /** Returns the toast/audit text, e.g. `Sharing resumed`. */
   togglePause: () => string
   /** Returns the toast/audit text, or null when nothing changed (safety is always on). */
-  toggleShare: (viewer: PersonId, cat: CategoryId) => string | null
+  toggleShare: (viewer: PersonId, cat: CategoryId, onFail?: (msg: string) => void) => string | null
   /** A quick choice for the three family rows (prototype `data-preset`). Returns the toast text. */
-  applyPreset: (kind: SharePreset) => string
+  applyPreset: (kind: SharePreset, onFail?: (msg: string) => void) => string
   audit: AuditEntry[]
   log: (entry: AuditEntry) => void
   share: ShareMatrix | null
@@ -169,19 +169,27 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     log({ at: NOW, who: 'Margaret', action: next ? 'pause' : 'resume', detail })
     return detail
   }, [log, commit])
-  const toggleShare = useCallback((viewer: PersonId, cat: CategoryId) => {
+  const toggleShare = useCallback((viewer: PersonId, cat: CategoryId, onFail?: (msg: string) => void) => {
     const cur = stateRef.current.share
-    if (cat === 'safety' || !cur) return null
+    if (!cur) return null
+    // Prototype line 1983: only emergency contacts' safety switches are locked; the others store a value (sees() still shows safety).
+    if (cat === 'safety' && stateRef.current.people.find((p) => p.id === viewer)?.emergency) return null
     const on = !cur[viewer]?.[cat]
     commit({ type: 'flip', viewer, cat, on })
     const name = stateRef.current.people.find((p) => p.id === viewer)?.name ?? viewer
     const label = (CATEGORIES.find((c) => c.id === cat)?.name ?? cat).toLowerCase()
     const detail = `${on ? 'Now sharing ' : 'Stopped sharing '}${label} with ${name}`
     log({ at: NOW, who: 'Margaret', action: on ? 'share-on' : 'share-off', viewer, category: cat, on, detail })
-    repo.saveShare(viewer, cat, on).catch(() => commit({ type: 'flip', viewer, cat, on: !on }))
+    repo.saveShare(viewer, cat, on).catch(() => {
+      // A late rejection must not clobber a newer change: undo only while the optimistic value still stands.
+      if (stateRef.current.share?.[viewer]?.[cat] !== on) return
+      commit({ type: 'flip', viewer, cat, on: !on })
+      log({ at: NOW, who: 'Margaret', action: on ? 'share-off' : 'share-on', viewer, category: cat, on: !on, detail: repo.SAVE_FAILED })
+      onFail?.(repo.SAVE_FAILED)
+    })
     return detail
   }, [log, commit])
-  const applyPreset = useCallback((kind: SharePreset) => {
+  const applyPreset = useCallback((kind: SharePreset, onFail?: (msg: string) => void) => {
     const cur = stateRef.current.share
     const detail = PRESET_TEXT[kind]
     if (!cur) return detail
@@ -197,9 +205,17 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     }
     commit({ type: 'share', share: next })
     log({ at: NOW, who: 'Margaret', action: 'preset', detail })
-    for (const [id, cat, on] of changed) {
-      repo.saveShare(id, cat, on).catch(() => commit({ type: 'flip', viewer: id, cat, on: !on }))
-    }
+    // One unit: if any save fails, every cell still holding the preset's value goes back and the stored ones are restored.
+    Promise.allSettled(changed.map(([id, cat, on]) => repo.saveShare(id, cat, on))).then((results) => {
+      if (results.every((r) => r.status === 'fulfilled')) return
+      changed.forEach(([id, cat, on], i) => {
+        if (stateRef.current.share?.[id]?.[cat] !== on) return
+        commit({ type: 'flip', viewer: id, cat, on: !on })
+        if (results[i].status === 'fulfilled') repo.saveShare(id, cat, !on).catch(() => {})
+      })
+      log({ at: NOW, who: 'Margaret', action: 'preset', detail: repo.SAVE_FAILED })
+      onFail?.(repo.SAVE_FAILED)
+    })
     return detail
   }, [log, commit])
   const dispatchEmergency = useCallback((action: EmergencyAction) => dispatch({ type: 'emergency', action }), [])

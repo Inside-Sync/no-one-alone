@@ -1,7 +1,8 @@
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { vi } from 'vitest'
 import { ContextBar } from '@/components/shell/ContextBar'
-import { resetMockSource } from '@/data/sources/mock'
+import { resetDataSource, setDataSource } from '@/data/repo'
+import { mockSource, resetMockSource } from '@/data/sources/mock'
 import { CATEGORIES } from '@/domain/consent'
 import { HomePage } from '@/features/individual/home/HomePage'
 import { PrivacyPage } from '@/features/individual/privacy/PrivacyPage'
@@ -12,6 +13,8 @@ import { renderWithProviders } from '../../helpers/renderWithProviders'
 let mockPath = '/individual/privacy/'
 const push = vi.fn()
 vi.mock('@/app/navigation', () => ({ usePathname: () => mockPath, useRouter: () => ({ push, replace: vi.fn() }) }))
+
+afterEach(() => resetDataSource())
 
 beforeEach(() => {
   resetMockSource()
@@ -166,4 +169,60 @@ test('preview and emergency cards and the audit empty state', async () => {
   expect(screen.getByText('No changes yet')).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: 'Emergency contacts' }))
   expect(toastText()).toBe('Emergency contacts: David and James')
+})
+
+test('a non-emergency safety switch flips, toasts and audits, and Sarah still sees safety', async () => {
+  const r = renderWithProviders(<PrivacyPage />, { who: 'self' })
+  await ready()
+  expect(screen.getByRole('button', { name: /See what Sarah sees · 5 of 11/ })).toBeInTheDocument()
+  fireEvent.click(sw('Safety alerts', 'Sarah'))
+  expect(sw('Safety alerts', 'Sarah')).toHaveAttribute('aria-checked', 'false')
+  expect(toastText()).toBe('Stopped sharing safety alerts with Sarah')
+  expect(r.app().audit).toHaveLength(1)
+  expect(r.app().audit[0]).toMatchObject({ viewer: 'sarah', category: 'safety', on: false })
+  // sees() keeps safety visible regardless of the stored value.
+  expect(screen.getByRole('button', { name: /See what Sarah sees · 5 of 11/ })).toBeInTheDocument()
+})
+
+const failing = () => setDataSource({ ...mockSource, saveShare: () => Promise.reject(new Error('offline')) })
+const FAILED = "Couldn't save that change · it has been undone"
+
+test('a rejected save reverts the switch, audits the undo and toasts', async () => {
+  failing()
+  const r = renderWithProviders(<PrivacyPage />, { who: 'self' })
+  await ready()
+  fireEvent.click(sw('Mood and feelings', 'James'))
+  expect(sw('Mood and feelings', 'James')).toHaveAttribute('aria-checked', 'true')
+  await waitFor(() => expect(sw('Mood and feelings', 'James')).toHaveAttribute('aria-checked', 'false'))
+  expect(toastText()).toBe(FAILED)
+  expect(r.app().audit).toHaveLength(2)
+  expect(r.app().audit[1]).toMatchObject({ viewer: 'james', category: 'mood', on: false, detail: FAILED })
+})
+
+test('a late rejection does not undo a newer change', async () => {
+  let reject!: () => void
+  setDataSource({ ...mockSource, saveShare: (v, c, on) => (on ? new Promise<void>((_, rj) => { reject = () => rj(new Error('late')) }) : Promise.resolve()) })
+  const r = renderWithProviders(<PrivacyPage />, { who: 'self' })
+  await ready()
+  fireEvent.click(sw('Mood and feelings', 'James')) // on, save pending
+  fireEvent.click(sw('Mood and feelings', 'James')) // off again
+  await act(async () => { reject() })
+  expect(sw('Mood and feelings', 'James')).toHaveAttribute('aria-checked', 'false')
+  expect(r.app().audit).toHaveLength(2)
+  expect(toastText()).toBe('Stopped sharing mood and feelings with James')
+})
+
+test('a rejected preset reverts as one unit with one audit entry and one toast', async () => {
+  failing()
+  const r = renderWithProviders(<PrivacyPage />, { who: 'self' })
+  await ready()
+  fireEvent.click(screen.getByRole('button', { name: '🚨 Safety alerts only' }))
+  expect(sw('Sleep', 'James')).toHaveAttribute('aria-checked', 'false')
+  await waitFor(() => expect(sw('Sleep', 'James')).toHaveAttribute('aria-checked', 'true'))
+  expect(sw('Sleep', 'Sarah')).toHaveAttribute('aria-checked', 'true')
+  expect(sw('Mood and feelings', 'David')).toHaveAttribute('aria-checked', 'false')
+  expect(sw('Home sensors', 'David')).toHaveAttribute('aria-checked', 'true')
+  expect(toastText()).toBe(FAILED)
+  expect(r.app().audit).toHaveLength(2)
+  expect(r.app().audit[1]).toMatchObject({ action: 'preset', detail: FAILED })
 })

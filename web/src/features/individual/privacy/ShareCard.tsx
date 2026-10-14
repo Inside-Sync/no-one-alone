@@ -20,7 +20,7 @@ export function ShareCard() {
       <div className="row presets">
         <span className="muted" style={{ fontSize: '12.5px' }}>{c.quick}</span>
         {c.presets.map((p) => (
-          <button key={p.kind} type="button" className="btn sm soft" onClick={() => toast(applyPreset(p.kind))}>{p.label}</button>
+          <button key={p.kind} type="button" className="btn sm soft" onClick={() => toast(applyPreset(p.kind, toast))}>{p.label}</button>
         ))}
         <PauseButton className="sm" />
       </div>
@@ -50,7 +50,7 @@ export function ShareCard() {
                         label={`Share ${cat.name} with ${p.name}`}
                         disabled={lock}
                         title={lock ? c.lockedTitle : undefined}
-                        onChange={() => { const m = toggleShare(p.id, cat.id); if (m) toast(m) }}
+                        onChange={() => { const m = toggleShare(p.id, cat.id, toast); if (m) toast(m) }}
                       />
                     </td>
                   )

@@ -303,6 +303,9 @@ export const LIVE_COPY = {
   },
 } as const
 
+/** Toast and audit text when a consent change could not be stored and was undone. */
+export const SAVE_FAILED = "Couldn't save that change · it has been undone"
+
 /** "Kept private" sheet opened by tapping a locked card (prototype line 1990). */
 export const KEPT_PRIVATE = {
   title: '🔒 Kept private',
