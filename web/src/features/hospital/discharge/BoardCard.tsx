@@ -1,0 +1,53 @@
+import { GlassCard } from '@/components/ui/GlassCard'
+import { Pill } from '@/components/ui/Pill'
+import { HOSPITAL_COPY } from '@/data/repo'
+import type { DischargeRow, FollowUpState } from '@/data/types'
+import { Head } from '../../individual/home/parts'
+import { HospitalRow } from '../shared'
+
+const plain = { fontWeight: 500 } as const
+const STATE: Record<FollowUpState, [colour: string, mark: string]> = {
+  ok: ['#1fb39c', '✓'],
+  fl: ['#c88a05', '!'],
+  es: ['#d9443f', '↑'],
+  up: ['var(--track)', ''],
+}
+
+/** `30-day follow-up board` (c12): one row per discharged patient, a status chip for each follow-up call. */
+export function BoardCard({ board }: { board: DischargeRow[] }) {
+  const c = HOSPITAL_COPY.discharge.board
+  return (
+    <GlassCard span={12}>
+      <Head title={c.title} meta={c.meta} />
+      <div className="tw">
+        <table className="board">
+          <thead><tr>{c.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
+          <tbody id="board">
+            {board.map((r) => (
+              <HospitalRow
+                key={r.patient}
+                title={r.patient}
+                details={[
+                  [c.head[0], <b key="p" style={plain}>{r.patient}</b>],
+                  [c.head[1], r.discharged],
+                  [c.head[2], r.diagnosis],
+                  ...r.days.flatMap((k, i) => (STATE[k][1] ? [[c.head[3 + i], <i key={i} style={{ background: STATE[k][0] }}>{STATE[k][1]}</i>] as const] : [])),
+                  [c.head[8], <Pill key="r" tone={r.tone}>{r.risk}</Pill>],
+                ]}
+              >
+                <td><b style={plain}>{r.patient}</b></td>
+                <td className="n">{r.discharged}</td>
+                <td>{r.diagnosis}</td>
+                {r.days.map((k, i) => <td key={i} className="st"><i style={{ background: STATE[k][0] }}>{STATE[k][1]}</i></td>)}
+                <td><Pill tone={r.tone}>{r.risk}</Pill></td>
+              </HospitalRow>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="legend">
+        {c.legend.map((l) => <span key={l.label}><i style={{ background: l.color }}></i>{l.label}</span>)}
+      </div>
+    </GlassCard>
+  )
+}

@@ -10,18 +10,20 @@ interface Props {
   title: string
   /** `[column head, cell content]`, empty cells left out (prototype `tbody tr` click handler). */
   details: readonly (readonly [head: string, value: ReactNode])[]
+  /** Drawer buttons; the individual view's by default, the hospital view passes its own (prototype line 1850). */
+  actions?: readonly (readonly [label: string, toast: string, done: string])[]
   children: ReactNode
 }
 
 /** A `tbody tr` that opens the "Ask her about it / Share with family" drawer, like the prototype's table-row click. */
-export function ClickRow({ title, details, children }: Props) {
+export function ClickRow({ title, details, actions = DRAWER_ACTIONS.row, children }: Props) {
   const drawer = useDrawer()
   const open = () =>
     drawer.open(
       title,
       <>
         <Kv rows={details.map(([k, v]) => [k, v] as const)} />
-        <Actions list={DRAWER_ACTIONS.row} />
+        <Actions list={actions} />
       </>,
     )
   return (
