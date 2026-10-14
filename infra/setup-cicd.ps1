@@ -29,6 +29,10 @@ foreach ($role in $roles) {
     }
 }
 
+Step "Artifact Registry repo for source deploys" {
+    gcloud artifacts repositories create cloud-run-source-deploy --repository-format=docker --location=asia-southeast1 --project $ProjectId
+}
+
 Step "Workload identity pool github" {
     gcloud iam workload-identity-pools create github --location=global --display-name=github --project $ProjectId
 }
@@ -40,7 +44,7 @@ Step "OIDC provider github (only $Repo)" {
 }
 Step "Let $Repo act as github-deployer" {
     gcloud iam service-accounts add-iam-policy-binding $sa --project $ProjectId --role="roles/iam.workloadIdentityUser" `
-        --member="principalSet://iam.googleapis.com/projects/$projectNumber/locations/global/workloadIdentityPools/github/attribute.repository/$Repo" | Out-Null
+        --member="principalSet://iam.googleapis.com/projects/$projectNumber/locations/global/workloadIdentityPools/github/attribute.repository/$Repo" --format=none
 }
 
 $provider = "projects/$projectNumber/locations/global/workloadIdentityPools/github/providers/github"
