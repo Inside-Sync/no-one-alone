@@ -341,7 +341,7 @@ Each response carries `"fallback": true|false`.
 ```json
 { "isReal": true, "reason": "HR 142 at night, baseline 58, no movement for 4 min", "lastKnownWellAt": "2026-10-15T18:55:00Z", "fallback": false }
 ```
-`window` covers the 15 minutes before the alert, one point per minute, in story time. core-api builds it from the scenario fixture in `/data/scenarios/{scenario}.json`. core-api copies `lastKnownWellAt` to the incident's top level.
+`window` covers the 15 minutes before the alert, one point per minute, in story time. core-api builds it from the scenario fixture in `core-api/src/main/resources/data/scenarios/{scenario}.json`. core-api copies `lastKnownWellAt` to the incident's top level.
 
 **`POST /checkin/turn`**
 ```json

@@ -28,7 +28,7 @@ public class GcpConfig {
         FirestoreOptions.Builder builder = FirestoreOptions.newBuilder().setProjectId(props.projectId());
         String host = props.firestoreEmulatorHost();
         if (host != null && !host.isBlank()) {
-            builder.setEmulatorHost(host).setCredentials(NoCredentials.getInstance());
+            builder.setHost(host).setCredentials(NoCredentials.getInstance());
         }
         return builder.build().getService();
     }
