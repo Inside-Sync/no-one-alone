@@ -302,3 +302,89 @@ export const LIVE_COPY = {
     note: 'The agent prepares this. A person makes the call.',
   },
 } as const
+
+/** "Kept private" sheet opened by tapping a locked card (prototype line 1990). */
+export const KEPT_PRIVATE = {
+  title: '🔒 Kept private',
+  /** `viewerName` is `you` for James, like the prototype. */
+  body: (viewerName: string, paused: boolean): string =>
+    `Margaret has chosen not to share this with ${viewerName}${
+      paused
+        ? ' right now. She paused sharing until 9 am tomorrow. Safety alerts still reach you.'
+        : ". That's her choice, and she can change it any time."
+    }`,
+  action: { label: '💬 Ask Margaret kindly', toast: 'Margaret will get a gentle request she can say yes or no to', done: 'Request sent' },
+} as const
+
+/** Margaret's own "My day" page (prototype `meMain`, lines 1914–1958). */
+export const ME_COPY = {
+  hello: 'Good afternoon, Maggie 🌞',
+  sub: "You're doing well today. Here's your day, just for you.",
+  tiles: [
+    { emoji: '❤️', title: 'Heart', note: '68 · steady', warn: false },
+    { emoji: '👣', title: '3,240 steps', note: 'nearly at 3,500!', warn: false },
+    { emoji: '😴', title: '6 h sleep', note: 'a bit short', warn: true },
+    { emoji: '💧', title: 'Water', note: 'have a glass now', warn: true },
+    { emoji: '💊', title: 'Next tablet', note: '6 pm, amlodipine', warn: false },
+    { emoji: '📞', title: 'James calls', note: 'tonight at 8 pm', warn: false },
+  ],
+  people: { title: '💞 Your people', meta: 'You choose what each sees', change: '🔐 Change who sees what' },
+  ideasTitle: '💡 Ideas for you',
+  ideasMeta: 'Only if you want them',
+  ideas: [
+    { emoji: '🔥', title: 'Thursday will be 38°. Would you like a lift to the library cool room?', note: 'Tom, a volunteer, can pick you up at 11.', yes: ['Yes please', 'Lift booked for Thursday 11:00', 'Booked'], no: ['No thanks', "No problem, we'll check in by phone instead", 'Not now'] },
+    { emoji: '💊', title: 'Would a weekly pill box help with the evening tablet?', note: 'David offered to set it up on Saturday.', yes: ['Yes please', 'David will come Saturday 10:00', 'Yes'], no: ['No thanks', "Okay, we'll keep the reminder only", 'Not now'] },
+    { emoji: '🦻', title: "Pop your hearing aids in for this afternoon's chat?", note: 'It makes the calls easier.', yes: ['Done', 'Lovely', 'Done'], no: ['Later', "That's fine", 'Later'] },
+  ],
+  promise: {
+    title: '🔐 Your privacy promise',
+    meta: 'Health support, not watching',
+    items: [
+      { emoji: '✋', bold: "You're in charge.", text: 'You decide who sees what, and you can change it any time.' },
+      { emoji: '📷', bold: 'No cameras, ever.', text: 'Home sensors only notice movement and temperature.' },
+      { emoji: '🎙️', bold: 'No listening in.', text: 'The microphone is only on during calls you answer.' },
+      { emoji: '📍', bold: 'No tracking.', text: 'Location is off. If you turn it on, people only see "home" or "out".' },
+      { emoji: '🚨', bold: 'Emergencies only:', text: 'David and James always get safety alerts, so help can come.' },
+    ],
+    settings: 'See all settings',
+  },
+  access: {
+    title: '👀 Who looked at your information',
+    meta: 'So nothing happens behind your back',
+    head: ['When', 'Who', 'What they looked at', 'Why'],
+    rows: [
+      ['Today 09:12', 'James', 'Your heart and blood pressure summary', 'Weekly look'],
+      ['Today 08:40', 'David', '"I\'m OK" check-in', 'Morning check'],
+      ['Yesterday 16:42', 'Dr Patel', 'Blood pressure report', 'You agreed to send it'],
+      ['Yesterday 11:05', 'Priya', 'Tablets taken this week', 'Nurse visit planning'],
+      ['Mon 19:30', 'Sarah', 'Sleep and steps', 'Called you afterwards'],
+    ],
+  },
+} as const
+
+/** "Who sees what" page (prototype `prMain`, lines 1960–1975). */
+export const PRIVACY_COPY = {
+  title: '🔐 Who sees what',
+  meta: 'Tap a switch to share or stop sharing · changes apply straight away',
+  quick: 'Quick choices:',
+  presets: [
+    { kind: 'family', label: '👨‍👩‍👧 Family sees most, not my mood' },
+    { kind: 'safety', label: '🚨 Safety alerts only' },
+    { kind: 'all', label: '🤝 Share everything with family' },
+  ],
+  pause: '⏸️ Pause sharing until tomorrow',
+  resume: '▶️ Resume sharing',
+  what: 'What',
+  lockedTitle: 'Always on for emergency contacts',
+  fine: "🚨 Safety alerts can't be turned off for your emergency contacts, so someone can always come if you need help. You can change who your emergency contacts are.",
+  preview: { title: '👁️ Preview', meta: 'See exactly what someone sees', toast: (name: string) => `Previewing what ${name} sees` },
+  emergency: {
+    title: '🏥 In an emergency',
+    meta: 'Agreed 1 October',
+    text: 'If you need an ambulance, the hospital receives your conditions, tablets and allergy, so they can help quickly. Nothing else, and only for that visit.',
+    agreement: ['Read the agreement', 'Your emergency agreement is shown on your phone', 'Opened'],
+    contacts: ['Emergency contacts', 'Emergency contacts: David and James', 'Checked'],
+    clinician: 'Clinicians see named patients only where the patient consented to hospital sharing.',
+  },
+  audit: { title: '🧾 Changes you made', meta: 'Newest first', empty: 'No changes yet', label: 'Audit log' },
+} as const

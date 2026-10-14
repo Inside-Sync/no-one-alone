@@ -448,4 +448,20 @@ body[data-view="community"]{--brand:#6d4fc0;--brand-2:#9a7fe0}
 /* Consent lock (prototype `[data-scat].locked`): placeholder only, children are never rendered. */
 .locked-slot{position:relative;overflow:hidden;min-height:96px}
 .locked-slot .locked-fill{position:absolute;inset:0;filter:blur(7px);opacity:.45;pointer-events:none;user-select:none;background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,.15))}
-.locked-slot .locked-msg{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:14px;font-size:13px;font-weight:600;color:var(--ink);z-index:2}
+.locked-slot .locked-msg{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:14px;font-size:13px;font-weight:600;color:var(--ink);z-index:2;cursor:pointer}
+
+/* Margaret's own pages (prototype `st2`, lines 2037-2056). */
+.me-hero{background:linear-gradient(140deg,rgba(255,255,255,.85),rgba(220,246,238,.7))}
+.hello{font-size:34px;font-weight:500;letter-spacing:-.8px}
+.me-sub{font-size:16px;color:var(--ink2)}
+.big-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.bt{display:grid;gap:2px;padding:16px;border-radius:20px;background:rgba(255,255,255,.75);box-shadow:var(--glass-edge),0 6px 16px rgba(8,50,48,.08);text-align:left;font-size:15px}
+.bt span{font-size:30px}
+.bt b{font-size:18px;font-weight:600}
+.bt small{font-size:14px;color:var(--ink2)}
+.bt.warn{box-shadow:inset 0 0 0 2px rgba(185,127,4,.45)}
+.promise li{grid-template-columns:24px minmax(0,1fr);font-size:14px}
+.promise li > span:first-child{font-size:17px}
+.share td,.share th{padding:8px 6px}
+.share .sw:disabled{opacity:.55;cursor:not-allowed}
+@media (max-width:760px){.big-tiles{grid-template-columns:1fr 1fr}.hello{font-size:26px}}

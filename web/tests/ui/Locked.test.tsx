@@ -1,5 +1,8 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
+import { resetMockSource } from '@/data/sources/mock'
+import { DrawerProvider } from '@/components/ui/Drawer'
+import { ToastProvider } from '@/components/ui/Toast'
 import { AppStateProvider, useAppState } from '@/state/AppState'
 import { Locked } from '@/components/ui/Locked'
 
@@ -19,12 +22,16 @@ function Ctl() {
   )
 }
 const ui = (cat: 'meds' | 'heart' = 'meds') => (
-  <AppStateProvider>
-    <Ctl />
-    <Locked cat={cat}><span>Apixaban 5 mg</span></Locked>
-  </AppStateProvider>
+  <ToastProvider>
+    <DrawerProvider>
+      <AppStateProvider>
+        <Ctl />
+        <Locked cat={cat}><span>Apixaban 5 mg</span></Locked>
+      </AppStateProvider>
+    </DrawerProvider>
+  </ToastProvider>
 )
-beforeEach(() => sessionStorage.clear())
+beforeEach(() => { sessionStorage.clear(); resetMockSource() })
 const click = async (name: string) => { await act(async () => { fireEvent.click(screen.getByRole('button', { name })) }) }
 
 test('locked content is not in the DOM', async () => {
@@ -75,4 +82,26 @@ test('toggleShare flips access optimistically and audits; safety is a no-op', as
   expect(a[0]).toMatchObject({ at: '15:10', who: 'Margaret', action: 'share-on', viewer: 'sarah', category: 'meds', on: true })
   await click('share-safety')
   await waitFor(() => expect(JSON.parse(screen.getByTestId('audit').textContent!)).toHaveLength(1))
+})
+
+test('tapping a locked card opens the Kept private sheet', async () => {
+  render(ui())
+  await click('viewer-sarah')
+  fireEvent.click(await screen.findByText('Margaret keeps her tablets private'))
+  const drawer = screen.getByRole('dialog', { hidden: true })
+  expect(drawer).toHaveClass('on')
+  expect(drawer).toHaveTextContent('🔒 Kept private')
+  expect(drawer).toHaveTextContent("Margaret has chosen not to share this with Sarah. That's her choice, and she can change it any time.")
+  fireEvent.click(screen.getByRole('button', { name: '💬 Ask Margaret kindly' }))
+  expect(document.getElementById('toast')!.textContent).toBe('Margaret will get a gentle request she can say yes or no to')
+  expect(screen.getByRole('button', { name: '✓ Request sent', hidden: true })).toBeDisabled()
+})
+
+test('the sheet says "you" for James and mentions the pause', async () => {
+  render(ui('heart'))
+  await click('pause')
+  fireEvent.click(await screen.findByText('Margaret paused sharing until tomorrow'))
+  expect(screen.getByRole('dialog', { hidden: true })).toHaveTextContent(
+    'Margaret has chosen not to share this with you right now. She paused sharing until 9 am tomorrow. Safety alerts still reach you.',
+  )
 })

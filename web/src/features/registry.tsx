@@ -2,10 +2,13 @@
 
 import type { ComponentType } from 'react'
 import { AroundPage } from './individual/around/AroundPage'
+import { DevicePage } from './individual/device/DevicePage'
 import { ForecastPage } from './individual/forecast/ForecastPage'
 import { HealthPage } from './individual/health/HealthPage'
 import { HomePage } from './individual/home/HomePage'
 import { LivePage } from './individual/live/LivePage'
+import { MePage } from './individual/me/MePage'
+import { PrivacyPage } from './individual/privacy/PrivacyPage'
 
 /**
  * Page registry: `${view}/${page}` -> component. Later tasks (7-13) add one
@@ -17,4 +20,7 @@ export const PAGE_REGISTRY: Record<string, ComponentType> = {
   'individual/around': AroundPage,
   'individual/forecast': ForecastPage,
   'individual/live': LivePage,
+  'individual/me': MePage,
+  'individual/privacy': PrivacyPage,
+  'individual/device': DevicePage,
 }

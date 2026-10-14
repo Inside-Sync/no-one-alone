@@ -3,9 +3,11 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, type ReactNode } from 'react'
 import * as repo from '@/data/repo'
 import type { AuditEntry, PersonId, SharePerson, ShareMatrix } from '@/data/types'
-import { CATEGORIES, type CategoryId } from '@/domain/consent'
+import { CATEGORIES, CATEGORY_IDS, type CategoryId } from '@/domain/consent'
 import { EM_INITIAL, emergencyReducer, packetArrived, TICK_MS, type EmAction, type EmState } from '@/domain/emergency'
 import type { Who } from '@/domain/views'
+
+export type SharePreset = 'family' | 'safety' | 'all'
 
 export type EmergencyState = EmState
 export type EmergencyAction = EmAction
@@ -69,8 +71,12 @@ export interface AppStateValue {
   viewer: PersonId
   setViewer: (viewer: PersonId) => void
   paused: boolean
-  togglePause: () => void
-  toggleShare: (viewer: PersonId, cat: CategoryId) => void
+  /** Returns the toast/audit text, e.g. `Sharing resumed`. */
+  togglePause: () => string
+  /** Returns the toast/audit text, or null when nothing changed (safety is always on). */
+  toggleShare: (viewer: PersonId, cat: CategoryId) => string | null
+  /** A quick choice for the three family rows (prototype `data-preset`). Returns the toast text. */
+  applyPreset: (kind: SharePreset) => string
   audit: AuditEntry[]
   log: (entry: AuditEntry) => void
   share: ShareMatrix | null
@@ -89,11 +95,24 @@ const NOW = '15:10'
 
 const KEY = 'noa-app-state'
 
+/** Prototype presets act on the family rows only (line 1982). */
+const PRESET_ROWS: PersonId[] = ['james', 'sarah', 'david']
+const PRESET_TEXT: Record<SharePreset, string> = {
+  safety: 'Family now sees safety alerts only',
+  all: 'Family now sees everything',
+  family: 'Family sees most things, not your mood',
+}
+
 export function AppStateProvider({ children }: { children: ReactNode }) {
   const [s, dispatch] = useReducer(reducer, initial)
   const mounted = useRef(true)
   const stateRef = useRef(s)
   useEffect(() => { stateRef.current = s })
+  // Two updates in one tick must both see the first: keep the ref ahead of the render.
+  const commit = useCallback((a: Action) => {
+    stateRef.current = reducer(stateRef.current, a)
+    dispatch(a)
+  }, [])
 
   useEffect(() => {
     mounted.current = true
@@ -144,33 +163,53 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   }, [])
   const togglePause = useCallback(() => {
     const next = !stateRef.current.paused
-    dispatch({ type: 'togglePause' })
-    log({
-      at: NOW, who: 'Margaret', action: next ? 'pause' : 'resume',
-      detail: next ? 'Paused sharing until 9 am tomorrow · safety alerts still on' : 'Resumed sharing',
-    })
-  }, [log])
+    commit({ type: 'togglePause' })
+    // Prototype line 1985: the toast text is also what the audit records.
+    const detail = next ? 'Sharing paused until 9 am tomorrow · safety alerts still on' : 'Sharing resumed'
+    log({ at: NOW, who: 'Margaret', action: next ? 'pause' : 'resume', detail })
+    return detail
+  }, [log, commit])
   const toggleShare = useCallback((viewer: PersonId, cat: CategoryId) => {
     const cur = stateRef.current.share
-    if (cat === 'safety' || !cur) return
+    if (cat === 'safety' || !cur) return null
     const on = !cur[viewer]?.[cat]
-    dispatch({ type: 'flip', viewer, cat, on })
+    commit({ type: 'flip', viewer, cat, on })
     const name = stateRef.current.people.find((p) => p.id === viewer)?.name ?? viewer
     const label = (CATEGORIES.find((c) => c.id === cat)?.name ?? cat).toLowerCase()
-    log({
-      at: NOW, who: 'Margaret', action: on ? 'share-on' : 'share-off', viewer, category: cat, on,
-      detail: `${on ? 'Now sharing ' : 'Stopped sharing '}${label} with ${name}`,
-    })
-    repo.saveShare(viewer, cat, on).catch(() => dispatch({ type: 'flip', viewer, cat, on: !on }))
-  }, [log])
+    const detail = `${on ? 'Now sharing ' : 'Stopped sharing '}${label} with ${name}`
+    log({ at: NOW, who: 'Margaret', action: on ? 'share-on' : 'share-off', viewer, category: cat, on, detail })
+    repo.saveShare(viewer, cat, on).catch(() => commit({ type: 'flip', viewer, cat, on: !on }))
+    return detail
+  }, [log, commit])
+  const applyPreset = useCallback((kind: SharePreset) => {
+    const cur = stateRef.current.share
+    const detail = PRESET_TEXT[kind]
+    if (!cur) return detail
+    const next: ShareMatrix = { ...cur }
+    const changed: [PersonId, CategoryId, boolean][] = []
+    for (const id of PRESET_ROWS) {
+      const row = { ...cur[id] }
+      for (const cat of CATEGORY_IDS) {
+        const on = kind === 'safety' ? cat === 'safety' : kind === 'all' ? true : cat !== 'mood' && cat !== 'location'
+        if (row[cat] !== on) { row[cat] = on; changed.push([id, cat, on]) }
+      }
+      next[id] = row
+    }
+    commit({ type: 'share', share: next })
+    log({ at: NOW, who: 'Margaret', action: 'preset', detail })
+    for (const [id, cat, on] of changed) {
+      repo.saveShare(id, cat, on).catch(() => commit({ type: 'flip', viewer: id, cat, on: !on }))
+    }
+    return detail
+  }, [log, commit])
   const dispatchEmergency = useCallback((action: EmergencyAction) => dispatch({ type: 'emergency', action }), [])
 
   const value = useMemo<AppStateValue>(
     () => ({
-      who: s.who, setWho, viewer: s.viewer, setViewer, paused: s.paused, togglePause, toggleShare,
+      who: s.who, setWho, viewer: s.viewer, setViewer, paused: s.paused, togglePause, toggleShare, applyPreset,
       audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew: packetArrived(s.emergency), hydrated: s.hydrated,
     }),
-    [s, setWho, setViewer, togglePause, toggleShare, log, dispatchEmergency],
+    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency],
   )
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
