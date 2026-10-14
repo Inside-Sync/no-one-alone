@@ -17,18 +17,29 @@ All people, places and medical records in this repo are fictional.
 | Synthetic data and forecast job | `data/` | BigQuery `AI.FORECAST`, Firestore | Minh, Dũng |
 | Project setup and deploy scripts | `infra/` | gcloud, Firebase CLI | Dũng |
 
-## Status (15/10)
+## Status (15/10, after first deploy)
 
 | Part | State in the repo | Next |
 |---|---|---|
-| GCP and Firebase | Project `no-one-alone-511616` set up: APIs, service accounts, Firestore, Pub/Sub, Cloud Tasks, FHIR store, BigQuery, Maps key, Anonymous Auth, Storage, domain `noonealone.insidesync.ai` | First deploy |
-| core-api | Done and merged (PR #1). Alert intake, verify, check-in, triage, escalation with timers, actions, hospital handoff, demo trigger and reset, auth. 77 tests green | Deploy, then smoke test the stroke flow on the real URL |
-| CI/CD | GitHub Actions: tests on every PR, deploy to Cloud Run after green CI on `dev` | Run `infra/setup-cicd.ps1` once |
-| respond-agent | Stub that returns contract-shaped fallback JSON | Tài |
-| hospital-agent | `/health` only | Minh |
+| GCP and Firebase | Project `no-one-alone-511616` set up: APIs, service accounts, Firestore, Pub/Sub, Cloud Tasks, FHIR store, BigQuery, Maps key, Anonymous Auth, Storage, domain `noonealone.insidesync.ai` | Done |
+| core-api | Merged (PR #1) and deployed: https://core-api-turfogvmua-as.a.run.app. Smoke test on the real URL passed: stroke trigger, check-in, two no-replies, EMERGENCY, notify, handoff, Cloud Task timer, EXPIRED, NO_NEARBY | Turn on auth when the web sends Firebase ID tokens |
+| CI/CD | Running (PR #2, #3). Tests on every PR; after a green CI on `dev` the changed services deploy to Cloud Run | Done |
+| respond-agent | Stub that returns contract-shaped fallback JSON, deployed | Tài |
+| hospital-agent | `/health` only, deployed | Minh |
 | web | Not started in the repo | Hải |
 
 Data shapes and every interface are in [docs/contract.md](docs/contract.md). Read it before writing code; change it through a PR.
+
+## Working rules
+
+- Work on a branch and open a PR into `dev`. CI must pass before merge. `main` holds the submitted version.
+- Run this once after cloning. It turns on a hook that blocks force-push and deletion of `dev` and `main`:
+
+```
+git config core.hooksPath .githooks
+```
+
+- Before pushing, run `git pull --rebase`.
 
 ## Setup (once)
 

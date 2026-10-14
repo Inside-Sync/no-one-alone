@@ -1,0 +1,19 @@
+#!/bin/sh
+# Blocks force-push and deletion of dev and main. GitHub cannot enforce this on a private repo in a free org.
+zero=0000000000000000000000000000000000000000
+while read local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/dev|refs/heads/main) ;;
+    *) continue ;;
+  esac
+  branch=${remote_ref#refs/heads/}
+  if [ "$local_sha" = "$zero" ]; then
+    echo "Blocked: deleting $branch is not allowed." >&2
+    exit 1
+  fi
+  if [ "$remote_sha" != "$zero" ] && ! git merge-base --is-ancestor "$remote_sha" "$local_sha" 2>/dev/null; then
+    echo "Blocked: this push would overwrite commits on $branch. Run 'git pull --rebase' and push again." >&2
+    exit 1
+  fi
+done
+exit 0
