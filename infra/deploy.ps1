@@ -1,4 +1,4 @@
-# Deploy one or all parts. Windows PowerShell 5.1. Run from anywhere.
+# Deploy one or all parts. Windows PowerShell 5.1 or pwsh (CI). Run from anywhere.
 # Cloud Run builds from each Dockerfile through Cloud Build (gcloud run deploy --source).
 param(
     [Parameter(Mandatory = $true)] [string] $ProjectId,
@@ -12,13 +12,13 @@ $root = Split-Path -Parent $PSScriptRoot
 function Deploy-Run([string] $Service, [string] $Dir, [string] $Sa, [bool] $Public) {
     $auth = if ($Public) { "--allow-unauthenticated" } else { "--no-allow-unauthenticated" }
     Write-Host "==> Deploy $Service" -ForegroundColor Cyan
-    gcloud run deploy $Service --source "$root\$Dir" --region $Region --project $ProjectId `
+    gcloud run deploy $Service --source (Join-Path $root $Dir) --region $Region --project $ProjectId `
         --service-account "$Sa@$ProjectId.iam.gserviceaccount.com" $auth --quiet
     if ($LASTEXITCODE -ne 0) { throw "Deploy of $Service failed" }
 }
 
-if ($Target -in "all", "respond") { Deploy-Run "respond-agent" "agents\respond" "respond-agent" $false }
-if ($Target -in "all", "hospital") { Deploy-Run "hospital-agent" "agents\hospital" "hospital-agent" $false }
+if ($Target -in "all", "respond") { Deploy-Run "respond-agent" "agents/respond" "respond-agent" $false }
+if ($Target -in "all", "hospital") { Deploy-Run "hospital-agent" "agents/hospital" "hospital-agent" $false }
 # core-api is public because Firebase Hosting rewrites need it; it checks tokens itself (contract section 6).
 if ($Target -in "all", "core-api") {
     $authFlag = if ($AuthEnabled) { "true" } else { "false" }
@@ -26,7 +26,7 @@ if ($Target -in "all", "core-api") {
     $agentUrl = gcloud run services describe respond-agent --region $Region --project $ProjectId --format="value(status.url)"
     if (-not $agentUrl) { throw "respond-agent is not deployed; deploy it first" }
     Write-Host "==> Deploy core-api" -ForegroundColor Cyan
-    gcloud run deploy core-api --source "$root\core-api" --region $Region --project $ProjectId `
+    gcloud run deploy core-api --source (Join-Path $root "core-api") --region $Region --project $ProjectId `
         --service-account "core-api@$ProjectId.iam.gserviceaccount.com" --allow-unauthenticated `
         --no-cpu-throttling --memory 1Gi --timeout 300 `
         --set-env-vars "GOOGLE_CLOUD_PROJECT=$ProjectId,RESPOND_AGENT_URL=$agentUrl,INVOKER_EMAIL=invoker@$ProjectId.iam.gserviceaccount.com,AUDIO_BUCKET=$ProjectId.firebasestorage.app,$flags" `
