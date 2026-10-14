@@ -53,3 +53,5 @@ powershell -ExecutionPolicy Bypass -File infra\deploy.ps1 -ProjectId <project-id
 ```
 
 `-Target` is `all`, `core-api`, `respond`, `hospital` or `web`.
+
+core-api feature flags live in `$flags` in the core-api block of `infra/deploy.ps1`. Firebase auth is off unless you pass `-AuthEnabled`.

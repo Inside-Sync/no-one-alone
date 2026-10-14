@@ -1,6 +1,6 @@
 # No One Alone: data contract
 
-Version 1.2, 14/10. Owner: Dũng. Reviewers: Tài, Minh, Hải.
+Version 1.3, 14/10. Owner: Dũng. Reviewers: Tài, Minh, Hải.
 
 This file is the only source of truth for data shapes and service interfaces. A change goes through a PR that all four reviewers see. Do not change a shape in code first.
 
@@ -158,9 +158,9 @@ Hand-written list. Seed one stroke-ready hospital and one closer hospital with `
 | `checkIn.pending` | object `{ text, kind, audioPath }` | The question the person screen shows now. Absent when `done` or `busy` |
 | `checkIn.pending.kind` | `VOICE` \| `YES_NO` | Decided by respond-agent |
 | `turns[].by` | `AGENT` \| `PERSON` | |
-| `turns[].assessment` | object | Only on `PERSON` turns with audio. Absent for Yes/No and no-reply turns |
+| `turns[].assessment` | object | Only on `PERSON` turns with audio. Absent for Yes/No and no-reply turns. A Yes/No answer is stored as a PERSON turn with text `Có` or `Không` |
 | `assessment.clarity` | `CLEAR` \| `SLURRED` \| `NO_SPEECH` | |
-| `assignments[].state` | `NOTIFIED` \| `ACCEPTED` \| `DECLINED` \| `EXPIRED` \| `ARRIVED` | |
+| `assignments[].state` | `QUEUED` \| `NOTIFIED` \| `ACCEPTED` \| `DECLINED` \| `EXPIRED` \| `ARRIVED` | `QUEUED`: a NEARBY member not notified yet. Screens show nothing for `QUEUED` |
 | `assignments[].actions` | array | Buttons the member's screen shows. `ACCEPT`, `DECLINE`, `ARRIVED`, `CALLED_115` post to core-api. `CALL_PERSON` and `CALL_NEARBY` are client-only call buttons with no server write |
 | `assignments[].attempt` | int | NEARBY only. Used in the Cloud Task name |
 | `handoff.status` | `PENDING` \| `RECEIVED` \| `FAILED` | core-api writes `PENDING` before calling `/handoff` |
@@ -232,9 +232,9 @@ any status except CLOSED --CLOSE from console--> CLOSED
 5. `COME_NOW` or `EMERGENCY`: compute `etaMin` for each NEARBY member with Maps Routes (omit if Routes fails), call `/plan`, write `personInstruction`, `callScript` and assignments, status `ESCALATING`.
 6. Escalation order is deterministic, not chosen by the LLM:
    - All `DISTANT` members with `criticalAlerts` are notified at once, without a timer.
-   - `NEARBY` members are notified one at a time by `priority`. Each gets `deadlineAt = notifiedAt + timerSeconds` and a Cloud Task.
+   - `NEARBY` members are notified one at a time by `priority`. Each gets `deadlineAt = notifiedAt + timerSeconds` and a Cloud Task. All NEARBY assignments are written at once in priority order; the ones not yet notified are `QUEUED`.
    - When the last `NEARBY` member expires or declines: timeline `NO_NEARBY`, and every `DISTANT` assignment gets `actions: ["CALL_NEARBY", "CALLED_115"]`.
-7. `EMERGENCY` only: write `handoff.status: PENDING`, then call `/handoff` right after `/plan`, in parallel with escalation. Pick the nearest hospital with `strokeReady: true` for `STROKE`, the nearest hospital otherwise. ETA from Maps Routes. On success write the packet and `RECEIVED`; on `AGENT_FAILED` write `FAILED` and timeline `HANDOFF_FAILED`.
+7. `EMERGENCY` only: write `handoff.status: PENDING`, then call `/handoff` right after `/plan`, in parallel with escalation. Pick the nearest hospital with `strokeReady: true` when stroke is suspected (any `SLURRED` turn), the nearest hospital otherwise. ETA from Maps Routes. On success write the packet and `RECEIVED`; on `AGENT_FAILED` write `FAILED` and timeline `HANDOFF_FAILED`.
 8. `ARRIVED` from the owner moves status to `ON_SCENE`. The demo console closes the incident.
 
 ### Action rules
@@ -290,7 +290,7 @@ Response `202`:
 ```
 Computes `clockOffsetMs`, publishes the alert to Pub/Sub topic `alerts` and sets `demo/current`. Rejects with `409 INVALID_STATE` if `demo/current` points to an incident that is not `CLOSED`.
 
-**`POST /api/demo/reset`** → `204`. Deletes the current incident and its audio, cancels its pending Cloud Tasks (best effort), re-seeds `people` and `hospitals`, clears `demo/current`.
+**`POST /api/demo/reset`** → `204`. Deletes the current incident and its audio, cancels its pending Cloud Tasks (best effort), re-seeds `people` and `hospitals`, clears `demo/current`. Run it once after the first deploy to load the seed.
 
 **`POST /api/incidents/{id}/checkin`** from the person screen. One of:
 
@@ -341,7 +341,7 @@ Each response carries `"fallback": true|false`.
 ```json
 { "isReal": true, "reason": "HR 142 at night, baseline 58, no movement for 4 min", "lastKnownWellAt": "2026-10-15T18:55:00Z", "fallback": false }
 ```
-`window` covers the 15 minutes before the alert, one point per minute, in story time. core-api builds it from the scenario fixture in `/data/scenarios/{scenario}.json`. core-api copies `lastKnownWellAt` to the incident's top level.
+`window` covers the 15 minutes before the alert, one point per minute, in story time. core-api builds it from the scenario fixture in `core-api/src/main/resources/data/scenarios/{scenario}.json`. core-api copies `lastKnownWellAt` to the incident's top level.
 
 **`POST /checkin/turn`**
 ```json
@@ -441,7 +441,8 @@ A2A in ADK is experimental. Pin `google-adk` and `a2a-sdk` versions in each agen
 | Cloud Tasks | queue `escalation` | Dũng | Escalation timers |
 | Cloud Healthcare API | dataset `noa`, FHIR R4 store `records` | Minh | Bà Mai's bundle |
 | BigQuery | dataset `noa`, table `vitals_daily` | Minh | `person_id STRING, date DATE, systolic INT64, diastolic INT64, resting_hr INT64, steps INT64, meds_taken INT64, meds_scheduled INT64` |
-| Repo | `/data/scenarios/{scenario}.json` | Dũng | 15-minute vitals window, meds and allergies per scenario |
+| Repo | `core-api/src/main/resources/data/scenarios/{scenario}.json` | Dũng | 15-minute vitals window, meds and allergies per scenario |
+| Repo | `core-api/src/main/resources/data/seed.json` | Dũng | people and hospitals loaded by reset |
 
 ## 6. Security
 

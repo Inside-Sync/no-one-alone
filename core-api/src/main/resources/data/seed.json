@@ -1,0 +1,23 @@
+{
+  "people": {
+    "ba-mai": {
+      "displayName": "Bà Mai", "age": 78, "sex": "F", "timezone": "Asia/Ho_Chi_Minh", "locale": "vi-VN",
+      "dialect": "HUE", "addressText": "12 Kiệt 4, Hương Thủy, Huế (fictional)",
+      "location": { "lat": 16.4012, "lng": 107.6871 },
+      "accessibility": { "hearing": "LOSS" },
+      "baseline": { "restingHr": 64, "nightHr": 58 },
+      "circle": [
+        { "memberId": "ong-hung", "relation": "brother", "role": "NEARBY", "priority": 1, "criticalAlerts": true },
+        { "memberId": "lan", "relation": "daughter", "role": "DISTANT", "priority": 2, "criticalAlerts": true },
+        { "memberId": "tuan", "relation": "son", "role": "DISTANT", "priority": 3, "criticalAlerts": false }
+      ]
+    },
+    "ong-hung": { "displayName": "Ông Hùng", "timezone": "Asia/Ho_Chi_Minh", "locale": "vi-VN", "location": { "lat": 16.4105, "lng": 107.6930 } },
+    "lan": { "displayName": "Lan", "timezone": "Asia/Tokyo", "locale": "vi-VN", "location": { "lat": 35.6812, "lng": 139.7671 } },
+    "tuan": { "displayName": "Anh Tuấn", "timezone": "Asia/Ho_Chi_Minh", "locale": "vi-VN", "location": { "lat": 10.7769, "lng": 106.7009 } }
+  },
+  "hospitals": {
+    "stroke-center-a": { "name": "Stroke Center A (demo)", "location": { "lat": 16.4637, "lng": 107.5909 }, "strokeReady": true },
+    "district-clinic-b": { "name": "District Clinic B (demo)", "location": { "lat": 16.4050, "lng": 107.6950 }, "strokeReady": false }
+  }
+}

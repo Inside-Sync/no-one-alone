@@ -1,0 +1,107 @@
+{
+  "personId": "ba-mai",
+  "alert": {
+    "kind": "FALL_IMPACT_NO_MOVEMENT",
+    "hr": 96,
+    "movementMin": 3
+  },
+  "window": [
+    {
+      "minutesBefore": 15,
+      "hr": 60,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 14,
+      "hr": 61,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 13,
+      "hr": 60,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 12,
+      "hr": 62,
+      "steps": 5,
+      "moving": true
+    },
+    {
+      "minutesBefore": 11,
+      "hr": 65,
+      "steps": 20,
+      "moving": true
+    },
+    {
+      "minutesBefore": 10,
+      "hr": 70,
+      "steps": 25,
+      "moving": true
+    },
+    {
+      "minutesBefore": 9,
+      "hr": 72,
+      "steps": 30,
+      "moving": true
+    },
+    {
+      "minutesBefore": 8,
+      "hr": 71,
+      "steps": 28,
+      "moving": true
+    },
+    {
+      "minutesBefore": 7,
+      "hr": 73,
+      "steps": 26,
+      "moving": true
+    },
+    {
+      "minutesBefore": 6,
+      "hr": 95,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 5,
+      "hr": 97,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 4,
+      "hr": 96,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 3,
+      "hr": 95,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 2,
+      "hr": 96,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 1,
+      "hr": 96,
+      "steps": 0,
+      "moving": false
+    }
+  ],
+  "meds": [
+    "amlodipine 5mg",
+    "aspirin 81mg"
+  ],
+  "allergies": [
+    "penicillin"
+  ]
+}
