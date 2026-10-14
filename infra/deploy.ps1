@@ -37,6 +37,7 @@ if ($Target -in "all", "core-api") {
             --push-endpoint "$coreUrl/alerts" `
             --push-auth-service-account "invoker@$ProjectId.iam.gserviceaccount.com" `
             --push-auth-token-audience $coreUrl --ack-deadline 120
+        if ($LASTEXITCODE -ne 0) { throw "Create of alerts-push failed" }
     }
 }
 if ($Target -in "all", "web") {

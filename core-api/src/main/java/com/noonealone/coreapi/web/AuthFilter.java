@@ -22,25 +22,27 @@ public class AuthFilter extends OncePerRequestFilter {
         this.serviceToken = serviceToken;
     }
 
+    private static String path(HttpServletRequest request) {
+        return request.getRequestURI().replaceAll(";[^/]*", "");
+    }
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getRequestURI();
+        String path = path(request);
         return !enabled || path.equals("/health") || path.equals("/api/health");
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        String path = request.getRequestURI();
+        String path = path(request);
         String header = request.getHeader("Authorization");
         String token = header != null && header.startsWith("Bearer ") ? header.substring(7) : null;
         boolean ok;
-        if (path.startsWith("/api/")) {
+        if (path.equals("/api") || path.startsWith("/api/")) {
             ok = token != null && userToken.test(token);
-        } else if (path.equals("/alerts") || path.startsWith("/tasks/")) {
-            ok = token != null && serviceToken.test(token);
         } else {
-            ok = true;
+            ok = token != null && serviceToken.test(token);
         }
         if (!ok) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

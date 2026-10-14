@@ -46,4 +46,15 @@ class AuthFilterTest {
         off.doFilter(req, res, new MockFilterChain());
         assertThat(res.getStatus()).isEqualTo(200);
     }
+
+    @Test
+    void failsClosedOnPathParamsAndUnknownPaths() throws Exception {
+        assertThat(status("/alerts;x=1", null)).isEqualTo(401);
+        assertThat(status("/tasks;x=1/escalation-timeout", null)).isEqualTo(401);
+        assertThat(status("/api;x=1/demo/stroke", "svc-ok")).isEqualTo(401);
+        assertThat(status("/api;x=1/demo/stroke", "user-ok")).isEqualTo(200);
+        assertThat(status("/tasks/other", null)).isEqualTo(401);
+        assertThat(status("/anything", null)).isEqualTo(401);
+        assertThat(status("/health;x=1", null)).isEqualTo(200);
+    }
 }
