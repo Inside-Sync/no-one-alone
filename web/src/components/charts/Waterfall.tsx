@@ -21,7 +21,7 @@ export function Waterfall({ items, base, digits = 2, ariaLabel }: Props) {
             <span className="b">
               <i style={up ? { left: '50%', background: '#d9443f', width: w } : { right: '50%', background: '#1fb39c', width: w }}></i>
             </span>
-            <b style={{ color: up ? 'var(--bad)' : 'var(--good)' }}>{fmt(s.delta)}</b>
+            <b style={{ color: up ? 'var(--bad-text)' : 'var(--good-text)' }}>{fmt(s.delta)}</b>
           </div>
         )
       })}

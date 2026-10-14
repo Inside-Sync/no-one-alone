@@ -97,7 +97,7 @@ describe('community overview', () => {
     expect(screen.getByText('Marrickville Library cool room')).toBeInTheDocument()
     expect(screen.getByText('74 left')).toHaveClass('pill', 'good')
     expect(screen.getByText('22 left')).toHaveClass('pill', 'warn')
-    expect(screen.getByText('priority')).toHaveStyle({ color: 'var(--bad)' })
+    expect(screen.getByText('priority')).toHaveStyle({ color: 'var(--bad-text)' })
     fireEvent.click(screen.getByRole('button', { name: 'Schedule all check-ins' }))
     expect(screen.getByText('318 extra check-ins scheduled for Thursday')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '✓ 318 scheduled' })).toBeDisabled()
@@ -129,12 +129,13 @@ describe('community overview', () => {
     expect(push).toHaveBeenCalledWith('/community/watch')
   })
 
-  test('a failed load leaves the page empty without crashing', async () => {
+  test('a failed load shows the page error card without crashing', async () => {
     const repo = await import('@/data/repo')
     const spy = vi.spyOn(repo, 'getCommunity').mockRejectedValueOnce(new Error('offline'))
     renderWithProviders(<CommunityPage />, opts)
     await waitFor(() => expect(spy).toHaveBeenCalled())
-    expect(document.querySelector('main')).toBeNull()
+    expect(await screen.findByRole('alert')).toHaveTextContent(repo.PAGE_ERROR.text)
+    expect(document.querySelector('#comKpis')).toBeNull()
     spy.mockRestore()
   })
 
@@ -200,12 +201,13 @@ describe('community watch', () => {
     expect(within(li[1] as HTMLElement).getByRole('button', { name: 'Accept' })).toBeEnabled()
   })
 
-  test('a failed load leaves the page empty', async () => {
+  test('a failed load shows the page error card', async () => {
     const repo = await import('@/data/repo')
     const spy = vi.spyOn(repo, 'getWatch').mockRejectedValueOnce(new Error('offline'))
     renderWithProviders(<WatchPage />, opts)
     await waitFor(() => expect(spy).toHaveBeenCalled())
-    expect(document.querySelector('main')).toBeNull()
+    expect(await screen.findByRole('alert')).toHaveTextContent(repo.PAGE_ERROR.text)
+    expect(document.querySelector('#watchKpis')).toBeNull()
     spy.mockRestore()
   })
 })

@@ -6,7 +6,7 @@ import type { Forecast } from '@/data/types'
 import { deltaLabel, simulateRisk, type SimInput } from '@/domain/riskSim'
 import { Head } from '../home/parts'
 
-const toneColour = { good: 'var(--good)', bad: 'var(--bad)', muted: 'var(--muted)' } as const
+const toneColour = { good: 'var(--good-text)', bad: 'var(--bad-text)', muted: 'var(--muted-text)' } as const
 
 /** `🎛️ Try it: what if…` (c5): three sliders, the hearing-aid switch and the four result cells. */
 export function SimCard({ sim, value, onChange }: { sim: Forecast['sim']; value: SimInput; onChange: (next: SimInput) => void }) {

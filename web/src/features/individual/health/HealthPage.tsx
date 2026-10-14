@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { getDeviceFeed, getHealth } from '@/data/repo'
 import type { DeviceFeed, HealthData } from '@/data/types'
+import { PageError } from '@/features/shared/PageError'
+import { useRepo } from '@/features/shared/useRepo'
 import { BpCard } from './BpCard'
 import { DevicesCard } from './DevicesCard'
 import { GoalsCard } from './GoalsCard'
@@ -17,21 +18,14 @@ interface HealthPageData {
   feed: DeviceFeed
 }
 
-function useHealthData(): HealthPageData | null {
-  const [data, setData] = useState<HealthPageData | null>(null)
-  useEffect(() => {
-    let live = true
-    Promise.all([getHealth('margaret'), getDeviceFeed('margaret')]).then(([health, feed]) => {
-      if (live) setData({ health, feed })
-    })
-    return () => { live = false }
-  }, [])
-  return data
-}
+const loadHealth = (): Promise<HealthPageData> =>
+  Promise.all([getHealth('margaret'), getDeviceFeed('margaret')]).then(([health, feed]) => ({ health, feed }))
 
 /** Individual view · Health (`<main data-page="health">`): sections in the prototype's order and spans. */
 export function HealthPage() {
-  const d = useHealthData()
+  const r = useRepo(loadHealth)
+  if (r.status === 'error') return <PageError page="health" onRetry={r.retry} />
+  const d = r.data
   if (!d) return null
   const h = d.health
   return (

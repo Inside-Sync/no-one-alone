@@ -3,6 +3,7 @@ import { Pill } from '@/components/ui/Pill'
 import { RECORD_COPY } from '@/data/repo'
 import type { CareRecord } from '@/data/types'
 import { ClickRow } from '../ClickRow'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 /** `Data sources` (c7): provenance per source, tagged with the FHIR standard. */
 export function SourcesCard({ sources, tag }: { sources: CareRecord['sources']; tag: string }) {
@@ -10,7 +11,7 @@ export function SourcesCard({ sources, tag }: { sources: CareRecord['sources']; 
   return (
     <GlassCard span={7}>
       <div className="ch"><h2>{c.title}</h2><span className="tag">{tag}</span><span className="meta">{c.meta}</span></div>
-      <div className="tw">
+      <TableScroll>
         <table>
           <thead><tr>{c.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="srcs">
@@ -29,7 +30,7 @@ export function SourcesCard({ sources, tag }: { sources: CareRecord['sources']; 
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

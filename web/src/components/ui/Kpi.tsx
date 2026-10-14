@@ -1,4 +1,5 @@
 import type { KeyboardEvent, ReactNode } from 'react'
+import { toneVar } from '@/lib/tone'
 
 export type KpiTone = 'good' | 'warn' | 'bad'
 
@@ -47,7 +48,7 @@ export function Kpi({ label, value, unit, color, children, sub, delta, tone = 'g
       {(sub != null || delta != null) && (
         <span className="d" style={emoji != null ? { fontFamily: 'var(--font)' } : undefined}>
           <span>{sub}</span>
-          <b style={{ color: `var(--${tone})` }}>{delta}</b>
+          <b style={{ color: toneVar(tone) }}>{delta}</b>
         </span>
       )}
     </div>

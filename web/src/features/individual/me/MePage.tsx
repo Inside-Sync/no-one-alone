@@ -9,6 +9,7 @@ import { ME_COPY } from '@/data/repo'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
 import { useAppState } from '@/state/AppState'
 import { PauseButton } from '../privacy/PauseButton'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 /** Individual view · My day (`<main data-page="me">`): Margaret's own page, in her words. */
 export function MePage() {
@@ -76,7 +77,7 @@ export function MePage() {
       </GlassCard>
       <GlassCard span={12}>
         <div className="ch"><h2>{c.access.title}</h2><span className="meta">{c.access.meta}</span></div>
-        <div className="tw">
+        <TableScroll>
           <table>
             <thead><tr>{c.access.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
             <tbody>
@@ -85,7 +86,7 @@ export function MePage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </TableScroll>
       </GlassCard>
     </main>
   )

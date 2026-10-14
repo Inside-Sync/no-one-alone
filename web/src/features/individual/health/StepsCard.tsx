@@ -23,7 +23,7 @@ function StepsChart({ steps, goal }: { steps: number[]; goal: number }) {
         </g>
       ))}
       <line x1={L} x2={W} y1={y(goal)} y2={y(goal)} stroke="#0b7f71" strokeDasharray="4 3" />
-      <text x={W} y={y(goal) - 4} textAnchor="end" style={{ fill: '#0b7f71' }}>{c.goal}</text>
+      <text x={W} y={y(goal) - 4} textAnchor="end" style={{ fill: 'var(--teal-text)' }}>{c.goal}</text>
     </svg>
   )
 }

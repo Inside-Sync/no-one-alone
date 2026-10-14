@@ -1,5 +1,4 @@
 import { GlassCard } from '@/components/ui/GlassCard'
-import { Icon } from '@/components/ui/Icon'
 import { FORECAST_COPY } from '@/data/repo'
 import type { Forecast } from '@/data/types'
 
@@ -8,7 +7,6 @@ export function ModelCard({ model, meta }: { model: Forecast['model']; meta: str
   return (
     <GlassCard span={12}>
       <div className="ch">
-        <span className="li"><span className="ic"><Icon name="cpu" /></span></span>
         <h2>{FORECAST_COPY.modelTitle}</h2>
         <span className="meta">{meta}</span>
       </div>

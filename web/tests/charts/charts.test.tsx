@@ -174,7 +174,7 @@ test('Waterfall: red bar to the right for increases, green to the left for decre
   expect(bars[1].style.background).toBe('rgb(31, 179, 156)')
   const vals = host.querySelectorAll('b')
   expect(vals[0]).toHaveTextContent('+0.58')
-  expect(vals[0]).toHaveStyle({ color: 'var(--bad)' })
+  expect(vals[0]).toHaveStyle({ color: 'var(--bad-text)' })
   expect(vals[1]).toHaveTextContent('−0.06')
 })
 

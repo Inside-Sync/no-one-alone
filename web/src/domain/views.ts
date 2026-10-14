@@ -88,7 +88,7 @@ export function resolvePage(view: string, page: string, who: Who): PageResolutio
   return { kind: 'notFound' }
 }
 
-/** Every valid view x page pair, for `generateStaticParams`. */
+/** Every valid view x page pair: the routes App.tsx accepts (anything else is a 404). */
 export function allRoutes(): { view: ViewId; page: string }[] {
   const out: { view: ViewId; page: string }[] = []
   for (const view of VIEW_IDS) {

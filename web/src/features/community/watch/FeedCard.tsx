@@ -28,7 +28,7 @@ export function FeedCard({ items }: { items: WatchFeedItem[] }) {
         <h2>{c.title}</h2>
         <span className="meta">{c.meta}</span>
       </div>
-      <ul className="news" id="newsCom">
+      <ul className="news" id="newsCom" role="none">
         {items.map((n) => {
           const open = () => drawer.open(n.headline, <FeedDrawerBody n={n} />)
           return (

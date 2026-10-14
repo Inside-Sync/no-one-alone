@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Locked } from '@/components/ui/Locked'
 import { getCareRecord } from '@/data/repo'
-import type { CareRecord } from '@/data/types'
+import { PageError } from '@/features/shared/PageError'
+import { useRepo } from '@/features/shared/useRepo'
 import { EncountersCard } from './EncountersCard'
 import { FollowUpCard } from './FollowUpCard'
 import { HospitalsCard } from './HospitalsCard'
@@ -12,21 +12,11 @@ import { MedicinesCard } from './MedicinesCard'
 import { RecordKpis } from './RecordKpis'
 import { SourcesCard } from './SourcesCard'
 
-function useRecord(): CareRecord | null {
-  const [data, setData] = useState<CareRecord | null>(null)
-  useEffect(() => {
-    let live = true
-    getCareRecord('margaret')
-      .then((r) => { if (live) setData(r) })
-      .catch(() => { /* leave the page empty; the shell stays usable */ })
-    return () => { live = false }
-  }, [])
-  return data
-}
-
 /** Individual view · Care record (`<main data-page="record">`): every direct child is tagged `records` (prototype line 1907). */
 export function RecordPage() {
-  const r = useRecord()
+  const res = useRepo(() => getCareRecord('margaret'))
+  if (res.status === 'error') return <PageError page="record" onRetry={res.retry} />
+  const r = res.data
   if (!r) return null
   return (
     <main className="grid" data-page="record">

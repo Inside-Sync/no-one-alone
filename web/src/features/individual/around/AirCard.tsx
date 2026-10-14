@@ -6,6 +6,7 @@ import { Pill } from '@/components/ui/Pill'
 import { AROUND_COPY, DRAWER_ACTIONS } from '@/data/repo'
 import type { AirDay } from '@/data/types'
 import { Actions, Head, Kv, keyActivate } from '../home/parts'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 function AirDrawerBody({ d }: { d: AirDay }) {
   const cols = AROUND_COPY.air.columns
@@ -32,7 +33,7 @@ export function AirCard({ air, note }: { air: AirDay[]; note: string }) {
   return (
     <GlassCard span={6}>
       <Head title={c.title} meta={c.meta} />
-      <div className="tw">
+      <TableScroll>
         <table style={{ minWidth: 0 }}>
           <thead><tr>{c.columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody>
@@ -51,7 +52,7 @@ export function AirCard({ air, note }: { air: AirDay[]; note: string }) {
             })}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
       <p className="fine">{note}</p>
     </GlassCard>
   )

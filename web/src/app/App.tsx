@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes, useParams } from 'react-router'
 import { AppShell } from '@/components/shell/AppShell'
+import { DrawerReset } from '@/components/shell/DrawerReset'
 import { Scene } from '@/components/shell/Scene'
 import { DrawerProvider } from '@/components/ui/Drawer'
 import { ToastProvider } from '@/components/ui/Toast'
@@ -24,6 +25,7 @@ export function App() {
       <AppStateProvider>
         <ToastProvider>
           <DrawerProvider>
+            <DrawerReset />
             <div className="wrap">
               <AppShell>
                 <Routes>

@@ -32,3 +32,33 @@ export function rgbHex(c: string): string {
   const m = c.match(/\d+/g) ?? ['0', '0', '0']
   return '#' + m.slice(0, 3).map((v) => (+v).toString(16).padStart(2, '0')).join('')
 }
+
+/** WCAG 2 relative luminance of `#rrggbb`. */
+export function luminance(h: string): number {
+  const [r, g, b] = hex(h).map((v) => {
+    const c = v / 255
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4
+  })
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b
+}
+
+/** WCAG 2 contrast ratio between two `#rrggbb` colours. */
+export function contrast(a: string, b: string): number {
+  const x = luminance(a)
+  const y = luminance(b)
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05)
+}
+
+/**
+ * The prototype's data colours (condition keys, funnel stages) carry white text that is
+ * below WCAG AA on the lighter hues. Darken the fill just enough for white text to reach
+ * `min`; colours that already pass come back unchanged.
+ */
+export function fillForWhiteText(h: string, min = 4.5): string {
+  if (contrast(h, '#ffffff') >= min) return h
+  for (let f = 0.99; f > 0.2; f -= 0.01) {
+    const c = rgbHex(shade(h, f))
+    if (contrast(c, '#ffffff') >= min) return c
+  }
+  return '#000000'
+}

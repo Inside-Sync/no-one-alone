@@ -2,6 +2,10 @@ import { Fragment } from 'react'
 import { CardHeader } from '@/components/ui/CardHeader'
 import { GlassCard } from '@/components/ui/GlassCard'
 import type { Lineage, LineageNode } from '@/data/types'
+import { fillForWhiteText } from '@/lib/color'
+
+/** `.node.dec` fades the whole node to .82, so its chips need extra contrast to stay at AA once blended. */
+const DEC_MIN_CONTRAST = 6.5
 
 function Node({ node, keys }: { node: LineageNode; keys: Lineage['conditionKeys'] }) {
   return (
@@ -9,7 +13,9 @@ function Node({ node, keys }: { node: LineageNode; keys: Lineage['conditionKeys'
       <b>{node.name}</b>
       <small>{node.sub}</small>
       <span className="cx">
-        {node.conditions.map(([k, v]) => <i key={k} style={{ background: keys[k].color }}>{k} {v}</i>)}
+        {node.conditions.map(([k, v]) => (
+          <i key={k} style={{ background: fillForWhiteText(keys[k].color, node.kind === 'dec' ? DEC_MIN_CONTRAST : undefined) }}>{k} {v}</i>
+        ))}
       </span>
     </div>
   )
@@ -32,7 +38,7 @@ export function Pedigree({ lineage }: { lineage: Lineage }) {
       </div>
       <div className="legend" id="cxLegend">
         {(Object.keys(keys) as (keyof typeof keys)[]).map((k) => (
-          <span key={k}><i style={{ background: keys[k].color }}></i>{k} {keys[k].name}</span>
+          <span key={k}><i style={{ background: fillForWhiteText(keys[k].color) }}></i>{k} {keys[k].name}</span>
         ))}
         <span className="muted">{lineage.legendNote}</span>
       </div>

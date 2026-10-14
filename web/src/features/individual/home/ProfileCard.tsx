@@ -8,6 +8,7 @@ import { HOME_COPY } from '@/data/repo'
 import type { Person } from '@/data/types'
 import { ConditionDrawerBody } from './drawers'
 import { Head } from './parts'
+import { textTone } from '@/lib/tone'
 
 /** `👤 About Margaret` (c12): ID, profile grid, tappable conditions (records category) and lifestyle chips. */
 export function ProfileCard({ person }: { person: Person }) {
@@ -39,7 +40,7 @@ export function ProfileCard({ person }: { person: Person }) {
               key={cond.title}
               type="button"
               className="cond"
-              style={{ '--c': cond.color } as React.CSSProperties}
+              style={{ '--c': cond.color, '--c-text': textTone(cond.color) } as React.CSSProperties}
               onClick={() => drawer.open(`${cond.emoji} ${cond.title}`, <ConditionDrawerBody condition={cond} />)}
             >
               <b>{`${cond.emoji} ${cond.title}`}</b><small>{cond.since}</small><em>{cond.now}</em>
@@ -49,7 +50,7 @@ export function ProfileCard({ person }: { person: Person }) {
       </Locked>
       <div className="row">
         {profile.chips.map((chip) => (
-          <span key={chip.text} className="chip" style={chip.danger ? { color: 'var(--bad)' } : undefined}>{chip.text}</span>
+          <span key={chip.text} className="chip" style={chip.danger ? { color: 'var(--bad-text)' } : undefined}>{chip.text}</span>
         ))}
       </div>
     </GlassCard>

@@ -4,6 +4,7 @@ import { HOSPITAL_COPY } from '@/data/repo'
 import type { DischargeRow, FollowUpState } from '@/data/types'
 import { Head } from '../../individual/home/parts'
 import { HospitalRow } from '../shared'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 const plain = { fontWeight: 500 } as const
 const STATE: Record<FollowUpState, [colour: string, mark: string]> = {
@@ -19,7 +20,7 @@ export function BoardCard({ board }: { board: DischargeRow[] }) {
   return (
     <GlassCard span={12}>
       <Head title={c.title} meta={c.meta} />
-      <div className="tw">
+      <TableScroll>
         <table className="board">
           <thead><tr>{c.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="board">
@@ -44,7 +45,7 @@ export function BoardCard({ board }: { board: DischargeRow[] }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
       <div className="legend">
         {c.legend.map((l) => <span key={l.label}><i style={{ background: l.color }}></i>{l.label}</span>)}
       </div>

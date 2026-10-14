@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { getCareCircle, getCityScene, getForecast, getHealth, getOrbitScene, getPerson, getSurroundings } from '@/data/repo'
+import { PageError } from '@/features/shared/PageError'
+import { useRepo } from '@/features/shared/useRepo'
 import type { CircleMember, CityGeometry, Forecast, HealthData, OrbitScene, Person, Surroundings } from '@/data/types'
 import { ChatCard } from './ChatCard'
 import { CircleCard } from './CircleCard'
@@ -27,24 +28,17 @@ interface HomeData {
 }
 
 /** Everything the page shows, read once through the repo. */
-function useHomeData(): HomeData | null {
-  const [data, setData] = useState<HomeData | null>(null)
-  useEffect(() => {
-    let live = true
-    Promise.all([
-      getPerson('margaret'), getHealth('margaret'), getForecast('margaret'), getSurroundings('margaret'),
-      getCareCircle('margaret'), getCityScene(), getOrbitScene(),
-    ]).then(([person, health, forecast, surroundings, circle, city, orbit]) => {
-      if (live) setData({ person, health, forecast, surroundings, circle, city, orbit })
-    })
-    return () => { live = false }
-  }, [])
-  return data
-}
+const loadHome = (): Promise<HomeData> =>
+  Promise.all([
+    getPerson('margaret'), getHealth('margaret'), getForecast('margaret'), getSurroundings('margaret'),
+    getCareCircle('margaret'), getCityScene(), getOrbitScene(),
+  ]).then(([person, health, forecast, surroundings, circle, city, orbit]) => ({ person, health, forecast, surroundings, circle, city, orbit }))
 
 /** Individual view · Home (`<main data-page="home">`): sections in the prototype's order and spans. */
 export function HomePage() {
-  const d = useHomeData()
+  const r = useRepo(loadHome)
+  if (r.status === 'error') return <PageError page="home" onRetry={r.retry} />
+  const d = r.data
   if (!d) return null
   return (
     <main className="grid" data-page="home">

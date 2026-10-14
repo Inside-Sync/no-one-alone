@@ -5,6 +5,7 @@ import { Pill } from '@/components/ui/Pill'
 import { HOSPITAL_COPY } from '@/data/repo'
 import type { IncomingRow, InboxMessage } from '@/data/types'
 import { HospitalRow } from '../shared'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 const plain = { fontWeight: 500 } as const
 
@@ -45,13 +46,13 @@ export function InboxCard({ items, incoming, showNew, onSelect }: Props) {
         <h2 style={{ fontSize: 14 }}>{c.incoming.title}</h2>
         <span className="meta">{c.incoming.meta}</span>
       </div>
-      <div className="tw">
+      <TableScroll>
         <table>
           <thead><tr>{c.incoming.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="incoming">
             {incoming.map((r) => {
               const mark = r.packet ? '✓' : '—'
-              const markStyle = { color: r.packet ? 'var(--good)' : 'var(--muted)' }
+              const markStyle = { color: r.packet ? 'var(--good-text)' : 'var(--muted-text)' }
               return (
                 <HospitalRow
                   key={r.eta + r.patient}
@@ -76,7 +77,7 @@ export function InboxCard({ items, incoming, showNew, onSelect }: Props) {
             })}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

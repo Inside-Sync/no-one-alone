@@ -1,13 +1,13 @@
 'use client'
 
 import { GlassCard } from '@/components/ui/GlassCard'
-import { Icon } from '@/components/ui/Icon'
 import { OnceButton } from '@/components/ui/OnceButton'
 import { useDrawer } from '@/components/ui/Drawer'
 import { Pill } from '@/components/ui/Pill'
 import { HOME_COPY, ONCE_LABELS } from '@/data/repo'
 import type { HelperLogEntry } from '@/data/types'
 import { Actions, Kv, keyActivate } from './parts'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 const HOW_TONE = (e: HelperLogEntry) => (e.needsApproval ? 'warn' : e.how === 'Noticed' || e.how === 'Passive' ? 'plain' : 'brand')
 
@@ -37,11 +37,10 @@ export function HelperCard({ log }: { log: HelperLogEntry[] }) {
   return (
     <GlassCard span={12}>
       <div className="ch">
-        <span className="li"><span className="ic"><Icon name="cpu" /></span></span>
         <h2>{c.title}</h2>
         <span className="meta">{c.meta}</span>
       </div>
-      <div className="tw">
+      <TableScroll>
         <table>
           <thead><tr>{c.columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody>
@@ -70,7 +69,7 @@ export function HelperCard({ log }: { log: HelperLogEntry[] }) {
             })}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

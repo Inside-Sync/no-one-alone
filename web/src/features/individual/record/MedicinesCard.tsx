@@ -4,6 +4,8 @@ import { RECORD_COPY } from '@/data/repo'
 import type { CareRecord } from '@/data/types'
 import { ClickRow } from '../ClickRow'
 import { Head } from '../home/parts'
+import { TableScroll } from '@/components/ui/TableScroll'
+import { toneVar } from '@/lib/tone'
 
 const name = { fontWeight: 500 } as const
 
@@ -14,7 +16,7 @@ export function MedicinesCard({ record }: { record: CareRecord }) {
   return (
     <GlassCard span={4}>
       <Head title={c.title}><Pill tone={record.medicinesPill.tone}>{record.medicinesPill.text}</Pill></Head>
-      <div className="tw">
+      <TableScroll>
         <table style={{ minWidth: 0 }}>
           <thead><tr>{c.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="meds">
@@ -27,15 +29,15 @@ export function MedicinesCard({ record }: { record: CareRecord }) {
                   details={[[c.head[0], cell], [c.head[1], `${m.adherence}%`], [c.head[2], m.last]]}
                 >
                   <td>{cell}</td>
-                  <td className="n" style={{ color: `var(--${m.tone})` }}>{m.adherence}%</td>
+                  <td className="n" style={{ color: toneVar(m.tone) }}>{m.adherence}%</td>
                   <td style={{ fontSize: '12px' }}>{m.last}</td>
                 </ClickRow>
               )
             })}
           </tbody>
         </table>
-      </div>
-      <p className="fine">{c.allergy}: <b style={{ color: 'var(--bad)' }}>{a.allergen}</b> ({a.detail}). {a.checked}</p>
+      </TableScroll>
+      <p className="fine">{c.allergy}: <b style={{ color: 'var(--bad-text)' }}>{a.allergen}</b> ({a.detail}). {a.checked}</p>
     </GlassCard>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { PageError } from '@/features/shared/PageError'
 import { useCommunity, useDistrictView } from '../useCommunity'
 import { CommunityKpis } from '../shared'
 import { CapacityCard } from './CapacityCard'
@@ -17,8 +18,10 @@ import { WatchSummaryCard } from './WatchSummaryCard'
  * consent category (R13), so nothing here is `<Locked>`.
  */
 export function CommunityPage() {
-  const c = useCommunity()
+  const res = useCommunity()
+  const c = res.data
   const view = useDistrictView()
+  if (res.status === 'error') return <PageError page="community" onRetry={res.retry} />
   if (!c) return null
   return (
     <main className="grid" data-page="community">

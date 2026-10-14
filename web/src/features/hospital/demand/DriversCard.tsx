@@ -18,7 +18,7 @@ export function DriversCard({ drivers }: { drivers: ShapDriver[] }) {
             <div key={d.label}>
               <span>{d.label}</span>
               <span className="b"><i style={barStyle}></i></span>
-              <b style={{ color: up ? 'var(--bad)' : 'var(--good)' }}>{up ? '+' : '−'}{Math.abs(d.value).toFixed(1)}</b>
+              <b style={{ color: up ? 'var(--bad-text)' : 'var(--good-text)' }}>{up ? '+' : '−'}{Math.abs(d.value).toFixed(1)}</b>
             </div>
           )
         })}

@@ -107,7 +107,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [s, dispatch] = useReducer(reducer, initial)
   const mounted = useRef(true)
   const stateRef = useRef(s)
-  useEffect(() => { stateRef.current = s })
+  // Every action goes through commit(), so stateRef is current as soon as an action is dispatched. Syncing it in a
+  // passive effect instead left a window after a commit (e.g. consent just loaded) where toggleShare saw share=null
+  // and silently did nothing (the flaky "heart-category card is absent for sarah" test, Task 14 / R35).
   // Two updates in one tick must both see the first: keep the ref ahead of the render.
   const commit = useCallback((a: Action) => {
     stateRef.current = reducer(stateRef.current, a)
@@ -128,11 +130,11 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     } catch {
       /* storage unavailable: keep defaults */
     }
-    dispatch({ type: 'hydrate', who, viewer })
-    repo.getSharePeople().then((people) => { if (mounted.current) dispatch({ type: 'people', people }) }, () => {})
-    repo.getShare().then((share) => { if (mounted.current) dispatch({ type: 'share', share }) }, () => {})
+    commit({ type: 'hydrate', who, viewer })
+    repo.getSharePeople().then((people) => { if (mounted.current) commit({ type: 'people', people }) }, () => {})
+    repo.getShare().then((share) => { if (mounted.current) commit({ type: 'share', share }) }, () => {})
     return () => { mounted.current = false }
-  }, [])
+  }, [commit])
 
   useEffect(() => {
     if (!s.hydrated) return
@@ -151,16 +153,16 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   }, [active])
   useEffect(() => {
     if (!active || !playing) return
-    const timer = setInterval(() => dispatch({ type: 'emergency', action: { type: 'tick' } }), TICK_MS)
+    const timer = setInterval(() => commit({ type: 'emergency', action: { type: 'tick' } }), TICK_MS)
     return () => clearInterval(timer)
-  }, [active, playing])
+  }, [active, playing, commit])
 
-  const setWho = useCallback((who: Who) => dispatch({ type: 'setWho', who }), [])
-  const setViewer = useCallback((viewer: PersonId) => dispatch({ type: 'setViewer', viewer }), [])
+  const setWho = useCallback((who: Who) => commit({ type: 'setWho', who }), [commit])
+  const setViewer = useCallback((viewer: PersonId) => commit({ type: 'setViewer', viewer }), [commit])
   const log = useCallback((entry: AuditEntry) => {
-    dispatch({ type: 'log', entry })
+    commit({ type: 'log', entry })
     void repo.appendAudit(entry).catch(() => {})
-  }, [])
+  }, [commit])
   const togglePause = useCallback(() => {
     const next = !stateRef.current.paused
     commit({ type: 'togglePause' })
@@ -218,7 +220,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     })
     return detail
   }, [log, commit])
-  const dispatchEmergency = useCallback((action: EmergencyAction) => dispatch({ type: 'emergency', action }), [])
+  const dispatchEmergency = useCallback((action: EmergencyAction) => commit({ type: 'emergency', action }), [commit])
 
   const value = useMemo<AppStateValue>(
     () => ({

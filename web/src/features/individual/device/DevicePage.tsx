@@ -1,37 +1,29 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { useRouter } from '@/app/navigation'
 import { Orbit } from '@/components/canvas/Orbit'
 import { Icon } from '@/components/ui/Icon'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { useToast } from '@/components/ui/Toast'
 import { getDeviceFeed, getOrbitScene } from '@/data/repo'
-import type { DeviceFeed, OrbitScene } from '@/data/types'
+import { PageError } from '@/features/shared/PageError'
+import { useRepo } from '@/features/shared/useRepo'
 import { useAppState } from '@/state/AppState'
 import { MiniGrid } from '../home/parts'
 import s from '@/components/phone/phone.module.css'
 
 const MINI_ORBIT = ['david', 'nurse', 'james', 'sarah']
 
-function useDevicePage(): { feed: DeviceFeed | null; scene: OrbitScene | null } {
-  const [feed, setFeed] = useState<DeviceFeed | null>(null)
-  const [scene, setScene] = useState<OrbitScene | null>(null)
-  useEffect(() => {
-    let live = true
-    getDeviceFeed('margaret').then((f) => { if (live) setFeed(f) }, () => {})
-    getOrbitScene().then((o) => { if (live) setScene(o) }, () => {})
-    return () => { live = false }
-  }, [])
-  return { feed, scene }
-}
-
 /** Individual view · Her phone (`<main data-page="device">`): Margaret's home screen and why it is built that way. */
 export function DevicePage() {
-  const { feed, scene } = useDevicePage()
+  const feedRes = useRepo(() => getDeviceFeed('margaret'))
+  // The mini orbit is decoration: if it cannot load, its area stays empty and the page still works.
+  const scene = useRepo(getOrbitScene).data
   const toast = useToast()
   const router = useRouter()
   const { setWho, dispatchEmergency } = useAppState()
+  if (feedRes.status === 'error') return <PageError page="device" onRetry={feedRes.retry} />
+  const feed = feedRes.data
   if (!feed) return null
   const p = feed.phone
   const h = p.home

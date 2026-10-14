@@ -3,6 +3,7 @@ import { vi } from 'vitest'
 import { LineagePage } from '@/features/individual/lineage/LineagePage'
 import { PAGE_REGISTRY } from '@/features/registry'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
+import { fillForWhiteText } from '@/lib/color'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/lineage/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
@@ -33,7 +34,7 @@ test('pedigree lists four generations of nodes with condition chips', async () =
   expect(ped.querySelectorAll('.node')).toHaveLength(9)
   const james = screen.getByText('James Collins').closest('.node')!
   expect(james).toHaveClass('you')
-  expect(within(james as HTMLElement).getByText('HTN 138/86')).toHaveStyle({ background: '#c88a05' })
+  expect(within(james as HTMLElement).getByText('HTN 138/86')).toHaveStyle({ background: fillForWhiteText('#c88a05') })
   expect(screen.getByText('Margaret Collins').closest('.node')).toHaveClass('focus')
   expect(screen.getByText('Arthur Hughes').closest('.node')).toHaveClass('dec')
   expect(within(document.getElementById('cxLegend')!).getByText('Number = age at onset')).toBeInTheDocument()
@@ -81,7 +82,7 @@ test('condition matrix colours affected cells and leaves the rest blank', async 
   expect(rows).toHaveLength(7)
   const arthur = rows[0].querySelectorAll('td')
   expect(arthur[1]).toHaveTextContent('55')
-  expect(arthur[1]).toHaveStyle({ background: '#c88a05', color: '#fff' })
+  expect(arthur[1]).toHaveStyle({ background: fillForWhiteText('#c88a05'), color: '#fff' })
   expect(arthur[3]).toHaveTextContent('')
   expect(arthur[3]).toHaveStyle({ background: 'var(--track)' })
   expect(rows[6].querySelectorAll('td')[1]).toHaveTextContent('↑')

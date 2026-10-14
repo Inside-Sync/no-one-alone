@@ -6,6 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 import { AROUND_COPY, DRAWER_ACTIONS } from '@/data/repo'
 import type { Surroundings, WatchAlert } from '@/data/types'
 import { Actions, keyActivate } from '../home/parts'
+import { textTone } from '@/lib/tone'
 
 function AlertDrawerBody({ a }: { a: WatchAlert }) {
   return (
@@ -23,11 +24,10 @@ export function AlertsCard({ heading, alerts }: { heading: Surroundings['alertsH
   return (
     <GlassCard span={6}>
       <div className="ch">
-        <span className="li" style={{ color: 'var(--bad)' }}><span className="ic"><Icon name="eye" /></span></span>
         <h2>{heading.title}</h2>
         <span className="meta">{heading.meta}</span>
       </div>
-      <ul className="alerts">
+      <ul className="alerts" role="none">
         {alerts.map((a) => {
           const v = AROUND_COPY.severity[a.severity]
           const open = () => drawer.open(a.title, <AlertDrawerBody a={a} />)
@@ -36,7 +36,7 @@ export function AlertsCard({ heading, alerts }: { heading: Surroundings['alertsH
               <span className="sev" style={{ background: v.color }}></span>
               <span className="li" style={{ color: v.color }}><span className="ic"><Icon name={a.icon} /></span></span>
               <span><b>{a.title}</b><small>{a.text}</small><em>{a.source}</em></span>
-              <span className="pill" style={{ color: v.color }}>{v.label}</span>
+              <span className="pill" style={{ color: textTone(v.color) }}>{v.label}</span>
             </li>
           )
         })}

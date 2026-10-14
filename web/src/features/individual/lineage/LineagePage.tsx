@@ -1,29 +1,19 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { getLineage } from '@/data/repo'
-import type { Lineage } from '@/data/types'
+import { PageError } from '@/features/shared/PageError'
+import { useRepo } from '@/features/shared/useRepo'
 import { ConsentCard } from './ConsentCard'
 import { MatrixCard } from './MatrixCard'
 import { Pedigree } from './Pedigree'
 import { ScreeningCard } from './ScreeningCard'
 import { StrengthCard } from './StrengthCard'
 
-function useLineage(): Lineage | null {
-  const [data, setData] = useState<Lineage | null>(null)
-  useEffect(() => {
-    let live = true
-    getLineage('margaret')
-      .then((l) => { if (live) setData(l) })
-      .catch(() => { /* leave the page empty; the shell stays usable */ })
-    return () => { live = false }
-  }, [])
-  return data
-}
-
 /** Individual view · Health Lineage (`<main data-page="lineage">`). No card carries a consent tag in the prototype. */
 export function LineagePage() {
-  const l = useLineage()
+  const r = useRepo(() => getLineage('margaret'))
+  if (r.status === 'error') return <PageError page="lineage" onRetry={r.retry} />
+  const l = r.data
   if (!l) return null
   return (
     <main className="grid" data-page="lineage">

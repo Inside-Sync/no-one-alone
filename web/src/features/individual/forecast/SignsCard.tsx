@@ -3,8 +3,9 @@ import { Pill } from '@/components/ui/Pill'
 import { FORECAST_COPY } from '@/data/repo'
 import type { SignRow } from '@/data/types'
 import { Head } from '../home/parts'
+import { TableScroll } from '@/components/ui/TableScroll'
 
-const colour = (t: SignRow['tone']) => (t === 'warn' ? 'var(--warn)' : t === 'bad' ? 'var(--bad)' : 'var(--good)')
+const colour = (t: SignRow['tone']) => (t === 'warn' ? 'var(--warn-text)' : t === 'bad' ? 'var(--bad-text)' : 'var(--good-text)')
 
 /** `👀 What we keep an eye on` (c12): `#sigRows`, plain-language version. */
 export function SignsCard({ signs }: { signs: SignRow[] }) {
@@ -12,7 +13,7 @@ export function SignsCard({ signs }: { signs: SignRow[] }) {
   return (
     <GlassCard span={12}>
       <Head title={c.title} meta={c.meta} />
-      <div className="tw">
+      <TableScroll>
         <table>
           <thead><tr>{c.columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="sigRows">
@@ -29,7 +30,7 @@ export function SignsCard({ signs }: { signs: SignRow[] }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

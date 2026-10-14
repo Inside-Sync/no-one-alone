@@ -2,11 +2,11 @@
 
 import { useDrawer } from '@/components/ui/Drawer'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { Icon } from '@/components/ui/Icon'
 import { Pill } from '@/components/ui/Pill'
 import { DRAWER_ACTIONS, HEALTH_COPY } from '@/data/repo'
 import type { DeviceFeed, DeviceRow } from '@/data/types'
 import { Actions, Kv, keyActivate } from '../home/parts'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 function RowDrawerBody({ row }: { row: DeviceRow }) {
   const cols = HEALTH_COPY.devices.columns
@@ -32,11 +32,10 @@ export function DevicesCard({ feed }: { feed: DeviceFeed }) {
   return (
     <GlassCard span={12}>
       <div className="ch">
-        <span className="li"><span className="ic"><Icon name="watch" /></span></span>
         <h2>{HEALTH_COPY.devices.title}</h2>
         <span className="meta">{feed.meta}</span>
       </div>
-      <div className="tw">
+      <TableScroll>
         <table>
           <thead><tr>{cols.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody>
@@ -54,7 +53,7 @@ export function DevicesCard({ feed }: { feed: DeviceFeed }) {
             })}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

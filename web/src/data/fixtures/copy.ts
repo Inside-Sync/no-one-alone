@@ -306,6 +306,16 @@ export const LIVE_COPY = {
   },
 } as const
 
+/**
+ * Not in the prototype (it never fails to load): the card a page shows when its data could not be read,
+ * and the toast when a button's on-demand read fails (Final review, finding 3).
+ */
+export const PAGE_ERROR = {
+  text: "We couldn't load this page just now.",
+  retry: 'Try again',
+  toast: "Couldn't load that just now · please try again",
+} as const
+
 /** Toast and audit text when a consent change could not be stored and was undone. */
 export const SAVE_FAILED = "Couldn't save that change · it has been undone"
 

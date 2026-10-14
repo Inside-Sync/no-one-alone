@@ -1,27 +1,37 @@
 import type { MapPin, NewsItem, Surroundings, WatchAlert, AirDay } from '../types'
 import { mini, plainKpi, type MiniRow, type PlainKpiRow } from './helpers'
 
+/** Map centre (Marrickville) and deterministic metre/grid to lat-lng conversion for the Google map markers (Ruling R10: no randomness). */
+const CENTRE = { lat: -33.911, lng: 151.155 }
+function offsetGeo(eastM: number, southM: number) {
+  return { lat: +(CENTRE.lat - southM / 111_320).toFixed(6), lng: +(CENTRE.lng + eastM / 92_400).toFixed(6) }
+}
+/** City3D grid (0–420, centre 210,210) at roughly 3.5 m per unit. */
+function gridGeo(at: { x: number; y: number; z?: number }) {
+  return offsetGeo((at.x - 210) * 3.5, (at.y - 210) * 3.5)
+}
+
 /** City3D pins of the Home map (prototype lines 1307–1313). Home and David sit on generated houses, so no `at`. */
 const homePins: MapPin[] = [
-  { name: "Margaret's home", sub: 'Home', color: '#14a08c', initials: 'M', big: true },
-  { name: 'David (brother)', sub: '', detail: '450 m · 6 min walk', color: '#2f6fb0', initials: 'D', phase: 0.3 },
-  { name: 'GP', sub: '', detail: 'Illawarra Rd Family Practice · Dr Patel · 350 m', color: '#ffffff', ink: '#0b7f71', initials: '+', phase: 0.5, at: { x: 162, y: 132, z: 12 } },
-  { name: 'Pharmacy', sub: '', detail: '280 m · open to 21:00', color: '#ffffff', ink: '#1fb39c', initials: 'Rx', phase: 0.7, at: { x: 127, y: 133, z: 9 } },
-  { name: 'Library cool room', sub: '', detail: '400 m · 120 places', color: '#8f6fd0', initials: 'L', phase: 0.1, at: { x: 305, y: 301, z: 21 } },
-  { name: 'Walking group', sub: '', detail: 'Thu 9:00 · Calvert Reserve', color: '#8f6fd0', initials: 'W', phase: 0.6, at: { x: 329, y: 211, z: 2 } },
+  { name: "Margaret's home", sub: 'Home', color: '#14a08c', initials: 'M', big: true, kind: 'home', geo: offsetGeo(0, 0) },
+  { name: 'David (brother)', sub: '', detail: '450 m · 6 min walk', color: '#2f6fb0', initials: 'D', phase: 0.3, kind: 'family', geo: offsetGeo(-300, 330) },
+  { name: 'GP', sub: '', detail: 'Illawarra Rd Family Practice · Dr Patel · 350 m', color: '#ffffff', ink: '#0b7f71', initials: '+', phase: 0.5, at: { x: 162, y: 132, z: 12 }, kind: 'health', geo: gridGeo({ x: 162, y: 132, z: 12 }) },
+  { name: 'Pharmacy', sub: '', detail: '280 m · open to 21:00', color: '#ffffff', ink: '#1fb39c', initials: 'Rx', phase: 0.7, at: { x: 127, y: 133, z: 9 }, kind: 'health', geo: gridGeo({ x: 127, y: 133, z: 9 }) },
+  { name: 'Library cool room', sub: '', detail: '400 m · 120 places', color: '#8f6fd0', initials: 'L', phase: 0.1, at: { x: 305, y: 301, z: 21 }, kind: 'community', geo: gridGeo({ x: 305, y: 301, z: 21 }) },
+  { name: 'Walking group', sub: '', detail: 'Thu 9:00 · Calvert Reserve', color: '#8f6fd0', initials: 'W', phase: 0.6, at: { x: 329, y: 211, z: 2 }, kind: 'community', geo: gridGeo({ x: 329, y: 211, z: 2 }) },
   { name: '→ Stroke centre 4.2 km', sub: '', detail: 'Camperdown Stroke Centre · north-east · 11 min by ambulance', color: '#ef4e4a', initials: '', tag: true, at: { x: 398, y: 398, z: 2 } },
 ]
 
 /** Pins of the Surroundings map (prototype lines 1666–1673). The home pin keeps the generated house position. */
 const watchPins: MapPin[] = [
-  { name: 'Margaret', sub: '', detail: 'Home', color: '#14a08c', initials: 'M', big: true },
-  { name: 'Footpath works', sub: '', detail: 'Marrickville Rd outside the pharmacy · uneven surface until 24 Oct', color: '#c88a05', initials: '!', phase: 0.2, at: { x: 225, y: 146, z: 2 } },
-  { name: 'Scam reported', sub: '', detail: 'Door-to-door "solar rebate" scam · 3 reports on this street since Monday', color: '#d9443f', initials: '!', phase: 0.4, at: { x: 70, y: 205, z: 8 } },
-  { name: 'Street light out', sub: '', detail: 'Calvert St since Sunday · reported to council #IW-48213', color: '#c88a05', initials: '☾', phase: 0.6, at: { x: 160, y: 270, z: 6 } },
-  { name: 'Swooping magpie', sub: '', detail: 'Calvert Reserve, western path · spring nesting season', color: '#c88a05', initials: 'M', phase: 0.8, at: { x: 350, y: 235, z: 6 } },
-  { name: 'Snake sighting', sub: '', detail: 'Cooks River path · keep to the paved track', color: '#c88a05', initials: 'S', phase: 0.1, at: { x: 60, y: 36, z: 2 } },
-  { name: 'Cool room', sub: '', detail: 'Library · open 9–8 Thursday · 74 places left', color: '#1fb39c', initials: 'L', phase: 0.5, at: { x: 305, y: 301, z: 21 } },
-  { name: 'Vaccines', sub: '', detail: 'Pharmacy · flu and COVID walk-in Thu–Sat', color: '#1fb39c', initials: '+', phase: 0.7, at: { x: 127, y: 133, z: 9 } },
+  { name: 'Margaret', sub: '', detail: 'Home', color: '#14a08c', initials: 'M', big: true, kind: 'home', geo: offsetGeo(0, 0) },
+  { name: 'Footpath works', sub: '', detail: 'Marrickville Rd outside the pharmacy · uneven surface until 24 Oct', color: '#c88a05', initials: '!', phase: 0.2, at: { x: 225, y: 146, z: 2 }, kind: 'alert', tone: 'watch', geo: gridGeo({ x: 225, y: 146, z: 2 }) },
+  { name: 'Scam reported', sub: '', detail: 'Door-to-door "solar rebate" scam · 3 reports on this street since Monday', color: '#d9443f', initials: '!', phase: 0.4, at: { x: 70, y: 205, z: 8 }, kind: 'alert', tone: 'act', geo: gridGeo({ x: 70, y: 205, z: 8 }) },
+  { name: 'Street light out', sub: '', detail: 'Calvert St since Sunday · reported to council #IW-48213', color: '#c88a05', initials: '☾', phase: 0.6, at: { x: 160, y: 270, z: 6 }, kind: 'alert', tone: 'watch', geo: gridGeo({ x: 160, y: 270, z: 6 }) },
+  { name: 'Swooping magpie', sub: '', detail: 'Calvert Reserve, western path · spring nesting season', color: '#c88a05', initials: 'M', phase: 0.8, at: { x: 350, y: 235, z: 6 }, kind: 'alert', tone: 'watch', geo: gridGeo({ x: 350, y: 235, z: 6 }) },
+  { name: 'Snake sighting', sub: '', detail: 'Cooks River path · keep to the paved track', color: '#c88a05', initials: 'S', phase: 0.1, at: { x: 60, y: 36, z: 2 }, kind: 'alert', tone: 'watch', geo: gridGeo({ x: 60, y: 36, z: 2 }) },
+  { name: 'Cool room', sub: '', detail: 'Library · open 9–8 Thursday · 74 places left', color: '#1fb39c', initials: 'L', phase: 0.5, at: { x: 305, y: 301, z: 21 }, kind: 'alert', tone: 'info', geo: gridGeo({ x: 305, y: 301, z: 21 }) },
+  { name: 'Vaccines', sub: '', detail: 'Pharmacy · flu and COVID walk-in Thu–Sat', color: '#1fb39c', initials: '+', phase: 0.7, at: { x: 127, y: 133, z: 9 }, kind: 'alert', tone: 'info', geo: gridGeo({ x: 127, y: 133, z: 9 }) },
 ]
 
 /** `[severity, icon, title, text, source]` — prototype line 1681. */

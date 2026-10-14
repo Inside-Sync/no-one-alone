@@ -8,6 +8,7 @@ import { PRIVACY_COPY } from '@/data/repo'
 import { CATEGORIES } from '@/domain/consent'
 import { useAppState } from '@/state/AppState'
 import { PauseButton } from './PauseButton'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 /** `🔐 Who sees what` (c12): quick choices and the people x categories switch grid. */
 export function ShareCard() {
@@ -24,7 +25,7 @@ export function ShareCard() {
         ))}
         <PauseButton className="sm" />
       </div>
-      <div className="tw">
+      <TableScroll>
         <table className="share">
           <thead>
             <tr>
@@ -59,7 +60,7 @@ export function ShareCard() {
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
       <p className="fine">{c.fine}</p>
     </GlassCard>
   )

@@ -1,5 +1,31 @@
 /* Copied from docs/reference/prototype.html <style> (lines 36-478); tokens live in tokens.css */
+/* R36 (Task 14 fix round): text-only status tones. The prototype's --warn #b97f04, --good #1f8f5f and --bad #d9443f
+   (tokens.css, unchanged; still used for fills, dots, borders and lines) are only 1.6-2.0:1 as text on the worst
+   measured glass (cards over the hills, median pixel rgb(135,186,168)) and 3.4/4.1/4.3:1 on white.
+   Each is the same hue darkened until it reaches AA on that worst case (and AAA, 10:1, on white glass):
+   --warn-text #593d02: 4.60:1 worst, 10.05:1 on white (was 1.58 / 3.44)
+   --good-text #104a31: 4.68:1 worst, 10.21:1 on white (was 1.87 / 4.08)
+   --bad-text  #772523: 4.62:1 worst, 10.08:1 on white (was 1.98 / 4.33) */
+:root{--warn-text:#593d02;--good-text:#104a31;--bad-text:#772523}
+/* R40 (final review, extends R36): the same text-only mechanism for muted, brand, teal and jac text. As text on the
+   worst measured glass (median pixel rgb(135,186,168), #87baa8) the prototype tones are below AA: --muted #56706e 2.44:1,
+   --brand #0b7f71 2.24:1, --jac #8f6fd0 1.80:1 (3.92:1 even on white), teal #1fb39c 1.20:1 (the "Helpful" pill).
+   tokens.css is unchanged and fills, dots, lines and icons keep those colours; only text moves to these darker tones of
+   the same hue (HSL hue kept, lightness lowered until AA on the worst glass):
+   --muted-text #354544 (hue 175): 4.61:1 worst, 10.07:1 white (was 2.44 / 5.33)
+   --brand-text #064a42 (hue 173): 4.66:1 worst, 10.16:1 white (was 2.24 / 4.90)
+   --teal-text  #0d4a40 (hue 171): 4.65:1 worst, 10.14:1 white (was 1.20 / 2.63)
+   --jac-text   #4d2e8d (hue 260): 4.60:1 worst, 10.04:1 white (was 1.80 / 3.92)
+   Per view, --brand-text follows --brand: hospital #194372 (hue 212) 4.61:1 worst (was #2563a8 2.81),
+   community #49318a (hue 256) 4.60:1 worst (was #6d4fc0 2.73). The current tab and the pressed segment (brand on .94
+   white, measured 4.26-4.31:1, 3.63:1 where the 390 px tab bar shows sky through it) use --brand-text too (7.5:1+). */
+:root{--muted-text:#354544;--brand-text:#064a42;--teal-text:#0d4a40;--jac-text:#4d2e8d}
+body[data-view="hospital"]{--brand-text:#194372}
+body[data-view="community"]{--brand-text:#49318a}
 /* Font faces come from @fontsource (imported in main.tsx). */
+/* a11y (Task 14): white text on the prototype's --sos (#ef4e4a) is 3.58:1, below WCAG AA.
+   Fills behind white text use this darker red (4.58:1); --sos itself is unchanged for dots, rings and lines. */
+:root{--sos-fill:#d04440}
 :root{--font:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,Consolas,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
@@ -30,16 +56,16 @@ h1,h2,h3{text-wrap:balance}
 .logo{width:32px;height:32px;border-radius:50%;background:radial-gradient(120% 120% at 30% 20%,#c4f7ea 0%,#1fb39c 50%,#0b6157 100%);box-shadow:0 0 0 2px rgba(255,255,255,.7),0 6px 14px rgba(11,127,113,.35);position:relative}
 .logo::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid rgba(11,127,113,.4);transform:scaleY(.42) rotate(-12deg)}
 .brand b{font-size:15.5px;font-weight:600;letter-spacing:-.2px;display:block;line-height:1.1}
-.brand small{font-size:11px;color:var(--muted)}
+.brand small{font-size:11px;color:var(--muted-text)}
 .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1;padding:2px}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:12px;font-size:13.5px;font-weight:500;color:var(--ink2);white-space:nowrap}
 .tabs button .ic{font-size:16px}
 .tabs button:hover{background:var(--glass-2)}
-.tabs button[aria-current="page"]{background:rgba(255,255,255,.94);color:var(--brand);box-shadow:var(--glass-edge),0 4px 12px rgba(8,50,48,.1)}
-.tabs .badge{font-size:10.5px;font-weight:600;padding:0 6px;border-radius:7px;background:var(--sos);color:#fff}
+.tabs button[aria-current="page"]{background:rgba(255,255,255,.94);color:var(--brand-text);box-shadow:var(--glass-edge),0 4px 12px rgba(8,50,48,.1)}
+.tabs .badge{font-size:10.5px;font-weight:600;padding:0 6px;border-radius:7px;background:var(--sos-fill);color:#fff}
 .tn-right{display:flex;align-items:center;gap:8px;flex:none}
-.search{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:var(--glass-2);box-shadow:var(--glass-edge);width:200px;color:var(--muted);font-size:13px}
+.search{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:var(--glass-2);box-shadow:var(--glass-edge);width:200px;color:var(--muted-text);font-size:13px}
 .search input{border:0;background:none;outline:none;width:100%;min-width:0;color:var(--ink)}
 .rb{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:17px;background:var(--glass-2);box-shadow:var(--glass-edge);position:relative}
 .rb .dot{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--sos);box-shadow:0 0 0 2px #fff}
@@ -49,7 +75,7 @@ h1,h2,h3{text-wrap:balance}
 /* context bar */
 .ctx{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:14px 18px}
 .ctx h1{font-size:24px;font-weight:500;letter-spacing:-.4px;line-height:1.15}
-.ctx .sub{font-size:12.5px;color:var(--muted)}
+.ctx .sub{font-size:12.5px;color:var(--muted-text)}
 .ctx .sp{flex:1}
 .facts{display:flex;gap:6px;flex-wrap:wrap}
 .fact{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:5px 10px;border-radius:11px;background:var(--glass-2);box-shadow:var(--glass-edge);color:var(--ink2);white-space:nowrap}
@@ -61,23 +87,26 @@ h1,h2,h3{text-wrap:balance}
 .card{padding:18px;min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-content:start}
 .ch{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .ch h2{font-size:15.5px;font-weight:600;letter-spacing:-.1px}
-.ch .meta{margin-left:auto;font-size:12px;color:var(--muted)}
-.ch .tag{font-size:10.5px;font-family:var(--mono);letter-spacing:.04em;padding:2px 7px;border-radius:6px;background:var(--glass-2);box-shadow:var(--glass-edge);color:var(--muted)}
+.ch .meta{margin-left:auto;font-size:12px;color:var(--muted-text)}
+.ch .tag{font-size:10.5px;font-family:var(--mono);letter-spacing:.04em;padding:2px 7px;border-radius:6px;background:var(--glass-2);box-shadow:var(--glass-edge);color:var(--muted-text)}
 .li{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:16px;color:var(--brand);background:rgba(255,255,255,.66);box-shadow:var(--glass-edge);flex:none}
-.muted{color:var(--muted)}
-.fine{font-size:11.5px;color:var(--muted);line-height:1.45}
+.muted{color:var(--muted-text)}
+.fine{font-size:11.5px;color:var(--muted-text);line-height:1.45}
+/* a11y (Task 14): a footnote placed straight on the page (not in a card) sits over the darkest hill (--m5),
+   where --muted is 1.17:1. Light text there is 5.6:1. */
+main > .fine.c12{color:#eaf4f0}
 .pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:2px 8px 2px 7px;border-radius:9px;white-space:nowrap;background:rgba(255,255,255,.78);box-shadow:var(--glass-edge)}
 .pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
-.pill.good{color:var(--good)}.pill.warn{color:var(--warn)}.pill.bad{color:var(--bad)}.pill.brand{color:var(--brand)}.pill.plain{color:#56706e}.pill.jac{color:var(--jac)}
+.pill.good{color:var(--good-text)}.pill.warn{color:var(--warn-text)}.pill.bad{color:var(--bad-text)}.pill.brand{color:var(--brand-text)}.pill.plain{color:var(--muted-text)}.pill.jac{color:var(--jac-text)}
 .chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:5px 10px;border-radius:12px;background:var(--glass-2);box-shadow:var(--glass-edge);white-space:nowrap}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 14px;border-radius:12px;font-size:13.5px;font-weight:500;background:var(--brand);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 8px 18px rgba(11,127,113,.26);white-space:nowrap}
 .btn.soft{background:rgba(255,255,255,.7);color:#0d2a2a;box-shadow:var(--glass-edge)}
-.btn.sos{background:var(--sos);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 8px 22px rgba(239,78,74,.36)}
+.btn.sos{background:var(--sos-fill);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 8px 22px rgba(239,78,74,.36)}
 .btn.sm{padding:6px 10px;font-size:12.5px;border-radius:10px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .seg{display:inline-flex;gap:2px;padding:3px;border-radius:12px;background:var(--glass-2);box-shadow:var(--glass-edge)}
 .seg button{padding:5px 11px;border-radius:9px;font-size:12px;font-weight:500;color:var(--ink2)}
-.seg button[aria-pressed="true"]{background:rgba(255,255,255,.95);color:var(--brand);box-shadow:0 1px 3px rgba(8,50,48,.14)}
+.seg button[aria-pressed="true"]{background:rgba(255,255,255,.95);color:var(--brand-text);box-shadow:0 1px 3px rgba(8,50,48,.14)}
 .sw{width:40px;height:24px;border-radius:12px;background:rgba(13,42,42,.18);position:relative;transition:background-color .2s;flex:none}
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s}
 .sw[aria-checked="true"]{background:var(--brand-2)}
@@ -92,7 +121,7 @@ h1,h2,h3{text-wrap:balance}
 .map-top{position:absolute;left:18px;right:18px;top:16px;z-index:3;display:flex;gap:12px;align-items:flex-start;pointer-events:none}
 .map-top > *{pointer-events:auto}
 .loc{display:grid;gap:2px;padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.62);box-shadow:var(--glass-edge);-webkit-backdrop-filter:var(--frost);backdrop-filter:var(--frost)}
-.loc .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.loc .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-text)}
 .loc b{font-size:20px;font-weight:600;letter-spacing:-.3px}
 .loc small{font-size:12px;color:var(--ink2)}
 .map-ctrl{margin-left:auto;display:flex;gap:6px}
@@ -106,13 +135,13 @@ body.night .loc,body.night .map-legend,body.night .map-bottom .chip{background:r
 /* status */
 .status-big{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
 .status-big b{font-size:60px;font-weight:300;letter-spacing:-2.6px;line-height:.95}
-.status-big span{font-size:13px;color:var(--brand);font-weight:600;padding-bottom:6px}
+.status-big span{font-size:13px;color:var(--brand-text);font-weight:600;padding-bottom:6px}
 .devs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .dev{padding:9px 10px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:11.5px;color:var(--ink2);display:grid;gap:2px}
 .dev b{font-size:13px;font-weight:600;color:var(--ink)}
 .dayline{list-style:none;display:grid;gap:0;font-size:12.5px}
 .dayline li{display:grid;grid-template-columns:44px 12px minmax(0,1fr);gap:8px;padding:5px 0;align-items:start}
-.dayline .t{font-family:var(--mono);font-size:11.5px;color:var(--muted);padding-top:1px}
+.dayline .t{font-family:var(--mono);font-size:11.5px;color:var(--muted-text);padding-top:1px}
 .dayline .d{width:8px;height:8px;border-radius:50%;margin-top:5px;background:var(--brand-2)}
 .dayline .d.w{background:var(--warn)}.dayline .d.n{background:var(--track)}
 
@@ -122,16 +151,16 @@ body.night .loc,body.night .map-legend,body.night .map-bottom .chip{background:r
 .kpi .k{font-size:11.5px;color:var(--ink2);display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kpi .k i{width:7px;height:7px;border-radius:50%;flex:none}
 .kpi .v{font-size:26px;font-weight:300;letter-spacing:-.8px;line-height:1.1;font-variant-numeric:tabular-nums;white-space:nowrap}
-.kpi .v small{font-size:11.5px;letter-spacing:0;color:var(--muted);margin-left:3px}
-.kpi .d{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:var(--muted);font-family:var(--mono)}
+.kpi .v small{font-size:11.5px;letter-spacing:0;color:var(--muted-text);margin-left:3px}
+.kpi .d{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:var(--muted-text);font-family:var(--mono)}
 .kpi .d b{font-weight:600}
 .kpi svg{width:100%;height:26px;display:block}
 
 /* charts */
 svg text{font-family:var(--mono)}
 .chart svg{width:100%;height:auto;display:block;overflow:visible}
-.chart text{font-size:10px;fill:var(--muted)}
-.hm{display:grid;grid-template-columns:34px repeat(24,minmax(0,1fr));gap:2px;font-family:var(--mono);font-size:9.5px;color:var(--muted)}
+.chart text{font-size:10px;fill:var(--muted-text)}
+.hm{display:grid;grid-template-columns:34px repeat(24,minmax(0,1fr));gap:2px;font-family:var(--mono);font-size:9.5px;color:var(--muted-text)}
 .hm span{display:flex;align-items:center}
 .hm i{height:15px;border-radius:3px;display:block}
 .hm i.an{box-shadow:0 0 0 1.5px var(--sos)}
@@ -152,9 +181,9 @@ table{width:100%;border-collapse:collapse;font-size:13px}
 .tw{overflow-x:auto;margin:0 -4px}
 .tw table{min-width:620px}
 th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
-th{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:500;white-space:nowrap}
+th{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-text);font-weight:500;white-space:nowrap}
 tr:last-child td{border-bottom:0}
-td small{display:block;font-size:11.5px;color:var(--muted)}
+td small{display:block;font-size:11.5px;color:var(--muted-text)}
 td.n{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
 
 .why{display:grid;gap:7px;font-size:13px;color:var(--ink2);list-style:none}
@@ -164,19 +193,19 @@ td.n{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
 .ppl{list-style:none;display:grid;gap:9px}
 .ppl li{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center}
 .ppl b{font-size:13.5px;font-weight:500;display:block}
-.ppl small{font-size:11.5px;color:var(--muted)}
+.ppl small{font-size:11.5px;color:var(--muted-text)}
 .bubble{padding:8px 12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:13px;max-width:88%}
 .bubble.me{justify-self:end;background:rgba(11,127,113,.14)}
 .mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .mini div{padding:9px 10px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);display:grid;gap:1px}
-.mini small{font-size:11px;color:var(--muted)}
+.mini small{font-size:11px;color:var(--muted-text)}
 .mini b{font-size:17px;font-weight:400;font-family:var(--mono);letter-spacing:-.3px}
 .mini em{font-style:normal;font-size:10.5px;font-family:var(--mono)}
 .list{list-style:none;display:grid;gap:0}
 .list li{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
 .list li:first-child{border-top:0}
 .list b{font-size:13px;font-weight:500;display:block}
-.list small{font-size:11.5px;color:var(--muted)}
+.list small{font-size:11.5px;color:var(--muted-text)}
 
 /* forecast */
 .shap{display:grid;gap:7px}
@@ -192,28 +221,32 @@ td.n{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
 input[type=range]{width:100%;accent-color:var(--brand)}
 .sim-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .sim-out div{padding:10px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);display:grid;gap:1px}
-.sim-out small{font-size:11px;color:var(--muted)}
+.sim-out small{font-size:11px;color:var(--muted-text)}
 .sim-out b{font-size:22px;font-weight:300;font-family:var(--mono);letter-spacing:-.5px}
 .sim-out em{font-style:normal;font-size:11px;font-family:var(--mono)}
 .modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .mode{padding:14px;border-radius:18px;background:var(--glass-2);box-shadow:var(--glass-edge);display:grid;gap:5px;justify-items:start;text-align:left}
 .mode .ic{font-size:22px;color:var(--brand)}
 .mode b{font-size:14px;font-weight:600}
-.mode small{font-size:12px;color:var(--muted)}
-.mode .tog{font-size:11px;font-weight:600;color:var(--muted);font-family:var(--mono)}
+.mode small{font-size:12px;color:var(--muted-text)}
+.mode .tog{font-size:11px;font-weight:600;color:var(--muted-text);font-family:var(--mono)}
 .mode[aria-pressed="true"]{background:rgba(255,255,255,.92);box-shadow:inset 0 0 0 1.5px var(--brand),0 6px 14px rgba(11,127,113,.14)}
 .mode[aria-pressed="true"] .tog{color:var(--brand)}
+/* a11y (Task 14): an off mode card is .52 white glass over the hills (#9bb8ad behind the text), where --muted
+   is 2.5:1; its small text uses --ink (7.1:1). An on card is .92 white, where --brand is 4.37:1, so it goes to .96 (4.63:1). */
+.mode[aria-pressed="false"] small,.mode[aria-pressed="false"] .tog{color:var(--ink)}
+.mode[aria-pressed="true"]{background:rgba(255,255,255,.96)}
 .model{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
-.model div{display:grid;gap:1px;font-size:11.5px;color:var(--muted)}
+.model div{display:grid;gap:1px;font-size:11.5px;color:var(--muted-text)}
 .model b{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--ink)}
 
 /* lineage */
 .ped{display:grid;gap:8px;justify-items:center}
-.gen-l{font-size:10.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.gen-l{font-size:10.5px;color:var(--muted-text);letter-spacing:.08em;text-transform:uppercase}
 .gen{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .node{width:168px;max-width:100%;padding:10px 12px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge);display:grid;gap:2px;position:relative}
 .node b{font-size:13.5px;font-weight:600}
-.node small{font-size:11.5px;color:var(--muted)}
+.node small{font-size:11.5px;color:var(--muted-text)}
 .node .cx{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}
 .node .cx i{font-style:normal;font-size:10px;font-family:var(--mono);padding:1px 5px;border-radius:5px;color:#fff}
 .node.focus{background:rgba(255,255,255,.94);box-shadow:inset 0 0 0 1.5px var(--brand),0 8px 18px rgba(11,127,113,.16)}
@@ -231,12 +264,12 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 .strength .dots i{width:16px;height:7px;border-radius:3px;background:var(--track)}
 .strength .dots i.on{background:var(--sun-ink)}
 .cm{display:grid;grid-template-columns:120px repeat(5,minmax(0,1fr));gap:8px 6px;align-items:center;font-size:12px}
-.cm .h{font-size:10.5px;color:var(--muted);text-align:center}
+.cm .h{font-size:10.5px;color:var(--muted-text);text-align:center}
 .cm .sw{justify-self:center}
 
 /* record */
 .enc svg{width:100%;height:auto;display:block}
-.enc text{font-size:10px;fill:var(--muted)}
+.enc text{font-size:10px;fill:var(--muted-text)}
 .labs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .lab{padding:10px 12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);display:grid;gap:2px}
 .lab .t{display:flex;justify-content:space-between;font-size:12px;color:var(--ink2)}
@@ -245,7 +278,7 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 .packet{display:grid;font-size:13px;border-radius:14px;background:rgba(255,255,255,.78);box-shadow:var(--glass-edge);padding:2px 12px;color:#0d2a2a}
 .packet div{display:grid;grid-template-columns:100px minmax(0,1fr);gap:10px;padding:7px 0;border-top:1px solid rgba(13,42,42,.07)}
 .packet div:first-child{border-top:0}
-.packet span{color:#56706e;font-size:12px}
+.packet span{color:var(--muted-text);font-size:12px}
 .days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 .days div{padding:10px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);display:grid;gap:2px;font-size:12px}
 .days b{font-family:var(--mono);font-size:12px}
@@ -256,33 +289,33 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(239,78,74,.6)}100%{box-shadow:0 0 0 12px rgba(239,78,74,0)}}
 .em-stat{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .em-stat .v{font-size:52px;font-weight:300;letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums}
-.em-stat .k{font-size:12px;color:var(--muted)}
+.em-stat .k{font-size:12px;color:var(--muted-text)}
 .em-stat .l{font-size:13.5px;font-weight:600;color:#ffb3a7}
 .owner{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge)}
 .owner b{font-size:14px;font-weight:500;display:block}
-.owner small{font-size:11.5px;color:var(--muted)}
+.owner small{font-size:11.5px;color:var(--muted-text)}
 .eta{font-size:24px;font-weight:300;font-variant-numeric:tabular-nums}
 .actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .act{display:grid;justify-items:center;gap:5px;padding:12px 6px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:12px;font-weight:500;text-align:center}
 .act .ic{font-size:20px}
-.act.primary{background:var(--sos);color:#fff;box-shadow:0 10px 24px rgba(239,78,74,.36)}
+.act.primary{background:var(--sos-fill);color:#fff;box-shadow:0 10px 24px rgba(239,78,74,.36)}
 .tl{list-style:none;display:grid}
 .tl li{display:grid;grid-template-columns:44px 12px minmax(0,1fr);gap:9px;font-size:13px;padding:6px 0;opacity:.35;transition:opacity .4s}
 .tl li.done{opacity:1}
-.tl .tm{font-family:var(--mono);font-size:11.5px;color:var(--muted);padding-top:2px}
+.tl .tm{font-family:var(--mono);font-size:11.5px;color:var(--muted-text);padding-top:2px}
 .tl .dot{width:9px;height:9px;border-radius:50%;background:var(--track);margin-top:6px}
 .tl li.done .dot{background:var(--brand-2)}
 .tl li.cur .dot{background:var(--sos);box-shadow:0 0 0 4px rgba(239,78,74,.25)}
-.tl small{display:block;font-size:11.5px;color:var(--muted)}
+.tl small{display:block;font-size:11.5px;color:var(--muted-text)}
 .player{display:flex;align-items:center;gap:8px}
 .pb{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:15px}
-.pb:disabled{opacity:.4;cursor:default}
+.pb:disabled,.pb[aria-disabled="true"]{opacity:.4;cursor:default}
 .pdots{display:flex;gap:5px;flex:1;justify-content:center}
 .pdots i{width:6px;height:6px;border-radius:50%;background:var(--track)}
 .pdots i.on{background:var(--ink)}
 .sla{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 .sla div{padding:9px 10px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);display:grid;gap:1px}
-.sla small{font-size:10.5px;color:var(--muted)}
+.sla small{font-size:10.5px;color:var(--muted-text)}
 .sla b{font-family:var(--mono);font-size:16px;font-weight:500}
 .idle{text-align:center;justify-items:center;padding:40px 24px}
 .idle h2{font-size:22px;font-weight:500}
@@ -321,7 +354,7 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 .hbars .tr i.b{background:rgba(31,179,156,.35)}
 .hbars b{font-family:var(--mono);font-size:11.5px;text-align:right;font-weight:500}
 .vbars{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:8px;align-items:end;height:150px;position:relative;padding-top:14px}
-.vbars div{display:grid;gap:4px;justify-items:center;align-content:end;height:100%;font-size:11px;color:var(--muted);font-family:var(--mono)}
+.vbars div{display:grid;gap:4px;justify-items:center;align-content:end;height:100%;font-size:11px;color:var(--muted-text);font-family:var(--mono)}
 .vbars i{display:block;width:100%;max-width:34px;border-radius:7px 7px 3px 3px}
 .vbars b{font-size:11.5px;color:var(--ink);font-weight:600}
 .vbars .thr{position:absolute;left:0;right:0;border-top:1.5px dashed var(--sos);font-size:10px;color:var(--sos);font-family:var(--mono);text-align:right;padding-right:2px}
@@ -332,7 +365,7 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 .msg{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge);text-align:left;width:100%}
 .msg.new{box-shadow:inset 0 0 0 1.5px var(--sos),0 8px 22px rgba(239,78,74,.22)}
 .msg b{font-size:14px;font-weight:500;display:block}
-.msg small{font-size:12px;color:var(--muted)}
+.msg small{font-size:12px;color:var(--muted-text)}
 
 /* drawer + toast */
 .scrim{position:fixed;inset:0;z-index:50;background:rgba(4,30,28,.25);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s}
@@ -348,35 +381,54 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
 body.night .chip,body.night .kpi,body.night .dev,body.night .mini div,body.night .bubble,body.night .mode,body.night .node,body.night .lab,body.night .rb,body.night .fact,body.night .search,body.night .sla div,body.night .days div,body.night .sim-out div{background:rgba(255,255,255,.08)}
-body.night .tabs button[aria-current="page"],body.night .seg button[aria-pressed="true"]{background:rgba(255,255,255,.92);color:var(--brand)}
+body.night .tabs button[aria-current="page"],body.night .seg button[aria-pressed="true"]{background:rgba(255,255,255,.92);color:var(--brand-text)}
 body.night .pill{background:rgba(255,255,255,.92)}
+/* R36 night: tone text sits on dark glass (#1f2432 measured on night KPI cards), where the light-theme text tones
+   are ~1.5:1. Lighter tones of the same hues: warn #e8ac2e 7.6:1, good #4fc38c 7.0:1, bad #ff7b74 6.2:1.
+   Night pills keep a .92 white fill, so they keep the dark text tones. */
+body.night{--warn-text:#e8ac2e;--good-text:#4fc38c;--bad-text:#ff7b74}
+body.night .pill{--warn-text:#593d02;--good-text:#104a31;--bad-text:#772523}
+/* R40 night: night glass is lighter than R36's #1f2432 sample in places (measured up to rgb(78,90,148) behind the
+   top bar and the live timeline), where the night --muted #a8a2b6 is 2.65:1; muted text uses #dad8e0 (same hue family,
+   4.63:1 there, 10.97:1 on #1f2432). Brand and jac text use lighter tones of their hues, 5:1 on #1f2432:
+   brand #0b7f71 3.16 -> #0ea592, hospital #2563a8 -> #5896da, community #6d4fc0 -> #9b87d4, jac #8f6fd0 3.95 -> #a085d7;
+   teal #1fb39c is 5.89:1 as is. White-filled controls (pills, the current tab, the pressed segment) and the light
+   drawer, and the light packet and key-value boxes (.packet, .kv2: #56706e there was 3.4:1, now var(--muted-text))
+   keep the light-theme text tones. */
+body.night{--muted-text:#dad8e0;--brand-text:#0ea592;--teal-text:#1fb39c;--jac-text:#a085d7}
+body.night[data-view="hospital"]{--brand-text:#5896da}
+body.night[data-view="community"]{--brand-text:#9b87d4}
+body.night .pill,body.night .drawer,body.night .packet,body.night .kv2,body.night .tabs button[aria-current="page"],body.night .seg button[aria-pressed="true"]{--muted-text:#354544;--brand-text:#064a42;--teal-text:#0d4a40;--jac-text:#4d2e8d}
+body.night[data-view="hospital"] :is(.pill,.drawer,.tabs button[aria-current="page"],.seg button[aria-pressed="true"]){--brand-text:#194372}
+body.night[data-view="community"] :is(.pill,.drawer,.tabs button[aria-current="page"],.seg button[aria-pressed="true"]){--brand-text:#49318a}
+body.night .drawer{--warn-text:#593d02;--good-text:#104a31;--bad-text:#772523}
 
 
 /* clickable */
 .kpi,.mini > div,.alerts li,.news li,tr.clk{cursor:pointer;transition:transform .15s,box-shadow .15s}
 .kpi:hover,.mini > div:hover,.alerts li:hover{transform:translateY(-2px)}
 tr.clk:hover td{background:rgba(255,255,255,.25)}
-.news li:hover b{color:var(--brand)}
+.news li:hover b{color:var(--brand-text)}
 .emo{font-size:15px;line-height:1}
 .kpi .k .emo{font-size:15px}
 .dr-big{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .dr-big b{font-size:44px;font-weight:300;letter-spacing:-1.5px}
 .dr-chart svg{width:100%;height:120px;display:block}
 .kv2{display:grid;grid-template-columns:120px minmax(0,1fr);gap:6px 12px;font-size:13.5px;padding:12px;border-radius:14px;background:rgba(255,255,255,.75)}
-.kv2 span{color:#56706e;font-size:12.5px}
+.kv2 span{color:var(--muted-text);font-size:12.5px}
 .prof{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;align-items:center}
 .pf-id{display:flex;align-items:center;gap:14px}
 .pf-id b{font-size:18px;font-weight:600;display:block}
-.pf-id small{font-size:12.5px;color:var(--muted)}
+.pf-id small{font-size:12.5px;color:var(--muted-text)}
 .pf-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
 .pf-grid div{padding:9px 11px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);display:grid;gap:1px}
-.pf-grid small{font-size:11.5px;color:var(--muted)}
+.pf-grid small{font-size:11.5px;color:var(--muted-text)}
 .pf-grid b{font-size:13.5px;font-weight:600}
 .conds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
 .cond{display:grid;gap:3px;padding:12px 14px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge);text-align:left;border-left:4px solid var(--c)}
 .cond b{font-size:14px;font-weight:600}
 .cond small{font-size:12px;color:var(--ink2)}
-.cond em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--c)}
+.cond em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--c-text,var(--c))}
 @media (max-width:1100px){.prof{grid-template-columns:1fr}.pf-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.conds{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){.pf-grid,.conds{grid-template-columns:1fr 1fr}}
 /* views */
@@ -391,7 +443,7 @@ body[data-view="community"]{--brand:#6d4fc0;--brand-2:#9a7fe0}
 .gauges div{display:grid;justify-items:center;gap:2px;text-align:center}
 .gauges svg{width:100%;max-width:120px;height:auto}
 .gauges b{font-size:13px;font-weight:600}
-.gauges small{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.gauges small{font-size:11px;color:var(--muted-text);font-family:var(--mono)}
 .groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .groups .card{gap:10px}
 .wx-now{display:flex;align-items:center;gap:14px}
@@ -407,19 +459,19 @@ body[data-view="community"]{--brand:#6d4fc0;--brand-2:#9a7fe0}
 .alerts .sev{align-self:stretch;margin:-10px 0}
 .alerts b{font-size:13.5px;font-weight:600;display:block}
 .alerts small{font-size:12px;color:var(--ink2);display:block}
-.alerts em{font-style:normal;font-size:11px;color:var(--muted);font-family:var(--mono)}
+.alerts em{font-style:normal;font-size:11px;color:var(--muted-text);font-family:var(--mono)}
 .news{list-style:none;display:grid;gap:0}
 .news li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:10px 0;border-top:1px solid var(--line)}
 .news li:first-child{border-top:0}
-.news .src{font-size:11px;font-family:var(--mono);color:var(--muted);letter-spacing:.02em}
+.news .src{font-size:11px;font-family:var(--mono);color:var(--muted-text);letter-spacing:.02em}
 .news b{font-size:13.5px;font-weight:600;grid-column:1/2}
 .news p{font-size:12.5px;color:var(--ink2);grid-column:1/-1}
-.news .why2{grid-column:1/-1;font-size:11px;color:var(--brand);font-weight:500}
+.news .why2{grid-column:1/-1;font-size:11px;color:var(--brand-text);font-weight:500}
 .check{list-style:none;display:grid;gap:6px;font-size:13px}
 .check li{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:8px;align-items:center}
 .check .bx{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;font-size:12px;color:#fff;background:var(--track)}
 .check .bx.on{background:var(--good)}
-.check em{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.check em{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--muted-text)}
 .board td.st{text-align:center;padding:6px 4px}
 .board td.st i{display:inline-block;width:26px;height:18px;border-radius:6px;font-style:normal;font-size:10px;font-family:var(--mono);color:#fff;line-height:18px}
 @media (max-width:1280px){.views button span:not(.ic){display:none}}
@@ -441,6 +493,11 @@ body[data-view="community"]{--brand:#6d4fc0;--brand-2:#9a7fe0}
   .days{grid-template-columns:repeat(2,minmax(0,1fr))}
   .shap div{grid-template-columns:110px minmax(0,1fr) 46px}
   .ctx h1{font-size:20px}
+  /* 360 px (Task 14): a long segmented filter (Around her news: 6 options) scrolls inside itself, like the tab bar,
+     instead of widening the page (the prototype overflows to 449 px at 390). */
+  .seg{max-width:100%;overflow-x:auto;scrollbar-width:none}
+  .seg::-webkit-scrollbar{display:none}
+  .seg button{flex:none}
   .model{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (prefers-reduced-motion:reduce){.em-tag i,.listen i{animation:none}.listen i{height:20px}.dev-flash.on{animation:none;opacity:.4}}
@@ -460,7 +517,9 @@ body[data-view="community"]{--brand:#6d4fc0;--brand-2:#9a7fe0}
 .bt b{font-size:18px;font-weight:600}
 .bt small{font-size:14px;color:var(--ink2)}
 .bt.warn{box-shadow:inset 0 0 0 2px rgba(185,127,4,.45)}
-.promise li{grid-template-columns:24px minmax(0,1fr);font-size:14px}
+/* The prototype injects `.promise li{grid-template-columns:24px …}` into <head>, but its main <style> sits in <body>
+   and comes later, so `.why li` (18px) wins there. Keep the effective value (parity, Task 14). */
+.promise li{font-size:14px}
 .promise li > span:first-child{font-size:17px}
 .share td,.share th{padding:8px 6px}
 .share .sw:disabled{opacity:.55;cursor:not-allowed}

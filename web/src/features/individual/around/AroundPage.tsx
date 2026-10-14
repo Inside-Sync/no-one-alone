@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { getCityScene, getSurroundings } from '@/data/repo'
 import type { CityGeometry, Surroundings } from '@/data/types'
+import { PageError } from '@/features/shared/PageError'
+import { useRepo } from '@/features/shared/useRepo'
 import { AirCard } from './AirCard'
 import { AlertsCard } from './AlertsCard'
 import { EnvKpis } from './EnvKpis'
@@ -16,24 +17,17 @@ interface AroundData {
   city: CityGeometry
 }
 
-function useAroundData(): AroundData | null {
-  const [data, setData] = useState<AroundData | null>(null)
-  useEffect(() => {
-    let live = true
-    Promise.all([getSurroundings('margaret'), getCityScene()]).then(([s, city]) => {
-      if (live) setData({ s, city })
-    })
-    return () => { live = false }
-  }, [])
-  return data
-}
+const loadAround = (): Promise<AroundData> =>
+  Promise.all([getSurroundings('margaret'), getCityScene()]).then(([s, city]) => ({ s, city }))
 
 /**
  * Individual view · Around her (`<main data-page="around">`). No card carries a
  * consent category in the prototype (`scat`), so nothing here is `<Locked>`.
  */
 export function AroundPage() {
-  const d = useAroundData()
+  const r = useRepo(loadAround)
+  if (r.status === 'error') return <PageError page="around" onRetry={r.retry} />
+  const d = r.data
   if (!d) return null
   const { s, city } = d
   return (

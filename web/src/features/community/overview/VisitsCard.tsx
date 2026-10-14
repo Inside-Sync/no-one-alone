@@ -6,6 +6,7 @@ import type { VisitRow } from '@/data/types'
 import { rankVisits } from '@/domain/district'
 import { Head } from '../../individual/home/parts'
 import { CommunityRow } from '../shared'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 const plain = { fontWeight: 500 } as const
 
@@ -15,7 +16,7 @@ export function VisitsCard({ rows }: { rows: VisitRow[] }) {
   return (
     <GlassCard span={8}>
       <Head title={c.title} meta={c.meta} />
-      <div className="tw">
+      <TableScroll>
         <table>
           <thead><tr>{c.head.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
           <tbody id="visits">
@@ -46,7 +47,7 @@ export function VisitsCard({ rows }: { rows: VisitRow[] }) {
             })}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

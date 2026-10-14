@@ -4,6 +4,7 @@ import { Pill } from '@/components/ui/Pill'
 import { COMMUNITY_COPY } from '@/data/repo'
 import type { WatchReport } from '@/data/types'
 import { CommunityRow } from '../shared'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 const plain = { fontWeight: 500 } as const
 
@@ -17,7 +18,7 @@ export function ReportsCard({ rows }: { rows: WatchReport[] }) {
         <h2>{c.title}</h2>
         <span className="meta">{c.meta}</span>
       </div>
-      <div className="tw">
+      <TableScroll>
         <table>
           <thead><tr>{c.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="watchRows">
@@ -44,7 +45,7 @@ export function ReportsCard({ rows }: { rows: WatchReport[] }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

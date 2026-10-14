@@ -3,6 +3,7 @@ import { COMMUNITY_COPY } from '@/data/repo'
 import type { ProgramRow } from '@/data/types'
 import { Head } from '../../individual/home/parts'
 import { CommunityRow } from '../shared'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 /** `Programs and outcomes` (c6): twelve-week view of each community program. */
 export function ProgramsCard({ rows }: { rows: ProgramRow[] }) {
@@ -10,7 +11,7 @@ export function ProgramsCard({ rows }: { rows: ProgramRow[] }) {
   return (
     <GlassCard span={6}>
       <Head title={c.title} meta={c.meta} />
-      <div className="tw">
+      <TableScroll>
         <table style={{ minWidth: 0 }}>
           <thead><tr>{c.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="progs">
@@ -28,7 +29,7 @@ export function ProgramsCard({ rows }: { rows: ProgramRow[] }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

@@ -1,6 +1,7 @@
 import { GlassCard } from '@/components/ui/GlassCard'
 import { COMMUNITY_COPY } from '@/data/repo'
 import type { FunnelStage, MiniStat } from '@/data/types'
+import { fillForWhiteText } from '@/lib/color'
 import { Head } from '../../individual/home/parts'
 import { CommunityMini } from '../shared'
 
@@ -18,7 +19,7 @@ export function FunnelCard({ stages, minis }: { stages: FunnelStage[]; minis: Mi
         {stages.map((f) => (
           <div key={f.label}>
             <span>{f.label}</span>
-            <i style={{ width: `${Math.max(MIN_BAR_PERCENT, (f.value / top) * 100)}%`, background: f.color }}>{f.value}</i>
+            <i style={{ width: `${Math.max(MIN_BAR_PERCENT, (f.value / top) * 100)}%`, background: fillForWhiteText(f.color) }}>{f.value}</i>
           </div>
         ))}
       </div>

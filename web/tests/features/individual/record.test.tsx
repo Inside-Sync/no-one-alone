@@ -56,11 +56,11 @@ test('medicines table, pill and allergy note', async () => {
   const rows = document.getElementById('meds')!.querySelectorAll('tr')
   expect(rows).toHaveLength(4)
   expect(rows[0]).toHaveTextContent('Amlodipine 5 mg')
-  expect(within(rows[0] as HTMLElement).getByText('82%')).toHaveStyle({ color: 'var(--warn)' })
-  expect(within(rows[1] as HTMLElement).getByText('96%')).toHaveStyle({ color: 'var(--good)' })
+  expect(within(rows[0] as HTMLElement).getByText('82%')).toHaveStyle({ color: 'var(--warn-text)' })
+  expect(within(rows[1] as HTMLElement).getByText('96%')).toHaveStyle({ color: 'var(--good-text)' })
   const note = screen.getByText(/Interaction check run 14 Oct against all active medicines\./)
   expect(note.textContent).toBe('Allergy: penicillin (rash, 1998). Interaction check run 14 Oct against all active medicines.')
-  expect(within(note).getByText('penicillin')).toHaveStyle({ color: 'var(--bad)' })
+  expect(within(note).getByText('penicillin')).toHaveStyle({ color: 'var(--bad-text)' })
 })
 
 test('pathology minis flag eGFR out of range and shade the reference band', async () => {
@@ -70,7 +70,7 @@ test('pathology minis flag eGFR out of range and shade the reference band', asyn
   expect(labs).toHaveLength(4)
   const egfr = labs[0]
   expect(egfr.querySelector('b')).toHaveTextContent('58')
-  expect(egfr.querySelector('b')).toHaveStyle({ color: 'var(--warn)' })
+  expect(egfr.querySelector('b')).toHaveStyle({ color: 'var(--warn-text)' })
   expect(egfr.querySelector('path')).toHaveAttribute('stroke', '#c88a05')
   expect(egfr.querySelectorAll('circle')).toHaveLength(4)
   expect(egfr.querySelector('rect')).toHaveAttribute('fill', 'rgba(31,179,156,.14)')

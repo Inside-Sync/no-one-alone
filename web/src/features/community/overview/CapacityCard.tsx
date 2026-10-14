@@ -23,7 +23,7 @@ export function CapacityCard({ rows }: { rows: CommunityData['capacity'] }) {
                 <i className="b" style={{ width: `${(r.capacity / max) * 100}%` }}></i>
                 <i style={{ width: `${(r.need / max) * 100}%`, background: short ? BAR_SHORT : BAR_COVERED, opacity: 0.85, height: 5, top: 3.5 }}></i>
               </span>
-              <b style={{ color: short ? 'var(--bad)' : 'var(--good)' }}>{short ? `−${r.need - r.capacity}` : `+${r.capacity - r.need}`}</b>
+              <b style={{ color: short ? 'var(--bad-text)' : 'var(--good-text)' }}>{short ? `−${r.need - r.capacity}` : `+${r.capacity - r.need}`}</b>
             </div>
           )
         })}

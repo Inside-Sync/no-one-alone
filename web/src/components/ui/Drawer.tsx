@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
+import { createContext, Fragment, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Icon } from './Icon'
 
 const FOCUSABLE =
@@ -89,20 +89,59 @@ export function Drawer({ open, title, onClose, children }: DrawerProps) {
 
 interface DrawerApi {
   open: (title: string, body: ReactNode) => void
+  /** Slides the drawer out; its body is dropped from the DOM once the slide-out has finished. */
   close: () => void
+  /** Closes at once and drops the body now (consent, viewer or route changed: the body may no longer be allowed). */
+  reset: () => void
 }
 const Ctx = createContext<DrawerApi | null>(null)
 
-/** Single drawer host, like the prototype's one `#drawer`. */
+/** `.drawer` slides out over `transform .32s` (globals.css); the body is cleared just after that. */
+export const DRAWER_SLIDE_MS = 340
+
+const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
+
+interface HostState { title: string; body: ReactNode; open: boolean; seq: number }
+
+/**
+ * Single drawer host, like the prototype's one `#drawer`.
+ * Review Focus 1: a closed drawer must not keep data in the DOM, so the body is cleared after the slide-out
+ * (at once under reduced motion) and `reset()` clears it immediately.
+ * Every open gets a fresh `seq` key, so the body's components start from clean state, like the prototype's
+ * `innerHTML` rebuild (an "✓ Added" button never carries over to the next drawer).
+ */
 export function DrawerProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<{ title: string; body: ReactNode; open: boolean }>({ title: '', body: null, open: false })
-  const open = useCallback((title: string, body: ReactNode) => setState({ title, body, open: true }), [])
-  const close = useCallback(() => setState((s) => ({ ...s, open: false })), [])
-  const api = useMemo(() => ({ open, close }), [open, close])
+  const [state, setState] = useState<HostState>({ title: '', body: null, open: false, seq: 0 })
+  const clearTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const cancelClear = useCallback(() => {
+    clearTimeout(clearTimer.current)
+    clearTimer.current = undefined
+  }, [])
+  const open = useCallback((title: string, body: ReactNode) => {
+    cancelClear()
+    setState((s) => ({ title, body, open: true, seq: s.seq + 1 }))
+  }, [cancelClear])
+  const reset = useCallback(() => {
+    cancelClear()
+    setState((s) => (s.open || s.body !== null || s.title ? { ...s, title: '', body: null, open: false } : s))
+  }, [cancelClear])
+  const close = useCallback(() => {
+    if (reducedMotion()) { reset(); return }
+    setState((s) => (s.open ? { ...s, open: false } : s))
+    cancelClear()
+    clearTimer.current = setTimeout(() => {
+      clearTimer.current = undefined
+      setState((s) => (s.open ? s : { ...s, title: '', body: null }))
+    }, DRAWER_SLIDE_MS)
+  }, [cancelClear, reset])
+  useEffect(() => cancelClear, [cancelClear])
+  const api = useMemo(() => ({ open, close, reset }), [open, close, reset])
   return (
     <Ctx.Provider value={api}>
       {children}
-      <Drawer open={state.open} title={state.title} onClose={close}>{state.body}</Drawer>
+      <Drawer open={state.open} title={state.title} onClose={close}>
+        <Fragment key={state.seq}>{state.body}</Fragment>
+      </Drawer>
     </Ctx.Provider>
   )
 }

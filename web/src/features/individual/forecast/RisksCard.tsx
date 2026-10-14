@@ -3,8 +3,9 @@ import { Pill } from '@/components/ui/Pill'
 import { FORECAST_COPY } from '@/data/repo'
 import type { RiskRow } from '@/data/types'
 import { Head } from '../home/parts'
+import { TableScroll } from '@/components/ui/TableScroll'
 
-const trendColour = (t: RiskRow['trend']) => (t === '↑' ? 'var(--bad)' : t === '↓' ? 'var(--good)' : 'var(--muted)')
+const trendColour = (t: RiskRow['trend']) => (t === '↑' ? 'var(--bad-text)' : t === '↓' ? 'var(--good-text)' : 'var(--muted-text)')
 
 /** `📊 Chances over time` (c7): `#riskRows`. */
 export function RisksCard({ risks }: { risks: RiskRow[] }) {
@@ -12,7 +13,7 @@ export function RisksCard({ risks }: { risks: RiskRow[] }) {
   return (
     <GlassCard span={7}>
       <Head title={c.title} meta={c.meta} />
-      <div className="tw">
+      <TableScroll>
         <table>
           <thead><tr>{c.columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="riskRows">
@@ -30,7 +31,7 @@ export function RisksCard({ risks }: { risks: RiskRow[] }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

@@ -17,7 +17,7 @@ function Lab({ lab }: { lab: LabRow }) {
   return (
     <div className="lab">
       <span className="t"><span>{lab.name}</span><span className="mono">{lab.unit}</span></span>
-      <b style={{ color: ok ? 'inherit' : 'var(--warn)' }}>{last}</b>
+      <b style={{ color: ok ? 'inherit' : 'var(--warn-text)' }}>{last}</b>
       <svg viewBox="0 0 100 40" preserveAspectRatio="none">
         <rect x="0" y={y(r1)} width="100" height={y(r0) - y(r1)} fill="rgba(31,179,156,.14)" />
         <path d={d} fill="none" stroke={stroke} strokeWidth="2" vectorEffect="non-scaling-stroke" />

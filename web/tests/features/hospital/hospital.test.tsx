@@ -90,13 +90,16 @@ describe('ed', () => {
     expect(screen.getByRole('button', { name: '✓ Diversion sent' })).toBeDisabled()
   })
 
-  test('a failed hospital load leaves the page empty without throwing', async () => {
+  test('a failed hospital load shows the page error card without throwing', async () => {
     const repo = await import('@/data/repo')
     const spy = vi.spyOn(repo, 'getHospital').mockRejectedValue(new Error('offline'))
-    renderWithProviders(<EdPage />, opts)
-    await act(async () => { await Promise.resolve() })
-    expect(document.querySelector('main')).toBeNull()
-    spy.mockRestore()
+    try {
+      renderWithProviders(<EdPage />, opts)
+      expect(await screen.findByRole('alert')).toHaveTextContent(repo.PAGE_ERROR.text)
+      expect(document.querySelector('#edKpis')).toBeNull()
+    } finally {
+      spy.mockRestore()
+    }
   })
 })
 

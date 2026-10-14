@@ -28,7 +28,7 @@ export function Hr24Chart({ hr, ariaLabel, asleepLabel }: { hr: Hr24; ariaLabel:
         </g>
       ))}
       <circle cx={x(hr.walk.index)} cy={y(hr.walk.value)} r="5" fill="#1fb39c" />
-      <text x={x(hr.walk.index)} y={y(hr.walk.value) - 9} textAnchor="middle" style={{ fill: '#0b7f71' }}>{hr.walk.label}</text>
+      <text x={x(hr.walk.index)} y={y(hr.walk.value) - 9} textAnchor="middle" style={{ fill: 'var(--teal-text)' }}>{hr.walk.label}</text>
       {hr.axisLabels.map((t, i) => (
         <text key={i} x={x(i * 36)} y={B + 16} textAnchor="middle">{t}</text>
       ))}

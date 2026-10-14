@@ -5,16 +5,19 @@ import { HOSPITAL_COPY } from '@/data/repo'
 import type { LabelValue } from '@/data/types'
 import { useAppState } from '@/state/AppState'
 import { HospitalKpis } from '../shared'
+import { PageError } from '@/features/shared/PageError'
 import { useHospital } from '../useHospital'
 import { InboxCard, type InboxItem } from './InboxCard'
 import { PacketCard } from './PacketCard'
 
 /** Hospital view · Pre-arrivals (`<main data-page="ed">`). */
 export function EdPage() {
-  const h = useHospital()
+  const res = useHospital()
+  const h = res.data
   const { packetNew, emergency } = useAppState()
   // A pick belongs to one inbox: when the demo's packet arrives or leaves, the pane goes back to its default (prototype re-renders it).
   const [pick, setPick] = useState<{ name: string; inbox: boolean } | null>(null)
+  if (res.status === 'error') return <PageError page="ed" onRetry={res.retry} />
   if (!h) return null
 
   const items: InboxItem[] = h.inbox.map((m) => ({ ...m, fresh: false }))

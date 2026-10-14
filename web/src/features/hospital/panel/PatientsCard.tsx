@@ -4,6 +4,7 @@ import { HOSPITAL_COPY } from '@/data/repo'
 import type { PanelRow } from '@/data/types'
 import { Head } from '../../individual/home/parts'
 import { HospitalRow } from '../shared'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 const plain = { fontWeight: 500 } as const
 const riskOf = (r: PanelRow) => parseFloat(r.risk)
@@ -15,7 +16,7 @@ export function PatientsCard({ rows }: { rows: PanelRow[] }) {
   return (
     <GlassCard span={8}>
       <Head title={c.title} meta={c.meta} />
-      <div className="tw">
+      <TableScroll>
         <table>
           <thead><tr>{c.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="panelRows">
@@ -47,7 +48,7 @@ export function PatientsCard({ rows }: { rows: PanelRow[] }) {
             })}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

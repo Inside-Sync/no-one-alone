@@ -1,25 +1,14 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getOrbitScene } from '@/data/repo'
-import type { OrbitScene } from '@/data/types'
+import { useRepo } from '@/features/shared/useRepo'
 import { STEPS } from '@/domain/emergency'
 import { useAppState } from '@/state/AppState'
 import { AlertCard } from './AlertCard'
 import { IdleCard } from './IdleCard'
 import { PhoneCard } from './PhoneCard'
 import { TimelineCard } from './TimelineCard'
-
-function useOrbitScene(): OrbitScene | null {
-  const [scene, setScene] = useState<OrbitScene | null>(null)
-  useEffect(() => {
-    let live = true
-    // On failure the canvas area stays empty; the safety controls do not depend on it.
-    getOrbitScene().then((s) => { if (live) setScene(s) }, () => {})
-    return () => { live = false }
-  }, [])
-  return scene
-}
 
 const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -48,7 +37,9 @@ function useFlash(on: boolean) {
  */
 export function LivePage() {
   const { emergency, dispatchEmergency, setWho } = useAppState()
-  const scene = useOrbitScene()
+  // Never gate the page on the scene (Task 10): on failure the canvas area stays empty and the safety controls,
+  // which do not depend on it, keep working. So there is deliberately no PageError here.
+  const scene = useRepo(getOrbitScene).data
   const { active, step, playing } = emergency
   useFlash(active && Boolean(STEPS[step].e.flash))
 

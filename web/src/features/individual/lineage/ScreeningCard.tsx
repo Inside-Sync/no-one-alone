@@ -7,6 +7,7 @@ import { LINEAGE_COPY } from '@/data/repo'
 import type { Lineage } from '@/data/types'
 import { ClickRow } from '../ClickRow'
 import { Head } from '../home/parts'
+import { TableScroll } from '@/components/ui/TableScroll'
 
 /** `Your screening plan`: the Book buttons are one-shot (`ONCE`: "Book" and "Book GP" become "✓ Requested"). */
 export function ScreeningCard({ lineage }: { lineage: Lineage }) {
@@ -14,7 +15,7 @@ export function ScreeningCard({ lineage }: { lineage: Lineage }) {
   return (
     <GlassCard>
       <Head title={lineage.screeningHeading.title} meta={lineage.screeningHeading.meta} />
-      <div className="tw">
+      <TableScroll>
         <table style={{ minWidth: 0 }}>
           <thead><tr>{head.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
           <tbody id="screen">
@@ -34,7 +35,7 @@ export function ScreeningCard({ lineage }: { lineage: Lineage }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroll>
     </GlassCard>
   )
 }

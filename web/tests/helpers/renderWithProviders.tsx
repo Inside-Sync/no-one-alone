@@ -1,5 +1,6 @@
 import { render, type RenderResult } from '@testing-library/react'
 import type { ReactElement } from 'react'
+import { DrawerReset } from '@/components/shell/DrawerReset'
 import { DrawerProvider } from '@/components/ui/Drawer'
 import { ToastProvider } from '@/components/ui/Toast'
 import { AppStateProvider, useAppState, type AppStateValue } from '@/state/AppState'
@@ -16,20 +17,22 @@ interface Options {
   viewer?: string
 }
 
-/** Renders `ui` inside the same providers the real layout uses (Toast, Drawer, AppState). */
+/** Renders `ui` inside the same providers, in the same order, as `src/app/App.tsx` (AppState > Toast > Drawer, plus DrawerReset).
+ * Test files mock `@/app/navigation`, which DrawerReset reads. */
 export function renderWithProviders(ui: ReactElement, opts: Options = {}): RenderResult & { app: () => AppStateValue } {
   sessionStorage.clear()
   if (opts.who || opts.viewer) sessionStorage.setItem('noa-app-state', JSON.stringify({ who: opts.who, viewer: opts.viewer }))
   let state!: AppStateValue
   const result = render(
-    <ToastProvider>
-      <DrawerProvider>
-        <AppStateProvider>
+    <AppStateProvider>
+      <ToastProvider>
+        <DrawerProvider>
+          <DrawerReset />
           <Probe onState={(s) => { state = s }} />
           {ui}
-        </AppStateProvider>
-      </DrawerProvider>
-    </ToastProvider>,
+        </DrawerProvider>
+      </ToastProvider>
+    </AppStateProvider>,
   )
   return Object.assign(result, { app: () => state })
 }

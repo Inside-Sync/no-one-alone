@@ -318,6 +318,11 @@ export interface MapPin {
   /** Static map coordinates (x, y, z) when the prototype fixes them. */
   at?: { x: number; y: number; z: number }
   phase?: number
+  /** Real-world position for the Google map (deterministic; no randomness). */
+  geo?: { lat: number; lng: number }
+  /** Google map marker category and (for alerts) severity tone. */
+  kind?: 'home' | 'family' | 'health' | 'community' | 'alert'
+  tone?: 'act' | 'watch' | 'info'
 }
 
 export interface WeatherDay {

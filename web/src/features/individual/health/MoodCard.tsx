@@ -28,7 +28,7 @@ function MoodChart({ mood }: { mood: HealthData['mood14'] }) {
           <g key={i}>
             <rect x={x0} y={v >= 0 ? MID - h : MID} width={bw - 8} height={Math.max(2, h)} rx="5" fill={v >= 0 ? '#1fb39c' : '#c88a05'} />
             {mood.hotDays.includes(i) && <text x={cx} y={MID + h + 12} textAnchor="middle" style={{ fill: '#d9443f' }}>{c.hot}</text>}
-            {mood.walkDays.includes(i) && <text x={cx} y={MID - h - 5} textAnchor="middle" style={{ fill: '#0b7f71' }}>{c.walk}</text>}
+            {mood.walkDays.includes(i) && <text x={cx} y={MID - h - 5} textAnchor="middle" style={{ fill: 'var(--teal-text)' }}>{c.walk}</text>}
             <text x={cx} y="140" textAnchor="middle">{i === n - 1 ? 'today' : `${n - i}d`}</text>
           </g>
         )

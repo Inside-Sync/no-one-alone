@@ -64,6 +64,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
           type="button"
           className="btn sos"
           id="runDemo"
+          aria-label="Night alert demo"
           onClick={() => { setWho('family'); dispatchEmergency({ type: 'start' }); router.push('/individual/live') }}
         >
           <span className="ic"><Icon name="bolt" /></span>

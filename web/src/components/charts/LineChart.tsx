@@ -4,6 +4,8 @@
  * Coordinates are produced by the same formulas and number formatting
  * (`toFixed(1)` for line paths, raw numbers elsewhere) so the svg matches.
  */
+import { textTone } from '@/lib/tone'
+
 
 export interface LineSeries {
   name: string
@@ -175,7 +177,7 @@ export function LineChart({
         .map((s, k) => {
           const v = s.values[s.values.length - 1]
           return (
-            <text key={'e' + k} x={x((s.start ?? 0) + s.values.length - 1) + 4} y={y(v) + 4} style={{ fill: typeof s.endLabel === 'string' ? s.endLabel : s.color, fontSize: '11px' }}>{v.toFixed(0)}</text>
+            <text key={'e' + k} x={x((s.start ?? 0) + s.values.length - 1) + 4} y={y(v) + 4} style={{ fill: textTone(typeof s.endLabel === 'string' ? s.endLabel : s.color), fontSize: '11px' }}>{v.toFixed(0)}</text>
           )
         })}
     </svg>
