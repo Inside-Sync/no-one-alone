@@ -61,7 +61,6 @@ public class Actions {
     private long accept(String incidentId, String memberId) {
         Map<String, Person> people = store.people();
         IncidentStore.Mutation m = store.mutate(incidentId, (x, now) -> {
-            requireStatus(x, Status.ESCALATING);
             if (memberId.equals(x.ownerId)) {
                 return false;
             }
@@ -69,6 +68,7 @@ public class Actions {
                 throw ApiException.conflict("ALREADY_OWNED",
                         EscalationRules.name(people, x.ownerId) + " is already on the way");
             }
+            requireStatus(x, Status.ESCALATING);
             Assignment a = x.assignment(memberId)
                     .filter(as -> as.role == Role.NEARBY)
                     .filter(as -> as.state == AssignmentState.NOTIFIED || as.state == AssignmentState.EXPIRED)
@@ -93,7 +93,7 @@ public class Actions {
             throw ApiException.invalidState(memberId + " cannot decline now");
         }
         Map<String, Person> people = store.people();
-        Optional<Assignment> next = nextAfter(inc, memberId);
+        Optional<Assignment> next = inc.ownerId == null ? nextAfter(inc, memberId) : Optional.empty();
         String nextTask = next.map(a -> tasks.schedule(incidentId, a.memberId, 1, inc.demo.timerSeconds)).orElse(null);
         IncidentStore.Mutation m = store.mutate(incidentId, (x, now) -> {
             requireStatus(x, Status.ESCALATING);
@@ -103,7 +103,9 @@ public class Actions {
             a.state = AssignmentState.DECLINED;
             a.respondedAt = now;
             x.log(now, memberId, "DECLINED", EscalationRules.name(people, memberId) + " cannot go");
-            notifyNextOrGiveUp(x, now, nextTask, people);
+            if (x.ownerId == null) {
+                notifyNextOrGiveUp(x, now, nextTask, people);
+            }
             return true;
         });
         tasks.deleteQuietly(tasks.taskName(incidentId, memberId, 1));

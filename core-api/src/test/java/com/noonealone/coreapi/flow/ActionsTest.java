@@ -215,7 +215,8 @@ class ActionsTest extends FirestoreTestBase {
 
         actions.apply(ID, "console", "CLOSE");
         assertThat(store.get(ID).status).isEqualTo(Status.CLOSED);
-        assertThatThrownBy(() -> actions.apply(ID, "console", "CLOSE")).isInstanceOf(ApiException.class);
+        assertThatThrownBy(() -> actions.apply(ID, "console", "CLOSE"))
+                .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_STATE");
     }
 
     @Test
@@ -224,5 +225,29 @@ class ActionsTest extends FirestoreTestBase {
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_STATE");
         assertThatThrownBy(() -> actions.apply(ID, "ong-hung", "DANCE"))
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_REQUEST");
+    }
+
+    @Test
+    void declineAfterLateAcceptDoesNotEscalate() {
+        actions.timeout(ID, "ong-hung", 1);
+        actions.apply(ID, "ong-hung", "ACCEPT");
+
+        actions.apply(ID, "tuan", "DECLINE");
+
+        Incident inc = store.get(ID);
+        assertThat(inc.assignment("tuan").orElseThrow().state).isEqualTo(AssignmentState.DECLINED);
+        assertThat(inc.timeline).extracting(t -> t.kind).doesNotContain("NO_NEARBY");
+        assertThat(inc.assignment("lan").orElseThrow().actions).doesNotContain("CALL_NEARBY");
+        verify(tasks, times(2)).schedule(anyString(), anyString(), anyInt(), anyInt());
+    }
+
+    @Test
+    void acceptAfterArrivalIsNoOpForOwnerAndOwnedForOthers() {
+        actions.apply(ID, "ong-hung", "ACCEPT");
+        long v = actions.apply(ID, "ong-hung", "ARRIVED");
+
+        assertThat(actions.apply(ID, "ong-hung", "ACCEPT")).isEqualTo(v);
+        assertThatThrownBy(() -> actions.apply(ID, "tuan", "ACCEPT"))
+                .isInstanceOf(ApiException.class).extracting("code").isEqualTo("ALREADY_OWNED");
     }
 }
