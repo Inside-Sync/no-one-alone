@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.noonealone.coreapi.agent.AgentException;
 import com.noonealone.coreapi.agent.RespondAgentClient;
+import com.noonealone.coreapi.agent.TriageResult;
 import com.noonealone.coreapi.agent.TurnResult;
 import com.noonealone.coreapi.agent.VerifyResult;
 import com.noonealone.coreapi.data.Fixture;
@@ -19,14 +20,17 @@ import com.noonealone.coreapi.data.Scenarios;
 import com.noonealone.coreapi.gcp.AudioStore;
 import com.noonealone.coreapi.model.Alert;
 import com.noonealone.coreapi.model.Incident;
+import com.noonealone.coreapi.model.Level;
 import com.noonealone.coreapi.model.Pending;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.Role;
 import com.noonealone.coreapi.model.Status;
 import com.noonealone.coreapi.model.StoryClock;
+import com.noonealone.coreapi.model.Triage;
 import com.noonealone.coreapi.model.Turn;
 import com.noonealone.coreapi.model.Verify;
 import com.noonealone.coreapi.store.IncidentStore;
+import com.noonealone.coreapi.web.ApiException;
 
 @Service
 public class IncidentFlow {
@@ -171,7 +175,102 @@ public class IncidentFlow {
         }
     }
 
+    public void acceptCheckIn(String incidentId, CheckInInput input) {
+        int kinds = (input.audio() != null ? 1 : 0) + (input.yesNo() != null ? 1 : 0) + (input.noReply() ? 1 : 0);
+        if (kinds != 1) {
+            throw ApiException.badRequest("Send exactly one of audio, yesNo or noReply");
+        }
+        if (input.yesNo() != null && !List.of("YES", "NO").contains(input.yesNo())) {
+            throw ApiException.badRequest("yesNo must be YES or NO");
+        }
+        store.mutate(incidentId, (x, now) -> {
+            if (x.status != Status.CHECKING_IN || x.checkIn.done || x.checkIn.busy) {
+                throw ApiException.invalidState("Check-in is not waiting for an answer");
+            }
+            x.checkIn.busy = true;
+            x.checkIn.pending = null;
+            if (input.noReply()) {
+                x.checkIn.noReplyCount++;
+                x.log(now, "PERSON", "NO_REPLY", "No reply");
+            }
+            return true;
+        });
+    }
+
+    public void processCheckIn(String incidentId, CheckInInput input) {
+        try {
+            Incident inc = store.get(incidentId);
+            if (input.noReply() && inc.checkIn.noReplyCount >= 2) {
+                store.mutate(incidentId, (x, now) -> {
+                    x.checkIn.done = true;
+                    x.checkIn.busy = false;
+                    return true;
+                });
+                finishCheckIn(incidentId);
+                return;
+            }
+            askNext(incidentId, input);
+        } catch (RuntimeException e) {
+            store.mutate(incidentId, (x, now) -> {
+                if (!x.checkIn.busy) {
+                    return false;
+                }
+                x.checkIn.busy = false;
+                return true;
+            });
+            throw e;
+        }
+    }
+
     void finishCheckIn(String incidentId) {
+        Incident inc = store.get(incidentId);
+        TriageResult r;
+        try {
+            r = agent.triage(triageBody(inc));
+        } catch (AgentException e) {
+            r = new TriageResult(fallbackLevel(inc), List.of("respond-agent unavailable"), true);
+        }
+        TriageResult result = r;
+        store.mutate(incidentId, (x, now) -> {
+            if (x.level != null) {
+                return false;
+            }
+            x.level = result.level();
+            x.triage = new Triage();
+            x.triage.reasons = result.reasons();
+            x.triage.fallback = result.fallback();
+            if (result.fallback()) {
+                x.log(now, "AGENT", "AGENT_FALLBACK", "Triage used fallback");
+            }
+            x.log(now, "AGENT", "TRIAGED", "Level " + result.level() + ": " + String.join(", ", result.reasons()));
+            if (result.level() == Level.OK || result.level() == Level.MONITOR) {
+                x.status = Status.CLOSED;
+                x.log(now, "SYSTEM", "CLOSED", "Closed after check-in");
+            }
+            return true;
+        });
+    }
+
+    static Level fallbackLevel(Incident inc) {
+        return inc.hasSlurredTurn() ? Level.EMERGENCY : Level.COME_NOW;
+    }
+
+    private Map<String, Object> triageBody(Incident inc) {
+        List<Map<String, Object>> turns = new ArrayList<>();
+        for (Turn t : inc.checkIn.turns) {
+            Map<String, Object> m = new HashMap<>();
+            m.put("by", t.by);
+            m.put("text", t.text);
+            if (t.assessment != null) {
+                m.put("assessment", t.assessment);
+            }
+            turns.add(m);
+        }
+        Map<String, Object> alert = new HashMap<>();
+        alert.put("kind", inc.alert.kind);
+        alert.put("hr", inc.alert.hr);
+        return Map.of("alert", alert, "verify", Map.of("isReal", true), "turns", turns,
+                "noReplyCount", inc.checkIn.noReplyCount);
     }
 
     private Map<String, Object> verifyBody(Incident inc, Person person) {
