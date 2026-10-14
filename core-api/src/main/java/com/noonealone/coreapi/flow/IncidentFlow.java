@@ -80,7 +80,7 @@ public class IncidentFlow {
         }
         VerifyResult result = v;
         boolean down = agentDown;
-        store.mutate(incidentId, (x, now) -> {
+        IncidentStore.Mutation m = store.mutate(incidentId, (x, now) -> {
             if (x.status != Status.VERIFYING) {
                 return false;
             }
@@ -101,7 +101,7 @@ public class IncidentFlow {
             }
             return true;
         });
-        if (result.isReal()) {
+        if (m.changed() && result.isReal()) {
             askNext(incidentId, null);
         }
     }

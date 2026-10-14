@@ -103,4 +103,18 @@ class IncidentFlowAlertTest extends FirestoreTestBase {
         assertThat(inc.timeline).extracting(t -> t.kind).contains("AGENT_FALLBACK");
         verify(agent, times(1)).checkinTurn(any());
     }
+
+    @Test
+    void processingTwiceAsksOnlyOnce() {
+        when(agent.verify(any())).thenReturn(new VerifyResult(true, "HR 142 at night", "2026-10-15T18:55:00Z", false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
+                new TurnResult.Next("Mạ ơi?", "VOICE", null, null), false, false));
+
+        flow.create(stroke("alert-5"));
+        flow.process("alert-5");
+        flow.process("alert-5");
+
+        assertThat(store.get("alert-5").checkIn.turns).hasSize(1);
+        verify(agent, times(1)).checkinTurn(any());
+    }
 }
