@@ -52,6 +52,12 @@ jobs:
           service_account: ${{ vars.GCP_DEPLOY_SA }}
       - uses: google-github-actions/setup-gcloud@v2
         if: steps.targets.outputs.list != ''
+      - uses: actions/setup-node@v4
+        if: (contains(steps.targets.outputs.list, 'web') || contains(steps.targets.outputs.list, 'all')) && hashFiles('web/package.json') != ''
+        with:
+          node-version-file: web/.nvmrc
+          cache: npm
+          cache-dependency-path: web/package-lock.json
       - name: Build web
         if: (contains(steps.targets.outputs.list, 'web') || contains(steps.targets.outputs.list, 'all')) && hashFiles('web/package.json') != ''
         working-directory: web

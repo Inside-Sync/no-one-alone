@@ -1,0 +1,26 @@
+/*
+ * Margaret's screen: text at least 28 pt (37.33 px) and touch targets at least 92 px
+ * (global requirement). The prototype's .dev-* sizes (22 / 19 / 16 px) are smaller, so
+ * they are raised here; every other value (colours, radii, gradients) is the prototype's.
+ * The doubled selector (.screen .x) outranks the single-class globals regardless of load order.
+ */
+.screen { padding: 40px 12px 12px; gap: 8px; }
+.screen .h,
+.screen .q,
+.screen .small,
+.screen .help,
+.screen .t,
+.screen .med b,
+.screen .med small,
+.screen .btn { font-size: 28pt; line-height: 1.15; }
+.screen .t { font-weight: 600; }
+.screen .med { padding: 12px; }
+.screen .h { font-weight: 500; }
+.screen .q { padding: 12px; }
+.screen .small { font-weight: 400; opacity: 0.7; }
+.screen .help { padding: 10px; }
+.screen .btn { min-height: 92px; font-weight: 600; }
+.screen .btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+/* Taller than the prototype's 300/600 frame so 28 pt text and a 92 px button fit without clipping. */
+.frame:global(.device) { aspect-ratio: 300 / 780; }
+.screen .help { align-items: flex-start; }
