@@ -23,6 +23,7 @@ import com.noonealone.coreapi.model.Assignment;
 import com.noonealone.coreapi.model.AssignmentState;
 import com.noonealone.coreapi.model.CircleEntry;
 import com.noonealone.coreapi.model.Incident;
+import com.noonealone.coreapi.model.Level;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.PersonInstruction;
 import com.noonealone.coreapi.model.Role;
@@ -40,15 +41,17 @@ public class Escalation {
     private final EscalationTimers tasks;
     private final AudioStore audio;
     private final Scenarios scenarios;
+    private final Handoff handoff;
 
     public Escalation(IncidentStore store, RespondAgentClient agent, RoutesClient routes, EscalationTimers tasks,
-            AudioStore audio, Scenarios scenarios) {
+            AudioStore audio, Scenarios scenarios, Handoff handoff) {
         this.store = store;
         this.agent = agent;
         this.routes = routes;
         this.tasks = tasks;
         this.audio = audio;
         this.scenarios = scenarios;
+        this.handoff = handoff;
     }
 
     public void start(String incidentId) {
@@ -143,6 +146,9 @@ public class Escalation {
                     x.log(now, "SYSTEM", "NOTIFIED", EscalationRules.name(people, a.memberId) + " notified"));
             return true;
         });
+        if (inc.level == Level.EMERGENCY) {
+            handoff.start(incidentId);
+        }
     }
 
     private Map<String, Object> planBody(Incident inc, Person person, List<CircleEntry> circle,
