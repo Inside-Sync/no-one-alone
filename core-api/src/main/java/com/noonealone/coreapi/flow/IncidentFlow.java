@@ -41,9 +41,12 @@ public class IncidentFlow {
     private final RespondAgentClient agent;
     private final Scenarios scenarios;
     private final AudioStore audio;
+    private final Escalation escalation;
     private final Clock clock;
 
-    public IncidentFlow(IncidentStore store, RespondAgentClient agent, Scenarios scenarios, AudioStore audio, Clock clock) {
+    public IncidentFlow(IncidentStore store, RespondAgentClient agent, Scenarios scenarios, AudioStore audio,
+            Escalation escalation, Clock clock) {
+        this.escalation = escalation;
         this.store = store;
         this.agent = agent;
         this.scenarios = scenarios;
@@ -249,6 +252,9 @@ public class IncidentFlow {
             }
             return true;
         });
+        if (result.level() == Level.COME_NOW || result.level() == Level.EMERGENCY) {
+            escalation.start(incidentId);
+        }
     }
 
     static Level fallbackLevel(Incident inc) {

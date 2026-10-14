@@ -22,6 +22,8 @@ import com.noonealone.coreapi.agent.TriageResult;
 import com.noonealone.coreapi.agent.TurnResult;
 import com.noonealone.coreapi.agent.VerifyResult;
 import com.noonealone.coreapi.data.Seed;
+import com.noonealone.coreapi.gcp.EscalationTimers;
+import com.noonealone.coreapi.gcp.RoutesClient;
 import com.noonealone.coreapi.model.Assessment;
 import com.noonealone.coreapi.model.Incident;
 import com.noonealone.coreapi.model.Level;
@@ -40,6 +42,8 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
     @Autowired IncidentStore store;
     @Autowired Seed seed;
     @MockBean RespondAgentClient agent;
+    @MockBean RoutesClient routes;
+    @MockBean EscalationTimers tasks;
 
     static TurnResult ask(String text, String kind) {
         return new TurnResult(null, null, new TurnResult.Next(text, kind, null, null), false, false);
@@ -57,6 +61,8 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
         store.seed(seed.data());
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
         when(agent.checkinTurn(any())).thenReturn(ask("Mạ ơi?", "VOICE"));
+        when(agent.plan(any())).thenThrow(new AgentException("not under test", null));
+        when(agent.handoff(any())).thenThrow(new AgentException("not under test", null));
         flow.create(IncidentFlowAlertTest.stroke("c-1"));
         flow.process("c-1");
     }
