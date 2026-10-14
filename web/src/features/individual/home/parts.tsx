@@ -58,8 +58,12 @@ export function MiniInfo({ stat }: { stat: MiniStat }) {
   )
 }
 
+/** Plain-language tiles (prototype line 1800) swap the mono face for the body font. */
+const PLAIN_B: CSSProperties = { fontFamily: 'var(--font)', fontSize: 16, fontWeight: 500 }
+const PLAIN_EM: CSSProperties = { fontFamily: 'var(--font)' }
+
 /** A `.mini` grid whose cells open the info drawer, like the prototype's click handler. */
-export function MiniGrid({ stats }: { stats: readonly MiniStat[] }) {
+export function MiniGrid({ stats, plain }: { stats: readonly MiniStat[]; plain?: boolean }) {
   const drawer = useDrawer()
   return (
     <div className="mini">
@@ -68,8 +72,8 @@ export function MiniGrid({ stats }: { stats: readonly MiniStat[] }) {
         return (
           <div key={s.label} role="button" tabIndex={0} onClick={open} onKeyDown={keyActivate(open)}>
             <small>{s.label}</small>
-            <b>{s.value}</b>
-            <em style={s.tone ? { color: `var(--${s.tone})` } : undefined}>{s.note}</em>
+            <b style={plain ? PLAIN_B : undefined}>{s.value}</b>
+            <em style={{ ...(plain ? PLAIN_EM : undefined), ...(s.tone ? { color: `var(--${s.tone})` } : undefined) }}>{s.note}</em>
           </div>
         )
       })}

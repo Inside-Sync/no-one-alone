@@ -4,7 +4,9 @@ import type { DataSource } from './sources/source'
 export type { DataSource } from './sources/source'
 
 /** Static UI copy (drawers, headings): same for every source, so re-exported rather than fetched. */
-export { CHAT_INTRO, CHAT_QA, COND_ACTIONS, EXPLAIN, EXPLAIN_FALLBACK, HOME_COPY, ONCE_LABELS } from './fixtures/copy'
+export {
+  AROUND_COPY, CHAT_INTRO, CHAT_QA, COND_ACTIONS, DRAWER_ACTIONS, EXPLAIN, EXPLAIN_FALLBACK, HEALTH_COPY, HOME_COPY, ONCE_LABELS,
+} from './fixtures/copy'
 
 /**
  * Chooses the source from VITE_DATA_SOURCE=mock|firebase. The Firestore

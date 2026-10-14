@@ -1,6 +1,8 @@
 'use client'
 
 import type { ComponentType } from 'react'
+import { AroundPage } from './individual/around/AroundPage'
+import { HealthPage } from './individual/health/HealthPage'
 import { HomePage } from './individual/home/HomePage'
 
 /**
@@ -9,4 +11,6 @@ import { HomePage } from './individual/home/HomePage'
  */
 export const PAGE_REGISTRY: Record<string, ComponentType> = {
   'individual/home': HomePage,
+  'individual/health': HealthPage,
+  'individual/around': AroundPage,
 }

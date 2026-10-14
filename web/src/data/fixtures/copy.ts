@@ -126,3 +126,86 @@ export const HOME_COPY = {
   },
   mapControls: { left: 'Rotate left', right: 'Rotate right', reset: 'Reset view' },
 } as const
+
+/** Detail-drawer buttons of the individual view: [label, toast, done] (prototype lines 1840–1850). */
+export const DRAWER_ACTIONS = {
+  /** `tbody tr` click: devices and air tables. */
+  row: [['🗣️ Ask her about it', 'Added to her next chat', 'Added'], ['📤 Share with family', 'Shared', 'Shared']],
+  /** `.alerts li` click. */
+  alert: [
+    ['🗣️ Tell Margaret by voice', 'Margaret will hear this in her next call', 'Will tell her'],
+    ['📤 Share with David', 'Sent to David', 'Sent'],
+    ['✅ Mark as handled', 'Marked as handled', 'Handled'],
+  ],
+  /** `.news li` click. */
+  news: [
+    ['🗣️ Read it to Margaret', 'She will hear a short version at 18:00', 'Queued'],
+    ['📤 Share with family', 'Shared with the care circle', 'Shared'],
+  ],
+} as const satisfies Record<string, readonly (readonly [label: string, toast: string, done: string])[]>
+
+/** Static headings, legends and chart captions of the individual Health page (prototype lines 918–967, 1604–1660). */
+export const HEALTH_COPY = {
+  goals: { title: "🎯 Today's goals", meta: 'Set with her GP' },
+  hr: {
+    title: '❤️ Heartbeat over the last day',
+    meta: 'Beats per minute',
+    ariaLabel: 'Heart rate over 24 hours: 55 to 62 asleep with two irregular rhythm alerts at 02:14 and 03:40, peak 112 on the morning walk',
+    asleep: 'asleep',
+    legend: [
+      { color: '#ef6a5e', label: 'Heart rate' },
+      { color: 'rgba(239,106,94,.12)', label: 'Min–max band' },
+      { color: '#c2417a', label: 'Uneven heartbeat alert', round: true },
+      { color: '#1fb39c', label: 'Walk', round: true },
+    ],
+  },
+  hypno: {
+    title: "😴 Last night's sleep",
+    ariaLabel: 'Sleep stages: 6 wakes, 52 minutes deep sleep, 52 minutes REM',
+  },
+  mood: {
+    title: '😊 Mood, last 2 weeks',
+    meta: 'From her own taps and how she sounds',
+    ariaLabel: 'Mood over 14 days, mostly pleasant, dips on two hot days, highest on walking group days',
+    top: 'Pleasant',
+    bottom: 'Unpleasant',
+    hot: 'hot',
+    walk: 'walk',
+  },
+  steps: { title: '👣 Steps, last 2 weeks', meta: 'Goal 3,500', ariaLabel: 'Steps over 14 days, goal met on 7 days', goal: 'goal 3,500' },
+  bp: {
+    title: '🩺 Blood pressure, last 2 weeks',
+    meta: 'Morning and evening readings',
+    ariaLabel: 'Morning systolic rose from 134 to 146 and evening from 128 to 139 over 14 days',
+    legend: [
+      { color: '#c88a05', label: 'Morning systolic' },
+      { color: '#5a7fe0', label: 'Evening systolic' },
+      { color: 'rgba(31,179,156,.15)', label: 'Target under 135' },
+    ],
+  },
+  devices: { title: '📲 Where this comes from', columns: ['Device', 'Metrics', 'Frequency', 'Battery / status', 'Shared with'] },
+} as const
+
+/** Static headings and captions of the individual Around-her page (prototype lines 960–997, 1664–1695). */
+export const AROUND_COPY = {
+  mapChip: 'Tap a pin for detail',
+  thursday: {
+    title: '🔥 Thursday, hour by hour',
+    meta: 'Outside vs how warm her home will get',
+    ariaLabel:
+      'Thursday outdoor temperature peaks at 38 degrees at 13:00; indoor would reach 34 without air-con; agent moves Margaret to the library cool room from 11:00 to 16:00',
+  },
+  air: {
+    title: '🍃 Air, pollen and smoke',
+    meta: '7-day outlook',
+    columns: ['Day', 'Air quality', 'PM2.5', 'Pollen', 'Smoke', 'Advice'],
+  },
+  newsFilterLabel: 'News filter',
+  /** `SEV` (prototype line 1680). */
+  severity: {
+    act: { color: '#d9443f', label: 'Act' },
+    aware: { color: '#c88a05', label: 'Be aware' },
+    help: { color: '#1fb39c', label: 'Helpful' },
+    done: { color: '#56706e', label: 'Resolved' },
+  },
+} as const
