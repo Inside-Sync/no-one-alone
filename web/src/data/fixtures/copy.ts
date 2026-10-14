@@ -255,3 +255,50 @@ export const FORECAST_COPY = {
   /** Mode-button click: tag text and toast (line 1473). */
   modes: { on: 'ON', off: 'OFF', toast: (name: string, on: boolean) => `${name} mode ${on ? 'on' : 'off'}` },
 } as const
+
+/** Individual · Emergency (prototype lines 812–845 and the 000 script, line 1545). */
+export const LIVE_COPY = {
+  idle: {
+    title: 'No active alert',
+    body: "When an alert comes in, this page shows the response minute by minute: who is on the way, what Margaret's screen shows and when the hospital has her record. 37 alerts in the community this week, 29 filtered as false alarms without waking anyone.",
+    run: 'Run the 02:03 night alert demo',
+  },
+  endDemo: 'End demo',
+  orbitLabel: 'Care circle in emergency: help moving toward Margaret',
+  since: 'since alert',
+  /** Page subtitle while the demo runs (`pgSub`, line 1577). */
+  subtitle: (time: string) => `Live · ${time} AEDT · 186 Marrickville Rd`,
+  actions: {
+    call000: 'Call 000',
+    callMum: { label: 'Call Mum', toast: 'Calling Mum · captions on' },
+    callDavid: { label: 'Call David', toast: 'Calling David' },
+  },
+  timeline: { title: 'Live timeline', meta: 'Shared with the circle' },
+  player: { prev: 'Previous step', next: 'Next step', pause: 'Pause', play: 'Play' },
+  phone: {
+    title: "Margaret's screen",
+    meta: 'Same moment',
+    note: 'Hearing mode is on, so every question is also shown in large text with yes/no buttons.',
+    header: (time: string) => `${time} · Hearing mode`,
+    yes: 'Yes',
+    no: 'No',
+    answered: (a: string) => `Margaret: ${a}`,
+  },
+  sos: {
+    title: 'Script for 000',
+    intro: 'Ask for ambulance. Read this aloud.',
+    rows: [
+      ['Address', '186 Marrickville Rd, Marrickville NSW 2204'],
+      ['Patient', 'Margaret Collins, 78, lives alone'],
+      ['Symptoms', 'Slurred speech since 02:04, heart rate 142'],
+      ['Last well', '01:55'],
+      ['Medicines', 'Amlodipine, aspirin, atorvastatin · allergic to penicillin'],
+      ['Access', 'Brother arriving 02:11 with key · neighbour Aisha holds a spare'],
+    ],
+    call: 'Call 000',
+    callToast: 'Dialling 000 · ask for ambulance',
+    copy: 'Copy address',
+    copied: 'Address copied',
+    note: 'The agent prepares this. A person makes the call.',
+  },
+} as const

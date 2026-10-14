@@ -23,7 +23,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
   const router = useRouter()
   const { view, page } = parsePath(usePathname())
   const toastMsg = useToast()
-  const { who, setWho, viewer, people, emergency } = useAppState()
+  const { who, setWho, viewer, people, emergency, packetNew, dispatchEmergency } = useAppState()
 
   useEffect(() => {
     document.body.dataset.view = view
@@ -50,7 +50,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
   const badges: Record<string, string | undefined> = {}
   if (emergency.active) {
     badges.live = 'LIVE'
-    if (emergency.step >= 7) badges.ed = '1'
+    if (packetNew) badges.ed = '1'
   }
 
   return (
@@ -64,7 +64,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
           type="button"
           className="btn sos"
           id="runDemo"
-          onClick={() => { setWho('family'); router.push('/individual/live') }}
+          onClick={() => { setWho('family'); dispatchEmergency({ type: 'start' }); router.push('/individual/live') }}
         >
           <span className="ic"><Icon name="bolt" /></span>
           <span className="t">Night alert demo</span>

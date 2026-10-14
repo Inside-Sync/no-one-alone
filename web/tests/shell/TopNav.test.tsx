@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
-import { AppStateProvider } from '@/state/AppState'
+import { AppStateProvider, useAppState } from '@/state/AppState'
 import { ToastProvider } from '@/components/ui/Toast'
 import { TopNav } from '@/components/shell/TopNav'
 
@@ -76,4 +76,57 @@ test('useToast throws outside a provider', () => {
   const err = vi.spyOn(console, 'error').mockImplementation(() => {})
   expect(() => render(<TopNav />)).toThrow()
   err.mockRestore()
+})
+
+function Controls() {
+  const { dispatchEmergency } = useAppState()
+  return (
+    <>
+      <button onClick={() => dispatchEmergency({ type: 'start' })}>go</button>
+      <button onClick={() => dispatchEmergency({ type: 'goto', step: 6 })}>to06</button>
+      <button onClick={() => dispatchEmergency({ type: 'goto', step: 7 })}>to07</button>
+      <button onClick={() => dispatchEmergency({ type: 'end' })}>stop</button>
+    </>
+  )
+}
+const withControls = () => (
+  <AppStateProvider>
+    <ToastProvider>
+      <TopNav />
+      <Controls />
+    </ToastProvider>
+  </AppStateProvider>
+)
+
+test('LIVE badge on Emergency while the demo runs; none otherwise', async () => {
+  render(withControls())
+  const tab = await screen.findByRole('button', { name: /Emergency/ })
+  expect(tab.querySelector('.badge')).toBeNull()
+  fireEvent.click(screen.getByText('go'))
+  expect(screen.getByRole('button', { name: /Emergency/ }).querySelector('.badge')).toHaveTextContent('LIVE')
+  fireEvent.click(screen.getByText('stop'))
+  expect(screen.getByRole('button', { name: /Emergency/ }).querySelector('.badge')).toBeNull()
+})
+
+test('Pre-arrivals gets a 1 badge from 02:07 (step 7), not before, and loses it on End', async () => {
+  mockPath = '/hospital/ed/'
+  render(withControls())
+  const ed = () => screen.getByRole('button', { name: /Pre-arrivals/ })
+  fireEvent.click(await screen.findByText('go'))
+  expect(ed().querySelector('.badge')).toBeNull()
+  fireEvent.click(screen.getByText('to06'))
+  expect(ed().querySelector('.badge')).toBeNull()
+  fireEvent.click(screen.getByText('to07'))
+  expect(ed().querySelector('.badge')).toHaveTextContent('1')
+  fireEvent.click(screen.getByText('stop'))
+  expect(ed().querySelector('.badge')).toBeNull()
+})
+
+test('the night alert demo starts the emergency state', async () => {
+  const r = render(withControls())
+  await act(async () => { fireEvent.click(await screen.findByRole('button', { name: /Night alert demo/ })) })
+  expect(push).toHaveBeenCalledWith('/individual/live')
+  expect(document.body).toHaveClass('night')
+  r.unmount()
+  expect(document.body.classList.contains('night')).toBe(false)
 })

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from '@/app/navigation'
 import { WhoSwitch } from './WhoSwitch'
 import * as repo from '@/data/repo'
+import { STEPS } from '@/domain/emergency'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
 import type { ContextBar as Ctx } from '@/data/types'
 import { OWN_CONTEXT, PAGE_TITLES, parsePath, VIEW_LABELS } from '@/domain/views'
@@ -29,7 +30,7 @@ function useContextBars(): Bars | null {
 export function ContextBar() {
   const router = useRouter()
   const { view, page } = parsePath(usePathname())
-  const { who, setWho, setViewer, viewer, paused, share, people } = useAppState()
+  const { who, setWho, setViewer, viewer, paused, share, people, emergency } = useAppState()
   const bars = useContextBars()
 
   let ctx: Ctx | undefined
@@ -69,7 +70,7 @@ export function ContextBar() {
         <div>
           <span className="vbanner" id="vban">{banner}</span>
           <h1 id="pgTitle">{page ? PAGE_TITLES[page] : ''}</h1>
-          <div className="sub" id="pgSub">{ctx?.sub}</div>
+          <div className="sub" id="pgSub">{page === 'live' && emergency.active ? repo.LIVE_COPY.subtitle(STEPS[emergency.step].t) : ctx?.sub}</div>
         </div>
         <span className="sp"></span>
         {individual && <WhoSwitch who={who} onSelect={switchWho} />}

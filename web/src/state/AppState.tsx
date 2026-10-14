@@ -4,15 +4,11 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useReducer,
 import * as repo from '@/data/repo'
 import type { AuditEntry, PersonId, SharePerson, ShareMatrix } from '@/data/types'
 import { CATEGORIES, type CategoryId } from '@/domain/consent'
+import { EM_INITIAL, emergencyReducer, packetArrived, TICK_MS, type EmAction, type EmState } from '@/domain/emergency'
 import type { Who } from '@/domain/views'
 
-/** Placeholder shape; Task 10 replaces the reducer and extends the fields. */
-export interface EmergencyState {
-  active: boolean
-  step: number
-  playing: boolean
-}
-export type EmergencyAction = { type: string; [key: string]: unknown }
+export type EmergencyState = EmState
+export type EmergencyAction = EmAction
 
 interface State {
   who: Who
@@ -44,7 +40,7 @@ const initial: State = {
   audit: [],
   share: null,
   people: [],
-  emergency: { active: false, step: 0, playing: false },
+  emergency: EM_INITIAL,
   hydrated: false,
 }
 
@@ -60,7 +56,10 @@ function reducer(s: State, a: Action): State {
       return { ...s, share: { ...s.share, [a.viewer]: { ...s.share[a.viewer], [a.cat]: a.on } } }
     case 'people': return { ...s, people: a.people }
     case 'hydrate': return { ...s, who: a.who ?? s.who, viewer: a.viewer ?? s.viewer, hydrated: true }
-    case 'emergency': return s // Task 10 implements the emergency reducer.
+    case 'emergency': {
+      const emergency = emergencyReducer(s.emergency, a.action)
+      return emergency === s.emergency ? s : { ...s, emergency }
+    }
   }
 }
 
@@ -78,6 +77,8 @@ export interface AppStateValue {
   people: SharePerson[]
   emergency: EmergencyState
   dispatchEmergency: (action: EmergencyAction) => void
+  /** True once the hospital holds Margaret's packet (02:07 of a running demo): Pre-arrivals shows "1 new". */
+  packetNew: boolean
   hydrated: boolean
 }
 
@@ -123,6 +124,18 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     }
   }, [s.hydrated, s.who, s.viewer])
 
+  // The demo clock lives here, not in the page, so the alert keeps running on every tab. Cleared when paused, ended or unmounted.
+  const { active, playing } = s.emergency
+  useEffect(() => {
+    document.body.classList.toggle('night', active)
+    return () => document.body.classList.remove('night')
+  }, [active])
+  useEffect(() => {
+    if (!active || !playing) return
+    const timer = setInterval(() => dispatch({ type: 'emergency', action: { type: 'tick' } }), TICK_MS)
+    return () => clearInterval(timer)
+  }, [active, playing])
+
   const setWho = useCallback((who: Who) => dispatch({ type: 'setWho', who }), [])
   const setViewer = useCallback((viewer: PersonId) => dispatch({ type: 'setViewer', viewer }), [])
   const log = useCallback((entry: AuditEntry) => {
@@ -155,7 +168,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const value = useMemo<AppStateValue>(
     () => ({
       who: s.who, setWho, viewer: s.viewer, setViewer, paused: s.paused, togglePause, toggleShare,
-      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, hydrated: s.hydrated,
+      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew: packetArrived(s.emergency), hydrated: s.hydrated,
     }),
     [s, setWho, setViewer, togglePause, toggleShare, log, dispatchEmergency],
   )

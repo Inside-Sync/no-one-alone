@@ -5,6 +5,7 @@ import { AroundPage } from './individual/around/AroundPage'
 import { ForecastPage } from './individual/forecast/ForecastPage'
 import { HealthPage } from './individual/health/HealthPage'
 import { HomePage } from './individual/home/HomePage'
+import { LivePage } from './individual/live/LivePage'
 
 /**
  * Page registry: `${view}/${page}` -> component. Later tasks (7-13) add one
@@ -15,4 +16,5 @@ export const PAGE_REGISTRY: Record<string, ComponentType> = {
   'individual/health': HealthPage,
   'individual/around': AroundPage,
   'individual/forecast': ForecastPage,
+  'individual/live': LivePage,
 }

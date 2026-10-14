@@ -5,7 +5,7 @@ export type { DataSource } from './sources/source'
 
 /** Static UI copy (drawers, headings): same for every source, so re-exported rather than fetched. */
 export {
-  AROUND_COPY, CHAT_INTRO, CHAT_QA, COND_ACTIONS, DRAWER_ACTIONS, EXPLAIN, EXPLAIN_FALLBACK, FORECAST_COPY, HEALTH_COPY, HOME_COPY, ONCE_LABELS,
+  AROUND_COPY, CHAT_INTRO, CHAT_QA, COND_ACTIONS, DRAWER_ACTIONS, EXPLAIN, EXPLAIN_FALLBACK, FORECAST_COPY, HEALTH_COPY, HOME_COPY, LIVE_COPY, ONCE_LABELS,
 } from './fixtures/copy'
 
 /**
