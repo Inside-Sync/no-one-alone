@@ -17,8 +17,8 @@ export default defineConfig([
     ],
     languageOptions: { globals: globals.browser },
     rules: {
-      // Context modules export their provider next to its hook (and Toast its timing constant).
-      "react-refresh/only-export-components": ["error", { allowExportNames: ["useDrawer", "useToast", "useAppState", "TOAST_MS"] }],
+      // Only costs dev hot reload, so a warning. Context modules export their provider next to its hook.
+      "react-refresh/only-export-components": ["warn", { allowExportNames: ["useDrawer", "useToast", "useAppState", "TOAST_MS"] }],
     },
   },
 ]);
