@@ -488,3 +488,60 @@ export const HOSPITAL_COPY = {
     mini: [['Flag for review', 'Flagged', 'Flagged'], ['Assign to me', 'Assigned to you', 'Assigned']],
   },
 } as const satisfies Record<string, unknown>
+
+/** Community view headings, legends, toasts and drawers (prototype lines 846–912, 1064–1090, 1526–1531, 1741–1742, 1851). */
+export const COMMUNITY_COPY = {
+  overview: {
+    district: {
+      ariaLabel: '3D column map of 15 Inner West suburbs',
+      group: 'District metric',
+      buttons: { high: 'High risk', alone: 'Living alone', heat: 'Heat', gap: 'Visit gap' },
+      chips: ['Drag to turn', 'Tap a column for detail', 'Data refreshed 15:00'],
+    },
+    heatwave: { title: 'Heatwave plan', schedule: 'Schedule all check-ins', scheduled: '✓ 318 scheduled' },
+    visits: {
+      title: 'Who needs a visit this week',
+      meta: 'Ranked by risk · in their language',
+      head: ['Person', 'Suburb', 'Risk', 'Main reason', 'Language', 'Nearest help', ''],
+      plan: 'Plan visit',
+      planned: '✓ Planned',
+      toast: (name: string) => `Visit planned for ${name}`,
+    },
+    funnel: { title: 'Alert funnel', meta: 'Last 7 days' },
+    capacity: {
+      title: 'Volunteer capacity vs need',
+      meta: 'Visits per week',
+      legend: [
+        { color: 'rgba(31,179,156,.35)', label: 'Capacity' },
+        { color: '#ef4e4a', label: 'Need over capacity' },
+        { color: '#0b7f71', label: 'Need covered' },
+      ],
+    },
+    edForecast: { title: 'Emergency demand forecast' },
+    languages: { title: 'Languages', meta: 'Preferred language vs agent voice support' },
+    programs: { title: 'Programs and outcomes', meta: '12-week view', head: ['Program', 'Regulars', 'Attendance', 'Outcome'] },
+    watch: { title: 'Neighbourhood watch', meta: 'This week', open: 'Open neighbourhood watch' },
+  },
+  watch: {
+    reports: {
+      title: 'Neighbourhood watch across the Inner West',
+      meta: 'Reports from residents, council, police and the agent',
+      head: ['Report', 'Suburbs', 'Type', 'People affected', 'Since', 'Status'],
+    },
+    scams: {
+      title: 'Scam contacts reported by residents',
+      meta: 'Last 8 weeks',
+      ariaLabel: 'Scam contacts reported per week over 8 weeks, rising to 37 this week driven by door-to-door reports',
+      thisWeek: 'this wk',
+    },
+    feed: { title: 'Feed for community staff', meta: 'Auto-summarised · source shown' },
+    callouts: { title: 'Volunteer call-outs', meta: 'Open requests', toast: 'Accepted · added to your roster', done: '✓ Accepted' },
+  },
+  /** Community branch of the click handler (lines 1838–1851): [label, toast, done]. */
+  actions: {
+    row: [['Plan a visit', 'Visit planned', 'Planned'], ['Call in their language', 'Call scheduled with interpreter voice', 'Scheduled']],
+    kpi: [['Add to watchlist', 'Added to your watchlist', 'Watching'], ['Export CSV', 'Export queued', 'Exported']],
+    mini: [['Flag for review', 'Flagged', 'Flagged'], ['Assign to me', 'Assigned to you', 'Assigned']],
+    news: [['Send to residents', 'Queued for voice broadcast', 'Queued'], ['Dismiss', 'Dismissed', 'Dismissed']],
+  },
+} as const satisfies Record<string, unknown>

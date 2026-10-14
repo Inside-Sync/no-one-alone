@@ -1,6 +1,8 @@
 'use client'
 
 import type { ComponentType } from 'react'
+import { CommunityPage } from './community/overview/CommunityPage'
+import { WatchPage } from './community/watch/WatchPage'
 import { DemandPage } from './hospital/demand/DemandPage'
 import { DischargePage } from './hospital/discharge/DischargePage'
 import { EdPage } from './hospital/ed/EdPage'
@@ -35,4 +37,6 @@ export const PAGE_REGISTRY: Record<string, ComponentType> = {
   'hospital/panel': PanelPage,
   'hospital/demand': DemandPage,
   'hospital/discharge': DischargePage,
+  'community/community': CommunityPage,
+  'community/watch': WatchPage,
 }
