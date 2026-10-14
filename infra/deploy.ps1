@@ -20,7 +20,7 @@ if ($Target -in "all", "respond") { Deploy-Run "respond-agent" "agents\respond" 
 if ($Target -in "all", "hospital") { Deploy-Run "hospital-agent" "agents\hospital" "hospital-agent" $false }
 # core-api is public because Firebase Hosting rewrites need it; it checks tokens itself (contract section 6).
 if ($Target -in "all", "core-api") {
-    $flags = "RESPOND_AGENT_AUTH=true,PUBSUB_ENABLED=false,TASKS_ENABLED=false,AUDIO_ENABLED=false,AUTH_ENABLED=false"
+    $flags = "RESPOND_AGENT_AUTH=true,PUBSUB_ENABLED=true,TASKS_ENABLED=true,AUDIO_ENABLED=true,AUTH_ENABLED=true"
     $agentUrl = gcloud run services describe respond-agent --region $Region --project $ProjectId --format="value(status.url)"
     Write-Host "==> Deploy core-api" -ForegroundColor Cyan
     gcloud run deploy core-api --source "$root\core-api" --region $Region --project $ProjectId `
@@ -31,6 +31,13 @@ if ($Target -in "all", "core-api") {
     if ($LASTEXITCODE -ne 0) { throw "Deploy of core-api failed" }
     $coreUrl = gcloud run services describe core-api --region $Region --project $ProjectId --format="value(status.url)"
     gcloud run services update core-api --region $Region --project $ProjectId --update-env-vars "CORE_API_URL=$coreUrl" --quiet
+    gcloud pubsub subscriptions describe alerts-push --project $ProjectId 2>$null | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        gcloud pubsub subscriptions create alerts-push --project $ProjectId --topic alerts `
+            --push-endpoint "$coreUrl/alerts" `
+            --push-auth-service-account "invoker@$ProjectId.iam.gserviceaccount.com" `
+            --push-auth-token-audience $coreUrl --ack-deadline 120
+    }
 }
 if ($Target -in "all", "web") {
     Write-Host "==> Deploy web, Firestore and Storage rules" -ForegroundColor Cyan
