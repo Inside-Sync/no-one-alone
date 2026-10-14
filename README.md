@@ -17,6 +17,17 @@ All people, places and medical records in this repo are fictional.
 | Synthetic data and forecast job | `data/` | BigQuery `AI.FORECAST`, Firestore | Minh, Dũng |
 | Project setup and deploy scripts | `infra/` | gcloud, Firebase CLI | Dũng |
 
+## Status (15/10)
+
+| Part | State in the repo | Next |
+|---|---|---|
+| GCP and Firebase | Project `no-one-alone-511616` set up: APIs, service accounts, Firestore, Pub/Sub, Cloud Tasks, FHIR store, BigQuery, Maps key, Anonymous Auth, Storage, domain `noonealone.insidesync.ai` | First deploy |
+| core-api | Done and merged (PR #1). Alert intake, verify, check-in, triage, escalation with timers, actions, hospital handoff, demo trigger and reset, auth. 77 tests green | Deploy, then smoke test the stroke flow on the real URL |
+| CI/CD | GitHub Actions: tests on every PR, deploy to Cloud Run after green CI on `dev` | Run `infra/setup-cicd.ps1` once |
+| respond-agent | Stub that returns contract-shaped fallback JSON | Tài |
+| hospital-agent | `/health` only | Minh |
+| web | Not started in the repo | Hải |
+
 Data shapes and every interface are in [docs/contract.md](docs/contract.md). Read it before writing code; change it through a PR.
 
 ## Setup (once)
@@ -55,3 +66,11 @@ powershell -ExecutionPolicy Bypass -File infra\deploy.ps1 -ProjectId <project-id
 `-Target` is `all`, `core-api`, `respond`, `hospital` or `web`.
 
 core-api feature flags live in `$flags` in the core-api block of `infra/deploy.ps1`. Firebase auth is off unless you pass `-AuthEnabled`.
+
+## CI/CD
+
+- CI (`.github/workflows/ci.yml`) runs on every PR and on pushes to `dev`: core-api `mvn verify` and an import check for each agent.
+- Deploy (`.github/workflows/deploy.yml`) runs after a green CI on `dev` and deploys only the parts the last commit changed, using `infra/deploy.ps1`. Run it by hand from Actions > Deploy > Run workflow.
+- Web deploys only once `web/package.json` exists.
+- Repo variable `AUTH_ENABLED=true` turns on Firebase auth in core-api.
+- One-time setup (Workload Identity Federation, no keys): `powershell -ExecutionPolicy Bypass -File infra\setup-cicd.ps1 -ProjectId <project-id>`
