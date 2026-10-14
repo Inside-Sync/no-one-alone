@@ -19,7 +19,7 @@ function Deploy-Run([string] $Service, [string] $Dir, [string] $Sa, [bool] $Publ
 
 if ($Target -in "all", "respond") { Deploy-Run "respond-agent" "agents/respond" "respond-agent" $false }
 if ($Target -in "all", "hospital") { Deploy-Run "hospital-agent" "agents/hospital" "hospital-agent" $false }
-# core-api is public because Firebase Hosting rewrites need it; it checks tokens itself (contract section 6).
+# core-api is public for Hosting rewrites and checks tokens itself; the org blocks allUsers, hence --no-invoker-iam-check.
 if ($Target -in "all", "core-api") {
     $authFlag = if ($AuthEnabled) { "true" } else { "false" }
     $flags = "RESPOND_AGENT_AUTH=true,PUBSUB_ENABLED=true,TASKS_ENABLED=true,AUDIO_ENABLED=true,AUTH_ENABLED=$authFlag"
@@ -27,7 +27,7 @@ if ($Target -in "all", "core-api") {
     if (-not $agentUrl) { throw "respond-agent is not deployed; deploy it first" }
     Write-Host "==> Deploy core-api" -ForegroundColor Cyan
     gcloud run deploy core-api --source (Join-Path $root "core-api") --region $Region --project $ProjectId `
-        --service-account "core-api@$ProjectId.iam.gserviceaccount.com" --allow-unauthenticated `
+        --service-account "core-api@$ProjectId.iam.gserviceaccount.com" --no-invoker-iam-check `
         --no-cpu-throttling --memory 1Gi --timeout 300 `
         --set-env-vars "GOOGLE_CLOUD_PROJECT=$ProjectId,RESPOND_AGENT_URL=$agentUrl,INVOKER_EMAIL=invoker@$ProjectId.iam.gserviceaccount.com,AUDIO_BUCKET=$ProjectId.firebasestorage.app,$flags" `
         --set-secrets "MAPS_API_KEY=maps-api-key:latest" --quiet
