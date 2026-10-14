@@ -180,4 +180,47 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
         assertThatThrownBy(() -> flow.processCheckIn("c-1", input)).isInstanceOf(IllegalStateException.class);
         assertThat(store.get("c-1").checkIn.busy).isFalse();
     }
+
+    @Test
+    void inputWithoutPendingQuestionIsRejected() {
+        store.mutate("c-1", (x, now) -> {
+            x.checkIn.pending = null;
+            return true;
+        });
+
+        assertThatThrownBy(() -> flow.acceptCheckIn("c-1", CheckInInput.ofYesNo("YES")))
+                .isInstanceOf(ApiException.class).hasMessageContaining("not waiting");
+        assertThat(store.get("c-1").checkIn.busy).isFalse();
+    }
+
+    @Test
+    void closeDuringAgentTurnWritesNothingMore() {
+        when(agent.checkinTurn(any())).thenAnswer(inv -> {
+            store.mutate("c-1", (x, now) -> {
+                x.status = Status.CLOSED;
+                return true;
+            });
+            return ask("Mạ ơi?", "VOICE");
+        });
+        CheckInInput input = CheckInInput.ofYesNo("YES");
+        flow.acceptCheckIn("c-1", input);
+        flow.processCheckIn("c-1", input);
+
+        Incident inc = store.get("c-1");
+        assertThat(inc.status).isEqualTo(Status.CLOSED);
+        assertThat(inc.checkIn.turns).hasSize(1);
+    }
+
+    @Test
+    void malformedQuestionAudioStillAsksTheQuestion() {
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
+                new TurnResult.Next("Mạ ơi?", "VOICE", "%%%", null), false, false));
+        CheckInInput input = CheckInInput.ofYesNo("YES");
+        flow.acceptCheckIn("c-1", input);
+        flow.processCheckIn("c-1", input);
+
+        Incident inc = store.get("c-1");
+        assertThat(inc.checkIn.pending.text).isEqualTo("Mạ ơi?");
+        assertThat(inc.checkIn.pending.audioPath).isNull();
+    }
 }

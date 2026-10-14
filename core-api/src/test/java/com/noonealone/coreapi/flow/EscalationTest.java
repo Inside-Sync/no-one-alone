@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -161,5 +162,26 @@ class EscalationTest extends FirestoreTestBase {
         assertThat(inc.assignment("lan").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
         assertThat(inc.assignment("ong-hung").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
         assertThat(inc.escalationTaskName).isNull();
+    }
+
+    @Test
+    void handoffSkippedWhenIncidentClosedDuringPlan() {
+        store.seed(seed.data());
+        when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null, null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.EMERGENCY, List.of("slurred"), false));
+        when(routes.etaMinutes(any(), any())).thenReturn(Optional.of(6));
+        when(agent.plan(any())).thenAnswer(inv -> {
+            store.mutate("e-6", (x, now) -> {
+                x.status = Status.CLOSED;
+                return true;
+            });
+            return plan();
+        });
+        flow.create(IncidentFlowAlertTest.stroke("e-6"));
+        flow.process("e-6");
+
+        assertThat(store.get("e-6").status).isEqualTo(Status.CLOSED);
+        verify(agent, never()).handoff(any());
     }
 }

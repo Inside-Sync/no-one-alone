@@ -38,12 +38,17 @@ public class InternalController {
         if (envelope.message() == null || envelope.message().data() == null) {
             throw ApiException.badRequest("Missing Pub/Sub message data");
         }
+        AlertMessage msg;
         try {
             byte[] raw = Base64.getDecoder().decode(envelope.message().data());
-            intake.receive(Docs.mapper().readValue(raw, AlertMessage.class));
+            msg = Docs.mapper().readValue(raw, AlertMessage.class);
         } catch (IOException | IllegalArgumentException e) {
             throw ApiException.badRequest("Alert message is not valid JSON");
         }
+        if (msg.alertId() == null || msg.personId() == null || msg.scenario() == null || msg.demo() == null) {
+            throw ApiException.badRequest("Alert message is missing required fields");
+        }
+        intake.receive(msg);
     }
 
     @PostMapping("/tasks/escalation-timeout")

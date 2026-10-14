@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
@@ -105,5 +106,18 @@ class ApiControllerTest {
                 .andExpect(status().isOk());
 
         verify(actions).timeout("i-1", "ong-hung", 1);
+    }
+
+    @Test
+    void alertWithoutRequiredFieldIsRejected() throws Exception {
+        String data = Base64.getEncoder().encodeToString(
+                "{\"alertId\":\"a-1\",\"personId\":\"ba-mai\",\"scenario\":\"STROKE\"}".getBytes());
+
+        mvc.perform(post("/alerts").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"message\":{\"data\":\"" + data + "\"}}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error.code").value("INVALID_REQUEST"));
+
+        verify(intake, never()).receive(any());
     }
 }

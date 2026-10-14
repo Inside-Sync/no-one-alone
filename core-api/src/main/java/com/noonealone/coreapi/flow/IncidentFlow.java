@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.noonealone.coreapi.agent.AgentException;
@@ -34,6 +36,8 @@ import com.noonealone.coreapi.web.ApiException;
 
 @Service
 public class IncidentFlow {
+
+    private static final Logger log = LoggerFactory.getLogger(IncidentFlow.class);
 
     static final int MAX_AGENT_TURNS = 4;
 
@@ -129,11 +133,21 @@ public class IncidentFlow {
                 : null;
         int agentIndex = index + (personTurn ? 1 : 0);
         boolean finish = r == null || r.done() || r.next() == null || inc.agentTurnCount() >= MAX_AGENT_TURNS;
-        String agentAudio = !finish && r.next().audioBase64() != null
-                ? audio.save(incidentId, agentIndex + "-agent.mp3", Base64.getDecoder().decode(r.next().audioBase64()), "audio/mpeg")
-                : null;
+        String agentAudio = null;
+        if (!finish && r.next().audioBase64() != null) {
+            try {
+                agentAudio = audio.save(incidentId, agentIndex + "-agent.mp3",
+                        Base64.getDecoder().decode(r.next().audioBase64()), "audio/mpeg");
+            } catch (RuntimeException e) {
+                log.warn("Agent audio not saved for incident {}: {}", incidentId, e.getClass().getSimpleName());
+            }
+        }
+        String savedAgentAudio = agentAudio;
         TurnResult result = r;
-        store.mutate(incidentId, (x, now) -> {
+        IncidentStore.Mutation m = store.mutate(incidentId, (x, now) -> {
+            if (x.status != Status.CHECKING_IN) {
+                return false;
+            }
             if (personTurn) {
                 Turn t = new Turn();
                 t.by = "PERSON";
@@ -159,12 +173,12 @@ public class IncidentFlow {
                 t.by = "AGENT";
                 t.at = now;
                 t.text = result.next().text();
-                t.audioPath = agentAudio;
+                t.audioPath = savedAgentAudio;
                 x.checkIn.turns.add(t);
                 x.checkIn.pending = new Pending();
                 x.checkIn.pending.text = t.text;
                 x.checkIn.pending.kind = result.next().kind();
-                x.checkIn.pending.audioPath = agentAudio;
+                x.checkIn.pending.audioPath = savedAgentAudio;
                 if ("YES_NO".equals(result.next().kind())) {
                     x.checkIn.mode = "LARGE_TEXT";
                 }
@@ -173,7 +187,7 @@ public class IncidentFlow {
             x.checkIn.busy = false;
             return true;
         });
-        if (finish) {
+        if (finish && m.changed()) {
             finishCheckIn(incidentId);
         }
     }
@@ -187,7 +201,8 @@ public class IncidentFlow {
             throw ApiException.badRequest("yesNo must be YES or NO");
         }
         store.mutate(incidentId, (x, now) -> {
-            if (x.status != Status.CHECKING_IN || x.checkIn.done || x.checkIn.busy) {
+            if (x.status != Status.CHECKING_IN || x.checkIn.done || x.checkIn.busy
+                    || x.checkIn.pending == null) {
                 throw ApiException.invalidState("Check-in is not waiting for an answer");
             }
             x.checkIn.busy = true;
@@ -234,8 +249,8 @@ public class IncidentFlow {
             r = new TriageResult(fallbackLevel(inc), List.of("respond-agent unavailable"), true);
         }
         TriageResult result = r;
-        store.mutate(incidentId, (x, now) -> {
-            if (x.level != null) {
+        IncidentStore.Mutation m = store.mutate(incidentId, (x, now) -> {
+            if (x.level != null || x.status != Status.CHECKING_IN) {
                 return false;
             }
             x.level = result.level();
@@ -252,7 +267,7 @@ public class IncidentFlow {
             }
             return true;
         });
-        if (result.level() == Level.COME_NOW || result.level() == Level.EMERGENCY) {
+        if (m.changed() && (result.level() == Level.COME_NOW || result.level() == Level.EMERGENCY)) {
             escalation.start(incidentId);
         }
     }

@@ -104,7 +104,7 @@ public class Escalation {
 
         PlanResult result = plan;
         boolean usedFallback = fallback;
-        store.mutate(incidentId, (x, now) -> {
+        IncidentStore.Mutation m = store.mutate(incidentId, (x, now) -> {
             if (x.status != Status.CHECKING_IN) {
                 return false;
             }
@@ -146,7 +146,7 @@ public class Escalation {
                     x.log(now, "SYSTEM", "NOTIFIED", EscalationRules.name(people, a.memberId) + " notified"));
             return true;
         });
-        if (inc.level == Level.EMERGENCY) {
+        if (m.changed() && inc.level == Level.EMERGENCY) {
             try {
                 handoff.start(incidentId);
             } catch (RuntimeException e) {

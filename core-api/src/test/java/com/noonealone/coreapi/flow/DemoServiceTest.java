@@ -1,5 +1,6 @@
 package com.noonealone.coreapi.flow;
 
+import com.noonealone.coreapi.model.DemoCurrent;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -90,5 +91,16 @@ class DemoServiceTest extends FirestoreTestBase {
 
         verify(agent, times(1)).verify(any());
         assertThat(store.get("alert-redelivered").checkIn.turns).filteredOn(t -> "AGENT".equals(t.by)).hasSize(1);
+    }
+
+    @Test
+    void triggerWhileCurrentIncidentNotCreatedYetIsRejected() {
+        demo.reset();
+        DemoCurrent c = new DemoCurrent();
+        c.incidentId = "alert-not-yet-pushed";
+        store.setCurrent(c);
+
+        assertThatThrownBy(() -> demo.trigger(Scenario.FALL, 30, 15)).isInstanceOf(ApiException.class)
+                .hasMessageContaining("still running");
     }
 }

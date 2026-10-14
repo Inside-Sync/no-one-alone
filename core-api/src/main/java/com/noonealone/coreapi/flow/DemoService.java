@@ -41,10 +41,11 @@ public class DemoService {
     }
 
     public String trigger(Scenario scenario, int timerSeconds, int noReplySeconds) {
-        store.current().flatMap(c -> store.find(c.incidentId)).filter(i -> i.status != Status.CLOSED)
-                .ifPresent(i -> {
-                    throw ApiException.invalidState("A demo incident is still running. Close or reset it first.");
-                });
+        boolean running = store.current()
+                .map(c -> store.find(c.incidentId).map(i -> i.status != Status.CLOSED).orElse(true)).orElse(false);
+        if (running) {
+            throw ApiException.invalidState("A demo incident is still running. Close or reset it first.");
+        }
         Fixture f = scenarios.get(scenario);
         DemoSettings settings = new DemoSettings();
         settings.timerSeconds = timerSeconds;
