@@ -70,3 +70,59 @@ export const NOTIFICATIONS: readonly (readonly [string, string, string, 'good' |
   ['✅', 'Blood pressure report read by Dr Patel', 'Yesterday 16:42', 'good'],
   ['😊', 'Margaret had a cheerful chat at 13:02', '2 h ago', 'good'],
 ]
+
+/** `actions()` buttons of the condition drawer (prototype line 1873): [label, toast, done]. */
+export const COND_ACTIONS: readonly (readonly [label: string, toast: string, done: string])[] = [
+  ['🗣️ Ask her about it', 'Added to her next chat', 'Added'],
+  ['🩺 Raise with Dr Patel', 'Added to the GP visit agenda', 'Added'],
+]
+
+/**
+ * `ONCE` (prototype line 1855): a button whose text matches a key turns into a
+ * disabled "✓ …" button after its first click.
+ */
+export const ONCE_LABELS: Readonly<Record<string, string>> = {
+  Approve: '✓ Approved',
+  'Ask David to set up a pill box': '✓ David asked',
+  'Send BP report to Dr Patel': '✓ Sent',
+  'Call Mum': '📞 Calling…',
+}
+
+/** Static headings and captions of the individual Home page (prototype lines 546–700). */
+export const HOME_COPY = {
+  today: { title: '🟢 Margaret today', soFar: 'Today so far', soFarMeta: 'What Margaret shares with you' },
+  profile: {
+    title: '👤 About Margaret',
+    share: { label: '📤 Share profile', done: 'Shared' },
+    conditionsTitle: '🩺 Health conditions',
+    conditionsMeta: 'Tap one for detail',
+  },
+  wellbeing: {
+    title: '🧭 Overall wellbeing',
+    meta: 'Compared with her usual month',
+    ariaLabel: 'Overall wellbeing 72 out of 100: body 61, medicines 68, moving 74, sleep 70, social 82, memory 88, home 58',
+    legend: ['Now', 'Last month'],
+  },
+  rhythm: {
+    title: '🕰️ Daily rhythm',
+    meta: 'When she is up and about, each hour of the week',
+    legend: ['Less', 'More', 'Unusual for her'],
+  },
+  plan: { title: "This week's plan", approve: { label: 'Approve', toast: 'Approved · David has been asked', done: 'Approved' } },
+  circle: {
+    title: '💞 Her care circle',
+    meta: 'Drag to turn · tap a person',
+    ariaLabel:
+      'Care circle around Margaret: David and the community nurse nearby, Sarah and James far away, the stroke centre on the care ring',
+  },
+  chat: { title: "🗣️ Today's chat with her" },
+  home: { title: '🏠 Her home today' },
+  near: { title: '🤝 People and places near her', meta: 'Within 1 km' },
+  helper: {
+    title: '🤖 What the helper did today',
+    meta: 'Every step is recorded so the family can check it',
+    columns: ['Time', 'What it did', 'How', 'Why', 'Result'],
+    approve: { label: 'Approve', toast: 'Approved · David has been asked' },
+  },
+  mapControls: { left: 'Rotate left', right: 'Rotate right', reset: 'Reset view' },
+} as const

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-export type CardSpan = 4 | 6 | 8 | 12
+export type CardSpan = 4 | 5 | 6 | 7 | 8 | 12
 
 interface Props {
   span?: CardSpan
