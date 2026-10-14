@@ -391,3 +391,32 @@ export const PRIVACY_COPY = {
   },
   audit: { title: '🧾 Changes you made', meta: 'Newest first', empty: 'No changes yet', label: 'Audit log' },
 } as const
+
+/** Health Lineage page headings and table heads (prototype lines 748–776). */
+export const LINEAGE_COPY = {
+  strengthMeta: 'Guideline-based',
+  screeningHead: ['Check', 'Interval', 'Due', ''],
+  matrix: { title: 'Condition matrix', meta: 'Age at onset · blank = not affected or not shared', person: 'Person' },
+  consent: { title: 'Sharing and consent', meta: 'Each person decides', shares: (person: string, column: string) => `${person} shares ${column}` },
+} as const
+
+/** Care record page headings, table heads and the follow-up copy (prototype lines 777–810). */
+export const RECORD_COPY = {
+  enc: {
+    title: 'Encounters, 2023–2026',
+    ariaLabel: '46 encounters from 2023 to 2026 across GP, specialist, pathology, emergency and hearing',
+    now: 'now',
+  },
+  medicines: { title: 'Medicines', head: ['Medicine', '30-day', 'Last'], allergy: 'Allergy' },
+  labs: { title: 'Pathology trends', meta: 'Last 4 results · reference range shaded' },
+  hospitals: {
+    title: 'Hospital readiness',
+    meta: 'Ranked for a suspected stroke',
+    head: ['Hospital', 'Capability', 'ETA', 'ED load'],
+    recommended: 'Recommended',
+    packet: 'Preview the pre-arrival packet',
+    packetTitle: 'Pre-arrival packet',
+  },
+  sources: { title: 'Data sources', meta: 'Provenance for every record', head: ['Source', 'Standard', 'Records', 'Last sync', 'Status'] },
+  followUp: { title: 'After a hospital stay', meta: '30-day follow-up plan' },
+} as const
