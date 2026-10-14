@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -44,6 +45,7 @@ class HandoffTest extends FirestoreTestBase {
     @Autowired IncidentFlow flow;
     @Autowired IncidentStore store;
     @Autowired Seed seed;
+    @Autowired Handoff handoff;
     @MockBean RespondAgentClient agent;
     @MockBean EscalationTimers tasks;
     @MockBean RoutesClient routes;
@@ -98,5 +100,27 @@ class HandoffTest extends FirestoreTestBase {
         Incident inc = store.get("h-2");
         assertThat(inc.handoff.status).isEqualTo("FAILED");
         assertThat(inc.timeline).extracting(t -> t.kind).contains("HANDOFF_FAILED");
+    }
+
+    @Test
+    void unexpectedClientErrorMarksHandoffFailed() {
+        when(agent.handoff(any())).thenThrow(new IllegalStateException("boom"));
+
+        runStroke("h-3");
+
+        Incident inc = store.get("h-3");
+        assertThat(inc.handoff.status).isEqualTo("FAILED");
+        assertThat(inc.timeline).extracting(t -> t.kind).contains("HANDOFF_FAILED", "AGENT_FALLBACK");
+        assertThat(inc.status).isEqualTo(com.noonealone.coreapi.model.Status.ESCALATING);
+    }
+
+    @Test
+    void secondStartDoesNotCallAgentAgain() {
+        when(agent.handoff(any())).thenReturn(new HandoffResult("RECEIVED", Map.of("text", "P"), false));
+
+        runStroke("h-4");
+        handoff.start("h-4");
+
+        verify(agent, times(1)).handoff(any());
     }
 }

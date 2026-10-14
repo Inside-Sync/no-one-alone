@@ -147,7 +147,11 @@ public class Escalation {
             return true;
         });
         if (inc.level == Level.EMERGENCY) {
-            handoff.start(incidentId);
+            try {
+                handoff.start(incidentId);
+            } catch (RuntimeException e) {
+                log.warn("Handoff not started for incident {}: {}", incidentId, e.getClass().getSimpleName());
+            }
         }
     }
 

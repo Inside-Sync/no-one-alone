@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.noonealone.coreapi.agent.AgentException;
 import com.noonealone.coreapi.agent.HandoffResult;
 import com.noonealone.coreapi.agent.RespondAgentClient;
 import com.noonealone.coreapi.gcp.RoutesClient;
@@ -68,13 +67,16 @@ public class Handoff {
         HandoffResult result;
         try {
             result = agent.handoff(body(inc, person, stroke, chosen, eta.get(chosen.id)));
-        } catch (AgentException e) {
+        } catch (RuntimeException e) {
             result = new HandoffResult("FAILED", null, true);
         }
         HandoffResult r = result;
         store.mutate(incidentId, (x, now) -> {
             x.handoff.status = "RECEIVED".equals(r.status()) ? "RECEIVED" : "FAILED";
             x.handoff.packet = r.packet();
+            if (r.fallback()) {
+                x.log(now, "AGENT", "AGENT_FALLBACK", "Handoff used fallback");
+            }
             if ("RECEIVED".equals(x.handoff.status)) {
                 x.log(now, "SYSTEM", "HANDOFF_RECEIVED", chosen.name + " received the packet");
             } else {
@@ -96,7 +98,9 @@ public class Handoff {
         body.put("personId", inc.personId);
         body.put("level", inc.level.name());
         body.put("suspected", stroke ? "STROKE" : "UNKNOWN");
-        body.put("lastKnownWellAt", inc.lastKnownWellAt);
+        if (inc.lastKnownWellAt != null) {
+            body.put("lastKnownWellAt", inc.lastKnownWellAt);
+        }
         body.put("findings", inc.triage == null ? List.of() : inc.triage.reasons);
         body.put("hospital", hospital);
         // ponytail: first NEARBY member, not the owner; nobody has accepted yet when handoff runs
