@@ -18,7 +18,7 @@ const medium: CSSProperties = { fontWeight: 500 }
 const right: CSSProperties = { textAlign: 'right' }
 
 /** Left column (c5): level tag, orbit, minutes, owner of the case and the call buttons. */
-export function AlertCard({ step, scene, onEnd }: { step: number; scene: OrbitScene; onEnd: () => void }) {
+export function AlertCard({ step, scene, onEnd }: { step: number; scene: OrbitScene | null; onEnd: () => void }) {
   const toast = useToast()
   const drawer = useDrawer()
   const c = LIVE_COPY
@@ -32,7 +32,11 @@ export function AlertCard({ step, scene, onEnd }: { step: number; scene: OrbitSc
           <span className="em-tag"><i></i><span id="emTag">{s.lv}</span></span>
           <button type="button" className="chip" id="endDemo" style={endStyle} onClick={onEnd}>{c.endDemo}</button>
         </div>
-        <Orbit scene={scene} ariaLabel={c.orbitLabel} mode={mode} state={targets} labels night tilt={0.62} zoom={1.05} style={orbitStyle} />
+        {scene ? (
+          <Orbit scene={scene} ariaLabel={c.orbitLabel} mode={mode} state={targets} labels night tilt={0.62} zoom={1.05} style={orbitStyle} />
+        ) : (
+          <div className="c3d" style={orbitStyle}></div>
+        )}
         <div className="em-stat">
           <b className="v" id="emMin">{s.m}′</b>
           <span><span className="k">{c.since}</span><br /><span className="l" id="emLvl">{s.lv}</span></span>

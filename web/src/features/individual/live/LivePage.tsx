@@ -14,7 +14,8 @@ function useOrbitScene(): OrbitScene | null {
   const [scene, setScene] = useState<OrbitScene | null>(null)
   useEffect(() => {
     let live = true
-    getOrbitScene().then((s) => { if (live) setScene(s) })
+    // On failure the canvas area stays empty; the safety controls do not depend on it.
+    getOrbitScene().then((s) => { if (live) setScene(s) }, () => {})
     return () => { live = false }
   }, [])
   return scene
@@ -61,7 +62,7 @@ export function LivePage() {
   }
   return (
     <main className="grid" data-page="live">
-      {scene && <AlertCard step={step} scene={scene} onEnd={() => dispatchEmergency({ type: 'end' })} />}
+      <AlertCard step={step} scene={scene} onEnd={() => dispatchEmergency({ type: 'end' })} />
       <TimelineCard
         step={step}
         playing={playing}

@@ -1,7 +1,8 @@
 import { act, fireEvent, screen, within } from '@testing-library/react'
 import { vi } from 'vitest'
 import { TopNav } from '@/components/shell/TopNav'
-import { LIVE_COPY } from '@/data/repo'
+import { LIVE_COPY, resetDataSource, setDataSource } from '@/data/repo'
+import { mockSource } from '@/data/sources/mock'
 import { STEPS, TICK_MS } from '@/domain/emergency'
 import { LivePage } from '@/features/individual/live/LivePage'
 import { PAGE_REGISTRY } from '@/features/registry'
@@ -24,6 +25,7 @@ beforeEach(() => {
   document.body.insertAdjacentHTML('beforeend', '<div id="flash" class="flash"></div>')
 })
 afterEach(() => {
+  resetDataSource()
   vi.useRealTimers()
   document.getElementById('flash')?.remove()
 })
@@ -239,4 +241,27 @@ test('STEPS stay the single source for the timeline text', async () => {
   expect(items).toHaveLength(STEPS.length)
   expect(items[3].textContent).toContain('Triage.')
   expect(items[3].textContent).toContain('Level: emergency now')
+})
+
+describe.each([
+  ['never resolves', () => new Promise<never>(() => {})],
+  ['rejects', () => Promise.reject(new Error('scene unavailable'))],
+])('safety controls when the orbit scene %s', (_name, load) => {
+  test('End demo and Call 000 work without the orbit', async () => {
+    const unhandled = vi.fn()
+    process.on('unhandledRejection', unhandled)
+    setDataSource({ ...mockSource, getOrbitScene: load })
+    renderWithProviders(<LivePage />)
+    await idle()
+    act(() => start())
+    expect(screen.getByText('David · not yet alerted')).toBeInTheDocument()
+    expect(screen.queryByRole('img', { name: LIVE_COPY.orbitLabel })).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: 'Call 000' }))
+    expect(await screen.findByText('Script for 000')).toBeInTheDocument()
+    await act(async () => { await new Promise((r) => setTimeout(r, 20)) })
+    expect(unhandled).not.toHaveBeenCalled()
+    process.off('unhandledRejection', unhandled)
+    fireEvent.click(screen.getByRole('button', { name: 'End demo' }))
+    expect(screen.getByRole('heading', { name: 'No active alert' })).toBeInTheDocument()
+  })
 })
