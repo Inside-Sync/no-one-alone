@@ -16,10 +16,22 @@ function Deploy-Run([string] $Service, [string] $Dir, [string] $Sa, [bool] $Publ
     if ($LASTEXITCODE -ne 0) { throw "Deploy of $Service failed" }
 }
 
-# core-api is public because Firebase Hosting rewrites need it; it checks tokens itself (contract section 6).
-if ($Target -in "all", "core-api") { Deploy-Run "core-api" "core-api" "core-api" $true }
 if ($Target -in "all", "respond") { Deploy-Run "respond-agent" "agents\respond" "respond-agent" $false }
 if ($Target -in "all", "hospital") { Deploy-Run "hospital-agent" "agents\hospital" "hospital-agent" $false }
+# core-api is public because Firebase Hosting rewrites need it; it checks tokens itself (contract section 6).
+if ($Target -in "all", "core-api") {
+    $flags = "RESPOND_AGENT_AUTH=true,PUBSUB_ENABLED=false,TASKS_ENABLED=false,AUDIO_ENABLED=false,AUTH_ENABLED=false"
+    $agentUrl = gcloud run services describe respond-agent --region $Region --project $ProjectId --format="value(status.url)"
+    Write-Host "==> Deploy core-api" -ForegroundColor Cyan
+    gcloud run deploy core-api --source "$root\core-api" --region $Region --project $ProjectId `
+        --service-account "core-api@$ProjectId.iam.gserviceaccount.com" --allow-unauthenticated `
+        --no-cpu-throttling --memory 1Gi --timeout 300 `
+        --set-env-vars "GOOGLE_CLOUD_PROJECT=$ProjectId,RESPOND_AGENT_URL=$agentUrl,INVOKER_EMAIL=invoker@$ProjectId.iam.gserviceaccount.com,AUDIO_BUCKET=$ProjectId.firebasestorage.app,$flags" `
+        --set-secrets "MAPS_API_KEY=maps-api-key:latest" --quiet
+    if ($LASTEXITCODE -ne 0) { throw "Deploy of core-api failed" }
+    $coreUrl = gcloud run services describe core-api --region $Region --project $ProjectId --format="value(status.url)"
+    gcloud run services update core-api --region $Region --project $ProjectId --update-env-vars "CORE_API_URL=$coreUrl" --quiet
+}
 if ($Target -in "all", "web") {
     Write-Host "==> Deploy web, Firestore and Storage rules" -ForegroundColor Cyan
     Push-Location $root
