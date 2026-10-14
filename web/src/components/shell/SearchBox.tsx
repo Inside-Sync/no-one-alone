@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/app/navigation'
 import { Icon } from '@/components/ui/Icon'
 import * as repo from '@/data/repo'
 import { useAppState } from '@/state/AppState'

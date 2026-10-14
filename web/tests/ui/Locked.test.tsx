@@ -3,7 +3,7 @@ import { vi } from 'vitest'
 import { AppStateProvider, useAppState } from '@/state/AppState'
 import { Locked } from '@/components/ui/Locked'
 
-vi.mock('next/navigation', () => ({ usePathname: () => '/individual/home/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
+vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/home/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
 function Ctl() {
   const a = useAppState()

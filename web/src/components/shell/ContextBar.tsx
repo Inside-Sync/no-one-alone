@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from '@/app/navigation'
 import { WhoSwitch } from './WhoSwitch'
 import * as repo from '@/data/repo'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'

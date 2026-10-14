@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/app/navigation'
 import { resolvePage } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
 import { PagePlaceholder } from './PagePlaceholder'

@@ -2,10 +2,10 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
-  use: { baseURL: "http://localhost:3000" },
+  use: { baseURL: "http://localhost:5173" },
   webServer: {
-    command: "pnpm dev",
-    url: "http://localhost:3000",
+    command: "npm run dev",
+    url: "http://localhost:5173",
     reuseExistingServer: true,
   },
 });

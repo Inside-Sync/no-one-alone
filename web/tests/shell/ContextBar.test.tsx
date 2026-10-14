@@ -5,7 +5,7 @@ import { ContextBar } from '@/components/shell/ContextBar'
 
 let mockPath = '/individual/home/'
 const push = vi.fn((to: string) => { mockPath = to })
-vi.mock('next/navigation', () => ({
+vi.mock('@/app/navigation', () => ({
   usePathname: () => mockPath,
   useRouter: () => ({ push, replace: vi.fn() }),
 }))

@@ -1,6 +1,6 @@
 /* Copied from docs/reference/prototype.html <style> (lines 36-478); tokens live in tokens.css */
-/* next/font exposes hashed family names via these variables; map them onto the prototype's --font/--mono tokens. */
-:root{--font:var(--font-be-vietnam-pro),"Segoe UI",system-ui,sans-serif;--mono:var(--font-jetbrains-mono),ui-monospace,Consolas,monospace}
+/* Font faces come from @fontsource (imported in main.tsx). */
+:root{--font:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,Consolas,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
 body{min-height:100vh;font-family:var(--font);font-size:14px;line-height:1.5;background:var(--m5);color:var(--ink);-webkit-font-smoothing:antialiased}

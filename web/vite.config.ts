@@ -7,6 +7,10 @@ export default defineConfig({
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
   },
+  server: {
+    // Same-origin `/api/**` as on Firebase Hosting; core-api runs locally on 8080.
+    proxy: { "/api": "http://localhost:8080" },
+  },
   test: {
     environment: "jsdom",
     setupFiles: ["./tests/setup.ts"],

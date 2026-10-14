@@ -7,7 +7,7 @@ import { TopNav } from '@/components/shell/TopNav'
 let mockPath = '/individual/home/'
 const push = vi.fn((to: string) => { mockPath = to })
 const replace = vi.fn()
-vi.mock('next/navigation', () => ({
+vi.mock('@/app/navigation', () => ({
   usePathname: () => mockPath,
   useRouter: () => ({ push, replace }),
 }))

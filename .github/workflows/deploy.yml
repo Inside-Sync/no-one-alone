@@ -50,6 +50,12 @@ jobs:
             echo "$changed" | grep -qE '^(web/|firebase.json|firestore.rules|storage.rules)' && list="$list web"
           fi
           echo "list=$list" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v4
+        if: (contains(steps.targets.outputs.list, 'web') || contains(steps.targets.outputs.list, 'all')) && hashFiles('web/package.json') != ''
+        with:
+          node-version-file: web/.nvmrc
+          cache: npm
+          cache-dependency-path: web/package-lock.json
       - name: Build web
         if: (contains(steps.targets.outputs.list, 'web') || contains(steps.targets.outputs.list, 'all')) && hashFiles('web/package.json') != ''
         working-directory: web

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from '@/app/navigation'
 import { BrandMark } from './BrandMark'
 import { SearchBox } from './SearchBox'
 import { Tabs } from './Tabs'

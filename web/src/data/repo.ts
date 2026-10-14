@@ -4,7 +4,7 @@ import type { DataSource } from './sources/source'
 export type { DataSource } from './sources/source'
 
 /**
- * Chooses the source from NEXT_PUBLIC_DATA_SOURCE=mock|firebase. The Firestore
+ * Chooses the source from VITE_DATA_SOURCE=mock|firebase. The Firestore
  * source arrives in Task 15; until then every value resolves to the mock, and
  * `setDataSource` lets that task (or a test) install another implementation.
  */
