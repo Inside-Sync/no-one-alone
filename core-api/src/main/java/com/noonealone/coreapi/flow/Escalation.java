@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.noonealone.coreapi.agent.AgentException;
@@ -29,6 +31,8 @@ import com.noonealone.coreapi.store.IncidentStore;
 
 @Service
 public class Escalation {
+
+    private static final Logger log = LoggerFactory.getLogger(Escalation.class);
 
     private final IncidentStore store;
     private final RespondAgentClient agent;
@@ -73,12 +77,27 @@ public class Escalation {
         }
         Map<String, String> messages = new HashMap<>();
         plan.messages().forEach(m -> messages.put(m.memberId(), m.text()));
-        String instructionAudio = plan.personInstruction() != null && plan.personInstruction().audioBase64() != null
-                ? audio.save(incidentId, "instruction.mp3", Base64.getDecoder().decode(plan.personInstruction().audioBase64()), "audio/mpeg")
-                : null;
+        String instructionAudio = null;
+        if (plan.personInstruction() != null && plan.personInstruction().audioBase64() != null) {
+            try {
+                instructionAudio = audio.save(incidentId, "instruction.mp3",
+                        Base64.getDecoder().decode(plan.personInstruction().audioBase64()), "audio/mpeg");
+            } catch (RuntimeException e) {
+                log.warn("Instruction audio not saved for incident {}: {}", incidentId, e.getClass().getSimpleName());
+            }
+        }
 
         Optional<CircleEntry> firstNearby = circle.stream().filter(c -> c.role == Role.NEARBY).findFirst();
-        String firstTask = firstNearby.map(c -> tasks.schedule(incidentId, c.memberId, 1, inc.demo.timerSeconds)).orElse(null);
+        String firstTask = null;
+        if (firstNearby.isPresent()) {
+            try {
+                firstTask = tasks.schedule(incidentId, firstNearby.get().memberId, 1, inc.demo.timerSeconds);
+            } catch (RuntimeException e) {
+                log.warn("Escalation timer not scheduled for incident {}: {}", incidentId, e.getClass().getSimpleName());
+            }
+        }
+        String timerName = firstTask;
+        String audioPath = instructionAudio;
 
         PlanResult result = plan;
         boolean usedFallback = fallback;
@@ -92,7 +111,7 @@ public class Escalation {
                 x.personInstruction = new PersonInstruction();
                 x.personInstruction.scriptIds = result.personInstruction().scriptIds();
                 x.personInstruction.text = result.personInstruction().text();
-                x.personInstruction.audioPath = instructionAudio;
+                x.personInstruction.audioPath = audioPath;
             }
             if (usedFallback) {
                 x.log(now, "AGENT", "AGENT_FALLBACK", "Plan used fallback");
@@ -116,7 +135,7 @@ public class Escalation {
             }
             Optional<Assignment> next = EscalationRules.nextQueued(x);
             if (next.isPresent()) {
-                EscalationRules.notify(x, next.get(), now, firstTask, people);
+                EscalationRules.notify(x, next.get(), now, timerName, people);
             } else {
                 EscalationRules.noNearby(x, now);
             }

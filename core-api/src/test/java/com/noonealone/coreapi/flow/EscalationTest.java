@@ -123,6 +123,7 @@ class EscalationTest extends FirestoreTestBase {
         escalation.start("e-4");
 
         assertThat(store.get("e-4").assignments).hasSize(2);
+        verify(tasks, times(1)).schedule(eq("e-4"), anyString(), anyInt(), anyInt());
     }
 
     @Test
@@ -142,5 +143,23 @@ class EscalationTest extends FirestoreTestBase {
         assertThat(inc.assignments).extracting(a -> a.memberId).containsExactly("ong-hung", "lan", "tuan");
         assertThat(inc.assignment("tuan").orElseThrow().state).isEqualTo(AssignmentState.QUEUED);
         verify(tasks, times(1)).schedule(eq("e-5"), anyString(), anyInt(), anyInt());
+    }
+
+    @Test
+    void timerFailureStillEscalatesAndNotifiesEveryone() {
+        when(agent.plan(any())).thenReturn(plan());
+        store.seed(seed.data());
+        when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null, null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.COME_NOW, List.of("no answer"), false));
+        when(tasks.schedule(anyString(), anyString(), anyInt(), anyInt())).thenThrow(new RuntimeException("tasks down"));
+        flow.create(IncidentFlowAlertTest.stroke("e-6"));
+        flow.process("e-6");
+
+        Incident inc = store.get("e-6");
+        assertThat(inc.status).isEqualTo(Status.ESCALATING);
+        assertThat(inc.assignment("lan").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
+        assertThat(inc.assignment("ong-hung").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
+        assertThat(inc.escalationTaskName).isNull();
     }
 }
