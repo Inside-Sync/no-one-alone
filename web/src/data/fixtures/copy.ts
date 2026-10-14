@@ -209,3 +209,49 @@ export const AROUND_COPY = {
     done: { color: '#56706e', label: 'Resolved' },
   },
 } as const
+
+/** Static headings and captions of the individual What's-ahead page (prototype lines 699–747, 1445–1473). */
+export const FORECAST_COPY = {
+  modelTitle: 'ℹ️ How this forecast works',
+  risks: {
+    title: '📊 Chances over time',
+    meta: 'Out of 100 women like Margaret',
+    columns: ['What could happen', 'Next month', 'Next 3 months', 'Next year', 'Likely range', 'Level', 'Trend', 'Main reason'],
+  },
+  sim: {
+    title: '🎛️ Try it: what if…',
+    meta: 'Move the sliders',
+    hearingSwitchLabel: 'Wears hearing aids daily',
+    adherenceValue: (n: number) => `${n}%`,
+    cells: [
+      { key: 'stroke', label: 'Stroke · 90 d' },
+      { key: 'fall', label: 'Fall · 90 d' },
+      { key: 'admission', label: 'Admission · 90 d' },
+      { key: 'mci', label: 'MCI · 90 d' },
+    ],
+  },
+  bp: {
+    title: 'Morning systolic blood pressure',
+    meta: 'Observed 6 weeks · projected 4 weeks · mmHg',
+    yLabel: 'Morning systolic blood pressure',
+    ariaLabel: 'Morning systolic blood pressure rose from 128 to 146 over six weeks and is projected to reach 156 without changes',
+    today: 'today',
+    weekLabel: (n: number) => `W${n}`,
+    legend: [
+      { color: '#c88a05', label: 'Observed' },
+      { color: 'rgba(217,68,63,.5)', label: 'Projected if nothing changes' },
+      { color: 'rgba(31,179,156,.6)', label: 'Projected at 100% adherence' },
+      { color: '#8f6fd0', label: 'Your what-if scenario' },
+      { color: 'rgba(31,179,156,.15)', label: 'Target under 135' },
+    ],
+  },
+  shap: { title: '⚖️ What pushes her stroke chance up or down', meta: 'Red pushes up · green pulls down' },
+  signs: {
+    title: '👀 What we keep an eye on',
+    meta: 'Today compared with her usual',
+    columns: ['Sign', 'From', 'How often', 'Now', 'Usual', 'Compared with usual', 'Status'],
+    status: { good: 'Fine', warn: 'Watch', bad: 'Act' },
+  },
+  /** Mode-button click: tag text and toast (line 1473). */
+  modes: { on: 'ON', off: 'OFF', toast: (name: string, on: boolean) => `${name} mode ${on ? 'on' : 'off'}` },
+} as const

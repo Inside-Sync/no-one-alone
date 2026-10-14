@@ -2,6 +2,7 @@
 
 import type { ComponentType } from 'react'
 import { AroundPage } from './individual/around/AroundPage'
+import { ForecastPage } from './individual/forecast/ForecastPage'
 import { HealthPage } from './individual/health/HealthPage'
 import { HomePage } from './individual/home/HomePage'
 
@@ -13,4 +14,5 @@ export const PAGE_REGISTRY: Record<string, ComponentType> = {
   'individual/home': HomePage,
   'individual/health': HealthPage,
   'individual/around': AroundPage,
+  'individual/forecast': ForecastPage,
 }
