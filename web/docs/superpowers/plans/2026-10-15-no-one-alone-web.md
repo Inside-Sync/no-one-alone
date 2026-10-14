@@ -2,9 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Dựng phần **frontend** của "No One Alone" (bài dự thi Google AI Builder) từ prototype thành web app Next.js chạy trên Firebase: 3 view (Individual / Hospital / Community), đăng nhập bằng Firebase Auth, dữ liệu đi qua một lớp repo có thể chạy bằng mock hoặc Firestore của team backend.
+> **Cập nhật 15/10 — đã chuyển sang monorepo và Vite.** Code nằm ở `web/` của `Inside-Sync/no-one-alone`. Stack thực tế: Vite + React Router (`src/app/App.tsx`, `src/app/navigation.ts` thay `next/navigation`), `@fontsource` thay `next/font`, npm, Node 22 (`.nvmrc`), build ra `web/dist`, dev server cổng 5173. Env dùng tiền tố `VITE_` và đọc qua `import.meta.env`. Chỗ nào bên dưới còn nhắc Next.js (`src/app/layout.tsx`, `src/app/<route>/page.tsx`, static export, `out/`) thì hiểu theo cấu trúc Vite này: bọc provider trong `App.tsx`, thêm route trong `<Routes>`. `firebase.json`, `.firebaserc`, Firestore/Storage rules nằm ở gốc monorepo và do Dũng quản lý: không tự viết lại, đổi thì qua PR. `docs/contract.md` ở gốc monorepo là nguồn sự thật cho dữ liệu và API; Task 15 cần lên lại theo contract trước khi làm.
 
-**Architecture:** Next.js App Router, route `/[view]/[page]`. Build dạng static export (`output: 'export'`) và deploy lên Firebase Hosting; mọi tương tác Firebase (Auth, Firestore) chạy phía client bằng Firebase JS SDK. Toàn bộ dữ liệu đi qua `src/data/repo.ts`, chọn nguồn bằng env `NEXT_PUBLIC_DATA_SOURCE=mock|firebase`: `mock` đọc fixture, `firebase` đọc Firestore theo hợp đồng kiểu trong `src/data/types.ts`. Logic nghiệp vụ (mô phỏng rủi ro, quyền xem theo consent, kịch bản cấp cứu, tab theo vai trò) nằm trong `src/domain/` dưới dạng hàm thuần. UI = component React + CSS Modules, dùng lại nguyên bộ design token của prototype. Biểu đồ vẽ bằng SVG tay, cảnh 3D vẽ bằng Canvas 2D như prototype — không dùng thư viện chart.
+**Goal:** Dựng phần **frontend** của "No One Alone" (bài dự thi Google AI Builder) từ prototype thành web app (ban đầu Next.js, nay Vite) chạy trên Firebase: 3 view (Individual / Hospital / Community), đăng nhập bằng Firebase Auth, dữ liệu đi qua một lớp repo có thể chạy bằng mock hoặc Firestore của team backend.
+
+**Architecture:** Next.js App Router, route `/[view]/[page]`. Build dạng static export (`output: 'export'`) và deploy lên Firebase Hosting; mọi tương tác Firebase (Auth, Firestore) chạy phía client bằng Firebase JS SDK. Toàn bộ dữ liệu đi qua `src/data/repo.ts`, chọn nguồn bằng env `VITE_DATA_SOURCE=mock|firebase`: `mock` đọc fixture, `firebase` đọc Firestore theo hợp đồng kiểu trong `src/data/types.ts`. Logic nghiệp vụ (mô phỏng rủi ro, quyền xem theo consent, kịch bản cấp cứu, tab theo vai trò) nằm trong `src/domain/` dưới dạng hàm thuần. UI = component React + CSS Modules, dùng lại nguyên bộ design token của prototype. Biểu đồ vẽ bằng SVG tay, cảnh 3D vẽ bằng Canvas 2D như prototype — không dùng thư viện chart.
 
 **Tech Stack:** Next.js (bản stable mới nhất, App Router, static export) · React · TypeScript `strict` · CSS Modules · `next/font/google` · `@vis.gl/react-google-maps` (Google Maps JS API) · Firebase JS SDK (modular: `firebase/app`, `firebase/auth`, `firebase/firestore`) · Firebase Hosting (`firebase-tools`) · Vitest + @testing-library/react + jsdom · Playwright + @axe-core/playwright + pixelmatch + Firebase Emulator Suite · pnpm.
 
@@ -27,8 +29,8 @@
 - `prefers-reduced-motion: reduce` → tắt tự quay canvas, tắt animation nhấp nháy, cuộn không smooth.
 - **Giống artifact nhất có thể (ưu tiên cao nhất về UI):** copy nguyên văn (chữ, emoji, số liệu, thứ tự section, span `c4/c6/c8/c12`). CSS của mỗi section chép từ khối `<style>` của prototype vào CSS Module tương ứng; chỉ đổi tên selector, không đổi giá trị (padding, radius, shadow, font-size, màu). Icon dùng đúng SVG path trong `ICONS` (dòng 1125 và phần `EXTRA ICONS` dòng 1593), nét `stroke-width 1.8`, `viewBox 0 0 24 24`. Hiệu ứng (hover, transition, animation của `.em-tag`, `.listen`, `.dev-flash`) giữ nguyên thời lượng và easing. Mọi khác biệt so với prototype phải có lý do ghi trong commit message.
 - Không thêm thư viện chart/3D/state management. Chỉ dependency đã liệt kê ở Tech Stack.
-- Google Maps key đọc từ `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` và Map ID từ `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID`; **hiện để trống**. Khi trống, card bản đồ phải hiển thị canvas 3D của prototype (giống hệt artifact), không hiện lỗi, không gọi script Maps.
-- Firebase config chỉ đọc từ env: `NEXT_PUBLIC_FIREBASE_API_KEY`, `_AUTH_DOMAIN`, `_PROJECT_ID`, `_STORAGE_BUCKET`, `_MESSAGING_SENDER_ID`, `_APP_ID`. Giá trị thật để trong `.env.local` (gitignore); commit `.env.example` với giá trị rỗng. `projectId` = `no-one-alone-511616`.
+- Google Maps key đọc từ `VITE_GOOGLE_MAPS_API_KEY` và Map ID từ `VITE_GOOGLE_MAPS_MAP_ID`; **hiện để trống**. Khi trống, card bản đồ phải hiển thị canvas 3D của prototype (giống hệt artifact), không hiện lỗi, không gọi script Maps.
+- Firebase config chỉ đọc từ env: `VITE_FIREBASE_API_KEY`, `_AUTH_DOMAIN`, `_PROJECT_ID`, `_STORAGE_BUCKET`, `_MESSAGING_SENDER_ID`, `_APP_ID`. Giá trị thật để trong `.env.local` (gitignore); commit `.env.example` với giá trị rỗng. `projectId` = `no-one-alone-511616`.
 - Không có server code trong repo này: không API route, không middleware, không `redirect()` phía server (static export). Redirect theo vai làm phía client bằng `router.replace`.
 - Component không import `firebase/*` trực tiếp. Chỉ `src/lib/firebase.ts` và `src/data/sources/firebase.ts` được import.
 
@@ -64,7 +66,7 @@ src/
     fixtures/*.ts                 # một file / nhóm dữ liệu (margaret, health, forecast, lineage, record, hospital, community, news…)
     sources/mock.ts               # DataSource đọc fixture
     sources/firebase.ts           # DataSource đọc Firestore (Task 15)
-    repo.ts                       # chọn source theo NEXT_PUBLIC_DATA_SOURCE, export các hàm get*
+    repo.ts                       # chọn source theo VITE_DATA_SOURCE, export các hàm get*
   lib/firebase.ts                 # initializeApp từ env, getAuth, getFirestore (singleton)
   auth/                           # AuthProvider, useAuth, SignInPage (Task 15)
   state/AppState.tsx              # context: who, viewer, paused, audit, emergency
@@ -92,7 +94,7 @@ Quy ước: mỗi section (card) của prototype = một component trong thư m�
 - Create: toàn bộ scaffold Next.js, `src/styles/tokens.css`, `src/styles/globals.css`, `src/app/layout.tsx`, `src/app/page.tsx`, `src/components/shell/Scene.tsx`, `vitest.config.ts`, `playwright.config.ts`, `tests/smoke.test.tsx`
 
 **Interfaces:**
-- Produces: class CSS `.glass`, `.card`, `.grid`, `.c4 .c6 .c8 .c12`; `body.night`; `body[data-view]`; script `pnpm test`, `pnpm e2e`, `pnpm lint`, `pnpm typecheck`.
+- Produces: class CSS `.glass`, `.card`, `.grid`, `.c4 .c6 .c8 .c12`; `body.night`; `body[data-view]`; script `npm test`, `npm run e2e`, `npm run lint`, `npm run typecheck`.
 
 - [ ] **Step 1:** `git init`, `pnpm create next-app@latest . --ts --app --src-dir --eslint --no-tailwind --import-alias "@/*"`. Trong `next.config.ts` đặt `output: 'export'`, `images: { unoptimized: true }`, `trailingSlash: true`. Thêm devDeps: `pixelmatch pngjs vitest @vitejs/plugin-react jsdom @testing-library/react @testing-library/jest-dom @playwright/test @axe-core/playwright`.
 - [ ] **Step 2:** Chép token (xem Global Constraints) vào `tokens.css`; chép các rule `.glass`, `.card`, grid, `.ch`, `.pill`, `.chip`, `.btn` từ khối `<style>` prototype (dòng 6–479) vào `globals.css`. `Scene.tsx` = SVG nền (dòng 482–515) đặt `aria-hidden`.
@@ -104,7 +106,7 @@ test('root layout renders brand', () => {
   expect(screen.getByText('No One Alone')).toBeInTheDocument()
 })
 ```
-- [ ] **Step 4:** `pnpm test` → PASS; `pnpm dev`, mở `/` thấy nền trời + chữ brand; `pnpm typecheck && pnpm lint` sạch.
+- [ ] **Step 4:** `npm test` → PASS; `npm run dev`, mở `/` thấy nền trời + chữ brand; `npm run typecheck && npm run lint` sạch.
 - [ ] **Step 5: Commit** `chore: scaffold Next.js app with prototype design tokens`
 
 ---
@@ -515,8 +517,8 @@ test('full night demo plays to "Help arrived" and hospital inbox shows 1 new', �
 test('reduced motion: canvases render, no autoplay rotation', …) // emulateMedia reducedMotion
 ```
 - [ ] **Step 2: Kiểm tra giống artifact (visual parity)** — viết `e2e/parity.spec.ts`: với mỗi view×page (và cả hai vai individual), mở `docs/reference/prototype.html` qua `file://`, bấm view/tab tương ứng, chụp ảnh full page; mở app (mock mode, chưa có Maps key) cùng viewport 1440×900 và 390×844, chụp ảnh. Che vùng canvas (`.c3d`) trước khi so. Lưu cặp ảnh vào `e2e/parity/<view>-<page>-<w>-{proto,app}.png` và so bằng `pixelmatch` với ngưỡng chênh ≤ 3% số pixel. Reviewer xem tất cả cặp ảnh và ghi lại chênh lệch còn lại.
-- [ ] **Step 3:** `pnpm e2e` → sửa đến khi PASS. Các lỗi phổ biến cần xử lý: `nav.tabs` dùng `overflow-x:auto`, drawer `max-width:100vw` ở < 480 px, grid `c4–c12` về 1 cột < 720 px.
-- [ ] **Step 4:** `pnpm build` thành công, không cảnh báo type.
+- [ ] **Step 3:** `npm run e2e` → sửa đến khi PASS. Các lỗi phổ biến cần xử lý: `nav.tabs` dùng `overflow-x:auto`, drawer `max-width:100vw` ở < 480 px, grid `c4–c12` về 1 cột < 720 px.
+- [ ] **Step 4:** `npm run build` thành công, không cảnh báo type.
 - [ ] **Step 5: Commit** `test: e2e accessibility, mobile and emergency flows`
 
 ---
@@ -531,12 +533,12 @@ test('reduced motion: canvases render, no autoplay rotation', …) // emulateMed
 **Interfaces:**
 - Consumes: `DataSource` (Task 2), `useAppState` (Task 3).
 - Produces:
-  - `getFirebase(): { app: FirebaseApp; auth: Auth; db: Firestore }`. Gọi nhiều lần vẫn trả cùng một instance. Nếu `NEXT_PUBLIC_FIREBASE_USE_EMULATOR=true` thì nối emulator (auth `127.0.0.1:9099`, firestore `127.0.0.1:8080`).
+  - `getFirebase(): { app: FirebaseApp; auth: Auth; db: Firestore }`. Gọi nhiều lần vẫn trả cùng một instance. Nếu `VITE_FIREBASE_USE_EMULATOR=true` thì nối emulator (auth `127.0.0.1:9099`, firestore `127.0.0.1:8080`).
   - `useAuth(): { user: User | null; loading: boolean; signInWithGoogle(): Promise<void>; signOut(): Promise<void> }`.
   - `firebaseSource: DataSource`. Đường dẫn collection lấy từ `docs/firestore-contract.md`.
 - Quy tắc:
-  - Chỉ có chế độ demo khi `NEXT_PUBLIC_DATA_SOURCE=mock`. Khi đó không bắt đăng nhập, avatar lấy từ `VIEWS`.
-  - Khi `NEXT_PUBLIC_DATA_SOURCE=firebase`, chưa đăng nhập thì vào trang nào cũng `router.replace('/sign-in')`.
+  - Chỉ có chế độ demo khi `VITE_DATA_SOURCE=mock`. Khi đó không bắt đăng nhập, avatar lấy từ `VIEWS`.
+  - Khi `VITE_DATA_SOURCE=firebase`, chưa đăng nhập thì vào trang nào cũng `router.replace('/sign-in')`.
   - Ghi consent/audit (Task 5) qua `DataSource.saveShare(viewer, cat, on)` và `DataSource.appendAudit(entry)`. Mock source giữ trong bộ nhớ.
 
 - [ ] **Step 1:** Viết `docs/firestore-contract.md`: liệt kê collection/document mà FE đọc/ghi, kiểu lấy từ `types.ts`. Gửi team backend xác nhận **trước** khi làm Step 4.
@@ -552,10 +554,10 @@ test('getFirebase is a singleton', () => expect(getFirebase()).toBe(getFirebase(
 test('firebase source round-trips the margaret fixture', …)
 test('saveShare then reload reflects the change', …)
 ```
-- [ ] **Step 3:** Chạy `firebase emulators:exec --only auth,firestore "pnpm test tests/auth tests/data"` → FAIL.
+- [ ] **Step 3:** Chạy `firebase emulators:exec --only auth,firestore "npm test -- tests/auth tests/data"` → FAIL.
 - [ ] **Step 4:** Hiện thực → chạy lại → PASS.
-- [ ] **Step 5:** Viết `firebase.json`: hosting `public: "out"`, `cleanUrls: true`, rewrite `**` → `/404.html` (chỉ cho route không tồn tại), header cache dài cho `/_next/static/**`. Viết `.firebaserc` với default `no-one-alone-511616`. Thêm script `"deploy:preview": "next build && firebase hosting:channel:deploy preview"`.
-- [ ] **Step 6:** `pnpm build` → thư mục `out/` có `individual/home/index.html`, `hospital/ed/index.html`. Chạy `firebase emulators:start --only hosting` rồi mở thử. Chỉ chạy `deploy:preview` sau khi chủ dự án đồng ý.
+- [ ] **Step 5:** `firebase.json` và `.firebaserc` đã có ở gốc monorepo (hosting `web/dist`, rewrite `/api/**` → core-api, `**` → `/index.html`). Không viết lại. Nếu cần header cache cho `/assets/**` thì đề xuất qua PR cho Dũng.
+- [ ] **Step 6:** `npm run build` → `web/dist/index.html` + `web/dist/assets/`. Từ gốc monorepo chạy `firebase emulators:start --only hosting`, mở thử `/individual/home` và `/hospital/ed` (SPA fallback). Chỉ deploy sau khi chủ dự án đồng ý.
 - [ ] **Step 7: Commit** `feat(firebase): auth, firestore data source, hosting config`
 
 ### Task 16: Google Maps cho card bản đồ (fallback canvas khi chưa có key)
@@ -568,7 +570,7 @@ test('saveShare then reload reflects the change', …)
 **Interfaces:**
 - Consumes: `<City3D>` (Task 6), fixture điểm trên bản đồ (Task 2).
 - Produces:
-  - `mapsEnabled(): boolean` — `true` khi `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` khác rỗng.
+  - `mapsEnabled(): boolean` — `true` khi `VITE_GOOGLE_MAPS_API_KEY` khác rỗng.
   - `<LocationMap center={{lat:-33.911,lng:151.155}} markers={MapMarker[]} fallback={ReactNode} ariaLabel={string} />` với `MapMarker = { id; lat; lng; kind: 'home'|'family'|'health'|'community'|'alert'; label; tone?: 'act'|'watch'|'info' }`. Màu marker theo legend prototype: home `#14a08c`, family `#2f6fb0`, health `#ffffff` viền `#ccc`, community `#8f6fd0`; alert `act` `#d9443f`, các tone khác lấy từ `.map-bottom` của watch map (dòng 967).
 - Quy tắc: lớp phủ glass (`.map-top`, `.map-legend`, `.map-bottom`, nút xoay) giữ nguyên trong cả hai chế độ. Có key → nút xoay đổi `heading` ±45°, nút reset về heading 0 / tilt 45 (cần Map ID vector). Không có key → render `fallback` (canvas City3D) và không tải script Maps.
 
@@ -582,7 +584,7 @@ test('with key: renders one marker per item with legend colour', () => { /* mock
 test('rotate buttons change heading by 45 degrees', …)
 ```
 - [ ] **Step 2:** FAIL → hiện thực → PASS.
-- [ ] **Step 3:** `pnpm dev` khi chưa có key → 2 card giống hệt prototype; `pnpm e2e e2e/parity.spec.ts` vẫn PASS.
+- [ ] **Step 3:** `npm run dev` khi chưa có key → 2 card giống hệt prototype; `npm run e2e e2e/parity.spec.ts` vẫn PASS.
 - [ ] **Step 4: Commit** `feat(maps): Google Maps location card with canvas fallback`
 
 ---
@@ -595,5 +597,5 @@ test('rotate buttons change heading by 45 degrees', …)
 
 ## Việc chủ dự án cung cấp sau
 
-- `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` (giới hạn HTTP referrer, chỉ cho Maps JavaScript API) và `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID` (vector, bật tilt/rotation).
-- Giá trị `NEXT_PUBLIC_FIREBASE_*` cho `.env.local`.
+- `VITE_GOOGLE_MAPS_API_KEY` (giới hạn HTTP referrer, chỉ cho Maps JavaScript API) và `VITE_GOOGLE_MAPS_MAP_ID` (vector, bật tilt/rotation).
+- Giá trị `VITE_FIREBASE_*` cho `.env.local`.
