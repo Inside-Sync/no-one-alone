@@ -18,7 +18,7 @@
 - The action code and timeline kind `CALLED_115` keep their names.
 - Absent optional fields are omitted, never `null` (Docs mapper is already `NON_NULL`).
 - Errors use `{ "error": { "code": "...", "message": "..." } }`; a bad `personId` is `INVALID_REQUEST` 400.
-- No change to escalation, check-in or handoff logic.
+- No change to escalation, check-in or handoff logic, except two display and cost fixes from review: Yes/No answers logged in the person's language, and no Routes calls to hospitals over about 500 km away.
 
 ## Review Focus
 
@@ -43,6 +43,10 @@
 | `core-api/src/main/resources/data/seed.json` | Margaret, circle, Sydney hospitals, `emergencyNumber` | 1 |
 | `core-api/src/main/java/com/noonealone/coreapi/model/Person.java` | `emergencyNumber` field | 1 |
 | `core-api/src/main/java/com/noonealone/coreapi/flow/Actions.java` | "called {number}" | 1 |
+| `core-api/src/main/java/com/noonealone/coreapi/flow/Handoff.java` | skip Routes for far hospitals | 1 |
+| `core-api/src/main/java/com/noonealone/coreapi/flow/IncidentFlow.java` | Yes/No text by locale | 1 |
+| `core-api/src/test/java/com/noonealone/coreapi/flow/IncidentFlowCheckInTest.java` | English Yes/No test | 1 |
+| `core-api/src/main/java/com/noonealone/coreapi/data/Fixture.java`, `scenarios/*.json`, `ScenariosTest.java` | drop unused `personId` | 3 |
 | `core-api/src/test/java/com/noonealone/coreapi/flow/IncidentFlowAlertTest.java` | `stroke(id, personId)` helper | 1 |
 | `core-api/src/test/java/com/noonealone/coreapi/flow/ActionsTest.java` | number text tests | 1 |
 | `core-api/src/test/java/com/noonealone/coreapi/flow/HandoffTest.java` | Margaret hospital test | 1 |
@@ -66,7 +70,9 @@ Tasks 1 and 2 touch different files and can run in parallel. Task 3 needs Task 2
 - Modify: `core-api/src/main/resources/data/seed.json`
 - Modify: `core-api/src/main/java/com/noonealone/coreapi/model/Person.java`
 - Modify: `core-api/src/main/java/com/noonealone/coreapi/flow/Actions.java:131-139`
-- Test: `core-api/src/test/java/com/noonealone/coreapi/flow/IncidentFlowAlertTest.java`, `ActionsTest.java`, `HandoffTest.java`, `DemoServiceTest.java`
+- Modify: `core-api/src/main/java/com/noonealone/coreapi/flow/Handoff.java:43-45` (skip Routes for far hospitals)
+- Modify: `core-api/src/main/java/com/noonealone/coreapi/flow/IncidentFlow.java:157` (Yes/No text by locale)
+- Test: `core-api/src/test/java/com/noonealone/coreapi/flow/IncidentFlowAlertTest.java`, `ActionsTest.java`, `HandoffTest.java` (setUp stub and new test), `IncidentFlowCheckInTest.java`, `DemoServiceTest.java`
 
 **Interfaces:**
 - Produces: seed IDs `margaret`, `david`, `aisha`, `james`, `sarah`, `sydney-stroke-center`, `marrickville-clinic`; `Person.emergencyNumber` (String, optional); test helper `IncidentFlowAlertTest.stroke(String id, String personId)`.
@@ -120,7 +126,16 @@ In `IncidentFlowAlertTest.java`, replace the existing `stroke(String id)` with:
 
 Check first that `lan` is notified in the existing `ID` incident (the current test already calls `CALLED_115` for `lan`, so it is). If the existing log text for the name differs from `Lan` (see `EscalationRules.name`), use what `name` returns for `lan`.
 
-`HandoffTest.java`: add a Margaret test. Routes cannot route across continents, so the mock returns empty and handoff falls back to straight-line distance.
+`HandoffTest.java`, `setUp`: the existing stub `to.lat > 16.45 ? 14 : 3` would give the new Sydney hospital ETA 3 and break `suspectedStrokeGoesToStrokeReadyHospitalEvenIfFarther`. Replace it so Routes has no answer across continents, as in reality:
+
+```java
+        when(routes.etaMinutes(any(), any())).thenAnswer(inv -> {
+            LatLng to = inv.getArgument(1);
+            return to.lat < 0 ? Optional.empty() : Optional.of(to.lat > 16.45 ? 14 : 3);
+        });
+```
+
+Then add a Margaret test. Handoff must not call Routes for hospitals on the other continent, and falls back to straight-line distance when Routes has no answer.
 
 ```java
     @Test
@@ -135,8 +150,30 @@ Check first that `lan` is notified in the existing `ID` incident (the current te
         flow.processCheckIn("h-m", answer);
 
         assertThat(store.get("h-m").handoff.hospitalId).isEqualTo("sydney-stroke-center");
+        verify(routes, never()).etaMinutes(any(), argThat(to -> to.lat > 0));
     }
 ```
+
+Add `import static org.mockito.Mockito.never;` if missing.
+
+`IncidentFlowCheckInTest.java`: Margaret's Yes/No answers are logged in English.
+
+```java
+    @Test
+    void yesNoAnswerUsesThePersonsLanguage() {
+        flow.create(IncidentFlowAlertTest.stroke("c-m", "margaret"));
+        flow.process("c-m");
+
+        CheckInInput yes = CheckInInput.ofYesNo("YES");
+        flow.acceptCheckIn("c-m", yes);
+        flow.processCheckIn("c-m", yes);
+
+        assertThat(store.get("c-m").checkIn.turns).filteredOn(t -> "PERSON".equals(t.by))
+                .extracting(t -> t.text).containsExactly("Yes");
+    }
+```
+
+Bà Mai keeps "Có": the existing tests that send `ofYesNo` for `c-1` must stay green unchanged.
 
 `DemoServiceTest.java`, in `resetDeletesIncidentAndReseeds`, after the Bà Mai assertion add:
 
@@ -223,14 +260,36 @@ Expected: compile error `cannot find symbol ... emergencyNumber`, then (after St
     }
 ```
 
+`Handoff.java`, in `start`, the Routes loop skips hospitals more than about 500 km away:
+
+```java
+        for (Hospital h : candidates) {
+            // About 500 km in degrees; skips Routes calls to the other continent.
+            if (distance(person, h) > 5) {
+                continue;
+            }
+            routes.etaMinutes(person.location, h.location).ifPresent(m -> eta.put(h.id, m));
+        }
+```
+
+`IncidentFlow.java:157`, in `askNext` (`person` is already in scope):
+
+```java
+                    boolean en = person.locale != null && person.locale.startsWith("en");
+                    t.text = "YES".equals(input.yesNo()) ? (en ? "Yes" : "Có") : (en ? "No" : "Không");
+```
+
 - [ ] **Step 6: Run the tests to verify they pass**
 
-Run: `mvn -q -B test -Dtest=ActionsTest,HandoffTest,DemoServiceTest`
+Run: `mvn -q -B test -Dtest=ActionsTest,HandoffTest,IncidentFlowCheckInTest,DemoServiceTest`
 Expected: PASS.
 
 Red edits (record each in checks.md, then revert):
 - `calledEmergencyUsesThePersonsNumber`: in `Actions.called115` replace `" called " + number` with `" called 115"`.
-- `margaretGoesToSydneyStrokeCenterNotTheCloserClinic`: in `Handoff.java:38` replace `filter(h -> !stroke || h.strokeReady)` with `filter(h -> true)`. Expect `marrickville-clinic`.
+- `called115IsLoggedAndCloseWorksOnce` ("Lan called 115"): in `seed.json` change Bà Mai's `"emergencyNumber": "115"` to `"113"`. Expect "Lan called 113".
+- `margaretGoesToSydneyStrokeCenterNotTheCloserClinic` (hospital): in `Handoff.java:38` replace `filter(h -> !stroke || h.strokeReady)` with `filter(h -> true)`. Expect `marrickville-clinic`.
+- `margaretGoesToSydneyStrokeCenterNotTheCloserClinic` (no far Routes call): change `> 5` to `> 500`. Expect the `never()` verification to fail on `stroke-center-a`.
+- `yesNoAnswerUsesThePersonsLanguage`: replace `boolean en = ...` with `boolean en = false;`. Expect "Có".
 - `resetDeletesIncidentAndReseeds` (Margaret lines): remove the `"margaret"` entry from `seed.json`. Expect `Person margaret not found`.
 
 - [ ] **Step 7: Full suite, then commit**
@@ -238,7 +297,7 @@ Red edits (record each in checks.md, then revert):
 Run: `mvn -q -B clean test` → all green.
 
 ```bash
-git add core-api/src/main/resources/data/seed.json core-api/src/main/java/com/noonealone/coreapi/model/Person.java core-api/src/main/java/com/noonealone/coreapi/flow/Actions.java core-api/src/test/java/com/noonealone/coreapi/flow/IncidentFlowAlertTest.java core-api/src/test/java/com/noonealone/coreapi/flow/ActionsTest.java core-api/src/test/java/com/noonealone/coreapi/flow/HandoffTest.java core-api/src/test/java/com/noonealone/coreapi/flow/DemoServiceTest.java
+git add core-api/src/main/resources/data/seed.json core-api/src/main/java/com/noonealone/coreapi/model/Person.java core-api/src/main/java/com/noonealone/coreapi/flow/Actions.java core-api/src/main/java/com/noonealone/coreapi/flow/Handoff.java core-api/src/main/java/com/noonealone/coreapi/flow/IncidentFlow.java core-api/src/test/java/com/noonealone/coreapi/flow/IncidentFlowAlertTest.java core-api/src/test/java/com/noonealone/coreapi/flow/ActionsTest.java core-api/src/test/java/com/noonealone/coreapi/flow/HandoffTest.java core-api/src/test/java/com/noonealone/coreapi/flow/IncidentFlowCheckInTest.java core-api/src/test/java/com/noonealone/coreapi/flow/DemoServiceTest.java
 git commit -m "feat(core-api): seed Margaret in Sydney with her own emergency number"
 ```
 
@@ -352,7 +411,9 @@ Add `import java.time.ZoneId;`.
 Run: `mvn -q -B test -Dtest=StoryClockTest,DemoServiceTest`
 Expected: PASS (`triggerRunsTheStoryInStoryTime` still sees `2026-10-15T19:03:00Z` and `-151020000`).
 
-Red edit for `margaretsStrokeIsTwoAmSydneyTime`: in `storyStart` replace `atZone(zone)` with `atZone(DEFAULT_ZONE)`. Expect `2026-10-15T19:03:00Z`. Record, revert.
+Red edits (record each, revert):
+- `margaretsStrokeIsTwoAmSydneyTime`: in `storyStart` replace `atZone(zone)` with `atZone(DEFAULT_ZONE)`. Expect `2026-10-15T19:03:00Z`.
+- `baMaiKeepsTheContractInstants`: change STROKE's local time to `"2026-10-16T02:04:00"`. Expect `2026-10-15T19:04:00Z`.
 
 - [ ] **Step 5: Full suite, then commit**
 
@@ -371,7 +432,8 @@ git commit -m "feat(core-api): story time is local to the older person's timezon
 - Modify: `core-api/src/main/java/com/noonealone/coreapi/flow/DemoService.java`
 - Modify: `core-api/src/main/java/com/noonealone/coreapi/model/DemoCurrent.java`
 - Modify: `core-api/src/main/java/com/noonealone/coreapi/web/ApiController.java:28,46-54`
-- Test: `core-api/src/test/java/com/noonealone/coreapi/flow/DemoServiceTest.java`, `core-api/src/test/java/com/noonealone/coreapi/web/ApiControllerTest.java`
+- Modify: `core-api/src/main/java/com/noonealone/coreapi/data/Fixture.java` and `core-api/src/main/resources/data/scenarios/{stroke,fall,false-alarm}.json` (drop the now unused `personId`)
+- Test: `core-api/src/test/java/com/noonealone/coreapi/flow/DemoServiceTest.java`, `core-api/src/test/java/com/noonealone/coreapi/web/ApiControllerTest.java`, `core-api/src/test/java/com/noonealone/coreapi/data/ScenariosTest.java`
 
 **Interfaces:**
 - Consumes: `StoryClock.storyStart(Scenario, ZoneId)`, `StoryClock.offsetFor(Scenario, ZoneId, Clock)`, `StoryClock.DEFAULT_ZONE` (Task 2); seed `margaret`, `david` (Task 1).
@@ -498,7 +560,7 @@ public class DemoCurrent { public String incidentId; public String scenario; pub
 ```java
     public String trigger(Scenario scenario, String personId, int timerSeconds, int noReplySeconds) {
         Person person = store.people().get(personId);
-        if (person == null || person.circle == null) {
+        if (person == null || person.circle == null || person.circle.isEmpty()) {
             throw ApiException.badRequest("Unknown person " + personId);
         }
         boolean running = store.current()
@@ -538,14 +600,19 @@ public class DemoCurrent { public String incidentId; public String scenario; pub
         return Map.of("incidentId", demo.trigger(s, personId, timer, noReply));
 ```
 
+The fixture's `personId` is no longer read. Remove it:
+- `Fixture.java`: `public record Fixture(FixtureAlert alert, List<WindowPoint> window, List<String> meds, List<String> allergies)`.
+- Each `scenarios/*.json`: delete the `"personId": "ba-mai",` line.
+- `ScenariosTest.java`: delete `assertThat(f.personId()).isEqualTo("ba-mai");` and rename the test to `everyScenarioHasAFifteenMinuteWindow`.
+
 - [ ] **Step 4: Run the tests to verify they pass**
 
 Run: `mvn -q -B test -Dtest=DemoServiceTest,ApiControllerTest`
 Expected: PASS.
 
 Red edits (record each, revert):
-- `triggerForMargaretRunsInSydneyStoryTime`: in the `publisher.publish(...)` call replace `personId` with `f.personId()`. Expect `personId` `ba-mai`.
-- `unknownOrMemberPersonIsRejectedBeforeAnythingIsWritten`: replace `person == null || person.circle == null` with `person == null`. Expect no exception for `david`.
+- `triggerForMargaretRunsInSydneyStoryTime`: in the `publisher.publish(...)` call replace `personId` with `"ba-mai"`. Expect `personId` `ba-mai`.
+- `unknownOrMemberPersonIsRejectedBeforeAnythingIsWritten`: replace `person == null || person.circle == null || person.circle.isEmpty()` with `person == null`. Expect no exception for `david`.
 - `personWithoutTimezoneUsesHueTime`: replace `person.timezone == null ? StoryClock.DEFAULT_ZONE : ZoneId.of(person.timezone)` with `ZoneId.of(person.timezone)`. Expect `NullPointerException`.
 - `margaretCannotStartWhileBaMaiIsRunning`: replace `if (running)` with `if (running && false)`. Expect no exception.
 - `timersWithoutPersonIdDefaultToBaMai`: replace `"ba-mai"` default in `ApiController` with `null`. Expect the stub not to match (empty body or 500).
@@ -555,7 +622,7 @@ Red edits (record each, revert):
 Run: `mvn -q -B clean test` → all green.
 
 ```bash
-git add core-api/src/main/java/com/noonealone/coreapi/flow/DemoService.java core-api/src/main/java/com/noonealone/coreapi/model/DemoCurrent.java core-api/src/main/java/com/noonealone/coreapi/web/ApiController.java core-api/src/test/java/com/noonealone/coreapi/flow/DemoServiceTest.java core-api/src/test/java/com/noonealone/coreapi/web/ApiControllerTest.java
+git add core-api/src/main/java/com/noonealone/coreapi/flow/DemoService.java core-api/src/main/java/com/noonealone/coreapi/model/DemoCurrent.java core-api/src/main/java/com/noonealone/coreapi/web/ApiController.java core-api/src/main/java/com/noonealone/coreapi/data/Fixture.java core-api/src/main/resources/data/scenarios/stroke.json core-api/src/main/resources/data/scenarios/fall.json core-api/src/main/resources/data/scenarios/false-alarm.json core-api/src/test/java/com/noonealone/coreapi/data/ScenariosTest.java core-api/src/test/java/com/noonealone/coreapi/flow/DemoServiceTest.java core-api/src/test/java/com/noonealone/coreapi/web/ApiControllerTest.java
 git commit -m "feat(core-api): demo trigger picks the older person"
 ```
 

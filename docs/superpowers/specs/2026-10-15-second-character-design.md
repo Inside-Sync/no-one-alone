@@ -62,7 +62,7 @@ Handoff logic does not change. It already picks the stroke-ready hospital with t
 ```
 
 - Missing `personId` means `ba-mai`, so existing callers keep working.
-- A `personId` that is not an older person in the seed (no `circle`) returns `400 BAD_REQUEST` "Unknown person".
+- A `personId` that is not an older person in the seed (no `circle`) returns `400 INVALID_REQUEST` "Unknown person".
 - The scenario fixture keeps its heart-rate window. The alert's `personId` comes from the request, not the fixture.
 - `demo/current` gains `personId`, so every screen knows whose incident it is.
 
@@ -116,4 +116,4 @@ Each test records the production edit that turns it red.
 
 - No per-person scenario fixtures. The heart-rate window is the same story for both.
 - No rename of `CALLED_115`.
-- No change to escalation, check-in or handoff logic.
+- No change to escalation, check-in or handoff logic, except: Yes/No answers are logged as "Yes"/"No" for an `en` locale, and handoff skips Routes calls to hospitals over about 500 km away.
