@@ -1,0 +1,10 @@
+{
+  "incidentId": "alert-123",
+  "personId": "ba-mai",
+  "level": "EMERGENCY",
+  "suspected": "STROKE",
+  "lastKnownWellAt": "2026-10-15T18:55:00Z",
+  "findings": ["slurred speech 02:04", "HR 142"],
+  "onScene": { "name": "Ông Hùng", "relation": "brother" },
+  "hospital": { "id": "stroke-center-a", "name": "Stroke Center A (demo)", "etaMin": 14 }
+}

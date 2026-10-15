@@ -1,0 +1,57 @@
+{
+  "patient": {
+    "name": "Bà Mai",
+    "age": 78,
+    "sex": "F"
+  },
+  "suspected": "STROKE",
+  "lastKnownWellAt": "2026-10-15T18:55:00Z",
+  "findings": [
+    "slurred speech 02:04",
+    "HR 142"
+  ],
+  "conditions": [
+    "hearing loss",
+    "hypertension"
+  ],
+  "medications": [
+    {
+      "name": "amlodipine",
+      "dose": "5 mg daily"
+    },
+    {
+      "name": "aspirin",
+      "dose": "81 mg daily"
+    }
+  ],
+  "allergies": [
+    "penicillin"
+  ],
+  "communication": [
+    "HARD_OF_HEARING"
+  ],
+  "baseline": "Lives alone, independent",
+  "contact": {
+    "name": "Ông Hùng",
+    "relation": "brother",
+    "onScene": true
+  },
+  "etaMin": 14,
+  "text": "PRE-ARRIVAL · ETA 14 min\nBà Mai, 78, F\nTình trạng (Status): nghi đột quỵ (suspected stroke)\nBình thường lần cuối (Last well): 01:55 16/10 (UTC+7)\nDấu hiệu (Findings): slurred speech 02:04 · HR 142\nBệnh sử (History): hearing loss, hypertension · gia đình (family): father: stroke at 68, hypertension\nThuốc (Medicines): amlodipine 5 mg daily, aspirin 81 mg daily\nDị ứng (Allergy): penicillin\nChức năng (Function): Lives alone, independent\nGiao tiếp (Comms): hard of hearing\nNgười nhà (Contact): Ông Hùng (brother)\nDỮ LIỆU MÔ PHỎNG · SYNTHETIC DEMO DATA",
+  "status": "COMPLETED",
+  "familyHistory": [
+    "father: stroke at 68, hypertension"
+  ],
+  "withheld": [],
+  "warnings": [],
+  "sources": [
+    "AllergyIntolerance/ba-mai-penicillin",
+    "Condition/ba-mai-hearing-loss",
+    "Condition/ba-mai-hypertension",
+    "Consent/ba-mai-hospital-sharing",
+    "FamilyMemberHistory/ba-mai-father",
+    "MedicationStatement/ba-mai-amlodipine",
+    "MedicationStatement/ba-mai-aspirin",
+    "Patient/ba-mai"
+  ]
+}
