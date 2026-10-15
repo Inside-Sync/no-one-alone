@@ -97,10 +97,13 @@ def test_fixture_reader_never_reads_outside_the_data_dir(tmp_path):
     assert asyncio.run(_read(FixtureReader(tmp_path / "data"), "../outside")) == []
 
 
-@pytest.mark.parametrize("pid", ["../../etc/passwd", "..", "Ba-Mai", "ba_mai", ""])
-def test_fixture_reader_rejects_ids_that_are_not_kebab_case(pid):
-    import asyncio
-    assert asyncio.run(_read(FixtureReader(), pid)) == []
+@pytest.mark.parametrize("pid", ["ba_mai", "Ba-Mai", "..", ""])
+def test_fixture_reader_rejects_ids_that_are_not_kebab_case(pid, tmp_path):
+    import asyncio, json
+    for stem in ("ba_mai", "Ba-Mai"):
+        bundle = {"entry": [{"resource": {"resourceType": "Patient", "id": stem}}]}
+        (tmp_path / f"{stem}.json").write_text(json.dumps(bundle), encoding="utf-8")
+    assert asyncio.run(_read(FixtureReader(tmp_path), pid)) == []
 
 
 def test_fixture_reader_unreadable_file_is_record_unavailable(tmp_path):
@@ -114,4 +117,5 @@ def test_bundles_live_inside_the_service_dir():
     from handoff.fhir import DEFAULT_DIR
     assert DEFAULT_DIR.resolve().is_relative_to(ROOT.resolve())
     assert (DEFAULT_DIR / "ba-mai.json").is_file()
-    assert "data" not in (ROOT / ".dockerignore").read_text(encoding="utf-8").split()
+    lines = (ROOT / ".dockerignore").read_text(encoding="utf-8").splitlines()
+    assert "data" not in [ln.strip().strip("/*") for ln in lines if not ln.lstrip().startswith("#")]

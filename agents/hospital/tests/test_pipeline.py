@@ -182,13 +182,14 @@ def test_margaret_packet_is_english_in_sydney_time(request_body):
     assert out["status"] == "COMPLETED"
     assert out["patient"] == {"name": "Margaret Collins", "age": 78, "sex": "F"}
     assert "penicillin" in out["allergies"] and "HARD_OF_HEARING" in out["communication"]
-    assert out["baseline"] == "Lives alone, independent, walking stick outdoors"
     text = out["text"]
     assert text.startswith("PRE-ARRIVAL · ETA 9 min\nMargaret Collins, 78, F")
     assert "Last well: 01:55 16/10 (AEDT)" in text
     assert "Status: suspected stroke" in text
     assert text.endswith("SYNTHETIC DEMO DATA")
     assert not any(ch in text for ch in "ạảấầậếềệịọốồộờớợụủứừựỳ")
+    assert "atrial fibrillation (provisional)" in out["conditions"]
+    assert out["baseline"] == "Lives alone, independent, walking stick outdoors"
 
 
 def test_person_without_profile_uses_default_labels(request_body, resources):
