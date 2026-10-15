@@ -1,5 +1,5 @@
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { HOSPITAL_COPY } from '@/data/repo'
 import type { HospitalData } from '@/data/types'
 import { Head } from '../../individual/home/parts'
 
@@ -10,8 +10,9 @@ const colour = (r: number) => (r >= 20 ? '#d9443f' : r >= 10 ? '#c88a05' : '#1fb
 
 /** `#scatter` (prototype lines 1712–1717): 30-day admission risk against age, one dot per sampled patient. */
 function Scatter({ points, mark }: { points: HospitalData['panel']['scatter']; mark: HospitalData['panel']['highlight'] }) {
+  const { t } = useTranslation('hospital')
   return (
-    <svg viewBox={`0 0 ${W} ${H + 10}`} role="img" aria-label={HOSPITAL_COPY.panel.scatter.ariaLabel}>
+    <svg viewBox={`0 0 ${W} ${H + 10}`} role="img" aria-label={t('panel.scatter.ariaLabel')}>
       {[0, 10, 20, 30, 40].map((t) => (
         <g key={t}>
           <line x1={L} x2={W} y1={y(t)} y2={y(t)} stroke="rgba(13,42,42,.08)" />
@@ -26,20 +27,21 @@ function Scatter({ points, mark }: { points: HospitalData['panel']['scatter']; m
       ))}
       <circle cx={x(mark.age)} cy={y(mark.risk)} r="6" fill="none" strokeWidth="1.6" style={{ stroke: 'var(--ink)' }} />
       <text x={x(mark.age) + 9} y={y(mark.risk) - 6} style={{ fill: 'var(--ink)', fontSize: '10.5px' }}>{mark.label}</text>
-      <text x={(L + W) / 2} y={B + 28} textAnchor="middle">age</text>
+      <text x={(L + W) / 2} y={B + 28} textAnchor="middle">{t('panel.scatter.axis')}</text>
     </svg>
   )
 }
 
 /** `Risk vs age` (c4): the scatter, its legend and the consent note. */
 export function ScatterCard({ panel }: { panel: HospitalData['panel'] }) {
-  const c = HOSPITAL_COPY.panel.scatter
+  const { t } = useTranslation('hospital')
+  const legend = t('panel.scatter.legend', { returnObjects: true })
   return (
     <GlassCard span={4} className="chart">
-      <Head title={c.title} meta={panel.scatterMeta} />
+      <Head title={t('panel.scatter.title')} meta={panel.scatterMeta} />
       <div id="scatter"><Scatter points={panel.scatter} mark={panel.highlight} /></div>
       <div className="legend">
-        {c.legend.map((l) => <span key={l.label}><i style={{ background: l.color, borderRadius: '50%' }}></i>{l.label}</span>)}
+        {legend.map((l) => <span key={l.label}><i style={{ background: l.color, borderRadius: '50%' }}></i>{l.label}</span>)}
       </div>
       <p className="fine">{panel.scatterNote}</p>
     </GlassCard>

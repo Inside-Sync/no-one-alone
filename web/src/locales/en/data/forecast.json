@@ -1,0 +1,522 @@
+{
+  "forecast": {
+    "stroke90d": 2.1,
+    "wellbeing": {
+      "score": 72,
+      "delta": -5
+    },
+    "wellbeingNote": "72 out of 100, down 5 since last week. Two things are pulling it down: her blood pressure is creeping up, and her home is too warm.",
+    "wellbeingAxes": [
+      {
+        "label": "❤️ Body",
+        "now": 61,
+        "lastMonth": 74
+      },
+      {
+        "label": "💊 Medicines",
+        "now": 68,
+        "lastMonth": 90
+      },
+      {
+        "label": "🚶 Moving",
+        "now": 74,
+        "lastMonth": 80
+      },
+      {
+        "label": "😴 Sleep",
+        "now": 70,
+        "lastMonth": 76
+      },
+      {
+        "label": "🤝 Social",
+        "now": 82,
+        "lastMonth": 84
+      },
+      {
+        "label": "🧠 Memory",
+        "now": 88,
+        "lastMonth": 90
+      },
+      {
+        "label": "🏠 Home",
+        "now": 58,
+        "lastMonth": 78
+      }
+    ],
+    "comingUp": {
+      "title": "🔮 Coming up: one thing to act on",
+      "meta": "Stroke · 90 days",
+      "pill": {
+        "tone": "bad",
+        "text": "Higher than most women her age"
+      },
+      "headline": "Mum's blood pressure is drifting up. Act this week.",
+      "stats": [
+        {
+          "label": "90-day stroke risk",
+          "value": "2.1%",
+          "note": "2.4× her usual",
+          "tone": "bad"
+        },
+        {
+          "label": "Morning systolic, 7-day",
+          "value": "146",
+          "note": "+14 mmHg / 6 wk",
+          "tone": "warn"
+        },
+        {
+          "label": "If doses back to 100%",
+          "value": "1.3%",
+          "note": "−38% relative",
+          "tone": "good"
+        }
+      ],
+      "reasons": [
+        {
+          "icon": "trend",
+          "text": "Morning blood pressure up 14 mmHg over 6 weeks, a steady rise each week"
+        },
+        {
+          "icon": "pill",
+          "text": "Her evening blood pressure tablet was missed 3 times this week"
+        },
+        {
+          "icon": "tree",
+          "text": "Her father and brother both had strokes before 70"
+        }
+      ],
+      "actions": [
+        {
+          "label": "Ask David to set up a pill box",
+          "kind": "toast",
+          "value": "Sent to David · he'll set up the pill box on Saturday",
+          "icon": "people",
+          "soft": false
+        },
+        {
+          "label": "Send BP report to Dr Patel",
+          "kind": "toast",
+          "value": "Blood pressure report sent to Dr Patel",
+          "soft": true
+        },
+        {
+          "label": "See the full forecast",
+          "kind": "go",
+          "value": "forecast",
+          "soft": true
+        }
+      ]
+    },
+    "weeklyPlan": [
+      {
+        "icon": "sun",
+        "iconColor": "var(--sun-ink)",
+        "title": "Thu 11:00–15:00 · extra heat check-ins",
+        "owner": "Agent",
+        "note": "Agent · fluids every 2 h · lift to library cool room offered",
+        "status": {
+          "tone": "brand",
+          "text": "Scheduled"
+        }
+      },
+      {
+        "icon": "pill",
+        "title": "Sat 10:00 · weekly pill box set-up",
+        "owner": "David",
+        "note": "David · reduces missed evening doses",
+        "status": {
+          "tone": "warn",
+          "text": "Needs approval"
+        }
+      },
+      {
+        "icon": "clinic",
+        "title": "Mon · GP blood pressure review",
+        "owner": "Dr Patel",
+        "note": "Dr Patel · report already sent",
+        "status": {
+          "tone": "plain",
+          "text": "To book"
+        }
+      },
+      {
+        "icon": "ear",
+        "title": "22 Oct · hearing test",
+        "owner": "David",
+        "note": "Marrickville audiology · David drives",
+        "status": {
+          "tone": "good",
+          "text": "Booked"
+        }
+      }
+    ],
+    "weeklyPlanMeta": "4 tasks · 2 owners",
+    "model": [
+      {
+        "emoji": "👀",
+        "label": "Watches",
+        "value": "64 signs"
+      },
+      {
+        "emoji": "📚",
+        "label": "Learned from",
+        "value": "48,000 histories"
+      },
+      {
+        "emoji": "🎯",
+        "label": "Right about",
+        "value": "8 in 10 times"
+      },
+      {
+        "emoji": "🩺",
+        "label": "Follows",
+        "value": "Doctors' guidelines"
+      },
+      {
+        "emoji": "🔄",
+        "label": "Updated",
+        "value": "Every hour"
+      },
+      {
+        "emoji": "🧑‍⚕️",
+        "label": "Decides",
+        "value": "Her doctor, not the app"
+      }
+    ],
+    "modelMeta": "Example figures for a prototype",
+    "risks": [
+      {
+        "name": "Stroke",
+        "nextMonth": "0.7%",
+        "threeMonths": "2.1%",
+        "nextYear": "7.8%",
+        "range": "1.4–3.0",
+        "level": "High",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "BP trend"
+      },
+      {
+        "name": "Fall with injury",
+        "nextMonth": "9.0%",
+        "threeMonths": "21%",
+        "nextYear": "38%",
+        "range": "16–27",
+        "level": "High",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "Gait speed −8%"
+      },
+      {
+        "name": "Hospital admission",
+        "nextMonth": "5.2%",
+        "threeMonths": "14%",
+        "nextYear": "41%",
+        "range": "10–19",
+        "level": "Medium",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "BP + heat"
+      },
+      {
+        "name": "Heat-related illness",
+        "nextMonth": "6.0%",
+        "threeMonths": "—",
+        "nextYear": "—",
+        "range": "4.1–8.8 (7 d)",
+        "level": "Medium",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "No air-con, 29.5 °C"
+      },
+      {
+        "name": "Hearing decline",
+        "nextMonth": "—",
+        "threeMonths": "18%",
+        "nextYear": "46%",
+        "range": "13–24",
+        "level": "Medium",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "\"Pardon?\" ×9/wk"
+      },
+      {
+        "name": "Cognitive decline (MCI)",
+        "nextMonth": "—",
+        "threeMonths": "3.1%",
+        "nextYear": "11%",
+        "range": "2.0–4.6",
+        "level": "Watch",
+        "tone": "warn",
+        "trend": "→",
+        "reason": "Word-finding + hearing"
+      },
+      {
+        "name": "Heart failure episode",
+        "nextMonth": "0.8%",
+        "threeMonths": "2.3%",
+        "nextYear": "8.1%",
+        "range": "1.5–3.4",
+        "level": "Low",
+        "tone": "good",
+        "trend": "→",
+        "reason": "Weight stable"
+      },
+      {
+        "name": "Low mood / loneliness",
+        "nextMonth": "7%",
+        "threeMonths": "12%",
+        "nextYear": "22%",
+        "range": "8–17",
+        "level": "Low",
+        "tone": "good",
+        "trend": "↓",
+        "reason": "Walking group"
+      }
+    ],
+    "shap": [
+      {
+        "label": "Blood pressure trend",
+        "value": 0.58
+      },
+      {
+        "label": "Family history",
+        "value": 0.31
+      },
+      {
+        "label": "Missed doses",
+        "value": 0.22
+      },
+      {
+        "label": "Irregular rhythm alerts",
+        "value": 0.09
+      },
+      {
+        "label": "Low HRV",
+        "value": 0.08
+      },
+      {
+        "label": "Indoor heat",
+        "value": 0.05
+      },
+      {
+        "label": "Daily activity",
+        "value": -0.06
+      },
+      {
+        "label": "LDL controlled (2.4)",
+        "value": -0.07
+      }
+    ],
+    "shapNote": "A typical woman her age on blood pressure tablets has about a 0.9% chance. These reasons add up to Margaret's 2.1%.",
+    "signs": [
+      {
+        "sign": "🩺 Morning blood pressure",
+        "from": "Arm cuff",
+        "frequency": "Every morning",
+        "now": "146",
+        "usual": "132",
+        "comparison": "Much higher",
+        "sigma": "+2.8",
+        "tone": "bad"
+      },
+      {
+        "sign": "❤️ Resting heart rate",
+        "from": "Watch",
+        "frequency": "All day",
+        "now": "68",
+        "usual": "63",
+        "comparison": "About the same",
+        "sigma": "+0.4",
+        "tone": "good"
+      },
+      {
+        "sign": "🌿 Calm score (HRV)",
+        "from": "Watch",
+        "frequency": "Every night",
+        "now": "26",
+        "usual": "31",
+        "comparison": "Lower",
+        "sigma": "−1.9",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚡ Uneven heartbeat alerts",
+        "from": "Watch",
+        "frequency": "When it happens",
+        "now": "2 this week",
+        "usual": "rarely",
+        "comparison": "Higher",
+        "sigma": "+2.4",
+        "tone": "warn"
+      },
+      {
+        "sign": "🚶 Walking speed",
+        "from": "Phone + home",
+        "frequency": "Every day",
+        "now": "0.82 m/s",
+        "usual": "0.89",
+        "comparison": "Slower",
+        "sigma": "−2.1",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌙 Up at night",
+        "from": "Home sensors",
+        "frequency": "All night",
+        "now": "41 times",
+        "usual": "18",
+        "comparison": "Much higher",
+        "sigma": "+2.3",
+        "tone": "warn"
+      },
+      {
+        "sign": "💊 Tablets taken",
+        "from": "Pill box",
+        "frequency": "Every dose",
+        "now": "86%",
+        "usual": "95%",
+        "comparison": "Lower",
+        "sigma": "−1.8",
+        "tone": "warn"
+      },
+      {
+        "sign": "⏸️ Pauses when talking",
+        "from": "Daily chat",
+        "frequency": "Every day",
+        "now": "More",
+        "usual": "fewer",
+        "comparison": "Higher",
+        "sigma": "+1.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "👂 \"Pardon?\"",
+        "from": "Daily chat",
+        "frequency": "Every day",
+        "now": "9 this week",
+        "usual": "3",
+        "comparison": "Much higher",
+        "sigma": "+2.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌡️ Home temperature",
+        "from": "Home sensors",
+        "frequency": "All day",
+        "now": "29.5°",
+        "usual": "25.1°",
+        "comparison": "Much higher",
+        "sigma": "+2.2",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚖️ Weight",
+        "from": "Scale",
+        "frequency": "Every day",
+        "now": "61.2 kg",
+        "usual": "61.0",
+        "comparison": "About the same",
+        "sigma": "+0.2",
+        "tone": "good"
+      }
+    ],
+    "bp": {
+      "observed": [
+        128,
+        131,
+        133,
+        137,
+        140,
+        146
+      ],
+      "projectedNothing": [
+        146,
+        148.5,
+        151,
+        153.5,
+        156
+      ],
+      "projectedAdherent": [
+        146,
+        140,
+        136,
+        133,
+        131
+      ],
+      "target": 135,
+      "weeks": 10,
+      "todayWeek": 6,
+      "lo": 120,
+      "hi": 166
+    },
+    "sim": {
+      "sliders": [
+        {
+          "id": "adherence",
+          "label": "💊 Tablets taken on time",
+          "min": 60,
+          "max": 100,
+          "step": 1,
+          "value": 86
+        },
+        {
+          "id": "steps",
+          "label": "👣 Steps a day",
+          "min": 1500,
+          "max": 7000,
+          "step": 100,
+          "value": 3240
+        },
+        {
+          "id": "salt",
+          "label": "🧂 Salt in food",
+          "min": 0,
+          "max": 2,
+          "step": 1,
+          "value": 1
+        }
+      ],
+      "saltLabels": [
+        "Low",
+        "Medium",
+        "High"
+      ],
+      "hearingLabel": "👂 Wears hearing aids every day",
+      "hearingAids": false,
+      "base": {
+        "stroke": 2.1,
+        "fall": 21,
+        "admission": 14,
+        "mci": 3.1
+      },
+      "note": "Relative effects come from published effect sizes and are applied to her current risk. A conversation starter for her GP, not a prescription."
+    },
+    "modes": [
+      {
+        "name": "Hearing",
+        "icon": "ear",
+        "title": "Hearing mode",
+        "description": "Captions, flashing screen and yes/no cards when she doesn't answer by voice",
+        "on": true,
+        "tag": "ON · AUTO-ENABLED 09 OCT"
+      },
+      {
+        "name": "Vision",
+        "icon": "eye",
+        "title": "Vision mode",
+        "description": "Voice only, no buttons to find; the camera reads pill labels aloud",
+        "on": false,
+        "tag": "OFF"
+      },
+      {
+        "name": "Memory",
+        "icon": "brain",
+        "title": "Memory mode",
+        "description": "Daily routine prompts in a familiar voice, help finding the way home, only if Margaret agrees",
+        "on": false,
+        "tag": "OFF · WATCHING"
+      }
+    ]
+  }
+}

@@ -1,13 +1,13 @@
 'use client'
 
 import type { CSSProperties } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Orbit } from '@/components/canvas/Orbit'
 import { useDrawer } from '@/components/ui/Drawer'
 import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
-import { LIVE_COPY } from '@/data/repo'
 import type { OrbitScene } from '@/data/types'
-import { orbitTargets, resolveStepView, STEPS } from '@/domain/emergency'
+import { emSteps, orbitTargets, resolveStepView } from '@/domain/emergency'
 import { SosDrawerBody } from './SosDrawerBody'
 
 const gap16: CSSProperties = { display: 'grid', gap: 16, alignContent: 'start' }
@@ -21,25 +21,26 @@ const right: CSSProperties = { textAlign: 'right' }
 export function AlertCard({ step, scene, onEnd }: { step: number; scene: OrbitScene | null; onEnd: () => void }) {
   const toast = useToast()
   const drawer = useDrawer()
-  const c = LIVE_COPY
-  const s = STEPS[step]
-  const v = resolveStepView(STEPS, step)
+  const { t } = useTranslation('live')
+  const steps = emSteps()
+  const s = steps[step]
+  const v = resolveStepView(steps, step)
   const { mode, ...targets } = orbitTargets(step)
   return (
     <div className="c5" style={gap16}>
       <article className="glass card">
         <div className="ch">
           <span className="em-tag"><i></i><span id="emTag">{s.lv}</span></span>
-          <button type="button" className="chip" id="endDemo" style={endStyle} onClick={onEnd}>{c.endDemo}</button>
+          <button type="button" className="chip" id="endDemo" style={endStyle} onClick={onEnd}>{t('endDemo')}</button>
         </div>
         {scene ? (
-          <Orbit scene={scene} ariaLabel={c.orbitLabel} mode={mode} state={targets} labels night tilt={0.62} zoom={1.05} style={orbitStyle} />
+          <Orbit scene={scene} ariaLabel={t('orbitLabel')} mode={mode} state={targets} labels night tilt={0.62} zoom={1.05} style={orbitStyle} />
         ) : (
           <div className="c3d" style={orbitStyle}></div>
         )}
         <div className="em-stat">
           <b className="v" id="emMin">{s.m}′</b>
-          <span><span className="k">{c.since}</span><br /><span className="l" id="emLvl">{s.lv}</span></span>
+          <span><span className="k">{t('since')}</span><br /><span className="l" id="emLvl">{s.lv}</span></span>
           <span style={{ flex: 1 }}></span>
           <span style={right}><b id="emWhat" style={medium}>{v.what}</b><br /><small className="muted" id="emSub">{v.sub}</small></span>
         </div>
@@ -49,14 +50,14 @@ export function AlertCard({ step, scene, onEnd }: { step: number; scene: OrbitSc
           <span className="eta" id="ownE">{v.own[2]}</span>
         </div>
         <div className="actions">
-          <button type="button" className="act primary" onClick={() => drawer.open(c.sos.title, <SosDrawerBody />)}>
-            <span className="ic"><Icon name="phone" /></span>{c.actions.call000}
+          <button type="button" className="act primary" onClick={() => drawer.open(t('sos.title'), <SosDrawerBody />)}>
+            <span className="ic"><Icon name="phone" /></span>{t('actions.call000')}
           </button>
-          <button type="button" className="act" onClick={() => toast(c.actions.callMum.toast)}>
-            <span className="ic"><Icon name="mic" /></span>{c.actions.callMum.label}
+          <button type="button" className="act" onClick={() => toast(t('actions.callMum.toast'))}>
+            <span className="ic"><Icon name="mic" /></span>{t('actions.callMum.label')}
           </button>
-          <button type="button" className="act" onClick={() => toast(c.actions.callDavid.toast)}>
-            <span className="ic"><Icon name="people" /></span>{c.actions.callDavid.label}
+          <button type="button" className="act" onClick={() => toast(t('actions.callDavid.toast'))}>
+            <span className="ic"><Icon name="people" /></span>{t('actions.callDavid.label')}
           </button>
         </div>
       </article>

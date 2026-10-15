@@ -7,8 +7,12 @@ import { City3D } from '@/components/canvas/City3D'
 import { DistrictMap } from '@/components/canvas/DistrictMap'
 import type { Canvas3DHandle } from '@/components/canvas/useCanvas3D'
 import { cityScene } from '@/data/fixtures/city'
-import { surroundings } from '@/data/fixtures/around'
-import { community } from '@/data/fixtures/community'
+import aroundData from '@/locales/en/data/around.json'
+import communityData from '@/locales/en/data/community.json'
+import type { CommunityData, Surroundings } from '@/data/types'
+
+const surroundings = aroundData.surroundings as unknown as Surroundings
+const community = communityData.community as unknown as CommunityData
 import { loadPrototype } from './prototype'
 import { fakeCtx, mockCanvas, mockLayout, mockRaf, setReducedMotion, type FakeCtx } from './fakeCtx'
 

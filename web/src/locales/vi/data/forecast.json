@@ -1,0 +1,522 @@
+{
+  "forecast": {
+    "stroke90d": 2.1,
+    "wellbeing": {
+      "score": 72,
+      "delta": -5
+    },
+    "wellbeingNote": "72 trên 100, giảm 5 so với tuần trước. Có hai điều kéo điểm xuống: huyết áp của bà đang tăng dần, và nhà bà quá nóng.",
+    "wellbeingAxes": [
+      {
+        "label": "❤️ Cơ thể",
+        "now": 61,
+        "lastMonth": 74
+      },
+      {
+        "label": "💊 Thuốc",
+        "now": 68,
+        "lastMonth": 90
+      },
+      {
+        "label": "🚶 Vận động",
+        "now": 74,
+        "lastMonth": 80
+      },
+      {
+        "label": "😴 Giấc ngủ",
+        "now": 70,
+        "lastMonth": 76
+      },
+      {
+        "label": "🤝 Giao tiếp",
+        "now": 82,
+        "lastMonth": 84
+      },
+      {
+        "label": "🧠 Trí nhớ",
+        "now": 88,
+        "lastMonth": 90
+      },
+      {
+        "label": "🏠 Nhà ở",
+        "now": 58,
+        "lastMonth": 78
+      }
+    ],
+    "comingUp": {
+      "title": "🔮 Sắp tới: một việc cần làm",
+      "meta": "Đột quỵ · 90 ngày",
+      "pill": {
+        "tone": "bad",
+        "text": "Cao hơn đa số phụ nữ cùng tuổi"
+      },
+      "headline": "Huyết áp của Mẹ đang tăng dần. Hãy hành động trong tuần này.",
+      "stats": [
+        {
+          "label": "Nguy cơ đột quỵ 90 ngày",
+          "value": "2.1%",
+          "note": "gấp 2.4 lần mức thường",
+          "tone": "bad"
+        },
+        {
+          "label": "Huyết áp tâm thu buổi sáng, 7 ngày",
+          "value": "146",
+          "note": "+14 mmHg / 6 tuần",
+          "tone": "warn"
+        },
+        {
+          "label": "Nếu uống đủ 100% liều",
+          "value": "1.3%",
+          "note": "−38% tương đối",
+          "tone": "good"
+        }
+      ],
+      "reasons": [
+        {
+          "icon": "trend",
+          "text": "Huyết áp buổi sáng tăng 14 mmHg trong 6 tuần, tăng đều mỗi tuần"
+        },
+        {
+          "icon": "pill",
+          "text": "Tuần này bà đã quên liều thuốc huyết áp buổi tối 3 lần"
+        },
+        {
+          "icon": "tree",
+          "text": "Cha và anh trai của bà đều bị đột quỵ trước tuổi 70"
+        }
+      ],
+      "actions": [
+        {
+          "label": "Nhờ David chuẩn bị hộp chia thuốc",
+          "kind": "toast",
+          "value": "Đã gửi cho David · anh ấy sẽ chuẩn bị hộp chia thuốc vào Thứ Bảy",
+          "icon": "people",
+          "soft": false
+        },
+        {
+          "label": "Gửi báo cáo huyết áp cho Dr Patel",
+          "kind": "toast",
+          "value": "Đã gửi báo cáo huyết áp cho Dr Patel",
+          "soft": true
+        },
+        {
+          "label": "Xem dự báo đầy đủ",
+          "kind": "go",
+          "value": "forecast",
+          "soft": true
+        }
+      ]
+    },
+    "weeklyPlan": [
+      {
+        "icon": "sun",
+        "iconColor": "var(--sun-ink)",
+        "title": "Th 5 11:00–15:00 · hỏi thăm thêm khi nắng nóng",
+        "owner": "Trợ lý",
+        "note": "Trợ lý · uống nước mỗi 2 giờ · đã đề nghị đưa bà đến phòng mát ở thư viện",
+        "status": {
+          "tone": "brand",
+          "text": "Đã lên lịch"
+        }
+      },
+      {
+        "icon": "pill",
+        "title": "Th 7 10:00 · chuẩn bị hộp chia thuốc hằng tuần",
+        "owner": "David",
+        "note": "David · giảm quên liều buổi tối",
+        "status": {
+          "tone": "warn",
+          "text": "Cần duyệt"
+        }
+      },
+      {
+        "icon": "clinic",
+        "title": "Th 2 · bác sĩ gia đình xem lại huyết áp",
+        "owner": "Dr Patel",
+        "note": "Dr Patel · đã gửi báo cáo",
+        "status": {
+          "tone": "plain",
+          "text": "Cần đặt lịch"
+        }
+      },
+      {
+        "icon": "ear",
+        "title": "22/10 · kiểm tra thính lực",
+        "owner": "David",
+        "note": "Phòng khám thính học Marrickville · David chở bà đi",
+        "status": {
+          "tone": "good",
+          "text": "Đã đặt"
+        }
+      }
+    ],
+    "weeklyPlanMeta": "4 việc · 2 người phụ trách",
+    "model": [
+      {
+        "emoji": "👀",
+        "label": "Theo dõi",
+        "value": "64 dấu hiệu"
+      },
+      {
+        "emoji": "📚",
+        "label": "Học từ",
+        "value": "48.000 hồ sơ bệnh sử"
+      },
+      {
+        "emoji": "🎯",
+        "label": "Dự đoán đúng",
+        "value": "8 trên 10 lần"
+      },
+      {
+        "emoji": "🩺",
+        "label": "Tuân theo",
+        "value": "Hướng dẫn của bác sĩ"
+      },
+      {
+        "emoji": "🔄",
+        "label": "Cập nhật",
+        "value": "Mỗi giờ"
+      },
+      {
+        "emoji": "🧑‍⚕️",
+        "label": "Người quyết định",
+        "value": "Bác sĩ của bà, không phải ứng dụng"
+      }
+    ],
+    "modelMeta": "Số liệu minh họa cho bản thử nghiệm",
+    "risks": [
+      {
+        "name": "Đột quỵ",
+        "nextMonth": "0.7%",
+        "threeMonths": "2.1%",
+        "nextYear": "7.8%",
+        "range": "1.4–3.0",
+        "level": "Cao",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "Xu hướng huyết áp"
+      },
+      {
+        "name": "Té ngã có chấn thương",
+        "nextMonth": "9.0%",
+        "threeMonths": "21%",
+        "nextYear": "38%",
+        "range": "16–27",
+        "level": "Cao",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "Tốc độ đi bộ −8%"
+      },
+      {
+        "name": "Nhập viện",
+        "nextMonth": "5.2%",
+        "threeMonths": "14%",
+        "nextYear": "41%",
+        "range": "10–19",
+        "level": "Trung bình",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "Huyết áp + nắng nóng"
+      },
+      {
+        "name": "Bệnh do nắng nóng",
+        "nextMonth": "6.0%",
+        "threeMonths": "—",
+        "nextYear": "—",
+        "range": "4.1–8.8 (7 ngày)",
+        "level": "Trung bình",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "Không có máy lạnh, 29.5 °C"
+      },
+      {
+        "name": "Suy giảm thính lực",
+        "nextMonth": "—",
+        "threeMonths": "18%",
+        "nextYear": "46%",
+        "range": "13–24",
+        "level": "Trung bình",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "\"Hả, gì cơ?\" ×9/tuần"
+      },
+      {
+        "name": "Suy giảm nhận thức (MCI)",
+        "nextMonth": "—",
+        "threeMonths": "3.1%",
+        "nextYear": "11%",
+        "range": "2.0–4.6",
+        "level": "Theo dõi",
+        "tone": "warn",
+        "trend": "→",
+        "reason": "Khó tìm từ + thính lực"
+      },
+      {
+        "name": "Đợt suy tim",
+        "nextMonth": "0.8%",
+        "threeMonths": "2.3%",
+        "nextYear": "8.1%",
+        "range": "1.5–3.4",
+        "level": "Thấp",
+        "tone": "good",
+        "trend": "→",
+        "reason": "Cân nặng ổn định"
+      },
+      {
+        "name": "Buồn chán / cô đơn",
+        "nextMonth": "7%",
+        "threeMonths": "12%",
+        "nextYear": "22%",
+        "range": "8–17",
+        "level": "Thấp",
+        "tone": "good",
+        "trend": "↓",
+        "reason": "Nhóm đi bộ"
+      }
+    ],
+    "shap": [
+      {
+        "label": "Xu hướng huyết áp",
+        "value": 0.58
+      },
+      {
+        "label": "Tiền sử gia đình",
+        "value": 0.31
+      },
+      {
+        "label": "Quên liều thuốc",
+        "value": 0.22
+      },
+      {
+        "label": "Cảnh báo nhịp tim không đều",
+        "value": 0.09
+      },
+      {
+        "label": "HRV thấp",
+        "value": 0.08
+      },
+      {
+        "label": "Nhiệt độ trong nhà",
+        "value": 0.05
+      },
+      {
+        "label": "Vận động hằng ngày",
+        "value": -0.06
+      },
+      {
+        "label": "LDL đã kiểm soát (2.4)",
+        "value": -0.07
+      }
+    ],
+    "shapNote": "Một phụ nữ cùng tuổi đang uống thuốc huyết áp thường có nguy cơ khoảng 0.9%. Các lý do trên cộng lại thành 2.1% của bà Margaret.",
+    "signs": [
+      {
+        "sign": "🩺 Huyết áp buổi sáng",
+        "from": "Máy đo huyết áp bắp tay",
+        "frequency": "Mỗi sáng",
+        "now": "146",
+        "usual": "132",
+        "comparison": "Cao hơn nhiều",
+        "sigma": "+2.8",
+        "tone": "bad"
+      },
+      {
+        "sign": "❤️ Nhịp tim lúc nghỉ",
+        "from": "Đồng hồ đeo tay",
+        "frequency": "Cả ngày",
+        "now": "68",
+        "usual": "63",
+        "comparison": "Gần như không đổi",
+        "sigma": "+0.4",
+        "tone": "good"
+      },
+      {
+        "sign": "🌿 Chỉ số thư thái (HRV)",
+        "from": "Đồng hồ đeo tay",
+        "frequency": "Mỗi đêm",
+        "now": "26",
+        "usual": "31",
+        "comparison": "Thấp hơn",
+        "sigma": "−1.9",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚡ Cảnh báo nhịp tim không đều",
+        "from": "Đồng hồ đeo tay",
+        "frequency": "Khi xảy ra",
+        "now": "2 lần tuần này",
+        "usual": "hiếm khi",
+        "comparison": "Cao hơn",
+        "sigma": "+2.4",
+        "tone": "warn"
+      },
+      {
+        "sign": "🚶 Tốc độ đi bộ",
+        "from": "Điện thoại + nhà",
+        "frequency": "Mỗi ngày",
+        "now": "0.82 m/s",
+        "usual": "0.89",
+        "comparison": "Chậm hơn",
+        "sigma": "−2.1",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌙 Thức dậy ban đêm",
+        "from": "Cảm biến tại nhà",
+        "frequency": "Cả đêm",
+        "now": "41 lần",
+        "usual": "18",
+        "comparison": "Cao hơn nhiều",
+        "sigma": "+2.3",
+        "tone": "warn"
+      },
+      {
+        "sign": "💊 Thuốc đã uống",
+        "from": "Hộp chia thuốc",
+        "frequency": "Mỗi liều",
+        "now": "86%",
+        "usual": "95%",
+        "comparison": "Thấp hơn",
+        "sigma": "−1.8",
+        "tone": "warn"
+      },
+      {
+        "sign": "⏸️ Ngập ngừng khi nói",
+        "from": "Trò chuyện hằng ngày",
+        "frequency": "Mỗi ngày",
+        "now": "Nhiều hơn",
+        "usual": "ít hơn",
+        "comparison": "Cao hơn",
+        "sigma": "+1.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "👂 \"Hả, gì cơ?\"",
+        "from": "Trò chuyện hằng ngày",
+        "frequency": "Mỗi ngày",
+        "now": "9 lần tuần này",
+        "usual": "3",
+        "comparison": "Cao hơn nhiều",
+        "sigma": "+2.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌡️ Nhiệt độ trong nhà",
+        "from": "Cảm biến tại nhà",
+        "frequency": "Cả ngày",
+        "now": "29.5°",
+        "usual": "25.1°",
+        "comparison": "Cao hơn nhiều",
+        "sigma": "+2.2",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚖️ Cân nặng",
+        "from": "Cân",
+        "frequency": "Mỗi ngày",
+        "now": "61.2 kg",
+        "usual": "61.0",
+        "comparison": "Gần như không đổi",
+        "sigma": "+0.2",
+        "tone": "good"
+      }
+    ],
+    "bp": {
+      "observed": [
+        128,
+        131,
+        133,
+        137,
+        140,
+        146
+      ],
+      "projectedNothing": [
+        146,
+        148.5,
+        151,
+        153.5,
+        156
+      ],
+      "projectedAdherent": [
+        146,
+        140,
+        136,
+        133,
+        131
+      ],
+      "target": 135,
+      "weeks": 10,
+      "todayWeek": 6,
+      "lo": 120,
+      "hi": 166
+    },
+    "sim": {
+      "sliders": [
+        {
+          "id": "adherence",
+          "label": "💊 Uống thuốc đúng giờ",
+          "min": 60,
+          "max": 100,
+          "step": 1,
+          "value": 86
+        },
+        {
+          "id": "steps",
+          "label": "👣 Số bước mỗi ngày",
+          "min": 1500,
+          "max": 7000,
+          "step": 100,
+          "value": 3240
+        },
+        {
+          "id": "salt",
+          "label": "🧂 Muối trong thức ăn",
+          "min": 0,
+          "max": 2,
+          "step": 1,
+          "value": 1
+        }
+      ],
+      "saltLabels": [
+        "Ít",
+        "Vừa",
+        "Nhiều"
+      ],
+      "hearingLabel": "👂 Đeo máy trợ thính mỗi ngày",
+      "hearingAids": false,
+      "base": {
+        "stroke": 2.1,
+        "fall": 21,
+        "admission": 14,
+        "mci": 3.1
+      },
+      "note": "Mức tác động tương đối lấy từ các nghiên cứu đã công bố và được áp dụng lên nguy cơ hiện tại của bà. Đây là gợi ý để trao đổi với bác sĩ gia đình, không phải đơn thuốc."
+    },
+    "modes": [
+      {
+        "name": "Hearing",
+        "icon": "ear",
+        "title": "Chế độ khiếm thính",
+        "description": "Phụ đề, màn hình nhấp nháy và thẻ có/không khi bà không trả lời bằng giọng nói",
+        "on": true,
+        "tag": "BẬT · TỰ BẬT 09/10"
+      },
+      {
+        "name": "Vision",
+        "icon": "eye",
+        "title": "Chế độ khiếm thị",
+        "description": "Chỉ dùng giọng nói, không cần tìm nút bấm; camera đọc to nhãn thuốc",
+        "on": false,
+        "tag": "TẮT"
+      },
+      {
+        "name": "Memory",
+        "icon": "brain",
+        "title": "Chế độ trí nhớ",
+        "description": "Nhắc việc hằng ngày bằng giọng nói quen thuộc, giúp tìm đường về nhà, chỉ khi bà Margaret đồng ý",
+        "on": false,
+        "tag": "TẮT · ĐANG THEO DÕI"
+      }
+    ]
+  }
+}

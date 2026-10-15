@@ -1,0 +1,355 @@
+{
+  "explain": {
+    "heart rate": "How many times her heart beats each minute. Hers is a little higher than her usual, which can happen in hot weather.",
+    "blood pressure": "How hard blood pushes on the walls of her arteries. The top number has crept up for 6 weeks, which raises her stroke chance. Taking the evening tablet every day is the simplest fix.",
+    "calm score": "Also called heart rate variability. Higher means her body is relaxed and recovering; lower means more strain from heat, poor sleep or illness.",
+    "sleep": "Time actually asleep. She is getting less than usual and waking more at night.",
+    "steps": "Steps counted by her watch and phone.",
+    "walking speed": "How fast she walks on flat ground. A slower pace over weeks is one of the best early signs of a higher chance of falling.",
+    "tablets": "The smart pill box records when each dose is taken.",
+    "calls answered": "How many of the daily check-in calls she picked up.",
+    "speaking pace": "Measured during the daily chat. Small changes can be early signs of tiredness, low mood or memory changes.",
+    "time with people": "Calls, visits and outings with other people.",
+    "home temperature": "From the sensor in her living room. Above 28° the body works harder, especially with heart conditions.",
+    "weight": "From her bathroom scale. Sudden gain of 2 kg in 3 days can mean fluid build-up.",
+    "pollen": "Spring grass pollen. On windy, stormy days it can trigger asthma, even in people who rarely have it.",
+    "sun strength": "The UV index. 11 is extreme: skin can burn in under 10 minutes.",
+    "plane noise": "Marrickville is under the airport flight path. Flights stop between 11 pm and 6 am, so her sleep is not affected.",
+    "pre-arrival packets": "FHIR R4 bundles (Patient, Condition, MedicationStatement, AllergyIntolerance, Observation) pushed to the ED on escalation, with consent on file.",
+    "door to ct": "Median minutes from ED arrival to first CT head for suspected stroke, packet-enabled arrivals vs historical baseline.",
+    "notice before arrival": "Median interval between packet receipt and ambulance arrival at triage."
+  },
+  "explainFallback": {
+    "hospital": "Rolling metric computed from enrolled-patient feeds and ED information system extracts; refreshed every 15 minutes.",
+    "community": "Aggregated across enrolled residents in the 15 Inner West suburbs. Groups under 10 are suppressed.",
+    "individual": "Compared with Margaret's own usual over the last 30 days, so it reflects what is normal for her."
+  },
+  "chatIntro": "Mum is steady today. One thing to act on: her blood pressure has drifted up for 6 weeks, and Thursday will be 38 °C.",
+  "chatQa": [
+    [
+      "How did she sound today?",
+      "Clear and cheerful at 13:02. Speech rate 132 wpm, a little slower than her usual 141, and she said \"pardon?\" twice, so captions stay on."
+    ],
+    [
+      "Why is stroke risk high?",
+      "Four drivers: morning blood pressure up 14 mmHg, 3 missed evening doses, two relatives with stroke before 70, and two irregular-rhythm alerts this week. It's a risk level, not a diagnosis."
+    ],
+    [
+      "What about Thursday's heat?",
+      "I'll add a midday check-in, remind her about fluids every 2 hours and offer a lift to the library cool room. Aisha next door can check on her at 15:00."
+    ],
+    [
+      "What should I do this week?",
+      "Approve the pill box task for David and book her GP review. Both are one tap. I can also draft a message to Sarah."
+    ]
+  ],
+  "sosScript": {
+    "intro": "Ask for ambulance. Read this aloud.",
+    "address": "186 Marrickville Rd, Marrickville NSW 2204",
+    "rows": [
+      [
+        "Address",
+        "186 Marrickville Rd, Marrickville NSW 2204"
+      ],
+      [
+        "Patient",
+        "Margaret Collins, 78, lives alone"
+      ],
+      [
+        "Symptoms",
+        "Slurred speech since 02:04, heart rate 142"
+      ],
+      [
+        "Last well",
+        "01:55"
+      ],
+      [
+        "Medicines",
+        "Amlodipine, aspirin, atorvastatin · allergic to penicillin"
+      ],
+      [
+        "Access",
+        "Brother arriving 02:11 with key · neighbour Aisha holds a spare"
+      ]
+    ],
+    "note": "The agent prepares this. A person makes the call."
+  },
+  "packetNote": "Sent as a FHIR bundle to the receiving ED only during an emergency, with consent on file.",
+  "notifications": [
+    [
+      "⚠️",
+      "Needs your OK: weekly pill box by David",
+      "Yesterday 21:40",
+      "warn"
+    ],
+    [
+      "🔥",
+      "Heat warning for Thursday · plan ready",
+      "2 h ago",
+      "warn"
+    ],
+    [
+      "🛡️",
+      "Scam door-knocks reported on her street",
+      "5 h ago",
+      "bad"
+    ],
+    [
+      "✅",
+      "Blood pressure report read by Dr Patel",
+      "Yesterday 16:42",
+      "good"
+    ],
+    [
+      "😊",
+      "Margaret had a cheerful chat at 13:02",
+      "2 h ago",
+      "good"
+    ]
+  ],
+  "condActions": [
+    [
+      "🗣️ Ask her about it",
+      "Added to her next chat",
+      "Added"
+    ],
+    [
+      "🩺 Raise with Dr Patel",
+      "Added to the GP visit agenda",
+      "Added"
+    ]
+  ],
+  "onceLabels": {
+    "Approve": "✓ Approved",
+    "Ask David to set up a pill box": "✓ David asked",
+    "Send BP report to Dr Patel": "✓ Sent",
+    "Call Mum": "📞 Calling…",
+    "Review": "✓ Reviewed",
+    "Page stroke team": "✓ Paged",
+    "Divert": "✓ Diversion sent"
+  },
+  "drawerActions": {
+    "row": [
+      [
+        "🗣️ Ask her about it",
+        "Added to her next chat",
+        "Added"
+      ],
+      [
+        "📤 Share with family",
+        "Shared",
+        "Shared"
+      ]
+    ],
+    "alert": [
+      [
+        "🗣️ Tell Margaret by voice",
+        "Margaret will hear this in her next call",
+        "Will tell her"
+      ],
+      [
+        "📤 Share with David",
+        "Sent to David",
+        "Sent"
+      ],
+      [
+        "✅ Mark as handled",
+        "Marked as handled",
+        "Handled"
+      ]
+    ],
+    "news": [
+      [
+        "🗣️ Read it to Margaret",
+        "She will hear a short version at 18:00",
+        "Queued"
+      ],
+      [
+        "📤 Share with family",
+        "Shared with the care circle",
+        "Shared"
+      ]
+    ]
+  },
+  "pageError": {
+    "text": "We couldn't load this page just now.",
+    "retry": "Try again",
+    "toast": "Couldn't load that just now · please try again"
+  },
+  "saveFailed": "Couldn't save that change · it has been undone",
+  "keptPrivate": {
+    "title": "🔒 Kept private",
+    "body": "Margaret has chosen not to share this with {{viewerName}}. That's her choice, and she can change it any time.",
+    "action": {
+      "label": "💬 Ask Margaret kindly",
+      "toast": "Margaret will get a gentle request she can say yes or no to",
+      "done": "Request sent"
+    },
+    "bodyPaused": "Margaret has chosen not to share this with {{viewerName}} right now. She paused sharing until 9 am tomorrow. Safety alerts still reach you."
+  },
+  "you": "you",
+  "nav": {
+    "bellToast": "3 updates today: 2 routine, 1 needs your approval",
+    "notifications": "Notifications",
+    "demo": "Night alert demo",
+    "signedInAs": "Signed in as {{name}}",
+    "sections": "Sections",
+    "chooseView": "Choose a view",
+    "brandBy": "by InsideSync",
+    "whose": "Whose view",
+    "whoSelf": "👵 Margaret (her own app)",
+    "whoFamily": "👨‍👩‍👧 Family & carers",
+    "search": {
+      "placeholder": "Search people, suburbs…",
+      "label": "Search",
+      "results": "Search results",
+      "person": "Person",
+      "suburb": "Suburb · Inner West"
+    }
+  },
+  "views": {
+    "buttons": {
+      "individual": "Individual",
+      "hospital": "Hospital",
+      "community": "Community"
+    },
+    "banners": {
+      "individual": "Individual view · Margaret and her family",
+      "hospital": "Hospital view · Camperdown Stroke Centre",
+      "community": "Community view · Inner West Community Health"
+    },
+    "users": {
+      "individual": {
+        "name": "James Collins",
+        "toast": "Signed in as James Collins · son · Melbourne"
+      },
+      "hospital": {
+        "name": "Dr Amelia Tran",
+        "toast": "Signed in as Dr Amelia Tran · ED consultant"
+      },
+      "community": {
+        "name": "Priya Sharma",
+        "toast": "Signed in as Priya Sharma · community nurse"
+      }
+    }
+  },
+  "tabs": {
+    "family": {
+      "home": "🏠 Home",
+      "health": "❤️ Health",
+      "around": "🌤️ Around her",
+      "forecast": "🔮 What's ahead",
+      "lineage": "🌳 Health Lineage",
+      "record": "📋 Care record",
+      "live": "🚨 Emergency",
+      "device": "📱 Her phone"
+    },
+    "self": {
+      "me": "🌞 My day",
+      "health": "❤️ My health",
+      "privacy": "🔐 Who sees what",
+      "around": "🌤️ Around me",
+      "lineage": "🌳 My family health",
+      "device": "📱 My phone"
+    },
+    "hospital": {
+      "ed": "Pre-arrivals",
+      "panel": "Patient panel",
+      "demand": "Demand & beds",
+      "discharge": "Discharge follow-up"
+    },
+    "community": {
+      "community": "Community overview",
+      "watch": "Neighbourhood watch"
+    }
+  },
+  "pageTitles": {
+    "home": "Margaret Collins, 78",
+    "health": "Health · Margaret Collins",
+    "around": "Around her · Margaret Collins",
+    "forecast": "What's ahead · Margaret Collins",
+    "lineage": "Health Lineage · Collins and Hughes families",
+    "record": "Care record · Margaret Collins",
+    "live": "Emergency · Margaret Collins",
+    "device": "Margaret's phone",
+    "me": "Hello, Margaret",
+    "privacy": "Who sees what",
+    "ed": "Pre-arrivals · Camperdown Stroke Centre",
+    "panel": "Patient panel · older patients",
+    "demand": "Demand and beds · next 14 days",
+    "discharge": "Discharge follow-up · last 30 days",
+    "community": "Inner West community",
+    "watch": "Neighbourhood watch · Inner West"
+  },
+  "ownContext": {
+    "me": {
+      "sub": "Your own space · only you see this page",
+      "facts": [
+        [
+          "You're sharing with",
+          "6 people"
+        ],
+        [
+          "Cameras",
+          "none"
+        ],
+        [
+          "Location",
+          "off"
+        ]
+      ]
+    },
+    "privacy": {
+      "sub": "You decide what each person can see. Change it any time.",
+      "facts": [
+        [
+          "Safety alerts",
+          "always to David and James"
+        ],
+        [
+          "Location",
+          "off"
+        ]
+      ]
+    }
+  },
+  "context": {
+    "selfBanner": "Margaret's own view · she controls her information",
+    "familyBanner": "Family & carers view · {{viewerName}} sees only what Margaret shares",
+    "sees": "{{viewerName}} sees <b>{{seen}} of {{total}}</b> things Margaret shares",
+    "pausedBold": "Margaret paused sharing until 9 am tomorrow.",
+    "pausedRest": "You'll still get safety alerts straight away."
+  },
+  "lock": {
+    "paused": "Margaret paused sharing until tomorrow",
+    "keeps": "Margaret keeps her {{name}} private",
+    "checking": "Checking what Margaret shares"
+  },
+  "drawer": {
+    "close": "Close",
+    "compared": "Compared with",
+    "change": "Change"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "That page does not exist.",
+    "link": "Go to Home"
+  },
+  "charts": {
+    "timeline": "Timeline",
+    "table": "Table",
+    "heatmap": "Daily routine heatmap, {{days}} days by {{hours}} hours",
+    "heatmapUnusual": "; {{count}} unusual hours marked",
+    "notYet": "Not yet",
+    "cell": "{{day}} {{hour}}:00 · {{pct}}% of peak",
+    "radarOverall": "Overall {{score}} out of 100: ",
+    "sparkline": "Trend from {{from}} to {{to}}",
+    "ringLabel": "{{label}}: {{value}} of {{max}}{{unit}}",
+    "ringOf": "of {{max}}{{unit}}",
+    "lineSeries": "{{name}} from {{from}} to {{to}}",
+    "projected": " (dashed part is projected)",
+    "threshold": "; threshold {{label}}",
+    "district": "3D column map of 15 Inner West suburbs",
+    "north": "N"
+  }
+}

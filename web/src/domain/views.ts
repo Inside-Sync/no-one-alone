@@ -1,4 +1,6 @@
-/** Views, role-based tabs and page routing. Pure functions; no React. */
+/** Views, role-based tabs and page routing. Pure functions; no React. Text is read through i18n when accessed. */
+
+import i18n from '@/i18n'
 
 export type ViewId = 'individual' | 'hospital' | 'community'
 export type Who = 'family' | 'self'
@@ -6,57 +8,55 @@ export type Tab = { id: string; label: string; icon?: string }
 
 export const VIEW_IDS: readonly ViewId[] = ['individual', 'hospital', 'community']
 
-/** Header view switcher: label and icon per view. */
-export const VIEW_BUTTONS: { id: ViewId; label: string; icon: 'heart' | 'hospital' | 'people' }[] = [
-  { id: 'individual', label: 'Individual', icon: 'heart' },
-  { id: 'hospital', label: 'Hospital', icon: 'hospital' },
-  { id: 'community', label: 'Community', icon: 'people' },
-]
+/** Header view switcher: label (translated at read time) and icon per view. */
+export const VIEW_BUTTONS: readonly { id: ViewId; readonly label: string; icon: 'heart' | 'hospital' | 'people' }[] = (
+  [['individual', 'heart'], ['hospital', 'hospital'], ['community', 'people']] as const
+).map(([id, icon]) => ({ id, icon, get label() { return i18n.t(`common:views.buttons.${id}`) } }))
 
-/** `vbanner` text per view (VIEWS[v].label in the prototype). */
-export const VIEW_LABELS: Record<ViewId, string> = {
-  individual: 'Individual view · Margaret and her family',
-  hospital: 'Hospital view · Camperdown Stroke Centre',
-  community: 'Community view · Inner West Community Health',
+/** `vbanner` text per view (VIEWS[v].label in the prototype); translated at read time. */
+export const VIEW_LABELS: Readonly<Record<ViewId, string>> = {
+  get individual() { return i18n.t('common:views.banners.individual') },
+  get hospital() { return i18n.t('common:views.banners.hospital') },
+  get community() { return i18n.t('common:views.banners.community') },
 }
 
-/** Who is signed in per view (VIEWS[v].me). */
-export const VIEW_USERS: Record<ViewId, { initials: string; color: string; name: string; toast: string }> = {
-  individual: { initials: 'JC', color: '#2f6fb0', name: 'James Collins', toast: 'Signed in as James Collins · son · Melbourne' },
-  hospital: { initials: 'AT', color: '#2563a8', name: 'Dr Amelia Tran', toast: 'Signed in as Dr Amelia Tran · ED consultant' },
-  community: { initials: 'PS', color: '#6d4fc0', name: 'Priya Sharma', toast: 'Signed in as Priya Sharma · community nurse' },
+type ViewUser = { readonly initials: string; readonly color: string; readonly name: string; readonly toast: string }
+const viewUser = (id: ViewId, initials: string, color: string): ViewUser => ({
+  initials,
+  color,
+  get name() { return i18n.t(`common:views.users.${id}.name`) },
+  get toast() { return i18n.t(`common:views.users.${id}.toast`) },
+})
+
+/** Who is signed in per view (VIEWS[v].me); name and toast translated at read time. */
+export const VIEW_USERS: Readonly<Record<ViewId, ViewUser>> = {
+  individual: viewUser('individual', 'JC', '#2f6fb0'),
+  hospital: viewUser('hospital', 'AT', '#2563a8'),
+  community: viewUser('community', 'PS', '#6d4fc0'),
 }
 
-export const TABS_FAM: Tab[] = [
-  { id: 'home', label: '🏠 Home' },
-  { id: 'health', label: '❤️ Health' },
-  { id: 'around', label: '🌤️ Around her' },
-  { id: 'forecast', label: "🔮 What's ahead" },
-  { id: 'lineage', label: '🌳 Health Lineage' },
-  { id: 'record', label: '📋 Care record' },
-  { id: 'live', label: '🚨 Emergency' },
-  { id: 'device', label: '📱 Her phone' },
-]
+type TabGroup = 'family' | 'self' | 'hospital' | 'community'
+/** A tab whose label is looked up in `common:tabs.<group>.<id>` each time it is read. */
+const tab = (group: TabGroup, id: string, icon?: string): Tab => ({
+  id,
+  ...(icon ? { icon } : {}),
+  get label() { return i18n.t(`common:tabs.${group}.${id}` as 'common:tabs.family.home') },
+})
 
-export const TABS_SELF: Tab[] = [
-  { id: 'me', label: '🌞 My day' },
-  { id: 'health', label: '❤️ My health' },
-  { id: 'privacy', label: '🔐 Who sees what' },
-  { id: 'around', label: '🌤️ Around me' },
-  { id: 'lineage', label: '🌳 My family health' },
-  { id: 'device', label: '📱 My phone' },
-]
+export const TABS_FAM: Tab[] = ['home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'device'].map((id) => tab('family', id))
+
+export const TABS_SELF: Tab[] = ['me', 'health', 'privacy', 'around', 'lineage', 'device'].map((id) => tab('self', id))
 
 const TABS_HOSPITAL: Tab[] = [
-  { id: 'ed', label: 'Pre-arrivals', icon: 'siren' },
-  { id: 'panel', label: 'Patient panel', icon: 'people' },
-  { id: 'demand', label: 'Demand & beds', icon: 'trend' },
-  { id: 'discharge', label: 'Discharge follow-up', icon: 'check' },
+  tab('hospital', 'ed', 'siren'),
+  tab('hospital', 'panel', 'people'),
+  tab('hospital', 'demand', 'trend'),
+  tab('hospital', 'discharge', 'check'),
 ]
 
 const TABS_COMMUNITY: Tab[] = [
-  { id: 'community', label: 'Community overview', icon: 'grid' },
-  { id: 'watch', label: 'Neighbourhood watch', icon: 'eye' },
+  tab('community', 'community', 'grid'),
+  tab('community', 'watch', 'eye'),
 ]
 
 export function isViewId(v: string): v is ViewId {
@@ -105,45 +105,30 @@ export function parsePath(pathname: string | null): { view: ViewId; page: string
   return { view: v && isViewId(v) ? v : 'individual', page: p }
 }
 
-/** Page titles (PG in the prototype, after the later overrides). */
-export const PAGE_TITLES: Record<string, string> = {
-  home: 'Margaret Collins, 78',
-  health: 'Health · Margaret Collins',
-  around: 'Around her · Margaret Collins',
-  forecast: "What's ahead · Margaret Collins",
-  lineage: 'Health Lineage · Collins and Hughes families',
-  record: 'Care record · Margaret Collins',
-  live: 'Emergency · Margaret Collins',
-  device: "Margaret's phone",
-  me: 'Hello, Margaret',
-  privacy: 'Who sees what',
-  ed: 'Pre-arrivals · Camperdown Stroke Centre',
-  panel: 'Patient panel · older patients',
-  demand: 'Demand and beds · next 14 days',
-  discharge: 'Discharge follow-up · last 30 days',
-  community: 'Inner West community',
-  watch: 'Neighbourhood watch · Inner West',
-}
+const PAGE_IDS = [
+  'home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'device', 'me', 'privacy',
+  'ed', 'panel', 'demand', 'discharge', 'community', 'watch',
+] as const
 
-/** Margaret's own pages have their own context bar (PG.me, PG.privacy). */
+/** Page titles (PG in the prototype, after the later overrides); translated at read time. */
+export const PAGE_TITLES: Readonly<Record<string, string>> = Object.defineProperties(
+  {},
+  Object.fromEntries(PAGE_IDS.map((id) => [id, { enumerable: true, get: () => i18n.t(`common:pageTitles.${id}`) }])),
+)
+
+type OwnFact = { readonly live: boolean; readonly label: string; readonly value: string }
+const ownContext = (page: 'me' | 'privacy', initials: string, live: readonly boolean[]) => ({
+  initials,
+  color: '#0b7f71',
+  get sub() { return i18n.t(`common:ownContext.${page}.sub`) },
+  get facts(): readonly OwnFact[] {
+    const rows = i18n.t(`common:ownContext.${page}.facts`, { returnObjects: true }) as readonly (readonly string[])[]
+    return rows.map(([label, value], i) => ({ live: live[i] ?? false, label, value }))
+  },
+})
+
+/** Margaret's own pages have their own context bar (PG.me, PG.privacy); text translated at read time. */
 export const OWN_CONTEXT = {
-  me: {
-    initials: 'MC',
-    color: '#0b7f71',
-    sub: 'Your own space · only you see this page',
-    facts: [
-      { live: true, label: "You're sharing with", value: '6 people' },
-      { live: false, label: 'Cameras', value: 'none' },
-      { live: false, label: 'Location', value: 'off' },
-    ],
-  },
-  privacy: {
-    initials: '🔐',
-    color: '#0b7f71',
-    sub: 'You decide what each person can see. Change it any time.',
-    facts: [
-      { live: true, label: 'Safety alerts', value: 'always to David and James' },
-      { live: false, label: 'Location', value: 'off' },
-    ],
-  },
+  me: ownContext('me', 'MC', [true, false, false]),
+  privacy: ownContext('privacy', '🔐', [true, false]),
 } as const

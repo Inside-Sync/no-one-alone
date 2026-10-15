@@ -1,18 +1,24 @@
-import { careCircle, orbitScene, sharePeople } from '../fixtures/circle'
+import { currentLanguage } from '@/i18n'
 import { cityScene } from '../fixtures/city'
-import { careRecord } from '../fixtures/record'
-import { community } from '../fixtures/community'
-import { deviceFeed } from '../fixtures/device'
-import { forecast } from '../fixtures/forecast'
-import { health } from '../fixtures/health'
-import { hospital } from '../fixtures/hospital'
-import { lineage } from '../fixtures/lineage'
-import { margaret } from '../fixtures/margaret'
-import { surroundings } from '../fixtures/around'
 import { defaultShare } from '../fixtures/share'
-import { watch } from '../fixtures/watch'
 import type { DataSource } from './source'
-import type { AuditEntry, ShareMatrix } from '../types'
+import type {
+  AuditEntry, CareRecord, CircleMember, CommunityData, DeviceFeed, Forecast, HealthData, HospitalData, Lineage, OrbitScene,
+  Person, SharePerson, ShareMatrix, Surroundings, WatchData,
+} from '../types'
+
+/**
+ * The mock's content per language: `src/locales/{lng}/data/{file}.json`, one object per file keyed by the export
+ * name it had as a TS fixture. A file missing in a language falls back to English.
+ */
+const files = import.meta.glob<Record<string, unknown>>('../../locales/*/data/*.json', { eager: true, import: 'default' })
+
+function data<T>(file: string, key: string): T {
+  const at = (lng: string) => files[`../../locales/${lng}/data/${file}.json`]?.[key]
+  const v = at(currentLanguage()) ?? at('en')
+  if (v === undefined) throw new Error(`mock data ${file}.${key} not found`)
+  return v as T
+}
 
 const clone = <T>(v: T): T => structuredClone(v)
 
@@ -31,46 +37,46 @@ export function resetMockSource(): void {
  */
 export const mockSource: DataSource = {
   async getPerson() {
-    return clone(margaret)
+    return clone(data<Person>('margaret', 'margaret'))
   },
   async getHealth() {
-    return clone(health)
+    return clone(data<HealthData>('health', 'health'))
   },
   async getSurroundings() {
-    return clone(surroundings)
+    return clone(data<Surroundings>('around', 'surroundings'))
   },
   async getForecast() {
-    return clone(forecast)
+    return clone(data<Forecast>('forecast', 'forecast'))
   },
   async getLineage() {
-    return clone(lineage)
+    return clone(data<Lineage>('lineage', 'lineage'))
   },
   async getCareRecord() {
-    return clone(careRecord)
+    return clone(data<CareRecord>('record', 'careRecord'))
   },
   async getDeviceFeed() {
-    return clone(deviceFeed)
+    return clone(data<DeviceFeed>('device', 'deviceFeed'))
   },
   async getCareCircle() {
-    return clone(careCircle)
+    return clone(data<CircleMember[]>('circle', 'careCircle'))
   },
   async getSharePeople() {
-    return clone(sharePeople)
+    return clone(data<SharePerson[]>('circle', 'sharePeople'))
   },
   async getHospital() {
-    return clone(hospital)
+    return clone(data<HospitalData>('hospital', 'hospital'))
   },
   async getCommunity() {
-    return clone(community)
+    return clone(data<CommunityData>('community', 'community'))
   },
   async getWatch() {
-    return clone(watch)
+    return clone(data<WatchData>('watch', 'watch'))
   },
   async getCityScene() {
     return clone(cityScene)
   },
   async getOrbitScene() {
-    return clone(orbitScene)
+    return clone(data<OrbitScene>('circle', 'orbitScene'))
   },
   async getShare() {
     return clone(share)

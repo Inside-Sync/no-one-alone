@@ -1,4 +1,7 @@
-import { APP_PROGRESS, emergencyReducer, orbitTargets, PACKET_STEP, resolveStepView, SLA, STEPS, TICK_MS, type EmState } from '@/domain/emergency'
+import i18n from '@/i18n'
+import { APP_PROGRESS, emergencyReducer, emSteps, orbitTargets, PACKET_STEP, resolveStepView, slaTiles, STEPS as FRAMES, TICK_MS, type EmState } from '@/domain/emergency'
+
+const STEPS = emSteps()
 
 const init: EmState = { active: false, step: 0, playing: false }
 
@@ -9,7 +12,10 @@ test('ten steps, verbatim ends, 2800 ms tick', () => {
   expect(STEPS.map((s) => s.m)).toEqual([0, 1, 1, 1, 1, 2, 3, 4, 8, 18])
   expect(TICK_MS).toBe(2800)
   expect(APP_PROGRESS).toEqual([0, 0, 0, 0, 0, 0.12, 0.32, 0.58, 1, 1])
-  expect(SLA).toHaveLength(5)
+  expect(slaTiles()).toHaveLength(5)
+  expect(slaTiles()[0]).toEqual(['Alert → verified', '41 s', 1])
+  expect(FRAMES).toHaveLength(10)
+  expect(FRAMES[PACKET_STEP].t).toBe('02:07')
   expect(PACKET_STEP).toBe(7)
   expect(STEPS[PACKET_STEP].t).toBe('02:07')
 })
@@ -67,6 +73,21 @@ test('what, sub and help carry forward', () => {
   expect(resolveStepView(STEPS, 5).help).toBe('David · 6 min away')
   expect(resolveStepView(STEPS, 7).help).toBe('David · 4 min away')
   expect(resolveStepView(STEPS, 9)).toMatchObject({ what: 'On the way to Camperdown', sub: '30-day recovery plan starts after discharge', help: 'David is going with you' })
+})
+
+test('step text follows the language at call time; timing and structure do not change', async () => {
+  await i18n.changeLanguage('vi')
+  try {
+    const vi = emSteps()
+    expect(vi.map((s) => [s.t, s.m])).toEqual(STEPS.map((s) => [s.t, s.m]))
+    expect(vi[0]).toMatchObject({ ph: 'Xác minh', lv: 'Đang kiểm tra', e: { flash: 1 } })
+    expect(vi[0].d).not.toBe(STEPS[0].d)
+    expect(resolveStepView(vi, 6).own[2]).toBe('5′')
+    expect(slaTiles()[0]).toEqual(['Cảnh báo → xác minh', '41 giây', 1])
+  } finally {
+    await i18n.changeLanguage('en')
+  }
+  expect(emSteps()[0].d).toBe('Heart rate 142, no movement for 4 min')
 })
 
 test('resolveStepView does not mutate STEPS', () => {

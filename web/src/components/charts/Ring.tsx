@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 interface Props {
   value: number
   max: number
@@ -14,16 +16,18 @@ const L = Math.PI * 48
 
 /** Prototype activity gauge `#gauges` (line 1604): half ring in a 120×72 svg plus caption. */
 export function Ring({ value, max, label, unit = '', color = '#1fb39c', display, ariaLabel }: Props) {
+  const { t } = useTranslation()
   const f = value / max
+  const u = unit ? ' ' + unit : ''
   return (
-    <div role="img" aria-label={ariaLabel ?? `${label}: ${value} of ${max}${unit ? ' ' + unit : ''}`}>
+    <div role="img" aria-label={ariaLabel ?? t('charts.ringLabel', { label, value, max, unit: u })}>
       <svg viewBox="0 0 120 72" aria-hidden="true">
         <path d={ARC} fill="none" stroke="var(--track)" strokeWidth="11" strokeLinecap="round" />
         <path d={ARC} fill="none" stroke={color} strokeWidth="11" strokeLinecap="round" strokeDasharray={(L * f).toFixed(1) + ' ' + L.toFixed(1)} />
         <text x="60" y="58" textAnchor="middle" style={{ fontSize: '20px', fill: 'var(--ink)', fontFamily: 'var(--font)', fontWeight: 300 }}>{display ?? value}</text>
       </svg>
       <b>{label}</b>
-      <small>of {max}{unit ? ' ' + unit : ''}</small>
+      <small>{t('charts.ringOf', { max, unit: u })}</small>
     </div>
   )
 }

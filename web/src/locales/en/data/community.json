@@ -1,0 +1,855 @@
+{
+  "community": {
+    "context": {
+      "initials": "IW",
+      "color": "#6d4fc0",
+      "sub": "Inner West Community Health · 15 suburbs · 1,846 older residents enrolled",
+      "facts": [
+        {
+          "live": true,
+          "label": "Synced",
+          "value": "15:00"
+        },
+        {
+          "live": false,
+          "label": "Groups under 10",
+          "value": "suppressed"
+        },
+        {
+          "live": false,
+          "label": "Heatwave",
+          "value": "Thursday"
+        },
+        {
+          "live": false,
+          "label": "Volunteers on today",
+          "value": "23"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "label": "Older residents enrolled",
+        "value": "1,846",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "15 suburbs",
+        "delta": "+64 mo",
+        "tone": "good",
+        "spark": [
+          1600,
+          1640,
+          1680,
+          1710,
+          1740,
+          1770,
+          1800,
+          1825,
+          1846
+        ]
+      },
+      {
+        "label": "Living alone",
+        "value": "38",
+        "unit": "%",
+        "color": "#2f6fb0",
+        "baseline": "703 people",
+        "delta": "+1 pt",
+        "tone": "good",
+        "spark": [
+          36,
+          36,
+          37,
+          37,
+          37,
+          38,
+          38,
+          38,
+          38
+        ]
+      },
+      {
+        "label": "High risk",
+        "value": "212",
+        "unit": "people",
+        "color": "#d9443f",
+        "baseline": "11.5% of enrolled",
+        "delta": "+6 mo",
+        "tone": "warn",
+        "spark": [
+          180,
+          186,
+          190,
+          195,
+          199,
+          204,
+          206,
+          209,
+          212
+        ]
+      },
+      {
+        "label": "Check-ins answered",
+        "value": "92.7",
+        "unit": "% today",
+        "color": "#1fb39c",
+        "baseline": "1,712 of 1,846",
+        "delta": "−0.4 pts",
+        "tone": "good",
+        "spark": [
+          94,
+          93,
+          94,
+          93,
+          92,
+          93,
+          94,
+          93,
+          92.7
+        ]
+      },
+      {
+        "label": "Alert to door",
+        "value": "8.6",
+        "unit": "min median",
+        "color": "#0b7f71",
+        "baseline": "p90 14.2 min",
+        "delta": "−0.9 min",
+        "tone": "good",
+        "spark": [
+          10.2,
+          9.8,
+          9.6,
+          9.4,
+          9.1,
+          9,
+          8.9,
+          8.7,
+          8.6
+        ]
+      },
+      {
+        "label": "Active volunteers",
+        "value": "64",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "2.3 visits each/wk",
+        "delta": "+5 mo",
+        "tone": "good",
+        "spark": [
+          48,
+          50,
+          53,
+          55,
+          57,
+          59,
+          61,
+          62,
+          64
+        ]
+      },
+      {
+        "label": "Alerts this week",
+        "value": "37",
+        "unit": "",
+        "color": "#ef4e4a",
+        "baseline": "8 escalated",
+        "delta": "−4 wk",
+        "tone": "good",
+        "spark": [
+          44,
+          41,
+          39,
+          42,
+          40,
+          38,
+          41,
+          39,
+          37
+        ]
+      },
+      {
+        "label": "False alarms filtered",
+        "value": "78",
+        "unit": "%",
+        "color": "#1fb39c",
+        "baseline": "29 of 37",
+        "delta": "+3 pts",
+        "tone": "good",
+        "spark": [
+          70,
+          71,
+          73,
+          74,
+          75,
+          76,
+          77,
+          77,
+          78
+        ]
+      },
+      {
+        "label": "Visits short this week",
+        "value": "180",
+        "unit": "visits",
+        "color": "#d9443f",
+        "baseline": "Tempe, Sydenham, St Peters",
+        "delta": "+8 wk",
+        "tone": "warn",
+        "spark": [
+          38,
+          42,
+          40,
+          45,
+          48,
+          50,
+          52,
+          55,
+          180
+        ]
+      },
+      {
+        "label": "Languages by voice",
+        "value": "7",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "+2 in beta",
+        "delta": "+1 qtr",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          5,
+          5,
+          5,
+          6,
+          6,
+          7,
+          7
+        ]
+      },
+      {
+        "label": "Cool-room places",
+        "value": "260",
+        "unit": "Thu",
+        "color": "#e07a3f",
+        "baseline": "3 sites · 137 free",
+        "delta": "new",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          120,
+          200,
+          200,
+          260,
+          260
+        ]
+      },
+      {
+        "label": "ED forecast Thu",
+        "value": "34",
+        "unit": "aged 75+",
+        "color": "#d9443f",
+        "baseline": "comfort line 28",
+        "delta": "+13 vs Wed",
+        "tone": "warn",
+        "spark": [
+          21,
+          22,
+          20,
+          23,
+          21,
+          22,
+          21,
+          25,
+          34
+        ]
+      }
+    ],
+    "suburbs": [
+      {
+        "name": "Marrickville",
+        "col": 2,
+        "row": 1,
+        "enrolled": 312,
+        "alonePct": 41,
+        "highRisk": 38,
+        "heat": 0.82,
+        "volunteers": 9,
+        "language": "Greek"
+      },
+      {
+        "name": "Dulwich Hill",
+        "col": 1,
+        "row": 1,
+        "enrolled": 198,
+        "alonePct": 36,
+        "highRisk": 22,
+        "heat": 0.64,
+        "volunteers": 6,
+        "language": "Greek"
+      },
+      {
+        "name": "Petersham",
+        "col": 2,
+        "row": 2,
+        "enrolled": 121,
+        "alonePct": 39,
+        "highRisk": 14,
+        "heat": 0.58,
+        "volunteers": 4,
+        "language": "Portuguese"
+      },
+      {
+        "name": "Stanmore",
+        "col": 3,
+        "row": 2,
+        "enrolled": 96,
+        "alonePct": 33,
+        "highRisk": 9,
+        "heat": 0.44,
+        "volunteers": 5,
+        "language": "English"
+      },
+      {
+        "name": "Enmore",
+        "col": 3,
+        "row": 1,
+        "enrolled": 84,
+        "alonePct": 44,
+        "highRisk": 12,
+        "heat": 0.72,
+        "volunteers": 3,
+        "language": "English"
+      },
+      {
+        "name": "Newtown",
+        "col": 4,
+        "row": 1,
+        "enrolled": 143,
+        "alonePct": 47,
+        "highRisk": 17,
+        "heat": 0.69,
+        "volunteers": 7,
+        "language": "English"
+      },
+      {
+        "name": "Lewisham",
+        "col": 1,
+        "row": 2,
+        "enrolled": 77,
+        "alonePct": 35,
+        "highRisk": 8,
+        "heat": 0.51,
+        "volunteers": 2,
+        "language": "Arabic"
+      },
+      {
+        "name": "Summer Hill",
+        "col": 0,
+        "row": 3,
+        "enrolled": 110,
+        "alonePct": 31,
+        "highRisk": 10,
+        "heat": 0.4,
+        "volunteers": 6,
+        "language": "Italian"
+      },
+      {
+        "name": "Ashfield",
+        "col": 0,
+        "row": 2,
+        "enrolled": 264,
+        "alonePct": 37,
+        "highRisk": 31,
+        "heat": 0.77,
+        "volunteers": 8,
+        "language": "Mandarin"
+      },
+      {
+        "name": "Leichhardt",
+        "col": 2,
+        "row": 3,
+        "enrolled": 156,
+        "alonePct": 34,
+        "highRisk": 13,
+        "heat": 0.38,
+        "volunteers": 7,
+        "language": "Italian"
+      },
+      {
+        "name": "Annandale",
+        "col": 3,
+        "row": 3,
+        "enrolled": 72,
+        "alonePct": 30,
+        "highRisk": 6,
+        "heat": 0.33,
+        "volunteers": 4,
+        "language": "English"
+      },
+      {
+        "name": "Tempe",
+        "col": 2,
+        "row": 0,
+        "enrolled": 58,
+        "alonePct": 42,
+        "highRisk": 9,
+        "heat": 0.86,
+        "volunteers": 1,
+        "language": "Vietnamese"
+      },
+      {
+        "name": "St Peters",
+        "col": 4,
+        "row": 0,
+        "enrolled": 49,
+        "alonePct": 39,
+        "highRisk": 7,
+        "heat": 0.79,
+        "volunteers": 1,
+        "language": "Vietnamese"
+      },
+      {
+        "name": "Sydenham",
+        "col": 3,
+        "row": 0,
+        "enrolled": 31,
+        "alonePct": 45,
+        "highRisk": 6,
+        "heat": 0.83,
+        "volunteers": 0,
+        "language": "Portuguese"
+      },
+      {
+        "name": "Camperdown",
+        "col": 4,
+        "row": 2,
+        "enrolled": 75,
+        "alonePct": 40,
+        "highRisk": 10,
+        "heat": 0.55,
+        "volunteers": 1,
+        "language": "English"
+      }
+    ],
+    "districtKicker": "Inner West · 15 suburbs",
+    "heatwave": {
+      "pill": "Thursday 38 °C",
+      "temps": [
+        {
+          "day": "Wed",
+          "value": 33
+        },
+        {
+          "day": "Thu",
+          "value": 38
+        },
+        {
+          "day": "Fri",
+          "value": 36
+        },
+        {
+          "day": "Sat",
+          "value": 26
+        },
+        {
+          "day": "Sun",
+          "value": 24
+        },
+        {
+          "day": "Mon",
+          "value": 23
+        },
+        {
+          "day": "Tue",
+          "value": 25
+        }
+      ],
+      "tempsThreshold": {
+        "value": 35,
+        "label": "heatwave 35°",
+        "max": 40,
+        "unit": "°"
+      },
+      "stats": [
+        {
+          "label": "Extra check-ins",
+          "value": "318",
+          "note": "Thu 11:00–15:00"
+        },
+        {
+          "label": "No air-con",
+          "value": "127",
+          "note": "priority",
+          "tone": "bad"
+        },
+        {
+          "label": "Lifts offered",
+          "value": "14",
+          "note": "volunteer drivers"
+        }
+      ],
+      "coolRooms": [
+        {
+          "name": "Marrickville Library cool room",
+          "detail": "120 places · 09:00–20:00",
+          "left": "74 left",
+          "tone": "good"
+        },
+        {
+          "name": "Ashfield civic centre",
+          "detail": "80 places · 10:00–18:00",
+          "left": "22 left",
+          "tone": "warn"
+        },
+        {
+          "name": "Newtown neighbourhood centre",
+          "detail": "60 places · 10:00–17:00",
+          "left": "41 left",
+          "tone": "good"
+        }
+      ],
+      "scheduleToast": "318 extra check-ins scheduled for Thursday"
+    },
+    "visits": [
+      {
+        "name": "Margaret C.",
+        "age": 78,
+        "suburb": "Marrickville",
+        "risk": "High",
+        "tone": "bad",
+        "reason": "BP rising, missed doses",
+        "language": "English",
+        "nearestHelp": "David · 450 m"
+      },
+      {
+        "name": "Eleni P.",
+        "age": 84,
+        "suburb": "Marrickville",
+        "risk": "High",
+        "tone": "bad",
+        "reason": "Heart failure: +2.1 kg in 72 h",
+        "language": "Greek",
+        "nearestHelp": "Volunteer Tom · 1.2 km"
+      },
+      {
+        "name": "Nguyen Van T.",
+        "age": 81,
+        "suburb": "Tempe",
+        "risk": "High",
+        "tone": "bad",
+        "reason": "Heat: no air-con, indoor 33 °C",
+        "language": "Vietnamese",
+        "nearestHelp": "None · gap"
+      },
+      {
+        "name": "Maria S.",
+        "age": 86,
+        "suburb": "Petersham",
+        "risk": "High",
+        "tone": "bad",
+        "reason": "2 falls in 30 days",
+        "language": "Portuguese",
+        "nearestHelp": "Daughter · 15 min"
+      },
+      {
+        "name": "Fatima A.",
+        "age": 79,
+        "suburb": "Lewisham",
+        "risk": "Medium",
+        "tone": "warn",
+        "reason": "Hearing decline, 3 missed check-ins",
+        "language": "Arabic",
+        "nearestHelp": "Volunteer Aisha"
+      },
+      {
+        "name": "Giuseppe R.",
+        "age": 88,
+        "suburb": "Leichhardt",
+        "risk": "Medium",
+        "tone": "warn",
+        "reason": "Night wandering ×2",
+        "language": "Italian",
+        "nearestHelp": "Son · 8 min"
+      },
+      {
+        "name": "Wei L.",
+        "age": 77,
+        "suburb": "Ashfield",
+        "risk": "Medium",
+        "tone": "warn",
+        "reason": "Low mood for 3 weeks",
+        "language": "Mandarin",
+        "nearestHelp": "Volunteer Jun"
+      },
+      {
+        "name": "Peter H.",
+        "age": 80,
+        "suburb": "Newtown",
+        "risk": "Watch",
+        "tone": "plain",
+        "reason": "New sleeping tablet",
+        "language": "English",
+        "nearestHelp": "Neighbour · 2 min"
+      }
+    ],
+    "funnel": [
+      {
+        "label": "Alerts received",
+        "value": 37,
+        "color": "#5a7fe0"
+      },
+      {
+        "label": "Checked by the agent",
+        "value": 37,
+        "color": "#2f6fb0"
+      },
+      {
+        "label": "False alarms filtered",
+        "value": 29,
+        "color": "#1fb39c"
+      },
+      {
+        "label": "Escalated to a person",
+        "value": 8,
+        "color": "#c88a05"
+      },
+      {
+        "label": "Someone at the door",
+        "value": 8,
+        "color": "#e07a3f"
+      },
+      {
+        "label": "Ambulance called",
+        "value": 3,
+        "color": "#d9443f"
+      },
+      {
+        "label": "Pre-arrival packets",
+        "value": 3,
+        "color": "#8f6fd0"
+      }
+    ],
+    "funnelMinis": [
+      {
+        "label": "Verify",
+        "value": "44 s",
+        "note": "median"
+      },
+      {
+        "label": "Accept",
+        "value": "1:12",
+        "note": "median"
+      },
+      {
+        "label": "At door",
+        "value": "8.6′",
+        "note": "median"
+      }
+    ],
+    "capacity": [
+      {
+        "name": "Marrickville",
+        "need": 76,
+        "capacity": 36
+      },
+      {
+        "name": "Ashfield",
+        "need": 62,
+        "capacity": 32
+      },
+      {
+        "name": "Dulwich Hill",
+        "need": 44,
+        "capacity": 24
+      },
+      {
+        "name": "Camperdown",
+        "need": 20,
+        "capacity": 4
+      },
+      {
+        "name": "Tempe",
+        "need": 18,
+        "capacity": 4
+      },
+      {
+        "name": "Petersham",
+        "need": 28,
+        "capacity": 16
+      },
+      {
+        "name": "Enmore",
+        "need": 24,
+        "capacity": 12
+      },
+      {
+        "name": "Sydenham",
+        "need": 12,
+        "capacity": 0
+      },
+      {
+        "name": "St Peters",
+        "need": 14,
+        "capacity": 4
+      }
+    ],
+    "edForecast": {
+      "meta": "Presentations aged 75+, Camperdown ED",
+      "values": [
+        {
+          "day": "Wed",
+          "value": 21
+        },
+        {
+          "day": "Thu",
+          "value": 34
+        },
+        {
+          "day": "Fri",
+          "value": 31
+        },
+        {
+          "day": "Sat",
+          "value": 25
+        },
+        {
+          "day": "Sun",
+          "value": 22
+        },
+        {
+          "day": "Mon",
+          "value": 20
+        },
+        {
+          "day": "Tue",
+          "value": 21
+        }
+      ],
+      "threshold": {
+        "value": 29,
+        "label": "comfort 28",
+        "max": 36,
+        "unit": ""
+      },
+      "note": "Forecast from the heat index, day of week and the last 90 days. Thursday is expected to exceed the 28-patient comfort line by 6."
+    },
+    "languages": [
+      {
+        "name": "English",
+        "percent": 42,
+        "support": "Full"
+      },
+      {
+        "name": "Greek",
+        "percent": 13,
+        "support": "Full"
+      },
+      {
+        "name": "Vietnamese",
+        "percent": 9,
+        "support": "Full"
+      },
+      {
+        "name": "Mandarin",
+        "percent": 8,
+        "support": "Full"
+      },
+      {
+        "name": "Italian",
+        "percent": 7,
+        "support": "Full"
+      },
+      {
+        "name": "Portuguese",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "Arabic",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "Other",
+        "percent": 9,
+        "support": "Interpreter"
+      }
+    ],
+    "programs": [
+      {
+        "program": "Walking groups (3 parks)",
+        "regulars": 42,
+        "attendance": "78% (+18%)",
+        "outcome": "Gait speed +0.04 m/s"
+      },
+      {
+        "program": "Friday social lunch",
+        "regulars": 65,
+        "attendance": "81%",
+        "outcome": "Loneliness score −0.6 (UCLA-3)"
+      },
+      {
+        "program": "Strength and balance classes",
+        "regulars": 28,
+        "attendance": "72%",
+        "outcome": "Falls with injury −12%"
+      },
+      {
+        "program": "Library tech help",
+        "regulars": 31,
+        "attendance": "64%",
+        "outcome": "Family video calls 2.1/wk"
+      },
+      {
+        "program": "Men's shed",
+        "regulars": 19,
+        "attendance": "70%",
+        "outcome": "Low-mood flags −30%"
+      },
+      {
+        "program": "Cool-room shuttle",
+        "regulars": 14,
+        "attendance": "drivers",
+        "outcome": "Heat ED visits −9% last summer"
+      }
+    ],
+    "watchSummary": [
+      {
+        "icon": "shield",
+        "tone": "bad",
+        "title": "Door-to-door \"solar rebate\" scam",
+        "detail": "Marrickville, Dulwich Hill · 14 reports · 1,240 residents warned by voice",
+        "pill": {
+          "tone": "bad",
+          "text": "Active"
+        }
+      },
+      {
+        "icon": "sun",
+        "tone": "warn",
+        "title": "Heatwave Thursday–Friday",
+        "detail": "318 extra check-ins · 127 without air-con",
+        "pill": {
+          "tone": "warn",
+          "text": "Planned"
+        }
+      },
+      {
+        "icon": "target",
+        "tone": "warn",
+        "title": "Footpath works · Marrickville Rd",
+        "detail": "Trip hazard for 46 residents who walk that route",
+        "pill": {
+          "tone": "warn",
+          "text": "Until 24 Oct"
+        }
+      }
+    ],
+    "footnote": "Community health staff see names for people enrolled in their area. Council and state views are aggregated and de-identified, with groups under 10 suppressed. All people and figures are fictional."
+  }
+}

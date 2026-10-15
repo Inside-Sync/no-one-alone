@@ -1,16 +1,17 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Pill } from '@/components/ui/Pill'
-import { HOME_COPY } from '@/data/repo'
 import type { Surroundings } from '@/data/types'
 import { Head } from './parts'
 
 /** `🤝 People and places near her` (c4). */
 export function NearCard({ nearby }: { nearby: Surroundings['nearby'] }) {
+  const { t } = useTranslation('home')
   return (
     <GlassCard span={4}>
-      <Head title={HOME_COPY.near.title} meta={HOME_COPY.near.meta} />
+      <Head title={t('near.title')} meta={t('near.meta')} />
       <ul className="list">
         {nearby.map((n) => (
           <li key={n.name}>

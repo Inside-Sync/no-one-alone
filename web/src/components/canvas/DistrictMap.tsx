@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, type CSSProperties, type Ref } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { CityView, Suburb } from '@/data/types'
 import { City3D } from './City3D'
 import { buildDistrict } from './city/geometry'
@@ -37,7 +38,7 @@ export function DistrictMap({
   suburbs,
   metric,
   view,
-  ariaLabel = '3D column map of 15 Inner West suburbs',
+  ariaLabel,
   highlight,
   onSelect,
   night,
@@ -45,6 +46,7 @@ export function DistrictMap({
   style,
   ref,
 }: Props) {
+  const { t } = useTranslation()
   const scene = useMemo(
     () => buildDistrict(suburbs, metric.values, metric.suffix, highlight),
     [suburbs, metric.values, metric.suffix, highlight],
@@ -54,7 +56,7 @@ export function DistrictMap({
       ref={ref}
       scene={scene}
       view={view}
-      ariaLabel={ariaLabel}
+      ariaLabel={ariaLabel ?? t('charts.district')}
       onSelect={onSelect}
       night={night}
       className={className}

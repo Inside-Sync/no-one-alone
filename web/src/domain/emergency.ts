@@ -1,4 +1,25 @@
-/** The 02:03 night alert demo: the script (prototype `STEPS`, line 1558) and its player. Pure; no React. */
+/**
+ * The 02:03 night alert demo: the script (prototype `STEPS`, line 1558) and its player. Pure; no React.
+ * Timing, flags and structure live here; every visible text is in the `live` namespace (`live:steps.{i}.*`,
+ * `live:phase.*`, `live:level.*`, `live:sla.*`) and is looked up at call time, so it follows the language.
+ */
+import i18n from '@/i18n'
+
+export type EmPhase = 'verify' | 'ask' | 'triage' | 'escalate' | 'handOff' | 'agent' | 'close'
+export type EmLevel = 'ok' | 'monitor' | 'comeNow' | 'emergency' | 'checking' | 'helpArrived' | 'falseAlarm' | 'closed'
+
+/** One step's structure (no text): clock time, minutes, phase and level ids, and the screen flags. */
+export interface EmFrame {
+  /** Clock time on the timeline. */
+  t: string
+  /** Minutes since the alert. */
+  m: number
+  ph: EmPhase
+  lv: EmLevel
+  flash?: 1
+  yn?: 1
+  listen?: 1
+}
 
 export interface EmStepScreen {
   q: string
@@ -9,10 +30,9 @@ export interface EmStepScreen {
   help?: string
 }
 
+/** A step with its text in the current language (see `emSteps`). */
 export interface EmStep {
-  /** Clock time on the timeline. */
   t: string
-  /** Minutes since the alert. */
   m: number
   ph: string
   d: string
@@ -26,30 +46,65 @@ export interface EmStep {
   e: EmStepScreen
 }
 
-export const STEPS: readonly EmStep[] = [
-  { t: '02:03', m: 0, ph: 'Verify', d: 'Heart rate 142, no movement for 4 min', s: 'Night baseline 61. Not explained by activity.', lv: 'Checking', own: ['David · not yet alerted', '450 m away · first to call', '—'], what: 'Heart rate 142, not moving', sub: 'The agent is checking before waking anyone', e: { q: 'Margaret…', small: 'Phone rings, screen flashes', flash: 1 } },
-  { t: '02:04', m: 1, ph: 'Ask', d: 'Calls Margaret by voice. She answers slowly', s: 'Large-text questions on her screen too', lv: 'Checking', what: 'Answering slowly', sub: 'The agent is talking with her now', e: { q: "Margaret, it's your check-in. Can you hear me?", yn: 1 } },
-  { t: '02:04', m: 1, ph: 'Ask', d: 'Repeat-after-me check: speech is slurred', s: 'Articulation score 0.41 (baseline 0.94)', lv: 'Checking', what: 'Slurred speech', sub: 'Possible stroke sign', e: { q: 'Please say after me: "The sky is blue in Sydney."', listen: 1 } },
-  { t: '02:04', m: 1, ph: 'Triage', d: 'Level: emergency now', s: 'Last known well 01:55', lv: 'Emergency now', what: 'Suspected stroke signs', sub: 'Last known well 01:55', e: { q: "Sit still, love. Don't try to stand up." } },
-  { t: '02:04', m: 1, ph: 'Escalate', d: 'David and you are alerted', s: 'Sarah in London gets updates', lv: 'Emergency now', own: ['David · alerted', 'Waiting for him to accept', '5:00'], e: { q: "I've called David." } },
-  { t: '02:05', m: 2, ph: 'Escalate', d: 'David: "I\'m on my way"', s: 'He owns the case. Everyone sees it.', lv: 'Emergency now', own: ['David · on his way', 'Owns the case', '6′'], e: { q: 'David is on his way.', help: 'David · 6 min away' } },
-  { t: '02:06', m: 3, ph: 'Escalate', d: 'You call 000 with the prepared script', s: 'Address, age, symptoms, medicines, access', lv: 'Emergency now', own: [null, null, '5′'], e: { q: 'James is calling an ambulance.', help: 'David · 5 min away' } },
-  { t: '02:07', m: 4, ph: 'Hand off', d: 'Camperdown Stroke Centre received her record', s: 'Chosen for 24/7 stroke care · 11 min', lv: 'Emergency now', own: [null, null, '4′'], e: { q: 'The hospital has your details.', help: 'David · 4 min away' } },
-  { t: '02:11', m: 8, ph: 'Escalate', d: 'David is with Margaret', s: 'Door unlocked, she is sitting, alert', lv: 'Emergency now', own: ['David · with Margaret', 'On scene since 02:11', '✓'], what: 'David is with her', sub: 'Ambulance on the way', e: { q: 'David is here, love.', help: 'David is with you' } },
-  { t: '02:21', m: 18, ph: 'Hand off', d: 'Ambulance arrives · stroke team ready', s: 'ED read the packet 14 min before arrival', lv: 'Help arrived', what: 'On the way to Camperdown', sub: '30-day recovery plan starts after discharge', e: { q: "The ambulance is here. You're in good hands.", help: 'David is going with you' } },
+/** The ten steps' structure; `STEPS[i].t` and `STEPS.length` are language-free. */
+export const STEPS: readonly EmFrame[] = [
+  { t: '02:03', m: 0, ph: 'verify', lv: 'checking', flash: 1 },
+  { t: '02:04', m: 1, ph: 'ask', lv: 'checking', yn: 1 },
+  { t: '02:04', m: 1, ph: 'ask', lv: 'checking', listen: 1 },
+  { t: '02:04', m: 1, ph: 'triage', lv: 'emergency' },
+  { t: '02:04', m: 1, ph: 'escalate', lv: 'emergency' },
+  { t: '02:05', m: 2, ph: 'escalate', lv: 'emergency' },
+  { t: '02:06', m: 3, ph: 'escalate', lv: 'emergency' },
+  { t: '02:07', m: 4, ph: 'handOff', lv: 'emergency' },
+  { t: '02:11', m: 8, ph: 'escalate', lv: 'emergency' },
+  { t: '02:21', m: 18, ph: 'handOff', lv: 'helpArrived' },
 ]
+
+const opt = (v: string) => v || undefined
+
+/** The steps with their text in the current language. Call at render time; never cache across a language change. */
+export function emSteps(): EmStep[] {
+  const text = i18n.t('live:steps', { returnObjects: true })
+  return STEPS.map((f, i) => {
+    const x = text[i]
+    const own = x.own.some(Boolean) ? (x.own.map((v) => v || null) as [string | null, string | null, string | null]) : undefined
+    return {
+      t: f.t,
+      m: f.m,
+      ph: i18n.t(`live:phase.${f.ph}`),
+      d: x.d,
+      s: x.s,
+      lv: i18n.t(`live:level.${f.lv}`),
+      own,
+      what: opt(x.what),
+      sub: opt(x.sub),
+      e: { q: x.q, small: opt(x.small), flash: f.flash, yn: f.yn, listen: f.listen, help: opt(x.help) },
+    }
+  })
+}
 
 /** `APP` (line 1568): how far the ambulance has come, per step. */
 export const APP_PROGRESS: readonly number[] = [0, 0, 0, 0, 0, 0.12, 0.32, 0.58, 1, 1]
 
-/** `SLA` (line 1568): label, time, and the step at which it is reached. */
-export const SLA: readonly (readonly [label: string, value: string, step: number])[] = [
-  ['Alert → verified', '41 s', 1],
-  ['Verified → escalated', '58 s', 4],
-  ['Accepted', '1:12', 5],
-  ['At the door', '8 min', 8],
-  ['ED notice before arrival', '14 min', 9],
+type SlaId = 'verified' | 'escalated' | 'accepted' | 'atDoor' | 'edNotice'
+type SlaValue = { sec: number } | { min: number } | string
+
+/** `SLA` (line 1568): label id, time, and the step at which it is reached. */
+const SLA_FRAMES: readonly (readonly [id: SlaId, value: SlaValue, step: number])[] = [
+  ['verified', { sec: 41 }, 1],
+  ['escalated', { sec: 58 }, 4],
+  ['accepted', '1:12', 5],
+  ['atDoor', { min: 8 }, 8],
+  ['edNotice', { min: 14 }, 9],
 ]
+
+const slaValue = (v: SlaValue) =>
+  typeof v === 'string' ? v : 'sec' in v ? i18n.t('live:units.sec', { n: v.sec }) : i18n.t('live:units.min', { n: v.min })
+
+/** The response-time tiles in the current language: label, time, and the step at which it is reached. */
+export function slaTiles(): [label: string, value: string, step: number][] {
+  return SLA_FRAMES.map(([id, v, step]) => [i18n.t(`live:sla.${id}`), slaValue(v), step])
+}
 
 /** Milliseconds per step while playing (prototype `setInterval`, 2800). */
 export const TICK_MS = 2800

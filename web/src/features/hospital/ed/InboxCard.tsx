@@ -1,8 +1,8 @@
 import type { CSSProperties } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Icon } from '@/components/ui/Icon'
 import { Pill } from '@/components/ui/Pill'
-import { HOSPITAL_COPY } from '@/data/repo'
 import type { IncomingRow, InboxMessage } from '@/data/types'
 import { HospitalRow } from '../shared'
 import { TableScroll } from '@/components/ui/TableScroll'
@@ -24,14 +24,15 @@ interface Props {
 
 /** `Pre-arrival inbox` (c7): message list plus the `Incoming ambulances` table. */
 export function InboxCard({ items, incoming, showNew, onSelect }: Props) {
-  const c = HOSPITAL_COPY.ed
+  const { t } = useTranslation('hospital')
+  const head = t('ed.incoming.head', { returnObjects: true })
   return (
     <GlassCard span={7}>
       <div className="ch">
         <span className="li"><span className="ic"><Icon name="siren" /></span></span>
-        <h2>{c.inbox.title}</h2>
-        <span className="meta">{c.inbox.meta}</span>
-        {showNew && <Pill tone="bad">{c.inbox.newPill}</Pill>}
+        <h2>{t('ed.inbox.title')}</h2>
+        <span className="meta">{t('ed.inbox.meta')}</span>
+        {showNew && <Pill tone="bad">{t('ed.inbox.newPill')}</Pill>}
       </div>
       <div className="inbox" id="inbox">
         {items.map((m) => (
@@ -43,12 +44,12 @@ export function InboxCard({ items, incoming, showNew, onSelect }: Props) {
         ))}
       </div>
       <div className="ch" style={{ marginTop: 6 }}>
-        <h2 style={{ fontSize: 14 }}>{c.incoming.title}</h2>
-        <span className="meta">{c.incoming.meta}</span>
+        <h2 style={{ fontSize: 14 }}>{t('ed.incoming.title')}</h2>
+        <span className="meta">{t('ed.incoming.meta')}</span>
       </div>
       <TableScroll>
         <table>
-          <thead><tr>{c.incoming.head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
+          <thead><tr>{head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="incoming">
             {incoming.map((r) => {
               const mark = r.packet ? '✓' : '—'
@@ -58,12 +59,12 @@ export function InboxCard({ items, incoming, showNew, onSelect }: Props) {
                   key={r.eta + r.patient}
                   title={r.eta}
                   details={[
-                    [c.incoming.head[0], r.eta],
-                    [c.incoming.head[1], <b key="p" style={plain}>{r.patient}</b>],
-                    [c.incoming.head[2], r.presenting],
-                    [c.incoming.head[3], <Pill key="t" tone={r.triageTone}>{r.triage}</Pill>],
-                    [c.incoming.head[4], <span key="k" style={markStyle}>{mark}</span>],
-                    [c.incoming.head[5], r.bed],
+                    [head[0], r.eta],
+                    [head[1], <b key="p" style={plain}>{r.patient}</b>],
+                    [head[2], r.presenting],
+                    [head[3], <Pill key="t" tone={r.triageTone}>{r.triage}</Pill>],
+                    [head[4], <span key="k" style={markStyle}>{mark}</span>],
+                    [head[5], r.bed],
                   ]}
                 >
                   <td className="n">{r.eta}</td>

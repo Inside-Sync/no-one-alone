@@ -2,10 +2,12 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, type ReactNode } from 'react'
 import * as repo from '@/data/repo'
+import i18n from '@/i18n'
 import type { AuditEntry, PersonId, SharePerson, ShareMatrix } from '@/data/types'
-import { CATEGORIES, CATEGORY_IDS, type CategoryId } from '@/domain/consent'
+import { CATEGORY_IDS, type CategoryId } from '@/domain/consent'
 import { EM_INITIAL, emergencyReducer, packetArrived, TICK_MS, type EmAction, type EmState } from '@/domain/emergency'
 import type { Who } from '@/domain/views'
+import { useLiveIncident } from './LiveIncident'
 
 export type SharePreset = 'family' | 'safety' | 'all'
 
@@ -83,8 +85,10 @@ export interface AppStateValue {
   people: SharePerson[]
   emergency: EmergencyState
   dispatchEmergency: (action: EmergencyAction) => void
-  /** True once the hospital holds Margaret's packet (02:07 of a running demo): Pre-arrivals shows "1 new". */
+  /** True once the hospital holds Margaret's packet (02:07 of a running demo, or a received live handoff): Pre-arrivals shows "1 new". */
   packetNew: boolean
+  /** An alert is running: the scripted demo, or an open live incident. Drives night mode and the nav badges. */
+  alertActive: boolean
   hydrated: boolean
 }
 
@@ -97,11 +101,8 @@ const KEY = 'noa-app-state'
 
 /** Prototype presets act on the family rows only (line 1982). */
 const PRESET_ROWS: PersonId[] = ['james', 'sarah', 'david']
-const PRESET_TEXT: Record<SharePreset, string> = {
-  safety: 'Family now sees safety alerts only',
-  all: 'Family now sees everything',
-  family: 'Family sees most things, not your mood',
-}
+/** Toast and audit texts are looked up when the action happens (the audit keeps the text in that language). */
+const saveFailed = () => i18n.t('common:saveFailed')
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
   const [s, dispatch] = useReducer(reducer, initial)
@@ -147,10 +148,13 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   // The demo clock lives here, not in the page, so the alert keeps running on every tab. Cleared when paused, ended or unmounted.
   const { active, playing } = s.emergency
+  const liveIncident = useLiveIncident()
+  const alertActive = liveIncident.live ? Boolean(liveIncident.view?.open) : active
+  const packetNew = liveIncident.live ? Boolean(liveIncident.view?.packet) : packetArrived(s.emergency)
   useEffect(() => {
-    document.body.classList.toggle('night', active)
+    document.body.classList.toggle('night', alertActive)
     return () => document.body.classList.remove('night')
-  }, [active])
+  }, [alertActive])
   useEffect(() => {
     if (!active || !playing) return
     const timer = setInterval(() => commit({ type: 'emergency', action: { type: 'tick' } }), TICK_MS)
@@ -167,7 +171,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     const next = !stateRef.current.paused
     commit({ type: 'togglePause' })
     // Prototype line 1985: the toast text is also what the audit records.
-    const detail = next ? 'Sharing paused until 9 am tomorrow · safety alerts still on' : 'Sharing resumed'
+    const detail = i18n.t(next ? 'privacy:paused' : 'privacy:resumed')
     log({ at: NOW, who: 'Margaret', action: next ? 'pause' : 'resume', detail })
     return detail
   }, [log, commit])
@@ -179,21 +183,22 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     const on = !cur[viewer]?.[cat]
     commit({ type: 'flip', viewer, cat, on })
     const name = stateRef.current.people.find((p) => p.id === viewer)?.name ?? viewer
-    const label = (CATEGORIES.find((c) => c.id === cat)?.name ?? cat).toLowerCase()
-    const detail = `${on ? 'Now sharing ' : 'Stopped sharing '}${label} with ${name}`
+    const category = i18n.t(`privacy:categories.${cat}.name`).toLowerCase()
+    const detail = i18n.t(on ? 'privacy:shareOn' : 'privacy:shareOff', { category, name })
     log({ at: NOW, who: 'Margaret', action: on ? 'share-on' : 'share-off', viewer, category: cat, on, detail })
     repo.saveShare(viewer, cat, on).catch(() => {
       // A late rejection must not clobber a newer change: undo only while the optimistic value still stands.
       if (stateRef.current.share?.[viewer]?.[cat] !== on) return
       commit({ type: 'flip', viewer, cat, on: !on })
-      log({ at: NOW, who: 'Margaret', action: on ? 'share-off' : 'share-on', viewer, category: cat, on: !on, detail: repo.SAVE_FAILED })
-      onFail?.(repo.SAVE_FAILED)
+      const failed = saveFailed()
+      log({ at: NOW, who: 'Margaret', action: on ? 'share-off' : 'share-on', viewer, category: cat, on: !on, detail: failed })
+      onFail?.(failed)
     })
     return detail
   }, [log, commit])
   const applyPreset = useCallback((kind: SharePreset, onFail?: (msg: string) => void) => {
     const cur = stateRef.current.share
-    const detail = PRESET_TEXT[kind]
+    const detail = i18n.t(`privacy:presetDone.${kind}`)
     if (!cur) return detail
     const next: ShareMatrix = { ...cur }
     const changed: [PersonId, CategoryId, boolean][] = []
@@ -215,8 +220,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         commit({ type: 'flip', viewer: id, cat, on: !on })
         if (results[i].status === 'fulfilled') repo.saveShare(id, cat, !on).catch(() => {})
       })
-      log({ at: NOW, who: 'Margaret', action: 'preset', detail: repo.SAVE_FAILED })
-      onFail?.(repo.SAVE_FAILED)
+      const failed = saveFailed()
+      log({ at: NOW, who: 'Margaret', action: 'preset', detail: failed })
+      onFail?.(failed)
     })
     return detail
   }, [log, commit])
@@ -225,9 +231,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const value = useMemo<AppStateValue>(
     () => ({
       who: s.who, setWho, viewer: s.viewer, setViewer, paused: s.paused, togglePause, toggleShare, applyPreset,
-      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew: packetArrived(s.emergency), hydrated: s.hydrated,
+      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew, alertActive, hydrated: s.hydrated,
     }),
-    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency],
+    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency, packetNew, alertActive],
   )
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

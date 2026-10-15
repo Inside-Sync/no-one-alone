@@ -1,14 +1,17 @@
 'use client'
 
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useRouter } from '@/app/navigation'
 import { Orbit } from '@/components/canvas/Orbit'
 import { Icon } from '@/components/ui/Icon'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { useToast } from '@/components/ui/Toast'
-import { getDeviceFeed, getOrbitScene } from '@/data/repo'
+import { apiErrorCode, getDeviceFeed, getOrbitScene } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
 import { useRepo } from '@/features/shared/useRepo'
 import { useAppState } from '@/state/AppState'
+import { useLiveIncident } from '@/state/LiveIncident'
 import { MiniGrid } from '../home/parts'
 import s from '@/components/phone/phone.module.css'
 
@@ -22,6 +25,9 @@ export function DevicePage() {
   const toast = useToast()
   const router = useRouter()
   const { setWho, dispatchEmergency } = useAppState()
+  const { live, start } = useLiveIncident()
+  const { t } = useTranslation('live')
+  const [busy, setBusy] = useState(false)
   if (feedRes.status === 'error') return <PageError page="device" onRetry={feedRes.retry} />
   const feed = feedRes.data
   if (!feed) return null
@@ -46,8 +52,26 @@ export function DevicePage() {
               <button
                 type="button"
                 className={`dev-b help ${s.btn}`}
+                disabled={busy}
                 onClick={() => {
                   // The demo always runs in the family view (prototype line 2016).
+                  if (live) {
+                    // Real incident: core-api starts it; Live follows it from Firestore. A demo already running is fine.
+                    setBusy(true)
+                    start('stroke')
+                      .then(() => {
+                        setWho('family')
+                        router.push('/individual/live')
+                      })
+                      .catch((e: unknown) => {
+                        if (apiErrorCode(e) === 'INVALID_STATE') {
+                          setWho('family')
+                          router.push('/individual/live')
+                        } else toast(t('live.failed'))
+                      })
+                      .finally(() => setBusy(false))
+                    return
+                  }
                   setWho('family')
                   dispatchEmergency({ type: 'start' })
                   router.push('/individual/live')

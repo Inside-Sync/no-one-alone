@@ -1,0 +1,576 @@
+{
+  "careRecord": {
+    "kpis": [
+      {
+        "emoji": "📁",
+        "label": "Health records",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "from 6 places",
+        "delta": "38 new this week",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "emoji": "🏥",
+        "label": "Visits since 2023",
+        "value": "46",
+        "unit": "",
+        "color": "#1fb39c",
+        "baseline": "GP 18 · tests 14",
+        "delta": "2 this month",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "emoji": "💊",
+        "label": "Medicines",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "no clashes found",
+        "delta": "Unchanged",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "emoji": "🧪",
+        "label": "Test results",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "latest 12 Oct",
+        "delta": "9 this month",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "emoji": "✅",
+        "label": "Record complete",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "goal 90%",
+        "delta": "Good",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "emoji": "📅",
+        "label": "Days since GP",
+        "value": "32",
+        "unit": "days",
+        "color": "#2f6fb0",
+        "baseline": "last 12 Sep",
+        "delta": "Due by 7 Nov",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "kpisTechnical": [
+      {
+        "label": "FHIR resources",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "6 sources",
+        "delta": "+38 wk",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "label": "Encounters",
+        "value": "46",
+        "unit": "since 2023",
+        "color": "#1fb39c",
+        "baseline": "GP 18 · path 14",
+        "delta": "+2 mo",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "label": "Active medicines",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "0 interactions",
+        "delta": "stable",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "label": "Pathology results",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "last 12 Oct",
+        "delta": "+9 mo",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "label": "Record completeness",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "target 90",
+        "delta": "+6 pts",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "label": "Days since GP visit",
+        "value": "32",
+        "unit": "days",
+        "color": "#2f6fb0",
+        "baseline": "12 Sep",
+        "delta": "due 7 Nov",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "encounters": {
+      "meta": "46 encounters from 6 sources",
+      "types": [
+        {
+          "type": "GP",
+          "color": "#1fb39c",
+          "count": 18,
+          "months": [
+            0.500035217963192,
+            3.5919200462213903,
+            5.900223949365526,
+            8.563925593219627,
+            11.39745256807418,
+            13.98531633823674,
+            15.711700772365276,
+            18.054891225234503,
+            20.55683382559273,
+            24.206118031596876,
+            25.725759348111,
+            28.837373673997234,
+            31.23934405715144,
+            33.155574496747526,
+            35.7405773571139,
+            38.88365086972122,
+            40.52017222765849,
+            43.034641837267806
+          ]
+        },
+        {
+          "type": "Specialist",
+          "color": "#5a7fe0",
+          "count": 6,
+          "months": [
+            3.2253704278034814,
+            10.8007900682751,
+            18.378686884537977,
+            25.59047720496587,
+            34.15039489269294,
+            41.68696422612943
+          ]
+        },
+        {
+          "type": "Pathology",
+          "color": "#c88a05",
+          "count": 14,
+          "months": [
+            1.664893864109082,
+            4.9426080702735185,
+            7.699556293617522,
+            11.942635330318133,
+            14.086282819589863,
+            17.083929102946005,
+            21.239300879872683,
+            23.787034035229155,
+            27.75246704276881,
+            29.999304596799707,
+            33.31236848008108,
+            37.69133973186029,
+            40.77544498399407,
+            43.046704329128104
+          ]
+        },
+        {
+          "type": "Emergency",
+          "color": "#ef4e4a",
+          "count": 2,
+          "months": [
+            14,
+            33
+          ]
+        },
+        {
+          "type": "Hearing",
+          "color": "#8f6fd0",
+          "count": 6,
+          "months": [
+            28,
+            31,
+            34,
+            37,
+            40,
+            43
+          ]
+        }
+      ],
+      "now": 45.5,
+      "markers": [
+        {
+          "month": 14,
+          "label": "fall · wrist"
+        },
+        {
+          "month": 33,
+          "label": "dizziness"
+        }
+      ]
+    },
+    "medicines": [
+      {
+        "name": "Amlodipine 5 mg",
+        "timing": "Evening",
+        "adherence": 82,
+        "tone": "warn",
+        "last": "Today 09:33 (late)"
+      },
+      {
+        "name": "Aspirin 100 mg",
+        "timing": "Morning",
+        "adherence": 96,
+        "tone": "good",
+        "last": "Today 08:31"
+      },
+      {
+        "name": "Atorvastatin 20 mg",
+        "timing": "Night",
+        "adherence": 88,
+        "tone": "warn",
+        "last": "Yesterday 21:02"
+      },
+      {
+        "name": "Vitamin D 1000 IU",
+        "timing": "Morning",
+        "adherence": 90,
+        "tone": "good",
+        "last": "Today 08:31"
+      }
+    ],
+    "allergyNote": {
+      "allergen": "penicillin",
+      "detail": "rash, 1998",
+      "checked": "Interaction check run 14 Oct against all active medicines."
+    },
+    "medicinesPill": {
+      "tone": "good",
+      "text": "No interactions"
+    },
+    "labs": [
+      {
+        "name": "eGFR",
+        "unit": "mL/min",
+        "values": [
+          64,
+          62,
+          60,
+          58
+        ],
+        "reference": [
+          60,
+          120
+        ],
+        "axis": [
+          55,
+          70
+        ],
+        "note": "Below 60 · kidney check"
+      },
+      {
+        "name": "HbA1c",
+        "unit": "%",
+        "values": [
+          5.6,
+          5.7,
+          5.8,
+          5.9
+        ],
+        "reference": [
+          4,
+          6
+        ],
+        "axis": [
+          5.4,
+          6.2
+        ],
+        "note": "Rising · pre-diabetes range soon"
+      },
+      {
+        "name": "LDL cholesterol",
+        "unit": "mmol/L",
+        "values": [
+          3.1,
+          2.6,
+          2.5,
+          2.4
+        ],
+        "reference": [
+          0,
+          2.6
+        ],
+        "axis": [
+          2,
+          3.4
+        ],
+        "note": "At target"
+      },
+      {
+        "name": "Sodium",
+        "unit": "mmol/L",
+        "values": [
+          139,
+          138,
+          137,
+          136
+        ],
+        "reference": [
+          135,
+          145
+        ],
+        "axis": [
+          132,
+          142
+        ],
+        "note": "Normal, drifting down"
+      }
+    ],
+    "hospitals": [
+      {
+        "name": "Camperdown Stroke Centre",
+        "capability": "Stroke unit 24/7 · clot retrieval",
+        "eta": "11 min",
+        "load": "24/28",
+        "tone": "warn",
+        "recommended": true
+      },
+      {
+        "name": "Inner West General",
+        "capability": "ED · no stroke unit",
+        "eta": "9 min",
+        "load": "14/30",
+        "tone": "good",
+        "recommended": false
+      },
+      {
+        "name": "Kogarah Regional",
+        "capability": "Stroke unit 24/7",
+        "eta": "17 min",
+        "load": "31/28",
+        "tone": "bad",
+        "recommended": false
+      }
+    ],
+    "sources": [
+      {
+        "source": "Wrist wearable",
+        "standard": "Vendor API → FHIR Observation",
+        "records": "18,402",
+        "lastSync": "2 min ago",
+        "status": "Live",
+        "tone": "good"
+      },
+      {
+        "source": "Home hub · 6 sensors",
+        "standard": "MQTT → Pub/Sub → FHIR",
+        "records": "52,110",
+        "lastSync": "1 min ago",
+        "status": "Live",
+        "tone": "good"
+      },
+      {
+        "source": "Voice check-ins",
+        "standard": "Gemini → QuestionnaireResponse",
+        "records": "612",
+        "lastSync": "13:04",
+        "status": "Live",
+        "tone": "good"
+      },
+      {
+        "source": "Illawarra Rd Family Practice",
+        "standard": "FHIR R4",
+        "records": "386",
+        "lastSync": "06:00",
+        "status": "Daily",
+        "tone": "good"
+      },
+      {
+        "source": "Pathology lab",
+        "standard": "HL7 v2 → FHIR R4",
+        "records": "212",
+        "lastSync": "12 Oct",
+        "status": "On result",
+        "tone": "good"
+      },
+      {
+        "source": "Scanned letters and reports",
+        "standard": "Gemini OCR → FHIR DocumentReference",
+        "records": "74",
+        "lastSync": "3 Sep",
+        "status": "Done",
+        "tone": "plain"
+      },
+      {
+        "source": "My Health Record",
+        "standard": "FHIR (planned)",
+        "records": "—",
+        "lastSync": "—",
+        "status": "Planned",
+        "tone": "plain"
+      }
+    ],
+    "sourcesTag": "FHIR R4",
+    "followUp": [
+      {
+        "day": "DAY 1",
+        "text": "Voice call, pain and confusion check"
+      },
+      {
+        "day": "DAY 3",
+        "text": "New medicines matched to old"
+      },
+      {
+        "day": "DAY 7",
+        "text": "GP visit booked, BP review"
+      },
+      {
+        "day": "DAY 14",
+        "text": "Mobility and falls check"
+      },
+      {
+        "day": "DAY 30",
+        "text": "Readmission risk re-scored"
+      }
+    ],
+    "followUpNote": "Warning signs go to the discharge nurse as well as the family."
+  }
+}

@@ -1,8 +1,8 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Locked } from '@/components/ui/Locked'
-import { HEALTH_COPY } from '@/data/repo'
 import type { HealthData } from '@/data/types'
 import { Head } from '../home/parts'
 import { Legend } from './Legend'
@@ -16,8 +16,9 @@ function BpChart({ bp }: { bp: HealthData['bp14'] }) {
   const x = (i: number) => L + (i * (W - L)) / (bp.morning.length - 1)
   const series = [[bp.morning, '#c88a05'], [bp.evening, '#5a7fe0']] as const
   const last = bp.morning[bp.morning.length - 1]
+  const { t } = useTranslation('health')
   return (
-    <svg viewBox="0 0 640 134" role="img" aria-label={HEALTH_COPY.bp.ariaLabel}>
+    <svg viewBox="0 0 640 134" role="img" aria-label={t('bp.ariaLabel')}>
       {[125, 135, 145].map((t) => (
         <g key={t}>
           <line x1={L} x2={W} y1={y(t)} y2={y(t)} stroke="rgba(13,42,42,.08)" />
@@ -38,13 +39,13 @@ function BpChart({ bp }: { bp: HealthData['bp14'] }) {
 
 /** `🩺 Blood pressure, last 2 weeks` (c6, heart category). */
 export function BpCard({ bp }: { bp: HealthData['bp14'] }) {
-  const c = HEALTH_COPY.bp
+  const { t } = useTranslation('health')
   return (
     <Locked cat="heart" span={6}>
       <GlassCard span={6} className="chart">
-        <Head title={c.title} meta={c.meta} />
+        <Head title={t('bp.title')} meta={t('bp.meta')} />
         <div id="bp14"><BpChart bp={bp} /></div>
-        <Legend items={c.legend} />
+        <Legend items={t('bp.legend', { returnObjects: true })} />
       </GlassCard>
     </Locked>
   )

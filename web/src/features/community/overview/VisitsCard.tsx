@@ -1,7 +1,7 @@
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { OnceButton } from '@/components/ui/OnceButton'
 import { Pill } from '@/components/ui/Pill'
-import { COMMUNITY_COPY } from '@/data/repo'
 import type { VisitRow } from '@/data/types'
 import { rankVisits } from '@/domain/district'
 import { Head } from '../../individual/home/parts'
@@ -12,13 +12,14 @@ const plain = { fontWeight: 500 } as const
 
 /** `Who needs a visit this week` (c8): ranked by risk, with the person's language and nearest help. */
 export function VisitsCard({ rows }: { rows: VisitRow[] }) {
-  const c = COMMUNITY_COPY.overview.visits
+  const { t } = useTranslation('community')
+  const head = t('overview.visits.head', { returnObjects: true })
   return (
     <GlassCard span={8}>
-      <Head title={c.title} meta={c.meta} />
+      <Head title={t('overview.visits.title')} meta={t('overview.visits.meta')} />
       <TableScroll>
         <table>
-          <thead><tr>{c.head.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
+          <thead><tr>{head.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
           <tbody id="visits">
             {rankVisits(rows).map((r) => {
               const who = <><b style={plain}>{r.name}</b><small>{r.age}</small></>
@@ -27,12 +28,12 @@ export function VisitsCard({ rows }: { rows: VisitRow[] }) {
                   key={r.name}
                   title={r.name}
                   details={[
-                    [c.head[0], who],
-                    [c.head[1], r.suburb],
-                    [c.head[2], <Pill key="r" tone={r.tone}>{r.risk}</Pill>],
-                    [c.head[3], r.reason],
-                    [c.head[4], r.language],
-                    [c.head[5], r.nearestHelp],
+                    [head[0], who],
+                    [head[1], r.suburb],
+                    [head[2], <Pill key="r" tone={r.tone}>{r.risk}</Pill>],
+                    [head[3], r.reason],
+                    [head[4], r.language],
+                    [head[5], r.nearestHelp],
                   ]}
                 >
                   <td>{who}</td>
@@ -41,7 +42,7 @@ export function VisitsCard({ rows }: { rows: VisitRow[] }) {
                   <td>{r.reason}</td>
                   <td>{r.language}</td>
                   <td style={{ fontSize: '12px' }}>{r.nearestHelp}</td>
-                  <td><OnceButton className="sm soft" toast={c.toast(r.name)} done={c.planned}>{c.plan}</OnceButton></td>
+                  <td><OnceButton className="sm soft" toast={t('overview.visits.toast', { name: r.name })} done={t('overview.visits.planned')}>{t('overview.visits.plan')}</OnceButton></td>
                 </CommunityRow>
               )
             })}

@@ -1,0 +1,411 @@
+{
+  "idle": {
+    "title": "No active alert",
+    "body": "When an alert comes in, this page shows the response minute by minute: who is on the way, what Margaret's screen shows and when the hospital has her record. 37 alerts in the community this week, 29 filtered as false alarms without waking anyone.",
+    "run": "Run the 02:03 night alert demo"
+  },
+  "endDemo": "End demo",
+  "orbitLabel": "Care circle in emergency: help moving toward Margaret",
+  "since": "since alert",
+  "subtitle": "Live · {{time}} AEDT · 186 Marrickville Rd",
+  "actions": {
+    "call000": "Call 000",
+    "callMum": {
+      "label": "Call Mum",
+      "toast": "Calling Mum · captions on"
+    },
+    "callDavid": {
+      "label": "Call David",
+      "toast": "Calling David"
+    }
+  },
+  "timeline": {
+    "title": "Live timeline",
+    "meta": "Shared with the circle"
+  },
+  "player": {
+    "prev": "Previous step",
+    "next": "Next step",
+    "pause": "Pause",
+    "play": "Play"
+  },
+  "phone": {
+    "title": "Margaret's screen",
+    "meta": "Same moment",
+    "note": "Hearing mode is on, so every question is also shown in large text with yes/no buttons.",
+    "header": "{{time}} · Hearing mode",
+    "yes": "Yes",
+    "no": "No",
+    "answered": "Margaret: {{a}}"
+  },
+  "liveSubtitle": "Live · {{time}} · {{address}}",
+  "live": {
+    "idleBody": "Start a scenario and the agents run it for real: core-api verifies the alert, checks in with Margaret by voice, triages, alerts her circle and sends the hospital her packet. Every screen follows the same incident.",
+    "scenarios": [
+      {
+        "id": "stroke",
+        "label": "Stroke at night",
+        "icon": "bolt"
+      },
+      {
+        "id": "fall",
+        "label": "Fall",
+        "icon": "people"
+      },
+      {
+        "id": "false-alarm",
+        "label": "False alarm",
+        "icon": "check"
+      }
+    ],
+    "starting": "Starting the scenario…",
+    "reset": "Reset demo",
+    "resetDone": "Demo reset · seed reloaded",
+    "close": "Close incident",
+    "closed": "Incident closed",
+    "closedTitle": "Incident closed",
+    "loading": "Connecting to the live incident…",
+    "noLog": "Waiting for the first update…",
+    "actionsTitle": "{{name}}'s buttons",
+    "noActions": "{{name}} has nothing to do yet. Switch the viewer to a member who was alerted.",
+    "action": {
+      "ACCEPT": "I'm on my way",
+      "DECLINE": "I can't come",
+      "ARRIVED": "I'm with her",
+      "CALLED_115": "I called {{num}}",
+      "CALL_PERSON": "Call {{name}}",
+      "CALL_NEARBY": "Call the nearby helper"
+    },
+    "actionDone": {
+      "ACCEPT": "You own the case · everyone can see it",
+      "DECLINE": "Declined · the next person is being asked",
+      "ARRIVED": "Marked as with her",
+      "CALLED_115": "Logged in the timeline"
+    },
+    "calling": "Calling {{who}}",
+    "record": "Tap to answer",
+    "recording": "Recording… tap to send",
+    "sending": "Sending…",
+    "noMic": "Microphone isn't available here · use the buttons",
+    "noReplyIn": "No answer in {{s}} s counts as no reply",
+    "answered": "Margaret: {{a}}",
+    "failed": "That didn't go through · please try again",
+    "busy": "Still working on the last answer",
+    "scriptTitle": "Script for {{num}}",
+    "scriptPending": "The agent writes this script once she is triaged."
+  },
+  "sos": {
+    "title": "Script for 000",
+    "intro": "Ask for ambulance. Read this aloud.",
+    "rows": [
+      [
+        "Address",
+        "186 Marrickville Rd, Marrickville NSW 2204"
+      ],
+      [
+        "Patient",
+        "Margaret Collins, 78, lives alone"
+      ],
+      [
+        "Symptoms",
+        "Slurred speech since 02:04, heart rate 142"
+      ],
+      [
+        "Last well",
+        "01:55"
+      ],
+      [
+        "Medicines",
+        "Amlodipine, aspirin, atorvastatin · allergic to penicillin"
+      ],
+      [
+        "Access",
+        "Brother arriving 02:11 with key · neighbour Aisha holds a spare"
+      ]
+    ],
+    "call": "Call 000",
+    "callToast": "Dialling 000 · ask for ambulance",
+    "copy": "Copy address",
+    "copied": "Address copied",
+    "note": "The agent prepares this. A person makes the call."
+  },
+  "liveSubtitleShort": "Live · {{time}}",
+  "phase": {
+    "verify": "Verify",
+    "ask": "Ask",
+    "triage": "Triage",
+    "escalate": "Escalate",
+    "handOff": "Hand off",
+    "agent": "Agent",
+    "close": "Close"
+  },
+  "level": {
+    "ok": "All OK",
+    "monitor": "Keep an eye",
+    "comeNow": "Come now",
+    "emergency": "Emergency now",
+    "checking": "Checking",
+    "helpArrived": "Help arrived",
+    "falseAlarm": "False alarm",
+    "closed": "Closed"
+  },
+  "units": {
+    "sec": "{{n}} s",
+    "min": "{{n}} min"
+  },
+  "sla": {
+    "verified": "Alert → verified",
+    "escalated": "Verified → escalated",
+    "accepted": "Accepted",
+    "atDoor": "At the door",
+    "edNotice": "ED notice before arrival",
+    "edPacket": "ED has the packet",
+    "minAhead": "{{n}} min ahead",
+    "yes": "Yes"
+  },
+  "steps": [
+    {
+      "d": "Heart rate 142, no movement for 4 min",
+      "s": "Night baseline 61. Not explained by activity.",
+      "own": [
+        "David · not yet alerted",
+        "450 m away · first to call",
+        "—"
+      ],
+      "what": "Heart rate 142, not moving",
+      "sub": "The agent is checking before waking anyone",
+      "q": "Margaret…",
+      "small": "Phone rings, screen flashes",
+      "help": ""
+    },
+    {
+      "d": "Calls Margaret by voice. She answers slowly",
+      "s": "Large-text questions on her screen too",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "Answering slowly",
+      "sub": "The agent is talking with her now",
+      "q": "Margaret, it's your check-in. Can you hear me?",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "Repeat-after-me check: speech is slurred",
+      "s": "Articulation score 0.41 (baseline 0.94)",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "Slurred speech",
+      "sub": "Possible stroke sign",
+      "q": "Please say after me: \"The sky is blue in Sydney.\"",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "Level: emergency now",
+      "s": "Last known well 01:55",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "Suspected stroke signs",
+      "sub": "Last known well 01:55",
+      "q": "Sit still, love. Don't try to stand up.",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "David and you are alerted",
+      "s": "Sarah in London gets updates",
+      "own": [
+        "David · alerted",
+        "Waiting for him to accept",
+        "5:00"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "I've called David.",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "David: \"I'm on my way\"",
+      "s": "He owns the case. Everyone sees it.",
+      "own": [
+        "David · on his way",
+        "Owns the case",
+        "6′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "David is on his way.",
+      "small": "",
+      "help": "David · 6 min away"
+    },
+    {
+      "d": "You call 000 with the prepared script",
+      "s": "Address, age, symptoms, medicines, access",
+      "own": [
+        "",
+        "",
+        "5′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "James is calling an ambulance.",
+      "small": "",
+      "help": "David · 5 min away"
+    },
+    {
+      "d": "Camperdown Stroke Centre received her record",
+      "s": "Chosen for 24/7 stroke care · 11 min",
+      "own": [
+        "",
+        "",
+        "4′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "The hospital has your details.",
+      "small": "",
+      "help": "David · 4 min away"
+    },
+    {
+      "d": "David is with Margaret",
+      "s": "Door unlocked, she is sitting, alert",
+      "own": [
+        "David · with Margaret",
+        "On scene since 02:11",
+        "✓"
+      ],
+      "what": "David is with her",
+      "sub": "Ambulance on the way",
+      "q": "David is here, love.",
+      "small": "",
+      "help": "David is with you"
+    },
+    {
+      "d": "Ambulance arrives · stroke team ready",
+      "s": "ED read the packet 14 min before arrival",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "On the way to Camperdown",
+      "sub": "30-day recovery plan starts after discharge",
+      "q": "The ambulance is here. You're in good hands.",
+      "small": "",
+      "help": "David is going with you"
+    }
+  ],
+  "script": {
+    "label": "Script",
+    "call": "Call {{num}}",
+    "dialling": "Dialling {{num}} · ask for ambulance",
+    "copy": "Copy script"
+  },
+  "actAs": "Act as",
+  "incident": {
+    "who": {
+      "console": "Console",
+      "system": "System",
+      "agent": "Agent",
+      "person": "Person",
+      "her": "her",
+      "circle": "Circle",
+      "patient": "Patient"
+    },
+    "alert": {
+      "hr": "Heart rate {{hr}}",
+      "hrHigh": "High heart rate",
+      "fall": "Possible fall",
+      "fallStill": "Possible fall, not moving for {{min}} min",
+      "whileActive": "{{hr}} while active",
+      "notMoving": "{{hr}}, not moving"
+    },
+    "head": {
+      "falseAlarm": "False alarm",
+      "verifying": "The agent is checking before waking anyone",
+      "slurred": "Slurred speech",
+      "slurredSub": "Possible stroke sign",
+      "noAnswer": "No answer yet",
+      "noAnswerSub": "Large text and yes/no on her screen now",
+      "checking": "Checking in with her",
+      "checkingSub": "The agent is talking with her now",
+      "withHer": "{{name}} is with her",
+      "hospital": "Hospital: {{name}}",
+      "helpWithHer": "Help is with her",
+      "lastWell": "Last known well {{time}}",
+      "ok": "She is OK"
+    },
+    "owner": {
+      "withSelf": "{{name}} · with {{self}}",
+      "onSceneSince": "On scene since {{time}}",
+      "onScene": "On scene",
+      "onTheWay": "{{name}} · on the way",
+      "owns": "Owns the case",
+      "alerted": "{{name}} · alerted",
+      "waiting": "Waiting for them to accept",
+      "noNearby": "No one nearby can come",
+      "callNow": "Call {{num}} now",
+      "notYet": "{{name}} · not yet alerted",
+      "firstToCall": "First to call"
+    },
+    "phone": {
+      "ringing": "Phone rings, screen flashes",
+      "listening": "Listening…",
+      "fine": "All fine. Sorry to bother you.",
+      "glad": "Thank you. Glad you are OK.",
+      "withYou": "{{name}} is with you",
+      "away": "{{name}} · {{eta}} away",
+      "onTheWay": "Help is on the way."
+    },
+    "packet": {
+      "patient": "Patient",
+      "status": "Status",
+      "lastWell": "Last well",
+      "findings": "Findings",
+      "history": "History",
+      "medicines": "Medicines",
+      "allergy": "Allergy",
+      "function": "Function",
+      "comms": "Comms",
+      "onScene": "On scene",
+      "contact": "Contact",
+      "packet": "Packet",
+      "female": "Female",
+      "male": "Male",
+      "suspected": "Suspected {{what}}",
+      "eta": "ETA {{eta}}",
+      "unknown": "unknown",
+      "familyHistory": "Family history",
+      "withheld": "Withheld",
+      "noConsent": "No valid consent",
+      "notRecorded": "Not recorded",
+      "noneKnown": "None known",
+      "anonymous": "Patient (identity withheld)",
+      "preArrival": "Pre-arrival",
+      "enrolled": "{{who}} · enrolled",
+      "lastWellAt": "last well {{time}}",
+      "cat": {
+        "identity": "Identity",
+        "conditions": "History",
+        "medications": "Medicines",
+        "allergies": "Allergies",
+        "familyHistory": "Family history",
+        "communication": "Comms"
+      },
+      "comm": {
+        "HARD_OF_HEARING": "Hard of hearing: write questions down",
+        "COGNITIVE_IMPAIRMENT": "Cognitive impairment: keep questions simple"
+      }
+    }
+  }
+}

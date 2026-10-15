@@ -1,0 +1,411 @@
+{
+  "idle": {
+    "title": "Không có cảnh báo nào",
+    "body": "Khi có cảnh báo, trang này hiển thị diễn biến từng phút: ai đang trên đường tới, màn hình của bà Margaret hiện gì và khi nào bệnh viện nhận được hồ sơ của bà. Tuần này có 37 cảnh báo trong cộng đồng, 29 cảnh báo được lọc là báo động nhầm mà không làm ai thức giấc.",
+    "run": "Chạy demo cảnh báo ban đêm lúc 02:03"
+  },
+  "endDemo": "Kết thúc demo",
+  "orbitLabel": "Vòng chăm sóc khi khẩn cấp: trợ giúp đang hướng về bà Margaret",
+  "since": "từ lúc cảnh báo",
+  "subtitle": "Trực tiếp · {{time}} AEDT · 186 Marrickville Rd",
+  "actions": {
+    "call000": "Gọi 000",
+    "callMum": {
+      "label": "Gọi Mẹ",
+      "toast": "Đang gọi Mẹ · đã bật phụ đề"
+    },
+    "callDavid": {
+      "label": "Gọi David",
+      "toast": "Đang gọi David"
+    }
+  },
+  "timeline": {
+    "title": "Dòng thời gian trực tiếp",
+    "meta": "Chia sẻ với vòng chăm sóc"
+  },
+  "player": {
+    "prev": "Bước trước",
+    "next": "Bước tiếp",
+    "pause": "Tạm dừng",
+    "play": "Phát"
+  },
+  "phone": {
+    "title": "Màn hình của bà Margaret",
+    "meta": "Cùng thời điểm",
+    "note": "Chế độ khiếm thính đang bật, nên mọi câu hỏi đều hiện chữ lớn kèm nút có/không.",
+    "header": "{{time}} · Chế độ khiếm thính",
+    "yes": "Có",
+    "no": "Không",
+    "answered": "Bà Margaret: {{a}}"
+  },
+  "liveSubtitle": "Trực tiếp · {{time}} · {{address}}",
+  "live": {
+    "idleBody": "Bắt đầu một tình huống và các trợ lý sẽ xử lý thật: core-api xác minh cảnh báo, hỏi thăm bà Margaret bằng giọng nói, phân loại, báo cho vòng chăm sóc và gửi hồ sơ báo trước của bà tới bệnh viện. Mọi màn hình đều theo cùng một sự cố.",
+    "scenarios": [
+      {
+        "id": "stroke",
+        "label": "Đột quỵ ban đêm",
+        "icon": "bolt"
+      },
+      {
+        "id": "fall",
+        "label": "Té ngã",
+        "icon": "people"
+      },
+      {
+        "id": "false-alarm",
+        "label": "Báo động nhầm",
+        "icon": "check"
+      }
+    ],
+    "starting": "Đang bắt đầu tình huống…",
+    "reset": "Đặt lại demo",
+    "resetDone": "Đã đặt lại demo · đã nạp lại dữ liệu mẫu",
+    "close": "Đóng sự cố",
+    "closed": "Đã đóng sự cố",
+    "closedTitle": "Sự cố đã đóng",
+    "loading": "Đang kết nối tới sự cố trực tiếp…",
+    "noLog": "Đang chờ cập nhật đầu tiên…",
+    "actionsTitle": "Các nút của {{name}}",
+    "noActions": "{{name}} chưa có việc gì để làm. Hãy chuyển sang xem với tư cách một thành viên đã được báo.",
+    "action": {
+      "ACCEPT": "Tôi đang đến",
+      "DECLINE": "Tôi không đến được",
+      "ARRIVED": "Tôi đang ở cạnh bà",
+      "CALLED_115": "Tôi đã gọi {{num}}",
+      "CALL_PERSON": "Gọi {{name}}",
+      "CALL_NEARBY": "Gọi người hỗ trợ gần đó"
+    },
+    "actionDone": {
+      "ACCEPT": "Bạn là người phụ trách · mọi người đều thấy",
+      "DECLINE": "Đã từ chối · đang hỏi người tiếp theo",
+      "ARRIVED": "Đã đánh dấu là đang ở cạnh bà",
+      "CALLED_115": "Đã ghi vào dòng thời gian"
+    },
+    "calling": "Đang gọi {{who}}",
+    "record": "Chạm để trả lời",
+    "recording": "Đang ghi âm… chạm để gửi",
+    "sending": "Đang gửi…",
+    "noMic": "Không dùng được micrô ở đây · hãy dùng các nút",
+    "noReplyIn": "Không trả lời trong {{s}} giây được tính là không phản hồi",
+    "answered": "Bà Margaret: {{a}}",
+    "failed": "Chưa gửi được · vui lòng thử lại",
+    "busy": "Vẫn đang xử lý câu trả lời trước",
+    "scriptTitle": "Kịch bản gọi {{num}}",
+    "scriptPending": "Trợ lý sẽ soạn kịch bản này sau khi bà được phân loại."
+  },
+  "sos": {
+    "title": "Kịch bản gọi 000",
+    "intro": "Yêu cầu xe cứu thương. Đọc to nội dung này.",
+    "rows": [
+      [
+        "Địa chỉ",
+        "186 Marrickville Rd, Marrickville NSW 2204"
+      ],
+      [
+        "Bệnh nhân",
+        "Margaret Collins, 78 tuổi, sống một mình"
+      ],
+      [
+        "Triệu chứng",
+        "Nói ngọng từ 02:04, nhịp tim 142"
+      ],
+      [
+        "Lần cuối bình thường",
+        "01:55"
+      ],
+      [
+        "Thuốc",
+        "Amlodipine, aspirin, atorvastatin · dị ứng penicillin"
+      ],
+      [
+        "Lối vào",
+        "Em trai đến lúc 02:11 có chìa khóa · hàng xóm Aisha giữ chìa dự phòng"
+      ]
+    ],
+    "call": "Gọi 000",
+    "callToast": "Đang gọi 000 · yêu cầu xe cứu thương",
+    "copy": "Sao chép địa chỉ",
+    "copied": "Đã sao chép địa chỉ",
+    "note": "Trợ lý chuẩn bị nội dung này. Một người thật sẽ gọi điện."
+  },
+  "liveSubtitleShort": "Trực tiếp · {{time}}",
+  "phase": {
+    "verify": "Xác minh",
+    "ask": "Hỏi",
+    "triage": "Phân loại",
+    "escalate": "Báo người",
+    "handOff": "Bàn giao",
+    "agent": "Trợ lý",
+    "close": "Kết thúc"
+  },
+  "level": {
+    "ok": "Mọi thứ ổn",
+    "monitor": "Cần để ý",
+    "comeNow": "Đến ngay",
+    "emergency": "Khẩn cấp ngay",
+    "checking": "Đang kiểm tra",
+    "helpArrived": "Đã có người đến giúp",
+    "falseAlarm": "Báo động nhầm",
+    "closed": "Đã đóng"
+  },
+  "units": {
+    "sec": "{{n}} giây",
+    "min": "{{n}} phút"
+  },
+  "sla": {
+    "verified": "Cảnh báo → xác minh",
+    "escalated": "Xác minh → báo người",
+    "accepted": "Đã nhận",
+    "atDoor": "Có mặt tại nhà",
+    "edNotice": "Báo khoa cấp cứu trước khi đến",
+    "edPacket": "Khoa cấp cứu có hồ sơ",
+    "minAhead": "trước {{n}} phút",
+    "yes": "Có"
+  },
+  "steps": [
+    {
+      "d": "Nhịp tim 142, không cử động trong 4 phút",
+      "s": "Mức nền ban đêm là 61. Không phải do vận động.",
+      "own": [
+        "David · chưa được báo",
+        "Cách 450 m · người được gọi đầu tiên",
+        "—"
+      ],
+      "what": "Nhịp tim 142, không cử động",
+      "sub": "Trợ lý đang kiểm tra trước khi đánh thức ai",
+      "q": "Bà Margaret…",
+      "small": "Điện thoại đổ chuông, màn hình nhấp nháy",
+      "help": ""
+    },
+    {
+      "d": "Gọi bà Margaret bằng giọng nói. Bà trả lời chậm",
+      "s": "Câu hỏi chữ lớn cũng hiện trên màn hình của bà",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "Trả lời chậm",
+      "sub": "Trợ lý đang nói chuyện với bà",
+      "q": "Bà Margaret ơi, đến giờ hỏi thăm rồi. Bà có nghe tôi nói không?",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "Kiểm tra nói theo: bà nói ngọng",
+      "s": "Điểm phát âm 0,41 (mức nền 0,94)",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "Nói ngọng",
+      "sub": "Có thể là dấu hiệu đột quỵ",
+      "q": "Bà hãy nói theo tôi: \"Bầu trời Sydney hôm nay thật xanh.\"",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "Mức độ: khẩn cấp ngay",
+      "s": "Lần cuối bình thường 01:55",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "Nghi có dấu hiệu đột quỵ",
+      "sub": "Lần cuối bình thường 01:55",
+      "q": "Bà cứ ngồi yên nhé. Đừng cố đứng dậy.",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "David và bạn đã được báo",
+      "s": "Sarah ở London nhận cập nhật",
+      "own": [
+        "David · đã được báo",
+        "Đang chờ anh ấy nhận",
+        "5:00"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "Tôi đã gọi David rồi.",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "David: \"Tôi đang đến\"",
+      "s": "Anh ấy là người phụ trách. Mọi người đều thấy.",
+      "own": [
+        "David · đang đến",
+        "Người phụ trách",
+        "6′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "David đang đến.",
+      "small": "",
+      "help": "David · còn 6 phút"
+    },
+    {
+      "d": "Bạn gọi 000 theo kịch bản đã soạn sẵn",
+      "s": "Địa chỉ, tuổi, triệu chứng, thuốc, lối vào",
+      "own": [
+        "",
+        "",
+        "5′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "James đang gọi xe cứu thương.",
+      "small": "",
+      "help": "David · còn 5 phút"
+    },
+    {
+      "d": "Trung tâm đột quỵ Camperdown đã nhận hồ sơ của bà",
+      "s": "Được chọn vì chăm sóc đột quỵ 24/7 · 11 phút",
+      "own": [
+        "",
+        "",
+        "4′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "Bệnh viện đã có thông tin của bà.",
+      "small": "",
+      "help": "David · còn 4 phút"
+    },
+    {
+      "d": "David đang ở cạnh bà Margaret",
+      "s": "Cửa đã mở, bà đang ngồi, tỉnh táo",
+      "own": [
+        "David · ở cạnh bà Margaret",
+        "Có mặt từ 02:11",
+        "✓"
+      ],
+      "what": "David đang ở cạnh bà",
+      "sub": "Xe cứu thương đang đến",
+      "q": "David đến rồi đây bà.",
+      "small": "",
+      "help": "David đang ở cạnh bà"
+    },
+    {
+      "d": "Xe cứu thương đến · đội đột quỵ đã sẵn sàng",
+      "s": "Khoa cấp cứu đọc hồ sơ báo trước 14 phút trước khi bà đến",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "Đang đến Camperdown",
+      "sub": "Kế hoạch hồi phục 30 ngày bắt đầu sau khi xuất viện",
+      "q": "Xe cứu thương đến rồi. Bà đang được chăm sóc chu đáo.",
+      "small": "",
+      "help": "David sẽ đi cùng bà"
+    }
+  ],
+  "script": {
+    "label": "Kịch bản",
+    "call": "Gọi {{num}}",
+    "dialling": "Đang gọi {{num}} · yêu cầu xe cứu thương",
+    "copy": "Sao chép kịch bản"
+  },
+  "actAs": "Thao tác với tư cách",
+  "incident": {
+    "who": {
+      "console": "Bảng điều khiển",
+      "system": "Hệ thống",
+      "agent": "Trợ lý",
+      "person": "Người dùng",
+      "her": "bà",
+      "circle": "Vòng chăm sóc",
+      "patient": "Bệnh nhân"
+    },
+    "alert": {
+      "hr": "Nhịp tim {{hr}}",
+      "hrHigh": "Nhịp tim cao",
+      "fall": "Có thể bị té ngã",
+      "fallStill": "Có thể bị té ngã, không cử động trong {{min}} phút",
+      "whileActive": "{{hr}} khi đang vận động",
+      "notMoving": "{{hr}}, không cử động"
+    },
+    "head": {
+      "falseAlarm": "Báo động nhầm",
+      "verifying": "Trợ lý đang kiểm tra trước khi đánh thức ai",
+      "slurred": "Nói ngọng",
+      "slurredSub": "Có thể là dấu hiệu đột quỵ",
+      "noAnswer": "Chưa có câu trả lời",
+      "noAnswerSub": "Màn hình của bà đang hiện chữ lớn và nút có/không",
+      "checking": "Đang hỏi thăm bà",
+      "checkingSub": "Trợ lý đang nói chuyện với bà",
+      "withHer": "{{name}} đang ở cạnh bà",
+      "hospital": "Bệnh viện: {{name}}",
+      "helpWithHer": "Đã có người ở cạnh bà",
+      "lastWell": "Lần cuối bình thường {{time}}",
+      "ok": "Bà vẫn ổn"
+    },
+    "owner": {
+      "withSelf": "{{name}} · ở cạnh {{self}}",
+      "onSceneSince": "Có mặt từ {{time}}",
+      "onScene": "Đã có mặt",
+      "onTheWay": "{{name}} · đang đến",
+      "owns": "Người phụ trách",
+      "alerted": "{{name}} · đã được báo",
+      "waiting": "Đang chờ người được báo nhận",
+      "noNearby": "Không có ai ở gần đến được",
+      "callNow": "Gọi {{num}} ngay",
+      "notYet": "{{name}} · chưa được báo",
+      "firstToCall": "Người được gọi đầu tiên"
+    },
+    "phone": {
+      "ringing": "Điện thoại đổ chuông, màn hình nhấp nháy",
+      "listening": "Đang nghe…",
+      "fine": "Mọi thứ ổn. Xin lỗi đã làm phiền bà.",
+      "glad": "Cảm ơn bà. Thật mừng là bà vẫn ổn.",
+      "withYou": "{{name}} đang ở cạnh bà",
+      "away": "{{name}} · còn {{eta}}",
+      "onTheWay": "Đang có người đến giúp bà."
+    },
+    "packet": {
+      "patient": "Bệnh nhân",
+      "status": "Tình trạng",
+      "lastWell": "Lần cuối bình thường",
+      "findings": "Dấu hiệu",
+      "history": "Tiền sử",
+      "medicines": "Thuốc",
+      "allergy": "Dị ứng",
+      "function": "Chức năng",
+      "comms": "Giao tiếp",
+      "onScene": "Tại chỗ",
+      "contact": "Liên hệ",
+      "packet": "Hồ sơ",
+      "female": "Nữ",
+      "male": "Nam",
+      "suspected": "Nghi {{what}}",
+      "eta": "Dự kiến đến {{eta}}",
+      "unknown": "chưa rõ",
+      "familyHistory": "Tiền sử gia đình",
+      "withheld": "Bị giữ lại",
+      "noConsent": "Không có đồng ý hợp lệ",
+      "notRecorded": "Chưa ghi nhận",
+      "noneKnown": "Không có dị ứng đã biết",
+      "anonymous": "Bệnh nhân (ẩn danh tính)",
+      "preArrival": "Báo trước khi đến",
+      "enrolled": "{{who}} · đã đăng ký",
+      "lastWellAt": "lần cuối bình thường {{time}}",
+      "cat": {
+        "identity": "Danh tính",
+        "conditions": "Bệnh sử",
+        "medications": "Thuốc",
+        "allergies": "Dị ứng",
+        "familyHistory": "Tiền sử gia đình",
+        "communication": "Giao tiếp"
+      },
+      "comm": {
+        "HARD_OF_HEARING": "Khiếm thính: hãy viết câu hỏi ra giấy",
+        "COGNITIVE_IMPAIRMENT": "Suy giảm nhận thức: hỏi thật đơn giản"
+      }
+    }
+  }
+}

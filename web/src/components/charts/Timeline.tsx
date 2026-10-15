@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 export type TimelineStatus = 'done' | 'current' | 'pending'
 
 export interface TimelineItem {
@@ -19,9 +21,10 @@ interface Props {
  * Prototype live timeline `#tl` (line 1573). Kept as a real ordered list (not
  * role="img") so screen readers can read every step.
  */
-export function Timeline({ items, ariaLabel = 'Timeline' }: Props) {
+export function Timeline({ items, ariaLabel }: Props) {
+  const { t } = useTranslation()
   return (
-    <ol className="tl" aria-label={ariaLabel}>
+    <ol className="tl" aria-label={ariaLabel ?? t('charts.timeline')}>
       {items.map((x, k) => (
         <li key={k} className={x.status === 'done' ? 'done' : x.status === 'current' ? 'done cur' : undefined} aria-current={x.status === 'current' ? 'step' : undefined}>
           <span className="tm">{x.at}</span>

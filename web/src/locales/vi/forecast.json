@@ -1,0 +1,114 @@
+{
+  "modelTitle": "ℹ️ Dự báo này hoạt động thế nào",
+  "risks": {
+    "title": "📊 Nguy cơ theo thời gian",
+    "meta": "Trên 100 phụ nữ giống bà Margaret",
+    "columns": [
+      "Điều có thể xảy ra",
+      "Tháng tới",
+      "3 tháng tới",
+      "Năm tới",
+      "Khoảng có thể",
+      "Mức",
+      "Xu hướng",
+      "Lý do chính"
+    ]
+  },
+  "sim": {
+    "title": "🎛️ Thử xem: nếu như…",
+    "meta": "Kéo các thanh trượt",
+    "hearingSwitchLabel": "Đeo máy trợ thính hằng ngày",
+    "adherenceValue": "{{n}}%",
+    "cells": [
+      {
+        "key": "stroke",
+        "label": "Đột quỵ · 90 ngày"
+      },
+      {
+        "key": "fall",
+        "label": "Té ngã · 90 ngày"
+      },
+      {
+        "key": "admission",
+        "label": "Nhập viện · 90 ngày"
+      },
+      {
+        "key": "mci",
+        "label": "Suy giảm nhận thức nhẹ · 90 ngày"
+      }
+    ],
+    "delta": {
+      "none": "không đổi",
+      "relative": "{{pct}} tương đối"
+    }
+  },
+  "bp": {
+    "title": "Huyết áp tâm thu buổi sáng",
+    "meta": "Đo 6 tuần · dự báo 4 tuần · mmHg",
+    "yLabel": "Huyết áp tâm thu buổi sáng",
+    "ariaLabel": "Huyết áp tâm thu buổi sáng tăng từ 128 lên 146 trong sáu tuần và dự báo lên 156 nếu không thay đổi gì",
+    "today": "hôm nay",
+    "weekLabel": "T{{n}}",
+    "legend": [
+      {
+        "color": "#c88a05",
+        "label": "Đã đo"
+      },
+      {
+        "color": "rgba(217,68,63,.5)",
+        "label": "Dự báo nếu không thay đổi gì"
+      },
+      {
+        "color": "rgba(31,179,156,.6)",
+        "label": "Dự báo khi uống thuốc đủ 100%"
+      },
+      {
+        "color": "#8f6fd0",
+        "label": "Kịch bản \"nếu như\" của bạn"
+      },
+      {
+        "color": "rgba(31,179,156,.15)",
+        "label": "Mục tiêu dưới 135"
+      }
+    ],
+    "series": {
+      "observed": "Đã đo",
+      "nothing": "Dự báo nếu không thay đổi gì",
+      "adherent": "Dự báo khi uống thuốc đủ 100%",
+      "whatIf": "Kịch bản \"nếu như\" của bạn"
+    }
+  },
+  "shap": {
+    "title": "⚖️ Điều gì làm tăng hoặc giảm nguy cơ đột quỵ của bà",
+    "meta": "Đỏ làm tăng · xanh làm giảm"
+  },
+  "signs": {
+    "title": "👀 Những gì chúng tôi theo dõi",
+    "meta": "Hôm nay so với mức thường ngày của bà",
+    "columns": [
+      "Dấu hiệu",
+      "Nguồn",
+      "Tần suất",
+      "Hiện tại",
+      "Thường ngày",
+      "So với thường ngày",
+      "Trạng thái"
+    ],
+    "status": {
+      "good": "Ổn",
+      "warn": "Theo dõi",
+      "bad": "Cần xử lý"
+    }
+  },
+  "modes": {
+    "on": "BẬT",
+    "off": "TẮT",
+    "toastOn": "Đã bật chế độ {{name}}",
+    "toastOff": "Đã tắt chế độ {{name}}",
+    "names": {
+      "Hearing": "khiếm thính",
+      "Vision": "thị lực",
+      "Memory": "trí nhớ"
+    }
+  }
+}

@@ -1,27 +1,35 @@
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Icon } from '@/components/ui/Icon'
 import { OnceButton } from '@/components/ui/OnceButton'
 import { useToast } from '@/components/ui/Toast'
-import { HOSPITAL_COPY, ONCE_LABELS } from '@/data/repo'
 import type { HospitalAction } from '@/data/types'
 import { Head } from '../../individual/home/parts'
 
+/** The buttons in the prototype's ONCE table: they lock after a click; "Linked" and "Auto" just toast. */
+const LOCKS_AFTER_CLICK: readonly HospitalAction['button'][] = ['Approve', 'Review']
+
 function ActionButton({ action: a }: { action: HospitalAction }) {
+  const { t } = useTranslation(['hospital', 'common'])
   const toast = useToast()
-  const message = `${a.title} · ${a.button === 'Approve' ? 'approved' : 'noted'}`
+  const label = t(`demand.actions.buttons.${a.button}`)
+  const message = a.button === 'Approve' ? t('demand.actions.toastApproved', { title: a.title }) : t('demand.actions.toastNoted', { title: a.title })
   const cls = `sm${a.button === 'Approve' ? '' : ' soft'}`
-  const done = ONCE_LABELS[a.button]
-  // Only the labels in the prototype's ONCE table lock after a click; "Linked" and "Auto" just toast.
-  if (done) return <OnceButton className={cls} toast={message} done={done}>{a.button}</OnceButton>
-  return <button type="button" className={`btn ${cls}`} onClick={() => toast(message)}>{a.button}</button>
+  if (LOCKS_AFTER_CLICK.includes(a.button)) {
+    // ONCE labels are keyed by the English button enum in both languages.
+    const once = t('common:onceLabels', { returnObjects: true }) as Record<string, string | undefined>
+    const done = once[a.button] ?? `✓ ${label}`
+    return <OnceButton className={cls} toast={message} done={done}>{label}</OnceButton>
+  }
+  return <button type="button" className={`btn ${cls}`} onClick={() => toast(message)}>{label}</button>
 }
 
 /** `Suggested actions` (c6): the forecast's recommendations, each with its button. */
 export function ActionsCard({ actions }: { actions: HospitalAction[] }) {
-  const c = HOSPITAL_COPY.demand.actions
+  const { t } = useTranslation('hospital')
   return (
     <GlassCard span={6}>
-      <Head title={c.title} meta={c.meta} />
+      <Head title={t('demand.actions.title')} meta={t('demand.actions.meta')} />
       <ul className="list" id="actionsH">
         {actions.map((a) => (
           <li key={a.title}>

@@ -1,0 +1,193 @@
+{
+  "overview": {
+    "district": {
+      "ariaLabel": "Bản đồ cột 3D của 15 khu ở Inner West",
+      "group": "Chỉ số khu vực",
+      "buttons": {
+        "high": "Nguy cơ cao",
+        "alone": "Sống một mình",
+        "heat": "Nắng nóng",
+        "gap": "Thiếu lượt thăm"
+      },
+      "chips": [
+        "Kéo để xoay",
+        "Chạm vào một cột để xem chi tiết",
+        "Dữ liệu cập nhật 15:00"
+      ],
+      "models": {
+        "high": {
+          "title": "Cư dân nguy cơ cao",
+          "subtitle": "Chiều cao cột = số người nguy cơ cao · màu ô = mức dễ tổn thương khi nắng nóng",
+          "unit": " người nguy cơ cao"
+        },
+        "alone": {
+          "title": "Sống một mình",
+          "subtitle": "Chiều cao cột = tỷ lệ cư dân đã đăng ký sống một mình",
+          "unit": " % sống một mình"
+        },
+        "heat": {
+          "title": "Dễ tổn thương khi nắng nóng",
+          "subtitle": "Chỉ số tính từ tuổi, máy lạnh, độ che phủ cây xanh và nhà ở",
+          "unit": " chỉ số nắng nóng"
+        },
+        "gap": {
+          "title": "Thiếu lượt thăm",
+          "subtitle": "Số lượt thăm cần mỗi tuần trừ năng lực của tình nguyện viên",
+          "unit": " lượt thăm còn thiếu"
+        }
+      }
+    },
+    "heatwave": {
+      "title": "Kế hoạch nắng nóng",
+      "schedule": "Lên lịch mọi cuộc hỏi thăm",
+      "scheduled": "✓ Đã lên lịch 318"
+    },
+    "visits": {
+      "title": "Ai cần được thăm tuần này",
+      "meta": "Xếp theo nguy cơ · bằng ngôn ngữ của họ",
+      "head": [
+        "Người",
+        "Khu",
+        "Nguy cơ",
+        "Lý do chính",
+        "Ngôn ngữ",
+        "Trợ giúp gần nhất",
+        ""
+      ],
+      "plan": "Lên lịch thăm",
+      "planned": "✓ Đã lên lịch",
+      "toast": "Đã lên lịch thăm {{name}}"
+    },
+    "funnel": {
+      "title": "Phễu cảnh báo",
+      "meta": "7 ngày qua"
+    },
+    "capacity": {
+      "title": "Năng lực tình nguyện viên so với nhu cầu",
+      "meta": "Lượt thăm mỗi tuần",
+      "legend": [
+        {
+          "color": "rgba(31,179,156,.35)",
+          "label": "Năng lực"
+        },
+        {
+          "color": "#ef4e4a",
+          "label": "Nhu cầu vượt năng lực"
+        },
+        {
+          "color": "#0b7f71",
+          "label": "Nhu cầu đã đáp ứng"
+        }
+      ]
+    },
+    "edForecast": {
+      "title": "Dự báo nhu cầu cấp cứu"
+    },
+    "languages": {
+      "title": "Ngôn ngữ",
+      "meta": "Ngôn ngữ ưa dùng so với giọng nói trợ lý hỗ trợ",
+      "support": {
+        "Full": "Đầy đủ",
+        "Beta": "Thử nghiệm",
+        "Interpreter": "Phiên dịch viên"
+      }
+    },
+    "programs": {
+      "title": "Chương trình và kết quả",
+      "meta": "Xem 12 tuần",
+      "head": [
+        "Chương trình",
+        "Người tham gia đều",
+        "Tham dự",
+        "Kết quả"
+      ]
+    },
+    "watch": {
+      "title": "Canh chừng khu phố",
+      "meta": "Tuần này",
+      "open": "Mở canh chừng khu phố"
+    }
+  },
+  "watch": {
+    "reports": {
+      "title": "Canh chừng khu phố khắp Inner West",
+      "meta": "Báo cáo từ cư dân, hội đồng địa phương, cảnh sát và trợ lý",
+      "head": [
+        "Báo cáo",
+        "Khu",
+        "Loại",
+        "Số người ảnh hưởng",
+        "Từ",
+        "Trạng thái"
+      ]
+    },
+    "scams": {
+      "title": "Liên hệ lừa đảo do cư dân báo cáo",
+      "meta": "8 tuần qua",
+      "ariaLabel": "Số liên hệ lừa đảo được báo cáo mỗi tuần trong 8 tuần, tăng lên 37 tuần này, chủ yếu do báo cáo lừa đảo gõ cửa",
+      "thisWeek": "tuần này",
+      "weeksAgo": "T-{{n}}"
+    },
+    "feed": {
+      "title": "Bản tin cho nhân viên cộng đồng",
+      "meta": "Tự động tóm tắt · có ghi nguồn",
+      "ago": "{{age}} trước"
+    },
+    "callouts": {
+      "title": "Yêu cầu tình nguyện viên",
+      "meta": "Yêu cầu đang mở",
+      "toast": "Đã nhận · đã thêm vào lịch của bạn",
+      "done": "✓ Đã nhận"
+    }
+  },
+  "actions": {
+    "row": [
+      [
+        "Lên lịch thăm",
+        "Đã lên lịch thăm",
+        "Đã lên lịch"
+      ],
+      [
+        "Gọi bằng ngôn ngữ của họ",
+        "Đã lên lịch cuộc gọi với giọng phiên dịch",
+        "Đã lên lịch"
+      ]
+    ],
+    "kpi": [
+      [
+        "Thêm vào danh sách theo dõi",
+        "Đã thêm vào danh sách theo dõi",
+        "Đang theo dõi"
+      ],
+      [
+        "Xuất CSV",
+        "Đã xếp hàng xuất",
+        "Đã xuất"
+      ]
+    ],
+    "mini": [
+      [
+        "Gắn cờ để xem xét",
+        "Đã gắn cờ",
+        "Đã gắn cờ"
+      ],
+      [
+        "Giao cho tôi",
+        "Đã giao cho bạn",
+        "Đã nhận"
+      ]
+    ],
+    "news": [
+      [
+        "Gửi cho cư dân",
+        "Đã xếp hàng phát bằng giọng nói",
+        "Đã xếp hàng"
+      ],
+      [
+        "Bỏ qua",
+        "Đã bỏ qua",
+        "Đã bỏ qua"
+      ]
+    ]
+  }
+}

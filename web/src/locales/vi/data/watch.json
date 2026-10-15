@@ -1,0 +1,311 @@
+{
+  "watch": {
+    "kpis": [
+      {
+        "label": "Báo cáo đang mở",
+        "value": "23",
+        "unit": "",
+        "color": "#6d4fc0",
+        "baseline": "8 loại",
+        "delta": "+5 tuần",
+        "tone": "good",
+        "spark": [
+          14,
+          16,
+          15,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      {
+        "label": "Lượt tiếp cận lừa đảo",
+        "value": "37",
+        "unit": "tuần này",
+        "color": "#d9443f",
+        "baseline": "14 tận nhà",
+        "delta": "+11",
+        "tone": "warn",
+        "spark": [
+          18,
+          20,
+          22,
+          21,
+          25,
+          26,
+          30,
+          26,
+          37
+        ]
+      },
+      {
+        "label": "Cư dân được cảnh báo bằng giọng nói",
+        "value": "1,240",
+        "unit": "",
+        "color": "#1f8f5f",
+        "baseline": "trong 2.4 giờ (trung vị)",
+        "delta": "",
+        "tone": "good",
+        "spark": [
+          300,
+          450,
+          600,
+          700,
+          820,
+          950,
+          1050,
+          1150,
+          1240
+        ]
+      },
+      {
+        "label": "Mối nguy đã báo hội đồng",
+        "value": "9",
+        "unit": "trong tháng",
+        "color": "#c88a05",
+        "baseline": "4 đã sửa",
+        "delta": "",
+        "tone": "good",
+        "spark": [
+          2,
+          3,
+          4,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "label": "Yêu cầu tình nguyện viên",
+        "value": "12",
+        "unit": "đang mở",
+        "color": "#6d4fc0",
+        "baseline": "6 liên quan nắng nóng",
+        "delta": "+6",
+        "tone": "warn",
+        "spark": [
+          4,
+          5,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12
+        ]
+      },
+      {
+        "label": "Hộp khóa chìa đã lắp",
+        "value": "38",
+        "unit": "năm nay",
+        "color": "#2f6fb0",
+        "baseline": "cho nhân viên cấp cứu vào nhà",
+        "delta": "+4 tháng",
+        "tone": "good",
+        "spark": [
+          10,
+          14,
+          18,
+          22,
+          26,
+          30,
+          33,
+          36,
+          38
+        ]
+      }
+    ],
+    "reports": [
+      {
+        "title": "Lừa đảo gõ cửa \"hoàn tiền điện mặt trời\"",
+        "suburbs": "Marrickville, Dulwich Hill",
+        "type": "Lừa đảo",
+        "typeTone": "bad",
+        "affected": "1,240 người được cảnh báo",
+        "since": "3 ngày",
+        "status": "Đang diễn ra"
+      },
+      {
+        "title": "Lừa đảo qua điện thoại \"cháu gặp nạn\"",
+        "suburbs": "Cả 15 khu phố",
+        "type": "Lừa đảo",
+        "typeTone": "bad",
+        "affected": "1,846 người được cảnh báo",
+        "since": "2 tuần",
+        "status": "Đang diễn ra"
+      },
+      {
+        "title": "Nắng nóng Th 5–Th 6",
+        "suburbs": "Tất cả",
+        "type": "Thời tiết",
+        "typeTone": "warn",
+        "affected": "318 cuộc hỏi thăm thêm",
+        "since": "hôm nay",
+        "status": "Đã lên kế hoạch"
+      },
+      {
+        "title": "Sửa vỉa hè, Marrickville Rd",
+        "suburbs": "Marrickville",
+        "type": "Mối nguy",
+        "typeTone": "warn",
+        "affected": "46 người đi bộ",
+        "since": "6/10",
+        "status": "Đến 24/10"
+      },
+      {
+        "title": "Đèn đường hỏng, Calvert St",
+        "suburbs": "Marrickville",
+        "type": "Mối nguy",
+        "typeTone": "warn",
+        "affected": "12 cư dân",
+        "since": "Chủ nhật",
+        "status": "Đã báo"
+      },
+      {
+        "title": "Chim ác là sà xuống tấn công",
+        "suburbs": "3 công viên",
+        "type": "Động vật hoang dã",
+        "typeTone": "plain",
+        "affected": "61 người đi bộ",
+        "since": "Tháng 9",
+        "status": "Theo mùa"
+      },
+      {
+        "title": "Không có tàu cuối tuần này",
+        "suburbs": "Marrickville, Sydenham, Dulwich Hill",
+        "type": "Giao thông",
+        "typeTone": "plain",
+        "affected": "214 hành khách thường xuyên",
+        "since": "Th 7–CN",
+        "status": "Đã lên kế hoạch"
+      },
+      {
+        "title": "Nguy cơ mất điện khi nắng nóng",
+        "suburbs": "Tempe, St Peters",
+        "type": "Tiện ích",
+        "typeTone": "warn",
+        "affected": "58 cư dân",
+        "since": "Th 5",
+        "status": "Đang theo dõi"
+      }
+    ],
+    "scams": [
+      [
+        10,
+        3,
+        5
+      ],
+      [
+        12,
+        2,
+        6
+      ],
+      [
+        11,
+        4,
+        7
+      ],
+      [
+        9,
+        5,
+        7
+      ],
+      [
+        13,
+        4,
+        8
+      ],
+      [
+        12,
+        6,
+        8
+      ],
+      [
+        14,
+        8,
+        8
+      ],
+      [
+        13,
+        14,
+        10
+      ]
+    ],
+    "scamLabels": {
+      "phone": "Điện thoại",
+      "door": "Tận nhà",
+      "text": "Tin nhắn / email"
+    },
+    "feed": [
+      {
+        "source": "AN TOÀN · Cảnh sát địa phương",
+        "age": "5 giờ",
+        "headline": "Lừa đảo gõ cửa nhắm vào người cao tuổi ở Marrickville",
+        "body": "Trợ lý đã cảnh báo 1,240 cư dân đã đăng ký bằng giọng nói, bằng ngôn ngữ của họ, trong vòng 2.4 giờ."
+      },
+      {
+        "source": "SỨC KHỎE · Sở y tế bang",
+        "age": "2 giờ",
+        "headline": "Cảnh báo sức khỏe do nắng nóng Th 5–Th 6",
+        "body": "Đã lên lịch hỏi thăm 318 người; 127 người không có máy lạnh được ưu tiên vào phòng mát."
+      },
+      {
+        "source": "GIAO THÔNG · Cập nhật giao thông",
+        "age": "1 ngày",
+        "headline": "Đóng ga cuối tuần này",
+        "body": "Đã xác định 214 hành khách thường xuyên; 19 người có lịch khám và được mời đi nhờ xe tình nguyện."
+      },
+      {
+        "source": "CỘNG ĐỒNG · Hội đồng",
+        "age": "1 ngày",
+        "headline": "Tuần lễ hội người cao tuổi, 20–25/10",
+        "body": "Đã gửi lời mời đến 412 cư dân có giao tiếp xã hội thấp hơn bình thường."
+      },
+      {
+        "source": "TIỆN ÍCH · Mạng lưới điện",
+        "age": "1 ngày",
+        "headline": "Dự kiến nhu cầu điện cao chiều Th 5",
+        "body": "58 cư dân ở Tempe và St Peters có thuốc bảo quản trong tủ lạnh được đánh dấu để gọi nếu mất điện."
+      }
+    ],
+    "callouts": [
+      {
+        "title": "Chở đến phòng mát",
+        "detail": "Nguyen Van T., Tempe · Th 5 11:00 · ưu tiên người nói tiếng Việt",
+        "button": "Nhận"
+      },
+      {
+        "title": "Lắp hộp khóa chìa",
+        "detail": "Margaret C., Marrickville · trước 18/10",
+        "button": "Nhận"
+      },
+      {
+        "title": "Giúp đổ rác tối",
+        "detail": "Margaret C. · Th 3 19:00 khi Aisha đi vắng",
+        "button": "Nhận"
+      },
+      {
+        "title": "Giao quạt",
+        "detail": "9 nhà ở Tempe và Sydenham · chiều Th 4",
+        "button": "Nhận"
+      },
+      {
+        "title": "Giao đồ đi chợ",
+        "detail": "Eleni P., Marrickville · ưu tiên người nói tiếng Hy Lạp",
+        "button": "Nhận"
+      },
+      {
+        "title": "Bạn gọi điện",
+        "detail": "Fatima A., Lewisham · tiếng Ả Rập · 2 cuộc gọi/tuần",
+        "button": "Nhận"
+      }
+    ]
+  }
+}

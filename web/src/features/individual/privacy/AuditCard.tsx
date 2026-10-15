@@ -1,20 +1,20 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { PRIVACY_COPY } from '@/data/repo'
 import { useAppState } from '@/state/AppState'
 
 /** `🧾 Changes you made` (c6): this session's audit log, newest first. */
 export function AuditCard() {
   const { audit } = useAppState()
-  const c = PRIVACY_COPY.audit
+  const { t } = useTranslation('privacy')
   return (
     <GlassCard span={6}>
-      <div className="ch"><h2>{c.title}</h2><span className="meta">{c.meta}</span></div>
+      <div className="ch"><h2>{t('audit.title')}</h2><span className="meta">{t('audit.meta')}</span></div>
       {audit.length === 0 ? (
-        <p className="fine">{c.empty}</p>
+        <p className="fine">{t('audit.empty')}</p>
       ) : (
-        <ul className="list" aria-label={c.label}>
+        <ul className="list" aria-label={t('audit.label')}>
           {[...audit].reverse().map((e, i) => (
             <li key={audit.length - i}>
               <span><b>{e.detail}</b><small>{e.at} · {e.who}</small></span>

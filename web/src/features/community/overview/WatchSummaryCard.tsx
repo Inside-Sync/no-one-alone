@@ -1,22 +1,22 @@
 'use client'
 
 import { Icon } from '@/components/ui/Icon'
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Pill } from '@/components/ui/Pill'
-import { COMMUNITY_COPY } from '@/data/repo'
 import type { WatchListItem } from '@/data/types'
 import { useRouter } from '@/app/navigation'
 
 /** `Neighbourhood watch` mini (c6): this week's three items and a link to the watch page. */
 export function WatchSummaryCard({ items }: { items: WatchListItem[] }) {
   const router = useRouter()
-  const c = COMMUNITY_COPY.overview.watch
+  const { t } = useTranslation('community')
   return (
     <GlassCard span={6}>
       <div className="ch">
         <span className="li"><span className="ic"><Icon name="eye" /></span></span>
-        <h2>{c.title}</h2>
-        <span className="meta">{c.meta}</span>
+        <h2>{t('overview.watch.title')}</h2>
+        <span className="meta">{t('overview.watch.meta')}</span>
       </div>
       <ul className="list">
         {items.map((i) => (
@@ -27,7 +27,7 @@ export function WatchSummaryCard({ items }: { items: WatchListItem[] }) {
           </li>
         ))}
       </ul>
-      <button type="button" className="btn soft" onClick={() => router.push('/community/watch')}>{c.open}</button>
+      <button type="button" className="btn soft" onClick={() => router.push('/community/watch')}>{t('overview.watch.open')}</button>
     </GlassCard>
   )
 }

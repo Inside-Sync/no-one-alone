@@ -1,0 +1,172 @@
+{
+  "hello": "Chào buổi chiều, Maggie 🌞",
+  "sub": "Hôm nay bà đang rất ổn. Đây là ngày của bà, dành riêng cho bà.",
+  "tiles": [
+    {
+      "emoji": "❤️",
+      "title": "Tim",
+      "note": "68 · ổn định",
+      "warn": false
+    },
+    {
+      "emoji": "👣",
+      "title": "3.240 bước",
+      "note": "sắp đạt 3.500 rồi!",
+      "warn": false
+    },
+    {
+      "emoji": "😴",
+      "title": "Ngủ 6 giờ",
+      "note": "hơi ít",
+      "warn": true
+    },
+    {
+      "emoji": "💧",
+      "title": "Nước",
+      "note": "uống một ly ngay nhé",
+      "warn": true
+    },
+    {
+      "emoji": "💊",
+      "title": "Liều thuốc tiếp theo",
+      "note": "18:00, amlodipine",
+      "warn": false
+    },
+    {
+      "emoji": "📞",
+      "title": "James gọi",
+      "note": "tối nay lúc 20:00",
+      "warn": false
+    }
+  ],
+  "people": {
+    "title": "💞 Người thân của tôi",
+    "meta": "Bà chọn mỗi người được xem gì",
+    "change": "🔐 Thay đổi ai xem được gì",
+    "paused": "Đã tạm dừng",
+    "sees": "Xem {{seen}}/{{total}}"
+  },
+  "ideasTitle": "💡 Gợi ý cho bà",
+  "ideasMeta": "Chỉ khi bà muốn",
+  "ideas": [
+    {
+      "emoji": "🔥",
+      "title": "Thứ Năm trời sẽ lên 38°. Bà có muốn được đưa tới phòng mát ở thư viện không?",
+      "note": "Tom, một tình nguyện viên, có thể đón bà lúc 11:00.",
+      "yes": [
+        "Có, cảm ơn",
+        "Đã đặt xe đón thứ Năm 11:00",
+        "Đã đặt"
+      ],
+      "no": [
+        "Không, cảm ơn",
+        "Không sao, chúng tôi sẽ gọi điện hỏi thăm bà",
+        "Để sau"
+      ]
+    },
+    {
+      "emoji": "💊",
+      "title": "Hộp chia thuốc hằng tuần có giúp bà nhớ liều thuốc buổi tối không?",
+      "note": "David đề nghị chuẩn bị giúp vào thứ Bảy.",
+      "yes": [
+        "Có, cảm ơn",
+        "David sẽ đến thứ Bảy 10:00",
+        "Đồng ý"
+      ],
+      "no": [
+        "Không, cảm ơn",
+        "Được ạ, chúng tôi chỉ giữ lời nhắc thôi",
+        "Để sau"
+      ]
+    },
+    {
+      "emoji": "🦻",
+      "title": "Bà đeo máy trợ thính cho cuộc trò chuyện chiều nay nhé?",
+      "note": "Như vậy nghe điện thoại sẽ dễ hơn.",
+      "yes": [
+        "Xong rồi",
+        "Tuyệt quá",
+        "Xong"
+      ],
+      "no": [
+        "Để sau",
+        "Không sao ạ",
+        "Để sau"
+      ]
+    }
+  ],
+  "promise": {
+    "title": "🔐 Cam kết riêng tư với bà",
+    "meta": "Hỗ trợ sức khỏe, không phải theo dõi",
+    "items": [
+      {
+        "emoji": "✋",
+        "bold": "Bà là người quyết định.",
+        "text": "Bà chọn ai xem được gì, và có thể thay đổi bất cứ lúc nào."
+      },
+      {
+        "emoji": "📷",
+        "bold": "Không bao giờ có camera.",
+        "text": "Cảm biến trong nhà chỉ nhận biết chuyển động và nhiệt độ."
+      },
+      {
+        "emoji": "🎙️",
+        "bold": "Không nghe lén.",
+        "text": "Micrô chỉ bật trong những cuộc gọi bà nghe máy."
+      },
+      {
+        "emoji": "📍",
+        "bold": "Không theo dõi vị trí.",
+        "text": "Định vị đang tắt. Nếu bà bật lên, mọi người chỉ thấy \"ở nhà\" hoặc \"ra ngoài\"."
+      },
+      {
+        "emoji": "🚨",
+        "bold": "Chỉ khi khẩn cấp:",
+        "text": "David và James luôn nhận cảnh báo an toàn, để có người đến giúp."
+      }
+    ],
+    "settings": "Xem tất cả cài đặt"
+  },
+  "access": {
+    "title": "👀 Ai đã xem thông tin của bà",
+    "meta": "Để không có gì diễn ra sau lưng bà",
+    "head": [
+      "Khi nào",
+      "Ai",
+      "Đã xem gì",
+      "Lý do"
+    ],
+    "rows": [
+      [
+        "Hôm nay 09:12",
+        "James",
+        "Tóm tắt nhịp tim và huyết áp của bà",
+        "Xem hằng tuần"
+      ],
+      [
+        "Hôm nay 08:40",
+        "David",
+        "Hỏi thăm \"Tôi ổn\"",
+        "Kiểm tra buổi sáng"
+      ],
+      [
+        "Hôm qua 16:42",
+        "Dr Patel",
+        "Báo cáo huyết áp",
+        "Bà đã đồng ý gửi"
+      ],
+      [
+        "Hôm qua 11:05",
+        "Priya",
+        "Thuốc đã uống tuần này",
+        "Lên kế hoạch thăm của điều dưỡng"
+      ],
+      [
+        "Th 2 19:30",
+        "Sarah",
+        "Giấc ngủ và số bước",
+        "Gọi cho bà sau đó"
+      ]
+    ]
+  }
+}

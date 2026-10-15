@@ -1,0 +1,1106 @@
+{
+  "margaret": {
+    "id": "margaret",
+    "name": "Margaret Collins",
+    "initials": "MC",
+    "color": "#0b7f71",
+    "nickname": "Maggie",
+    "born": "3/3/1948",
+    "age": 78,
+    "gender": "Nữ",
+    "suburb": "Marrickville",
+    "postcode": "2204",
+    "heightCm": 162,
+    "weightKg": 61.2,
+    "bmi": 23.4,
+    "bloodType": "O dương",
+    "mobilityAid": "Gậy khi ra ngoài",
+    "hearingAids": "Máy trợ thính, cả hai tai",
+    "advanceCarePlan": "Đã có kế hoạch chăm sóc trước",
+    "allergies": [
+      "Penicillin"
+    ],
+    "medicineCount": 4,
+    "conditions": [
+      {
+        "emoji": "🩺",
+        "title": "Huyết áp cao",
+        "since": "Từ năm 61 tuổi (2009)",
+        "now": "Gần đây chưa kiểm soát tốt",
+        "color": "#d9443f",
+        "detail": "Huyết áp của bà tăng dần trong 6 tuần qua. Bà uống amlodipine mỗi tối; tuần này quên 3 liều. Mục tiêu: dưới 135 vào buổi sáng."
+      },
+      {
+        "emoji": "🦻",
+        "title": "Suy giảm thính lực",
+        "since": "Cả hai tai · từ 72 tuổi (2020)",
+        "now": "Hôm nay chưa đeo máy trợ thính",
+        "color": "#c88a05",
+        "detail": "Suy giảm thính lực do tuổi tác. Máy trợ thính giúp nghe rõ hơn, và đeo đều đặn còn giảm nguy cơ suy giảm trí nhớ về sau. Đã hẹn đo thính lực ngày 22/10."
+      },
+      {
+        "emoji": "🫘",
+        "title": "Thận hoạt động hơi chậm",
+        "since": "Giai đoạn 3a · phát hiện 2025",
+        "now": "Ổn định, kiểm tra hằng năm",
+        "color": "#c88a05",
+        "detail": "Chức năng thận (eGFR) là 58; bình thường từ 60 trở lên. Thường gặp ở tuổi của bà. Bác sĩ gia đình kiểm tra hằng năm và tránh các thuốc gây hại thận."
+      },
+      {
+        "emoji": "🍬",
+        "title": "Đường huyết ở mức cao",
+        "since": "HbA1c 5,9% · 2026",
+        "now": "Theo dõi",
+        "color": "#c88a05",
+        "detail": "Chưa phải tiểu đường, nhưng sát ngưỡng (6,0%). Bố bà từng bị tiểu đường type 2. Đi bộ và bớt đồ uống ngọt sẽ có ích."
+      },
+      {
+        "emoji": "🦴",
+        "title": "Viêm khớp hai đầu gối",
+        "since": "Từ 2015",
+        "now": "Đau nhẹ, dùng gậy",
+        "color": "#56706e",
+        "detail": "Viêm khớp do thoái hóa. Đi bộ nhẹ nhàng và lớp tập sức mạnh giúp ích. Uống paracetamol khi cần."
+      },
+      {
+        "emoji": "💔",
+        "title": "Nhịp tim không đều (có thể)",
+        "since": "Đang kiểm tra · 10/2026",
+        "now": "2 cảnh báo tuần này",
+        "color": "#c2417a",
+        "detail": "Đồng hồ đeo tay của bà hai lần ghi nhận nhịp không đều vào ban đêm. Điện tâm đồ ngày 12/10 bình thường. Bác sĩ gia đình có thể cho đeo máy theo dõi tim 2 tuần."
+      },
+      {
+        "emoji": "🧠",
+        "title": "Trí nhớ",
+        "since": "Chưa có chẩn đoán",
+        "now": "Theo dõi nhẹ nhàng",
+        "color": "#1f8f5f",
+        "detail": "Không có bệnh về trí nhớ. Mẹ bà từng bị sa sút trí tuệ, nên cuộc trò chuyện hằng ngày để ý những thay đổi chậm trong lời nói. Đến nay mọi thứ bình thường."
+      },
+      {
+        "emoji": "🦴",
+        "title": "Độ chắc của xương",
+        "since": "Thiếu xương · 2022",
+        "now": "Vitamin D hằng ngày",
+        "color": "#56706e",
+        "detail": "Xương hơi mỏng hơn mức trung bình, thường gặp sau tuổi 70. Bà uống vitamin D và tập thăng bằng để phòng té ngã."
+      }
+    ],
+    "status": "good",
+    "lastChat": "Trò chuyện gần nhất 13:02 · vui vẻ",
+    "devices": {
+      "wearableBattery": 64,
+      "hubSensors": 6
+    },
+    "profile": {
+      "checkedBy": "Hồ sơ sức khỏe của bà · bác sĩ gia đình kiểm tra ngày 12/9",
+      "shareToast": "Đã chia sẻ hồ sơ với vòng chăm sóc",
+      "rows": [
+        {
+          "emoji": "👩",
+          "label": "Giới tính",
+          "value": "Nữ"
+        },
+        {
+          "emoji": "🎂",
+          "label": "Tuổi",
+          "value": "78"
+        },
+        {
+          "emoji": "📏",
+          "label": "Chiều cao",
+          "value": "162 cm"
+        },
+        {
+          "emoji": "⚖️",
+          "label": "Cân nặng",
+          "value": "61,2 kg"
+        },
+        {
+          "emoji": "📐",
+          "label": "BMI",
+          "value": "23,4 · bình thường"
+        },
+        {
+          "emoji": "🩸",
+          "label": "Nhóm máu",
+          "value": "O dương"
+        },
+        {
+          "emoji": "🏠",
+          "label": "Sống",
+          "value": "Một mình · nhà phố 2 tầng"
+        },
+        {
+          "emoji": "🗣️",
+          "label": "Ngôn ngữ",
+          "value": "Tiếng Anh"
+        },
+        {
+          "emoji": "🦯",
+          "label": "Dụng cụ hỗ trợ",
+          "value": "Gậy khi ra ngoài"
+        },
+        {
+          "emoji": "👓",
+          "label": "Thị lực",
+          "value": "Kính đọc sách"
+        },
+        {
+          "emoji": "🦻",
+          "label": "Thính lực",
+          "value": "Máy trợ thính, cả hai tai"
+        },
+        {
+          "emoji": "📝",
+          "label": "Mong muốn chăm sóc",
+          "value": "Đã có kế hoạch chăm sóc trước"
+        }
+      ],
+      "chips": [
+        {
+          "text": "⚠️ Dị ứng: penicillin (phát ban)",
+          "danger": true
+        },
+        {
+          "text": "💊 4 loại thuốc thường xuyên"
+        },
+        {
+          "text": "🚬 Chưa từng hút thuốc"
+        },
+        {
+          "text": "🍷 1–2 ly mỗi tuần"
+        },
+        {
+          "text": "💉 Tiêm cúm 4/2026 · sắp đến hạn COVID"
+        }
+      ]
+    },
+    "today": {
+      "updated": "Cập nhật 15:08",
+      "headline": "Đang ổn",
+      "devices": [
+        {
+          "label": "Đồng hồ đeo tay",
+          "value": "64% · đang đeo"
+        },
+        {
+          "label": "Bộ trung tâm tại nhà",
+          "value": "Trực tuyến · 6 cảm biến"
+        },
+        {
+          "label": "Điện thoại",
+          "value": "Đang sạc"
+        }
+      ],
+      "actions": [
+        {
+          "label": "Hỏi thăm bà",
+          "icon": "mic",
+          "kind": "chat"
+        },
+        {
+          "label": "Gọi Mẹ",
+          "toast": "Đang gọi bà Margaret · bật phụ đề",
+          "kind": "call"
+        }
+      ]
+    },
+    "dayline": [
+      {
+        "time": "Sáng",
+        "text": "🌅 Đã dậy và đi lại · đã chào buổi sáng"
+      },
+      {
+        "time": "08:12",
+        "text": "💬 Trò chuyện buổi sáng · mọi thứ ổn"
+      },
+      {
+        "time": "08:31",
+        "text": "💊 Đã uống thuốc buổi sáng"
+      },
+      {
+        "time": "09:31",
+        "text": "💊 Đã uống thuốc tối qua sau khi được nhắc",
+        "flag": "w"
+      },
+      {
+        "time": "Cuối buổi sáng",
+        "text": "🚶 Ra ngoài đi bộ"
+      },
+      {
+        "time": "13:02",
+        "text": "🍽️ Trò chuyện bữa trưa · vui vẻ"
+      },
+      {
+        "time": "Buổi chiều",
+        "text": "😴 Đang nghỉ ngơi · hôm nay trời nóng",
+        "flag": "w"
+      },
+      {
+        "time": "18:00",
+        "text": "💬 Cuộc trò chuyện tiếp theo",
+        "flag": "n"
+      }
+    ],
+    "context": {
+      "initials": "MC",
+      "color": "#0b7f71",
+      "sub": "Marrickville NSW 2204 · Inner West · Thứ Tư 14/10, 15:10 AEDT",
+      "facts": [
+        {
+          "live": true,
+          "label": "Nữ",
+          "value": "78"
+        },
+        {
+          "live": false,
+          "label": "Sinh",
+          "value": "3/3/1948"
+        },
+        {
+          "live": false,
+          "label": "Bệnh lý",
+          "value": "8"
+        },
+        {
+          "live": false,
+          "label": "Dị ứng",
+          "value": "penicillin"
+        },
+        {
+          "live": false,
+          "label": "Chế độ",
+          "value": "khiếm thính"
+        },
+        {
+          "live": false,
+          "label": "Nhóm chăm sóc",
+          "value": "5 người"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "emoji": "❤️",
+        "label": "Nhịp tim",
+        "value": "68",
+        "unit": "bpm",
+        "color": "#ef6a5e",
+        "baseline": "thường 63",
+        "delta": "Hơi cao hơn",
+        "tone": "good",
+        "spark": [
+          62,
+          63,
+          64,
+          63,
+          65,
+          64,
+          66,
+          64,
+          68
+        ]
+      },
+      {
+        "emoji": "🩺",
+        "label": "Huyết áp",
+        "value": "146",
+        "unit": "/88",
+        "color": "#c88a05",
+        "baseline": "thường 132/82",
+        "delta": "Cao hơn thường lệ",
+        "tone": "warn",
+        "spark": [
+          128,
+          130,
+          131,
+          133,
+          135,
+          137,
+          140,
+          143,
+          146
+        ]
+      },
+      {
+        "emoji": "🌿",
+        "label": "Điểm thư thái (HRV)",
+        "value": "26",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "thường 31",
+        "delta": "Thấp hơn: căng thẳng hơn",
+        "tone": "warn",
+        "spark": [
+          32,
+          31,
+          30,
+          31,
+          29,
+          28,
+          27,
+          27,
+          26
+        ]
+      },
+      {
+        "emoji": "😴",
+        "label": "Giấc ngủ",
+        "value": "6 giờ 12 phút",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "thường 7 giờ",
+        "delta": "Ít hơn thường lệ",
+        "tone": "warn",
+        "spark": [
+          7.1,
+          6.9,
+          7,
+          6.6,
+          6.8,
+          6.3,
+          6.5,
+          6,
+          6.2
+        ]
+      },
+      {
+        "emoji": "👣",
+        "label": "Số bước",
+        "value": "3.240",
+        "unit": "hôm nay",
+        "color": "#1fb39c",
+        "baseline": "thường 3.600",
+        "delta": "Gần như thường lệ",
+        "tone": "good",
+        "spark": [
+          3800,
+          3500,
+          3900,
+          3400,
+          3600,
+          3300,
+          3700,
+          3100,
+          3240
+        ]
+      },
+      {
+        "emoji": "🚶",
+        "label": "Tốc độ đi bộ",
+        "value": "0,82",
+        "unit": "m/s",
+        "color": "#1f8f5f",
+        "baseline": "thường 0,89",
+        "delta": "Chậm hơn thường lệ",
+        "tone": "warn",
+        "spark": [
+          0.9,
+          0.89,
+          0.9,
+          0.88,
+          0.87,
+          0.86,
+          0.85,
+          0.83,
+          0.82
+        ]
+      },
+      {
+        "emoji": "💊",
+        "label": "Thuốc đã uống",
+        "value": "86",
+        "unit": "%",
+        "color": "#c88a05",
+        "baseline": "mục tiêu 95%",
+        "delta": "Có quên vài liều",
+        "tone": "warn",
+        "spark": [
+          97,
+          96,
+          95,
+          94,
+          92,
+          90,
+          89,
+          87,
+          86
+        ]
+      },
+      {
+        "emoji": "📞",
+        "label": "Cuộc gọi đã nghe",
+        "value": "97",
+        "unit": "%",
+        "color": "#0b7f71",
+        "baseline": "thường 98%",
+        "delta": "Như thường lệ",
+        "tone": "good",
+        "spark": [
+          98,
+          99,
+          97,
+          98,
+          98,
+          96,
+          97,
+          98,
+          97
+        ]
+      },
+      {
+        "emoji": "🗣️",
+        "label": "Nhịp nói",
+        "value": "132",
+        "unit": "từ/phút",
+        "color": "#2f6fb0",
+        "baseline": "thường 141",
+        "delta": "Hơi chậm hơn",
+        "tone": "good",
+        "spark": [
+          142,
+          140,
+          141,
+          139,
+          138,
+          137,
+          135,
+          134,
+          132
+        ]
+      },
+      {
+        "emoji": "🤝",
+        "label": "Thời gian bên mọi người",
+        "value": "5",
+        "unit": "tuần này",
+        "color": "#c2417a",
+        "baseline": "thường 6",
+        "delta": "Gần như thường lệ",
+        "tone": "good",
+        "spark": [
+          6,
+          7,
+          6,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "emoji": "🌡️",
+        "label": "Nhiệt độ trong nhà",
+        "value": "29,5",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "thường 25",
+        "delta": "Quá nóng",
+        "tone": "warn",
+        "spark": [
+          24,
+          25,
+          25,
+          26,
+          27,
+          27,
+          28,
+          29,
+          29.5
+        ]
+      },
+      {
+        "emoji": "⚖️",
+        "label": "Cân nặng",
+        "value": "61,2",
+        "unit": "kg",
+        "color": "#56706e",
+        "baseline": "thường 61,0",
+        "delta": "Ổn định",
+        "tone": "good",
+        "spark": [
+          61,
+          61.1,
+          60.9,
+          61,
+          61.2,
+          61.1,
+          61,
+          61.3,
+          61.2
+        ]
+      }
+    ],
+    "kpisTechnical": [
+      {
+        "label": "Nhịp tim lúc nghỉ",
+        "value": "68",
+        "unit": "bpm",
+        "color": "#ef6a5e",
+        "baseline": "nền 63",
+        "delta": "+0.4σ",
+        "tone": "good",
+        "spark": [
+          62,
+          63,
+          64,
+          63,
+          65,
+          64,
+          66,
+          64,
+          68
+        ]
+      },
+      {
+        "label": "Huyết áp (7 ngày)",
+        "value": "146",
+        "unit": "/88",
+        "color": "#c88a05",
+        "baseline": "nền 132/82",
+        "delta": "+2.8σ",
+        "tone": "warn",
+        "spark": [
+          128,
+          130,
+          131,
+          133,
+          135,
+          137,
+          140,
+          143,
+          146
+        ]
+      },
+      {
+        "label": "HRV (RMSSD)",
+        "value": "26",
+        "unit": "ms",
+        "color": "#5a7fe0",
+        "baseline": "nền 31",
+        "delta": "−1.9σ",
+        "tone": "warn",
+        "spark": [
+          32,
+          31,
+          30,
+          31,
+          29,
+          28,
+          27,
+          27,
+          26
+        ]
+      },
+      {
+        "label": "Giấc ngủ",
+        "value": "6:12",
+        "unit": "giờ",
+        "color": "#8f6fd0",
+        "baseline": "hiệu suất 81%",
+        "delta": "−1.2σ",
+        "tone": "warn",
+        "spark": [
+          7.1,
+          6.9,
+          7,
+          6.6,
+          6.8,
+          6.3,
+          6.5,
+          6,
+          6.2
+        ]
+      },
+      {
+        "label": "Số bước",
+        "value": "3.240",
+        "unit": "hôm nay",
+        "color": "#1fb39c",
+        "baseline": "nền 3.600",
+        "delta": "−0.6σ",
+        "tone": "good",
+        "spark": [
+          3800,
+          3500,
+          3900,
+          3400,
+          3600,
+          3300,
+          3700,
+          3100,
+          3240
+        ]
+      },
+      {
+        "label": "Tốc độ đi",
+        "value": "0,82",
+        "unit": "m/s",
+        "color": "#1f8f5f",
+        "baseline": "nền 0,89",
+        "delta": "−2.1σ",
+        "tone": "warn",
+        "spark": [
+          0.9,
+          0.89,
+          0.9,
+          0.88,
+          0.87,
+          0.86,
+          0.85,
+          0.83,
+          0.82
+        ]
+      },
+      {
+        "label": "Tuân thủ dùng thuốc",
+        "value": "86",
+        "unit": "% 30 ngày",
+        "color": "#c88a05",
+        "baseline": "mục tiêu 95",
+        "delta": "−1.8σ",
+        "tone": "warn",
+        "spark": [
+          97,
+          96,
+          95,
+          94,
+          92,
+          90,
+          89,
+          87,
+          86
+        ]
+      },
+      {
+        "label": "Phản hồi hỏi thăm",
+        "value": "97",
+        "unit": "% 30 ngày",
+        "color": "#0b7f71",
+        "baseline": "nền 98",
+        "delta": "−0.3σ",
+        "tone": "good",
+        "spark": [
+          98,
+          99,
+          97,
+          98,
+          98,
+          96,
+          97,
+          98,
+          97
+        ]
+      },
+      {
+        "label": "Tốc độ nói",
+        "value": "132",
+        "unit": "từ/phút",
+        "color": "#2f6fb0",
+        "baseline": "nền 141",
+        "delta": "−1.4σ",
+        "tone": "good",
+        "spark": [
+          142,
+          140,
+          141,
+          139,
+          138,
+          137,
+          135,
+          134,
+          132
+        ]
+      },
+      {
+        "label": "Giao tiếp xã hội",
+        "value": "5",
+        "unit": "tuần này",
+        "color": "#c2417a",
+        "baseline": "nền 6",
+        "delta": "−0.5σ",
+        "tone": "good",
+        "spark": [
+          6,
+          7,
+          6,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "label": "Nhiệt độ trong nhà",
+        "value": "29,5",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "nền 25,1",
+        "delta": "+2.2σ",
+        "tone": "warn",
+        "spark": [
+          24,
+          25,
+          25,
+          26,
+          27,
+          27,
+          28,
+          29,
+          29.5
+        ]
+      },
+      {
+        "label": "Cân nặng",
+        "value": "61,2",
+        "unit": "kg",
+        "color": "#56706e",
+        "baseline": "nền 61,0",
+        "delta": "+0.2σ",
+        "tone": "good",
+        "spark": [
+          61,
+          61.1,
+          60.9,
+          61,
+          61.2,
+          61.1,
+          61,
+          61.3,
+          61.2
+        ]
+      }
+    ],
+    "helperLog": [
+      {
+        "time": "15:00",
+        "what": "Kiểm tra lại mọi chỉ số sức khỏe của bà",
+        "how": "Đã làm",
+        "why": "Mỗi giờ",
+        "result": "Nguy cơ đột quỵ không đổi",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "13:02",
+        "what": "Trò chuyện 2 phút với bà",
+        "how": "Đã làm",
+        "why": "Cuộc gọi hằng ngày",
+        "result": "Nói rõ ràng · hỏi lại \"gì cơ?\" hai lần",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "12:40",
+        "what": "Nhắc bà bật quạt và uống nước",
+        "how": "Đã làm",
+        "why": "Trong nhà 29,5°",
+        "result": "Bà nói \"ừ, bà làm ngay\"",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "10:05",
+        "what": "Nhắc bà về nhóm đi bộ thứ Năm",
+        "how": "Đã làm",
+        "why": "Bà nhờ nhắc",
+        "result": "Bà nói sẽ đi",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "09:31",
+        "what": "Nhắc lại liều thuốc quên tối qua",
+        "how": "Đã làm",
+        "why": "Hộp chia thuốc chưa mở",
+        "result": "Đã uống lúc 9:33",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "08:12",
+        "what": "Trò chuyện buổi sáng",
+        "how": "Đã làm",
+        "why": "Cuộc gọi hằng ngày",
+        "result": "Mọi thứ ổn",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "Hôm qua 21:40",
+        "what": "Đề xuất David chuẩn bị hộp chia thuốc theo tuần",
+        "how": "Cần bạn đồng ý",
+        "why": "Quên thuốc + huyết áp tăng",
+        "result": "Đang chờ bạn",
+        "tone": "warn",
+        "needsApproval": true
+      },
+      {
+        "time": "Hôm qua 16:00",
+        "what": "Gửi báo cáo huyết áp của bà cho Dr Patel",
+        "how": "Bạn đã duyệt",
+        "why": "Tóm tắt hằng tuần",
+        "result": "Đã gửi · đã đọc 16:42",
+        "tone": "good",
+        "needsApproval": false
+      }
+    ],
+    "helperLogTechnical": [
+      {
+        "time": "15:00",
+        "what": "Chấm lại mọi nguy cơ (64 tín hiệu)",
+        "how": "Tự động",
+        "why": "Theo lịch",
+        "result": "Đột quỵ 90 ngày giữ nguyên 2,1%",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "13:02",
+        "what": "Hỏi thăm bằng giọng nói, 2 phút 14 giây",
+        "how": "Tự động",
+        "why": "Lịch hằng ngày",
+        "result": "Nói rõ · \"gì cơ?\" ×2",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "12:40",
+        "what": "Nhắc nắng nóng: bật quạt, uống nước",
+        "how": "Tự động",
+        "why": "Trong nhà 29,5 °C",
+        "result": "Đã xác nhận bằng giọng nói",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "10:05",
+        "what": "Phát hiện ghé nhà thuốc (10:14–10:22)",
+        "how": "Thụ động",
+        "why": "Vùng định vị",
+        "result": "Thói quen bình thường",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "09:31",
+        "what": "Nhắc lại liều đã quên",
+        "how": "Tự động",
+        "why": "Hộp chia thuốc: chưa uống liều",
+        "result": "Đã uống lúc 09:33",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "08:12",
+        "what": "Hỏi thăm buổi sáng",
+        "how": "Tự động",
+        "why": "Lịch hằng ngày",
+        "result": "Bình thường",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "Hôm qua 21:40",
+        "what": "Đề xuất David chuẩn bị hộp chia thuốc",
+        "how": "Cần phê duyệt",
+        "why": "Xu hướng huyết áp + quên liều",
+        "result": "Đang chờ James",
+        "tone": "warn",
+        "needsApproval": true
+      },
+      {
+        "time": "Hôm qua 16:00",
+        "what": "Đã gửi báo cáo huyết áp cho Dr Patel",
+        "how": "James đã duyệt",
+        "why": "Tóm tắt hằng tuần",
+        "result": "Đã gửi · đã đọc 16:42",
+        "tone": "good",
+        "needsApproval": false
+      }
+    ],
+    "ownView": {
+      "greeting": "Chào buổi chiều, bà Maggie 🌞",
+      "sub": "Hôm nay bà khỏe lắm. Đây là ngày của bà, dành riêng cho bà.",
+      "tiles": [
+        {
+          "emoji": "❤️",
+          "title": "Tim",
+          "note": "68 · ổn định"
+        },
+        {
+          "emoji": "👣",
+          "title": "3.240 bước",
+          "note": "sắp đến 3.500 rồi!"
+        },
+        {
+          "emoji": "😴",
+          "title": "Ngủ 6 giờ",
+          "note": "hơi ít",
+          "warn": true
+        },
+        {
+          "emoji": "💧",
+          "title": "Nước",
+          "note": "bà uống một cốc nhé",
+          "warn": true
+        },
+        {
+          "emoji": "💊",
+          "title": "Liều thuốc tới",
+          "note": "18:00, amlodipine"
+        },
+        {
+          "emoji": "📞",
+          "title": "James gọi",
+          "note": "tối nay lúc 20:00"
+        }
+      ],
+      "ideas": [
+        {
+          "emoji": "🔥",
+          "title": "Thứ Năm trời sẽ 38°. Bà có muốn được đưa đến phòng mát ở thư viện không?",
+          "note": "Tom, một tình nguyện viên, có thể đón bà lúc 11 giờ.",
+          "yes": {
+            "label": "Có, cảm ơn",
+            "toast": "Đã đặt xe đón thứ Năm 11:00",
+            "done": "Đã đặt"
+          },
+          "no": {
+            "label": "Không, cảm ơn",
+            "toast": "Không sao, chúng tôi sẽ gọi điện hỏi thăm bà",
+            "done": "Để sau"
+          }
+        },
+        {
+          "emoji": "💊",
+          "title": "Hộp chia thuốc theo tuần có giúp bà nhớ liều buổi tối không?",
+          "note": "David ngỏ ý chuẩn bị giúp vào thứ Bảy.",
+          "yes": {
+            "label": "Có, cảm ơn",
+            "toast": "David sẽ đến thứ Bảy lúc 10:00",
+            "done": "Đồng ý"
+          },
+          "no": {
+            "label": "Không, cảm ơn",
+            "toast": "Được ạ, chúng tôi chỉ giữ lời nhắc thôi",
+            "done": "Để sau"
+          }
+        },
+        {
+          "emoji": "🦻",
+          "title": "Bà đeo máy trợ thính cho cuộc trò chuyện chiều nay nhé?",
+          "note": "Như vậy nghe điện thoại dễ hơn.",
+          "yes": {
+            "label": "Xong rồi",
+            "toast": "Tuyệt quá",
+            "done": "Xong"
+          },
+          "no": {
+            "label": "Để sau",
+            "toast": "Không sao ạ",
+            "done": "Để sau"
+          }
+        }
+      ],
+      "promise": [
+        {
+          "emoji": "✋",
+          "lead": "Bà là người quyết định.",
+          "text": "Bà chọn ai được xem gì, và có thể đổi bất cứ lúc nào."
+        },
+        {
+          "emoji": "📷",
+          "lead": "Không bao giờ có camera.",
+          "text": "Cảm biến trong nhà chỉ nhận biết chuyển động và nhiệt độ."
+        },
+        {
+          "emoji": "🎙️",
+          "lead": "Không nghe lén.",
+          "text": "Micro chỉ bật trong những cuộc gọi bà nhận."
+        },
+        {
+          "emoji": "📍",
+          "lead": "Không theo dõi vị trí.",
+          "text": "Định vị đang tắt. Nếu bà bật, mọi người chỉ thấy \"ở nhà\" hoặc \"ra ngoài\"."
+        },
+        {
+          "emoji": "🚨",
+          "lead": "Chỉ khi khẩn cấp:",
+          "text": "David và James luôn nhận cảnh báo an toàn để có thể đến giúp."
+        }
+      ],
+      "accessLog": [
+        {
+          "when": "Hôm nay 09:12",
+          "who": "James",
+          "what": "Tóm tắt nhịp tim và huyết áp của bà",
+          "why": "Xem hằng tuần"
+        },
+        {
+          "when": "Hôm nay 08:40",
+          "who": "David",
+          "what": "Hỏi thăm \"Tôi ổn\"",
+          "why": "Kiểm tra buổi sáng"
+        },
+        {
+          "when": "Hôm qua 16:42",
+          "who": "Dr Patel",
+          "what": "Báo cáo huyết áp",
+          "why": "Bà đã đồng ý gửi"
+        },
+        {
+          "when": "Hôm qua 11:05",
+          "who": "Priya",
+          "what": "Thuốc đã uống tuần này",
+          "why": "Lên lịch điều dưỡng đến thăm"
+        },
+        {
+          "when": "Th 2 19:30",
+          "who": "Sarah",
+          "what": "Giấc ngủ và số bước",
+          "why": "Đã gọi cho bà sau đó"
+        }
+      ],
+      "privacy": {
+        "presets": [
+          {
+            "id": "family",
+            "label": "👨‍👩‍👧 Gia đình xem gần hết, trừ tâm trạng của tôi"
+          },
+          {
+            "id": "safety",
+            "label": "🚨 Chỉ cảnh báo an toàn"
+          },
+          {
+            "id": "all",
+            "label": "🤝 Chia sẻ mọi thứ với gia đình"
+          }
+        ],
+        "safetyNote": "🚨 Không thể tắt cảnh báo an toàn với người liên hệ khẩn cấp, để luôn có người đến khi bà cần giúp. Bà có thể đổi người liên hệ khẩn cấp.",
+        "emergency": {
+          "agreed": "Đã đồng ý ngày 1/10",
+          "text": "Nếu bà cần xe cấp cứu, bệnh viện sẽ nhận thông tin bệnh, thuốc và dị ứng của bà để giúp nhanh hơn. Không gì khác, và chỉ cho lần đó.",
+          "buttons": [
+            {
+              "label": "Đọc thỏa thuận",
+              "toast": "Thỏa thuận khẩn cấp đang hiện trên điện thoại của bà",
+              "done": "Đã mở"
+            },
+            {
+              "label": "Người liên hệ khẩn cấp",
+              "toast": "Người liên hệ khẩn cấp: David và James",
+              "done": "Đã xem"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

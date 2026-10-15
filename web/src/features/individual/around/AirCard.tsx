@@ -3,13 +3,16 @@
 import { useDrawer } from '@/components/ui/Drawer'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Pill } from '@/components/ui/Pill'
-import { AROUND_COPY, DRAWER_ACTIONS } from '@/data/repo'
+import { useTranslation } from 'react-i18next'
 import type { AirDay } from '@/data/types'
 import { Actions, Head, Kv, keyActivate } from '../home/parts'
+import type { ActionList } from '@/features/shared/drawers'
 import { TableScroll } from '@/components/ui/TableScroll'
 
 function AirDrawerBody({ d }: { d: AirDay }) {
-  const cols = AROUND_COPY.air.columns
+  const { t } = useTranslation('around')
+  const cols = t('air.columns', { returnObjects: true })
+  const { t: tc } = useTranslation('common')
   return (
     <>
       <Kv
@@ -21,7 +24,7 @@ function AirDrawerBody({ d }: { d: AirDay }) {
           [cols[5], d.advice],
         ]}
       />
-      <Actions list={DRAWER_ACTIONS.row} />
+      <Actions list={tc('drawerActions.row', { returnObjects: true }) as unknown as ActionList} />
     </>
   )
 }
@@ -29,13 +32,14 @@ function AirDrawerBody({ d }: { d: AirDay }) {
 /** `🍃 Air, pollen and smoke` (c6): 7-day table. */
 export function AirCard({ air, note }: { air: AirDay[]; note: string }) {
   const drawer = useDrawer()
-  const c = AROUND_COPY.air
+  const { t } = useTranslation('around')
+  const columns = t('air.columns', { returnObjects: true })
   return (
     <GlassCard span={6}>
-      <Head title={c.title} meta={c.meta} />
+      <Head title={t('air.title')} meta={t('air.meta')} />
       <TableScroll>
         <table style={{ minWidth: 0 }}>
-          <thead><tr>{c.columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>
+          <thead><tr>{columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody>
             {air.map((d) => {
               const open = () => drawer.open(d.day, <AirDrawerBody d={d} />)

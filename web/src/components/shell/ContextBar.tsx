@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
 import { usePathname, useRouter } from '@/app/navigation'
 import { WhoSwitch } from './WhoSwitch'
 import * as repo from '@/data/repo'
@@ -9,6 +10,7 @@ import { CATEGORY_IDS, countSees } from '@/domain/consent'
 import type { ContextBar as Ctx } from '@/data/types'
 import { OWN_CONTEXT, PAGE_TITLES, parsePath, VIEW_LABELS } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
+import { useLiveIncident } from '@/state/LiveIncident'
 import s from './shell.module.css'
 
 type Bars = { person: Ctx; lineage: Ctx; hospital: Ctx; community: Ctx }
@@ -28,9 +30,11 @@ function useContextBars(): Bars | null {
 }
 
 export function ContextBar() {
+  const { t } = useTranslation(['common', 'live'])
   const router = useRouter()
   const { view, page } = parsePath(usePathname())
   const { who, setWho, setViewer, viewer, paused, share, people, emergency } = useAppState()
+  const { view: liveView, people: livePeople } = useLiveIncident()
   const bars = useContextBars()
 
   let ctx: Ctx | undefined
@@ -45,11 +49,17 @@ export function ContextBar() {
   const viewerName = viewerInfo?.name ?? ''
   const sees = share ? countSees(share, paused, viewer) : 0
 
+  /** Live incident subtitle: story time and the address without its " (fictional)" tag, or the time alone. */
+  const liveSubtitle = (time: string, address?: string) =>
+    address
+      ? t('live:liveSubtitle', { time, address: address.replace(/\s*\(fictional\)$/, '') })
+      : t('live:liveSubtitleShort', { time })
+
   const banner = !individual
     ? VIEW_LABELS[view]
     : self
-      ? "Margaret's own view · she controls her information"
-      : `Family & carers view · ${viewerName} sees only what Margaret shares`
+      ? t('context.selfBanner')
+      : t('context.familyBanner', { viewerName })
 
   const switchWho = (w: typeof who) => {
     setWho(w)
@@ -70,13 +80,13 @@ export function ContextBar() {
         <div>
           <span className="vbanner" id="vban">{banner}</span>
           <h1 id="pgTitle">{page ? PAGE_TITLES[page] : ''}</h1>
-          <div className="sub" id="pgSub">{page === 'live' && emergency.active ? repo.LIVE_COPY.subtitle(STEPS[emergency.step].t) : ctx?.sub}</div>
+          <div className="sub" id="pgSub">{page === 'live' && liveView?.open ? liveSubtitle(liveView.storyTime, livePeople.person?.addressText) : page === 'live' && emergency.active ? t('live:subtitle', { time: STEPS[emergency.step].t }) : ctx?.sub}</div>
         </div>
         <span className="sp"></span>
         {individual && <WhoSwitch who={who} onSelect={switchWho} />}
         <div className="facts" id="facts">
           {individual && !self && share && (
-            <span className="fact"><i></i>{viewerName} sees <b>{sees} of {CATEGORY_IDS.length}</b> things Margaret shares</span>
+            <span className="fact"><i></i><Trans t={t} i18nKey="context.sees" values={{ viewerName, seen: sees, total: CATEGORY_IDS.length }} components={{ b: <b /> }} /></span>
           )}
           {ctx?.facts.map((f) => (
             <span className="fact" key={f.label}>{f.live && <i></i>}{f.label} <b>{f.value}</b></span>
@@ -85,7 +95,7 @@ export function ContextBar() {
       </section>
       {individual && !self && paused && (
         <div className={`glass ${s.pauseBanner}`} id="pauseBanner">
-          ⏸️ <b>Margaret paused sharing until 9 am tomorrow.</b> You&apos;ll still get safety alerts straight away.
+          ⏸️ <b>{t('context.pausedBold')}</b> {t('context.pausedRest')}
         </div>
       )}
     </>

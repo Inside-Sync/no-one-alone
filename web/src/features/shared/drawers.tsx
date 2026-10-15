@@ -1,28 +1,37 @@
 'use client'
 
 import { Fragment, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Sparkline } from '@/components/charts/Sparkline'
 import { useDrawer } from '@/components/ui/Drawer'
 import { Kpi } from '@/components/ui/Kpi'
 import { OnceButton } from '@/components/ui/OnceButton'
-import { EXPLAIN, EXPLAIN_FALLBACK } from '@/data/repo'
 import type { Kpi as KpiData, MiniStat } from '@/data/types'
+import i18n from '@/i18n'
 import { textTone, toneVar } from '@/lib/tone'
 
-/** `[label, toast, done]` buttons of a drawer (prototype `actions()`). */
-export type ActionList = readonly (readonly [label: string, toast: string, done: string])[]
+/**
+ * `[label, toast, done]` buttons of a drawer (prototype `actions()`). Plain string arrays are accepted so a list can come
+ * straight from a translation (`t('common:drawerActions.row', { returnObjects: true })`).
+ */
+export type ActionList = readonly (readonly [label: string, toast: string, done: string] | readonly string[])[]
 
 /** What differs between the views' tile drawers: the buttons, and which `explainFor` fallback applies. */
 export interface DrawerConfig {
   actions: ActionList
-  fallback: keyof typeof EXPLAIN_FALLBACK
+  fallback: 'hospital' | 'community' | 'individual'
 }
 
-/** Prototype `explainFor`: first EXPLAIN key found in the label, else the view's fallback. */
+/**
+ * Prototype `explainFor`: first `common:explain` key found in the label, else the view's fallback. Keys are tried in the
+ * JSON's order, so the Vietnamese file lists its own fragments first and the English ones after (labels from live data
+ * may still be English). Read at call time, so it follows the current language.
+ */
 export function explainFor(label: string, fallback: DrawerConfig['fallback']): string {
-  const t = label.toLowerCase()
-  for (const k of Object.keys(EXPLAIN)) if (t.includes(k)) return EXPLAIN[k]
-  return EXPLAIN_FALLBACK[fallback]
+  const text = label.toLowerCase()
+  const explain = i18n.t('common:explain', { returnObjects: true }) as Record<string, string>
+  for (const k of Object.keys(explain)) if (text.includes(k)) return explain[k]
+  return i18n.t(`common:explainFallback.${fallback}`)
 }
 
 /** Prototype `actions()`: a row of once-only buttons, the first solid and the rest soft. */
@@ -69,11 +78,12 @@ interface KpiBodyProps extends DrawerConfig {
 
 /** KPI tile drawer body (prototype `.kpi` click handler): value, trend, comparison, explanation, actions. */
 export function KpiDrawerBody({ kpi, actions, fallback, explainLabel = kpi.label }: KpiBodyProps) {
+  const { t } = useTranslation()
   return (
     <>
       <div className="dr-big"><b>{kpi.value}{kpi.unit !== '' && <small>{kpi.unit}</small>}</b></div>
       <div className="dr-chart"><Sparkline values={kpi.spark} color={kpi.color} decorative /></div>
-      <Kv rows={[['Compared with', kpi.baseline], ['Change', kpi.delta]]} />
+      <Kv rows={[[t('drawer.compared'), kpi.baseline], [t('drawer.change'), kpi.delta]]} />
       <p style={para}>{explainFor(explainLabel, fallback)}</p>
       <Actions list={actions} />
     </>

@@ -1,5 +1,5 @@
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { HOSPITAL_COPY } from '@/data/repo'
 import type { HospitalData } from '@/data/types'
 
 type Demand = HospitalData['demand']
@@ -11,13 +11,13 @@ const RED = '#d9443f'
 
 /** `#demand14` (prototype lines 1719–1726): 14-day forecast with its 80% interval, last year and the comfort line. */
 function DemandChart({ d }: { d: Demand }) {
-  const c = HOSPITAL_COPY.demand.forecast
+  const { t } = useTranslation('hospital')
   const f = d.forecast
   const up = f.map((v, i) => `${x(i).toFixed(1)} ${y(v + 3 + i * 0.35).toFixed(1)}`)
   const dn = f.map((v, i) => `${x(i).toFixed(1)} ${y(v - 3 - i * 0.35).toFixed(1)}`).reverse()
   const line = (vs: number[]) => vs.map((v, i) => `${i ? 'L' : 'M'}${x(i)} ${y(v)}`).join(' ')
   return (
-    <svg viewBox={`0 0 ${W} 210`} role="img" aria-label={c.ariaLabel}>
+    <svg viewBox={`0 0 ${W} 210`} role="img" aria-label={t('demand.forecast.ariaLabel')}>
       {[10, 20, d.comfortLine, 30, 40].map((t) => {
         const comfort = t === d.comfortLine
         return (
@@ -40,21 +40,22 @@ function DemandChart({ d }: { d: Demand }) {
           </g>
         )
       })}
-      <text x={x(1)} y={T + 6} textAnchor="middle" style={{ fill: RED }}>{c.heatwave}</text>
-      <text x={x(13)} y={T + 6} textAnchor="end" style={{ fill: '#c88a05' }}>{c.secondSpell}</text>
+      <text x={x(1)} y={T + 6} textAnchor="middle" style={{ fill: RED }}>{t('demand.forecast.heatwave')}</text>
+      <text x={x(13)} y={T + 6} textAnchor="end" style={{ fill: '#c88a05' }}>{t('demand.forecast.secondSpell')}</text>
     </svg>
   )
 }
 
 /** `Presentations aged 75+, next 14 days` (c8), tagged FORECAST. */
 export function ForecastCard({ demand }: { demand: Demand }) {
-  const c = HOSPITAL_COPY.demand.forecast
+  const { t } = useTranslation('hospital')
+  const legend = t('demand.forecast.legend', { returnObjects: true })
   return (
     <GlassCard span={8} className="chart">
-      <div className="ch"><h2>{c.title}</h2><span className="tag">{c.tag}</span><span className="meta">{demand.meta}</span></div>
+      <div className="ch"><h2>{t('demand.forecast.title')}</h2><span className="tag">{t('demand.forecast.tag')}</span><span className="meta">{demand.meta}</span></div>
       <div id="demand14"><DemandChart d={demand} /></div>
       <div className="legend">
-        {c.legend.map((l) => <span key={l.label}><i style={{ background: l.color }}></i>{l.label}</span>)}
+        {legend.map((l) => <span key={l.label}><i style={{ background: l.color }}></i>{l.label}</span>)}
       </div>
     </GlassCard>
   )

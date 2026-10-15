@@ -1,7 +1,8 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react'
 import type { ComponentType } from 'react'
 import { vi } from 'vitest'
-import { PAGE_ERROR, resetDataSource, setDataSource, type DataSource } from '@/data/repo'
+import common from '@/locales/en/common.json'
+import { resetDataSource, setDataSource, type DataSource } from '@/data/repo'
 import { mockSource, resetMockSource } from '@/data/sources/mock'
 import { CommunityPage } from '@/features/community/overview/CommunityPage'
 import { WatchPage } from '@/features/community/watch/WatchPage'
@@ -69,13 +70,13 @@ test.each(CASES)('%s: a failed load shows PageError and "Try again" recovers', a
   setDataSource(failing(fail))
   renderWithProviders(<Page />, { who })
   const alert = await screen.findByRole('alert')
-  expect(alert).toHaveTextContent(PAGE_ERROR.text)
+  expect(alert).toHaveTextContent(common.pageError.text)
   expect(document.querySelector(`main[data-page="${page}"]`)).not.toBeNull()
   // Only the error card: none of the page's cards.
   expect(document.querySelectorAll('main article')).toHaveLength(1)
 
   resetDataSource()
-  fireEvent.click(screen.getByRole('button', { name: PAGE_ERROR.retry }))
+  fireEvent.click(screen.getByRole('button', { name: common.pageError.retry }))
   await waitFor(() => expect(screen.queryByRole('alert')).toBeNull())
   await waitFor(() => expect(document.querySelectorAll(`main[data-page="${page}"] h2`).length).toBeGreaterThan(0))
   await settle()
@@ -86,8 +87,8 @@ test('a retry that fails again keeps the error card', async () => {
   setDataSource(failing('getHospital'))
   renderWithProviders(<EdPage />, { who: 'family' })
   await screen.findByRole('alert')
-  fireEvent.click(screen.getByRole('button', { name: PAGE_ERROR.retry }))
-  expect(await screen.findByRole('alert')).toHaveTextContent(PAGE_ERROR.text)
+  fireEvent.click(screen.getByRole('button', { name: common.pageError.retry }))
+  expect(await screen.findByRole('alert')).toHaveTextContent(common.pageError.text)
   await settle()
   expect(unhandled).toEqual([])
 })
@@ -118,7 +119,7 @@ test('Record: a failed packet read shows the failure toast instead of doing noth
   const btn = await screen.findByRole('button', { name: /Preview the pre-arrival packet/ })
   setDataSource(failing('getHospital'))
   fireEvent.click(btn)
-  await waitFor(() => expect(document.getElementById('toast')!.textContent).toBe(PAGE_ERROR.toast))
+  await waitFor(() => expect(document.getElementById('toast')!.textContent).toBe(common.pageError.toast))
   expect(document.getElementById('drawer')).not.toHaveClass('on')
   expect(unhandled).toEqual([])
 })

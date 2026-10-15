@@ -1,5 +1,5 @@
 import { GlassCard } from '@/components/ui/GlassCard'
-import { RECORD_COPY } from '@/data/repo'
+import { useTranslation } from 'react-i18next'
 import type { LabRow } from '@/data/types'
 import { Head } from '../home/parts'
 
@@ -30,9 +30,10 @@ function Lab({ lab }: { lab: LabRow }) {
 
 /** `Pathology trends` (c6). */
 export function LabsCard({ labs }: { labs: LabRow[] }) {
+  const { t } = useTranslation('record')
   return (
     <GlassCard span={6}>
-      <Head title={RECORD_COPY.labs.title} meta={RECORD_COPY.labs.meta} />
+      <Head title={t('labs.title')} meta={t('labs.meta')} />
       <div className="labs" id="labs">{labs.map((l) => <Lab key={l.name} lab={l} />)}</div>
     </GlassCard>
   )

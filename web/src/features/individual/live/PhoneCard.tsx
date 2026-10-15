@@ -1,20 +1,21 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { PhoneScreen } from '@/components/phone/PhoneScreen'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { useToast } from '@/components/ui/Toast'
-import { LIVE_COPY } from '@/data/repo'
-import { resolveStepView, STEPS } from '@/domain/emergency'
+import { emSteps, resolveStepView } from '@/domain/emergency'
 
 /** `Margaret's screen` (c3): the phone, mirroring the question the agent is asking at this step. */
 export function PhoneCard({ step }: { step: number }) {
   const toast = useToast()
-  const c = LIVE_COPY.phone
-  const s = STEPS[step]
-  const { help } = resolveStepView(STEPS, step)
+  const { t } = useTranslation('live')
+  const steps = emSteps()
+  const s = steps[step]
+  const { help } = resolveStepView(steps, step)
   return (
     <GlassCard id="liveC" className="c3">
-      <div className="ch"><h2>{c.title}</h2><span className="meta">{c.meta}</span></div>
+      <div className="ch"><h2>{t('phone.title')}</h2><span className="meta">{t('phone.meta')}</span></div>
       <PhoneScreen
         time={s.t}
         q={s.e.q}
@@ -23,9 +24,9 @@ export function PhoneCard({ step }: { step: number }) {
         listen={Boolean(s.e.listen)}
         help={help}
         yn={Boolean(s.e.yn)}
-        onAnswer={(a) => toast(c.answered(a))}
+        onAnswer={(a) => toast(t('phone.answered', { a }))}
       />
-      <p className="fine">{c.note}</p>
+      <p className="fine">{t('phone.note')}</p>
     </GlassCard>
   )
 }

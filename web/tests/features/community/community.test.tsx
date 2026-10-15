@@ -1,5 +1,6 @@
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { vi } from 'vitest'
+import i18n from '@/i18n'
 import { getCommunity, getWatch } from '@/data/repo'
 import { CommunityPage } from '@/features/community/overview/CommunityPage'
 import { WatchPage } from '@/features/community/watch/WatchPage'
@@ -134,7 +135,7 @@ describe('community overview', () => {
     const spy = vi.spyOn(repo, 'getCommunity').mockRejectedValueOnce(new Error('offline'))
     renderWithProviders(<CommunityPage />, opts)
     await waitFor(() => expect(spy).toHaveBeenCalled())
-    expect(await screen.findByRole('alert')).toHaveTextContent(repo.PAGE_ERROR.text)
+    expect(await screen.findByRole('alert')).toHaveTextContent(i18n.t('common:pageError.text'))
     expect(document.querySelector('#comKpis')).toBeNull()
     spy.mockRestore()
   })
@@ -206,7 +207,7 @@ describe('community watch', () => {
     const spy = vi.spyOn(repo, 'getWatch').mockRejectedValueOnce(new Error('offline'))
     renderWithProviders(<WatchPage />, opts)
     await waitFor(() => expect(spy).toHaveBeenCalled())
-    expect(await screen.findByRole('alert')).toHaveTextContent(repo.PAGE_ERROR.text)
+    expect(await screen.findByRole('alert')).toHaveTextContent(i18n.t('common:pageError.text'))
     expect(document.querySelector('#watchKpis')).toBeNull()
     spy.mockRestore()
   })

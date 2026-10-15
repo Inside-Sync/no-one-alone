@@ -1,0 +1,20 @@
+{
+  "strengthMeta": "Dựa trên hướng dẫn chuyên môn",
+  "screeningHead": [
+    "Xét nghiệm",
+    "Định kỳ",
+    "Đến hạn",
+    ""
+  ],
+  "matrix": {
+    "title": "Bảng bệnh lý",
+    "meta": "Tuổi khởi phát · để trống = không mắc hoặc không chia sẻ",
+    "person": "Người"
+  },
+  "consent": {
+    "title": "Chia sẻ và đồng ý",
+    "meta": "Mỗi người tự quyết định",
+    "shares": "{{person}} chia sẻ {{column}}"
+  },
+  "requested": "✓ Đã gửi yêu cầu"
+}

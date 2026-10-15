@@ -1,0 +1,1106 @@
+{
+  "margaret": {
+    "id": "margaret",
+    "name": "Margaret Collins",
+    "initials": "MC",
+    "color": "#0b7f71",
+    "nickname": "Maggie",
+    "born": "3 March 1948",
+    "age": 78,
+    "gender": "Female",
+    "suburb": "Marrickville",
+    "postcode": "2204",
+    "heightCm": 162,
+    "weightKg": 61.2,
+    "bmi": 23.4,
+    "bloodType": "O positive",
+    "mobilityAid": "Walking stick outdoors",
+    "hearingAids": "Aids, both ears",
+    "advanceCarePlan": "Advance care plan on file",
+    "allergies": [
+      "Penicillin"
+    ],
+    "medicineCount": 4,
+    "conditions": [
+      {
+        "emoji": "🩺",
+        "title": "High blood pressure",
+        "since": "Since age 61 (2009)",
+        "now": "Not well controlled lately",
+        "color": "#d9443f",
+        "detail": "Her blood pressure has crept up over 6 weeks. She takes amlodipine each evening; 3 doses were missed this week. Target: under 135 in the morning."
+      },
+      {
+        "emoji": "🦻",
+        "title": "Hearing loss",
+        "since": "Both ears · since 72 (2020)",
+        "now": "Aids not worn today",
+        "color": "#c88a05",
+        "detail": "Age-related hearing loss. Hearing aids help, and wearing them also lowers the chance of memory problems later. Hearing test booked 22 Oct."
+      },
+      {
+        "emoji": "🫘",
+        "title": "Kidneys working a bit slower",
+        "since": "Stage 3a · found 2025",
+        "now": "Stable, check yearly",
+        "color": "#c88a05",
+        "detail": "Kidney function (eGFR) is 58; normal is 60 or above. Common at her age. Her GP checks it yearly and avoids medicines that strain the kidneys."
+      },
+      {
+        "emoji": "🍬",
+        "title": "Blood sugar at the high end",
+        "since": "HbA1c 5.9% · 2026",
+        "now": "Watch",
+        "color": "#c88a05",
+        "detail": "Not diabetes, but close to the line (6.0%). Her father had type 2 diabetes. Walking and fewer sweet drinks help."
+      },
+      {
+        "emoji": "🦴",
+        "title": "Arthritis in both knees",
+        "since": "Since 2015",
+        "now": "Mild pain, uses a stick",
+        "color": "#56706e",
+        "detail": "Wear-and-tear arthritis. Gentle walking and the strength class help. Paracetamol when needed."
+      },
+      {
+        "emoji": "💔",
+        "title": "Uneven heartbeat (possible)",
+        "since": "Being checked · Oct 2026",
+        "now": "2 alerts this week",
+        "color": "#c2417a",
+        "detail": "Her watch flagged an uneven rhythm twice at night. Her heart tracing on 12 Oct was normal. Her GP may order a 2-week heart monitor."
+      },
+      {
+        "emoji": "🧠",
+        "title": "Memory",
+        "since": "No diagnosis",
+        "now": "Watching gently",
+        "color": "#1f8f5f",
+        "detail": "No memory condition. Her mother had dementia, so the daily chat looks for slow changes in speech. All normal so far."
+      },
+      {
+        "emoji": "🦴",
+        "title": "Bone strength",
+        "since": "Osteopenia · 2022",
+        "now": "Vitamin D daily",
+        "color": "#56706e",
+        "detail": "Bones a little thinner than average, which is common after 70. She takes vitamin D and does balance exercises to prevent falls."
+      }
+    ],
+    "status": "good",
+    "lastChat": "Last chat 13:02 · cheerful",
+    "devices": {
+      "wearableBattery": 64,
+      "hubSensors": 6
+    },
+    "profile": {
+      "checkedBy": "Her health profile · checked by her GP on 12 Sep",
+      "shareToast": "Profile shared with the care circle",
+      "rows": [
+        {
+          "emoji": "👩",
+          "label": "Gender",
+          "value": "Female"
+        },
+        {
+          "emoji": "🎂",
+          "label": "Age",
+          "value": "78"
+        },
+        {
+          "emoji": "📏",
+          "label": "Height",
+          "value": "162 cm"
+        },
+        {
+          "emoji": "⚖️",
+          "label": "Weight",
+          "value": "61.2 kg"
+        },
+        {
+          "emoji": "📐",
+          "label": "BMI",
+          "value": "23.4 · healthy"
+        },
+        {
+          "emoji": "🩸",
+          "label": "Blood type",
+          "value": "O positive"
+        },
+        {
+          "emoji": "🏠",
+          "label": "Lives",
+          "value": "Alone · 2-storey terrace"
+        },
+        {
+          "emoji": "🗣️",
+          "label": "Language",
+          "value": "English"
+        },
+        {
+          "emoji": "🦯",
+          "label": "Mobility aid",
+          "value": "Walking stick outdoors"
+        },
+        {
+          "emoji": "👓",
+          "label": "Vision",
+          "value": "Reading glasses"
+        },
+        {
+          "emoji": "🦻",
+          "label": "Hearing",
+          "value": "Aids, both ears"
+        },
+        {
+          "emoji": "📝",
+          "label": "Care wishes",
+          "value": "Advance care plan on file"
+        }
+      ],
+      "chips": [
+        {
+          "text": "⚠️ Allergy: penicillin (rash)",
+          "danger": true
+        },
+        {
+          "text": "💊 4 regular medicines"
+        },
+        {
+          "text": "🚬 Never smoked"
+        },
+        {
+          "text": "🍷 1–2 drinks a week"
+        },
+        {
+          "text": "💉 Flu shot Apr 2026 · COVID due"
+        }
+      ]
+    },
+    "today": {
+      "updated": "Updated 15:08",
+      "headline": "Doing well",
+      "devices": [
+        {
+          "label": "Wearable",
+          "value": "64% · on wrist"
+        },
+        {
+          "label": "Home hub",
+          "value": "Online · 6 sensors"
+        },
+        {
+          "label": "Phone",
+          "value": "Charging"
+        }
+      ],
+      "actions": [
+        {
+          "label": "Ask how she is",
+          "icon": "mic",
+          "kind": "chat"
+        },
+        {
+          "label": "Call Mum",
+          "toast": "Calling Margaret · captions on",
+          "kind": "call"
+        }
+      ]
+    },
+    "dayline": [
+      {
+        "time": "Morning",
+        "text": "🌅 Up and about · said good morning"
+      },
+      {
+        "time": "08:12",
+        "text": "💬 Morning chat · all well"
+      },
+      {
+        "time": "08:31",
+        "text": "💊 Morning tablets taken"
+      },
+      {
+        "time": "09:31",
+        "text": "💊 Last night's tablet taken after a reminder",
+        "flag": "w"
+      },
+      {
+        "time": "Late morning",
+        "text": "🚶 Went out for a walk"
+      },
+      {
+        "time": "13:02",
+        "text": "🍽️ Lunch chat · cheerful"
+      },
+      {
+        "time": "Afternoon",
+        "text": "😴 Having a rest · it's warm today",
+        "flag": "w"
+      },
+      {
+        "time": "18:00",
+        "text": "💬 Next chat",
+        "flag": "n"
+      }
+    ],
+    "context": {
+      "initials": "MC",
+      "color": "#0b7f71",
+      "sub": "Marrickville NSW 2204 · Inner West · Wednesday 14 October, 15:10 AEDT",
+      "facts": [
+        {
+          "live": true,
+          "label": "Female",
+          "value": "78"
+        },
+        {
+          "live": false,
+          "label": "Born",
+          "value": "3 Mar 1948"
+        },
+        {
+          "live": false,
+          "label": "Conditions",
+          "value": "8"
+        },
+        {
+          "live": false,
+          "label": "Allergy",
+          "value": "penicillin"
+        },
+        {
+          "live": false,
+          "label": "Mode",
+          "value": "hearing"
+        },
+        {
+          "live": false,
+          "label": "Care team",
+          "value": "5 people"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "emoji": "❤️",
+        "label": "Heart rate",
+        "value": "68",
+        "unit": "bpm",
+        "color": "#ef6a5e",
+        "baseline": "usual 63",
+        "delta": "A bit higher",
+        "tone": "good",
+        "spark": [
+          62,
+          63,
+          64,
+          63,
+          65,
+          64,
+          66,
+          64,
+          68
+        ]
+      },
+      {
+        "emoji": "🩺",
+        "label": "Blood pressure",
+        "value": "146",
+        "unit": "/88",
+        "color": "#c88a05",
+        "baseline": "usual 132/82",
+        "delta": "Higher than usual",
+        "tone": "warn",
+        "spark": [
+          128,
+          130,
+          131,
+          133,
+          135,
+          137,
+          140,
+          143,
+          146
+        ]
+      },
+      {
+        "emoji": "🌿",
+        "label": "Calm score (HRV)",
+        "value": "26",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "usual 31",
+        "delta": "Lower: more strain",
+        "tone": "warn",
+        "spark": [
+          32,
+          31,
+          30,
+          31,
+          29,
+          28,
+          27,
+          27,
+          26
+        ]
+      },
+      {
+        "emoji": "😴",
+        "label": "Sleep",
+        "value": "6h 12m",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "usual 7h",
+        "delta": "Less than usual",
+        "tone": "warn",
+        "spark": [
+          7.1,
+          6.9,
+          7,
+          6.6,
+          6.8,
+          6.3,
+          6.5,
+          6,
+          6.2
+        ]
+      },
+      {
+        "emoji": "👣",
+        "label": "Steps",
+        "value": "3,240",
+        "unit": "today",
+        "color": "#1fb39c",
+        "baseline": "usual 3,600",
+        "delta": "About usual",
+        "tone": "good",
+        "spark": [
+          3800,
+          3500,
+          3900,
+          3400,
+          3600,
+          3300,
+          3700,
+          3100,
+          3240
+        ]
+      },
+      {
+        "emoji": "🚶",
+        "label": "Walking speed",
+        "value": "0.82",
+        "unit": "m/s",
+        "color": "#1f8f5f",
+        "baseline": "usual 0.89",
+        "delta": "Slower than usual",
+        "tone": "warn",
+        "spark": [
+          0.9,
+          0.89,
+          0.9,
+          0.88,
+          0.87,
+          0.86,
+          0.85,
+          0.83,
+          0.82
+        ]
+      },
+      {
+        "emoji": "💊",
+        "label": "Tablets taken",
+        "value": "86",
+        "unit": "%",
+        "color": "#c88a05",
+        "baseline": "goal 95%",
+        "delta": "Some missed",
+        "tone": "warn",
+        "spark": [
+          97,
+          96,
+          95,
+          94,
+          92,
+          90,
+          89,
+          87,
+          86
+        ]
+      },
+      {
+        "emoji": "📞",
+        "label": "Calls answered",
+        "value": "97",
+        "unit": "%",
+        "color": "#0b7f71",
+        "baseline": "usual 98%",
+        "delta": "As usual",
+        "tone": "good",
+        "spark": [
+          98,
+          99,
+          97,
+          98,
+          98,
+          96,
+          97,
+          98,
+          97
+        ]
+      },
+      {
+        "emoji": "🗣️",
+        "label": "Speaking pace",
+        "value": "132",
+        "unit": "words/min",
+        "color": "#2f6fb0",
+        "baseline": "usual 141",
+        "delta": "A bit slower",
+        "tone": "good",
+        "spark": [
+          142,
+          140,
+          141,
+          139,
+          138,
+          137,
+          135,
+          134,
+          132
+        ]
+      },
+      {
+        "emoji": "🤝",
+        "label": "Time with people",
+        "value": "5",
+        "unit": "this week",
+        "color": "#c2417a",
+        "baseline": "usual 6",
+        "delta": "About usual",
+        "tone": "good",
+        "spark": [
+          6,
+          7,
+          6,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "emoji": "🌡️",
+        "label": "Home temperature",
+        "value": "29.5",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "usual 25",
+        "delta": "Too warm",
+        "tone": "warn",
+        "spark": [
+          24,
+          25,
+          25,
+          26,
+          27,
+          27,
+          28,
+          29,
+          29.5
+        ]
+      },
+      {
+        "emoji": "⚖️",
+        "label": "Weight",
+        "value": "61.2",
+        "unit": "kg",
+        "color": "#56706e",
+        "baseline": "usual 61.0",
+        "delta": "Steady",
+        "tone": "good",
+        "spark": [
+          61,
+          61.1,
+          60.9,
+          61,
+          61.2,
+          61.1,
+          61,
+          61.3,
+          61.2
+        ]
+      }
+    ],
+    "kpisTechnical": [
+      {
+        "label": "Resting heart rate",
+        "value": "68",
+        "unit": "bpm",
+        "color": "#ef6a5e",
+        "baseline": "base 63",
+        "delta": "+0.4σ",
+        "tone": "good",
+        "spark": [
+          62,
+          63,
+          64,
+          63,
+          65,
+          64,
+          66,
+          64,
+          68
+        ]
+      },
+      {
+        "label": "Blood pressure (7 d)",
+        "value": "146",
+        "unit": "/88",
+        "color": "#c88a05",
+        "baseline": "base 132/82",
+        "delta": "+2.8σ",
+        "tone": "warn",
+        "spark": [
+          128,
+          130,
+          131,
+          133,
+          135,
+          137,
+          140,
+          143,
+          146
+        ]
+      },
+      {
+        "label": "HRV (RMSSD)",
+        "value": "26",
+        "unit": "ms",
+        "color": "#5a7fe0",
+        "baseline": "base 31",
+        "delta": "−1.9σ",
+        "tone": "warn",
+        "spark": [
+          32,
+          31,
+          30,
+          31,
+          29,
+          28,
+          27,
+          27,
+          26
+        ]
+      },
+      {
+        "label": "Sleep",
+        "value": "6:12",
+        "unit": "h",
+        "color": "#8f6fd0",
+        "baseline": "eff 81%",
+        "delta": "−1.2σ",
+        "tone": "warn",
+        "spark": [
+          7.1,
+          6.9,
+          7,
+          6.6,
+          6.8,
+          6.3,
+          6.5,
+          6,
+          6.2
+        ]
+      },
+      {
+        "label": "Steps",
+        "value": "3,240",
+        "unit": "today",
+        "color": "#1fb39c",
+        "baseline": "base 3,600",
+        "delta": "−0.6σ",
+        "tone": "good",
+        "spark": [
+          3800,
+          3500,
+          3900,
+          3400,
+          3600,
+          3300,
+          3700,
+          3100,
+          3240
+        ]
+      },
+      {
+        "label": "Gait speed",
+        "value": "0.82",
+        "unit": "m/s",
+        "color": "#1f8f5f",
+        "baseline": "base 0.89",
+        "delta": "−2.1σ",
+        "tone": "warn",
+        "spark": [
+          0.9,
+          0.89,
+          0.9,
+          0.88,
+          0.87,
+          0.86,
+          0.85,
+          0.83,
+          0.82
+        ]
+      },
+      {
+        "label": "Medication adherence",
+        "value": "86",
+        "unit": "% 30 d",
+        "color": "#c88a05",
+        "baseline": "target 95",
+        "delta": "−1.8σ",
+        "tone": "warn",
+        "spark": [
+          97,
+          96,
+          95,
+          94,
+          92,
+          90,
+          89,
+          87,
+          86
+        ]
+      },
+      {
+        "label": "Check-in response",
+        "value": "97",
+        "unit": "% 30 d",
+        "color": "#0b7f71",
+        "baseline": "base 98",
+        "delta": "−0.3σ",
+        "tone": "good",
+        "spark": [
+          98,
+          99,
+          97,
+          98,
+          98,
+          96,
+          97,
+          98,
+          97
+        ]
+      },
+      {
+        "label": "Speech rate",
+        "value": "132",
+        "unit": "wpm",
+        "color": "#2f6fb0",
+        "baseline": "base 141",
+        "delta": "−1.4σ",
+        "tone": "good",
+        "spark": [
+          142,
+          140,
+          141,
+          139,
+          138,
+          137,
+          135,
+          134,
+          132
+        ]
+      },
+      {
+        "label": "Social contacts",
+        "value": "5",
+        "unit": "this week",
+        "color": "#c2417a",
+        "baseline": "base 6",
+        "delta": "−0.5σ",
+        "tone": "good",
+        "spark": [
+          6,
+          7,
+          6,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "label": "Indoor temperature",
+        "value": "29.5",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "base 25.1",
+        "delta": "+2.2σ",
+        "tone": "warn",
+        "spark": [
+          24,
+          25,
+          25,
+          26,
+          27,
+          27,
+          28,
+          29,
+          29.5
+        ]
+      },
+      {
+        "label": "Body weight",
+        "value": "61.2",
+        "unit": "kg",
+        "color": "#56706e",
+        "baseline": "base 61.0",
+        "delta": "+0.2σ",
+        "tone": "good",
+        "spark": [
+          61,
+          61.1,
+          60.9,
+          61,
+          61.2,
+          61.1,
+          61,
+          61.3,
+          61.2
+        ]
+      }
+    ],
+    "helperLog": [
+      {
+        "time": "15:00",
+        "what": "Re-checked all her health signs",
+        "how": "Did it",
+        "why": "Every hour",
+        "result": "Stroke chance unchanged",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "13:02",
+        "what": "Had a 2-minute chat with her",
+        "how": "Did it",
+        "why": "Daily call",
+        "result": "Clear speech · said \"pardon?\" twice",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "12:40",
+        "what": "Reminded her to put the fan on and drink water",
+        "how": "Did it",
+        "why": "Home is 29.5°",
+        "result": "She said \"will do, love\"",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "10:05",
+        "what": "Reminded her about Thursday's walking group",
+        "how": "Did it",
+        "why": "She asked to be reminded",
+        "result": "She said she'll go",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "09:31",
+        "what": "Followed up last night's missed tablet",
+        "how": "Did it",
+        "why": "Pill box not opened",
+        "result": "Taken at 9:33",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "08:12",
+        "what": "Morning chat",
+        "how": "Did it",
+        "why": "Daily call",
+        "result": "All well",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "Yesterday 21:40",
+        "what": "Suggested David sets up a weekly pill box",
+        "how": "Needs your OK",
+        "why": "Missed tablets + rising BP",
+        "result": "Waiting for you",
+        "tone": "warn",
+        "needsApproval": true
+      },
+      {
+        "time": "Yesterday 16:00",
+        "what": "Sent her blood pressure report to Dr Patel",
+        "how": "You approved",
+        "why": "Weekly summary",
+        "result": "Delivered · read 4:42 pm",
+        "tone": "good",
+        "needsApproval": false
+      }
+    ],
+    "helperLogTechnical": [
+      {
+        "time": "15:00",
+        "what": "Re-scored all risks (64 signals)",
+        "how": "Autonomous",
+        "why": "Scheduled",
+        "result": "Stroke 90 d unchanged at 2.1%",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "13:02",
+        "what": "Voice check-in, 2 min 14 s",
+        "how": "Autonomous",
+        "why": "Daily schedule",
+        "result": "Speech clear · \"pardon?\" ×2",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "12:40",
+        "what": "Heat reminder: fan on, drink water",
+        "how": "Autonomous",
+        "why": "Indoor 29.5 °C",
+        "result": "Acknowledged by voice",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "10:05",
+        "what": "Pharmacy visit detected (10:14–10:22)",
+        "how": "Passive",
+        "why": "Geofence",
+        "result": "Normal routine",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "09:31",
+        "what": "Missed-dose follow-up",
+        "how": "Autonomous",
+        "why": "Pill box: dose not taken",
+        "result": "Taken at 09:33",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "08:12",
+        "what": "Morning check-in",
+        "how": "Autonomous",
+        "why": "Daily schedule",
+        "result": "Clear",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "Yesterday 21:40",
+        "what": "Suggested pill box set-up by David",
+        "how": "Needs approval",
+        "why": "BP trend + missed doses",
+        "result": "Waiting for James",
+        "tone": "warn",
+        "needsApproval": true
+      },
+      {
+        "time": "Yesterday 16:00",
+        "what": "BP report sent to Dr Patel",
+        "how": "Approved by James",
+        "why": "Weekly summary",
+        "result": "Delivered · read 16:42",
+        "tone": "good",
+        "needsApproval": false
+      }
+    ],
+    "ownView": {
+      "greeting": "Good afternoon, Maggie 🌞",
+      "sub": "You're doing well today. Here's your day, just for you.",
+      "tiles": [
+        {
+          "emoji": "❤️",
+          "title": "Heart",
+          "note": "68 · steady"
+        },
+        {
+          "emoji": "👣",
+          "title": "3,240 steps",
+          "note": "nearly at 3,500!"
+        },
+        {
+          "emoji": "😴",
+          "title": "6 h sleep",
+          "note": "a bit short",
+          "warn": true
+        },
+        {
+          "emoji": "💧",
+          "title": "Water",
+          "note": "have a glass now",
+          "warn": true
+        },
+        {
+          "emoji": "💊",
+          "title": "Next tablet",
+          "note": "6 pm, amlodipine"
+        },
+        {
+          "emoji": "📞",
+          "title": "James calls",
+          "note": "tonight at 8 pm"
+        }
+      ],
+      "ideas": [
+        {
+          "emoji": "🔥",
+          "title": "Thursday will be 38°. Would you like a lift to the library cool room?",
+          "note": "Tom, a volunteer, can pick you up at 11.",
+          "yes": {
+            "label": "Yes please",
+            "toast": "Lift booked for Thursday 11:00",
+            "done": "Booked"
+          },
+          "no": {
+            "label": "No thanks",
+            "toast": "No problem, we'll check in by phone instead",
+            "done": "Not now"
+          }
+        },
+        {
+          "emoji": "💊",
+          "title": "Would a weekly pill box help with the evening tablet?",
+          "note": "David offered to set it up on Saturday.",
+          "yes": {
+            "label": "Yes please",
+            "toast": "David will come Saturday 10:00",
+            "done": "Yes"
+          },
+          "no": {
+            "label": "No thanks",
+            "toast": "Okay, we'll keep the reminder only",
+            "done": "Not now"
+          }
+        },
+        {
+          "emoji": "🦻",
+          "title": "Pop your hearing aids in for this afternoon's chat?",
+          "note": "It makes the calls easier.",
+          "yes": {
+            "label": "Done",
+            "toast": "Lovely",
+            "done": "Done"
+          },
+          "no": {
+            "label": "Later",
+            "toast": "That's fine",
+            "done": "Later"
+          }
+        }
+      ],
+      "promise": [
+        {
+          "emoji": "✋",
+          "lead": "You're in charge.",
+          "text": "You decide who sees what, and you can change it any time."
+        },
+        {
+          "emoji": "📷",
+          "lead": "No cameras, ever.",
+          "text": "Home sensors only notice movement and temperature."
+        },
+        {
+          "emoji": "🎙️",
+          "lead": "No listening in.",
+          "text": "The microphone is only on during calls you answer."
+        },
+        {
+          "emoji": "📍",
+          "lead": "No tracking.",
+          "text": "Location is off. If you turn it on, people only see \"home\" or \"out\"."
+        },
+        {
+          "emoji": "🚨",
+          "lead": "Emergencies only:",
+          "text": "David and James always get safety alerts, so help can come."
+        }
+      ],
+      "accessLog": [
+        {
+          "when": "Today 09:12",
+          "who": "James",
+          "what": "Your heart and blood pressure summary",
+          "why": "Weekly look"
+        },
+        {
+          "when": "Today 08:40",
+          "who": "David",
+          "what": "\"I'm OK\" check-in",
+          "why": "Morning check"
+        },
+        {
+          "when": "Yesterday 16:42",
+          "who": "Dr Patel",
+          "what": "Blood pressure report",
+          "why": "You agreed to send it"
+        },
+        {
+          "when": "Yesterday 11:05",
+          "who": "Priya",
+          "what": "Tablets taken this week",
+          "why": "Nurse visit planning"
+        },
+        {
+          "when": "Mon 19:30",
+          "who": "Sarah",
+          "what": "Sleep and steps",
+          "why": "Called you afterwards"
+        }
+      ],
+      "privacy": {
+        "presets": [
+          {
+            "id": "family",
+            "label": "👨‍👩‍👧 Family sees most, not my mood"
+          },
+          {
+            "id": "safety",
+            "label": "🚨 Safety alerts only"
+          },
+          {
+            "id": "all",
+            "label": "🤝 Share everything with family"
+          }
+        ],
+        "safetyNote": "🚨 Safety alerts can't be turned off for your emergency contacts, so someone can always come if you need help. You can change who your emergency contacts are.",
+        "emergency": {
+          "agreed": "Agreed 1 October",
+          "text": "If you need an ambulance, the hospital receives your conditions, tablets and allergy, so they can help quickly. Nothing else, and only for that visit.",
+          "buttons": [
+            {
+              "label": "Read the agreement",
+              "toast": "Your emergency agreement is shown on your phone",
+              "done": "Opened"
+            },
+            {
+              "label": "Emergency contacts",
+              "toast": "Emergency contacts: David and James",
+              "done": "Checked"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

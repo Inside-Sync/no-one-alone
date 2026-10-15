@@ -1,19 +1,22 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { OnceButton } from '@/components/ui/OnceButton'
 import { useDrawer } from '@/components/ui/Drawer'
 import { Pill } from '@/components/ui/Pill'
-import { HOME_COPY, ONCE_LABELS } from '@/data/repo'
 import type { HelperLogEntry } from '@/data/types'
 import { Actions, Kv, keyActivate } from './parts'
 import { TableScroll } from '@/components/ui/TableScroll'
 
-const HOW_TONE = (e: HelperLogEntry) => (e.needsApproval ? 'warn' : e.how === 'Noticed' || e.how === 'Passive' ? 'plain' : 'brand')
+/** "How" values that mean the helper only watched. The column text is translated data, so both languages are listed. */
+const PASSIVE_HOW: ReadonlySet<string> = new Set(['Noticed', 'Passive', 'Đã nhận thấy', 'Thụ động'])
+const HOW_TONE = (e: HelperLogEntry) => (e.needsApproval ? 'warn' : PASSIVE_HOW.has(e.how) ? 'plain' : 'brand')
 
 /** Row detail drawer (prototype `tbody tr` click handler, individual view). */
 function RowDrawerBody({ entry }: { entry: HelperLogEntry }) {
-  const cols = HOME_COPY.helper.columns
+  const { t } = useTranslation(['home', 'common'])
+  const cols = t('helper.columns', { returnObjects: true })
   return (
     <>
       <Kv
@@ -25,24 +28,24 @@ function RowDrawerBody({ entry }: { entry: HelperLogEntry }) {
           [cols[4], entry.result],
         ]}
       />
-      <Actions list={[['🗣️ Ask her about it', 'Added to her next chat', 'Added'], ['📤 Share with family', 'Shared', 'Shared']]} />
+      <Actions list={t('common:drawerActions.row', { returnObjects: true })} />
     </>
   )
 }
 
 /** `🤖 What the helper did today` (c12): the audit table; rows needing approval carry an Approve button. */
 export function HelperCard({ log }: { log: HelperLogEntry[] }) {
+  const { t } = useTranslation(['home', 'common'])
   const drawer = useDrawer()
-  const c = HOME_COPY.helper
   return (
     <GlassCard span={12}>
       <div className="ch">
-        <h2>{c.title}</h2>
-        <span className="meta">{c.meta}</span>
+        <h2>{t('helper.title')}</h2>
+        <span className="meta">{t('helper.meta')}</span>
       </div>
       <TableScroll>
         <table>
-          <thead><tr>{c.columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>
+          <thead><tr>{t('helper.columns', { returnObjects: true }).map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody>
             {log.map((e) => {
               const open = () => drawer.open(e.time, <RowDrawerBody entry={e} />)
@@ -61,7 +64,7 @@ export function HelperCard({ log }: { log: HelperLogEntry[] }) {
                   <td>
                     {e.result}
                     {e.needsApproval && (
-                      <>{' '}<OnceButton className="sm" toast={c.approve.toast} done={ONCE_LABELS.Approve}>{c.approve.label}</OnceButton></>
+                      <>{' '}<OnceButton className="sm" toast={t('helper.approve.toast')} done={t('common:onceLabels.Approve')}>{t('helper.approve.label')}</OnceButton></>
                     )}
                   </td>
                 </tr>

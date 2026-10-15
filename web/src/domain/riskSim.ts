@@ -1,3 +1,5 @@
+import i18n from '@/i18n'
+
 export type SimInput = {
   /** 60-100, default 86. */
   adherence: number
@@ -24,20 +26,23 @@ export function simulateRisk(i: SimInput): RiskResult {
 /** Prototype `cell()` footer: change against the baseline, with a unicode minus. */
 export function deltaLabel(v: number, base: number): { text: string; tone: 'good' | 'bad' | 'muted' } {
   const d = ((v - base) / base) * 100
-  if (Math.abs(d) < 0.5) return { text: 'no change', tone: 'muted' }
+  if (Math.abs(d) < 0.5) return { text: i18n.t('forecast:sim.delta.none'), tone: 'muted' }
   return {
-    text: (d > 0 ? '+' : '−') + Math.abs(d).toFixed(0) + '% relative',
+    text: i18n.t('forecast:sim.delta.relative', { pct: (d > 0 ? '+' : '−') + Math.abs(d).toFixed(0) + '%' }),
     tone: d <= -0.5 ? 'good' : 'bad',
   }
 }
 
-const OBSERVED = [128, 131, 133, 137, 140, 146]
-const IF_NOTHING = [146, 148.5, 151, 153.5, 156]
-const AT_100 = [146, 140, 136, 133, 131]
+/** The projection inputs of `Forecast['bp']` (kept structural so the domain does not depend on the data types). */
+export interface BpSeries {
+  observed: number[]
+  projectedNothing: number[]
+  projectedAdherent: number[]
+}
 
-/** `bpChart()` (line 1449): the what-if line `sc` for a given adherence, plus the observed weeks. */
-export function bpProjection(adherence: number): { observed: number[]; projected: number[] } {
+/** `bpChart()` (line 1449): the what-if line `sc` for a given adherence, between the forecast's two projections. */
+export function bpProjection(bp: BpSeries, adherence: number): { observed: number[]; projected: number[] } {
   const f = adherence >= 86 ? (adherence - 86) / 14 : -(86 - adherence) / 26
-  const projected = IF_NOTHING.map((v, i) => (f >= 0 ? v + (AT_100[i] - v) * f : v + i * 3 * -f))
-  return { observed: [...OBSERVED], projected }
+  const projected = bp.projectedNothing.map((v, i) => (f >= 0 ? v + ((bp.projectedAdherent[i] ?? v) - v) * f : v + i * 3 * -f))
+  return { observed: [...bp.observed], projected }
 }

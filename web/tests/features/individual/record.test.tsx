@@ -3,6 +3,7 @@ import { vi } from 'vitest'
 import { RecordPage } from '@/features/individual/record/RecordPage'
 import { PAGE_REGISTRY } from '@/features/registry'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
+import i18n from '@/i18n'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/record/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
@@ -152,4 +153,18 @@ describe('consent', () => {
     await waitFor(() => expect(document.querySelectorAll('.locked-slot')).toHaveLength(7))
     absent()
   })
+})
+
+test('encounter types show by name: English ids, Vietnamese labels', async () => {
+  renderWithProviders(<RecordPage />, { who: 'self' })
+  await ready()
+  const legend = () => Array.from(document.querySelectorAll('#enc ~ .legend span')).map((s) => s.textContent)
+  expect(legend()).toEqual(['GP', 'Specialist', 'Pathology', 'Emergency', 'Hearing'])
+  await act(() => i18n.changeLanguage('vi'))
+  try {
+    await screen.findByText('Lượt khám, 2023–2026')
+    expect(legend()).toEqual(['Bác sĩ gia đình', 'Chuyên khoa', 'Xét nghiệm', 'Cấp cứu', 'Thính lực'])
+  } finally {
+    await act(() => i18n.changeLanguage('en'))
+  }
 })

@@ -1,0 +1,109 @@
+{
+  "title": "🔐 Who sees what",
+  "meta": "Tap a switch to share or stop sharing · changes apply straight away",
+  "quick": "Quick choices:",
+  "presets": [
+    {
+      "kind": "family",
+      "label": "👨‍👩‍👧 Family sees most, not my mood"
+    },
+    {
+      "kind": "safety",
+      "label": "🚨 Safety alerts only"
+    },
+    {
+      "kind": "all",
+      "label": "🤝 Share everything with family"
+    }
+  ],
+  "pause": "⏸️ Pause sharing until tomorrow",
+  "resume": "▶️ Resume sharing",
+  "what": "What",
+  "lockedTitle": "Always on for emergency contacts",
+  "fine": "🚨 Safety alerts can't be turned off for your emergency contacts, so someone can always come if you need help. You can change who your emergency contacts are.",
+  "preview": {
+    "title": "👁️ Preview",
+    "meta": "See exactly what someone sees",
+    "toast": "Previewing what {{name}} sees"
+  },
+  "emergency": {
+    "title": "🏥 In an emergency",
+    "meta": "Agreed 1 October",
+    "text": "If you need an ambulance, the hospital receives your conditions, tablets and allergy, so they can help quickly. Nothing else, and only for that visit.",
+    "agreement": [
+      "Read the agreement",
+      "Your emergency agreement is shown on your phone",
+      "Opened"
+    ],
+    "contacts": [
+      "Emergency contacts",
+      "Emergency contacts: David and James",
+      "Checked"
+    ],
+    "clinician": "Clinicians see named patients only where the patient consented to hospital sharing."
+  },
+  "audit": {
+    "title": "🧾 Changes you made",
+    "meta": "Newest first",
+    "empty": "No changes yet",
+    "label": "Audit log"
+  },
+  "categories": {
+    "safety": {
+      "name": "Safety alerts",
+      "detail": "Falls, emergencies, heat warnings"
+    },
+    "checkin": {
+      "name": "\"I'm OK\" check-ins",
+      "detail": "Whether she answered and is well"
+    },
+    "heart": {
+      "name": "Heart, blood pressure, body",
+      "detail": "Heart rate, BP, weight"
+    },
+    "sleep": {
+      "name": "Sleep",
+      "detail": "Hours and how restful"
+    },
+    "activity": {
+      "name": "Moving and steps",
+      "detail": "Steps, walking, balance"
+    },
+    "mood": {
+      "name": "Mood and feelings",
+      "detail": "How she says she feels"
+    },
+    "meds": {
+      "name": "Tablets",
+      "detail": "Taken or missed"
+    },
+    "speech": {
+      "name": "Hearing and speech",
+      "detail": "From her daily chats"
+    },
+    "home": {
+      "name": "Home sensors",
+      "detail": "Temperature, movement in 2 rooms"
+    },
+    "records": {
+      "name": "Health records",
+      "detail": "Conditions, tests, visits"
+    },
+    "location": {
+      "name": "Home or out",
+      "detail": "Never an address or a map"
+    }
+  },
+  "switchLabel": "Share {{category}} with {{name}}",
+  "shareOn": "Now sharing {{category}} with {{name}}",
+  "shareOff": "Stopped sharing {{category}} with {{name}}",
+  "paused": "Sharing paused until 9 am tomorrow · safety alerts still on",
+  "resumed": "Sharing resumed",
+  "presetDone": {
+    "safety": "Family now sees safety alerts only",
+    "all": "Family now sees everything",
+    "family": "Family sees most things, not your mood"
+  },
+  "seeWhat": "See what {{name}} sees",
+  "seeWhatCount": "See what {{name}} sees · {{n}} of {{total}}"
+}

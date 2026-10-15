@@ -1,0 +1,1055 @@
+{
+  "surroundings": {
+    "homeMap": {
+      "kicker": "📍 Where Margaret lives",
+      "title": "Marrickville, Sydney",
+      "detail": "Inner West · 5.8 km south-west of the CBD · −33.911, 151.155",
+      "lat": -33.911,
+      "lng": 151.155,
+      "address": "186 Marrickville Rd, Marrickville NSW 2204",
+      "legend": [
+        {
+          "color": "#14a08c",
+          "label": "Margaret's home"
+        },
+        {
+          "color": "#2f6fb0",
+          "label": "Family nearby"
+        },
+        {
+          "color": "#ffffff",
+          "label": "Health services",
+          "ring": true
+        },
+        {
+          "color": "#8f6fd0",
+          "label": "Community"
+        },
+        {
+          "color": "#9b7fd4",
+          "label": "Jacaranda in bloom",
+          "round": true
+        }
+      ],
+      "chips": [
+        {
+          "icon": "people",
+          "text": "David · 450 m · 6 min walk"
+        },
+        {
+          "icon": "clinic",
+          "text": "GP · 350 m"
+        },
+        {
+          "icon": "pill",
+          "text": "Pharmacy · 280 m"
+        },
+        {
+          "icon": "hospital",
+          "text": "Stroke centre · 4.2 km · 11 min"
+        },
+        {
+          "icon": "siren",
+          "text": "Ambulance median 9.4 min (2204)"
+        },
+        {
+          "icon": "sun",
+          "text": "Thursday 38 °C"
+        }
+      ],
+      "ariaLabel": "3D model of Margaret's streets in Marrickville: her home on Marrickville Road, her brother David 450 metres west, the GP and pharmacy nearby, the library cool room, the park walking group and the Cooks River to the south",
+      "pins": [
+        {
+          "name": "Margaret's home",
+          "sub": "Home",
+          "color": "#14a08c",
+          "initials": "M",
+          "big": true,
+          "kind": "home",
+          "geo": {
+            "lat": -33.911,
+            "lng": 151.155
+          }
+        },
+        {
+          "name": "David (brother)",
+          "sub": "",
+          "detail": "450 m · 6 min walk",
+          "color": "#2f6fb0",
+          "initials": "D",
+          "phase": 0.3,
+          "kind": "family",
+          "geo": {
+            "lat": -33.913964,
+            "lng": 151.151753
+          }
+        },
+        {
+          "name": "GP",
+          "sub": "",
+          "detail": "Illawarra Rd Family Practice · Dr Patel · 350 m",
+          "color": "#ffffff",
+          "ink": "#0b7f71",
+          "initials": "+",
+          "phase": 0.5,
+          "at": {
+            "x": 162,
+            "y": 132,
+            "z": 12
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908548,
+            "lng": 151.153182
+          }
+        },
+        {
+          "name": "Pharmacy",
+          "sub": "",
+          "detail": "280 m · open to 21:00",
+          "color": "#ffffff",
+          "ink": "#1fb39c",
+          "initials": "Rx",
+          "phase": 0.7,
+          "at": {
+            "x": 127,
+            "y": 133,
+            "z": 9
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908579,
+            "lng": 151.151856
+          }
+        },
+        {
+          "name": "Library cool room",
+          "sub": "",
+          "detail": "400 m · 120 places",
+          "color": "#8f6fd0",
+          "initials": "L",
+          "phase": 0.1,
+          "at": {
+            "x": 305,
+            "y": 301,
+            "z": 21
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.913861,
+            "lng": 151.158598
+          }
+        },
+        {
+          "name": "Walking group",
+          "sub": "",
+          "detail": "Thu 9:00 · Calvert Reserve",
+          "color": "#8f6fd0",
+          "initials": "W",
+          "phase": 0.6,
+          "at": {
+            "x": 329,
+            "y": 211,
+            "z": 2
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.911031,
+            "lng": 151.159508
+          }
+        },
+        {
+          "name": "→ Stroke centre 4.2 km",
+          "sub": "",
+          "detail": "Camperdown Stroke Centre · north-east · 11 min by ambulance",
+          "color": "#ef4e4a",
+          "initials": "",
+          "tag": true,
+          "at": {
+            "x": 398,
+            "y": 398,
+            "z": 2
+          }
+        }
+      ],
+      "walkRing": {
+        "label": "5 MIN WALK",
+        "radius": 118
+      },
+      "labels": [
+        {
+          "text": "Marrickville Rd",
+          "x": 345,
+          "y": 150,
+          "bold": true
+        },
+        {
+          "text": "Illawarra Rd",
+          "x": 110,
+          "y": 384,
+          "bold": true
+        },
+        {
+          "text": "Calvert St",
+          "x": 52,
+          "y": 270
+        },
+        {
+          "text": "Victoria Rd",
+          "x": 250,
+          "y": 305
+        },
+        {
+          "text": "Cooks River",
+          "x": 300,
+          "y": 12
+        },
+        {
+          "text": "Calvert Reserve",
+          "x": 329,
+          "y": 240
+        },
+        {
+          "text": "Marrickville Station",
+          "x": 220,
+          "y": 345
+        }
+      ]
+    },
+    "watchMap": {
+      "kicker": "👀 Neighbourhood watch",
+      "title": "Around Margaret's home",
+      "detail": "What to pay attention to when you live alone · 8 items within 1 km",
+      "ariaLabel": "3D map of Margaret's streets with neighbourhood alerts: footpath works, a reported scam, street light out, swooping magpies, a snake sighting and the heat cool room",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "Act"
+        },
+        {
+          "color": "#c88a05",
+          "label": "Be aware"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "Helpful"
+        }
+      ],
+      "ring": {
+        "label": "WATCH AREA",
+        "radius": 150
+      }
+    },
+    "pins": [
+      {
+        "name": "Margaret",
+        "sub": "",
+        "detail": "Home",
+        "color": "#14a08c",
+        "initials": "M",
+        "big": true,
+        "kind": "home",
+        "geo": {
+          "lat": -33.911,
+          "lng": 151.155
+        }
+      },
+      {
+        "name": "Footpath works",
+        "sub": "",
+        "detail": "Marrickville Rd outside the pharmacy · uneven surface until 24 Oct",
+        "color": "#c88a05",
+        "initials": "!",
+        "phase": 0.2,
+        "at": {
+          "x": 225,
+          "y": 146,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.908988,
+          "lng": 151.155568
+        }
+      },
+      {
+        "name": "Scam reported",
+        "sub": "",
+        "detail": "Door-to-door \"solar rebate\" scam · 3 reports on this street since Monday",
+        "color": "#d9443f",
+        "initials": "!",
+        "phase": 0.4,
+        "at": {
+          "x": 70,
+          "y": 205,
+          "z": 8
+        },
+        "kind": "alert",
+        "tone": "act",
+        "geo": {
+          "lat": -33.910843,
+          "lng": 151.149697
+        }
+      },
+      {
+        "name": "Street light out",
+        "sub": "",
+        "detail": "Calvert St since Sunday · reported to council #IW-48213",
+        "color": "#c88a05",
+        "initials": "☾",
+        "phase": 0.6,
+        "at": {
+          "x": 160,
+          "y": 270,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.912886,
+          "lng": 151.153106
+        }
+      },
+      {
+        "name": "Swooping magpie",
+        "sub": "",
+        "detail": "Calvert Reserve, western path · spring nesting season",
+        "color": "#c88a05",
+        "initials": "M",
+        "phase": 0.8,
+        "at": {
+          "x": 350,
+          "y": 235,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.911786,
+          "lng": 151.160303
+        }
+      },
+      {
+        "name": "Snake sighting",
+        "sub": "",
+        "detail": "Cooks River path · keep to the paved track",
+        "color": "#c88a05",
+        "initials": "S",
+        "phase": 0.1,
+        "at": {
+          "x": 60,
+          "y": 36,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.905529,
+          "lng": 151.149318
+        }
+      },
+      {
+        "name": "Cool room",
+        "sub": "",
+        "detail": "Library · open 9–8 Thursday · 74 places left",
+        "color": "#1fb39c",
+        "initials": "L",
+        "phase": 0.5,
+        "at": {
+          "x": 305,
+          "y": 301,
+          "z": 21
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.913861,
+          "lng": 151.158598
+        }
+      },
+      {
+        "name": "Vaccines",
+        "sub": "",
+        "detail": "Pharmacy · flu and COVID walk-in Thu–Sat",
+        "color": "#1fb39c",
+        "initials": "+",
+        "phase": 0.7,
+        "at": {
+          "x": 127,
+          "y": 133,
+          "z": 9
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.908579,
+          "lng": 151.151856
+        }
+      }
+    ],
+    "weather": {
+      "heading": "🌤️ Weather in Marrickville",
+      "meta": "Now · 15:10",
+      "temp": "33°",
+      "summary": "Sunny, hot north-easterly",
+      "feelsLike": "Feels like 35° · indoor 29.5°",
+      "stats": [
+        {
+          "label": "Sunrise",
+          "value": "05:47",
+          "note": "sunset 19:14"
+        },
+        {
+          "label": "Humidity",
+          "value": "41%",
+          "note": "dew point 18°"
+        },
+        {
+          "label": "Pressure",
+          "value": "1009",
+          "note": "hPa · falling"
+        },
+        {
+          "label": "Overnight low",
+          "value": "24°",
+          "note": "Thu · hot night"
+        },
+        {
+          "label": "Fire danger",
+          "value": "High",
+          "note": "Thu–Fri"
+        },
+        {
+          "label": "Visibility",
+          "value": "10 km",
+          "note": "clear"
+        }
+      ],
+      "note": "Heatwave conditions Thursday and Friday. A southerly change is expected Friday evening with gusts to 60 km/h."
+    },
+    "week": [
+      {
+        "day": "Wed",
+        "icon": "sun",
+        "high": 33,
+        "low": 19,
+        "hot": false
+      },
+      {
+        "day": "Thu",
+        "icon": "sun",
+        "high": 38,
+        "low": 24,
+        "hot": true
+      },
+      {
+        "day": "Fri",
+        "icon": "wind",
+        "high": 36,
+        "low": 18,
+        "hot": true
+      },
+      {
+        "day": "Sat",
+        "icon": "cloud",
+        "high": 26,
+        "low": 16,
+        "hot": false
+      },
+      {
+        "day": "Sun",
+        "icon": "cloud",
+        "high": 24,
+        "low": 15,
+        "hot": false
+      },
+      {
+        "day": "Mon",
+        "icon": "drop",
+        "high": 23,
+        "low": 14,
+        "hot": false
+      },
+      {
+        "day": "Tue",
+        "icon": "sun",
+        "high": 25,
+        "low": 15,
+        "hot": false
+      }
+    ],
+    "kpis": [
+      {
+        "emoji": "🌡️",
+        "label": "Temperature",
+        "value": "33",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "top today",
+        "delta": "6° above normal",
+        "tone": "warn",
+        "spark": [
+          22,
+          24,
+          27,
+          29,
+          31,
+          32,
+          33,
+          33,
+          33
+        ]
+      },
+      {
+        "emoji": "🥵",
+        "label": "Feels like",
+        "value": "35",
+        "unit": "°C",
+        "color": "#d9443f",
+        "baseline": "humid air",
+        "delta": "Hot",
+        "tone": "warn",
+        "spark": [
+          23,
+          25,
+          28,
+          31,
+          33,
+          34,
+          35,
+          35,
+          35
+        ]
+      },
+      {
+        "emoji": "💨",
+        "label": "Wind",
+        "value": "22",
+        "unit": "km/h",
+        "color": "#5a7fe0",
+        "baseline": "from the north-east",
+        "delta": "Cool change Fri",
+        "tone": "good",
+        "spark": [
+          8,
+          10,
+          12,
+          15,
+          18,
+          20,
+          22,
+          22,
+          22
+        ]
+      },
+      {
+        "emoji": "🕶️",
+        "label": "Sun strength",
+        "value": "11",
+        "unit": "UV",
+        "color": "#c2417a",
+        "baseline": "10 am–3:30 pm",
+        "delta": "Extreme: stay in shade",
+        "tone": "bad",
+        "spark": [
+          1,
+          3,
+          6,
+          9,
+          11,
+          11,
+          10,
+          8,
+          6
+        ]
+      },
+      {
+        "emoji": "🌧️",
+        "label": "Rain",
+        "value": "10",
+        "unit": "% chance",
+        "color": "#2f6fb0",
+        "baseline": "Saturday 60%",
+        "delta": "Dry today",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          5,
+          5,
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "emoji": "🍃",
+        "label": "Air quality",
+        "value": "Good",
+        "unit": "",
+        "color": "#1f8f5f",
+        "baseline": "clean air today",
+        "delta": "Smoky Saturday",
+        "tone": "good",
+        "spark": [
+          28,
+          30,
+          31,
+          33,
+          32,
+          31,
+          32,
+          32,
+          32
+        ]
+      },
+      {
+        "emoji": "🌾",
+        "label": "Pollen",
+        "value": "High",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "grass pollen",
+        "delta": "Keep inhaler near",
+        "tone": "warn",
+        "spark": [
+          3,
+          3,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "emoji": "✈️",
+        "label": "Plane noise",
+        "value": "68",
+        "unit": "dB",
+        "color": "#56706e",
+        "baseline": "flight path",
+        "delta": "Quiet 11 pm–6 am",
+        "tone": "good",
+        "spark": [
+          50,
+          62,
+          66,
+          68,
+          67,
+          68,
+          66,
+          68,
+          68
+        ]
+      },
+      {
+        "emoji": "🔥",
+        "label": "Heat risk",
+        "value": "Medium",
+        "unit": "",
+        "color": "#d9443f",
+        "baseline": "High on Thursday",
+        "delta": "Plan in place",
+        "tone": "warn",
+        "spark": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3
+        ]
+      },
+      {
+        "emoji": "🌅",
+        "label": "Daylight",
+        "value": "13h",
+        "unit": "",
+        "color": "#e2a32c",
+        "baseline": "sunset 7:14 pm",
+        "delta": "Longer days",
+        "tone": "good",
+        "spark": [
+          12.8,
+          12.8,
+          12.9,
+          12.9,
+          12.9,
+          13,
+          13,
+          13,
+          13.03
+        ]
+      },
+      {
+        "emoji": "🌊",
+        "label": "Sea breeze",
+        "value": "None",
+        "unit": "",
+        "color": "#2f6fb0",
+        "baseline": "until Friday",
+        "delta": "Warm night",
+        "tone": "warn",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "emoji": "🔌",
+        "label": "Power cut risk",
+        "value": "Low",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "Medium Thursday",
+        "delta": "Fridge medicines OK",
+        "tone": "good",
+        "spark": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    ],
+    "alertsHeading": {
+      "title": "👀 Worth knowing, living alone",
+      "meta": "Living alone · sorted by urgency"
+    },
+    "alerts": [
+      {
+        "severity": "act",
+        "icon": "shield",
+        "title": "Scam door-knocks on her street",
+        "text": "\"Solar rebate\" callers, 3 reports since Monday. The helper reminded her not to open the door to unexpected visitors. She can call David with one tap if anyone worries her.",
+        "source": "Police + neighbours · 2 d"
+      },
+      {
+        "severity": "act",
+        "icon": "sun",
+        "title": "Thursday heatwave, 38°",
+        "text": "Indoor predicted 34° without air-con. Lift to the library cool room booked 11:00, extra check-ins 12:00 and 15:00.",
+        "source": "Weather bureau · today"
+      },
+      {
+        "severity": "aware",
+        "icon": "people",
+        "title": "Key holder away 18–25 Oct",
+        "text": "Aisha is away, so David is the only key holder. Suggest a key lockbox for paramedics.",
+        "source": "Circle · 1 d"
+      },
+      {
+        "severity": "aware",
+        "icon": "target",
+        "title": "Footpath works outside the pharmacy",
+        "text": "Uneven surface until 24 Oct. Her walking route now goes via Calvert St.",
+        "source": "Council · 6 Oct"
+      },
+      {
+        "severity": "aware",
+        "icon": "moon",
+        "title": "Street light out on Calvert St",
+        "text": "Reported to council. Evening check-in moved earlier so she isn't walking home in the dark.",
+        "source": "Agent · Sun"
+      },
+      {
+        "severity": "aware",
+        "icon": "eye",
+        "title": "Swooping magpies at Calvert Reserve",
+        "text": "Walking group moved to the eastern path until November.",
+        "source": "Residents · Sep"
+      },
+      {
+        "severity": "help",
+        "icon": "plus",
+        "title": "Free flu and COVID vaccines",
+        "text": "Walk-in at her pharmacy Thu–Sat. She is due a COVID booster (last one 7 months ago).",
+        "source": "Pharmacy · today"
+      }
+    ],
+    "newsHeading": {
+      "title": "📰 News that matters to her",
+      "meta": "Filtered for a 78-year-old living alone in 2204"
+    },
+    "newsCategories": [
+      "All",
+      "Health",
+      "Safety",
+      "Weather",
+      "Community",
+      "Transport"
+    ],
+    "news": [
+      {
+        "category": "Health",
+        "source": "State health department",
+        "age": "2 h",
+        "headline": "Heat health warning for Sydney, Thursday and Friday",
+        "body": "Older people with heart conditions should stay cool, drink water and check in with family twice a day.",
+        "shownBecause": "Shown because: heart condition, no air-con at home"
+      },
+      {
+        "category": "Safety",
+        "source": "Local police",
+        "age": "5 h",
+        "headline": "Door-knock scam offering solar rebates targets older residents",
+        "body": "Callers ask for bank details to \"pre-approve\" a rebate. Police advise not to open the door.",
+        "shownBecause": "Shown because: lives alone, 3 reports on her street"
+      },
+      {
+        "category": "Weather",
+        "source": "Weather bureau",
+        "age": "6 h",
+        "headline": "Southerly change Friday evening, gusts to 60 km/h",
+        "body": "Temperatures drop 12° within an hour. Secure outdoor furniture.",
+        "shownBecause": "Shown because: garden furniture, bedroom tree"
+      },
+      {
+        "category": "Community",
+        "source": "Inner West Council",
+        "age": "1 d",
+        "headline": "Seniors festival: free morning tea at Marrickville Town Hall, Tue 20 Oct",
+        "body": "Live music, health checks and a lift service from the library.",
+        "shownBecause": "Shown because: social contacts below her normal"
+      },
+      {
+        "category": "Transport",
+        "source": "Transport update",
+        "age": "1 d",
+        "headline": "No trains at Marrickville this weekend; buses replace trains",
+        "body": "Buses leave from Illawarra Rd every 10 minutes.",
+        "shownBecause": "Shown because: Sunday church in Sydenham"
+      },
+      {
+        "category": "Health",
+        "source": "Pharmacy",
+        "age": "1 d",
+        "headline": "Flu and COVID vaccines available walk-in",
+        "body": "Thursday to Saturday, no booking needed for over-65s.",
+        "shownBecause": "Shown because: COVID booster due"
+      },
+      {
+        "category": "Safety",
+        "source": "Council",
+        "age": "2 d",
+        "headline": "Hazard-reduction burns may bring smoke on Saturday",
+        "body": "Keep windows closed and medicines for breathing close by.",
+        "shownBecause": "Shown because: occasional asthma"
+      },
+      {
+        "category": "Community",
+        "source": "Library",
+        "age": "2 d",
+        "headline": "Cool room open 9–8 on Thursday with seats reserved for over-75s",
+        "body": "Free water, Wi-Fi and a quiet room for naps.",
+        "shownBecause": "Shown because: heatwave plan"
+      }
+    ],
+    "thursday": {
+      "outdoor": [
+        22,
+        24,
+        27,
+        30,
+        33,
+        35,
+        37,
+        38,
+        38,
+        37,
+        36,
+        34,
+        32,
+        30,
+        28,
+        27,
+        26
+      ],
+      "indoor": [
+        26,
+        26.5,
+        27,
+        27.8,
+        28.8,
+        30,
+        31,
+        32,
+        33,
+        33.8,
+        34,
+        33.8,
+        33.2,
+        32.5,
+        31.5,
+        30.8,
+        30
+      ],
+      "coolRoom": {
+        "from": 5,
+        "to": 10,
+        "label": "at library cool room"
+      },
+      "plan": [
+        {
+          "at": 3,
+          "label": "fluids"
+        },
+        {
+          "at": 6,
+          "label": "check-in"
+        },
+        {
+          "at": 9,
+          "label": "check-in"
+        },
+        {
+          "at": 12,
+          "label": "check-in"
+        }
+      ],
+      "legend": [
+        {
+          "color": "#e07a3f",
+          "label": "Outdoor"
+        },
+        {
+          "color": "#d9443f",
+          "label": "Inside her home (no air-con)"
+        },
+        {
+          "color": "rgba(143,111,208,.2)",
+          "label": "Helper's plan"
+        }
+      ]
+    },
+    "air": [
+      {
+        "day": "Wed",
+        "quality": "Good · 32",
+        "pm25": "9",
+        "pollen": "High",
+        "smoke": "None",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "Thu",
+        "quality": "Fair · 48",
+        "pm25": "14",
+        "pollen": "High",
+        "smoke": "None",
+        "advice": "Stay in midday",
+        "tone": "warn"
+      },
+      {
+        "day": "Fri",
+        "quality": "Fair · 51",
+        "pm25": "16",
+        "pollen": "Extreme",
+        "smoke": "None",
+        "advice": "Asthma alert with southerly",
+        "tone": "bad"
+      },
+      {
+        "day": "Sat",
+        "quality": "Poor · 88",
+        "pm25": "31",
+        "pollen": "Moderate",
+        "smoke": "Likely",
+        "advice": "Windows closed",
+        "tone": "bad"
+      },
+      {
+        "day": "Sun",
+        "quality": "Fair · 45",
+        "pm25": "12",
+        "pollen": "Moderate",
+        "smoke": "Low",
+        "advice": "—",
+        "tone": "warn"
+      },
+      {
+        "day": "Mon",
+        "quality": "Good · 28",
+        "pm25": "7",
+        "pollen": "Low",
+        "smoke": "None",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "Tue",
+        "quality": "Good · 30",
+        "pm25": "8",
+        "pollen": "Moderate",
+        "smoke": "None",
+        "advice": "—",
+        "tone": "good"
+      }
+    ],
+    "airNote": "Spring grass pollen is high, and hazard-reduction burns south of Sydney may bring smoke on Saturday. Her inhaler reminder is on for those days.",
+    "nearby": [
+      {
+        "initials": "W",
+        "color": "#8f6fd0",
+        "name": "Walking group · Calvert Reserve",
+        "note": "Thu 9:00 · she came 3 of the last 4 weeks",
+        "pill": {
+          "tone": "good",
+          "text": "Going"
+        }
+      },
+      {
+        "initials": "A",
+        "color": "#c2611f",
+        "name": "Aisha · neighbour, 2 doors down",
+        "note": "Verified volunteer · key holder",
+        "pill": {
+          "tone": "brand",
+          "text": "Backup"
+        }
+      },
+      {
+        "initials": "M",
+        "color": "#5a7fe0",
+        "name": "Meals delivery",
+        "note": "Tue and Fri · next Fri 11:30",
+        "pill": {
+          "tone": "plain",
+          "text": "Booked"
+        }
+      },
+      {
+        "initials": "L",
+        "color": "#22a593",
+        "name": "Library tech help",
+        "note": "Mondays 10:00 · video calls with Sarah",
+        "pill": {
+          "tone": "plain",
+          "text": "Optional"
+        }
+      }
+    ]
+  }
+}

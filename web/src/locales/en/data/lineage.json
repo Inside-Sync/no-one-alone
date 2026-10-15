@@ -1,0 +1,397 @@
+{
+  "lineage": {
+    "heading": "Four generations",
+    "meta": "From Family Connect · 11 people · 9 consented",
+    "conditionKeys": {
+      "HTN": {
+        "name": "Hypertension",
+        "color": "#c88a05"
+      },
+      "STR": {
+        "name": "Stroke",
+        "color": "#d9443f"
+      },
+      "AF": {
+        "name": "Atrial fibrillation",
+        "color": "#c2417a"
+      },
+      "T2D": {
+        "name": "Type 2 diabetes",
+        "color": "#e07a3f"
+      },
+      "GLA": {
+        "name": "Glaucoma",
+        "color": "#2f6fb0"
+      },
+      "DEM": {
+        "name": "Dementia",
+        "color": "#8f6fd0"
+      },
+      "HEAR": {
+        "name": "Hearing loss",
+        "color": "#1fb39c"
+      }
+    },
+    "legendNote": "Number = age at onset",
+    "generations": [
+      {
+        "label": "Grandparents",
+        "nodes": [
+          {
+            "name": "Arthur Hughes",
+            "sub": "†72 · Margaret's father",
+            "conditions": [
+              [
+                "HTN",
+                55
+              ],
+              [
+                "STR",
+                68
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "Edith Hughes",
+            "sub": "†80 · Margaret's mother",
+            "conditions": [
+              [
+                "GLA",
+                60
+              ],
+              [
+                "HEAR",
+                74
+              ],
+              [
+                "DEM",
+                77
+              ]
+            ],
+            "kind": "dec"
+          }
+        ]
+      },
+      {
+        "label": "Margaret's generation",
+        "nodes": [
+          {
+            "name": "Margaret Collins",
+            "sub": "78 · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                61
+              ],
+              [
+                "HEAR",
+                72
+              ]
+            ],
+            "kind": "focus"
+          },
+          {
+            "name": "Robert Collins",
+            "sub": "†75 · husband",
+            "conditions": [
+              [
+                "HTN",
+                60
+              ],
+              [
+                "T2D",
+                58
+              ],
+              [
+                "AF",
+                70
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "David Hughes",
+            "sub": "74 · brother · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                52
+              ],
+              [
+                "STR",
+                69
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Children",
+        "nodes": [
+          {
+            "name": "Sarah Collins",
+            "sub": "49 · London",
+            "conditions": []
+          },
+          {
+            "name": "James Collins",
+            "sub": "46 · Melbourne · you",
+            "conditions": [
+              [
+                "HTN",
+                "138/86"
+              ]
+            ],
+            "kind": "you"
+          }
+        ]
+      },
+      {
+        "label": "Grandchildren",
+        "nodes": [
+          {
+            "name": "Lily Collins",
+            "sub": "19 · Melbourne",
+            "conditions": []
+          },
+          {
+            "name": "Noah Collins",
+            "sub": "16 · Melbourne",
+            "conditions": []
+          }
+        ]
+      }
+    ],
+    "strengthHeading": "Family pattern strength for you, James",
+    "strength": [
+      {
+        "condition": "Hypertension",
+        "dots": 4,
+        "label": "Strong"
+      },
+      {
+        "condition": "Type 2 diabetes",
+        "dots": 3,
+        "label": "Moderate+"
+      },
+      {
+        "condition": "Stroke",
+        "dots": 2,
+        "label": "Moderate"
+      },
+      {
+        "condition": "Atrial fibrillation",
+        "dots": 2,
+        "label": "Moderate"
+      },
+      {
+        "condition": "Glaucoma",
+        "dots": 2,
+        "label": "Moderate"
+      },
+      {
+        "condition": "Dementia",
+        "dots": 1,
+        "label": "Weak"
+      },
+      {
+        "condition": "Hearing loss",
+        "dots": 1,
+        "label": "Weak"
+      }
+    ],
+    "strengthNote": "Strength reflects how many relatives were affected, how closely related they are and how young. It guides screening, it does not predict genes.",
+    "screeningHeading": {
+      "title": "Your screening plan",
+      "meta": "James Collins · 46"
+    },
+    "screening": [
+      {
+        "check": "Blood pressure check",
+        "interval": "12 months",
+        "due": "Overdue",
+        "tone": "bad",
+        "action": "Book GP"
+      },
+      {
+        "check": "Heart health check (absolute CVD risk)",
+        "interval": "Every 2 years from 45",
+        "due": "Due now",
+        "tone": "warn",
+        "action": "Book"
+      },
+      {
+        "check": "Diabetes risk (AUSDRISK) + HbA1c",
+        "interval": "3 years",
+        "due": "Jan 2027",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "Eye exam incl. eye pressure",
+        "interval": "2 years",
+        "due": "Mar 2027",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "Lipids",
+        "interval": "5 years",
+        "due": "Done Aug 2025",
+        "tone": "good",
+        "action": ""
+      },
+      {
+        "check": "Hearing baseline",
+        "interval": "At 50",
+        "due": "2030",
+        "tone": "plain",
+        "action": ""
+      }
+    ],
+    "screeningToast": "Booking request sent to your GP in Melbourne",
+    "matrixColumns": [
+      "HTN",
+      "STR",
+      "AF",
+      "T2D",
+      "GLA",
+      "DEM",
+      "HEAR"
+    ],
+    "matrix": [
+      {
+        "person": "Arthur (grandfather)",
+        "onset": {
+          "HTN": 55,
+          "STR": 68
+        }
+      },
+      {
+        "person": "Edith (grandmother)",
+        "onset": {
+          "GLA": 60,
+          "DEM": 77,
+          "HEAR": 74
+        }
+      },
+      {
+        "person": "Robert (father)",
+        "onset": {
+          "HTN": 60,
+          "T2D": 58,
+          "AF": 70
+        }
+      },
+      {
+        "person": "Margaret (mother)",
+        "onset": {
+          "HTN": 61,
+          "HEAR": 72
+        }
+      },
+      {
+        "person": "David (uncle)",
+        "onset": {
+          "HTN": 52,
+          "STR": 69
+        }
+      },
+      {
+        "person": "Sarah (sister)",
+        "onset": {}
+      },
+      {
+        "person": "James (you)",
+        "onset": {
+          "HTN": "↑"
+        }
+      }
+    ],
+    "consent": {
+      "columns": [
+        "Conditions",
+        "Medicines",
+        "Vitals",
+        "Location",
+        "Genetic"
+      ],
+      "rows": [
+        {
+          "person": "Margaret",
+          "shares": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ]
+        },
+        {
+          "person": "David",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Sarah",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "James (you)",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Robert (estate)",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ],
+      "note": "Stored per person and per data type. Changes apply within a minute and are written to the audit log."
+    },
+    "context": {
+      "initials": "HL",
+      "color": "#8f6fd0",
+      "sub": "4 generations · 11 people · Family Connect",
+      "facts": [
+        {
+          "live": true,
+          "label": "Consented",
+          "value": "9 of 11"
+        },
+        {
+          "live": false,
+          "label": "Conditions",
+          "value": "7"
+        },
+        {
+          "live": false,
+          "label": "Your plan",
+          "value": "2 due"
+        }
+      ]
+    }
+  }
+}

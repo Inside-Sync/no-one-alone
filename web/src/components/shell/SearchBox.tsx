@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useRouter } from '@/app/navigation'
 import { Icon } from '@/components/ui/Icon'
 import * as repo from '@/data/repo'
@@ -11,6 +12,7 @@ interface Entry { key: string; label: string; note: string; to: string }
 
 /** Filters people and suburbs from fixtures; Enter or a click navigates. */
 export function SearchBox() {
+  const { t } = useTranslation()
   const router = useRouter()
   const { people: sharePeople } = useAppState()
   const [entries, setEntries] = useState<Entry[]>([])
@@ -23,16 +25,16 @@ export function SearchBox() {
     Promise.all([repo.getPerson('margaret'), repo.getCommunity()]).then(([person, community]) => {
       if (!live) return
       const people: Entry[] = [
-        { key: 'p-margaret', label: person.name, note: 'Person', to: '/individual/home' },
+        { key: 'p-margaret', label: person.name, note: t('nav.search.person'), to: '/individual/home' },
         ...sharePeople.map((p) => ({ key: `p-${p.id}`, label: p.name, note: p.role, to: '/individual/home' })),
       ]
       const subs: Entry[] = community.suburbs.map((sb) => ({
-        key: `s-${sb.name}`, label: sb.name, note: 'Suburb · Inner West', to: '/community/community',
+        key: `s-${sb.name}`, label: sb.name, note: t('nav.search.suburb'), to: '/community/community',
       }))
       setEntries([...people, ...subs])
     }, () => {})
     return () => { live = false }
-  }, [sharePeople])
+  }, [sharePeople, t])
 
   const results = useMemo(() => {
     const v = q.trim().toLowerCase()
@@ -52,8 +54,8 @@ export function SearchBox() {
         <span className="ic"><Icon name="search" /></span>
         <input
           id="q"
-          placeholder="Search people, suburbs…"
-          aria-label="Search"
+          placeholder={t('nav.search.placeholder')}
+          aria-label={t('nav.search.label')}
           value={q}
           role="combobox"
           aria-expanded={open && results.length > 0}
@@ -72,7 +74,7 @@ export function SearchBox() {
         />
       </label>
       {open && results.length > 0 && (
-        <ul className={s.results} id="searchResults" role="listbox" aria-label="Search results">
+        <ul className={s.results} id="searchResults" role="listbox" aria-label={t('nav.search.results')}>
           {results.map((r, i) => (
             <li
               key={r.key}

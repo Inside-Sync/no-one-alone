@@ -3,6 +3,7 @@ import { vi } from 'vitest'
 import { ForecastPage } from '@/features/individual/forecast/ForecastPage'
 import { PAGE_REGISTRY } from '@/features/registry'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
+import i18n from '@/i18n'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/forecast/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
@@ -89,4 +90,16 @@ test('forecast cards are not consent-tagged: nothing is locked when sharing is p
   await waitFor(() => expect(r.app().paused).toBe(true))
   expect(screen.getByText('📊 Chances over time')).toBeInTheDocument()
   expect(document.querySelectorAll('.locked')).toHaveLength(0)
+})
+
+test('in Vietnamese the mode toast names the mode in Vietnamese', async () => {
+  await act(() => i18n.changeLanguage('vi'))
+  try {
+    renderWithProviders(<ForecastPage />, { who: 'self' })
+    await screen.findByText('ℹ️ Dự báo này hoạt động thế nào')
+    fireEvent.click(screen.getByRole('button', { name: /Chế độ khiếm thính/ }))
+    expect(document.getElementById('toast')!.textContent).toBe('Đã tắt chế độ khiếm thính')
+  } finally {
+    await act(() => i18n.changeLanguage('en'))
+  }
 })

@@ -1,0 +1,205 @@
+{
+  "ed": {
+    "inbox": {
+      "title": "Hộp thư báo trước khi đến",
+      "meta": "Hồ sơ đến trước xe cứu thương",
+      "newPill": "1 mới",
+      "newTag": "Mới"
+    },
+    "incoming": {
+      "title": "Xe cứu thương đang đến",
+      "meta": "60 phút tới",
+      "head": [
+        "Thời gian đến",
+        "Bệnh nhân",
+        "Lý do vào viện",
+        "Phân loại",
+        "Hồ sơ",
+        "Giường"
+      ]
+    },
+    "packet": {
+      "title": "Hồ sơ",
+      "meta": "Chọn một bệnh nhân",
+      "demoMeta": "Margaret C., 78 tuổi",
+      "statusLabel": "Trạng thái",
+      "noteLabel": "Ghi chú"
+    },
+    "pathway": {
+      "title": "Quy trình đột quỵ",
+      "meta": "Cửa sổ điều trị",
+      "pending": "đang chờ"
+    },
+    "page": {
+      "label": "Gọi đội đột quỵ",
+      "toast": "Đã gọi đội đột quỵ · giữ máy CT 2"
+    },
+    "divert": {
+      "label": "Chuyển hướng",
+      "toast": "Đã đề nghị xe cứu thương chuyển hướng"
+    }
+  },
+  "panel": {
+    "table": {
+      "title": "Bệnh nhân cao tuổi trong khu vực",
+      "meta": "Đã đăng ký No One Alone · xếp theo nguy cơ nhập viện 30 ngày",
+      "head": [
+        "Bệnh nhân",
+        "Khu",
+        "Nhập viện 30 ngày",
+        "Yếu tố chính",
+        "Cấp cứu lần cuối",
+        "Bác sĩ gia đình",
+        "Tín hiệu"
+      ],
+      "sex": {
+        "F": "Nữ",
+        "M": "Nam"
+      }
+    },
+    "scatter": {
+      "title": "Nguy cơ theo tuổi",
+      "ariaLabel": "Biểu đồ phân tán nguy cơ nhập viện 30 ngày theo tuổi; nguy cơ tăng theo tuổi; bà Margaret ở mức 22%, 78 tuổi",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "Cao"
+        },
+        {
+          "color": "#c88a05",
+          "label": "Trung bình"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "Thấp"
+        }
+      ],
+      "axis": "tuổi"
+    }
+  },
+  "demand": {
+    "forecast": {
+      "title": "Lượt đến khám từ 75 tuổi trở lên, 14 ngày tới",
+      "tag": "DỰ BÁO",
+      "ariaLabel": "Dự báo lượt đến khám từ 75 tuổi trở lên: 34 vào thứ Năm và 31 vào thứ Sáu, vượt ngưỡng an toàn 28",
+      "legend": [
+        {
+          "color": "#2f6fb0",
+          "label": "Dự báo"
+        },
+        {
+          "color": "rgba(47,111,176,.15)",
+          "label": "Khoảng tin cậy 80%"
+        },
+        {
+          "color": "#56706e",
+          "label": "Năm ngoái"
+        },
+        {
+          "color": "#d9443f",
+          "label": "Vượt ngưỡng an toàn"
+        }
+      ],
+      "heatwave": "nắng nóng",
+      "secondSpell": "đợt nóng thứ 2?"
+    },
+    "beds": {
+      "title": "Giường hiện tại",
+      "meta": "15:00"
+    },
+    "shap": {
+      "title": "Điều gì gây đỉnh tăng thứ Năm",
+      "meta": "Mức đóng góp vào dự báo"
+    },
+    "actions": {
+      "title": "Hành động đề xuất",
+      "meta": "Tạo từ dự báo",
+      "buttons": {
+        "Approve": "Duyệt",
+        "Linked": "Đã liên kết",
+        "Review": "Xem xét",
+        "Auto": "Tự động"
+      },
+      "toastApproved": "{{title}} · đã duyệt",
+      "toastNoted": "{{title}} · đã ghi nhận"
+    }
+  },
+  "discharge": {
+    "board": {
+      "title": "Bảng theo dõi sau xuất viện 30 ngày",
+      "meta": "Trợ lý gọi cho từng bệnh nhân bằng ngôn ngữ của họ · dấu hiệu cảnh báo được chuyển đến điều dưỡng xuất viện",
+      "head": [
+        "Bệnh nhân",
+        "Xuất viện",
+        "Chẩn đoán",
+        "Ngày 1",
+        "Ngày 3",
+        "Ngày 7",
+        "Ngày 14",
+        "Ngày 30",
+        "Nguy cơ tái nhập viện"
+      ],
+      "legend": [
+        {
+          "color": "#1fb39c",
+          "label": "Đã xong, ổn"
+        },
+        {
+          "color": "#c88a05",
+          "label": "Đã xong, có cờ cảnh báo"
+        },
+        {
+          "color": "#d9443f",
+          "label": "Đã chuyển điều dưỡng"
+        },
+        {
+          "color": "var(--track)",
+          "label": "Sắp tới"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "row": [
+      [
+        "Mở toàn bộ hồ sơ",
+        "Đã mở hồ sơ trong EMR (demo)",
+        "Đã mở"
+      ],
+      [
+        "Nhắn bác sĩ gia đình",
+        "Đã gửi tin nhắn bảo mật cho bác sĩ gia đình",
+        "Đã gửi"
+      ],
+      [
+        "Giao cho tôi",
+        "Đã giao cho bạn",
+        "Đã nhận"
+      ]
+    ],
+    "kpi": [
+      [
+        "Thêm vào danh sách theo dõi",
+        "Đã thêm vào danh sách theo dõi",
+        "Đang theo dõi"
+      ],
+      [
+        "Xuất CSV",
+        "Đã xếp hàng xuất",
+        "Đã xuất"
+      ]
+    ],
+    "mini": [
+      [
+        "Gắn cờ để xem xét",
+        "Đã gắn cờ",
+        "Đã gắn cờ"
+      ],
+      [
+        "Giao cho tôi",
+        "Đã giao cho bạn",
+        "Đã nhận"
+      ]
+    ]
+  }
+}

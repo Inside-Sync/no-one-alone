@@ -1,0 +1,85 @@
+{
+  "goals": {
+    "title": "🎯 Mục tiêu hôm nay",
+    "meta": "Đặt cùng bác sĩ gia đình",
+    "of": "trên {{goal}} {{unit}}"
+  },
+  "hr": {
+    "title": "❤️ Nhịp tim trong ngày qua",
+    "meta": "Nhịp mỗi phút",
+    "ariaLabel": "Nhịp tim trong 24 giờ: 55 đến 62 khi ngủ, có hai cảnh báo nhịp không đều lúc 02:14 và 03:40, cao nhất 112 khi đi bộ buổi sáng",
+    "asleep": "đang ngủ",
+    "legend": [
+      {
+        "color": "#ef6a5e",
+        "label": "Nhịp tim"
+      },
+      {
+        "color": "rgba(239,106,94,.12)",
+        "label": "Dải thấp nhất–cao nhất"
+      },
+      {
+        "color": "#c2417a",
+        "label": "Cảnh báo nhịp tim không đều",
+        "round": true
+      },
+      {
+        "color": "#1fb39c",
+        "label": "Đi bộ",
+        "round": true
+      }
+    ]
+  },
+  "hypno": {
+    "title": "😴 Giấc ngủ đêm qua",
+    "ariaLabel": "Các giai đoạn ngủ: thức giấc 6 lần, ngủ sâu 52 phút, REM 52 phút"
+  },
+  "mood": {
+    "title": "😊 Tâm trạng 2 tuần qua",
+    "meta": "Từ những lần bà tự chạm và giọng nói của bà",
+    "ariaLabel": "Tâm trạng trong 14 ngày, phần lớn dễ chịu, giảm vào hai ngày nóng, cao nhất vào những ngày đi bộ cùng nhóm",
+    "top": "Dễ chịu",
+    "bottom": "Khó chịu",
+    "hot": "nóng",
+    "walk": "đi bộ"
+  },
+  "steps": {
+    "title": "👣 Số bước 2 tuần qua",
+    "meta": "Mục tiêu 3.500",
+    "ariaLabel": "Số bước trong 14 ngày, đạt mục tiêu 7 ngày",
+    "goal": "mục tiêu 3.500"
+  },
+  "bp": {
+    "title": "🩺 Huyết áp 2 tuần qua",
+    "meta": "Số đo buổi sáng và buổi tối",
+    "ariaLabel": "Huyết áp tâm thu buổi sáng tăng từ 134 lên 146 và buổi tối từ 128 lên 139 trong 14 ngày",
+    "legend": [
+      {
+        "color": "#c88a05",
+        "label": "Tâm thu buổi sáng"
+      },
+      {
+        "color": "#5a7fe0",
+        "label": "Tâm thu buổi tối"
+      },
+      {
+        "color": "rgba(31,179,156,.15)",
+        "label": "Mục tiêu dưới 135"
+      }
+    ]
+  },
+  "devices": {
+    "title": "📲 Dữ liệu này đến từ đâu",
+    "columns": [
+      "Thiết bị",
+      "Chỉ số",
+      "Tần suất",
+      "Pin / trạng thái",
+      "Chia sẻ với"
+    ]
+  },
+  "days": {
+    "today": "nay",
+    "ago": "{{n}}n"
+  }
+}
