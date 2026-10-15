@@ -50,13 +50,13 @@ public class DemoService {
         DemoSettings settings = new DemoSettings();
         settings.timerSeconds = timerSeconds;
         settings.noReplySeconds = noReplySeconds;
-        settings.clockOffsetMs = StoryClock.offsetFor(scenario, clock);
+        settings.clockOffsetMs = StoryClock.offsetFor(scenario, StoryClock.DEFAULT_ZONE, clock);
         String id = "alert-" + clock.millis() + "-" + scenario.slug;
 
         DemoCurrent current = new DemoCurrent();
         current.incidentId = id;
         current.scenario = scenario.name();
-        current.startedAt = scenario.storyStart.toString();
+        current.startedAt = StoryClock.storyStart(scenario, StoryClock.DEFAULT_ZONE).toString();
         store.setCurrent(current);
 
         publisher.publish(new AlertMessage(id, f.personId(), scenario, f.alert().kind(), f.alert().hr(),
