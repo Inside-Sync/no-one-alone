@@ -25,7 +25,7 @@ import com.noonealone.coreapi.model.Scenario;
 @RequestMapping("/api")
 public class ApiController {
 
-    public record DemoRequest(Integer timerSeconds, Integer noReplySeconds) {}
+    public record DemoRequest(Integer timerSeconds, Integer noReplySeconds, String personId) {}
 
     public record CheckInRequest(String yesNo, Boolean noReply) {}
 
@@ -50,7 +50,8 @@ public class ApiController {
                 .orElseThrow(() -> ApiException.badRequest("Unknown scenario " + scenario));
         int timer = body != null && body.timerSeconds() != null ? body.timerSeconds() : 30;
         int noReply = body != null && body.noReplySeconds() != null ? body.noReplySeconds() : 15;
-        return Map.of("incidentId", demo.trigger(s, timer, noReply));
+        String personId = body != null && body.personId() != null ? body.personId() : "ba-mai";
+        return Map.of("incidentId", demo.trigger(s, personId, timer, noReply));
     }
 
     @PostMapping("/demo/reset")

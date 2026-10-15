@@ -1,6 +1,7 @@
 package com.noonealone.coreapi.flow;
 
 import java.time.Clock;
+import java.time.ZoneId;
 
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import com.noonealone.coreapi.gcp.AudioStore;
 import com.noonealone.coreapi.gcp.EscalationTimers;
 import com.noonealone.coreapi.model.DemoCurrent;
 import com.noonealone.coreapi.model.DemoSettings;
+import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.Scenario;
 import com.noonealone.coreapi.model.Status;
 import com.noonealone.coreapi.model.StoryClock;
@@ -40,26 +42,32 @@ public class DemoService {
         this.clock = clock;
     }
 
-    public String trigger(Scenario scenario, int timerSeconds, int noReplySeconds) {
+    public String trigger(Scenario scenario, String personId, int timerSeconds, int noReplySeconds) {
+        Person person = store.people().get(personId);
+        if (person == null || person.circle == null || person.circle.isEmpty()) {
+            throw ApiException.badRequest("Unknown person " + personId);
+        }
         boolean running = store.current()
                 .map(c -> store.find(c.incidentId).map(i -> i.status != Status.CLOSED).orElse(true)).orElse(false);
         if (running) {
             throw ApiException.invalidState("A demo incident is still running. Close or reset it first.");
         }
         Fixture f = scenarios.get(scenario);
+        ZoneId zone = person.timezone == null ? StoryClock.DEFAULT_ZONE : ZoneId.of(person.timezone);
         DemoSettings settings = new DemoSettings();
         settings.timerSeconds = timerSeconds;
         settings.noReplySeconds = noReplySeconds;
-        settings.clockOffsetMs = StoryClock.offsetFor(scenario, StoryClock.DEFAULT_ZONE, clock);
+        settings.clockOffsetMs = StoryClock.offsetFor(scenario, zone, clock);
         String id = "alert-" + clock.millis() + "-" + scenario.slug;
 
         DemoCurrent current = new DemoCurrent();
         current.incidentId = id;
         current.scenario = scenario.name();
-        current.startedAt = StoryClock.storyStart(scenario, StoryClock.DEFAULT_ZONE).toString();
+        current.personId = personId;
+        current.startedAt = StoryClock.storyStart(scenario, zone).toString();
         store.setCurrent(current);
 
-        publisher.publish(new AlertMessage(id, f.personId(), scenario, f.alert().kind(), f.alert().hr(),
+        publisher.publish(new AlertMessage(id, personId, scenario, f.alert().kind(), f.alert().hr(),
                 f.alert().movementMin(), settings));
         return id;
     }
