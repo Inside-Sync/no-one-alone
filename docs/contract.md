@@ -86,7 +86,7 @@ One collection for the older person and the Health Circle members.
 | `emergencyNumber` | string | person only | Number shown and logged for `CALLED_115`; Bà Mai `115`, Margaret `000` |
 | `accessibility.hearing` | `NORMAL` \| `LOSS` | person only | `LOSS`: the person screen shows each spoken question as large captions too |
 | `circle` | array | person only | Members without `criticalAlerts: true` are never notified |
-| `circle[].role` | `NEARBY` \| `DISTANT` | yes | `NEARBY` can come to the door; `DISTANT` coordinates and calls 115 |
+| `circle[].role` | `NEARBY` \| `DISTANT` | yes | `NEARBY` can come to the door; `DISTANT` coordinates and calls the emergency number (`emergencyNumber`) |
 
 Margaret Collins, 78, lives in Marrickville, Sydney (`en-AU`, no `dialect`). Her circle is `david` (NEARBY 1), `aisha` (NEARBY 2), `james` (DISTANT 3) and `sarah` (DISTANT 4, no critical alerts).
 
@@ -238,7 +238,7 @@ any status except CLOSED --CLOSE from console--> CLOSED
    - All `DISTANT` members with `criticalAlerts` are notified at once, without a timer.
    - `NEARBY` members are notified one at a time by `priority`. Each gets `deadlineAt = notifiedAt + timerSeconds` and a Cloud Task. All NEARBY assignments are written at once in priority order; the ones not yet notified are `QUEUED`.
    - When the last `NEARBY` member expires or declines: timeline `NO_NEARBY`, and every `DISTANT` assignment gets `actions: ["CALL_NEARBY", "CALLED_115"]`.
-7. `EMERGENCY` only: write `handoff.status: PENDING`, then call `/handoff` right after `/plan`, in parallel with escalation. Pick the nearest hospital with `strokeReady: true` when stroke is suspected (any `SLURRED` turn), the nearest hospital otherwise. ETA from Maps Routes. Hospitals more than about 500 km from the person are ranked by straight-line distance and get no Routes ETA call. On success write the packet and `RECEIVED`; on `AGENT_FAILED` write `FAILED` and timeline `HANDOFF_FAILED`.
+7. `EMERGENCY` only: write `handoff.status: PENDING`, then call `/handoff` right after `/plan`, in parallel with escalation. Pick the nearest hospital with `strokeReady: true` when stroke is suspected (any `SLURRED` turn), the nearest hospital otherwise. ETA from Maps Routes. Hospitals more than about 500 km from the person are ranked by straight-line distance and get no Routes ETA call. `etaMin` is omitted when the chosen hospital has no Routes ETA, in the handoff, the `/handoff` body and the packet. On success write the packet and `RECEIVED`; on `AGENT_FAILED` write `FAILED` and timeline `HANDOFF_FAILED`.
 8. `ARRIVED` from the owner moves status to `ON_SCENE`. The demo console closes the incident.
 
 ### Action rules
@@ -288,6 +288,7 @@ The anonymous token only proves the call comes from our web app. The demo has no
 ```json
 { "timerSeconds": 30, "noReplySeconds": 15, "personId": "margaret" }
 ```
+
 `personId` is optional and defaults to `ba-mai`. A `personId` that is not an older person in the seed returns `400 INVALID_REQUEST`.
 
 Response `202`:
