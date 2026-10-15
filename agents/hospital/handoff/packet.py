@@ -90,6 +90,8 @@ def render_text(p: HandoffPacket, *, record_read: bool) -> str:
         if category in p.withheld:
             return WITHHELD
         if not record_read:
+            if "PATIENT_NOT_FOUND" in p.warnings:
+                return "không có hồ sơ (record not found)"
             return "không đọc được hồ sơ (record unavailable)"
         return value or NONE_RECORDED
 

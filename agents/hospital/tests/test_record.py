@@ -1,7 +1,10 @@
 from datetime import date
 
-from handoff.fhir import FixtureReader
+import pytest
+
+from handoff.fhir import FixtureReader, RecordUnavailable
 from handoff.record import normalize
+from tests.conftest import ROOT
 
 ON = date(2026, 10, 15)
 
@@ -83,3 +86,32 @@ def test_fixture_reader_returns_patient_compartment_and_empty_for_unknown(bundle
     reader = FixtureReader()
     assert len(asyncio.run(_read(reader, "ba-mai"))) == len(bundle["entry"])
     assert asyncio.run(_read(reader, "nobody")) == []
+
+
+def test_fixture_reader_never_reads_outside_the_data_dir(tmp_path):
+    import asyncio, json
+    (tmp_path / "data").mkdir()
+    outside = tmp_path / "outside.json"
+    outside.write_text(json.dumps({"entry": [{"resource": {"resourceType": "Patient", "id": "../outside"}}]}),
+                       encoding="utf-8")
+    assert asyncio.run(_read(FixtureReader(tmp_path / "data"), "../outside")) == []
+
+
+@pytest.mark.parametrize("pid", ["../../etc/passwd", "..", "Ba-Mai", "ba_mai", ""])
+def test_fixture_reader_rejects_ids_that_are_not_kebab_case(pid):
+    import asyncio
+    assert asyncio.run(_read(FixtureReader(), pid)) == []
+
+
+def test_fixture_reader_unreadable_file_is_record_unavailable(tmp_path):
+    import asyncio
+    (tmp_path / "ba-mai.json").write_text("{not json", encoding="utf-8")
+    with pytest.raises(RecordUnavailable):
+        asyncio.run(_read(FixtureReader(tmp_path), "ba-mai"))
+
+
+def test_bundles_live_inside_the_service_dir():
+    from handoff.fhir import DEFAULT_DIR
+    assert DEFAULT_DIR.resolve().is_relative_to(ROOT.resolve())
+    assert (DEFAULT_DIR / "ba-mai.json").is_file()
+    assert "data" not in (ROOT / ".dockerignore").read_text(encoding="utf-8").split()

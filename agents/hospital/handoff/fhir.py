@@ -6,12 +6,12 @@ could not be read. The live Cloud Healthcare reader arrives in S3; FHIR_SOURCE=f
 """
 import json
 import os
+import re
 from pathlib import Path
 from typing import Protocol
 
-# Repo layout: agents/hospital/handoff/fhir.py -> data/fhir. In the Docker image the file is absent
-# (.parent stops at /, unlike parents[n]), so fixture mode answers PARTIAL there.
-DEFAULT_FIXTURE = Path(__file__).resolve().parent.parent.parent.parent / "data" / "fhir" / "ba-mai.json"
+DEFAULT_DIR = Path(__file__).resolve().parent.parent / "data" / "fhir"
+PERSON_ID = re.compile(r"[a-z0-9]+(-[a-z0-9]+)*")
 
 
 class RecordUnavailable(Exception):
@@ -23,14 +23,19 @@ class RecordReader(Protocol):
 
 
 class FixtureReader:
-    """Reads a transaction Bundle from disk (data/fhir/ba-mai.json) as if it were the FHIR store."""
+    """Reads `{personId}.json` transaction Bundles from a directory as if it were the FHIR store."""
 
-    def __init__(self, path: Path | str = DEFAULT_FIXTURE):
-        self.path = Path(path)
+    def __init__(self, directory: Path | str = DEFAULT_DIR):
+        self.directory = Path(directory)
 
     async def read(self, person_id: str) -> list[dict]:
+        if not PERSON_ID.fullmatch(person_id or ""):
+            return []
+        path = self.directory / f"{person_id}.json"
+        if not path.is_file():
+            return []
         try:
-            bundle = json.loads(self.path.read_text(encoding="utf-8"))
+            bundle = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, ValueError) as e:
             raise RecordUnavailable(f"fixture unreadable: {type(e).__name__}") from None
         resources = [e["resource"] for e in bundle.get("entry", [])]
@@ -45,5 +50,5 @@ class FixtureReader:
 def default_reader() -> RecordReader:
     source = os.environ.get("FHIR_SOURCE", "fixture")
     if source == "fixture":
-        return FixtureReader(os.environ.get("FHIR_FIXTURE", DEFAULT_FIXTURE))
+        return FixtureReader(os.environ.get("FHIR_FIXTURE_DIR", DEFAULT_DIR))
     raise RuntimeError(f"FHIR_SOURCE={source!r} is not supported yet")

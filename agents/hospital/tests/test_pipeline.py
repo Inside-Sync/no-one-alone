@@ -130,6 +130,7 @@ def test_record_unavailable_is_partial_with_request_facts_only(request_body):
 def test_unknown_patient_is_partial(request_body):
     _, out = handle(request_body, [])
     assert out["status"] == "PARTIAL" and out["warnings"] == ["PATIENT_NOT_FOUND"]
+    assert "record not found" in out["text"] and "record unavailable" not in out["text"]
 
 
 def test_missing_eta_and_last_known_well_are_unknown_not_invented(request_body, resources):

@@ -14,5 +14,4 @@ Content comes from docs/contract.md: 4.4 (conditions, medications, allergy, comm
 - Every entry is a `PUT` with a fixed id, so loading it twice changes nothing. The loader (`load.py`) is
   part of S3 and not written yet.
 
-hospital-agent reads this file directly in fixture mode (`FHIR_SOURCE=fixture`), so tests and the live
-store use the same data.
+hospital-agent reads these files directly in fixture mode (`FHIR_SOURCE=fixture`), one file per `personId`. They sit inside `agents/hospital` so the Cloud Run image contains them.
