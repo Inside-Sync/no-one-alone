@@ -38,11 +38,15 @@ class IncidentFlowAlertTest extends FirestoreTestBase {
     @MockBean RespondAgentClient agent;
 
     static AlertMessage stroke(String id) {
+        return stroke(id, "ba-mai");
+    }
+
+    static AlertMessage stroke(String id, String personId) {
         DemoSettings demo = new DemoSettings();
         demo.timerSeconds = 30;
         demo.noReplySeconds = 15;
         demo.clockOffsetMs = -151020000L;
-        return new AlertMessage(id, "ba-mai", Scenario.STROKE, "HR_HIGH_NO_MOVEMENT", 142, 4, demo);
+        return new AlertMessage(id, personId, Scenario.STROKE, "HR_HIGH_NO_MOVEMENT", 142, 4, demo);
     }
 
     @BeforeEach

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,6 +66,27 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
         when(agent.handoff(any())).thenThrow(new AgentException("not under test", null));
         flow.create(IncidentFlowAlertTest.stroke("c-1"));
         flow.process("c-1");
+    }
+
+    @Test
+    void yesNoAnswerUsesThePersonsLanguage() {
+        flow.create(IncidentFlowAlertTest.stroke("c-m", "margaret"));
+        flow.process("c-m");
+
+        CheckInInput yes = CheckInInput.ofYesNo("YES");
+        flow.acceptCheckIn("c-m", yes);
+        flow.processCheckIn("c-m", yes);
+
+        assertThat(store.get("c-m").checkIn.turns).filteredOn(t -> "PERSON".equals(t.by))
+                .extracting(t -> t.text).containsExactly("Yes");
+    }
+
+    @Test
+    void personWithoutDialectSendsNoDialectKey() {
+        flow.create(IncidentFlowAlertTest.stroke("c-m", "margaret"));
+        flow.process("c-m");
+
+        verify(agent).checkinTurn(argThat(b -> !((Map<?, ?>) b.get("person")).containsKey("dialect")));
     }
 
     @Test

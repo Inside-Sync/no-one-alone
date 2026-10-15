@@ -2,7 +2,7 @@
   "people": {
     "ba-mai": {
       "displayName": "Bà Mai", "age": 78, "sex": "F", "timezone": "Asia/Ho_Chi_Minh", "locale": "vi-VN",
-      "dialect": "HUE", "addressText": "12 Kiệt 4, Hương Thủy, Huế (fictional)",
+      "dialect": "HUE", "addressText": "12 Kiệt 4, Hương Thủy, Huế (fictional)", "emergencyNumber": "115",
       "location": { "lat": 16.4012, "lng": 107.6871 },
       "accessibility": { "hearing": "LOSS" },
       "baseline": { "restingHr": 64, "nightHr": 58 },
@@ -14,10 +14,29 @@
     },
     "ong-hung": { "displayName": "Ông Hùng", "timezone": "Asia/Ho_Chi_Minh", "locale": "vi-VN", "location": { "lat": 16.4105, "lng": 107.6930 } },
     "lan": { "displayName": "Lan", "timezone": "Asia/Tokyo", "locale": "vi-VN", "location": { "lat": 35.6812, "lng": 139.7671 } },
-    "tuan": { "displayName": "Anh Tuấn", "timezone": "Asia/Ho_Chi_Minh", "locale": "vi-VN", "location": { "lat": 10.7769, "lng": 106.7009 } }
+    "tuan": { "displayName": "Anh Tuấn", "timezone": "Asia/Ho_Chi_Minh", "locale": "vi-VN", "location": { "lat": 10.7769, "lng": 106.7009 } },
+    "margaret": {
+      "displayName": "Margaret Collins", "age": 78, "sex": "F", "timezone": "Australia/Sydney", "locale": "en-AU",
+      "addressText": "14 Wilga Street, Marrickville NSW 2204 (fictional)", "emergencyNumber": "000",
+      "location": { "lat": -33.9105, "lng": 151.1553 },
+      "accessibility": { "hearing": "LOSS" },
+      "baseline": { "restingHr": 63, "nightHr": 57 },
+      "circle": [
+        { "memberId": "david", "relation": "son", "role": "NEARBY", "priority": 1, "criticalAlerts": true },
+        { "memberId": "aisha", "relation": "neighbour", "role": "NEARBY", "priority": 2, "criticalAlerts": true },
+        { "memberId": "james", "relation": "son", "role": "DISTANT", "priority": 3, "criticalAlerts": true },
+        { "memberId": "sarah", "relation": "daughter", "role": "DISTANT", "priority": 4, "criticalAlerts": false }
+      ]
+    },
+    "david": { "displayName": "David", "timezone": "Australia/Sydney", "locale": "en-AU", "location": { "lat": -33.9090, "lng": 151.1597 } },
+    "aisha": { "displayName": "Aisha", "timezone": "Australia/Sydney", "locale": "en-AU", "location": { "lat": -33.9106, "lng": 151.1556 } },
+    "james": { "displayName": "James", "timezone": "Australia/Melbourne", "locale": "en-AU", "location": { "lat": -37.8136, "lng": 144.9631 } },
+    "sarah": { "displayName": "Sarah", "timezone": "Australia/Brisbane", "locale": "en-AU", "location": { "lat": -27.4698, "lng": 153.0251 } }
   },
   "hospitals": {
     "stroke-center-a": { "name": "Stroke Center A (demo)", "location": { "lat": 16.4637, "lng": 107.5909 }, "strokeReady": true },
-    "district-clinic-b": { "name": "District Clinic B (demo)", "location": { "lat": 16.4050, "lng": 107.6950 }, "strokeReady": false }
+    "district-clinic-b": { "name": "District Clinic B (demo)", "location": { "lat": 16.4050, "lng": 107.6950 }, "strokeReady": false },
+    "sydney-stroke-center": { "name": "Sydney Stroke Center (demo)", "location": { "lat": -33.8889, "lng": 151.1820 }, "strokeReady": true },
+    "marrickville-clinic": { "name": "Marrickville Clinic (demo)", "location": { "lat": -33.9112, "lng": 151.1570 }, "strokeReady": false }
   }
 }

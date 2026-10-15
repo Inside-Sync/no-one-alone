@@ -1,5 +1,4 @@
 {
-  "personId": "ba-mai",
   "alert": {
     "kind": "FALL_IMPACT_NO_MOVEMENT",
     "hr": 96,

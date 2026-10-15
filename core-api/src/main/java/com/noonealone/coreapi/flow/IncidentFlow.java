@@ -154,7 +154,8 @@ public class IncidentFlow {
                 t.at = now;
                 t.audioPath = personAudio;
                 if (input.yesNo() != null) {
-                    t.text = "YES".equals(input.yesNo()) ? "Có" : "Không";
+                    boolean en = person.locale != null && person.locale.startsWith("en");
+                    t.text = "YES".equals(input.yesNo()) ? (en ? "Yes" : "Có") : (en ? "No" : "Không");
                 } else if (result != null) {
                     t.text = result.transcript();
                     t.assessment = result.assessment();
@@ -314,7 +315,9 @@ public class IncidentFlow {
     private Map<String, Object> turnBody(Incident inc, Person person, CheckInInput input) {
         Map<String, Object> p = new HashMap<>();
         p.put("displayName", person.displayName);
-        p.put("dialect", person.dialect);
+        if (person.dialect != null) {
+            p.put("dialect", person.dialect);
+        }
         p.put("locale", person.locale);
         p.put("accessibility", person.accessibility);
         person.circle.stream().filter(c -> c.role == Role.DISTANT && c.criticalAlerts).findFirst()

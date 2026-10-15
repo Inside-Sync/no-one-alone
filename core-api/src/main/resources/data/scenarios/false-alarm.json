@@ -1,5 +1,4 @@
 {
-  "personId": "ba-mai",
   "alert": {
     "kind": "HR_HIGH_WITH_ACTIVITY",
     "hr": 130,
