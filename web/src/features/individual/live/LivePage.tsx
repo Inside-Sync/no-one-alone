@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { getOrbitScene } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
 import { useRepo } from '@/features/shared/useRepo'
 import { STEPS } from '@/domain/emergency'
 import { useToast } from '@/components/ui/Toast'
-import { LIVE_COPY } from '@/data/repo'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 import { AlertCard } from './AlertCard'
@@ -57,17 +57,17 @@ function LiveIncidentPage() {
   const { loading, error, incident, people, view, start, reset, checkin, act } = useLiveIncident()
   const scene = useRepo(getOrbitScene).data
   useFlash(Boolean(view?.phone.flash))
-  const c = LIVE_COPY.live
-  const onReset = () => { reset().then(() => toast(c.resetDone), () => toast(c.failed)) }
+  const { t } = useTranslation('live')
+  const onReset = () => { reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed'))) }
 
   if (error) return <PageError page="live" onRetry={() => location.reload()} />
-  if (loading) return <main className="grid" data-page="live"><p className="fine c12">{c.loading}</p></main>
+  if (loading) return <main className="grid" data-page="live"><p className="fine c12">{t('live.loading')}</p></main>
   if (!incident || !view) {
-    return <main className="grid" data-page="live"><LiveIdleCard title={LIVE_COPY.idle.title} start={start} onReset={onReset} /></main>
+    return <main className="grid" data-page="live"><LiveIdleCard title={t('idle.title')} start={start} onReset={onReset} /></main>
   }
   return (
     <main className="grid" data-page="live">
-      {!view.open && <LiveIdleCard title={c.closedTitle} start={start} onReset={onReset} />}
+      {!view.open && <LiveIdleCard title={t('live.closedTitle')} start={start} onReset={onReset} />}
       <LiveAlertCard view={view} incident={incident} people={people} scene={scene} viewer={viewer} act={act} onReset={onReset} />
       <LiveTimelineCard view={view} />
       <LivePhoneCard phone={view.phone} helpInitials={view.owner.initials} checkin={checkin} />
@@ -82,7 +82,7 @@ function ScriptedLivePage() {
   // which do not depend on it, keep working. So there is deliberately no PageError here.
   const scene = useRepo(getOrbitScene).data
   const { active, step, playing } = emergency
-  useFlash(active && Boolean(STEPS[step].e.flash))
+  useFlash(active && Boolean(STEPS[step].flash))
 
   if (!active) {
     // The demo always runs in the family view (prototype line 2016).

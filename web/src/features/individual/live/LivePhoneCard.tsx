@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { PhoneScreen } from '@/components/phone/PhoneScreen'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { useToast } from '@/components/ui/Toast'
-import { apiErrorCode, audioUrl, LIVE_COPY } from '@/data/repo'
+import { apiErrorCode, audioUrl } from '@/data/repo'
 import type { CheckinInput } from '@/data/contract'
 import type { LivePhone } from '@/domain/incident'
 import { useRecorder } from './useRecorder'
@@ -15,7 +16,7 @@ import { useRecorder } from './useRecorder'
  */
 export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePhone; helpInitials: string; checkin: (i: CheckinInput) => Promise<void> }) {
   const toast = useToast()
-  const c = LIVE_COPY.live
+  const { t } = useTranslation('live')
   const [sending, setSending] = useState(false)
   // The question already answered (or timed out) from this screen: no second reply or timer for it.
   const answered = useRef<string | null>(null)
@@ -24,10 +25,10 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
     if (phone.questionKey) answered.current = phone.questionKey
     setSending(true)
     checkin(input).then(
-      () => { if (label) toast(c.answered(label)) },
+      () => { if (label) toast(t('live.answered', { a: label })) },
       (e: unknown) => {
         answered.current = null
-        toast(apiErrorCode(e) === 'INVALID_STATE' ? c.busy : c.failed)
+        toast(apiErrorCode(e) === 'INVALID_STATE' ? t('live.busy') : t('live.failed'))
       },
     ).finally(() => setSending(false))
   }
@@ -64,26 +65,27 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
   const disabled = phone.busy || sending
   const onRecord = () => {
     if (rec.recording) { rec.stop(); return }
-    rec.start().then((ok) => { if (!ok) toast(c.noMic) }, () => toast(c.noMic))
+    rec.start().then((ok) => { if (!ok) toast(t('live.noMic')) }, () => toast(t('live.noMic')))
   }
 
   return (
     <GlassCard id="liveC" className="c3">
-      <div className="ch"><h2>{LIVE_COPY.phone.title}</h2><span className="meta">{LIVE_COPY.phone.meta}</span></div>
+      <div className="ch"><h2>{t('phone.title')}</h2><span className="meta">{t('phone.meta')}</span></div>
       <PhoneScreen
         time={phone.time}
         q={phone.q}
-        small={sending ? c.sending : phone.small}
+        small={sending ? t('live.sending') : phone.small}
         flash={phone.flash}
         listen={rec.recording || phone.busy}
         help={phone.help}
         helpInitials={helpInitials}
         yn={phone.yn}
         disabled={disabled}
-        onAnswer={(a) => send({ yesNo: a === LIVE_COPY.phone.yes ? 'YES' : 'NO' }, a)}
-        record={phone.voice ? { label: rec.recording ? c.recording : c.record, recording: rec.recording, disabled: disabled && !rec.recording, onClick: onRecord } : undefined}
+        // PhoneScreen passes the button's label (`live:phone.yes` / `live:phone.no`) in the current language.
+        onAnswer={(a) => send({ yesNo: a === t('phone.yes') ? 'YES' : 'NO' }, a)}
+        record={phone.voice ? { label: rec.recording ? t('live.recording') : t('live.record'), recording: rec.recording, disabled: disabled && !rec.recording, onClick: onRecord } : undefined}
       />
-      <p className="fine">{waiting ? c.noReplyIn(phone.noReplySeconds) : LIVE_COPY.phone.note}</p>
+      <p className="fine">{waiting ? t('live.noReplyIn', { s: phone.noReplySeconds }) : t('phone.note')}</p>
     </GlassCard>
   )
 }

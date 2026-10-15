@@ -1,10 +1,10 @@
 'use client'
 
 import type { CSSProperties } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useRouter } from '@/app/navigation'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { useToast } from '@/components/ui/Toast'
-import { PRIVACY_COPY } from '@/data/repo'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
 import { useAppState } from '@/state/AppState'
 
@@ -13,10 +13,10 @@ export function PreviewCard() {
   const { people, share, paused, setViewer, setWho } = useAppState()
   const router = useRouter()
   const toast = useToast()
-  const c = PRIVACY_COPY.preview
+  const { t } = useTranslation('privacy')
   return (
     <GlassCard span={6}>
-      <div className="ch"><h2>{c.title}</h2><span className="meta">{c.meta}</span></div>
+      <div className="ch"><h2>{t('preview.title')}</h2><span className="meta">{t('preview.meta')}</span></div>
       <div className="row">
         {people.slice(0, 4).map((p) => (
           <button
@@ -27,11 +27,11 @@ export function PreviewCard() {
               setViewer(p.id)
               setWho('family')
               router.push('/individual/home')
-              toast(c.toast(p.name))
+              toast(t('preview.toast', { name: p.name }))
             }}
           >
             <span className="av sm" style={{ '--c': p.color, width: 22, height: 22, fontSize: 10 } as CSSProperties}>{p.initials}</span>
-            See what {p.name} sees{share ? ` · ${countSees(share, paused, p.id)} of ${CATEGORY_IDS.length}` : ''}
+            {share ? t('seeWhatCount', { name: p.name, n: countSees(share, paused, p.id), total: CATEGORY_IDS.length }) : t('seeWhat', { name: p.name })}
           </button>
         ))}
       </div>

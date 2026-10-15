@@ -1,13 +1,14 @@
 import { GlassCard } from '@/components/ui/GlassCard'
-import { FORECAST_COPY } from '@/data/repo'
+import { useTranslation } from 'react-i18next'
 import type { Forecast } from '@/data/types'
 
 /** `ℹ️ How this forecast works` (c12): the only card that carries the "Example figures" label (R6). */
 export function ModelCard({ model, meta }: { model: Forecast['model']; meta: string }) {
+  const { t } = useTranslation('forecast')
   return (
     <GlassCard span={12}>
       <div className="ch">
-        <h2>{FORECAST_COPY.modelTitle}</h2>
+        <h2>{t('modelTitle')}</h2>
         <span className="meta">{meta}</span>
       </div>
       <div className="model">

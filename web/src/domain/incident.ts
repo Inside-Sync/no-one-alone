@@ -2,12 +2,17 @@
  * The live emergency (VITE_DATA_SOURCE=firebase): what the Live and Pre-arrivals pages show for one incident
  * document (contract 2.3). Pure; no React, no clock: `now` is story time (`Date.now() + demo.clockOffsetMs`, see
  * lib/clock), so every countdown compares story time with story time.
+ *
+ * Every label is looked up in the `live` namespace at call time (`i18n.t`), so recomputing the view after a language
+ * change gives the new language. Text written by the backend (timeline entries, agent questions, triage reasons,
+ * the call script, packet findings) is shown as is.
  */
+import i18n from '@/i18n'
 import type {
   AssignmentAction, AssignmentDoc, IncidentDoc, PacketDoc, PersonDoc, ServerAction, TimelineDoc, TimelineKind,
 } from '@/data/contract'
 import type { LabelValue } from '@/data/types'
-import type { EmOrbitTargets } from './emergency'
+import type { EmLevel, EmOrbitTargets, EmPhase } from './emergency'
 
 /** Seed people the view names members from (the subject plus their circle). */
 export interface LivePeople {
@@ -81,104 +86,116 @@ export function clockTime(iso: string | number, timeZone = 'Asia/Ho_Chi_Minh'): 
   return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone }).format(new Date(iso))
 }
 
+/** `live:` lookup by a built key (`incident.owner.${k}`); the namespace's JSON holds every key used here. */
+const tl = (key: string, opts?: Record<string, unknown>): string => (i18n.t as (k: string, o?: object) => string)(`live:${key}`, opts)
+const min = (n: number) => tl('units.min', { n })
+
 /** `1:12` or `41 s`. */
 export function duration(msDiff: number): string {
   const s = Math.max(0, Math.round(msDiff / 1000))
-  if (s < 60) return `${s} s`
+  if (s < 60) return tl('units.sec', { n: s })
   if (s < 600) return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
-  return `${Math.round(s / 60)} min`
+  return min(Math.round(s / 60))
 }
 
-const PHASE: Record<TimelineKind, string> = {
-  ALERT: 'Verify', VERIFIED: 'Verify', FALSE_ALARM: 'Verify',
-  ASKED: 'Ask', ANSWERED: 'Ask', NO_REPLY: 'Ask',
-  TRIAGED: 'Triage',
-  NOTIFIED: 'Escalate', ACCEPTED: 'Escalate', DECLINED: 'Escalate', EXPIRED: 'Escalate', NO_NEARBY: 'Escalate',
-  ARRIVED: 'Escalate', CALLED_115: 'Escalate',
-  HANDOFF_SENT: 'Hand off', HANDOFF_RECEIVED: 'Hand off', HANDOFF_FAILED: 'Hand off',
-  AGENT_FALLBACK: 'Agent', CLOSED: 'Close',
+const PHASE: Record<TimelineKind, EmPhase> = {
+  ALERT: 'verify', VERIFIED: 'verify', FALSE_ALARM: 'verify',
+  ASKED: 'ask', ANSWERED: 'ask', NO_REPLY: 'ask',
+  TRIAGED: 'triage',
+  NOTIFIED: 'escalate', ACCEPTED: 'escalate', DECLINED: 'escalate', EXPIRED: 'escalate', NO_NEARBY: 'escalate',
+  ARRIVED: 'escalate', CALLED_115: 'escalate',
+  HANDOFF_SENT: 'handOff', HANDOFF_RECEIVED: 'handOff', HANDOFF_FAILED: 'handOff',
+  AGENT_FALLBACK: 'agent', CLOSED: 'close',
 }
 
-const LEVEL_LABEL = { OK: 'All OK', MONITOR: 'Keep an eye', COME_NOW: 'Come now', EMERGENCY: 'Emergency now' } as const
+const LEVEL: Record<NonNullable<IncidentDoc['level']>, EmLevel> = { OK: 'ok', MONITOR: 'monitor', COME_NOW: 'comeNow', EMERGENCY: 'emergency' }
+const level = (l: EmLevel) => tl(`level.${l}`)
 
 export function memberName(people: LivePeople, id: string): string {
-  if (id === 'console') return 'Console'
+  if (id === 'console') return tl('incident.who.console')
   return people.members[id]?.displayName ?? id.replace(/(^|-)(\w)/g, (_, d: string, c: string) => (d ? ' ' : '') + c.toUpperCase())
 }
 
 function actorLabel(people: LivePeople, actor: string): string {
-  if (actor === 'SYSTEM') return 'System'
-  if (actor === 'AGENT') return 'Agent'
-  if (actor === 'PERSON') return first(people.person?.displayName ?? 'Person')
+  if (actor === 'SYSTEM') return tl('incident.who.system')
+  if (actor === 'AGENT') return tl('incident.who.agent')
+  if (actor === 'PERSON') return first(people.person?.displayName ?? tl('incident.who.person'))
   return memberName(people, actor)
 }
 
 const firstEntry = (tl: TimelineDoc[], kind: TimelineKind) => tl.find((e) => e.kind === kind)
 
 function levelLabel(inc: IncidentDoc): string {
-  if (inc.verify && !inc.verify.isReal) return 'False alarm'
-  if (inc.status === 'ON_SCENE') return 'Help arrived'
-  if (inc.status === 'CLOSED' && (inc.level === 'COME_NOW' || inc.level === 'EMERGENCY')) return 'Closed'
-  if (inc.level) return LEVEL_LABEL[inc.level]
-  return inc.status === 'CLOSED' ? 'Closed' : 'Checking'
+  if (inc.verify && !inc.verify.isReal) return level('falseAlarm')
+  if (inc.status === 'ON_SCENE') return level('helpArrived')
+  if (inc.status === 'CLOSED' && (inc.level === 'COME_NOW' || inc.level === 'EMERGENCY')) return level('closed')
+  if (inc.level) return level(LEVEL[inc.level])
+  return level(inc.status === 'CLOSED' ? 'closed' : 'checking')
 }
 
 function alertText(inc: IncidentDoc): string {
   const a = inc.alert
-  const hr = a.hr !== undefined ? `Heart rate ${a.hr}` : ''
-  if (a.kind === 'FALL_IMPACT_NO_MOVEMENT') return `Possible fall${a.movementMin ? `, not moving for ${a.movementMin} min` : ''}`
-  if (a.kind === 'HR_HIGH_WITH_ACTIVITY') return `${hr || 'High heart rate'} while active`
-  return `${hr || 'High heart rate'}, not moving`
+  const hr = a.hr !== undefined ? tl('incident.alert.hr', { hr: a.hr }) : tl('incident.alert.hrHigh')
+  if (a.kind === 'FALL_IMPACT_NO_MOVEMENT') return a.movementMin ? tl('incident.alert.fallStill', { min: a.movementMin }) : tl('incident.alert.fall')
+  if (a.kind === 'HR_HIGH_WITH_ACTIVITY') return tl('incident.alert.whileActive', { hr })
+  return tl('incident.alert.notMoving', { hr })
 }
 
 function headline(inc: IncidentDoc, people: LivePeople, tz: string): { what: string; sub: string } {
   const turns = inc.checkIn?.turns ?? []
   const slurred = turns.some((t) => t.assessment?.clarity === 'SLURRED')
-  if (inc.verify && !inc.verify.isReal) return { what: 'False alarm', sub: inc.verify.reason }
-  if (inc.status === 'VERIFYING') return { what: alertText(inc), sub: 'The agent is checking before waking anyone' }
+  const h = (k: string, o?: Record<string, unknown>) => tl(`incident.head.${k}`, o)
+  if (inc.verify && !inc.verify.isReal) return { what: h('falseAlarm'), sub: inc.verify.reason }
+  if (inc.status === 'VERIFYING') return { what: alertText(inc), sub: h('verifying') }
   if (inc.status === 'CHECKING_IN') {
-    if (slurred) return { what: 'Slurred speech', sub: 'Possible stroke sign' }
-    if (inc.checkIn?.noReplyCount) return { what: 'No answer yet', sub: 'Large text and yes/no on her screen now' }
-    return { what: 'Checking in with her', sub: 'The agent is talking with her now' }
+    if (slurred) return { what: h('slurred'), sub: h('slurredSub') }
+    if (inc.checkIn?.noReplyCount) return { what: h('noAnswer'), sub: h('noAnswerSub') }
+    return { what: h('checking'), sub: h('checkingSub') }
   }
   if (inc.status === 'ON_SCENE' && inc.ownerId) {
-    return { what: `${first(memberName(people, inc.ownerId))} is with her`, sub: inc.handoff ? `Hospital: ${inc.handoff.hospitalName}` : 'Help is with her' }
+    return { what: h('withHer', { name: first(memberName(people, inc.ownerId)) }), sub: inc.handoff ? h('hospital', { name: inc.handoff.hospitalName }) : h('helpWithHer') }
   }
   const reason = inc.triage?.reasons[0]
-  const lkw = inc.lastKnownWellAt ? `Last known well ${clockTime(inc.lastKnownWellAt, tz)}` : ''
-  if (inc.status === 'CLOSED' && (inc.level === 'OK' || inc.level === 'MONITOR')) return { what: 'She is OK', sub: reason ? reason[0].toUpperCase() + reason.slice(1) : '' }
+  const lkw = inc.lastKnownWellAt ? h('lastWell', { time: clockTime(inc.lastKnownWellAt, tz) }) : ''
+  if (inc.status === 'CLOSED' && (inc.level === 'OK' || inc.level === 'MONITOR')) return { what: h('ok'), sub: reason ? reason[0].toUpperCase() + reason.slice(1) : '' }
   if (reason) return { what: reason[0].toUpperCase() + reason.slice(1), sub: lkw }
   return { what: alertText(inc), sub: lkw }
 }
 
 const nearby = (inc: IncidentDoc) => (inc.assignments ?? []).filter((a) => a.role === 'NEARBY')
 
+/** Minutes left for the owner on the way, or null when unknown. */
+function ownerEtaMin(inc: IncidentDoc, now: number): number | null {
+  const a = (inc.assignments ?? []).find((x) => x.memberId === inc.ownerId)
+  if (!inc.ownerId || a?.state === 'ARRIVED' || a?.etaMin === undefined) return null
+  const since = Number.isFinite(ms(a.respondedAt)) ? (now - ms(a.respondedAt)) / 60000 : 0
+  return Math.max(0, Math.round(a.etaMin - since))
+}
+
 function ownerView(inc: IncidentDoc, people: LivePeople, now: number, tz: string): LiveView['owner'] {
-  const self = first(people.person?.displayName ?? 'her')
+  const o = (k: string, opts?: Record<string, unknown>) => tl(`incident.owner.${k}`, opts)
+  const self = first(people.person?.displayName ?? tl('incident.who.her'))
   if (inc.ownerId) {
     const name = first(memberName(people, inc.ownerId))
     const a = (inc.assignments ?? []).find((x) => x.memberId === inc.ownerId)
     if (a?.state === 'ARRIVED') {
-      return { initials: initials(name), title: `${name} · with ${self}`, subtitle: a.arrivedAt ? `On scene since ${clockTime(a.arrivedAt, tz)}` : 'On scene', eta: '✓' }
+      return { initials: initials(name), title: o('withSelf', { name, self }), subtitle: a.arrivedAt ? o('onSceneSince', { time: clockTime(a.arrivedAt, tz) }) : o('onScene'), eta: '✓' }
     }
-    let eta = '—'
-    if (a?.etaMin !== undefined) {
-      const since = Number.isFinite(ms(a.respondedAt)) ? (now - ms(a.respondedAt)) / 60000 : 0
-      eta = `${Math.max(0, Math.round(a.etaMin - since))}′`
-    }
-    return { initials: initials(name), title: `${name} · on the way`, subtitle: 'Owns the case', eta }
+    const left = ownerEtaMin(inc, now)
+    return { initials: initials(name), title: o('onTheWay', { name }), subtitle: o('owns'), eta: left === null ? '—' : `${left}′` }
   }
   const waiting = nearby(inc).find((a) => a.state === 'NOTIFIED')
   if (waiting) {
     const name = first(memberName(people, waiting.memberId))
     const left = ms(waiting.deadlineAt) - now
-    const eta = Number.isFinite(left) ? duration(left).replace(/ s$/, '″') : '—'
-    return { initials: initials(name), title: `${name} · alerted`, subtitle: 'Waiting for them to accept', eta }
+    const secs = Math.max(0, Math.round(left / 1000))
+    const eta = !Number.isFinite(left) ? '—' : secs < 60 ? `${secs}″` : duration(left)
+    return { initials: initials(name), title: o('alerted', { name }), subtitle: o('waiting'), eta }
   }
-  if (firstEntry(inc.timeline, 'NO_NEARBY')) return { initials: '!', title: 'No one nearby can come', subtitle: `Call ${people.person?.emergencyNumber ?? '000'} now`, eta: '—' }
+  if (firstEntry(inc.timeline, 'NO_NEARBY')) return { initials: '!', title: o('noNearby'), subtitle: o('callNow', { num: people.person?.emergencyNumber ?? '000' }), eta: '—' }
   const firstUp = [...(people.person?.circle ?? [])].sort((a, b) => a.priority - b.priority).find((c) => c.role === 'NEARBY')
-  const name = firstUp ? first(memberName(people, firstUp.memberId)) : 'Circle'
-  return { initials: initials(name), title: `${name} · not yet alerted`, subtitle: 'First to call', eta: '—' }
+  const name = firstUp ? first(memberName(people, firstUp.memberId)) : tl('incident.who.circle')
+  return { initials: initials(name), title: o('notYet', { name }), subtitle: o('firstToCall'), eta: '—' }
 }
 
 function slaRows(inc: IncidentDoc): LiveView['sla'] {
@@ -187,22 +204,23 @@ function slaRows(inc: IncidentDoc): LiveView['sla'] {
   const gap = (a: number, b: number) => (Number.isFinite(a) && Number.isFinite(b) ? duration(b - a) : null)
   const arrived = (inc.assignments ?? []).find((a) => a.arrivedAt)?.arrivedAt
   return [
-    ['Alert → verified', gap(t0, at('VERIFIED'))],
-    ['Verified → escalated', gap(at('VERIFIED'), at('NOTIFIED'))],
-    ['Accepted', gap(t0, at('ACCEPTED'))],
-    ['At the door', gap(t0, ms(arrived))],
-    ['ED has the packet', inc.handoff?.status === 'RECEIVED' ? (inc.handoff.etaMin !== undefined ? `${inc.handoff.etaMin} min ahead` : 'Yes') : null],
+    [tl('sla.verified'), gap(t0, at('VERIFIED'))],
+    [tl('sla.escalated'), gap(at('VERIFIED'), at('NOTIFIED'))],
+    [tl('sla.accepted'), gap(t0, at('ACCEPTED'))],
+    [tl('sla.atDoor'), gap(t0, ms(arrived))],
+    [tl('sla.edPacket'), inc.handoff?.status === 'RECEIVED' ? (inc.handoff.etaMin !== undefined ? tl('sla.minAhead', { n: inc.handoff.etaMin }) : tl('sla.yes')) : null],
   ]
 }
 
-function phoneView(inc: IncidentDoc, people: LivePeople, owner: LiveView['owner'], now: number, tz: string): LivePhone {
+function phoneView(inc: IncidentDoc, people: LivePeople, now: number, tz: string): LivePhone {
+  const ph = (k: string, o?: Record<string, unknown>) => tl(`incident.phone.${k}`, o)
   const name = first(people.person?.displayName ?? '')
   const ci = inc.checkIn
   const base: LivePhone = {
     time: clockTime(now, tz), q: '', flash: false, yn: false, voice: false, busy: false, help: null,
     noReplySeconds: inc.demo.noReplySeconds, questionKey: null, audioPath: null,
   }
-  if (inc.status === 'VERIFYING') return { ...base, q: `${name}…`, small: 'Phone rings, screen flashes', flash: true }
+  if (inc.status === 'VERIFYING') return { ...base, q: `${name}…`, small: ph('ringing'), flash: true }
   if (inc.status === 'CHECKING_IN') {
     if (ci?.pending && !ci.busy) {
       const yn = ci.pending.kind === 'YES_NO' || ci.mode === 'LARGE_TEXT'
@@ -212,15 +230,19 @@ function phoneView(inc: IncidentDoc, people: LivePeople, owner: LiveView['owner'
       }
     }
     const last = [...(ci?.turns ?? [])].reverse().find((t) => t.by === 'AGENT')
-    return { ...base, q: last?.text ?? `${name}…`, small: ci?.busy ? 'Listening…' : undefined, busy: true }
+    return { ...base, q: last?.text ?? `${name}…`, small: ci?.busy ? ph('listening') : undefined, busy: true }
   }
-  if (inc.verify && !inc.verify.isReal) return { ...base, q: 'All fine. Sorry to bother you.' }
-  if (inc.status === 'CLOSED' && (inc.level === 'OK' || inc.level === 'MONITOR')) return { ...base, q: 'Thank you. Glad you are OK.' }
-  const help = inc.ownerId
-    ? inc.status === 'ON_SCENE' ? `${first(memberName(people, inc.ownerId))} is with you` : `${first(memberName(people, inc.ownerId))} · ${owner.eta.replace('′', ' min')} away`
-    : null
+  if (inc.verify && !inc.verify.isReal) return { ...base, q: ph('fine') }
+  if (inc.status === 'CLOSED' && (inc.level === 'OK' || inc.level === 'MONITOR')) return { ...base, q: ph('glad') }
+  let help: string | null = null
+  if (inc.ownerId) {
+    const helper = first(memberName(people, inc.ownerId))
+    const arrived = (inc.assignments ?? []).find((x) => x.memberId === inc.ownerId)?.state === 'ARRIVED'
+    const left = ownerEtaMin(inc, now)
+    help = inc.status === 'ON_SCENE' ? ph('withYou', { name: helper }) : ph('away', { name: helper, eta: left !== null ? min(left) : arrived ? '✓' : '—' })
+  }
   const instr = inc.personInstruction
-  return { ...base, q: instr?.text ?? 'Help is on the way.', help, audioPath: instr?.audioPath ?? null, questionKey: instr ? 'instruction' : null }
+  return { ...base, q: instr?.text ?? ph('onTheWay'), help, audioPath: instr?.audioPath ?? null, questionKey: instr ? 'instruction' : null }
 }
 
 function orbitView(inc: IncidentDoc, now: number): EmOrbitTargets {
@@ -239,30 +261,32 @@ function orbitView(inc: IncidentDoc, now: number): EmOrbitTargets {
   }
 }
 
-const COMMS: Record<PacketDoc['communication'][number], string> = {
-  HARD_OF_HEARING: 'Hard of hearing: write questions down',
-  COGNITIVE_IMPAIRMENT: 'Cognitive impairment: keep questions simple',
-}
-
 const titleCase = (s: string) => s.toLowerCase().replace(/(^|\s)\w/g, (c) => c.toUpperCase())
+
+/** `Suspected stroke` (the condition is the agent's own word, lower-cased). */
+const suspectedText = (s: string) => tl('incident.packet.suspected', { what: s.toLowerCase() })
+/** `ETA 11 min` or `ETA unknown`. */
+const etaText = (eta: number | undefined) => tl('incident.packet.eta', { eta: eta !== undefined ? min(eta) : tl('incident.packet.unknown') })
 
 /**
  * Pre-arrivals packet rows from hospital-agent's JSON (contract 4.4), in the prototype's row order. Tolerates a
  * partial packet (an agent stub or fallback): missing fields are skipped, and `text` is shown when nothing else is.
  */
 export function packetRows(p: Partial<PacketDoc>, tz: string): LabelValue[] {
+  const k = (key: string, o?: Record<string, unknown>) => tl(`incident.packet.${key}`, o)
   const rows: LabelValue[] = []
-  if (p.patient) rows.push(['Patient', `${p.patient.name}, ${p.patient.age} · ${p.patient.sex === 'F' ? 'Female' : p.patient.sex === 'M' ? 'Male' : p.patient.sex}`])
-  if (p.suspected) rows.push(['Status', `Suspected ${p.suspected.toLowerCase()} · ETA ${p.etaMin !== undefined ? `${p.etaMin} min` : 'unknown'}`])
-  if (p.lastKnownWellAt) rows.push(['Last well', clockTime(p.lastKnownWellAt, tz)])
-  if (p.findings?.length) rows.push(['Findings', p.findings.join(' · ')])
-  if (p.conditions?.length) rows.push(['History', p.conditions.join(', ')])
-  if (p.medications?.length) rows.push(['Medicines', p.medications.map((m) => `${titleCase(m.name)} ${m.dose}`).join(', ')])
-  if (p.allergies) rows.push(['Allergy', p.allergies.length ? p.allergies.map(titleCase).join(', ') : 'None known'])
-  if (p.baseline) rows.push(['Function', p.baseline])
-  if (p.communication?.length) rows.push(['Comms', p.communication.map((c) => COMMS[c]).join(' · ')])
-  if (p.contact) rows.push([p.contact.onScene ? 'On scene' : 'Contact', `${p.contact.name} (${p.contact.relation})`])
-  if (rows.length === 0 && p.text) rows.push(['Packet', p.text])
+  const sex = p.patient?.sex === 'F' ? k('female') : p.patient?.sex === 'M' ? k('male') : p.patient?.sex
+  if (p.patient) rows.push([k('patient'), `${p.patient.name}, ${p.patient.age} · ${sex}`])
+  if (p.suspected) rows.push([k('status'), `${suspectedText(p.suspected)} · ${etaText(p.etaMin)}`])
+  if (p.lastKnownWellAt) rows.push([k('lastWell'), clockTime(p.lastKnownWellAt, tz)])
+  if (p.findings?.length) rows.push([k('findings'), p.findings.join(' · ')])
+  if (p.conditions?.length) rows.push([k('history'), p.conditions.join(', ')])
+  if (p.medications?.length) rows.push([k('medicines'), p.medications.map((m) => `${titleCase(m.name)} ${m.dose}`).join(', ')])
+  if (p.allergies) rows.push([k('allergy'), p.allergies.length ? p.allergies.map(titleCase).join(', ') : k('noneKnown')])
+  if (p.baseline) rows.push([k('function'), p.baseline])
+  if (p.communication?.length) rows.push([k('comms'), p.communication.map((c) => k(`comm.${c}`)).join(' · ')])
+  if (p.contact) rows.push([p.contact.onScene ? k('onScene') : k('contact'), `${p.contact.name} (${p.contact.relation})`])
+  if (rows.length === 0 && p.text) rows.push([k('packet'), p.text])
   return rows
 }
 
@@ -291,10 +315,10 @@ export function liveView(id: string, inc: IncidentDoc, people: LivePeople, now: 
   const p = inc.handoff?.status === 'RECEIVED' ? inc.handoff.packet : undefined
   const eta = p?.etaMin ?? inc.handoff?.etaMin
   const lkw = p?.lastKnownWellAt ?? inc.lastKnownWellAt
-  const name = people.person?.displayName ?? p?.patient?.name ?? 'Patient'
+  const name = people.person?.displayName ?? p?.patient?.name ?? tl('incident.who.patient')
   const age = people.person?.age ?? p?.patient?.age
   const short = `${first(name)} ${name.split(' ')[1]?.[0] ? `${name.split(' ')[1][0]}.` : ''}`.trim() + (age ? `, ${age}` : '')
-  const suspected = p?.suspected ? `Suspected ${p.suspected.toLowerCase()}` : 'Pre-arrival'
+  const suspected = p?.suspected ? suspectedText(p.suspected) : tl('incident.packet.preArrival')
   return {
     id,
     open: inc.status !== 'CLOSED',
@@ -304,9 +328,9 @@ export function liveView(id: string, inc: IncidentDoc, people: LivePeople, now: 
     what,
     sub,
     owner,
-    timeline: inc.timeline.map((e) => ({ t: clockTime(e.at, tz), ph: PHASE[e.kind], d: e.text, s: actorLabel(people, e.actor) })),
+    timeline: inc.timeline.map((e) => ({ t: clockTime(e.at, tz), ph: tl(`phase.${PHASE[e.kind]}`), d: e.text, s: actorLabel(people, e.actor) })),
     sla: slaRows(inc),
-    phone: phoneView(inc, people, owner, now, tz),
+    phone: phoneView(inc, people, now, tz),
     orbit: orbitView(inc, now),
     callScript: inc.callScript ?? null,
     emergencyNumber: people.person?.emergencyNumber ?? '115',
@@ -314,9 +338,13 @@ export function liveView(id: string, inc: IncidentDoc, people: LivePeople, now: 
     packet: p
       ? {
           meta: short,
-          summary: `${suspected} · ETA ${eta !== undefined ? `${eta} min` : 'unknown'}`,
+          summary: `${suspected} · ${etaText(eta)}`,
           rows: packetRows(p, tz),
-          incoming: { eta: eta !== undefined ? `${eta} min` : '—', patient: `${short} · enrolled`, presenting: `${suspected}${lkw ? ` · last well ${clockTime(lkw, tz)}` : ''}` },
+          incoming: {
+            eta: eta !== undefined ? min(eta) : '—',
+            patient: tl('incident.packet.enrolled', { who: short }),
+            presenting: `${suspected}${lkw ? ` · ${tl('incident.packet.lastWellAt', { time: clockTime(lkw, tz) })}` : ''}`,
+          },
         }
       : null,
     pathwayStep: p ? (inc.status === 'CLOSED' ? 9 : inc.status === 'ON_SCENE' ? 8 : 7) : null,

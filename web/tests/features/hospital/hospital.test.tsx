@@ -1,5 +1,6 @@
 import { act, fireEvent, screen, within } from '@testing-library/react'
 import { vi } from 'vitest'
+import i18n from '@/i18n'
 import { DemandPage } from '@/features/hospital/demand/DemandPage'
 import { DischargePage } from '@/features/hospital/discharge/DischargePage'
 import { EdPage } from '@/features/hospital/ed/EdPage'
@@ -95,7 +96,7 @@ describe('ed', () => {
     const spy = vi.spyOn(repo, 'getHospital').mockRejectedValue(new Error('offline'))
     try {
       renderWithProviders(<EdPage />, opts)
-      expect(await screen.findByRole('alert')).toHaveTextContent(repo.PAGE_ERROR.text)
+      expect(await screen.findByRole('alert')).toHaveTextContent(i18n.t('common:pageError.text'))
       expect(document.querySelector('#edKpis')).toBeNull()
     } finally {
       spy.mockRestore()

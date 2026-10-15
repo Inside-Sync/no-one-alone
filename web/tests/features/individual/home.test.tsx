@@ -2,7 +2,7 @@ import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { vi } from 'vitest'
 import { HomePage } from '@/features/individual/home/HomePage'
 import { PAGE_REGISTRY } from '@/features/registry'
-import { HOME_COPY } from '@/data/repo'
+import HOME_COPY from '@/locales/en/home.json'
 import { mockCanvas, mockLayout, mockRaf } from '../../canvas/fakeCtx'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
 

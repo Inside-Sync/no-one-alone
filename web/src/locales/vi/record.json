@@ -1,0 +1,55 @@
+{
+  "enc": {
+    "title": "Lượt khám, 2023–2026",
+    "ariaLabel": "46 lượt khám từ 2023 đến 2026 gồm bác sĩ gia đình, chuyên khoa, xét nghiệm, cấp cứu và thính lực",
+    "now": "hiện tại",
+    "types": {
+      "GP": "Bác sĩ gia đình",
+      "Specialist": "Chuyên khoa",
+      "Pathology": "Xét nghiệm",
+      "Emergency": "Cấp cứu",
+      "Hearing": "Thính lực"
+    }
+  },
+  "medicines": {
+    "title": "Thuốc",
+    "head": [
+      "Thuốc",
+      "30 ngày",
+      "Lần cuối"
+    ],
+    "allergy": "Dị ứng"
+  },
+  "labs": {
+    "title": "Xu hướng xét nghiệm",
+    "meta": "4 kết quả gần nhất · vùng tô là khoảng tham chiếu"
+  },
+  "hospitals": {
+    "title": "Mức sẵn sàng của bệnh viện",
+    "meta": "Xếp hạng cho trường hợp nghi đột quỵ",
+    "head": [
+      "Bệnh viện",
+      "Năng lực",
+      "Thời gian đến",
+      "Tải khoa cấp cứu"
+    ],
+    "recommended": "Đề xuất",
+    "packet": "Xem trước hồ sơ báo trước",
+    "packetTitle": "Hồ sơ báo trước"
+  },
+  "sources": {
+    "title": "Nguồn dữ liệu",
+    "meta": "Nguồn gốc của mọi bản ghi",
+    "head": [
+      "Nguồn",
+      "Chuẩn",
+      "Bản ghi",
+      "Đồng bộ lần cuối",
+      "Trạng thái"
+    ]
+  },
+  "followUp": {
+    "title": "Sau khi nằm viện",
+    "meta": "Kế hoạch theo dõi sau xuất viện 30 ngày"
+  }
+}

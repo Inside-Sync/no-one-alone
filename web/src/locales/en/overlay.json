@@ -1,0 +1,73 @@
+{
+  "you": "you",
+  "youParen": " (you)",
+  "youSuffix": " · you",
+  "relation": {
+    "self": "self",
+    "son": "son",
+    "daughter": "daughter",
+    "brother": "brother",
+    "sister": "sister",
+    "father": "father",
+    "mother": "mother",
+    "husband": "husband",
+    "wife": "wife",
+    "neighbour": "neighbour",
+    "friend": "friend",
+    "grandson": "grandson",
+    "granddaughter": "granddaughter",
+    "nephew": "nephew",
+    "niece": "niece"
+  },
+  "person": {
+    "ageLabel": "Age",
+    "genderLabel": "Gender",
+    "female": "Female",
+    "male": "Male"
+  },
+  "circle": {
+    "noteNearby": "{{place}} away · {{order}}",
+    "firstToCall": "first to call",
+    "nextToCall": "next to call",
+    "noteCalls": "{{place}} · calls {{num}} if needed",
+    "noteUpdates": "{{place}} · gets updates",
+    "onCall": "On call",
+    "backup": "Backup",
+    "calls": "Calls {{num}}",
+    "updates": "Updates"
+  },
+  "forecast": {
+    "risk": {
+      "STROKE": "Stroke",
+      "FALL": "Fall with injury"
+    },
+    "level": {
+      "HIGH": "High",
+      "MEDIUM": "Medium",
+      "LOW": "Low"
+    },
+    "horizon": "{{n}} d",
+    "sentTo": "Sent to {{name}}",
+    "shared": "Shared with the circle"
+  },
+  "lineage": {
+    "generation": {
+      "grandparents": "Grandparents",
+      "parents": "Parents",
+      "self": "{{name}}'s generation",
+      "children": "Children",
+      "grandchildren": "Grandchildren",
+      "ancestors": "Ancestors",
+      "descendants": "Descendants"
+    },
+    "herself": "herself",
+    "selfRow": "self",
+    "strength": {
+      "strong": "Strong",
+      "moderate": "Moderate",
+      "weak": "Weak"
+    },
+    "dueNow": "Due now",
+    "book": "Book"
+  }
+}

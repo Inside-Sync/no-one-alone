@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import * as repo from '@/data/repo'
 import type { CheckinInput, DemoScenario, IncidentDoc, ServerAction } from '@/data/contract'
 import { liveView, type LivePeople, type LiveView } from '@/domain/incident'
@@ -69,7 +70,10 @@ export function LiveIncidentProvider({ children }: { children: ReactNode }) {
   const now = useMemo(() => (incident ? storyNow(offset) : 0), [incident, offset, tick])
 
   const id = snap?.demo?.incidentId ?? null
-  const view = useMemo(() => (incident && id && now ? liveView(id, incident, people, now) : null), [incident, id, people, now])
+  // The view's labels come from i18n at call time: recompute when the language changes too.
+  const lang = useTranslation().i18n.resolvedLanguage
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `lang` is a deliberate recompute trigger
+  const view = useMemo(() => (incident && id && now ? liveView(id, incident, people, now) : null), [incident, id, people, now, lang])
 
   const start = useCallback(async (scenario: DemoScenario) => { await repo.startDemo(scenario) }, [])
   const reset = useCallback(async () => {

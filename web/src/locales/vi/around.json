@@ -1,0 +1,48 @@
+{
+  "mapChip": "Chạm vào một ghim để xem chi tiết",
+  "thursday": {
+    "title": "🔥 Thứ Năm, theo từng giờ",
+    "meta": "Ngoài trời so với nhiệt độ trong nhà bà",
+    "ariaLabel": "Nhiệt độ ngoài trời thứ Năm cao nhất 38 độ lúc 13:00; trong nhà sẽ lên 34 độ nếu không có điều hòa; trợ lý đưa bà Margaret tới phòng mát ở thư viện từ 11:00 đến 16:00"
+  },
+  "air": {
+    "title": "🍃 Không khí, phấn hoa và khói",
+    "meta": "Dự báo 7 ngày",
+    "columns": [
+      "Ngày",
+      "Chất lượng không khí",
+      "PM2.5",
+      "Phấn hoa",
+      "Khói",
+      "Lời khuyên"
+    ]
+  },
+  "newsFilterLabel": "Lọc tin tức",
+  "severity": {
+    "act": {
+      "color": "#d9443f",
+      "label": "Cần xử lý"
+    },
+    "aware": {
+      "color": "#c88a05",
+      "label": "Lưu ý"
+    },
+    "help": {
+      "color": "#1fb39c",
+      "label": "Hữu ích"
+    },
+    "done": {
+      "color": "#56706e",
+      "label": "Đã xong"
+    }
+  },
+  "newsCategory": {
+    "All": "Tất cả",
+    "Health": "Sức khỏe",
+    "Safety": "An toàn",
+    "Weather": "Thời tiết",
+    "Community": "Cộng đồng",
+    "Transport": "Giao thông"
+  },
+  "newsAge": "{{age}} trước"
+}

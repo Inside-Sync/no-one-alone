@@ -1,0 +1,397 @@
+{
+  "lineage": {
+    "heading": "Bốn thế hệ",
+    "meta": "Từ Family Connect · 11 người · 9 người đã đồng ý",
+    "conditionKeys": {
+      "HTN": {
+        "name": "Tăng huyết áp",
+        "color": "#c88a05"
+      },
+      "STR": {
+        "name": "Đột quỵ",
+        "color": "#d9443f"
+      },
+      "AF": {
+        "name": "Rung nhĩ",
+        "color": "#c2417a"
+      },
+      "T2D": {
+        "name": "Đái tháo đường type 2",
+        "color": "#e07a3f"
+      },
+      "GLA": {
+        "name": "Glôcôm",
+        "color": "#2f6fb0"
+      },
+      "DEM": {
+        "name": "Sa sút trí tuệ",
+        "color": "#8f6fd0"
+      },
+      "HEAR": {
+        "name": "Suy giảm thính lực",
+        "color": "#1fb39c"
+      }
+    },
+    "legendNote": "Số = tuổi khởi phát",
+    "generations": [
+      {
+        "label": "Ông bà",
+        "nodes": [
+          {
+            "name": "Arthur Hughes",
+            "sub": "†72 · cha của bà Margaret",
+            "conditions": [
+              [
+                "HTN",
+                55
+              ],
+              [
+                "STR",
+                68
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "Edith Hughes",
+            "sub": "†80 · mẹ của bà Margaret",
+            "conditions": [
+              [
+                "GLA",
+                60
+              ],
+              [
+                "HEAR",
+                74
+              ],
+              [
+                "DEM",
+                77
+              ]
+            ],
+            "kind": "dec"
+          }
+        ]
+      },
+      {
+        "label": "Thế hệ của bà Margaret",
+        "nodes": [
+          {
+            "name": "Margaret Collins",
+            "sub": "78 · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                61
+              ],
+              [
+                "HEAR",
+                72
+              ]
+            ],
+            "kind": "focus"
+          },
+          {
+            "name": "Robert Collins",
+            "sub": "†75 · chồng",
+            "conditions": [
+              [
+                "HTN",
+                60
+              ],
+              [
+                "T2D",
+                58
+              ],
+              [
+                "AF",
+                70
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "David Hughes",
+            "sub": "74 · em trai · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                52
+              ],
+              [
+                "STR",
+                69
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Con",
+        "nodes": [
+          {
+            "name": "Sarah Collins",
+            "sub": "49 · London",
+            "conditions": []
+          },
+          {
+            "name": "James Collins",
+            "sub": "46 · Melbourne · bạn",
+            "conditions": [
+              [
+                "HTN",
+                "138/86"
+              ]
+            ],
+            "kind": "you"
+          }
+        ]
+      },
+      {
+        "label": "Cháu",
+        "nodes": [
+          {
+            "name": "Lily Collins",
+            "sub": "19 · Melbourne",
+            "conditions": []
+          },
+          {
+            "name": "Noah Collins",
+            "sub": "16 · Melbourne",
+            "conditions": []
+          }
+        ]
+      }
+    ],
+    "strengthHeading": "Mức độ ảnh hưởng di truyền gia đình với bạn, James",
+    "strength": [
+      {
+        "condition": "Tăng huyết áp",
+        "dots": 4,
+        "label": "Mạnh"
+      },
+      {
+        "condition": "Đái tháo đường type 2",
+        "dots": 3,
+        "label": "Trung bình+"
+      },
+      {
+        "condition": "Đột quỵ",
+        "dots": 2,
+        "label": "Trung bình"
+      },
+      {
+        "condition": "Rung nhĩ",
+        "dots": 2,
+        "label": "Trung bình"
+      },
+      {
+        "condition": "Glôcôm",
+        "dots": 2,
+        "label": "Trung bình"
+      },
+      {
+        "condition": "Sa sút trí tuệ",
+        "dots": 1,
+        "label": "Yếu"
+      },
+      {
+        "condition": "Suy giảm thính lực",
+        "dots": 1,
+        "label": "Yếu"
+      }
+    ],
+    "strengthNote": "Mức độ dựa trên số người thân mắc bệnh, mức độ họ hàng gần xa và tuổi khởi phát. Thông tin này giúp định hướng tầm soát, không dự đoán gen.",
+    "screeningHeading": {
+      "title": "Kế hoạch tầm soát của bạn",
+      "meta": "James Collins · 46"
+    },
+    "screening": [
+      {
+        "check": "Đo huyết áp",
+        "interval": "12 tháng",
+        "due": "Quá hạn",
+        "tone": "bad",
+        "action": "Đặt lịch bác sĩ gia đình"
+      },
+      {
+        "check": "Khám sức khỏe tim mạch (nguy cơ tim mạch tổng thể)",
+        "interval": "2 năm một lần từ tuổi 45",
+        "due": "Đến hạn",
+        "tone": "warn",
+        "action": "Đặt lịch"
+      },
+      {
+        "check": "Nguy cơ đái tháo đường (AUSDRISK) + HbA1c",
+        "interval": "3 năm",
+        "due": "Tháng 1/2027",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "Khám mắt gồm đo nhãn áp",
+        "interval": "2 năm",
+        "due": "Tháng 3/2027",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "Mỡ máu",
+        "interval": "5 năm",
+        "due": "Đã làm tháng 8/2025",
+        "tone": "good",
+        "action": ""
+      },
+      {
+        "check": "Đo thính lực lần đầu",
+        "interval": "Ở tuổi 50",
+        "due": "2030",
+        "tone": "plain",
+        "action": ""
+      }
+    ],
+    "screeningToast": "Đã gửi yêu cầu đặt lịch đến bác sĩ gia đình của bạn ở Melbourne",
+    "matrixColumns": [
+      "HTN",
+      "STR",
+      "AF",
+      "T2D",
+      "GLA",
+      "DEM",
+      "HEAR"
+    ],
+    "matrix": [
+      {
+        "person": "Arthur (ông ngoại)",
+        "onset": {
+          "HTN": 55,
+          "STR": 68
+        }
+      },
+      {
+        "person": "Edith (bà ngoại)",
+        "onset": {
+          "GLA": 60,
+          "DEM": 77,
+          "HEAR": 74
+        }
+      },
+      {
+        "person": "Robert (cha)",
+        "onset": {
+          "HTN": 60,
+          "T2D": 58,
+          "AF": 70
+        }
+      },
+      {
+        "person": "Margaret (mẹ)",
+        "onset": {
+          "HTN": 61,
+          "HEAR": 72
+        }
+      },
+      {
+        "person": "David (cậu)",
+        "onset": {
+          "HTN": 52,
+          "STR": 69
+        }
+      },
+      {
+        "person": "Sarah (chị gái)",
+        "onset": {}
+      },
+      {
+        "person": "James (bạn)",
+        "onset": {
+          "HTN": "↑"
+        }
+      }
+    ],
+    "consent": {
+      "columns": [
+        "Bệnh lý",
+        "Thuốc",
+        "Chỉ số sinh tồn",
+        "Vị trí",
+        "Di truyền"
+      ],
+      "rows": [
+        {
+          "person": "Margaret",
+          "shares": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ]
+        },
+        {
+          "person": "David",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Sarah",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "James (bạn)",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Robert (đại diện di sản)",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ],
+      "note": "Lưu riêng theo từng người và từng loại dữ liệu. Thay đổi có hiệu lực trong vòng một phút và được ghi vào nhật ký kiểm tra."
+    },
+    "context": {
+      "initials": "HL",
+      "color": "#8f6fd0",
+      "sub": "4 thế hệ · 11 người · Family Connect",
+      "facts": [
+        {
+          "live": true,
+          "label": "Đã đồng ý",
+          "value": "9 / 11"
+        },
+        {
+          "live": false,
+          "label": "Bệnh lý",
+          "value": "7"
+        },
+        {
+          "live": false,
+          "label": "Kế hoạch của bạn",
+          "value": "2 đến hạn"
+        }
+      ]
+    }
+  }
+}

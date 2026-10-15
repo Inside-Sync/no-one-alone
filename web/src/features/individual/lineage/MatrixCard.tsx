@@ -1,5 +1,5 @@
 import { GlassCard } from '@/components/ui/GlassCard'
-import { LINEAGE_COPY } from '@/data/repo'
+import { useTranslation } from 'react-i18next'
 import type { Lineage } from '@/data/types'
 import { fillForWhiteText } from '@/lib/color'
 import { Head } from '../home/parts'
@@ -8,14 +8,14 @@ import { TableScroll } from '@/components/ui/TableScroll'
 /** `Condition matrix` (c7): age at onset per relative; blank cells use the track colour. */
 export function MatrixCard({ lineage }: { lineage: Lineage }) {
   const keys = lineage.conditionKeys
-  const c = LINEAGE_COPY.matrix
+  const { t } = useTranslation('lineage')
   return (
     <GlassCard span={7}>
-      <Head title={c.title} meta={c.meta} />
+      <Head title={t('matrix.title')} meta={t('matrix.meta')} />
       <TableScroll>
         <table className="mx" id="mx">
           <thead>
-            <tr><th>{c.person}</th>{lineage.matrixColumns.map((k) => <th key={k}>{keys[k].name}</th>)}</tr>
+            <tr><th>{t('matrix.person')}</th>{lineage.matrixColumns.map((k) => <th key={k}>{keys[k].name}</th>)}</tr>
           </thead>
           <tbody>
             {lineage.matrix.map((r) => (

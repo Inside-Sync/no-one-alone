@@ -1,12 +1,12 @@
 'use client'
 
 import type { CSSProperties } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Switch } from '@/components/ui/Switch'
 import { useToast } from '@/components/ui/Toast'
-import { PRIVACY_COPY } from '@/data/repo'
 import { CATEGORIES } from '@/domain/consent'
-import { useAppState } from '@/state/AppState'
+import { useAppState, type SharePreset } from '@/state/AppState'
 import { PauseButton } from './PauseButton'
 import { TableScroll } from '@/components/ui/TableScroll'
 
@@ -14,14 +14,14 @@ import { TableScroll } from '@/components/ui/TableScroll'
 export function ShareCard() {
   const { people, share, toggleShare, applyPreset } = useAppState()
   const toast = useToast()
-  const c = PRIVACY_COPY
+  const { t } = useTranslation('privacy')
   return (
     <GlassCard span={12}>
-      <div className="ch"><h2>{c.title}</h2><span className="meta">{c.meta}</span></div>
+      <div className="ch"><h2>{t('title')}</h2><span className="meta">{t('meta')}</span></div>
       <div className="row presets">
-        <span className="muted" style={{ fontSize: '12.5px' }}>{c.quick}</span>
-        {c.presets.map((p) => (
-          <button key={p.kind} type="button" className="btn sm soft" onClick={() => toast(applyPreset(p.kind, toast))}>{p.label}</button>
+        <span className="muted" style={{ fontSize: '12.5px' }}>{t('quick')}</span>
+        {t('presets', { returnObjects: true }).map((p) => (
+          <button key={p.kind} type="button" className="btn sm soft" onClick={() => toast(applyPreset(p.kind as SharePreset, toast))}>{p.label}</button>
         ))}
         <PauseButton className="sm" />
       </div>
@@ -29,7 +29,7 @@ export function ShareCard() {
         <table className="share">
           <thead>
             <tr>
-              <th>{c.what}</th>
+              <th>{t('what')}</th>
               {people.map((p) => (
                 <th key={p.id} style={{ textAlign: 'center' }}>
                   <span className="av sm" style={{ '--c': p.color, margin: '0 auto' } as CSSProperties}>{p.initials}</span>
@@ -41,16 +41,16 @@ export function ShareCard() {
           <tbody>
             {CATEGORIES.map((cat) => (
               <tr key={cat.id}>
-                <td><b style={{ fontWeight: 600 }}>{cat.emoji} {cat.name}</b><small>{cat.detail}</small></td>
+                <td><b style={{ fontWeight: 600 }}>{cat.emoji} {t(`categories.${cat.id}.name`)}</b><small>{t(`categories.${cat.id}.detail`)}</small></td>
                 {people.map((p) => {
                   const lock = cat.id === 'safety' && p.emergency
                   return (
                     <td key={p.id} style={{ textAlign: 'center' }}>
                       <Switch
                         checked={share?.[p.id]?.[cat.id] === true}
-                        label={`Share ${cat.name} with ${p.name}`}
+                        label={t('switchLabel', { category: t(`categories.${cat.id}.name`), name: p.name })}
                         disabled={lock}
-                        title={lock ? c.lockedTitle : undefined}
+                        title={lock ? t('lockedTitle') : undefined}
                         onChange={() => { const m = toggleShare(p.id, cat.id, toast); if (m) toast(m) }}
                       />
                     </td>
@@ -61,7 +61,7 @@ export function ShareCard() {
           </tbody>
         </table>
       </TableScroll>
-      <p className="fine">{c.fine}</p>
+      <p className="fine">{t('fine')}</p>
     </GlassCard>
   )
 }

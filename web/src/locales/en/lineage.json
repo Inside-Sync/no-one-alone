@@ -1,0 +1,20 @@
+{
+  "strengthMeta": "Guideline-based",
+  "screeningHead": [
+    "Check",
+    "Interval",
+    "Due",
+    ""
+  ],
+  "matrix": {
+    "title": "Condition matrix",
+    "meta": "Age at onset · blank = not affected or not shared",
+    "person": "Person"
+  },
+  "consent": {
+    "title": "Sharing and consent",
+    "meta": "Each person decides",
+    "shares": "{{person}} shares {{column}}"
+  },
+  "requested": "✓ Requested"
+}

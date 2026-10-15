@@ -1,5 +1,5 @@
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { HOSPITAL_COPY } from '@/data/repo'
 import type { HospitalData } from '@/data/types'
 import { Head } from '../../individual/home/parts'
 import { HospitalMini } from '../shared'
@@ -8,10 +8,10 @@ const barColour = (p: number) => (p >= 0.9 ? '#d9443f' : p >= 0.75 ? '#c88a05' :
 
 /** `Beds right now` (c4): occupancy per ward, coloured by how full it is, and three headline numbers. */
 export function BedsCard({ demand }: { demand: HospitalData['demand'] }) {
-  const c = HOSPITAL_COPY.demand.beds
+  const { t } = useTranslation('hospital')
   return (
     <GlassCard span={4}>
-      <Head title={c.title} meta={c.meta} />
+      <Head title={t('demand.beds.title')} meta={t('demand.beds.meta')} />
       <div className="hbars" id="beds">
         {demand.beds.map((b) => {
           const p = b.used / b.total

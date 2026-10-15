@@ -1,4 +1,5 @@
 import type { CategoryId, PersonId, ShareMatrix } from '@/data/types'
+import i18n from '@/i18n'
 
 export type { CategoryId }
 
@@ -8,32 +9,30 @@ export const CATEGORY_IDS: readonly CategoryId[] = [
 ]
 
 export interface Category {
-  id: CategoryId
-  emoji: string
-  name: string
-  detail: string
+  readonly id: CategoryId
+  readonly emoji: string
+  readonly name: string
+  readonly detail: string
 }
 
-/** Prototype `CATS` (line 1890), verbatim, in CATEGORY_IDS order. */
-export const CATEGORIES: readonly Category[] = [
-  { id: 'safety', emoji: '🚨', name: 'Safety alerts', detail: 'Falls, emergencies, heat warnings' },
-  { id: 'checkin', emoji: '✅', name: '"I\'m OK" check-ins', detail: 'Whether she answered and is well' },
-  { id: 'heart', emoji: '❤️', name: 'Heart, blood pressure, body', detail: 'Heart rate, BP, weight' },
-  { id: 'sleep', emoji: '😴', name: 'Sleep', detail: 'Hours and how restful' },
-  { id: 'activity', emoji: '🚶', name: 'Moving and steps', detail: 'Steps, walking, balance' },
-  { id: 'mood', emoji: '😊', name: 'Mood and feelings', detail: 'How she says she feels' },
-  { id: 'meds', emoji: '💊', name: 'Tablets', detail: 'Taken or missed' },
-  { id: 'speech', emoji: '🗣️', name: 'Hearing and speech', detail: 'From her daily chats' },
-  { id: 'home', emoji: '🏠', name: 'Home sensors', detail: 'Temperature, movement in 2 rooms' },
-  { id: 'records', emoji: '📋', name: 'Health records', detail: 'Conditions, tests, visits' },
-  { id: 'location', emoji: '📍', name: 'Home or out', detail: 'Never an address or a map' },
-]
+const EMOJI: Record<CategoryId, string> = {
+  safety: '🚨', checkin: '✅', heart: '❤️', sleep: '😴', activity: '🚶', mood: '😊', meds: '💊', speech: '🗣️', home: '🏠',
+  records: '📋', location: '📍',
+}
 
-/** Lock-overlay copy, verbatim from the prototype's `applyLocks`. */
+/** Prototype `CATS` (line 1890), in CATEGORY_IDS order; `name` and `detail` come from `privacy:categories` when read. */
+export const CATEGORIES: readonly Category[] = CATEGORY_IDS.map((id) => ({
+  id,
+  emoji: EMOJI[id],
+  get name() { return i18n.t(`privacy:categories.${id}.name`) },
+  get detail() { return i18n.t(`privacy:categories.${id}.detail`) },
+}))
+
+/** Lock-overlay copy (the prototype's `applyLocks`), in the current language. */
 export function lockMessage(cat: CategoryId, paused: boolean): string {
-  if (paused) return 'Margaret paused sharing until tomorrow'
+  if (paused) return i18n.t('common:lock.paused')
   const name = CATEGORIES.find((c) => c.id === cat)?.name ?? ''
-  return `Margaret keeps her ${name.toLowerCase()} private`
+  return i18n.t('common:lock.keeps', { name: name.toLowerCase() })
 }
 
 /**

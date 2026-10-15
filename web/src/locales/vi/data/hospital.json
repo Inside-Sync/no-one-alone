@@ -1,0 +1,1446 @@
+{
+  "hospital": {
+    "context": {
+      "initials": "CS",
+      "color": "#2563a8",
+      "sub": "Khoa cấp cứu · đơn vị đột quỵ · khu vực phụ trách 1,846 người cao tuổi đã đăng ký",
+      "facts": [
+        {
+          "live": true,
+          "label": "Trực tiếp",
+          "value": "15:10"
+        },
+        {
+          "live": false,
+          "label": "Cấp cứu",
+          "value": "38/42"
+        },
+        {
+          "live": false,
+          "label": "Đơn vị đột quỵ",
+          "value": "11/12"
+        },
+        {
+          "live": false,
+          "label": "Nắng nóng",
+          "value": "Th 5"
+        }
+      ]
+    },
+    "edKpis": [
+      {
+        "label": "Hồ sơ báo trước",
+        "value": "6",
+        "unit": "hôm nay",
+        "color": "#2563a8",
+        "baseline": "41 trong tháng",
+        "delta": "+12% tháng",
+        "tone": "good",
+        "spark": [
+          2,
+          3,
+          3,
+          4,
+          4,
+          5,
+          5,
+          6,
+          6
+        ]
+      },
+      {
+        "label": "Báo trước khi đến",
+        "value": "14",
+        "unit": "phút trung vị",
+        "color": "#2563a8",
+        "baseline": "p90 22 phút",
+        "delta": "+3 phút",
+        "tone": "good",
+        "spark": [
+          9,
+          10,
+          11,
+          11,
+          12,
+          13,
+          13,
+          14,
+          14
+        ]
+      },
+      {
+        "label": "Từ cửa đến CT (đột quỵ)",
+        "value": "19",
+        "unit": "phút trung vị",
+        "color": "#1f8f5f",
+        "baseline": "trước đây 26",
+        "delta": "−7 phút",
+        "tone": "good",
+        "spark": [
+          27,
+          26,
+          25,
+          24,
+          23,
+          22,
+          21,
+          20,
+          19
+        ]
+      },
+      {
+        "label": "Từ 75 tuổi đang ở cấp cứu",
+        "value": "4",
+        "unit": "bệnh nhân",
+        "color": "#c88a05",
+        "baseline": "2 có hồ sơ báo trước",
+        "delta": "",
+        "tone": "good",
+        "spark": [
+          2,
+          3,
+          3,
+          4,
+          5,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "label": "Xe cứu thương đang đến",
+        "value": "3",
+        "unit": "60 phút tới",
+        "color": "#d9443f",
+        "baseline": "1 ca đột quỵ",
+        "delta": "",
+        "tone": "warn",
+        "spark": [
+          1,
+          2,
+          1,
+          2,
+          3,
+          2,
+          2,
+          3,
+          3
+        ]
+      },
+      {
+        "label": "Biết dị ứng khi đến",
+        "value": "100",
+        "unit": "%",
+        "color": "#1f8f5f",
+        "baseline": "bệnh nhân có hồ sơ",
+        "delta": "so với 62% khi không có",
+        "tone": "good",
+        "spark": [
+          60,
+          70,
+          80,
+          90,
+          95,
+          100,
+          100,
+          100,
+          100
+        ]
+      }
+    ],
+    "inbox": [
+      {
+        "name": "Kostas P., 82",
+        "summary": "Đau ngực · đến lúc 23:40",
+        "pill": {
+          "tone": "plain",
+          "text": "Đã khám"
+        }
+      },
+      {
+        "name": "Joan W., 88",
+        "summary": "Té ngã, đau háng · đến lúc 21:15",
+        "pill": {
+          "tone": "plain",
+          "text": "Đã khám"
+        }
+      }
+    ],
+    "inboxArchivedNote": "Đã xử lý. Hồ sơ đã lưu trữ.",
+    "incoming": [
+      {
+        "eta": "22 phút",
+        "patient": "Beatrice K., 91 · đã đăng ký",
+        "presenting": "Khó thở, SpO₂ 89%",
+        "triage": "Mức 2",
+        "triageTone": "warn",
+        "packet": true,
+        "bed": "Hồi sức 4"
+      },
+      {
+        "eta": "31 phút",
+        "patient": "Nam chưa rõ danh tính, ~60 tuổi",
+        "presenting": "Đau ngực",
+        "triage": "Mức 2",
+        "triageTone": "warn",
+        "packet": false,
+        "bed": "Cấp tính 6"
+      },
+      {
+        "eta": "48 phút",
+        "patient": "Nữ chưa rõ danh tính, ~40 tuổi",
+        "presenting": "Đau bụng",
+        "triage": "Mức 3",
+        "triageTone": "plain",
+        "packet": false,
+        "bed": "Cấp tính 9"
+      }
+    ],
+    "incomingDemo": {
+      "eta": "14 phút",
+      "patient": "Margaret C., 78 · đã đăng ký",
+      "presenting": "Nghi đột quỵ · lần cuối bình thường 01:55",
+      "triage": "Mức 2",
+      "triageTone": "bad",
+      "packet": true,
+      "bed": "Hồi sức 2"
+    },
+    "inboxDemo": {
+      "name": "Margaret C., 78",
+      "summary": "Nghi đột quỵ · dự kiến đến sau 14 phút",
+      "summaryArriving": "Nghi đột quỵ · đang đến nơi"
+    },
+    "packet": [
+      [
+        "Bệnh nhân",
+        "Nữ, 78 tuổi · NS 03/03/1948 · 162 cm, 61 kg · O+"
+      ],
+      [
+        "Tình trạng",
+        "Nghi đột quỵ · dự kiến đến sau 14 phút"
+      ],
+      [
+        "Lần cuối bình thường",
+        "01:55, theo cử động từ đồng hồ đeo tay"
+      ],
+      [
+        "Sinh hiệu",
+        "Nhịp tim 142 · huyết áp 168/96 lúc 02:06"
+      ],
+      [
+        "Tiền sử",
+        "Tăng huyết áp (2009), bệnh thận mạn 3a (eGFR 58), lão thính, thoái hóa khớp gối, thiếu xương; ?rung nhĩ kịch phát đang đánh giá"
+      ],
+      [
+        "Thuốc",
+        "Amlodipine 5 mg, aspirin 100 mg, atorvastatin 20 mg"
+      ],
+      [
+        "Dị ứng",
+        "Penicillin"
+      ],
+      [
+        "Chức năng",
+        "Sống một mình, tự lập · trí nhớ nền bình thường"
+      ],
+      [
+        "Giao tiếp",
+        "Nghe kém: viết câu hỏi ra giấy"
+      ],
+      [
+        "Tại hiện trường",
+        "David Hughes (em trai)"
+      ]
+    ],
+    "examplePacket": {
+      "patient": "Beatrice K., 91 (ví dụ)",
+      "rows": [
+        [
+          "Tình trạng",
+          "Khó thở, SpO₂ 89% · dự kiến đến sau 22 phút"
+        ],
+        [
+          "Tiền sử",
+          "COPD, suy tim"
+        ],
+        [
+          "Thuốc",
+          "Tiotropium, furosemide 40 mg"
+        ],
+        [
+          "Ghi chú",
+          "Chạy Demo cảnh báo ban đêm để xem hồ sơ của bà Margaret được gửi đến."
+        ]
+      ]
+    },
+    "pathway": [
+      {
+        "text": "Đã nhận hồ sơ báo trước",
+        "note": "02:07",
+        "doneFromStep": 7
+      },
+      {
+        "text": "Đã xác nhận lần cuối bình thường (01:55)",
+        "note": "đồng hồ",
+        "doneFromStep": 7
+      },
+      {
+        "text": "Đã kiểm tra dị ứng: penicillin",
+        "note": "tự động",
+        "doneFromStep": 7
+      },
+      {
+        "text": "Thuốc chống đông: không (chỉ aspirin)",
+        "note": "tự động",
+        "doneFromStep": 7
+      },
+      {
+        "text": "Đã giữ máy CT 2",
+        "note": "02:12",
+        "doneFromStep": 8
+      },
+      {
+        "text": "Đã gọi nhóm đột quỵ",
+        "note": "02:13",
+        "doneFromStep": 8
+      },
+      {
+        "text": "Thính lực: viết câu hỏi ra giấy",
+        "note": "ghi chú",
+        "doneFromStep": 7
+      },
+      {
+        "text": "Liên hệ gia đình: David tại hiện trường",
+        "note": "02:11",
+        "doneFromStep": 8
+      }
+    ],
+    "pathwayWindow": {
+      "demo": "Cửa sổ điều trị đóng lúc 06:25 · còn 4 giờ 18 phút",
+      "idle": "Chọn một hồ sơ đột quỵ"
+    },
+    "panel": {
+      "kpis": [
+        {
+          "label": "Bệnh nhân đã đăng ký",
+          "value": "1,846",
+          "unit": "",
+          "color": "#2563a8",
+          "baseline": "15 khu phố",
+          "delta": "+64 tháng",
+          "tone": "good",
+          "spark": [
+            1600,
+            1650,
+            1700,
+            1740,
+            1770,
+            1800,
+            1820,
+            1835,
+            1846
+          ]
+        },
+        {
+          "label": "Nguy cơ nhập viện 30 ngày cao",
+          "value": "74",
+          "unit": "bệnh nhân",
+          "color": "#d9443f",
+          "baseline": "4% danh sách",
+          "delta": "+9 tuần",
+          "tone": "warn",
+          "spark": [
+            60,
+            62,
+            63,
+            65,
+            66,
+            68,
+            70,
+            72,
+            74
+          ]
+        },
+        {
+          "label": "Xuất viện, 30 ngày qua",
+          "value": "61",
+          "unit": "",
+          "color": "#2563a8",
+          "baseline": "đều được theo dõi",
+          "delta": "",
+          "tone": "good",
+          "spark": [
+            50,
+            52,
+            55,
+            57,
+            58,
+            60,
+            61,
+            61,
+            61
+          ]
+        },
+        {
+          "label": "Lượt cấp cứu tránh được (ước tính)",
+          "value": "23",
+          "unit": "quý này",
+          "color": "#1f8f5f",
+          "baseline": "nhờ can thiệp sớm",
+          "delta": "+5",
+          "tone": "good",
+          "spark": [
+            5,
+            8,
+            10,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23
+          ]
+        },
+        {
+          "label": "Hồ sơ báo trước đã dùng",
+          "value": "41",
+          "unit": "trong tháng",
+          "color": "#8f6fd0",
+          "baseline": "100% có danh sách thuốc",
+          "delta": "",
+          "tone": "good",
+          "spark": [
+            20,
+            24,
+            27,
+            30,
+            33,
+            35,
+            38,
+            40,
+            41
+          ]
+        },
+        {
+          "label": "Đồng ý chia sẻ",
+          "value": "88",
+          "unit": "%",
+          "color": "#1f8f5f",
+          "baseline": "cấp bệnh viện",
+          "delta": "+3 điểm",
+          "tone": "good",
+          "spark": [
+            80,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            88
+          ]
+        }
+      ],
+      "rows": [
+        {
+          "name": "Eleni P.",
+          "age": 84,
+          "sex": "F",
+          "suburb": "Marrickville",
+          "risk": "31%",
+          "tone": "bad",
+          "driver": "Suy tim: +2.1 kg trong 72 giờ",
+          "lastEd": "12/9",
+          "gp": "Dr Nikolaidis",
+          "signal": "Cân nặng"
+        },
+        {
+          "name": "Beatrice K.",
+          "age": 91,
+          "sex": "F",
+          "suburb": "Stanmore",
+          "risk": "28%",
+          "tone": "bad",
+          "driver": "COPD, SpO₂ 91% khi nghỉ",
+          "lastEd": "2/10",
+          "gp": "Dr Hart",
+          "signal": "SpO₂"
+        },
+        {
+          "name": "Kostas P.",
+          "age": 82,
+          "sex": "M",
+          "suburb": "Dulwich Hill",
+          "risk": "26%",
+          "tone": "bad",
+          "driver": "Đau ngực, khám tối qua",
+          "lastEd": "13/10",
+          "gp": "Dr Patel",
+          "signal": "ED"
+        },
+        {
+          "name": "Maria S.",
+          "age": 86,
+          "sex": "F",
+          "suburb": "Petersham",
+          "risk": "24%",
+          "tone": "bad",
+          "driver": "2 lần té ngã trong 30 ngày",
+          "lastEd": "28/9",
+          "gp": "Dr Silva",
+          "signal": "Dáng đi"
+        },
+        {
+          "name": "Margaret C.",
+          "age": 78,
+          "sex": "F",
+          "suburb": "Marrickville",
+          "risk": "22%",
+          "tone": "warn",
+          "driver": "Huyết áp tăng, quên liều",
+          "lastEd": "3/2025",
+          "gp": "Dr Patel",
+          "signal": "Huyết áp"
+        },
+        {
+          "name": "Nguyen Van T.",
+          "age": 81,
+          "sex": "M",
+          "suburb": "Tempe",
+          "risk": "19%",
+          "tone": "warn",
+          "driver": "Nắng nóng, không có máy lạnh",
+          "lastEd": "—",
+          "gp": "Dr Le",
+          "signal": "Nhiệt"
+        },
+        {
+          "name": "Giuseppe R.",
+          "age": 88,
+          "sex": "M",
+          "suburb": "Leichhardt",
+          "risk": "17%",
+          "tone": "warn",
+          "driver": "Đi lang thang ban đêm",
+          "lastEd": "7/2026",
+          "gp": "Dr Russo",
+          "signal": "Vận động"
+        },
+        {
+          "name": "Fatima A.",
+          "age": 79,
+          "sex": "F",
+          "suburb": "Lewisham",
+          "risk": "12%",
+          "tone": "plain",
+          "driver": "Nghe kém, lỡ các cuộc hỏi thăm",
+          "lastEd": "—",
+          "gp": "Dr Haddad",
+          "signal": "Giọng nói"
+        },
+        {
+          "name": "Wei L.",
+          "age": 77,
+          "sex": "F",
+          "suburb": "Ashfield",
+          "risk": "9%",
+          "tone": "plain",
+          "driver": "Tâm trạng kém 3 tuần",
+          "lastEd": "—",
+          "gp": "Dr Chen",
+          "signal": "Tâm trạng"
+        },
+        {
+          "name": "Peter H.",
+          "age": 80,
+          "sex": "M",
+          "suburb": "Newtown",
+          "risk": "8%",
+          "tone": "plain",
+          "driver": "Thuốc ngủ mới",
+          "lastEd": "—",
+          "gp": "Dr Hart",
+          "signal": "Thuốc"
+        }
+      ],
+      "scatter": [
+        {
+          "age": 70.00410883222158,
+          "risk": 7.074369570263072
+        },
+        {
+          "age": 91.69279415085241,
+          "risk": 17.174175566061564
+        },
+        {
+          "age": 74.70279963193722,
+          "risk": 7.360540575404225
+        },
+        {
+          "age": 94.69842351246479,
+          "risk": 13.570359686292115
+        },
+        {
+          "age": 76.63061305566748,
+          "risk": 8.846548584798864
+        },
+        {
+          "age": 71.33859067115802,
+          "risk": 9.84463825651411
+        },
+        {
+          "age": 81.25680670259223,
+          "risk": 12.755444179713209
+        },
+        {
+          "age": 73.06735838816255,
+          "risk": 1
+        },
+        {
+          "age": 72.35342663000657,
+          "risk": 1
+        },
+        {
+          "age": 71.29321663528049,
+          "risk": 2.7628869759737373
+        },
+        {
+          "age": 89.18013658763854,
+          "risk": 12.86025255342038
+        },
+        {
+          "age": 79.2127374924838,
+          "risk": 9.015335067841535
+        },
+        {
+          "age": 89.23761751431749,
+          "risk": 7.897750237116354
+        },
+        {
+          "age": 93.28156764691842,
+          "risk": 19.457037119923196
+        },
+        {
+          "age": 88.39966234369172,
+          "risk": 16.66984905395177
+        },
+        {
+          "age": 72.91843599678803,
+          "risk": 1
+        },
+        {
+          "age": 82.7878216680026,
+          "risk": 17.387868947431325
+        },
+        {
+          "age": 81.44298940100055,
+          "risk": 15.19450665208931
+        },
+        {
+          "age": 77.13524813264166,
+          "risk": 12.709069341918521
+        },
+        {
+          "age": 90.2946274031835,
+          "risk": 16.971614262947455
+        },
+        {
+          "age": 74.69541493076404,
+          "risk": 7.8522623564836245
+        },
+        {
+          "age": 74.39671039757944,
+          "risk": 10.304806202770962
+        },
+        {
+          "age": 87.04725174191151,
+          "risk": 13.145638041869397
+        },
+        {
+          "age": 76.60822699461899,
+          "risk": 8.138420645462743
+        },
+        {
+          "age": 88.17273254801773,
+          "risk": 8.699956157384399
+        },
+        {
+          "age": 72.40975837447658,
+          "risk": 1
+        },
+        {
+          "age": 94.8315776813138,
+          "risk": 20.879978772443696
+        },
+        {
+          "age": 83.61411413048778,
+          "risk": 10.840879690638634
+        },
+        {
+          "age": 75.42162607230398,
+          "risk": 11.292842585470384
+        },
+        {
+          "age": 72.33425335244672,
+          "risk": 1.4897516380900093
+        },
+        {
+          "age": 94.9428734764856,
+          "risk": 18.448311464184254
+        },
+        {
+          "age": 91.05328091052667,
+          "risk": 17.77498920049983
+        },
+        {
+          "age": 87.98710880613616,
+          "risk": 11.522055224256642
+        },
+        {
+          "age": 84.72586628722573,
+          "risk": 17.174697552108853
+        },
+        {
+          "age": 92.57623122779302,
+          "risk": 16.499155284789538
+        },
+        {
+          "age": 82.87122475949229,
+          "risk": 4.416965130010584
+        },
+        {
+          "age": 90.46794514913852,
+          "risk": 10.319697769493512
+        },
+        {
+          "age": 73.11738167946915,
+          "risk": 8.661632457735607
+        },
+        {
+          "age": 89.01447575680396,
+          "risk": 7.582652871643796
+        },
+        {
+          "age": 94.79498764713759,
+          "risk": 12.477379946319738
+        },
+        {
+          "age": 79.60408262638755,
+          "risk": 10.539665868379796
+        },
+        {
+          "age": 78.33054316074637,
+          "risk": 7.387657285283928
+        },
+        {
+          "age": 75.82974416281073,
+          "risk": 2.6921241447721815
+        },
+        {
+          "age": 81.51787000616814,
+          "risk": 6.005956041469196
+        },
+        {
+          "age": 94.71538647051472,
+          "risk": 19.23369337076666
+        },
+        {
+          "age": 92.42731117636646,
+          "risk": 14.79363948583476
+        },
+        {
+          "age": 79.2830052103689,
+          "risk": 12.408121323430093
+        },
+        {
+          "age": 80.33463082074618,
+          "risk": 12.802625622253514
+        },
+        {
+          "age": 86.34240453489349,
+          "risk": 14.792450490982695
+        },
+        {
+          "age": 86.3915679244246,
+          "risk": 15.541379335794023
+        },
+        {
+          "age": 77.08458716476764,
+          "risk": 11.864229278349534
+        },
+        {
+          "age": 70.7864950232082,
+          "risk": 7.260917216968647
+        },
+        {
+          "age": 75.70298795886616,
+          "risk": 1
+        },
+        {
+          "age": 91.26300667530205,
+          "risk": 17.81245745673073
+        },
+        {
+          "age": 75.58616659192943,
+          "risk": 6.0255466208099815
+        },
+        {
+          "age": 71.5643989681866,
+          "risk": 7.258458798246881
+        },
+        {
+          "age": 86.15652032537062,
+          "risk": 15.162905698165213
+        },
+        {
+          "age": 73.04587794518646,
+          "risk": 7.634878946896532
+        },
+        {
+          "age": 78.8779493317734,
+          "risk": 7.831817492872304
+        },
+        {
+          "age": 70.22273303495975,
+          "risk": 6.868118158837891
+        },
+        {
+          "age": 92.7699267424363,
+          "risk": 19.652375151731427
+        },
+        {
+          "age": 71.57479049086085,
+          "risk": 7.0683541783535375
+        },
+        {
+          "age": 84.110052668592,
+          "risk": 16.84748926972736
+        },
+        {
+          "age": 87.39608217486747,
+          "risk": 6.501621794725418
+        },
+        {
+          "age": 89.97035212812047,
+          "risk": 16.74031741166517
+        },
+        {
+          "age": 85.67009762224751,
+          "risk": 14.723807364747685
+        },
+        {
+          "age": 73.92590626508547,
+          "risk": 2.875035287416571
+        },
+        {
+          "age": 72.55271943989463,
+          "risk": 1
+        },
+        {
+          "age": 82.36404204961289,
+          "risk": 4.574926094408079
+        },
+        {
+          "age": 78.27297715775015,
+          "risk": 11.549381317570232
+        },
+        {
+          "age": 79.80702026030703,
+          "risk": 2.6840561132496754
+        },
+        {
+          "age": 86.97672276476092,
+          "risk": 7.293756787659371
+        },
+        {
+          "age": 86.2351759651072,
+          "risk": 13.50675470412872
+        },
+        {
+          "age": 94.4553800085144,
+          "risk": 21.930671127518334
+        },
+        {
+          "age": 77.36636342002672,
+          "risk": 4.074777378141673
+        },
+        {
+          "age": 88.61602754203233,
+          "risk": 9.200786527153838
+        },
+        {
+          "age": 86.16617316954412,
+          "risk": 8.020011850371967
+        },
+        {
+          "age": 87.60607879153088,
+          "risk": 9.088475321338954
+        },
+        {
+          "age": 86.52388339072827,
+          "risk": 14.956735874905004
+        },
+        {
+          "age": 71.35786357695038,
+          "risk": 9.250285755214549
+        },
+        {
+          "age": 75.11692309995827,
+          "risk": 1
+        },
+        {
+          "age": 74.38993908873753,
+          "risk": 2.570064893709556
+        },
+        {
+          "age": 84.89697022121118,
+          "risk": 17.685342322346145
+        },
+        {
+          "age": 93.9111418476432,
+          "risk": 23.305311458306676
+        },
+        {
+          "age": 92.43055954801902,
+          "risk": 17.3688402013563
+        },
+        {
+          "age": 88.87397901748677,
+          "risk": 15.16130957006133
+        },
+        {
+          "age": 93.39115572244968,
+          "risk": 14.951509933244914
+        },
+        {
+          "age": 82.30837168386985,
+          "risk": 12.57927889682285
+        },
+        {
+          "age": 77.855115861497,
+          "risk": 12.442468005598029
+        },
+        {
+          "age": 81.15541359051635,
+          "risk": 10.395819002153182
+        },
+        {
+          "age": 78.50017596595006,
+          "risk": 8.051346537541924
+        },
+        {
+          "age": 94.69590819645292,
+          "risk": 17.895023197140567
+        },
+        {
+          "age": 87.11417893377522,
+          "risk": 13.095823349823082
+        },
+        {
+          "age": 76.78599297002516,
+          "risk": 1.355330394516077
+        },
+        {
+          "age": 76.31593688746536,
+          "risk": 1
+        },
+        {
+          "age": 92.41272248552434,
+          "risk": 17.4780246603098
+        },
+        {
+          "age": 85.20671266150354,
+          "risk": 7.126767938562452
+        },
+        {
+          "age": 91.81785438146242,
+          "risk": 18.299843828310117
+        },
+        {
+          "age": 94.4679114543534,
+          "risk": 13.882529085113228
+        },
+        {
+          "age": 75.64841827670897,
+          "risk": 3.9676617838374
+        },
+        {
+          "age": 81.71497937684411,
+          "risk": 13.291993387385268
+        },
+        {
+          "age": 88.25138738448861,
+          "risk": 7.036244448843641
+        },
+        {
+          "age": 91.91657588995675,
+          "risk": 9.51308044904199
+        },
+        {
+          "age": 77.14851419408667,
+          "risk": 11.575474652601848
+        },
+        {
+          "age": 74.30281220870354,
+          "risk": 8.490920764804745
+        },
+        {
+          "age": 72.77623590340487,
+          "risk": 3.637251118977785
+        },
+        {
+          "age": 76.02029614944038,
+          "risk": 4.256980902358871
+        },
+        {
+          "age": 76.36346237162451,
+          "risk": 1
+        },
+        {
+          "age": 90.37817165989259,
+          "risk": 19.32942384449246
+        },
+        {
+          "age": 84.40084628006522,
+          "risk": 9.933632175213317
+        },
+        {
+          "age": 85.16633654494429,
+          "risk": 5.087782284047252
+        },
+        {
+          "age": 88.24443545727473,
+          "risk": 11.601438138565463
+        },
+        {
+          "age": 94.54671834087625,
+          "risk": 13.649983929330471
+        },
+        {
+          "age": 70.53150922808005,
+          "risk": 1.214771261941428
+        },
+        {
+          "age": 74.76624219889402,
+          "risk": 2.5117984990000672
+        },
+        {
+          "age": 74.588401240379,
+          "risk": 8.589112487308789
+        },
+        {
+          "age": 80.5728611448527,
+          "risk": 15.138403321931515
+        },
+        {
+          "age": 81.43240407009833,
+          "risk": 13.560397140575013
+        },
+        {
+          "age": 83.15429060548013,
+          "risk": 8.765747276335722
+        },
+        {
+          "age": 85.75951663847968,
+          "risk": 16.37761468843335
+        }
+      ],
+      "scatterMeta": "1,846 bệnh nhân · hiển thị mẫu 120",
+      "scatterNote": "Bác sĩ chỉ thấy tên bệnh nhân khi bệnh nhân đã đồng ý chia sẻ với bệnh viện.",
+      "highlight": {
+        "age": 78,
+        "risk": 22,
+        "label": "Margaret"
+      }
+    },
+    "demand": {
+      "days": [
+        "Th 4",
+        "Th 5",
+        "Th 6",
+        "Th 7",
+        "CN",
+        "Th 2",
+        "Th 3",
+        "Th 4",
+        "Th 5",
+        "Th 6",
+        "Th 7",
+        "CN",
+        "Th 2",
+        "Th 3"
+      ],
+      "forecast": [
+        21,
+        34,
+        31,
+        25,
+        22,
+        20,
+        21,
+        22,
+        23,
+        24,
+        22,
+        21,
+        26,
+        29
+      ],
+      "lastYear": [
+        20,
+        22,
+        21,
+        23,
+        21,
+        19,
+        20,
+        21,
+        22,
+        22,
+        21,
+        20,
+        21,
+        22
+      ],
+      "comfortLine": 28,
+      "meta": "Mô hình: chỉ số nhiệt, ngày trong tuần, mức độ cúm, 3 năm gần nhất",
+      "beds": [
+        {
+          "ward": "Buồng cấp cứu",
+          "used": 38,
+          "total": 42
+        },
+        {
+          "ward": "Đơn vị đột quỵ",
+          "used": 11,
+          "total": 12
+        },
+        {
+          "ward": "Khoa lão",
+          "used": 27,
+          "total": 28
+        },
+        {
+          "ward": "Lưu ngắn",
+          "used": 14,
+          "total": 20
+        },
+        {
+          "ward": "ICU",
+          "used": 9,
+          "total": 12
+        }
+      ],
+      "bedsMinis": [
+        {
+          "label": "Chờ ở cấp cứu",
+          "value": "18",
+          "note": "4 người từ 75 tuổi"
+        },
+        {
+          "label": "Tắc nghẽn nhập khoa",
+          "value": "6",
+          "note": "> 8 giờ"
+        },
+        {
+          "label": "Xuất viện",
+          "value": "23",
+          "note": "dự kiến hôm nay"
+        }
+      ],
+      "drivers": [
+        {
+          "label": "Chỉ số nhiệt 38°",
+          "value": 8.1
+        },
+        {
+          "label": "Ngày trong tuần (Th 5)",
+          "value": 1.2
+        },
+        {
+          "label": "Phấn hoa, hen do giông",
+          "value": 1.6
+        },
+        {
+          "label": "Hỏi thăm nắng nóng của cộng đồng",
+          "value": -2.4
+        },
+        {
+          "label": "Mức độ cúm thấp",
+          "value": -0.8
+        },
+        {
+          "label": "Phòng mát mở cửa",
+          "value": -1.1
+        }
+      ],
+      "actions": [
+        {
+          "title": "Mở 6 giường tăng cường ở khu lưu ngắn",
+          "note": "Th 5 10:00–22:00 · bù thiếu hụt dự báo 6 giường",
+          "button": "Approve"
+        },
+        {
+          "title": "Bổ sung 1 bác sĩ lão khoa và 2 điều dưỡng cho khoa cấp cứu",
+          "note": "Chiều Th 5 và Th 6",
+          "button": "Approve"
+        },
+        {
+          "title": "Đề nghị y tế cộng đồng hỏi thăm mùa nắng nóng",
+          "note": "318 cư dân · đã lên lịch",
+          "button": "Linked"
+        },
+        {
+          "title": "Đưa 4 ca xuất viện lên tối Th 4",
+          "note": "Bệnh nhân đã sẵn sàng, tình nguyện viên đã đặt xe",
+          "button": "Review"
+        },
+        {
+          "title": "Báo dịch vụ cấp cứu về tải Th 5",
+          "note": "Tự động lúc 07:00 Th 5",
+          "button": "Auto"
+        }
+      ]
+    },
+    "discharge": {
+      "kpis": [
+        {
+          "label": "Xuất viện, 30 ngày",
+          "value": "61",
+          "unit": "bệnh nhân",
+          "color": "#2563a8",
+          "baseline": "từ 70 tuổi",
+          "delta": "",
+          "tone": "good",
+          "spark": [
+            40,
+            44,
+            48,
+            52,
+            55,
+            57,
+            59,
+            60,
+            61
+          ]
+        },
+        {
+          "label": "Cuộc gọi hoàn tất",
+          "value": "92",
+          "unit": "%",
+          "color": "#1f8f5f",
+          "baseline": "bằng 6 ngôn ngữ",
+          "delta": "+4 điểm",
+          "tone": "good",
+          "spark": [
+            80,
+            83,
+            85,
+            87,
+            88,
+            90,
+            91,
+            92,
+            92
+          ]
+        },
+        {
+          "label": "Dấu hiệu cần lưu ý",
+          "value": "14",
+          "unit": "",
+          "color": "#c88a05",
+          "baseline": "đau, lú lẫn, thuốc",
+          "delta": "",
+          "tone": "warn",
+          "spark": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            13,
+            14,
+            14
+          ]
+        },
+        {
+          "label": "Chuyển điều dưỡng",
+          "value": "5",
+          "unit": "",
+          "color": "#d9443f",
+          "baseline": "đều xem xét < 2 giờ",
+          "delta": "",
+          "tone": "good",
+          "spark": [
+            2,
+            2,
+            3,
+            3,
+            4,
+            4,
+            5,
+            5,
+            5
+          ]
+        },
+        {
+          "label": "Tái nhập viện",
+          "value": "6.6",
+          "unit": "%",
+          "color": "#1f8f5f",
+          "baseline": "mức nền 11.2%",
+          "delta": "−4.6 điểm",
+          "tone": "good",
+          "spark": [
+            11.2,
+            10.5,
+            9.8,
+            9,
+            8.4,
+            7.8,
+            7.2,
+            6.9,
+            6.6
+          ]
+        },
+        {
+          "label": "Thời lượng gọi TB",
+          "value": "3:40",
+          "unit": "phút",
+          "color": "#8f6fd0",
+          "baseline": "trợ lý giọng nói",
+          "delta": "",
+          "tone": "good",
+          "spark": [
+            3,
+            3.2,
+            3.4,
+            3.5,
+            3.6,
+            3.6,
+            3.7,
+            3.7,
+            3.7
+          ]
+        }
+      ],
+      "board": [
+        {
+          "patient": "Joan W., 88",
+          "discharged": "13/10",
+          "diagnosis": "Gãy cổ xương đùi, đã phẫu thuật",
+          "days": [
+            "ok",
+            "up",
+            "up",
+            "up",
+            "up"
+          ],
+          "risk": "18%",
+          "tone": "warn"
+        },
+        {
+          "patient": "Kostas P., 82",
+          "discharged": "13/10",
+          "diagnosis": "Đau ngực, đã loại trừ",
+          "days": [
+            "ok",
+            "up",
+            "up",
+            "up",
+            "up"
+          ],
+          "risk": "9%",
+          "tone": "plain"
+        },
+        {
+          "patient": "Robert M., 79",
+          "discharged": "10/10",
+          "diagnosis": "Viêm phổi",
+          "days": [
+            "ok",
+            "fl",
+            "up",
+            "up",
+            "up"
+          ],
+          "risk": "21%",
+          "tone": "bad"
+        },
+        {
+          "patient": "Anh N., 83",
+          "discharged": "7/10",
+          "diagnosis": "Suy tim",
+          "days": [
+            "ok",
+            "ok",
+            "es",
+            "up",
+            "up"
+          ],
+          "risk": "27%",
+          "tone": "bad"
+        },
+        {
+          "patient": "Dorothy F., 90",
+          "discharged": "2/10",
+          "diagnosis": "Mê sảng, nhiễm trùng tiểu",
+          "days": [
+            "ok",
+            "ok",
+            "ok",
+            "up",
+            "up"
+          ],
+          "risk": "14%",
+          "tone": "warn"
+        },
+        {
+          "patient": "Sami H., 76",
+          "discharged": "28/9",
+          "diagnosis": "Đột quỵ (nhẹ)",
+          "days": [
+            "ok",
+            "ok",
+            "fl",
+            "ok",
+            "up"
+          ],
+          "risk": "11%",
+          "tone": "plain"
+        },
+        {
+          "patient": "Lucia B., 84",
+          "discharged": "22/9",
+          "diagnosis": "Té ngã, cổ tay",
+          "days": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "up"
+          ],
+          "risk": "7%",
+          "tone": "good"
+        },
+        {
+          "patient": "Henry T., 81",
+          "discharged": "15/9",
+          "diagnosis": "Đợt cấp COPD",
+          "days": [
+            "ok",
+            "ok",
+            "ok",
+            "fl",
+            "ok"
+          ],
+          "risk": "12%",
+          "tone": "plain"
+        }
+      ]
+    }
+  }
+}

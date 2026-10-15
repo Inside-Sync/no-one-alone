@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 interface Props {
   values: number[]
   labels: string[]
@@ -12,9 +14,10 @@ interface Props {
 
 /** Prototype `vbars()` (line 1523): `.vbars` columns with an optional threshold line. */
 export function Bars({ values, labels, goal, max = Math.max(...values), unit = '', ariaLabel }: Props) {
+  const { t } = useTranslation()
   const label =
     ariaLabel ??
-    values.map((v, i) => `${labels[i]} ${v}${unit}`).join(', ') + (goal ? `; threshold ${goal.label}` : '')
+    values.map((v, i) => `${labels[i]} ${v}${unit}`).join(', ') + (goal ? t('charts.threshold', { label: goal.label }) : '')
   return (
     <div className="vbars" role="img" aria-label={label}>
       {values.map((v, i) => (

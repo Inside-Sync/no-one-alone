@@ -1,8 +1,9 @@
-import { fireEvent, screen, within } from '@testing-library/react'
+import { act, fireEvent, screen, within } from '@testing-library/react'
 import { vi } from 'vitest'
 import { AroundPage } from '@/features/individual/around/AroundPage'
 import { PAGE_REGISTRY } from '@/features/registry'
 import { getSurroundings } from '@/data/repo'
+import i18n from '@/i18n'
 import { mockCanvas, mockLayout, mockRaf } from '../../canvas/fakeCtx'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
 
@@ -126,4 +127,22 @@ test('family viewer still sees the surroundings page (no consent category)', asy
   await ready()
   expect(document.querySelectorAll('ul.alerts > li')).toHaveLength(7)
   expect(document.body.innerHTML).not.toContain('keeps her')
+})
+
+test('in Vietnamese the news categories and the age read naturally', async () => {
+  await act(() => i18n.changeLanguage('vi'))
+  try {
+    renderWithProviders(<AroundPage />, { who: 'self' })
+    await screen.findByText('🍃 Không khí, phấn hoa và khói')
+    const group = screen.getByRole('group', { name: 'Lọc tin tức' })
+    expect(within(group).getAllByRole('button').map((b) => b.textContent)).toEqual(['Tất cả', 'Sức khỏe', 'An toàn', 'Thời tiết', 'Cộng đồng', 'Giao thông'])
+    fireEvent.click(within(group).getByRole('button', { name: 'An toàn' }))
+    expect(newsItems()).toHaveLength(2)
+    fireEvent.click(within(group).getByRole('button', { name: 'Tất cả' }))
+    expect(screen.getByText('2 giờ trước')).toBeInTheDocument()
+    expect(screen.getAllByText(/^SỨC KHỎE · /).length).toBeGreaterThan(0)
+    expect(document.body.textContent).not.toMatch(/ ago|HEALTH ·/)
+  } finally {
+    await act(() => i18n.changeLanguage('en'))
+  }
 })

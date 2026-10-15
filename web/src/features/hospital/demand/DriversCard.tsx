@@ -1,15 +1,15 @@
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { HOSPITAL_COPY } from '@/data/repo'
 import type { ShapDriver } from '@/data/types'
 import { Head } from '../../individual/home/parts'
 
 /** `What drives Thursday's spike` (c6): signed contribution bars around a centre line; widths scale to the largest driver. */
 export function DriversCard({ drivers }: { drivers: ShapDriver[] }) {
-  const c = HOSPITAL_COPY.demand.shap
+  const { t } = useTranslation('hospital')
   const max = Math.max(...drivers.map((d) => Math.abs(d.value)))
   return (
     <GlassCard span={6}>
-      <Head title={c.title} meta={c.meta} />
+      <Head title={t('demand.shap.title')} meta={t('demand.shap.meta')} />
       <div className="shap" id="demandShap">
         {drivers.map((d) => {
           const up = d.value > 0

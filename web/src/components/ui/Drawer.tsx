@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, Fragment, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Icon } from './Icon'
 
 const FOCUSABLE =
@@ -18,6 +19,7 @@ interface DrawerProps {
  * Esc and scrim click close; Tab is trapped; focus returns to the opener on close.
  */
 export function Drawer({ open, title, onClose, children }: DrawerProps) {
+  const { t } = useTranslation()
   const titleId = useId()
   const ref = useRef<HTMLElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -77,7 +79,7 @@ export function Drawer({ open, title, onClose, children }: DrawerProps) {
       >
         <div className="dr-h">
           <h3 id={titleId}>{title}</h3>
-          <button type="button" className="close" id="drClose" aria-label="Close" ref={closeRef} onClick={onClose}>
+          <button type="button" className="close" id="drClose" aria-label={t('drawer.close')} ref={closeRef} onClick={onClose}>
             <span className="ic"><Icon name="x" /></span>
           </button>
         </div>

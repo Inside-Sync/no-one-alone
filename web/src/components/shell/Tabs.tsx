@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { Icon, type IconName } from '@/components/ui/Icon'
 import type { Tab } from '@/domain/views'
 
@@ -12,8 +13,9 @@ export function Tabs({
   badges?: Record<string, string | undefined>
   onSelect: (id: string) => void
 }) {
+  const { t: tr } = useTranslation()
   return (
-    <nav className="tabs" aria-label="Sections" id="tabs">
+    <nav className="tabs" aria-label={tr('nav.sections')} id="tabs">
       {tabs.map((t) => (
         <button key={t.id} type="button" aria-current={t.id === current ? 'page' : undefined} onClick={() => onSelect(t.id)}>
           {t.icon && <span className="ic"><Icon name={t.icon as IconName} /></span>}

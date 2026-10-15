@@ -1,0 +1,855 @@
+{
+  "community": {
+    "context": {
+      "initials": "IW",
+      "color": "#6d4fc0",
+      "sub": "Y tế cộng đồng Inner West · 15 khu phố · 1,846 người cao tuổi đã đăng ký",
+      "facts": [
+        {
+          "live": true,
+          "label": "Đã đồng bộ",
+          "value": "15:00"
+        },
+        {
+          "live": false,
+          "label": "Nhóm dưới 10 người",
+          "value": "ẩn"
+        },
+        {
+          "live": false,
+          "label": "Nắng nóng",
+          "value": "Th 5"
+        },
+        {
+          "live": false,
+          "label": "Tình nguyện viên hôm nay",
+          "value": "23"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "label": "Người cao tuổi đã đăng ký",
+        "value": "1,846",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "15 khu phố",
+        "delta": "+64 tháng",
+        "tone": "good",
+        "spark": [
+          1600,
+          1640,
+          1680,
+          1710,
+          1740,
+          1770,
+          1800,
+          1825,
+          1846
+        ]
+      },
+      {
+        "label": "Sống một mình",
+        "value": "38",
+        "unit": "%",
+        "color": "#2f6fb0",
+        "baseline": "703 người",
+        "delta": "+1 điểm",
+        "tone": "good",
+        "spark": [
+          36,
+          36,
+          37,
+          37,
+          37,
+          38,
+          38,
+          38,
+          38
+        ]
+      },
+      {
+        "label": "Nguy cơ cao",
+        "value": "212",
+        "unit": "người",
+        "color": "#d9443f",
+        "baseline": "11.5% số đăng ký",
+        "delta": "+6 tháng",
+        "tone": "warn",
+        "spark": [
+          180,
+          186,
+          190,
+          195,
+          199,
+          204,
+          206,
+          209,
+          212
+        ]
+      },
+      {
+        "label": "Hỏi thăm được trả lời",
+        "value": "92.7",
+        "unit": "% hôm nay",
+        "color": "#1fb39c",
+        "baseline": "1,712 / 1,846",
+        "delta": "−0.4 điểm",
+        "tone": "good",
+        "spark": [
+          94,
+          93,
+          94,
+          93,
+          92,
+          93,
+          94,
+          93,
+          92.7
+        ]
+      },
+      {
+        "label": "Từ cảnh báo đến cửa nhà",
+        "value": "8.6",
+        "unit": "phút trung vị",
+        "color": "#0b7f71",
+        "baseline": "p90 14.2 phút",
+        "delta": "−0.9 phút",
+        "tone": "good",
+        "spark": [
+          10.2,
+          9.8,
+          9.6,
+          9.4,
+          9.1,
+          9,
+          8.9,
+          8.7,
+          8.6
+        ]
+      },
+      {
+        "label": "Tình nguyện viên hoạt động",
+        "value": "64",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "2.3 lượt thăm/người/tuần",
+        "delta": "+5 tháng",
+        "tone": "good",
+        "spark": [
+          48,
+          50,
+          53,
+          55,
+          57,
+          59,
+          61,
+          62,
+          64
+        ]
+      },
+      {
+        "label": "Cảnh báo tuần này",
+        "value": "37",
+        "unit": "",
+        "color": "#ef4e4a",
+        "baseline": "8 chuyển cấp trên",
+        "delta": "−4 tuần",
+        "tone": "good",
+        "spark": [
+          44,
+          41,
+          39,
+          42,
+          40,
+          38,
+          41,
+          39,
+          37
+        ]
+      },
+      {
+        "label": "Báo động nhầm được lọc",
+        "value": "78",
+        "unit": "%",
+        "color": "#1fb39c",
+        "baseline": "29 / 37",
+        "delta": "+3 điểm",
+        "tone": "good",
+        "spark": [
+          70,
+          71,
+          73,
+          74,
+          75,
+          76,
+          77,
+          77,
+          78
+        ]
+      },
+      {
+        "label": "Lượt thăm còn thiếu tuần này",
+        "value": "180",
+        "unit": "lượt",
+        "color": "#d9443f",
+        "baseline": "Tempe, Sydenham, St Peters",
+        "delta": "+8 tuần",
+        "tone": "warn",
+        "spark": [
+          38,
+          42,
+          40,
+          45,
+          48,
+          50,
+          52,
+          55,
+          180
+        ]
+      },
+      {
+        "label": "Ngôn ngữ hỗ trợ giọng nói",
+        "value": "7",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "+2 đang thử nghiệm",
+        "delta": "+1 quý",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          5,
+          5,
+          5,
+          6,
+          6,
+          7,
+          7
+        ]
+      },
+      {
+        "label": "Chỗ ở phòng mát",
+        "value": "260",
+        "unit": "Th 5",
+        "color": "#e07a3f",
+        "baseline": "3 điểm · còn 137 chỗ",
+        "delta": "mới",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          120,
+          200,
+          200,
+          260,
+          260
+        ]
+      },
+      {
+        "label": "Dự báo cấp cứu Th 5",
+        "value": "34",
+        "unit": "từ 75 tuổi",
+        "color": "#d9443f",
+        "baseline": "ngưỡng an toàn 28",
+        "delta": "+13 so với Th 4",
+        "tone": "warn",
+        "spark": [
+          21,
+          22,
+          20,
+          23,
+          21,
+          22,
+          21,
+          25,
+          34
+        ]
+      }
+    ],
+    "suburbs": [
+      {
+        "name": "Marrickville",
+        "col": 2,
+        "row": 1,
+        "enrolled": 312,
+        "alonePct": 41,
+        "highRisk": 38,
+        "heat": 0.82,
+        "volunteers": 9,
+        "language": "Hy Lạp"
+      },
+      {
+        "name": "Dulwich Hill",
+        "col": 1,
+        "row": 1,
+        "enrolled": 198,
+        "alonePct": 36,
+        "highRisk": 22,
+        "heat": 0.64,
+        "volunteers": 6,
+        "language": "Hy Lạp"
+      },
+      {
+        "name": "Petersham",
+        "col": 2,
+        "row": 2,
+        "enrolled": 121,
+        "alonePct": 39,
+        "highRisk": 14,
+        "heat": 0.58,
+        "volunteers": 4,
+        "language": "Bồ Đào Nha"
+      },
+      {
+        "name": "Stanmore",
+        "col": 3,
+        "row": 2,
+        "enrolled": 96,
+        "alonePct": 33,
+        "highRisk": 9,
+        "heat": 0.44,
+        "volunteers": 5,
+        "language": "Anh"
+      },
+      {
+        "name": "Enmore",
+        "col": 3,
+        "row": 1,
+        "enrolled": 84,
+        "alonePct": 44,
+        "highRisk": 12,
+        "heat": 0.72,
+        "volunteers": 3,
+        "language": "Anh"
+      },
+      {
+        "name": "Newtown",
+        "col": 4,
+        "row": 1,
+        "enrolled": 143,
+        "alonePct": 47,
+        "highRisk": 17,
+        "heat": 0.69,
+        "volunteers": 7,
+        "language": "Anh"
+      },
+      {
+        "name": "Lewisham",
+        "col": 1,
+        "row": 2,
+        "enrolled": 77,
+        "alonePct": 35,
+        "highRisk": 8,
+        "heat": 0.51,
+        "volunteers": 2,
+        "language": "Ả Rập"
+      },
+      {
+        "name": "Summer Hill",
+        "col": 0,
+        "row": 3,
+        "enrolled": 110,
+        "alonePct": 31,
+        "highRisk": 10,
+        "heat": 0.4,
+        "volunteers": 6,
+        "language": "Ý"
+      },
+      {
+        "name": "Ashfield",
+        "col": 0,
+        "row": 2,
+        "enrolled": 264,
+        "alonePct": 37,
+        "highRisk": 31,
+        "heat": 0.77,
+        "volunteers": 8,
+        "language": "Quan Thoại"
+      },
+      {
+        "name": "Leichhardt",
+        "col": 2,
+        "row": 3,
+        "enrolled": 156,
+        "alonePct": 34,
+        "highRisk": 13,
+        "heat": 0.38,
+        "volunteers": 7,
+        "language": "Ý"
+      },
+      {
+        "name": "Annandale",
+        "col": 3,
+        "row": 3,
+        "enrolled": 72,
+        "alonePct": 30,
+        "highRisk": 6,
+        "heat": 0.33,
+        "volunteers": 4,
+        "language": "Anh"
+      },
+      {
+        "name": "Tempe",
+        "col": 2,
+        "row": 0,
+        "enrolled": 58,
+        "alonePct": 42,
+        "highRisk": 9,
+        "heat": 0.86,
+        "volunteers": 1,
+        "language": "Việt"
+      },
+      {
+        "name": "St Peters",
+        "col": 4,
+        "row": 0,
+        "enrolled": 49,
+        "alonePct": 39,
+        "highRisk": 7,
+        "heat": 0.79,
+        "volunteers": 1,
+        "language": "Việt"
+      },
+      {
+        "name": "Sydenham",
+        "col": 3,
+        "row": 0,
+        "enrolled": 31,
+        "alonePct": 45,
+        "highRisk": 6,
+        "heat": 0.83,
+        "volunteers": 0,
+        "language": "Bồ Đào Nha"
+      },
+      {
+        "name": "Camperdown",
+        "col": 4,
+        "row": 2,
+        "enrolled": 75,
+        "alonePct": 40,
+        "highRisk": 10,
+        "heat": 0.55,
+        "volunteers": 1,
+        "language": "Anh"
+      }
+    ],
+    "districtKicker": "Inner West · 15 khu phố",
+    "heatwave": {
+      "pill": "Th 5 38 °C",
+      "temps": [
+        {
+          "day": "Th 4",
+          "value": 33
+        },
+        {
+          "day": "Th 5",
+          "value": 38
+        },
+        {
+          "day": "Th 6",
+          "value": 36
+        },
+        {
+          "day": "Th 7",
+          "value": 26
+        },
+        {
+          "day": "CN",
+          "value": 24
+        },
+        {
+          "day": "Th 2",
+          "value": 23
+        },
+        {
+          "day": "Th 3",
+          "value": 25
+        }
+      ],
+      "tempsThreshold": {
+        "value": 35,
+        "label": "nắng nóng 35°",
+        "max": 40,
+        "unit": "°"
+      },
+      "stats": [
+        {
+          "label": "Hỏi thăm thêm",
+          "value": "318",
+          "note": "Th 5 11:00–15:00"
+        },
+        {
+          "label": "Không máy lạnh",
+          "value": "127",
+          "note": "ưu tiên",
+          "tone": "bad"
+        },
+        {
+          "label": "Đưa đón",
+          "value": "14",
+          "note": "tài xế tình nguyện"
+        }
+      ],
+      "coolRooms": [
+        {
+          "name": "Phòng mát Thư viện Marrickville",
+          "detail": "120 chỗ · 09:00–20:00",
+          "left": "còn 74",
+          "tone": "good"
+        },
+        {
+          "name": "Trung tâm hành chính Ashfield",
+          "detail": "80 chỗ · 10:00–18:00",
+          "left": "còn 22",
+          "tone": "warn"
+        },
+        {
+          "name": "Trung tâm khu phố Newtown",
+          "detail": "60 chỗ · 10:00–17:00",
+          "left": "còn 41",
+          "tone": "good"
+        }
+      ],
+      "scheduleToast": "Đã lên lịch 318 cuộc hỏi thăm thêm cho Th 5"
+    },
+    "visits": [
+      {
+        "name": "Margaret C.",
+        "age": 78,
+        "suburb": "Marrickville",
+        "risk": "Cao",
+        "tone": "bad",
+        "reason": "Huyết áp tăng, quên liều",
+        "language": "Anh",
+        "nearestHelp": "David · 450 m"
+      },
+      {
+        "name": "Eleni P.",
+        "age": 84,
+        "suburb": "Marrickville",
+        "risk": "Cao",
+        "tone": "bad",
+        "reason": "Suy tim: +2.1 kg trong 72 giờ",
+        "language": "Hy Lạp",
+        "nearestHelp": "TNV Tom · 1.2 km"
+      },
+      {
+        "name": "Nguyen Van T.",
+        "age": 81,
+        "suburb": "Tempe",
+        "risk": "Cao",
+        "tone": "bad",
+        "reason": "Nắng nóng: không máy lạnh, trong nhà 33 °C",
+        "language": "Việt",
+        "nearestHelp": "Không có · thiếu hụt"
+      },
+      {
+        "name": "Maria S.",
+        "age": 86,
+        "suburb": "Petersham",
+        "risk": "Cao",
+        "tone": "bad",
+        "reason": "2 lần té ngã trong 30 ngày",
+        "language": "Bồ Đào Nha",
+        "nearestHelp": "Con gái · 15 phút"
+      },
+      {
+        "name": "Fatima A.",
+        "age": 79,
+        "suburb": "Lewisham",
+        "risk": "Trung bình",
+        "tone": "warn",
+        "reason": "Thính lực giảm, lỡ 3 cuộc hỏi thăm",
+        "language": "Ả Rập",
+        "nearestHelp": "TNV Aisha"
+      },
+      {
+        "name": "Giuseppe R.",
+        "age": 88,
+        "suburb": "Leichhardt",
+        "risk": "Trung bình",
+        "tone": "warn",
+        "reason": "Đi lang thang ban đêm ×2",
+        "language": "Ý",
+        "nearestHelp": "Con trai · 8 phút"
+      },
+      {
+        "name": "Wei L.",
+        "age": 77,
+        "suburb": "Ashfield",
+        "risk": "Trung bình",
+        "tone": "warn",
+        "reason": "Tâm trạng kém 3 tuần",
+        "language": "Quan Thoại",
+        "nearestHelp": "TNV Jun"
+      },
+      {
+        "name": "Peter H.",
+        "age": 80,
+        "suburb": "Newtown",
+        "risk": "Theo dõi",
+        "tone": "plain",
+        "reason": "Thuốc ngủ mới",
+        "language": "Anh",
+        "nearestHelp": "Hàng xóm · 2 phút"
+      }
+    ],
+    "funnel": [
+      {
+        "label": "Cảnh báo nhận được",
+        "value": 37,
+        "color": "#5a7fe0"
+      },
+      {
+        "label": "Trợ lý đã kiểm tra",
+        "value": 37,
+        "color": "#2f6fb0"
+      },
+      {
+        "label": "Báo động nhầm được lọc",
+        "value": 29,
+        "color": "#1fb39c"
+      },
+      {
+        "label": "Chuyển cho người xử lý",
+        "value": 8,
+        "color": "#c88a05"
+      },
+      {
+        "label": "Có người đến tận cửa",
+        "value": 8,
+        "color": "#e07a3f"
+      },
+      {
+        "label": "Đã gọi xe cứu thương",
+        "value": 3,
+        "color": "#d9443f"
+      },
+      {
+        "label": "Hồ sơ báo trước",
+        "value": 3,
+        "color": "#8f6fd0"
+      }
+    ],
+    "funnelMinis": [
+      {
+        "label": "Xác minh",
+        "value": "44 giây",
+        "note": "trung vị"
+      },
+      {
+        "label": "Nhận ca",
+        "value": "1:12",
+        "note": "trung vị"
+      },
+      {
+        "label": "Đến cửa",
+        "value": "8.6′",
+        "note": "trung vị"
+      }
+    ],
+    "capacity": [
+      {
+        "name": "Marrickville",
+        "need": 76,
+        "capacity": 36
+      },
+      {
+        "name": "Ashfield",
+        "need": 62,
+        "capacity": 32
+      },
+      {
+        "name": "Dulwich Hill",
+        "need": 44,
+        "capacity": 24
+      },
+      {
+        "name": "Camperdown",
+        "need": 20,
+        "capacity": 4
+      },
+      {
+        "name": "Tempe",
+        "need": 18,
+        "capacity": 4
+      },
+      {
+        "name": "Petersham",
+        "need": 28,
+        "capacity": 16
+      },
+      {
+        "name": "Enmore",
+        "need": 24,
+        "capacity": 12
+      },
+      {
+        "name": "Sydenham",
+        "need": 12,
+        "capacity": 0
+      },
+      {
+        "name": "St Peters",
+        "need": 14,
+        "capacity": 4
+      }
+    ],
+    "edForecast": {
+      "meta": "Lượt đến từ 75 tuổi, khoa cấp cứu Camperdown",
+      "values": [
+        {
+          "day": "Th 4",
+          "value": 21
+        },
+        {
+          "day": "Th 5",
+          "value": 34
+        },
+        {
+          "day": "Th 6",
+          "value": 31
+        },
+        {
+          "day": "Th 7",
+          "value": 25
+        },
+        {
+          "day": "CN",
+          "value": 22
+        },
+        {
+          "day": "Th 2",
+          "value": 20
+        },
+        {
+          "day": "Th 3",
+          "value": 21
+        }
+      ],
+      "threshold": {
+        "value": 29,
+        "label": "ngưỡng 28",
+        "max": 36,
+        "unit": ""
+      },
+      "note": "Dự báo dựa trên chỉ số nhiệt, ngày trong tuần và 90 ngày gần nhất. Th 5 dự kiến vượt ngưỡng an toàn 28 bệnh nhân thêm 6 người."
+    },
+    "languages": [
+      {
+        "name": "Tiếng Anh",
+        "percent": 42,
+        "support": "Full"
+      },
+      {
+        "name": "Tiếng Hy Lạp",
+        "percent": 13,
+        "support": "Full"
+      },
+      {
+        "name": "Tiếng Việt",
+        "percent": 9,
+        "support": "Full"
+      },
+      {
+        "name": "Tiếng Quan Thoại",
+        "percent": 8,
+        "support": "Full"
+      },
+      {
+        "name": "Tiếng Ý",
+        "percent": 7,
+        "support": "Full"
+      },
+      {
+        "name": "Tiếng Bồ Đào Nha",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "Tiếng Ả Rập",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "Khác",
+        "percent": 9,
+        "support": "Interpreter"
+      }
+    ],
+    "programs": [
+      {
+        "program": "Nhóm đi bộ (3 công viên)",
+        "regulars": 42,
+        "attendance": "78% (+18%)",
+        "outcome": "Tốc độ đi +0.04 m/s"
+      },
+      {
+        "program": "Bữa trưa giao lưu thứ Sáu",
+        "regulars": 65,
+        "attendance": "81%",
+        "outcome": "Điểm cô đơn −0.6 (UCLA-3)"
+      },
+      {
+        "program": "Lớp sức mạnh và thăng bằng",
+        "regulars": 28,
+        "attendance": "72%",
+        "outcome": "Té ngã có chấn thương −12%"
+      },
+      {
+        "program": "Hỗ trợ công nghệ tại thư viện",
+        "regulars": 31,
+        "attendance": "64%",
+        "outcome": "Gọi video gia đình 2.1 lần/tuần"
+      },
+      {
+        "program": "Xưởng sinh hoạt nam giới",
+        "regulars": 19,
+        "attendance": "70%",
+        "outcome": "Dấu hiệu tâm trạng kém −30%"
+      },
+      {
+        "program": "Xe đưa đón phòng mát",
+        "regulars": 14,
+        "attendance": "tài xế",
+        "outcome": "Cấp cứu do nắng nóng −9% mùa hè trước"
+      }
+    ],
+    "watchSummary": [
+      {
+        "icon": "shield",
+        "tone": "bad",
+        "title": "Lừa đảo tận nhà \"hoàn tiền điện mặt trời\"",
+        "detail": "Marrickville, Dulwich Hill · 14 báo cáo · 1,240 cư dân được cảnh báo bằng giọng nói",
+        "pill": {
+          "tone": "bad",
+          "text": "Đang diễn ra"
+        }
+      },
+      {
+        "icon": "sun",
+        "tone": "warn",
+        "title": "Nắng nóng Th 5–Th 6",
+        "detail": "318 cuộc hỏi thăm thêm · 127 người không có máy lạnh",
+        "pill": {
+          "tone": "warn",
+          "text": "Đã lên kế hoạch"
+        }
+      },
+      {
+        "icon": "target",
+        "tone": "warn",
+        "title": "Sửa vỉa hè · Marrickville Rd",
+        "detail": "Nguy cơ vấp ngã cho 46 cư dân đi bộ tuyến này",
+        "pill": {
+          "tone": "warn",
+          "text": "Đến 24/10"
+        }
+      }
+    ],
+    "footnote": "Nhân viên y tế cộng đồng thấy tên những người đã đăng ký trong khu vực của mình. Dữ liệu cấp hội đồng và bang được tổng hợp và ẩn danh, nhóm dưới 10 người được ẩn. Mọi người và số liệu đều là hư cấu."
+  }
+}

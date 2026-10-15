@@ -1,0 +1,205 @@
+{
+  "ed": {
+    "inbox": {
+      "title": "Pre-arrival inbox",
+      "meta": "Packets arrive before the ambulance",
+      "newPill": "1 new",
+      "newTag": "New"
+    },
+    "incoming": {
+      "title": "Incoming ambulances",
+      "meta": "Next 60 minutes",
+      "head": [
+        "ETA",
+        "Patient",
+        "Presenting",
+        "Triage",
+        "Packet",
+        "Bed"
+      ]
+    },
+    "packet": {
+      "title": "Packet",
+      "meta": "Select a patient",
+      "demoMeta": "Margaret C., 78",
+      "statusLabel": "Status",
+      "noteLabel": "Note"
+    },
+    "pathway": {
+      "title": "Stroke pathway",
+      "meta": "Treatment window",
+      "pending": "pending"
+    },
+    "page": {
+      "label": "Page stroke team",
+      "toast": "Stroke team paged · CT 2 on hold"
+    },
+    "divert": {
+      "label": "Divert",
+      "toast": "Diversion suggested to the ambulance"
+    }
+  },
+  "panel": {
+    "table": {
+      "title": "Older patients in the catchment",
+      "meta": "Enrolled in No One Alone · ranked by 30-day admission risk",
+      "head": [
+        "Patient",
+        "Suburb",
+        "30-day admission",
+        "Main driver",
+        "Last ED",
+        "GP",
+        "Signal"
+      ],
+      "sex": {
+        "F": "F",
+        "M": "M"
+      }
+    },
+    "scatter": {
+      "title": "Risk vs age",
+      "ariaLabel": "Scatter of 30-day admission risk against age; risk rises with age; Margaret at 22% aged 78",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "High"
+        },
+        {
+          "color": "#c88a05",
+          "label": "Medium"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "Low"
+        }
+      ],
+      "axis": "age"
+    }
+  },
+  "demand": {
+    "forecast": {
+      "title": "Presentations aged 75+, next 14 days",
+      "tag": "FORECAST",
+      "ariaLabel": "Forecast presentations aged 75 plus: 34 on Thursday and 31 on Friday, above the 28 comfort line",
+      "legend": [
+        {
+          "color": "#2f6fb0",
+          "label": "Forecast"
+        },
+        {
+          "color": "rgba(47,111,176,.15)",
+          "label": "80% interval"
+        },
+        {
+          "color": "#56706e",
+          "label": "Last year"
+        },
+        {
+          "color": "#d9443f",
+          "label": "Above comfort line"
+        }
+      ],
+      "heatwave": "heatwave",
+      "secondSpell": "2nd hot spell?"
+    },
+    "beds": {
+      "title": "Beds right now",
+      "meta": "15:00"
+    },
+    "shap": {
+      "title": "What drives Thursday's spike",
+      "meta": "Contribution to forecast"
+    },
+    "actions": {
+      "title": "Suggested actions",
+      "meta": "Generated from the forecast",
+      "buttons": {
+        "Approve": "Approve",
+        "Linked": "Linked",
+        "Review": "Review",
+        "Auto": "Auto"
+      },
+      "toastApproved": "{{title}} · approved",
+      "toastNoted": "{{title}} · noted"
+    }
+  },
+  "discharge": {
+    "board": {
+      "title": "30-day follow-up board",
+      "meta": "Agent calls each patient in their language · warning signs go to the discharge nurse",
+      "head": [
+        "Patient",
+        "Discharged",
+        "Diagnosis",
+        "Day 1",
+        "Day 3",
+        "Day 7",
+        "Day 14",
+        "Day 30",
+        "Readmission risk"
+      ],
+      "legend": [
+        {
+          "color": "#1fb39c",
+          "label": "Done, fine"
+        },
+        {
+          "color": "#c88a05",
+          "label": "Done, flag raised"
+        },
+        {
+          "color": "#d9443f",
+          "label": "Escalated to nurse"
+        },
+        {
+          "color": "var(--track)",
+          "label": "Upcoming"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "row": [
+      [
+        "Open full chart",
+        "Chart opened in the EMR (demo)",
+        "Opened"
+      ],
+      [
+        "Message GP",
+        "Secure message sent to GP",
+        "Sent"
+      ],
+      [
+        "Assign to me",
+        "Assigned to you",
+        "Assigned"
+      ]
+    ],
+    "kpi": [
+      [
+        "Add to watchlist",
+        "Added to your watchlist",
+        "Watching"
+      ],
+      [
+        "Export CSV",
+        "Export queued",
+        "Exported"
+      ]
+    ],
+    "mini": [
+      [
+        "Flag for review",
+        "Flagged",
+        "Flagged"
+      ],
+      [
+        "Assign to me",
+        "Assigned to you",
+        "Assigned"
+      ]
+    ]
+  }
+}

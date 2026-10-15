@@ -1,7 +1,7 @@
 'use client'
 
 import { GlassCard } from '@/components/ui/GlassCard'
-import { AROUND_COPY } from '@/data/repo'
+import { useTranslation } from 'react-i18next'
 import type { Surroundings } from '@/data/types'
 import { Head } from '../home/parts'
 import { Legend } from '../health/Legend'
@@ -14,9 +14,10 @@ const f1 = (n: number) => n.toFixed(1)
 function ThursdayChart({ t }: { t: Surroundings['thursday'] }) {
   const n = t.outdoor.length
   const x = (i: number) => L + (i * (W - L)) / (n - 1)
+  const { t: tr } = useTranslation('around')
   const lines = [[t.outdoor, '#e07a3f'], [t.indoor, '#d9443f']] as const
   return (
-    <svg viewBox="0 0 640 172" role="img" aria-label={AROUND_COPY.thursday.ariaLabel}>
+    <svg viewBox="0 0 640 172" role="img" aria-label={tr('thursday.ariaLabel')}>
       {[20, 25, 30, 35, 40].map((v) => (
         <g key={v}>
           <line x1={L} x2={W} y1={y(v)} y2={y(v)} stroke="rgba(13,42,42,.08)" />
@@ -50,10 +51,10 @@ function ThursdayChart({ t }: { t: Surroundings['thursday'] }) {
 
 /** `🔥 Thursday, hour by hour` (c6). */
 export function ThursdayCard({ thursday }: { thursday: Surroundings['thursday'] }) {
-  const c = AROUND_COPY.thursday
+  const { t } = useTranslation('around')
   return (
     <GlassCard span={6} className="chart">
-      <Head title={c.title} meta={c.meta} />
+      <Head title={t('thursday.title')} meta={t('thursday.meta')} />
       <div id="thu"><ThursdayChart t={thursday} /></div>
       <Legend items={thursday.legend} />
     </GlassCard>

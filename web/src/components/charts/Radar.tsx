@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 interface Axis {
   label: string
   /** 0..100 now. */
@@ -17,6 +19,7 @@ const CX = 120, CY = 112, R = 86
 
 /** Prototype radar (line 1421): 240×226 svg, rings at 25/50/75/100. */
 export function Radar({ axes, score, ariaLabel }: Props) {
+  const { t } = useTranslation()
   const n = axes.length
   const pt = (i: number, v: number) => {
     const a = -Math.PI / 2 + (i / n) * Math.PI * 2
@@ -24,7 +27,7 @@ export function Radar({ axes, score, ariaLabel }: Props) {
   }
   const label =
     ariaLabel ??
-    (score != null ? `Overall ${score} out of 100: ` : '') + axes.map((a) => `${a.label} ${a.value}`).join(', ')
+    (score != null ? t('charts.radarOverall', { score }) : '') + axes.map((a) => `${a.label} ${a.value}`).join(', ')
   return (
     <svg viewBox="0 0 240 226" role="img" aria-label={label}>
       {[25, 50, 75, 100].map((g) => (

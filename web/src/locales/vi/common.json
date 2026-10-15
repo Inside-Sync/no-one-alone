@@ -1,0 +1,394 @@
+{
+  "explain": {
+    "nhịp tim": "Số lần tim bà đập mỗi phút. Hiện cao hơn mức thường ngày một chút, điều này có thể xảy ra khi trời nóng.",
+    "huyết áp": "Lực máu ép lên thành động mạch. Số trên (tâm thu) đã tăng dần trong 6 tuần, làm tăng nguy cơ đột quỵ. Uống đều liều thuốc buổi tối mỗi ngày là cách đơn giản nhất.",
+    "hrv": "Còn gọi là biến thiên nhịp tim (HRV). Cao nghĩa là cơ thể đang thư giãn và hồi phục; thấp nghĩa là đang chịu áp lực do nắng nóng, ngủ kém hoặc ốm.",
+    "thư thái": "Còn gọi là biến thiên nhịp tim (HRV). Cao nghĩa là cơ thể đang thư giãn và hồi phục; thấp nghĩa là đang chịu áp lực do nắng nóng, ngủ kém hoặc ốm.",
+    "bình tĩnh": "Còn gọi là biến thiên nhịp tim (HRV). Cao nghĩa là cơ thể đang thư giãn và hồi phục; thấp nghĩa là đang chịu áp lực do nắng nóng, ngủ kém hoặc ốm.",
+    "giấc ngủ": "Thời gian thực sự ngủ. Bà đang ngủ ít hơn bình thường và thức giấc nhiều hơn vào ban đêm.",
+    "ngủ": "Thời gian thực sự ngủ. Bà đang ngủ ít hơn bình thường và thức giấc nhiều hơn vào ban đêm.",
+    "tốc độ đi": "Tốc độ bà đi trên mặt phẳng. Đi chậm dần qua nhiều tuần là một trong những dấu hiệu sớm rõ nhất của nguy cơ té ngã cao hơn.",
+    "đi bộ": "Tốc độ bà đi trên mặt phẳng. Đi chậm dần qua nhiều tuần là một trong những dấu hiệu sớm rõ nhất của nguy cơ té ngã cao hơn.",
+    "bước chân": "Số bước do đồng hồ đeo tay và điện thoại của bà đếm.",
+    "số bước": "Số bước do đồng hồ đeo tay và điện thoại của bà đếm.",
+    "cuộc gọi": "Số cuộc gọi hỏi thăm hằng ngày mà bà đã nghe máy.",
+    "nghe máy": "Số cuộc gọi hỏi thăm hằng ngày mà bà đã nghe máy.",
+    "tốc độ nói": "Đo trong cuộc trò chuyện hằng ngày. Thay đổi nhỏ có thể là dấu hiệu sớm của mệt mỏi, tâm trạng kém hoặc thay đổi trí nhớ.",
+    "nhịp nói": "Đo trong cuộc trò chuyện hằng ngày. Thay đổi nhỏ có thể là dấu hiệu sớm của mệt mỏi, tâm trạng kém hoặc thay đổi trí nhớ.",
+    "mọi người": "Các cuộc gọi, lần thăm hỏi và đi chơi cùng người khác.",
+    "người khác": "Các cuộc gọi, lần thăm hỏi và đi chơi cùng người khác.",
+    "giao tiếp": "Các cuộc gọi, lần thăm hỏi và đi chơi cùng người khác.",
+    "nhiệt độ": "Từ cảm biến trong phòng khách của bà. Trên 28° cơ thể phải làm việc vất vả hơn, nhất là khi có bệnh tim.",
+    "cân nặng": "Từ cân trong phòng tắm. Tăng đột ngột 2 kg trong 3 ngày có thể là dấu hiệu tích nước.",
+    "phấn hoa": "Phấn hoa cỏ mùa xuân. Vào những ngày gió, giông, nó có thể gây hen suyễn, kể cả ở người hiếm khi bị.",
+    "tia uv": "Chỉ số UV. Mức 11 là cực cao: da có thể bị cháy nắng trong chưa đầy 10 phút.",
+    "chỉ số uv": "Chỉ số UV. Mức 11 là cực cao: da có thể bị cháy nắng trong chưa đầy 10 phút.",
+    "cường độ nắng": "Chỉ số UV. Mức 11 là cực cao: da có thể bị cháy nắng trong chưa đầy 10 phút.",
+    "máy bay": "Marrickville nằm dưới đường bay của sân bay. Các chuyến bay ngừng từ 23:00 đến 6:00, nên giấc ngủ của bà không bị ảnh hưởng.",
+    "hồ sơ báo trước": "Gói FHIR R4 (Patient, Condition, MedicationStatement, AllergyIntolerance, Observation) được gửi tới khoa cấp cứu khi chuyển cấp, có sẵn chấp thuận chia sẻ.",
+    "báo trước khi": "Khoảng thời gian trung vị từ lúc nhận hồ sơ báo trước đến khi xe cứu thương tới khu phân loại.",
+    "thời gian báo trước": "Khoảng thời gian trung vị từ lúc nhận hồ sơ báo trước đến khi xe cứu thương tới khu phân loại.",
+    "chụp ct": "Số phút trung vị từ lúc đến khoa cấp cứu đến lần chụp CT sọ não đầu tiên khi nghi đột quỵ, so sánh ca có hồ sơ báo trước với mức nền trước đây.",
+    "đến ct": "Số phút trung vị từ lúc đến khoa cấp cứu đến lần chụp CT sọ não đầu tiên khi nghi đột quỵ, so sánh ca có hồ sơ báo trước với mức nền trước đây.",
+    "thuốc": "Hộp chia thuốc thông minh ghi lại thời điểm uống từng liều.",
+    "heart rate": "Số lần tim bà đập mỗi phút. Hiện cao hơn mức thường ngày một chút, điều này có thể xảy ra khi trời nóng.",
+    "blood pressure": "Lực máu ép lên thành động mạch. Số trên (tâm thu) đã tăng dần trong 6 tuần, làm tăng nguy cơ đột quỵ. Uống đều liều thuốc buổi tối mỗi ngày là cách đơn giản nhất.",
+    "calm score": "Còn gọi là biến thiên nhịp tim (HRV). Cao nghĩa là cơ thể đang thư giãn và hồi phục; thấp nghĩa là đang chịu áp lực do nắng nóng, ngủ kém hoặc ốm.",
+    "sleep": "Thời gian thực sự ngủ. Bà đang ngủ ít hơn bình thường và thức giấc nhiều hơn vào ban đêm.",
+    "steps": "Số bước do đồng hồ đeo tay và điện thoại của bà đếm.",
+    "walking speed": "Tốc độ bà đi trên mặt phẳng. Đi chậm dần qua nhiều tuần là một trong những dấu hiệu sớm rõ nhất của nguy cơ té ngã cao hơn.",
+    "tablets": "Hộp chia thuốc thông minh ghi lại thời điểm uống từng liều.",
+    "calls answered": "Số cuộc gọi hỏi thăm hằng ngày mà bà đã nghe máy.",
+    "speaking pace": "Đo trong cuộc trò chuyện hằng ngày. Thay đổi nhỏ có thể là dấu hiệu sớm của mệt mỏi, tâm trạng kém hoặc thay đổi trí nhớ.",
+    "time with people": "Các cuộc gọi, lần thăm hỏi và đi chơi cùng người khác.",
+    "home temperature": "Từ cảm biến trong phòng khách của bà. Trên 28° cơ thể phải làm việc vất vả hơn, nhất là khi có bệnh tim.",
+    "weight": "Từ cân trong phòng tắm. Tăng đột ngột 2 kg trong 3 ngày có thể là dấu hiệu tích nước.",
+    "pollen": "Phấn hoa cỏ mùa xuân. Vào những ngày gió, giông, nó có thể gây hen suyễn, kể cả ở người hiếm khi bị.",
+    "sun strength": "Chỉ số UV. Mức 11 là cực cao: da có thể bị cháy nắng trong chưa đầy 10 phút.",
+    "plane noise": "Marrickville nằm dưới đường bay của sân bay. Các chuyến bay ngừng từ 23:00 đến 6:00, nên giấc ngủ của bà không bị ảnh hưởng.",
+    "pre-arrival packets": "Gói FHIR R4 (Patient, Condition, MedicationStatement, AllergyIntolerance, Observation) được gửi tới khoa cấp cứu khi chuyển cấp, có sẵn chấp thuận chia sẻ.",
+    "door to ct": "Số phút trung vị từ lúc đến khoa cấp cứu đến lần chụp CT sọ não đầu tiên khi nghi đột quỵ, so sánh ca có hồ sơ báo trước với mức nền trước đây.",
+    "notice before arrival": "Khoảng thời gian trung vị từ lúc nhận hồ sơ báo trước đến khi xe cứu thương tới khu phân loại."
+  },
+  "explainFallback": {
+    "hospital": "Chỉ số cuộn tính từ dữ liệu của bệnh nhân đã đăng ký và trích xuất từ hệ thống thông tin khoa cấp cứu; cập nhật mỗi 15 phút.",
+    "community": "Tổng hợp từ cư dân đã đăng ký tại 15 khu ở Inner West. Nhóm dưới 10 người được ẩn đi.",
+    "individual": "So với mức thường ngày của chính bà Margaret trong 30 ngày qua, nên phản ánh đúng điều bình thường với bà."
+  },
+  "chatIntro": "Hôm nay Mẹ ổn định. Có một việc cần làm: huyết áp của Mẹ đã tăng dần trong 6 tuần, và thứ Năm trời sẽ lên 38 °C.",
+  "chatQa": [
+    [
+      "Hôm nay giọng Mẹ thế nào?",
+      "Rõ ràng và vui vẻ lúc 13:02. Tốc độ nói 132 từ/phút, chậm hơn một chút so với mức thường ngày 141, và Mẹ hỏi lại \"gì cơ?\" hai lần, nên phụ đề vẫn được bật."
+    ],
+    [
+      "Vì sao nguy cơ đột quỵ cao?",
+      "Bốn yếu tố: huyết áp buổi sáng tăng 14 mmHg, bỏ lỡ 3 liều thuốc buổi tối, hai người thân bị đột quỵ trước 70 tuổi, và hai cảnh báo nhịp tim không đều trong tuần này. Đây là mức nguy cơ, không phải chẩn đoán."
+    ],
+    [
+      "Còn đợt nắng nóng thứ Năm thì sao?",
+      "Tôi sẽ thêm một cuộc hỏi thăm buổi trưa, nhắc Mẹ uống nước mỗi 2 giờ và đề nghị đưa Mẹ tới phòng mát ở thư viện. Aisha nhà bên có thể ghé xem Mẹ lúc 15:00."
+    ],
+    [
+      "Tuần này tôi nên làm gì?",
+      "Duyệt việc David chuẩn bị hộp chia thuốc và đặt lịch tái khám với bác sĩ gia đình. Cả hai chỉ cần một chạm. Tôi cũng có thể soạn sẵn tin nhắn cho Sarah."
+    ]
+  ],
+  "sosScript": {
+    "intro": "Yêu cầu xe cứu thương. Đọc to nội dung này.",
+    "address": "186 Marrickville Rd, Marrickville NSW 2204",
+    "rows": [
+      [
+        "Địa chỉ",
+        "186 Marrickville Rd, Marrickville NSW 2204"
+      ],
+      [
+        "Bệnh nhân",
+        "Margaret Collins, 78 tuổi, sống một mình"
+      ],
+      [
+        "Triệu chứng",
+        "Nói ngọng từ 02:04, nhịp tim 142"
+      ],
+      [
+        "Lần cuối bình thường",
+        "01:55"
+      ],
+      [
+        "Thuốc",
+        "Amlodipine, aspirin, atorvastatin · dị ứng penicillin"
+      ],
+      [
+        "Lối vào",
+        "Em trai đến lúc 02:11 có chìa khóa · hàng xóm Aisha giữ chìa dự phòng"
+      ]
+    ],
+    "note": "Trợ lý chuẩn bị nội dung này. Một người thật sẽ gọi điện."
+  },
+  "packetNote": "Chỉ gửi dưới dạng gói FHIR tới khoa cấp cứu tiếp nhận khi có trường hợp khẩn cấp, có sẵn chấp thuận chia sẻ.",
+  "notifications": [
+    [
+      "⚠️",
+      "Cần bạn duyệt: hộp chia thuốc hằng tuần do David chuẩn bị",
+      "Hôm qua 21:40",
+      "warn"
+    ],
+    [
+      "🔥",
+      "Cảnh báo nắng nóng thứ Năm · kế hoạch đã sẵn sàng",
+      "2 giờ trước",
+      "warn"
+    ],
+    [
+      "🛡️",
+      "Có báo cáo lừa đảo gõ cửa trên phố của Mẹ",
+      "5 giờ trước",
+      "bad"
+    ],
+    [
+      "✅",
+      "Dr Patel đã đọc báo cáo huyết áp",
+      "Hôm qua 16:42",
+      "good"
+    ],
+    [
+      "😊",
+      "Bà Margaret đã trò chuyện vui vẻ lúc 13:02",
+      "2 giờ trước",
+      "good"
+    ]
+  ],
+  "condActions": [
+    [
+      "🗣️ Hỏi Mẹ về việc này",
+      "Đã thêm vào cuộc trò chuyện tới",
+      "Đã thêm"
+    ],
+    [
+      "🩺 Trao đổi với Dr Patel",
+      "Đã thêm vào nội dung buổi khám bác sĩ gia đình",
+      "Đã thêm"
+    ]
+  ],
+  "onceLabels": {
+    "Duyệt": "✓ Đã duyệt",
+    "Nhờ David chuẩn bị hộp chia thuốc": "✓ Đã nhờ David",
+    "Gửi báo cáo huyết áp cho Dr Patel": "✓ Đã gửi",
+    "Gọi Mẹ": "📞 Đang gọi…",
+    "Gọi cho Mẹ": "📞 Đang gọi…",
+    "Xem xét": "✓ Đã xem xét",
+    "Gọi đội đột quỵ": "✓ Đã gọi",
+    "Chuyển hướng": "✓ Đã gửi đề nghị chuyển hướng",
+    "Approve": "✓ Đã duyệt",
+    "Ask David to set up a pill box": "✓ Đã nhờ David",
+    "Send BP report to Dr Patel": "✓ Đã gửi",
+    "Call Mum": "📞 Đang gọi…",
+    "Review": "✓ Đã xem xét",
+    "Page stroke team": "✓ Đã gọi",
+    "Divert": "✓ Đã gửi đề nghị chuyển hướng"
+  },
+  "drawerActions": {
+    "row": [
+      [
+        "🗣️ Hỏi bà về việc này",
+        "Đã thêm vào cuộc trò chuyện tới",
+        "Đã thêm"
+      ],
+      [
+        "📤 Chia sẻ với gia đình",
+        "Đã chia sẻ",
+        "Đã chia sẻ"
+      ]
+    ],
+    "alert": [
+      [
+        "🗣️ Báo bà Margaret bằng giọng nói",
+        "Bà Margaret sẽ nghe tin này trong cuộc gọi tới",
+        "Sẽ báo bà"
+      ],
+      [
+        "📤 Chia sẻ với David",
+        "Đã gửi cho David",
+        "Đã gửi"
+      ],
+      [
+        "✅ Đánh dấu đã xử lý",
+        "Đã đánh dấu là đã xử lý",
+        "Đã xử lý"
+      ]
+    ],
+    "news": [
+      [
+        "🗣️ Đọc cho bà Margaret nghe",
+        "Bà sẽ nghe bản tóm tắt lúc 18:00",
+        "Đã xếp lịch"
+      ],
+      [
+        "📤 Chia sẻ với gia đình",
+        "Đã chia sẻ với vòng chăm sóc",
+        "Đã chia sẻ"
+      ]
+    ]
+  },
+  "pageError": {
+    "text": "Hiện chưa tải được trang này.",
+    "retry": "Thử lại",
+    "toast": "Hiện chưa tải được · vui lòng thử lại"
+  },
+  "saveFailed": "Không lưu được thay đổi · đã hoàn tác",
+  "keptPrivate": {
+    "title": "🔒 Được giữ riêng tư",
+    "body": "Bà Margaret đã chọn không chia sẻ mục này với {{viewerName}}. Đó là lựa chọn của bà, và bà có thể thay đổi bất cứ lúc nào.",
+    "action": {
+      "label": "💬 Nhẹ nhàng hỏi bà Margaret",
+      "toast": "Bà Margaret sẽ nhận một lời đề nghị nhẹ nhàng, bà có thể đồng ý hoặc từ chối",
+      "done": "Đã gửi đề nghị"
+    },
+    "bodyPaused": "Bà Margaret đã chọn không chia sẻ mục này với {{viewerName}} lúc này. Bà đã tạm dừng chia sẻ đến 9:00 sáng mai. Cảnh báo an toàn vẫn đến với bạn."
+  },
+  "you": "bạn",
+  "nav": {
+    "bellToast": "3 cập nhật hôm nay: 2 việc thường lệ, 1 việc cần bạn duyệt",
+    "notifications": "Thông báo",
+    "demo": "Demo cảnh báo ban đêm",
+    "signedInAs": "Đã đăng nhập: {{name}}",
+    "sections": "Các mục",
+    "chooseView": "Chọn chế độ xem",
+    "brandBy": "bởi InsideSync",
+    "whose": "Góc nhìn của ai",
+    "whoSelf": "👵 Bà Margaret (ứng dụng của bà)",
+    "whoFamily": "👨‍👩‍👧 Gia đình & người chăm sóc",
+    "search": {
+      "placeholder": "Tìm người, khu vực…",
+      "label": "Tìm kiếm",
+      "results": "Kết quả tìm kiếm",
+      "person": "Người",
+      "suburb": "Khu vực · Inner West"
+    }
+  },
+  "views": {
+    "buttons": {
+      "individual": "Cá nhân",
+      "hospital": "Bệnh viện",
+      "community": "Cộng đồng"
+    },
+    "banners": {
+      "individual": "Góc nhìn cá nhân · bà Margaret và gia đình",
+      "hospital": "Góc nhìn bệnh viện · Trung tâm đột quỵ Camperdown",
+      "community": "Góc nhìn cộng đồng · Y tế cộng đồng Inner West"
+    },
+    "users": {
+      "individual": {
+        "name": "James Collins",
+        "toast": "Đã đăng nhập: James Collins · con trai · Melbourne"
+      },
+      "hospital": {
+        "name": "Dr Amelia Tran",
+        "toast": "Đã đăng nhập: Dr Amelia Tran · bác sĩ khoa cấp cứu"
+      },
+      "community": {
+        "name": "Priya Sharma",
+        "toast": "Đã đăng nhập: Priya Sharma · điều dưỡng cộng đồng"
+      }
+    }
+  },
+  "tabs": {
+    "family": {
+      "home": "🏠 Trang chủ",
+      "health": "❤️ Sức khỏe",
+      "around": "🌤️ Quanh bà",
+      "forecast": "🔮 Sắp tới",
+      "lineage": "🌳 Gia phả sức khỏe",
+      "record": "📋 Hồ sơ chăm sóc",
+      "live": "🚨 Khẩn cấp",
+      "device": "📱 Điện thoại của bà"
+    },
+    "self": {
+      "me": "🌞 Ngày của tôi",
+      "health": "❤️ Sức khỏe của tôi",
+      "privacy": "🔐 Ai xem được gì",
+      "around": "🌤️ Quanh tôi",
+      "lineage": "🌳 Sức khỏe gia đình tôi",
+      "device": "📱 Điện thoại của tôi"
+    },
+    "hospital": {
+      "ed": "Báo trước khi đến",
+      "panel": "Danh sách bệnh nhân",
+      "demand": "Nhu cầu & giường",
+      "discharge": "Theo dõi sau xuất viện"
+    },
+    "community": {
+      "community": "Tổng quan cộng đồng",
+      "watch": "Canh chừng khu phố"
+    }
+  },
+  "pageTitles": {
+    "home": "Margaret Collins, 78 tuổi",
+    "health": "Sức khỏe · Margaret Collins",
+    "around": "Quanh bà · Margaret Collins",
+    "forecast": "Sắp tới · Margaret Collins",
+    "lineage": "Gia phả sức khỏe · gia đình Collins và Hughes",
+    "record": "Hồ sơ chăm sóc · Margaret Collins",
+    "live": "Khẩn cấp · Margaret Collins",
+    "device": "Điện thoại của bà Margaret",
+    "me": "Xin chào, bà Margaret",
+    "privacy": "Ai xem được gì",
+    "ed": "Báo trước khi đến · Trung tâm đột quỵ Camperdown",
+    "panel": "Danh sách bệnh nhân · người cao tuổi",
+    "demand": "Nhu cầu và giường · 14 ngày tới",
+    "discharge": "Theo dõi sau xuất viện · 30 ngày qua",
+    "community": "Cộng đồng Inner West",
+    "watch": "Canh chừng khu phố · Inner West"
+  },
+  "ownContext": {
+    "me": {
+      "sub": "Không gian riêng của bà · chỉ bà xem được trang này",
+      "facts": [
+        [
+          "Bà đang chia sẻ với",
+          "6 người"
+        ],
+        [
+          "Camera",
+          "không có"
+        ],
+        [
+          "Vị trí",
+          "tắt"
+        ]
+      ]
+    },
+    "privacy": {
+      "sub": "Bà quyết định mỗi người được xem gì. Thay đổi bất cứ lúc nào.",
+      "facts": [
+        [
+          "Cảnh báo an toàn",
+          "luôn gửi David và James"
+        ],
+        [
+          "Vị trí",
+          "tắt"
+        ]
+      ]
+    }
+  },
+  "context": {
+    "selfBanner": "Góc nhìn riêng của bà Margaret · bà tự quản lý thông tin của mình",
+    "familyBanner": "Góc nhìn gia đình & người chăm sóc · {{viewerName}} chỉ xem những gì bà Margaret chia sẻ",
+    "sees": "{{viewerName}} xem được <b>{{seen}}/{{total}}</b> mục bà Margaret chia sẻ",
+    "pausedBold": "Bà Margaret đã tạm dừng chia sẻ đến 9:00 sáng mai.",
+    "pausedRest": "Bạn vẫn nhận cảnh báo an toàn ngay lập tức."
+  },
+  "lock": {
+    "paused": "Bà Margaret đã tạm dừng chia sẻ đến ngày mai",
+    "keeps": "Bà Margaret giữ riêng mục {{name}}",
+    "checking": "Đang kiểm tra những gì bà Margaret chia sẻ"
+  },
+  "drawer": {
+    "close": "Đóng",
+    "compared": "So với",
+    "change": "Thay đổi"
+  },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "text": "Trang này không tồn tại.",
+    "link": "Về Trang chủ"
+  },
+  "charts": {
+    "timeline": "Dòng thời gian",
+    "table": "Bảng",
+    "heatmap": "Bản đồ nhiệt sinh hoạt hằng ngày, {{days}} ngày x {{hours}} giờ",
+    "heatmapUnusual": "; đánh dấu {{count}} giờ khác thường",
+    "notYet": "Chưa đến",
+    "cell": "{{day}} {{hour}}:00 · {{pct}}% mức cao nhất",
+    "radarOverall": "Tổng thể {{score}} trên 100: ",
+    "sparkline": "Xu hướng từ {{from}} đến {{to}}",
+    "ringLabel": "{{label}}: {{value}} trên {{max}}{{unit}}",
+    "ringOf": "trên {{max}}{{unit}}",
+    "lineSeries": "{{name}} từ {{from}} đến {{to}}",
+    "projected": " (phần nét đứt là dự báo)",
+    "threshold": "; ngưỡng {{label}}",
+    "district": "Bản đồ cột 3D của 15 khu vực Inner West",
+    "north": "B"
+  }
+}

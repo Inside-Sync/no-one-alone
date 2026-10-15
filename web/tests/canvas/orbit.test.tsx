@@ -2,7 +2,10 @@ import { render } from '@testing-library/react'
 import { createOrbitSim, drawOrbit, dragOrbit, orbitHit, setOrbit, type OrbitOptions } from '@/components/canvas/orbit/draw'
 import { Orbit } from '@/components/canvas/Orbit'
 import { DEFAULT_FONTS } from '@/components/canvas/fonts'
-import { orbitScene } from '@/data/fixtures/circle'
+import circleData from '@/locales/en/data/circle.json'
+import type { OrbitScene } from '@/data/types'
+
+const orbitScene = circleData.orbitScene as OrbitScene
 import { loadPrototype } from './prototype'
 import { fakeCtx, mockCanvas, mockLayout, mockRaf, setReducedMotion, type FakeCtx } from './fakeCtx'
 

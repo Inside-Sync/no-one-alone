@@ -1,0 +1,73 @@
+{
+  "you": "bạn",
+  "youParen": " (bạn)",
+  "youSuffix": " · bạn",
+  "relation": {
+    "self": "bản thân",
+    "son": "con trai",
+    "daughter": "con gái",
+    "brother": "em trai",
+    "sister": "em gái",
+    "father": "cha",
+    "mother": "mẹ",
+    "husband": "chồng",
+    "wife": "vợ",
+    "neighbour": "hàng xóm",
+    "friend": "bạn",
+    "grandson": "cháu trai",
+    "granddaughter": "cháu gái",
+    "nephew": "cháu trai",
+    "niece": "cháu gái"
+  },
+  "person": {
+    "ageLabel": "Tuổi",
+    "genderLabel": "Giới tính",
+    "female": "Nữ",
+    "male": "Nam"
+  },
+  "circle": {
+    "noteNearby": "Cách {{place}} · {{order}}",
+    "firstToCall": "người gọi đầu tiên",
+    "nextToCall": "người gọi tiếp theo",
+    "noteCalls": "{{place}} · gọi {{num}} nếu cần",
+    "noteUpdates": "{{place}} · nhận cập nhật",
+    "onCall": "Trực",
+    "backup": "Dự phòng",
+    "calls": "Gọi {{num}}",
+    "updates": "Cập nhật"
+  },
+  "forecast": {
+    "risk": {
+      "STROKE": "Đột quỵ",
+      "FALL": "Té ngã có chấn thương"
+    },
+    "level": {
+      "HIGH": "Cao",
+      "MEDIUM": "Trung bình",
+      "LOW": "Thấp"
+    },
+    "horizon": "{{n}} ngày",
+    "sentTo": "Đã gửi cho {{name}}",
+    "shared": "Đã chia sẻ với vòng chăm sóc"
+  },
+  "lineage": {
+    "generation": {
+      "grandparents": "Ông bà",
+      "parents": "Cha mẹ",
+      "self": "Thế hệ của {{name}}",
+      "children": "Con",
+      "grandchildren": "Cháu",
+      "ancestors": "Tổ tiên",
+      "descendants": "Con cháu"
+    },
+    "herself": "bản thân",
+    "selfRow": "bản thân",
+    "strength": {
+      "strong": "Mạnh",
+      "moderate": "Trung bình",
+      "weak": "Yếu"
+    },
+    "dueNow": "Đến hạn",
+    "book": "Đặt lịch"
+  }
+}

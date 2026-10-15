@@ -1,6 +1,6 @@
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Pill } from '@/components/ui/Pill'
-import { FORECAST_COPY } from '@/data/repo'
+import { useTranslation } from 'react-i18next'
 import type { RiskRow } from '@/data/types'
 import { Head } from '../home/parts'
 import { TableScroll } from '@/components/ui/TableScroll'
@@ -9,13 +9,14 @@ const trendColour = (t: RiskRow['trend']) => (t === '↑' ? 'var(--bad-text)' : 
 
 /** `📊 Chances over time` (c7): `#riskRows`. */
 export function RisksCard({ risks }: { risks: RiskRow[] }) {
-  const c = FORECAST_COPY.risks
+  const { t } = useTranslation('forecast')
+  const columns = t('risks.columns', { returnObjects: true })
   return (
     <GlassCard span={7}>
-      <Head title={c.title} meta={c.meta} />
+      <Head title={t('risks.title')} meta={t('risks.meta')} />
       <TableScroll>
         <table>
-          <thead><tr>{c.columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>
+          <thead><tr>{columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody id="riskRows">
             {risks.map((r) => (
               <tr key={r.name}>

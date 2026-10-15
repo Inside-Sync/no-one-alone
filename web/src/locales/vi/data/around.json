@@ -1,0 +1,1055 @@
+{
+  "surroundings": {
+    "homeMap": {
+      "kicker": "📍 Nơi bà Margaret sống",
+      "title": "Marrickville, Sydney",
+      "detail": "Inner West · cách trung tâm thành phố 5,8 km về phía tây nam · −33.911, 151.155",
+      "lat": -33.911,
+      "lng": 151.155,
+      "address": "186 Marrickville Rd, Marrickville NSW 2204",
+      "legend": [
+        {
+          "color": "#14a08c",
+          "label": "Nhà bà Margaret"
+        },
+        {
+          "color": "#2f6fb0",
+          "label": "Gia đình gần đó"
+        },
+        {
+          "color": "#ffffff",
+          "label": "Dịch vụ y tế",
+          "ring": true
+        },
+        {
+          "color": "#8f6fd0",
+          "label": "Cộng đồng"
+        },
+        {
+          "color": "#9b7fd4",
+          "label": "Phượng tím đang nở",
+          "round": true
+        }
+      ],
+      "chips": [
+        {
+          "icon": "people",
+          "text": "David · 450 m · đi bộ 6 phút"
+        },
+        {
+          "icon": "clinic",
+          "text": "Bác sĩ gia đình · 350 m"
+        },
+        {
+          "icon": "pill",
+          "text": "Nhà thuốc · 280 m"
+        },
+        {
+          "icon": "hospital",
+          "text": "Trung tâm đột quỵ · 4,2 km · 11 phút"
+        },
+        {
+          "icon": "siren",
+          "text": "Xe cứu thương trung vị 9,4 phút (2204)"
+        },
+        {
+          "icon": "sun",
+          "text": "Thứ Năm 38 °C"
+        }
+      ],
+      "ariaLabel": "Mô hình 3D các con phố quanh nhà bà Margaret ở Marrickville: nhà bà trên đường Marrickville, em trai David cách 450 mét về phía tây, bác sĩ gia đình và nhà thuốc gần đó, phòng mát thư viện, nhóm đi bộ ở công viên và sông Cooks ở phía nam",
+      "pins": [
+        {
+          "name": "Nhà bà Margaret",
+          "sub": "Nhà",
+          "color": "#14a08c",
+          "initials": "M",
+          "big": true,
+          "kind": "home",
+          "geo": {
+            "lat": -33.911,
+            "lng": 151.155
+          }
+        },
+        {
+          "name": "David (em trai)",
+          "sub": "",
+          "detail": "450 m · đi bộ 6 phút",
+          "color": "#2f6fb0",
+          "initials": "D",
+          "phase": 0.3,
+          "kind": "family",
+          "geo": {
+            "lat": -33.913964,
+            "lng": 151.151753
+          }
+        },
+        {
+          "name": "Bác sĩ gia đình",
+          "sub": "",
+          "detail": "Phòng khám gia đình Illawarra Rd · Dr Patel · 350 m",
+          "color": "#ffffff",
+          "ink": "#0b7f71",
+          "initials": "+",
+          "phase": 0.5,
+          "at": {
+            "x": 162,
+            "y": 132,
+            "z": 12
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908548,
+            "lng": 151.153182
+          }
+        },
+        {
+          "name": "Nhà thuốc",
+          "sub": "",
+          "detail": "280 m · mở cửa đến 21:00",
+          "color": "#ffffff",
+          "ink": "#1fb39c",
+          "initials": "Rx",
+          "phase": 0.7,
+          "at": {
+            "x": 127,
+            "y": 133,
+            "z": 9
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908579,
+            "lng": 151.151856
+          }
+        },
+        {
+          "name": "Phòng mát thư viện",
+          "sub": "",
+          "detail": "400 m · 120 chỗ",
+          "color": "#8f6fd0",
+          "initials": "L",
+          "phase": 0.1,
+          "at": {
+            "x": 305,
+            "y": 301,
+            "z": 21
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.913861,
+            "lng": 151.158598
+          }
+        },
+        {
+          "name": "Nhóm đi bộ",
+          "sub": "",
+          "detail": "Th 5 9:00 · Calvert Reserve",
+          "color": "#8f6fd0",
+          "initials": "W",
+          "phase": 0.6,
+          "at": {
+            "x": 329,
+            "y": 211,
+            "z": 2
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.911031,
+            "lng": 151.159508
+          }
+        },
+        {
+          "name": "→ Trung tâm đột quỵ 4,2 km",
+          "sub": "",
+          "detail": "Trung tâm đột quỵ Camperdown · hướng đông bắc · 11 phút đi xe cứu thương",
+          "color": "#ef4e4a",
+          "initials": "",
+          "tag": true,
+          "at": {
+            "x": 398,
+            "y": 398,
+            "z": 2
+          }
+        }
+      ],
+      "walkRing": {
+        "label": "ĐI BỘ 5 PHÚT",
+        "radius": 118
+      },
+      "labels": [
+        {
+          "text": "Marrickville Rd",
+          "x": 345,
+          "y": 150,
+          "bold": true
+        },
+        {
+          "text": "Illawarra Rd",
+          "x": 110,
+          "y": 384,
+          "bold": true
+        },
+        {
+          "text": "Calvert St",
+          "x": 52,
+          "y": 270
+        },
+        {
+          "text": "Victoria Rd",
+          "x": 250,
+          "y": 305
+        },
+        {
+          "text": "Cooks River",
+          "x": 300,
+          "y": 12
+        },
+        {
+          "text": "Calvert Reserve",
+          "x": 329,
+          "y": 240
+        },
+        {
+          "text": "Ga Marrickville",
+          "x": 220,
+          "y": 345
+        }
+      ]
+    },
+    "watchMap": {
+      "kicker": "👀 Canh chừng khu phố",
+      "title": "Quanh nhà bà Margaret",
+      "detail": "Những điều cần để ý khi sống một mình · 8 mục trong bán kính 1 km",
+      "ariaLabel": "Bản đồ 3D các con phố quanh nhà bà Margaret với cảnh báo khu phố: sửa vỉa hè, một vụ lừa đảo được báo cáo, đèn đường hỏng, chim ác là sà xuống, phát hiện rắn và phòng mát tránh nóng",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "Cần xử lý"
+        },
+        {
+          "color": "#c88a05",
+          "label": "Cần lưu ý"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "Hữu ích"
+        }
+      ],
+      "ring": {
+        "label": "KHU VỰC CANH CHỪNG",
+        "radius": 150
+      }
+    },
+    "pins": [
+      {
+        "name": "Margaret",
+        "sub": "",
+        "detail": "Nhà",
+        "color": "#14a08c",
+        "initials": "M",
+        "big": true,
+        "kind": "home",
+        "geo": {
+          "lat": -33.911,
+          "lng": 151.155
+        }
+      },
+      {
+        "name": "Sửa vỉa hè",
+        "sub": "",
+        "detail": "Marrickville Rd trước nhà thuốc · mặt đường gồ ghề đến 24/10",
+        "color": "#c88a05",
+        "initials": "!",
+        "phase": 0.2,
+        "at": {
+          "x": 225,
+          "y": 146,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.908988,
+          "lng": 151.155568
+        }
+      },
+      {
+        "name": "Có báo cáo lừa đảo",
+        "sub": "",
+        "detail": "Lừa đảo \"hoàn tiền điện mặt trời\" gõ cửa từng nhà · 3 báo cáo trên con phố này từ Thứ Hai",
+        "color": "#d9443f",
+        "initials": "!",
+        "phase": 0.4,
+        "at": {
+          "x": 70,
+          "y": 205,
+          "z": 8
+        },
+        "kind": "alert",
+        "tone": "act",
+        "geo": {
+          "lat": -33.910843,
+          "lng": 151.149697
+        }
+      },
+      {
+        "name": "Đèn đường hỏng",
+        "sub": "",
+        "detail": "Calvert St từ Chủ Nhật · đã báo hội đồng khu vực #IW-48213",
+        "color": "#c88a05",
+        "initials": "☾",
+        "phase": 0.6,
+        "at": {
+          "x": 160,
+          "y": 270,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.912886,
+          "lng": 151.153106
+        }
+      },
+      {
+        "name": "Chim ác là sà xuống",
+        "sub": "",
+        "detail": "Calvert Reserve, lối đi phía tây · mùa làm tổ mùa xuân",
+        "color": "#c88a05",
+        "initials": "M",
+        "phase": 0.8,
+        "at": {
+          "x": 350,
+          "y": 235,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.911786,
+          "lng": 151.160303
+        }
+      },
+      {
+        "name": "Phát hiện rắn",
+        "sub": "",
+        "detail": "Lối đi sông Cooks · đi trên đường lát",
+        "color": "#c88a05",
+        "initials": "S",
+        "phase": 0.1,
+        "at": {
+          "x": 60,
+          "y": 36,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.905529,
+          "lng": 151.149318
+        }
+      },
+      {
+        "name": "Phòng mát",
+        "sub": "",
+        "detail": "Thư viện · mở 9:00–20:00 Thứ Năm · còn 74 chỗ",
+        "color": "#1fb39c",
+        "initials": "L",
+        "phase": 0.5,
+        "at": {
+          "x": 305,
+          "y": 301,
+          "z": 21
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.913861,
+          "lng": 151.158598
+        }
+      },
+      {
+        "name": "Vắc-xin",
+        "sub": "",
+        "detail": "Nhà thuốc · tiêm cúm và COVID không cần hẹn Th 5–Th 7",
+        "color": "#1fb39c",
+        "initials": "+",
+        "phase": 0.7,
+        "at": {
+          "x": 127,
+          "y": 133,
+          "z": 9
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.908579,
+          "lng": 151.151856
+        }
+      }
+    ],
+    "weather": {
+      "heading": "🌤️ Thời tiết ở Marrickville",
+      "meta": "Hiện tại · 15:10",
+      "temp": "33°",
+      "summary": "Nắng, gió đông bắc nóng",
+      "feelsLike": "Cảm giác như 35° · trong nhà 29,5°",
+      "stats": [
+        {
+          "label": "Mặt trời mọc",
+          "value": "05:47",
+          "note": "lặn 19:14"
+        },
+        {
+          "label": "Độ ẩm",
+          "value": "41%",
+          "note": "điểm sương 18°"
+        },
+        {
+          "label": "Áp suất",
+          "value": "1009",
+          "note": "hPa · đang giảm"
+        },
+        {
+          "label": "Thấp nhất đêm nay",
+          "value": "24°",
+          "note": "Th 5 · đêm nóng"
+        },
+        {
+          "label": "Nguy cơ cháy",
+          "value": "Cao",
+          "note": "Th 5–Th 6"
+        },
+        {
+          "label": "Tầm nhìn",
+          "value": "10 km",
+          "note": "quang đãng"
+        }
+      ],
+      "note": "Nắng nóng Thứ Năm và Thứ Sáu. Dự kiến gió nam đổi chiều tối Thứ Sáu với gió giật đến 60 km/h."
+    },
+    "week": [
+      {
+        "day": "Th 4",
+        "icon": "sun",
+        "high": 33,
+        "low": 19,
+        "hot": false
+      },
+      {
+        "day": "Th 5",
+        "icon": "sun",
+        "high": 38,
+        "low": 24,
+        "hot": true
+      },
+      {
+        "day": "Th 6",
+        "icon": "wind",
+        "high": 36,
+        "low": 18,
+        "hot": true
+      },
+      {
+        "day": "Th 7",
+        "icon": "cloud",
+        "high": 26,
+        "low": 16,
+        "hot": false
+      },
+      {
+        "day": "CN",
+        "icon": "cloud",
+        "high": 24,
+        "low": 15,
+        "hot": false
+      },
+      {
+        "day": "Th 2",
+        "icon": "drop",
+        "high": 23,
+        "low": 14,
+        "hot": false
+      },
+      {
+        "day": "Th 3",
+        "icon": "sun",
+        "high": 25,
+        "low": 15,
+        "hot": false
+      }
+    ],
+    "kpis": [
+      {
+        "emoji": "🌡️",
+        "label": "Nhiệt độ",
+        "value": "33",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "cao nhất hôm nay",
+        "delta": "cao hơn bình thường 6°",
+        "tone": "warn",
+        "spark": [
+          22,
+          24,
+          27,
+          29,
+          31,
+          32,
+          33,
+          33,
+          33
+        ]
+      },
+      {
+        "emoji": "🥵",
+        "label": "Cảm giác như",
+        "value": "35",
+        "unit": "°C",
+        "color": "#d9443f",
+        "baseline": "không khí ẩm",
+        "delta": "Nóng",
+        "tone": "warn",
+        "spark": [
+          23,
+          25,
+          28,
+          31,
+          33,
+          34,
+          35,
+          35,
+          35
+        ]
+      },
+      {
+        "emoji": "💨",
+        "label": "Gió",
+        "value": "22",
+        "unit": "km/h",
+        "color": "#5a7fe0",
+        "baseline": "hướng đông bắc",
+        "delta": "Mát hơn Th 6",
+        "tone": "good",
+        "spark": [
+          8,
+          10,
+          12,
+          15,
+          18,
+          20,
+          22,
+          22,
+          22
+        ]
+      },
+      {
+        "emoji": "🕶️",
+        "label": "Cường độ nắng",
+        "value": "11",
+        "unit": "UV",
+        "color": "#c2417a",
+        "baseline": "10:00–15:30",
+        "delta": "Cực mạnh: ở trong bóng râm",
+        "tone": "bad",
+        "spark": [
+          1,
+          3,
+          6,
+          9,
+          11,
+          11,
+          10,
+          8,
+          6
+        ]
+      },
+      {
+        "emoji": "🌧️",
+        "label": "Mưa",
+        "value": "10",
+        "unit": "% khả năng",
+        "color": "#2f6fb0",
+        "baseline": "Thứ Bảy 60%",
+        "delta": "Hôm nay khô ráo",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          5,
+          5,
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "emoji": "🍃",
+        "label": "Chất lượng không khí",
+        "value": "Tốt",
+        "unit": "",
+        "color": "#1f8f5f",
+        "baseline": "không khí trong lành hôm nay",
+        "delta": "Có khói Thứ Bảy",
+        "tone": "good",
+        "spark": [
+          28,
+          30,
+          31,
+          33,
+          32,
+          31,
+          32,
+          32,
+          32
+        ]
+      },
+      {
+        "emoji": "🌾",
+        "label": "Phấn hoa",
+        "value": "Cao",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "phấn hoa cỏ",
+        "delta": "Để bình xịt hen gần bên",
+        "tone": "warn",
+        "spark": [
+          3,
+          3,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "emoji": "✈️",
+        "label": "Tiếng ồn máy bay",
+        "value": "68",
+        "unit": "dB",
+        "color": "#56706e",
+        "baseline": "đường bay",
+        "delta": "Yên tĩnh 23:00–06:00",
+        "tone": "good",
+        "spark": [
+          50,
+          62,
+          66,
+          68,
+          67,
+          68,
+          66,
+          68,
+          68
+        ]
+      },
+      {
+        "emoji": "🔥",
+        "label": "Nguy cơ nắng nóng",
+        "value": "Trung bình",
+        "unit": "",
+        "color": "#d9443f",
+        "baseline": "Cao vào Thứ Năm",
+        "delta": "Đã có kế hoạch",
+        "tone": "warn",
+        "spark": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3
+        ]
+      },
+      {
+        "emoji": "🌅",
+        "label": "Ánh sáng ban ngày",
+        "value": "13 giờ",
+        "unit": "",
+        "color": "#e2a32c",
+        "baseline": "mặt trời lặn 19:14",
+        "delta": "Ngày dài hơn",
+        "tone": "good",
+        "spark": [
+          12.8,
+          12.8,
+          12.9,
+          12.9,
+          12.9,
+          13,
+          13,
+          13,
+          13.03
+        ]
+      },
+      {
+        "emoji": "🌊",
+        "label": "Gió biển",
+        "value": "Không",
+        "unit": "",
+        "color": "#2f6fb0",
+        "baseline": "đến Thứ Sáu",
+        "delta": "Đêm ấm",
+        "tone": "warn",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "emoji": "🔌",
+        "label": "Nguy cơ mất điện",
+        "value": "Thấp",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "Trung bình Thứ Năm",
+        "delta": "Thuốc trong tủ lạnh vẫn ổn",
+        "tone": "good",
+        "spark": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    ],
+    "alertsHeading": {
+      "title": "👀 Nên biết khi sống một mình",
+      "meta": "Sống một mình · xếp theo mức khẩn"
+    },
+    "alerts": [
+      {
+        "severity": "act",
+        "icon": "shield",
+        "title": "Lừa đảo gõ cửa trên phố của bà",
+        "text": "Người tự xưng \"hoàn tiền điện mặt trời\", 3 báo cáo từ Thứ Hai. Trợ lý đã nhắc bà không mở cửa cho khách lạ. Bà có thể gọi David chỉ với một chạm nếu thấy lo.",
+        "source": "Cảnh sát + hàng xóm · 2 ngày"
+      },
+      {
+        "severity": "act",
+        "icon": "sun",
+        "title": "Nắng nóng Thứ Năm, 38°",
+        "text": "Trong nhà dự kiến 34° nếu không có máy lạnh. Đã đặt xe đưa đến phòng mát thư viện lúc 11:00, thêm hỏi thăm lúc 12:00 và 15:00.",
+        "source": "Cục khí tượng · hôm nay"
+      },
+      {
+        "severity": "aware",
+        "icon": "people",
+        "title": "Người giữ chìa khóa vắng nhà 18–25/10",
+        "text": "Aisha đi vắng nên chỉ còn David giữ chìa khóa. Nên lắp hộp khóa đựng chìa cho nhân viên cấp cứu.",
+        "source": "Vòng chăm sóc · 1 ngày"
+      },
+      {
+        "severity": "aware",
+        "icon": "target",
+        "title": "Sửa vỉa hè trước nhà thuốc",
+        "text": "Mặt đường gồ ghề đến 24/10. Tuyến đi bộ của bà giờ đi qua Calvert St.",
+        "source": "Hội đồng khu vực · 6/10"
+      },
+      {
+        "severity": "aware",
+        "icon": "moon",
+        "title": "Đèn đường hỏng trên Calvert St",
+        "text": "Đã báo hội đồng khu vực. Lần hỏi thăm buổi tối được dời sớm hơn để bà không phải đi bộ về nhà trong bóng tối.",
+        "source": "Trợ lý · CN"
+      },
+      {
+        "severity": "aware",
+        "icon": "eye",
+        "title": "Chim ác là sà xuống ở Calvert Reserve",
+        "text": "Nhóm đi bộ chuyển sang lối đi phía đông đến tháng 11.",
+        "source": "Cư dân · tháng 9"
+      },
+      {
+        "severity": "help",
+        "icon": "plus",
+        "title": "Tiêm cúm và COVID miễn phí",
+        "text": "Không cần hẹn tại nhà thuốc của bà Th 5–Th 7. Bà đã đến hạn tiêm nhắc COVID (mũi gần nhất cách đây 7 tháng).",
+        "source": "Nhà thuốc · hôm nay"
+      }
+    ],
+    "newsHeading": {
+      "title": "📰 Tin tức liên quan đến bà",
+      "meta": "Lọc cho người 78 tuổi sống một mình ở 2204"
+    },
+    "newsCategories": [
+      "All",
+      "Health",
+      "Safety",
+      "Weather",
+      "Community",
+      "Transport"
+    ],
+    "news": [
+      {
+        "category": "Health",
+        "source": "Sở Y tế bang",
+        "age": "2 giờ",
+        "headline": "Cảnh báo sức khỏe do nắng nóng cho Sydney, Thứ Năm và Thứ Sáu",
+        "body": "Người cao tuổi có bệnh tim nên giữ mát, uống nước và liên lạc với gia đình hai lần mỗi ngày.",
+        "shownBecause": "Hiển thị vì: bệnh tim, nhà không có máy lạnh"
+      },
+      {
+        "category": "Safety",
+        "source": "Cảnh sát địa phương",
+        "age": "5 giờ",
+        "headline": "Lừa đảo gõ cửa mời hoàn tiền điện mặt trời nhắm vào người cao tuổi",
+        "body": "Kẻ gian hỏi thông tin ngân hàng để \"duyệt trước\" khoản hoàn tiền. Cảnh sát khuyên không mở cửa.",
+        "shownBecause": "Hiển thị vì: sống một mình, 3 báo cáo trên phố của bà"
+      },
+      {
+        "category": "Weather",
+        "source": "Cục khí tượng",
+        "age": "6 giờ",
+        "headline": "Gió nam đổi chiều tối Thứ Sáu, gió giật đến 60 km/h",
+        "body": "Nhiệt độ giảm 12° trong vòng một giờ. Hãy cố định đồ đạc ngoài trời.",
+        "shownBecause": "Hiển thị vì: bàn ghế trong vườn, cây cạnh phòng ngủ"
+      },
+      {
+        "category": "Community",
+        "source": "Hội đồng Inner West",
+        "age": "1 ngày",
+        "headline": "Lễ hội người cao tuổi: trà sáng miễn phí tại Tòa thị chính Marrickville, Th 3 20/10",
+        "body": "Nhạc sống, khám sức khỏe và xe đưa đón từ thư viện.",
+        "shownBecause": "Hiển thị vì: giao tiếp xã hội ít hơn bình thường"
+      },
+      {
+        "category": "Transport",
+        "source": "Tin giao thông",
+        "age": "1 ngày",
+        "headline": "Không có tàu tại Marrickville cuối tuần này; xe buýt thay thế",
+        "body": "Xe buýt chạy từ Illawarra Rd mỗi 10 phút.",
+        "shownBecause": "Hiển thị vì: đi lễ nhà thờ Chủ Nhật ở Sydenham"
+      },
+      {
+        "category": "Health",
+        "source": "Nhà thuốc",
+        "age": "1 ngày",
+        "headline": "Có tiêm cúm và COVID không cần hẹn",
+        "body": "Thứ Năm đến Thứ Bảy, người trên 65 tuổi không cần đặt lịch.",
+        "shownBecause": "Hiển thị vì: đến hạn tiêm nhắc COVID"
+      },
+      {
+        "category": "Safety",
+        "source": "Hội đồng khu vực",
+        "age": "2 ngày",
+        "headline": "Đốt giảm thiểu nguy cơ cháy rừng có thể gây khói vào Thứ Bảy",
+        "body": "Đóng cửa sổ và để thuốc hô hấp ở gần.",
+        "shownBecause": "Hiển thị vì: thỉnh thoảng bị hen suyễn"
+      },
+      {
+        "category": "Community",
+        "source": "Thư viện",
+        "age": "2 ngày",
+        "headline": "Phòng mát mở 9:00–20:00 Thứ Năm, có chỗ dành riêng cho người trên 75 tuổi",
+        "body": "Nước uống, Wi-Fi miễn phí và phòng yên tĩnh để ngủ trưa.",
+        "shownBecause": "Hiển thị vì: kế hoạch ứng phó nắng nóng"
+      }
+    ],
+    "thursday": {
+      "outdoor": [
+        22,
+        24,
+        27,
+        30,
+        33,
+        35,
+        37,
+        38,
+        38,
+        37,
+        36,
+        34,
+        32,
+        30,
+        28,
+        27,
+        26
+      ],
+      "indoor": [
+        26,
+        26.5,
+        27,
+        27.8,
+        28.8,
+        30,
+        31,
+        32,
+        33,
+        33.8,
+        34,
+        33.8,
+        33.2,
+        32.5,
+        31.5,
+        30.8,
+        30
+      ],
+      "coolRoom": {
+        "from": 5,
+        "to": 10,
+        "label": "ở phòng mát thư viện"
+      },
+      "plan": [
+        {
+          "at": 3,
+          "label": "uống nước"
+        },
+        {
+          "at": 6,
+          "label": "hỏi thăm"
+        },
+        {
+          "at": 9,
+          "label": "hỏi thăm"
+        },
+        {
+          "at": 12,
+          "label": "hỏi thăm"
+        }
+      ],
+      "legend": [
+        {
+          "color": "#e07a3f",
+          "label": "Ngoài trời"
+        },
+        {
+          "color": "#d9443f",
+          "label": "Trong nhà bà (không máy lạnh)"
+        },
+        {
+          "color": "rgba(143,111,208,.2)",
+          "label": "Kế hoạch của trợ lý"
+        }
+      ]
+    },
+    "air": [
+      {
+        "day": "Th 4",
+        "quality": "Tốt · 32",
+        "pm25": "9",
+        "pollen": "Cao",
+        "smoke": "Không",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "Th 5",
+        "quality": "Khá · 48",
+        "pm25": "14",
+        "pollen": "Cao",
+        "smoke": "Không",
+        "advice": "Ở trong nhà buổi trưa",
+        "tone": "warn"
+      },
+      {
+        "day": "Th 6",
+        "quality": "Khá · 51",
+        "pm25": "16",
+        "pollen": "Cực cao",
+        "smoke": "Không",
+        "advice": "Cảnh báo hen suyễn khi gió nam",
+        "tone": "bad"
+      },
+      {
+        "day": "Th 7",
+        "quality": "Kém · 88",
+        "pm25": "31",
+        "pollen": "Vừa",
+        "smoke": "Có thể",
+        "advice": "Đóng cửa sổ",
+        "tone": "bad"
+      },
+      {
+        "day": "CN",
+        "quality": "Khá · 45",
+        "pm25": "12",
+        "pollen": "Vừa",
+        "smoke": "Thấp",
+        "advice": "—",
+        "tone": "warn"
+      },
+      {
+        "day": "Th 2",
+        "quality": "Tốt · 28",
+        "pm25": "7",
+        "pollen": "Thấp",
+        "smoke": "Không",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "Th 3",
+        "quality": "Tốt · 30",
+        "pm25": "8",
+        "pollen": "Vừa",
+        "smoke": "Không",
+        "advice": "—",
+        "tone": "good"
+      }
+    ],
+    "airNote": "Phấn hoa cỏ mùa xuân đang cao, và việc đốt giảm thiểu nguy cơ cháy rừng ở phía nam Sydney có thể gây khói vào Thứ Bảy. Lời nhắc dùng bình xịt hen của bà đã được bật cho những ngày đó.",
+    "nearby": [
+      {
+        "initials": "W",
+        "color": "#8f6fd0",
+        "name": "Nhóm đi bộ · Calvert Reserve",
+        "note": "Th 5 9:00 · bà đã đi 3 trong 4 tuần qua",
+        "pill": {
+          "tone": "good",
+          "text": "Sẽ đi"
+        }
+      },
+      {
+        "initials": "A",
+        "color": "#c2611f",
+        "name": "Aisha · hàng xóm, cách 2 nhà",
+        "note": "Tình nguyện viên đã xác minh · giữ chìa khóa",
+        "pill": {
+          "tone": "brand",
+          "text": "Dự phòng"
+        }
+      },
+      {
+        "initials": "M",
+        "color": "#5a7fe0",
+        "name": "Giao bữa ăn",
+        "note": "Th 3 và Th 6 · lần tới Th 6 11:30",
+        "pill": {
+          "tone": "plain",
+          "text": "Đã đặt"
+        }
+      },
+      {
+        "initials": "L",
+        "color": "#22a593",
+        "name": "Hỗ trợ công nghệ ở thư viện",
+        "note": "Thứ Hai 10:00 · gọi video với Sarah",
+        "pill": {
+          "tone": "plain",
+          "text": "Tùy chọn"
+        }
+      }
+    ]
+  }
+}

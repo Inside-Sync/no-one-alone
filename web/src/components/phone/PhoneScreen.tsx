@@ -1,8 +1,8 @@
 'use client'
 
 import type { CSSProperties } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Icon } from '@/components/ui/Icon'
-import { LIVE_COPY } from '@/data/repo'
 import s from './phone.module.css'
 
 interface Props {
@@ -27,12 +27,14 @@ interface Props {
 
 /** Margaret's phone in hearing mode (`#devLive`, prototype `renderEm`): one question, big text, big buttons. */
 export function PhoneScreen({ time, q, small, flash, listen, help, yn, disabled, helpInitials = 'D', onAnswer, record }: Props) {
-  const c = LIVE_COPY.phone
+  const { t } = useTranslation('live')
+  const yes = t('phone.yes')
+  const no = t('phone.no')
   return (
     <div className={`device ${s.frame}`}>
       <div className={`dev-screen dark ${s.screen}`} id="devLive">
         <div className={flash ? 'dev-flash on' : 'dev-flash'}></div>
-        <span className={`dev-h ${s.h}`}>{c.header(time)}</span>
+        <span className={`dev-h ${s.h}`}>{t('phone.header', { time })}</span>
         <div className={`dev-q ${s.q}`}>
           {q}
           {small && <><br /><small className={s.small}>{small}</small></>}
@@ -46,11 +48,11 @@ export function PhoneScreen({ time, q, small, flash, listen, help, yn, disabled,
         )}
         {yn && (
           <div className="dev-btns">
-            <button type="button" className={`dev-b ok ${s.btn}`} disabled={disabled} onClick={() => onAnswer(c.yes)}>
-              <span className="ic"><Icon name="check" /></span>{c.yes}
+            <button type="button" className={`dev-b ok ${s.btn}`} disabled={disabled} onClick={() => onAnswer(yes)}>
+              <span className="ic"><Icon name="check" /></span>{yes}
             </button>
-            <button type="button" className={`dev-b help ${s.btn}`} disabled={disabled} onClick={() => onAnswer(c.no)}>
-              <span className="ic"><Icon name="x" /></span>{c.no}
+            <button type="button" className={`dev-b help ${s.btn}`} disabled={disabled} onClick={() => onAnswer(no)}>
+              <span className="ic"><Icon name="x" /></span>{no}
             </button>
           </div>
         )}

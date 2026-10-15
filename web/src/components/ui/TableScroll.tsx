@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 
 /**
  * `<div class="tw">`: the prototype's sideways-scrolling table wrapper.
@@ -7,6 +8,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
  * The name is the card heading unless `label` is given.
  */
 export function TableScroll({ label, children }: { label?: string; children: ReactNode }) {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const [name, setName] = useState<string | null>(null)
 
@@ -16,14 +18,14 @@ export function TableScroll({ label, children }: { label?: string; children: Rea
     const check = () => {
       const overflows = el.scrollWidth > el.clientWidth + 1
       const heading = el.closest('.card')?.querySelector('h2')?.textContent?.trim()
-      setName(overflows ? (label ?? heading ?? 'Table') : null)
+      setName(overflows ? (label ?? heading ?? t('charts.table')) : null)
     }
     check()
     const ro = new ResizeObserver(check)
     ro.observe(el)
     if (el.firstElementChild) ro.observe(el.firstElementChild)
     return () => ro.disconnect()
-  }, [label])
+  }, [label, t])
 
   return name === null
     ? <div className="tw" ref={ref}>{children}</div>

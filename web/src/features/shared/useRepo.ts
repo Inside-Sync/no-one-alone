@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState, type DependencyList } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export type RepoStatus = 'loading' | 'ready' | 'error'
 
@@ -23,8 +24,11 @@ const sameDeps = (a: DependencyList, b: DependencyList) => a.length === b.length
  * One read through the repo, with an explicit error state (Final review, finding 3).
  * The load runs on mount, whenever `deps` change and on `retry()`; a result that arrives after unmount
  * or after a newer load has started is dropped. A failure never becomes an unhandled rejection.
+ * The language is an implicit dependency: switching it reloads the data in that language.
  */
-export function useRepo<T>(load: () => Promise<T>, deps: DependencyList = []): RepoResult<T> {
+export function useRepo<T>(load: () => Promise<T>, extraDeps: DependencyList = []): RepoResult<T> {
+  const { i18n } = useTranslation()
+  const deps = [...extraDeps, i18n.resolvedLanguage]
   const [snap, setSnap] = useState<Snapshot<T>>(LOADING)
   const [attempt, setAttempt] = useState(0)
   // New deps mean a new load: drop the old result during render (React's "adjust state on prop change" pattern),

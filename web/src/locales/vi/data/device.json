@@ -1,0 +1,135 @@
+{
+  "deviceFeed": {
+    "meta": "48 chỉ số từ 6 thiết bị · như đồng hồ thông minh, cộng thêm ngôi nhà và giọng nói của bà",
+    "sources": [
+      {
+        "device": "Đồng hồ đeo tay",
+        "metrics": "Nhịp tim, HRV, nhịp điệu tim, ECG, oxy máu, các giai đoạn ngủ, số bước, năng lượng, nhiệt độ cổ tay, phát hiện té ngã, tiếng ồn",
+        "frequency": "Liên tục · 5 phút",
+        "status": "64% · đang đeo",
+        "tone": "good",
+        "sharedWith": "Gia đình, bác sĩ gia đình"
+      },
+      {
+        "device": "Điện thoại",
+        "metrics": "Tốc độ đi, độ dài bước, độ vững, ánh sáng ban ngày · định vị đang tắt (bà Margaret chỉ có thể bật chế độ ở nhà/ra ngoài)",
+        "frequency": "Thụ động",
+        "status": "Đang sạc",
+        "tone": "good",
+        "sharedWith": "Gia đình"
+      },
+      {
+        "device": "Máy đo huyết áp Bluetooth",
+        "metrics": "Tâm thu, tâm trương, mạch",
+        "frequency": "Sáng + tối",
+        "status": "Pin 70%",
+        "tone": "good",
+        "sharedWith": "Gia đình, bác sĩ gia đình"
+      },
+      {
+        "device": "Cân thông minh",
+        "metrics": "Cân nặng, BMI",
+        "frequency": "Hằng ngày",
+        "status": "Ổn",
+        "tone": "good",
+        "sharedWith": "Bác sĩ gia đình"
+      },
+      {
+        "device": "Hộp chia thuốc thông minh",
+        "metrics": "Liều đã uống, thời gian, liều quên",
+        "frequency": "Mỗi liều",
+        "status": "Ổn",
+        "tone": "good",
+        "sharedWith": "Gia đình, bác sĩ gia đình, nhà thuốc"
+      },
+      {
+        "device": "Bộ trung tâm tại nhà · 6 cảm biến",
+        "metrics": "Chuyển động ở 2 phòng (không camera, không micro), nhiệt độ, độ ẩm",
+        "frequency": "Liên tục",
+        "status": "Trực tuyến",
+        "tone": "good",
+        "sharedWith": "Gia đình (chỉ chi tiết khi khẩn cấp)"
+      },
+      {
+        "device": "Hỏi thăm bằng giọng nói",
+        "metrics": "Tâm trạng, tốc độ nói, khoảng ngừng, phát âm, thính lực, bữa ăn, lượng nước",
+        "frequency": "2–3 cuộc gọi mỗi ngày",
+        "status": "Tiếp theo 18:00",
+        "tone": "plain",
+        "sharedWith": "Gia đình, bác sĩ gia đình; bệnh viện chỉ khi khẩn cấp"
+      }
+    ],
+    "phone": {
+      "home": {
+        "date": "Thứ Tư 14/10",
+        "greeting": "Chào bà Margaret",
+        "medicine": {
+          "title": "Thuốc huyết áp",
+          "sub": "18:00 · 1 viên amlodipine",
+          "button": "Tôi đã uống rồi",
+          "toast": "Đã ghi nhận · James sẽ thấy"
+        },
+        "ok": {
+          "label": "Tôi ổn",
+          "toast": "Gia đình đã biết bà ổn"
+        },
+        "help": {
+          "label": "Gọi giúp đỡ"
+        }
+      },
+      "heading": "Thiết kế cho bà Margaret",
+      "meta": "Không cần học, không có menu",
+      "minis": [
+        {
+          "label": "Cỡ chữ",
+          "value": "28 pt",
+          "note": "tối thiểu"
+        },
+        {
+          "label": "Vùng chạm",
+          "value": "92 px",
+          "note": "WCAG AAA"
+        },
+        {
+          "label": "Giọng nói",
+          "value": "Tiếng Anh Úc",
+          "note": "chậm, ấm áp"
+        },
+        {
+          "label": "Số bước mỗi việc",
+          "value": "1",
+          "note": "luôn luôn"
+        },
+        {
+          "label": "Dùng được trên",
+          "value": "Mọi điện thoại",
+          "note": "kể cả máy bàn"
+        },
+        {
+          "label": "Chế độ khiếm thính",
+          "value": "Bật",
+          "note": "phụ đề + nháy màn hình"
+        }
+      ],
+      "bullets": [
+        {
+          "icon": "check",
+          "text": "Hai nút lớn, mỗi lần một việc. Không cần tìm đường."
+        },
+        {
+          "icon": "ear",
+          "text": "Chế độ khiếm thính: phụ đề lớn và màn hình nháy sáng khi trợ lý gọi."
+        },
+        {
+          "icon": "mic",
+          "text": "Ưu tiên giọng nói, dùng đúng cách bà gọi người thân (\"love\", \"Davey\")."
+        },
+        {
+          "icon": "phone",
+          "text": "Các cuộc hỏi thăm cũng hoạt động như cuộc gọi thường cho người không có điện thoại thông minh."
+        }
+      ],
+      "note": "Bấm Gọi giúp đỡ trên màn hình của bà để bắt đầu demo cảnh báo ban đêm."
+    }
+  }
+}

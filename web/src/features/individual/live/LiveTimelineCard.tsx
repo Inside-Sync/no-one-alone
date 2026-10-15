@@ -1,18 +1,18 @@
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { LIVE_COPY } from '@/data/repo'
 import type { LiveView } from '@/domain/incident'
 
 const medium = { fontWeight: 500 } as const
 
 /** `Live timeline` (c4) for a live incident: the incident's own timeline, newest last, and the response times so far. */
 export function LiveTimelineCard({ view }: { view: LiveView }) {
-  const c = LIVE_COPY
+  const { t } = useTranslation('live')
   const last = view.timeline.length - 1
   return (
     <GlassCard span={4} id="liveB">
-      <div className="ch"><h2>{c.timeline.title}</h2><span className="meta">{c.timeline.meta}</span></div>
+      <div className="ch"><h2>{t('timeline.title')}</h2><span className="meta">{t('timeline.meta')}</span></div>
       {view.timeline.length === 0 ? (
-        <p className="fine">{c.live.noLog}</p>
+        <p className="fine">{t('live.noLog')}</p>
       ) : (
         <ol className="tl" id="tl" aria-live="polite">
           {view.timeline.map((x, k) => (

@@ -1,0 +1,135 @@
+{
+  "deviceFeed": {
+    "meta": "48 readings from 6 devices · like a smartwatch, plus her home and her voice",
+    "sources": [
+      {
+        "device": "Wrist wearable",
+        "metrics": "Heart rate, HRV, rhythm, ECG, blood oxygen, sleep stages, steps, energy, wrist temperature, fall detection, noise",
+        "frequency": "Continuous · 5 min",
+        "status": "64% · on wrist",
+        "tone": "good",
+        "sharedWith": "Family, GP"
+      },
+      {
+        "device": "Phone",
+        "metrics": "Walking speed, step length, steadiness, daylight · location is off (Margaret can turn on home/out only)",
+        "frequency": "Passive",
+        "status": "Charging",
+        "tone": "good",
+        "sharedWith": "Family"
+      },
+      {
+        "device": "Bluetooth BP cuff",
+        "metrics": "Systolic, diastolic, pulse",
+        "frequency": "Morning + evening",
+        "status": "Batteries 70%",
+        "tone": "good",
+        "sharedWith": "Family, GP"
+      },
+      {
+        "device": "Smart scale",
+        "metrics": "Weight, BMI",
+        "frequency": "Daily",
+        "status": "OK",
+        "tone": "good",
+        "sharedWith": "GP"
+      },
+      {
+        "device": "Smart pill box",
+        "metrics": "Dose taken, time, missed doses",
+        "frequency": "Per dose",
+        "status": "OK",
+        "tone": "good",
+        "sharedWith": "Family, GP, pharmacy"
+      },
+      {
+        "device": "Home hub · 6 sensors",
+        "metrics": "Movement in 2 rooms (no cameras, no microphones), temperature, humidity",
+        "frequency": "Continuous",
+        "status": "Online",
+        "tone": "good",
+        "sharedWith": "Family (emergency detail only)"
+      },
+      {
+        "device": "Voice check-ins",
+        "metrics": "Mood, speech rate, pauses, articulation, hearing, meals, fluids",
+        "frequency": "2–3 calls a day",
+        "status": "Next 18:00",
+        "tone": "plain",
+        "sharedWith": "Family, GP; hospital only in emergency"
+      }
+    ],
+    "phone": {
+      "home": {
+        "date": "Wednesday 14 October",
+        "greeting": "Hello, Margaret",
+        "medicine": {
+          "title": "Blood pressure tablet",
+          "sub": "18:00 · 1 amlodipine",
+          "button": "I've taken it",
+          "toast": "Noted · James will see it"
+        },
+        "ok": {
+          "label": "I'm OK",
+          "toast": "The family knows you're OK"
+        },
+        "help": {
+          "label": "Get help"
+        }
+      },
+      "heading": "Designed for Margaret",
+      "meta": "No training, no menus",
+      "minis": [
+        {
+          "label": "Text size",
+          "value": "28 pt",
+          "note": "minimum"
+        },
+        {
+          "label": "Touch targets",
+          "value": "92 px",
+          "note": "WCAG AAA"
+        },
+        {
+          "label": "Voice",
+          "value": "Aus EN",
+          "note": "slow, warm"
+        },
+        {
+          "label": "Steps per task",
+          "value": "1",
+          "note": "always"
+        },
+        {
+          "label": "Works on",
+          "value": "Any phone",
+          "note": "incl. landline"
+        },
+        {
+          "label": "Hearing mode",
+          "value": "On",
+          "note": "captions + flash"
+        }
+      ],
+      "bullets": [
+        {
+          "icon": "check",
+          "text": "Two large buttons and one task at a time. Nothing to navigate."
+        },
+        {
+          "icon": "ear",
+          "text": "Hearing mode: large captions and a flashing screen when the agent calls."
+        },
+        {
+          "icon": "mic",
+          "text": "Voice first, with the names she uses for her family (\"love\", \"Davey\")."
+        },
+        {
+          "icon": "phone",
+          "text": "The same check-ins work as an ordinary phone call for people without a smartphone."
+        }
+      ],
+      "note": "Press Get help on her screen to start the night alert demo."
+    }
+  }
+}

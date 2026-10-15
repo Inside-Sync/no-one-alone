@@ -5,10 +5,7 @@ import type { DataSource } from './sources/source'
 
 export type { DataSource } from './sources/source'
 
-/** Static UI copy (drawers, headings): same for every source, so re-exported rather than fetched. */
-export {
-  AROUND_COPY, CHAT_INTRO, CHAT_QA, COMMUNITY_COPY, COND_ACTIONS, DRAWER_ACTIONS, EXPLAIN, EXPLAIN_FALLBACK, FORECAST_COPY, HEALTH_COPY, HOME_COPY, HOSPITAL_COPY, KEPT_PRIVATE, LINEAGE_COPY, LIVE_COPY, ME_COPY, ONCE_LABELS, PACKET_NOTE, PAGE_ERROR, PRIVACY_COPY, RECORD_COPY, SAVE_FAILED,
-} from './fixtures/copy'
+/** UI text lives in i18next (src/i18n, src/locales/{lng}/*.json); the repo serves data only. */
 
 /**
  * `VITE_DATA_SOURCE=firebase` reads Firestore (contract section 2) over the prototype data and runs the real

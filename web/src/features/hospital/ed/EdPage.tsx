@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { HOSPITAL_COPY } from '@/data/repo'
+import { useTranslation } from 'react-i18next'
 import type { LabelValue } from '@/data/types'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
@@ -13,6 +13,7 @@ import { PacketCard } from './PacketCard'
 
 /** Hospital view · Pre-arrivals (`<main data-page="ed">`). */
 export function EdPage() {
+  const { t } = useTranslation('hospital')
   const res = useHospital()
   const h = res.data
   const { packetNew, emergency } = useAppState()
@@ -30,7 +31,7 @@ export function EdPage() {
     items.unshift({
       name: livePacket?.meta ?? d.name,
       summary: livePacket ? livePacket.summary : emergency.step >= 9 ? d.summaryArriving : d.summary,
-      pill: { tone: 'bad', text: HOSPITAL_COPY.ed.inbox.newTag },
+      pill: { tone: 'bad', text: t('ed.inbox.newTag') },
       fresh: true,
     })
   }
@@ -40,7 +41,7 @@ export function EdPage() {
   const picked = pick && pick.inbox === packetNew ? items.find((m) => m.name === pick.name) : undefined
 
   let rows: LabelValue[]
-  if (picked) rows = picked.fresh ? packet : [['Status', picked.summary], ['Note', h.inboxArchivedNote]]
+  if (picked) rows = picked.fresh ? packet : [[t('ed.packet.statusLabel'), picked.summary], [t('ed.packet.noteLabel'), h.inboxArchivedNote]]
   else rows = packetNew ? packet : h.examplePacket.rows
 
   return (
@@ -48,7 +49,7 @@ export function EdPage() {
       <HospitalKpis id="edKpis" kpis={h.edKpis} />
       <InboxCard items={items} incoming={incoming} showNew={packetNew} onSelect={(m) => setPick({ name: m.name, inbox: packetNew })} />
       <PacketCard
-        meta={packetNew ? livePacket?.meta ?? HOSPITAL_COPY.ed.packet.demoMeta : h.examplePacket.patient}
+        meta={packetNew ? livePacket?.meta ?? t('ed.packet.demoMeta') : h.examplePacket.patient}
         rows={rows}
         pathway={h.pathway}
         window={packetNew ? h.pathwayWindow.demo : h.pathwayWindow.idle}

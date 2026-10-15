@@ -1,0 +1,172 @@
+{
+  "hello": "Good afternoon, Maggie 🌞",
+  "sub": "You're doing well today. Here's your day, just for you.",
+  "tiles": [
+    {
+      "emoji": "❤️",
+      "title": "Heart",
+      "note": "68 · steady",
+      "warn": false
+    },
+    {
+      "emoji": "👣",
+      "title": "3,240 steps",
+      "note": "nearly at 3,500!",
+      "warn": false
+    },
+    {
+      "emoji": "😴",
+      "title": "6 h sleep",
+      "note": "a bit short",
+      "warn": true
+    },
+    {
+      "emoji": "💧",
+      "title": "Water",
+      "note": "have a glass now",
+      "warn": true
+    },
+    {
+      "emoji": "💊",
+      "title": "Next tablet",
+      "note": "6 pm, amlodipine",
+      "warn": false
+    },
+    {
+      "emoji": "📞",
+      "title": "James calls",
+      "note": "tonight at 8 pm",
+      "warn": false
+    }
+  ],
+  "people": {
+    "title": "💞 Your people",
+    "meta": "You choose what each sees",
+    "change": "🔐 Change who sees what",
+    "paused": "Paused",
+    "sees": "Sees {{seen}} of {{total}}"
+  },
+  "ideasTitle": "💡 Ideas for you",
+  "ideasMeta": "Only if you want them",
+  "ideas": [
+    {
+      "emoji": "🔥",
+      "title": "Thursday will be 38°. Would you like a lift to the library cool room?",
+      "note": "Tom, a volunteer, can pick you up at 11.",
+      "yes": [
+        "Yes please",
+        "Lift booked for Thursday 11:00",
+        "Booked"
+      ],
+      "no": [
+        "No thanks",
+        "No problem, we'll check in by phone instead",
+        "Not now"
+      ]
+    },
+    {
+      "emoji": "💊",
+      "title": "Would a weekly pill box help with the evening tablet?",
+      "note": "David offered to set it up on Saturday.",
+      "yes": [
+        "Yes please",
+        "David will come Saturday 10:00",
+        "Yes"
+      ],
+      "no": [
+        "No thanks",
+        "Okay, we'll keep the reminder only",
+        "Not now"
+      ]
+    },
+    {
+      "emoji": "🦻",
+      "title": "Pop your hearing aids in for this afternoon's chat?",
+      "note": "It makes the calls easier.",
+      "yes": [
+        "Done",
+        "Lovely",
+        "Done"
+      ],
+      "no": [
+        "Later",
+        "That's fine",
+        "Later"
+      ]
+    }
+  ],
+  "promise": {
+    "title": "🔐 Your privacy promise",
+    "meta": "Health support, not watching",
+    "items": [
+      {
+        "emoji": "✋",
+        "bold": "You're in charge.",
+        "text": "You decide who sees what, and you can change it any time."
+      },
+      {
+        "emoji": "📷",
+        "bold": "No cameras, ever.",
+        "text": "Home sensors only notice movement and temperature."
+      },
+      {
+        "emoji": "🎙️",
+        "bold": "No listening in.",
+        "text": "The microphone is only on during calls you answer."
+      },
+      {
+        "emoji": "📍",
+        "bold": "No tracking.",
+        "text": "Location is off. If you turn it on, people only see \"home\" or \"out\"."
+      },
+      {
+        "emoji": "🚨",
+        "bold": "Emergencies only:",
+        "text": "David and James always get safety alerts, so help can come."
+      }
+    ],
+    "settings": "See all settings"
+  },
+  "access": {
+    "title": "👀 Who looked at your information",
+    "meta": "So nothing happens behind your back",
+    "head": [
+      "When",
+      "Who",
+      "What they looked at",
+      "Why"
+    ],
+    "rows": [
+      [
+        "Today 09:12",
+        "James",
+        "Your heart and blood pressure summary",
+        "Weekly look"
+      ],
+      [
+        "Today 08:40",
+        "David",
+        "\"I'm OK\" check-in",
+        "Morning check"
+      ],
+      [
+        "Yesterday 16:42",
+        "Dr Patel",
+        "Blood pressure report",
+        "You agreed to send it"
+      ],
+      [
+        "Yesterday 11:05",
+        "Priya",
+        "Tablets taken this week",
+        "Nurse visit planning"
+      ],
+      [
+        "Mon 19:30",
+        "Sarah",
+        "Sleep and steps",
+        "Called you afterwards"
+      ]
+    ]
+  }
+}

@@ -3,10 +3,12 @@ import type {
   CircleMember, ConditionKey, Forecast, IconName, Lineage, LineageGeneration, LineageMatrixRow, OrbitScene, Person,
   ScreeningRow, Severity, SharePerson, StrengthRow,
 } from '../types'
+import i18n, { currentLanguage } from '@/i18n'
 
 /**
  * Firestore wins: every field the contract stores replaces the prototype's value; everything else (copy, the
  * prototype-only figures) stays from the mock. Pure functions, so a missing document simply means "no overlay".
+ * The words they add (roles, notes, labels) come from the `overlay` namespace via `i18n.t` at call time, in the language in use.
  */
 
 /** The seed documents the overlays read: the older person, the members, and the hospitals. */
@@ -18,6 +20,8 @@ export interface Seed {
 
 const cap = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s)
 const firstName = (s: string) => s.split(' ')[0]
+/** A relation word from the seed (`son`, `neighbour`…) in the language in use; unknown words pass through. */
+const relationOf = (r: string) => (i18n.t('overlay:relation', { returnObjects: true }) as Record<string, string>)[r] ?? r
 const initialsOf = (s: string) => s.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('')
 
 /** Great-circle distance in metres. */
@@ -29,7 +33,11 @@ export function distanceM(a: LatLng, b: LatLng): number {
   return 2 * 6371000 * Math.asin(Math.sqrt(h))
 }
 
-export const distanceLabel = (m: number) => (m < 1000 ? `${Math.round(m / 10) * 10} m` : `${(m / 1000).toFixed(1)} km`)
+export const distanceLabel = (m: number) => {
+  if (m < 1000) return `${Math.round(m / 10) * 10} m`
+  const km = (m / 1000).toFixed(1)
+  return `${currentLanguage() === 'vi' ? km.replace('.', ',') : km} km`
+}
 
 /** `Australia/Melbourne` → `Melbourne`. */
 export const cityOf = (tz?: string) => (tz ? tz.split('/').pop()!.replace(/_/g, ' ') : '')
@@ -55,7 +63,10 @@ const byPriority = (seed: Seed) => [...(seed.person.circle ?? [])].sort((a, b) =
 
 export function overlayPerson(p: Person, doc: PersonDoc): Person {
   const addr = parseAddress(doc.addressText)
-  const gender = doc.sex === 'F' ? 'Female' : doc.sex === 'M' ? 'Male' : p.gender
+  const gender = doc.sex === 'F' ? i18n.t('overlay:person.female') : doc.sex === 'M' ? i18n.t('overlay:person.male') : p.gender
+  // The mock's row labels are in the language in use, so match them in that language.
+  const ageLabel = i18n.t('overlay:person.ageLabel')
+  const genderLabel = i18n.t('overlay:person.genderLabel')
   const age = doc.age ?? p.age
   return {
     ...p,
@@ -67,7 +78,7 @@ export function overlayPerson(p: Person, doc: PersonDoc): Person {
     postcode: addr?.postcode ?? p.postcode,
     profile: {
       ...p.profile,
-      rows: p.profile.rows.map((r) => (r.label === 'Age' ? { ...r, value: String(age) } : r.label === 'Gender' ? { ...r, value: gender } : r)),
+      rows: p.profile.rows.map((r) => (r.label === ageLabel ? { ...r, value: String(age) } : r.label === genderLabel ? { ...r, value: gender } : r)),
     },
   }
 }
@@ -91,13 +102,14 @@ export function overlayCircle(mock: CircleMember[], seed: Seed, viewer: string):
     const name = nameOf(seed, e.memberId)
     const place = placeOf(seed, e)
     const emoji = base?.name.split(' ')[0] ?? '🙂'
-    const who = e.memberId === viewer ? 'you' : e.relation
+    const relation = relationOf(e.relation)
+    const who = e.memberId === viewer ? i18n.t('overlay:you') : relation
     const note = e.role === 'NEARBY'
-      ? `${place} away · ${e.memberId === firstNearby ? 'first to call' : 'next to call'}`
-      : e.criticalAlerts ? `${place} · calls ${num} if needed` : `${place} · gets updates`
+      ? i18n.t('overlay:circle.noteNearby', { place, order: e.memberId === firstNearby ? i18n.t('overlay:circle.firstToCall') : i18n.t('overlay:circle.nextToCall') })
+      : e.criticalAlerts ? i18n.t('overlay:circle.noteCalls', { place, num }) : i18n.t('overlay:circle.noteUpdates', { place })
     const role: CircleMember['role'] = e.role === 'NEARBY'
-      ? e.memberId === firstNearby ? { tone: 'good', text: 'On call' } : { tone: 'plain', text: 'Backup' }
-      : e.criticalAlerts ? { tone: 'brand', text: `Calls ${num}` } : { tone: 'plain', text: 'Updates' }
+      ? e.memberId === firstNearby ? { tone: 'good', text: i18n.t('overlay:circle.onCall') } : { tone: 'plain', text: i18n.t('overlay:circle.backup') }
+      : e.criticalAlerts ? { tone: 'brand', text: i18n.t('overlay:circle.calls', { num }) } : { tone: 'plain', text: i18n.t('overlay:circle.updates') }
     return {
       id: e.memberId as CircleMember['id'],
       initials: initialsOf(name),
@@ -105,7 +117,7 @@ export function overlayCircle(mock: CircleMember[], seed: Seed, viewer: string):
       name: `${emoji} ${name} · ${who}`,
       note,
       role,
-      technicalName: `${name} · ${e.relation}`,
+      technicalName: `${name} · ${relation}`,
       technicalNote: note,
     }
   })
@@ -120,7 +132,7 @@ export function overlaySharePeople(mock: SharePerson[], seed: Seed): SharePerson
     const e = entries.find((x) => x.memberId === p.id)
     if (!e) return p
     const name = nameOf(seed, e.memberId)
-    return { ...p, name, initials: initialsOf(name), role: `${cap(e.relation)} · ${placeOf(seed, e)}`, emergency: Boolean(e.criticalAlerts) }
+    return { ...p, name, initials: initialsOf(name), role: `${cap(relationOf(e.relation))} · ${placeOf(seed, e)}`, emergency: Boolean(e.criticalAlerts) }
   }) satisfies SharePerson[]
 }
 
@@ -145,7 +157,7 @@ export function overlayOrbit(mock: OrbitScene, seed: Seed, viewer: string): Orbi
       const e = entries.find((x) => x.memberId === n.id)
       if (!e) return n
       const member = nameOf(seed, e.memberId)
-      return { ...n, name: member, initials: initialsOf(member), sub: `${cap(e.relation)} · ${placeOf(seed, e)}${n.id === viewer ? ' (you)' : ''}` }
+      return { ...n, name: member, initials: initialsOf(member), sub: `${cap(relationOf(e.relation))} · ${placeOf(seed, e)}${n.id === viewer ? i18n.t('overlay:youParen') : ''}` }
     }),
     centre: {
       ...mock.centre,
@@ -158,8 +170,14 @@ export function overlayOrbit(mock: OrbitScene, seed: Seed, viewer: string): Orbi
 
 /* ---------- Forecast ---------- */
 
-const RISK_ROW: Record<string, string> = { STROKE: 'Stroke', FALL: 'Fall with injury' }
-const LEVEL: Record<RiskLevel, [string, Severity]> = { HIGH: ['High', 'bad'], MEDIUM: ['Medium', 'warn'], LOW: ['Low', 'good'] }
+/**
+ * The mock row a stored risk replaces, by its display name in the language in use (the mock data is localised, so
+ * `Stroke` is `Đột quỵ` in Vietnamese); conditions without a row get a new one under their own name.
+ */
+const riskRowName = (condition: string) =>
+  (i18n.t('overlay:forecast.risk', { returnObjects: true }) as Record<string, string>)[condition] ?? cap(condition.toLowerCase().replace(/_/g, ' '))
+const LEVEL_TONE: Record<RiskLevel, Severity> = { HIGH: 'bad', MEDIUM: 'warn', LOW: 'good' }
+const levelOf = (l: RiskLevel): [string, Severity] => [i18n.t(`overlay:forecast.level.${l}`), LEVEL_TONE[l]]
 const REASON_ICONS: IconName[] = ['trend', 'pill', 'tree']
 
 /** Weekly means of the daily points (last `weeks` full or partial weeks ending at the last point). */
@@ -201,15 +219,15 @@ function overlayBp(bp: Forecast['bp'], doc: ForecastDoc): Forecast['bp'] {
 export function overlayForecast(f: Forecast, doc: ForecastDoc, seed: Seed | null): Forecast {
   const risks = [...f.risks]
   for (const r of doc.risks) {
-    const [level, tone] = LEVEL[r.level]
-    const name = RISK_ROW[r.condition] ?? cap(r.condition.toLowerCase().replace(/_/g, ' '))
+    const [level, tone] = levelOf(r.level)
+    const name = riskRowName(r.condition)
     const i = risks.findIndex((x) => x.name === name)
     if (i >= 0) risks[i] = { ...risks[i], level, tone }
-    else risks.push({ name, nextMonth: '—', threeMonths: '—', nextYear: '—', range: `${r.horizonDays} d`, level, tone, trend: '→', reason: '' })
+    else risks.push({ name, nextMonth: '—', threeMonths: '—', nextYear: '—', range: i18n.t('overlay:forecast.horizon', { n: r.horizonDays }), level, tone, trend: '→', reason: '' })
   }
   const owner = doc.action?.ownerMemberId && seed ? nameOf(seed, doc.action.ownerMemberId) : null
   const actions = doc.action
-    ? [{ ...f.comingUp.actions[0], label: doc.action.text, value: owner ? `Sent to ${owner}` : 'Shared with the circle' }, ...f.comingUp.actions.slice(1)]
+    ? [{ ...f.comingUp.actions[0], label: doc.action.text, value: owner ? i18n.t('overlay:forecast.sentTo', { name: owner }) : i18n.t('overlay:forecast.shared') }, ...f.comingUp.actions.slice(1)]
     : f.comingUp.actions
   return {
     ...f,
@@ -239,12 +257,12 @@ const CONDITION_KEY: [RegExp, ConditionKey][] = [
 const keyOf = (label: string) => CONDITION_KEY.find(([re]) => re.test(label))?.[1]
 
 function generationLabel(diff: number, self: string): string {
-  if (diff === -2) return 'Grandparents'
-  if (diff === -1) return 'Parents'
-  if (diff === 0) return `${self}'s generation`
-  if (diff === 1) return 'Children'
-  if (diff === 2) return 'Grandchildren'
-  return diff < 0 ? 'Ancestors' : 'Descendants'
+  if (diff === -2) return i18n.t('overlay:lineage.generation.grandparents')
+  if (diff === -1) return i18n.t('overlay:lineage.generation.parents')
+  if (diff === 0) return i18n.t('overlay:lineage.generation.self', { name: self })
+  if (diff === 1) return i18n.t('overlay:lineage.generation.children')
+  if (diff === 2) return i18n.t('overlay:lineage.generation.grandchildren')
+  return diff < 0 ? i18n.t('overlay:lineage.generation.ancestors') : i18n.t('overlay:lineage.generation.descendants')
 }
 
 export function overlayLineage(l: Lineage, doc: FamilyDoc, viewer: string): Lineage {
@@ -261,12 +279,12 @@ export function overlayLineage(l: Lineage, doc: FamilyDoc, viewer: string): Line
     label: generationLabel(g - self.generation, selfName),
     nodes: doc.members.filter((m) => m.generation === g).map((m) => {
       const kind = m.id === viewer ? 'you' : m.id === self.id ? 'focus' : m.deceased ? 'dec' : undefined
-      const sub = `${m.deceased ? '† · ' : ''}${m.id === self.id ? 'herself' : m.relation}${m.id === viewer ? ' · you' : ''}`
+      const sub = `${m.deceased ? '† · ' : ''}${m.id === self.id ? i18n.t('overlay:lineage.herself') : relationOf(m.relation)}${m.id === viewer ? i18n.t('overlay:youSuffix') : ''}`
       return kind ? { name: m.name, sub, conditions: conds(m), kind } : { name: m.name, sub, conditions: conds(m) }
     }),
   }))
   const matrix: LineageMatrixRow[] = doc.members.map((m) => ({
-    person: `${firstName(m.name)} (${m.id === self.id ? 'self' : m.relation})`,
+    person: `${firstName(m.name)} (${m.id === self.id ? i18n.t('overlay:lineage.selfRow') : relationOf(m.relation)})`,
     onset: Object.fromEntries(conds(m)),
   }))
   const counts = new Map<ConditionKey, number>()
@@ -274,11 +292,11 @@ export function overlayLineage(l: Lineage, doc: FamilyDoc, viewer: string): Line
   const strength: StrengthRow[] = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([k, n]) => ({
     condition: l.conditionKeys[k].name,
     dots: Math.min(4, n) as StrengthRow['dots'],
-    label: n >= 3 ? 'Strong' : n === 2 ? 'Moderate' : 'Weak',
+    label: i18n.t(n >= 3 ? 'overlay:lineage.strength.strong' : n === 2 ? 'overlay:lineage.strength.moderate' : 'overlay:lineage.strength.weak'),
   }))
   const screening: ScreeningRow[] = doc.flags.map((f) => {
     const who = doc.members.find((m) => m.id === f.memberId)
-    return { check: who ? `${f.screening} · ${firstName(who.name)}` : f.screening, interval: f.reason, due: 'Due now', tone: 'warn', action: 'Book' }
+    return { check: who ? `${f.screening} · ${firstName(who.name)}` : f.screening, interval: f.reason, due: i18n.t('overlay:lineage.dueNow'), tone: 'warn', action: i18n.t('overlay:lineage.book') }
   })
   const keys = l.matrixColumns.filter((k) => counts.has(k))
   return {

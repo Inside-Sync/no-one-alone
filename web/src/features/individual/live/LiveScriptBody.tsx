@@ -1,35 +1,35 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
-import { LIVE_COPY } from '@/data/repo'
 import type { LiveView } from '@/domain/incident'
 
 /** Drawer body for the emergency call: the agent's `callScript` (contract 2.3), read aloud by a person. */
 export function LiveScriptBody({ view }: { view: LiveView }) {
   const toast = useToast()
-  const c = LIVE_COPY.sos
+  const { t } = useTranslation('live')
   const copy = () => {
     const text = view.callScript ?? ''
     try {
-      navigator.clipboard.writeText(text).then(() => toast(LIVE_COPY.sos.copied), () => toast(text))
+      navigator.clipboard.writeText(text).then(() => toast(t('sos.copied')), () => toast(text))
     } catch {
       toast(text)
     }
   }
   return (
     <>
-      <p className="fine">{c.intro}</p>
+      <p className="fine">{t('sos.intro')}</p>
       <div className="packet">
-        <div><span>Script</span><b style={{ fontWeight: 500 }}>{view.callScript ?? LIVE_COPY.live.scriptPending}</b></div>
+        <div><span>{t('script.label')}</span><b style={{ fontWeight: 500 }}>{view.callScript ?? t('live.scriptPending')}</b></div>
       </div>
       <div className="row">
-        <button type="button" className="btn sos" onClick={() => toast(`Dialling ${view.emergencyNumber} · ask for ambulance`)}>
-          <span className="ic"><Icon name="phone" /></span>{`Call ${view.emergencyNumber}`}
+        <button type="button" className="btn sos" onClick={() => toast(t('script.dialling', { num: view.emergencyNumber }))}>
+          <span className="ic"><Icon name="phone" /></span>{t('script.call', { num: view.emergencyNumber })}
         </button>
-        {view.callScript && <button type="button" className="btn soft" onClick={copy}>Copy script</button>}
+        {view.callScript && <button type="button" className="btn soft" onClick={copy}>{t('script.copy')}</button>}
       </div>
-      <p className="fine">{c.note}</p>
+      <p className="fine">{t('sos.note')}</p>
     </>
   )
 }

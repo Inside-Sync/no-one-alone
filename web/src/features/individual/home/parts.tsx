@@ -1,10 +1,11 @@
 'use client'
 
 import type { CSSProperties, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { MiniStat } from '@/data/types'
-import { MiniGrid as SharedMiniGrid, type DrawerConfig } from '../../shared/drawers'
+import { MiniGrid as SharedMiniGrid } from '../../shared/drawers'
 
-export { Actions, Kv, keyActivate } from '../../shared/drawers'
+export { Actions, Kv, keyActivate, type ActionList } from '../../shared/drawers'
 
 /** `.ch` header without the icon bubble: the prototype removes it when the title starts with an emoji. */
 export function Head({ title, meta, children, small }: { title: ReactNode; meta?: ReactNode; children?: ReactNode; small?: boolean }) {
@@ -18,13 +19,8 @@ export function Head({ title, meta, children, small }: { title: ReactNode; meta?
   )
 }
 
-/** Individual-view tile drawer: its buttons and `explainFor` fallback. */
-export const INDIVIDUAL_MINI: DrawerConfig = {
-  actions: [['🗣️ Ask her about it', 'Added to her next chat at 18:00', 'Added'], ['📈 See 30-day trend', 'Trend view coming in the full app', 'Noted']],
-  fallback: 'individual',
-}
-
-/** A `.mini` grid of the individual view. */
+/** A `.mini` grid of the individual view: its tile drawer has the `home:drawer.mini` buttons and the individual fallback. */
 export function MiniGrid(props: { stats: readonly MiniStat[]; plain?: boolean }) {
-  return <SharedMiniGrid {...INDIVIDUAL_MINI} {...props} />
+  const { t } = useTranslation('home')
+  return <SharedMiniGrid actions={t('drawer.mini', { returnObjects: true })} fallback="individual" {...props} />
 }

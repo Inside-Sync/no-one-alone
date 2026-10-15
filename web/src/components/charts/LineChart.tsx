@@ -4,6 +4,7 @@
  * Coordinates are produced by the same formulas and number formatting
  * (`toFixed(1)` for line paths, raw numbers elsewhere) so the svg matches.
  */
+import { useTranslation } from 'react-i18next'
 import { textTone } from '@/lib/tone'
 
 
@@ -74,6 +75,7 @@ export function LineChart({
   targetBand,
   marker,
 }: Props) {
+  const { t } = useTranslation()
   const { left: L, right: Rr, top: T, bottom: B } = plot
   const tickGap = plot.tickGap ?? 8
   const tickDy = plot.tickDy ?? 3.5
@@ -91,9 +93,9 @@ export function LineChart({
     ariaLabel ??
     `${yLabel}: ` +
       series
-        .map((s) => `${s.name} from ${s.values[0]} to ${s.values[s.values.length - 1]}`)
+        .map((s) => t('charts.lineSeries', { name: s.name, from: s.values[0], to: s.values[s.values.length - 1] }))
         .join('; ') +
-      (projectedFrom != null ? ' (dashed part is projected)' : '')
+      (projectedFrom != null ? t('charts.projected') : '')
 
   return (
     <svg viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`} role="img" aria-label={label}>

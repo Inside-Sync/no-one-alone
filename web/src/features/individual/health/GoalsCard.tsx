@@ -1,7 +1,7 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { HEALTH_COPY } from '@/data/repo'
 import type { GoalGauge, HealthData } from '@/data/types'
 import { Head, MiniGrid } from '../home/parts'
 
@@ -10,6 +10,7 @@ const LEN = Math.PI * 48
 
 /** One half-ring gauge (`#gauges`): value over goal. */
 function Gauge({ g }: { g: GoalGauge }) {
+  const { t } = useTranslation('health')
   const f = g.value / g.goal
   return (
     <div>
@@ -19,16 +20,17 @@ function Gauge({ g }: { g: GoalGauge }) {
         <text x="60" y="58" textAnchor="middle" style={{ fontSize: 20, fill: 'var(--ink)', fontFamily: 'var(--font)', fontWeight: 300 }}>{g.value}</text>
       </svg>
       <b>{g.label}</b>
-      <small>of {g.goal} {g.unit}</small>
+      <small>{t('goals.of', { goal: g.goal, unit: g.unit })}</small>
     </div>
   )
 }
 
 /** `🎯 Today's goals` (c4): three gauges and the day's totals. Not tagged with a consent category. */
 export function GoalsCard({ health }: { health: HealthData }) {
+  const { t } = useTranslation('health')
   return (
     <GlassCard span={4}>
-      <Head title={HEALTH_COPY.goals.title} meta={HEALTH_COPY.goals.meta} />
+      <Head title={t('goals.title')} meta={t('goals.meta')} />
       <div className="gauges">{health.goals.map((g) => <Gauge key={g.label} g={g} />)}</div>
       <MiniGrid stats={health.goalTotals} />
     </GlassCard>

@@ -1,5 +1,5 @@
+import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { COMMUNITY_COPY } from '@/data/repo'
 import type { WatchData } from '@/data/types'
 
 /** Chart frame (`scams` IIFE, prototype line 1737): viewBox width, plot left/top/bottom and the y-axis maximum. */
@@ -15,14 +15,14 @@ const BAR_ROUNDING = 3
 
 /** `Scam contacts reported by residents` (c5): eight weekly stacks, the latest labelled with its total. */
 export function ScamsCard({ weeks, labels }: { weeks: WatchData['scams']; labels: WatchData['scamLabels'] }) {
-  const c = COMMUNITY_COPY.watch.scams
+  const { t } = useTranslation('community')
   const names = [labels.phone, labels.door, labels.text]
   const bw = (W - L) / weeks.length
   return (
     <GlassCard span={5} className="chart">
-      <div className="ch"><h2>{c.title}</h2><span className="meta">{c.meta}</span></div>
+      <div className="ch"><h2>{t('watch.scams.title')}</h2><span className="meta">{t('watch.scams.meta')}</span></div>
       <div id="scams">
-        <svg viewBox={`0 0 ${W} ${VIEW_H}`} role="img" aria-label={c.ariaLabel}>
+        <svg viewBox={`0 0 ${W} ${VIEW_H}`} role="img" aria-label={t('watch.scams.ariaLabel')}>
           {GRID.map((t) => {
             const y = B - (t / Y_MAX) * (B - T)
             return (
@@ -45,7 +45,7 @@ export function ScamsCard({ weeks, labels }: { weeks: WatchData['scams']; labels
             return (
               <g key={i}>
                 {bars}
-                <text x={x0 + width / 2} y={B + LABEL_DROP} textAnchor="middle">{last ? c.thisWeek : `w-${weeks.length - 1 - i}`}</text>
+                <text x={x0 + width / 2} y={B + LABEL_DROP} textAnchor="middle">{last ? t('watch.scams.thisWeek') : t('watch.scams.weeksAgo', { n: weeks.length - 1 - i })}</text>
                 {last && <text x={x0 + width / 2} y={y - TOTAL_LIFT} textAnchor="middle" style={{ fill: 'var(--ink)', fontSize: '11px' }}>{w.reduce((a, b) => a + b, 0)}</text>}
               </g>
             )

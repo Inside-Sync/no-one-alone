@@ -1,0 +1,109 @@
+{
+  "title": "🔐 Ai xem được gì",
+  "meta": "Chạm vào công tắc để chia sẻ hoặc ngừng chia sẻ · thay đổi có hiệu lực ngay",
+  "quick": "Chọn nhanh:",
+  "presets": [
+    {
+      "kind": "family",
+      "label": "👨‍👩‍👧 Gia đình xem gần hết, trừ tâm trạng của tôi"
+    },
+    {
+      "kind": "safety",
+      "label": "🚨 Chỉ cảnh báo an toàn"
+    },
+    {
+      "kind": "all",
+      "label": "🤝 Chia sẻ mọi thứ với gia đình"
+    }
+  ],
+  "pause": "⏸️ Tạm dừng chia sẻ đến ngày mai",
+  "resume": "▶️ Tiếp tục chia sẻ",
+  "what": "Mục",
+  "lockedTitle": "Luôn bật cho người liên hệ khẩn cấp",
+  "fine": "🚨 Không thể tắt cảnh báo an toàn cho người liên hệ khẩn cấp của bà, để luôn có người đến khi bà cần giúp. Bà có thể thay đổi người liên hệ khẩn cấp.",
+  "preview": {
+    "title": "👁️ Xem trước",
+    "meta": "Xem chính xác những gì một người thấy",
+    "toast": "Đang xem trước những gì {{name}} thấy"
+  },
+  "emergency": {
+    "title": "🏥 Khi khẩn cấp",
+    "meta": "Đã đồng ý ngày 1/10",
+    "text": "Nếu bà cần xe cứu thương, bệnh viện sẽ nhận thông tin bệnh lý, thuốc và dị ứng của bà để giúp bà nhanh chóng. Không có gì khác, và chỉ cho lần khám đó.",
+    "agreement": [
+      "Đọc thỏa thuận",
+      "Thỏa thuận khẩn cấp của bà đang hiện trên điện thoại",
+      "Đã mở"
+    ],
+    "contacts": [
+      "Người liên hệ khẩn cấp",
+      "Người liên hệ khẩn cấp: David và James",
+      "Đã kiểm tra"
+    ],
+    "clinician": "Nhân viên y tế chỉ thấy bệnh nhân có tên khi bệnh nhân đã đồng ý chia sẻ với bệnh viện."
+  },
+  "audit": {
+    "title": "🧾 Những thay đổi bà đã làm",
+    "meta": "Mới nhất trước",
+    "empty": "Chưa có thay đổi nào",
+    "label": "Nhật ký thay đổi"
+  },
+  "categories": {
+    "safety": {
+      "name": "Cảnh báo an toàn",
+      "detail": "Té ngã, khẩn cấp, cảnh báo nắng nóng"
+    },
+    "checkin": {
+      "name": "Hỏi thăm \"Tôi ổn\"",
+      "detail": "Bà có trả lời và có khỏe không"
+    },
+    "heart": {
+      "name": "Tim, huyết áp, cơ thể",
+      "detail": "Nhịp tim, huyết áp, cân nặng"
+    },
+    "sleep": {
+      "name": "Giấc ngủ",
+      "detail": "Số giờ và mức ngon giấc"
+    },
+    "activity": {
+      "name": "Vận động và số bước",
+      "detail": "Số bước, đi bộ, thăng bằng"
+    },
+    "mood": {
+      "name": "Tâm trạng và cảm xúc",
+      "detail": "Bà nói mình cảm thấy thế nào"
+    },
+    "meds": {
+      "name": "Thuốc",
+      "detail": "Đã uống hay bỏ lỡ"
+    },
+    "speech": {
+      "name": "Nghe và nói",
+      "detail": "Từ các cuộc trò chuyện hằng ngày"
+    },
+    "home": {
+      "name": "Cảm biến tại nhà",
+      "detail": "Nhiệt độ, chuyển động ở 2 phòng"
+    },
+    "records": {
+      "name": "Hồ sơ sức khỏe",
+      "detail": "Bệnh lý, xét nghiệm, lần khám"
+    },
+    "location": {
+      "name": "Ở nhà hay ra ngoài",
+      "detail": "Không bao giờ có địa chỉ hay bản đồ"
+    }
+  },
+  "switchLabel": "Chia sẻ {{category}} với {{name}}",
+  "shareOn": "Đã chia sẻ {{category}} với {{name}}",
+  "shareOff": "Đã ngừng chia sẻ {{category}} với {{name}}",
+  "paused": "Đã tạm dừng chia sẻ đến 9 giờ sáng mai · cảnh báo an toàn vẫn bật",
+  "resumed": "Đã tiếp tục chia sẻ",
+  "presetDone": {
+    "safety": "Gia đình giờ chỉ thấy cảnh báo an toàn",
+    "all": "Gia đình giờ thấy mọi thứ",
+    "family": "Gia đình thấy gần hết, trừ tâm trạng của bà"
+  },
+  "seeWhat": "Xem những gì {{name}} thấy",
+  "seeWhatCount": "Xem những gì {{name}} thấy · {{n}}/{{total}}"
+}

@@ -1,3 +1,5 @@
+import i18n from '@/i18n'
+
 export type SimInput = {
   /** 60-100, default 86. */
   adherence: number
@@ -24,9 +26,9 @@ export function simulateRisk(i: SimInput): RiskResult {
 /** Prototype `cell()` footer: change against the baseline, with a unicode minus. */
 export function deltaLabel(v: number, base: number): { text: string; tone: 'good' | 'bad' | 'muted' } {
   const d = ((v - base) / base) * 100
-  if (Math.abs(d) < 0.5) return { text: 'no change', tone: 'muted' }
+  if (Math.abs(d) < 0.5) return { text: i18n.t('forecast:sim.delta.none'), tone: 'muted' }
   return {
-    text: (d > 0 ? '+' : '−') + Math.abs(d).toFixed(0) + '% relative',
+    text: i18n.t('forecast:sim.delta.relative', { pct: (d > 0 ? '+' : '−') + Math.abs(d).toFixed(0) + '%' }),
     tone: d <= -0.5 ? 'good' : 'bad',
   }
 }

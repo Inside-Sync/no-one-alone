@@ -1,15 +1,16 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { useDrawer } from '@/components/ui/Drawer'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Pill } from '@/components/ui/Pill'
-import { DRAWER_ACTIONS, HEALTH_COPY } from '@/data/repo'
 import type { DeviceFeed, DeviceRow } from '@/data/types'
 import { Actions, Kv, keyActivate } from '../home/parts'
 import { TableScroll } from '@/components/ui/TableScroll'
 
 function RowDrawerBody({ row }: { row: DeviceRow }) {
-  const cols = HEALTH_COPY.devices.columns
+  const { t } = useTranslation(['health', 'common'])
+  const cols = t('devices.columns', { returnObjects: true })
   return (
     <>
       <Kv
@@ -20,19 +21,20 @@ function RowDrawerBody({ row }: { row: DeviceRow }) {
           [cols[4], row.sharedWith],
         ]}
       />
-      <Actions list={DRAWER_ACTIONS.row} />
+      <Actions list={t('common:drawerActions.row', { returnObjects: true })} />
     </>
   )
 }
 
 /** `📲 Where this comes from` (c12): one row per data source. Not tagged with a consent category. */
 export function DevicesCard({ feed }: { feed: DeviceFeed }) {
+  const { t } = useTranslation('health')
   const drawer = useDrawer()
-  const cols = HEALTH_COPY.devices.columns
+  const cols = t('devices.columns', { returnObjects: true })
   return (
     <GlassCard span={12}>
       <div className="ch">
-        <h2>{HEALTH_COPY.devices.title}</h2>
+        <h2>{t('devices.title')}</h2>
         <span className="meta">{feed.meta}</span>
       </div>
       <TableScroll>

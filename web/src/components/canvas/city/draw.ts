@@ -1,3 +1,4 @@
+import i18n from '@/i18n'
 import { shade } from '@/lib/color'
 import type { CityView } from '@/data/types'
 import type { CanvasFonts } from '../fonts'
@@ -308,7 +309,7 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, m: CityModel, cam: Ca
   ctx.font = '700 9px ' + fonts.mono
   ctx.textAlign = 'center'
   ctx.fillStyle = '#ef4e4a'
-  ctx.fillText('N', cx + vx * 24, cy + vy * 24 + 3)
+  ctx.fillText(i18n.t('common:charts.north'), cx + vx * 24, cy + vy * 24 + 3)
   return hits
 }
 
