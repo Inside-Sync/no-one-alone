@@ -57,27 +57,6 @@ def test_error_shape_matches_contract():
     assert ErrorBody.of("INVALID_REQUEST", "bad").to_json() == {"error": {"code": "INVALID_REQUEST", "message": "bad"}}
 
 
-def test_bundle_is_synthetic_transaction_with_resolvable_references(bundle):
-    assert bundle["type"] == "transaction"
-    ids = set()
-    for e in bundle["entry"]:
-        r = e["resource"]
-        ref = f'{r["resourceType"]}/{r["id"]}'
-        assert e["request"] == {"method": "PUT", "url": ref}, "PUT with a fixed id keeps the load idempotent"
-        assert {"code": "HTEST"}.items() <= r["meta"]["tag"][0].items()
-        ids.add(ref)
-    for e in bundle["entry"]:
-        r = e["resource"]
-        for key in ("subject", "patient"):
-            if key in r:
-                assert r[key]["reference"] in ids
-
-
-def test_bundle_has_no_birth_date(resources):
-    patient = next(r for r in resources if r["resourceType"] == "Patient")
-    assert "birthDate" not in patient
-
-
 @pytest.mark.parametrize("name", ["ba-mai", "margaret"])
 def test_every_bundle_is_synthetic_with_resolvable_references(name):
     bundle = load_json(ROOT / "data" / "fhir" / f"{name}.json")
