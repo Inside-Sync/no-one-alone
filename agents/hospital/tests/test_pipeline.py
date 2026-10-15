@@ -166,3 +166,31 @@ def test_completed_log_line_has_no_patient_data(request_body, resources, caplog)
     assert line["incidentId"] == "alert-123" and line["status"] == "COMPLETED"
     assert_absent({}, RECORD_VALUES, caplog)
     assert "Ông Hùng" not in caplog.text and "slurred" not in caplog.text
+
+
+def _margaret_request(request_body):
+    body = dict(request_body, personId="margaret", lastKnownWellAt="2026-10-15T14:55:00Z",
+                onScene={"name": "David", "relation": "son"})
+    body["hospital"] = {"id": "sydney-stroke-center", "name": "Sydney Stroke Center (demo)", "etaMin": 9}
+    return body
+
+
+def test_margaret_packet_is_english_in_sydney_time(request_body):
+    from handoff.fhir import FixtureReader
+    resources = asyncio.run(FixtureReader().read("margaret"))
+    _, out = handle(_margaret_request(request_body), resources)
+    assert out["status"] == "COMPLETED"
+    assert out["patient"] == {"name": "Margaret Collins", "age": 78, "sex": "F"}
+    assert "penicillin" in out["allergies"] and "HARD_OF_HEARING" in out["communication"]
+    assert out["baseline"] == "Lives alone, independent, walking stick outdoors"
+    text = out["text"]
+    assert text.startswith("PRE-ARRIVAL · ETA 9 min\nMargaret Collins, 78, F")
+    assert "Last well: 01:55 16/10 (AEDT)" in text
+    assert "Status: suspected stroke" in text
+    assert text.endswith("SYNTHETIC DEMO DATA")
+    assert not any(ch in text for ch in "ạảấầậếềệịọốồộờớợụủứừựỳ")
+
+
+def test_person_without_profile_uses_default_labels(request_body, resources):
+    _, out = handle(dict(request_body, personId="new-person"), resources)
+    assert "Tình trạng (Status)" in out["text"] and "(UTC+7)" in out["text"]

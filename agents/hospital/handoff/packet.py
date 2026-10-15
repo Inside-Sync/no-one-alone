@@ -3,17 +3,16 @@
 Request facts (suspected, last known well, findings, ETA, family contact) come from the emergency
 itself and are always included. Everything from the FHIR record goes through the ConsentDecision.
 The text keeps the prototype's row order: Patient, Status, Last well, Findings, History, Medicines,
-Allergy, Function, Comms, Contact. Labels are Vietnamese with the contract's English term in brackets.
+Allergy, Function, Comms, Contact. Labels, zone and baseline come from the person's profile.
 """
-from datetime import datetime, timedelta, timezone
+from dataclasses import dataclass
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from .consent import ConsentDecision
 from .contracts import Category, Contact, HandoffPacket, HandoffRequest, Patient, Status
 from .record import Record
 
-HUE = timezone(timedelta(hours=7))  # Vietnam has no daylight saving time
-# Contract 4.4: "baseline is a constant in the agent prompt; FHIR has no source for it".
-BASELINE = {"ba-mai": "Lives alone, independent"}
 WARNING_CATEGORY: dict[str, Category] = {
     "CONDITION_UNREADABLE": "conditions",
     "MEDICATION_UNREADABLE": "medications",
@@ -22,12 +21,67 @@ WARNING_CATEGORY: dict[str, Category] = {
     "ALLERGIES_NOT_RECORDED": "allergies",
 }
 COMMS_TEXT = {"HARD_OF_HEARING": "hard of hearing", "COGNITIVE_IMPAIRMENT": "cognitive impairment"}
-WITHHELD = "không chia sẻ (withheld: no consent)"
-NONE_RECORDED = "chưa ghi nhận (none recorded)"
+
+VI = {
+    "withheld": "không chia sẻ (withheld: no consent)",
+    "none_recorded": "chưa ghi nhận (none recorded)",
+    "unavailable": "không đọc được hồ sơ (record unavailable)",
+    "not_found": "không có hồ sơ (record not found)",
+    "patient": "Bệnh nhân (patient): ",
+    "stroke": "nghi đột quỵ (suspected stroke)",
+    "emergency": "cấp cứu, chưa rõ nguyên nhân (emergency, cause unknown)",
+    "unknown": "không rõ (unknown)",
+    "no_findings": "không có (none reported)",
+    "family": " · gia đình (family): ",
+    "allergy_unknown": "chưa ghi nhận, cần hỏi (not recorded, ask)",
+    "no_allergy": "không dị ứng đã biết (no known allergy, recorded)",
+    "no_contact": "không có (none)",
+    "status": "Tình trạng (Status)", "last_well": "Bình thường lần cuối (Last well)",
+    "findings": "Dấu hiệu (Findings)", "history": "Bệnh sử (History)", "meds": "Thuốc (Medicines)",
+    "allergy": "Dị ứng (Allergy)", "function": "Chức năng (Function)", "comms": "Giao tiếp (Comms)",
+    "contact": "Người nhà (Contact)", "footer": "DỮ LIỆU MÔ PHỎNG · SYNTHETIC DEMO DATA",
+}
+EN = {
+    "withheld": "withheld: no consent",
+    "none_recorded": "none recorded",
+    "unavailable": "record unavailable",
+    "not_found": "record not found",
+    "patient": "Patient: ",
+    "stroke": "suspected stroke",
+    "emergency": "emergency, cause unknown",
+    "unknown": "unknown",
+    "no_findings": "none reported",
+    "family": " · family: ",
+    "allergy_unknown": "not recorded, ask",
+    "no_allergy": "no known allergy (recorded)",
+    "no_contact": "none",
+    "status": "Status", "last_well": "Last well", "findings": "Findings", "history": "History",
+    "meds": "Medicines", "allergy": "Allergy", "function": "Function", "comms": "Comms",
+    "contact": "Contact", "footer": "SYNTHETIC DEMO DATA",
+}
 
 
-def _local(ts: str) -> str:
-    return datetime.fromisoformat(ts).astimezone(HUE).strftime("%H:%M %d/%m (UTC+7)")
+@dataclass(frozen=True)
+class Profile:
+    zone: ZoneInfo
+    zone_label: str | None  # None: use the zone's abbreviation (AEDT/AEST)
+    labels: dict[str, str]
+    baseline: str  # Contract 4.4: a constant in the agent prompt, FHIR has no source for it
+
+
+PROFILES = {
+    "ba-mai": Profile(ZoneInfo("Asia/Ho_Chi_Minh"), "UTC+7", VI, "Lives alone, independent"),
+    "margaret": Profile(ZoneInfo("Australia/Sydney"), None, EN, "Lives alone, independent, walking stick outdoors"),
+}
+
+
+def profile(person_id: str) -> Profile:
+    return PROFILES.get(person_id, PROFILES["ba-mai"])
+
+
+def _local(ts: str, pr: Profile) -> str:
+    t = datetime.fromisoformat(ts).astimezone(pr.zone)
+    return t.strftime("%H:%M %d/%m") + f" ({pr.zone_label or t.tzname()})"
 
 
 def build(req: HandoffRequest, record: Record | None, decision: ConsentDecision | None,
@@ -50,7 +104,7 @@ def build(req: HandoffRequest, record: Record | None, decision: ConsentDecision 
     allergies = use(record.allergies) if ok("allergies") and record.allergies is not None else None
     communication = use(record.communication) if ok("communication") else None
     family = use(record.family_history) if ok("familyHistory") else None
-    baseline = BASELINE.get(req.person_id) if ok("identity") else None
+    baseline = profile(req.person_id).baseline if ok("identity") else None
 
     warnings = list(warnings)
     if record is not None:
@@ -81,50 +135,49 @@ def build(req: HandoffRequest, record: Record | None, decision: ConsentDecision 
         warnings=sorted(set(warnings)),
         sources=sorted(set(sources)),
     )
-    packet.text = render_text(packet, record_read=record is not None)
+    packet.text = render_text(packet, record_read=record is not None, pr=profile(req.person_id))
     return packet
 
 
-def render_text(p: HandoffPacket, *, record_read: bool) -> str:
+def render_text(p: HandoffPacket, *, record_read: bool, pr: Profile) -> str:
+    L = pr.labels
+
     def row(category: Category, value: str | None) -> str:
         if category in p.withheld:
-            return WITHHELD
+            return L["withheld"]
         if not record_read:
-            if "PATIENT_NOT_FOUND" in p.warnings:
-                return "không có hồ sơ (record not found)"
-            return "không đọc được hồ sơ (record unavailable)"
-        return value or NONE_RECORDED
+            return L["not_found"] if "PATIENT_NOT_FOUND" in p.warnings else L["unavailable"]
+        return value or L["none_recorded"]
 
     eta = f"ETA {p.eta_min} min" if p.eta_min is not None else "ETA unknown"
     if p.patient:
         who = ", ".join(str(x) for x in (p.patient.name, p.patient.age, p.patient.sex) if x is not None)
     else:
-        who = "Bệnh nhân (patient): " + row("identity", None)
-    status = ("nghi đột quỵ (suspected stroke)" if p.suspected == "STROKE"
-              else "cấp cứu, chưa rõ nguyên nhân (emergency, cause unknown)")
-    last_well = _local(p.last_known_well_at) if p.last_known_well_at else "không rõ (unknown)"
-    findings = " · ".join(p.findings) if p.findings else "không có (none reported)"
+        who = L["patient"] + row("identity", None)
+    status = L["stroke"] if p.suspected == "STROKE" else L["emergency"]
+    last_well = _local(p.last_known_well_at, pr) if p.last_known_well_at else L["unknown"]
+    findings = " · ".join(p.findings) if p.findings else L["no_findings"]
     history = row("conditions", ", ".join(p.conditions or []))
     if record_read and (p.family_history or "familyHistory" in p.withheld):
-        history += " · gia đình (family): " + row("familyHistory", "; ".join(p.family_history or []))
+        history += L["family"] + row("familyHistory", "; ".join(p.family_history or []))
     meds = ", ".join(f"{m.name} {m.dose}" if m.dose else m.name for m in p.medications or [])
     if p.allergies is None:
-        allergy = "chưa ghi nhận, cần hỏi (not recorded, ask)"
+        allergy = L["allergy_unknown"]
     else:
-        allergy = ", ".join(p.allergies) or "không dị ứng đã biết (no known allergy, recorded)"
+        allergy = ", ".join(p.allergies) or L["no_allergy"]
     comms = ", ".join(COMMS_TEXT[c] for c in p.communication or [])
-    contact = f"{p.contact.name} ({p.contact.relation})" if p.contact else "không có (none)"
+    contact = f"{p.contact.name} ({p.contact.relation})" if p.contact else L["no_contact"]
     return "\n".join([
         f"PRE-ARRIVAL · {eta}",
         who,
-        f"Tình trạng (Status): {status}",
-        f"Bình thường lần cuối (Last well): {last_well}",
-        f"Dấu hiệu (Findings): {findings}",
-        f"Bệnh sử (History): {history}",
-        f"Thuốc (Medicines): {row('medications', meds)}",
-        f"Dị ứng (Allergy): {row('allergies', allergy)}",
-        f"Chức năng (Function): {row('identity', p.baseline)}",
-        f"Giao tiếp (Comms): {row('communication', comms)}",
-        f"Người nhà (Contact): {contact}",
-        "DỮ LIỆU MÔ PHỎNG · SYNTHETIC DEMO DATA",
+        f"{L['status']}: {status}",
+        f"{L['last_well']}: {last_well}",
+        f"{L['findings']}: {findings}",
+        f"{L['history']}: {history}",
+        f"{L['meds']}: {row('medications', meds)}",
+        f"{L['allergy']}: {row('allergies', allergy)}",
+        f"{L['function']}: {row('identity', p.baseline)}",
+        f"{L['comms']}: {row('communication', comms)}",
+        f"{L['contact']}: {contact}",
+        L["footer"],
     ])

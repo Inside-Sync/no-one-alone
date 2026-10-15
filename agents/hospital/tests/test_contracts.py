@@ -2,6 +2,7 @@ import pytest
 from pydantic import ValidationError
 
 from handoff.contracts import ErrorBody, HandoffPacket, HandoffRequest
+from tests.conftest import ROOT, load_json
 
 
 def test_contract_request_parses(request_body):
@@ -75,3 +76,23 @@ def test_bundle_is_synthetic_transaction_with_resolvable_references(bundle):
 def test_bundle_has_no_birth_date(resources):
     patient = next(r for r in resources if r["resourceType"] == "Patient")
     assert "birthDate" not in patient
+
+
+@pytest.mark.parametrize("name", ["ba-mai", "margaret"])
+def test_every_bundle_is_synthetic_with_resolvable_references(name):
+    bundle = load_json(ROOT / "data" / "fhir" / f"{name}.json")
+    assert bundle["type"] == "transaction"
+    assert bundle["meta"]["tag"][0]["code"] == "HTEST"
+    ids = set()
+    for e in bundle["entry"]:
+        r = e["resource"]
+        ref = f'{r["resourceType"]}/{r["id"]}'
+        assert e["request"] == {"method": "PUT", "url": ref}
+        assert {"code": "HTEST"}.items() <= r["meta"]["tag"][0].items()
+        assert r["resourceType"] != "Patient" or "birthDate" not in r
+        ids.add(ref)
+    for e in bundle["entry"]:
+        r = e["resource"]
+        for key in ("subject", "patient"):
+            if key in r:
+                assert r[key]["reference"] in ids
