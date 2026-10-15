@@ -1,9 +1,4 @@
-"""Wire shapes from docs/contract.md v1.3.
-
-Request: section 4.3 `POST /handoff` body, which respond-agent forwards unchanged.
-Response: section 4.4 packet. Fields marked EXTENSION are proposed in
-docs/contract-extensions.md and are not yet in the shared contract.
-"""
+"""Wire shapes from docs/contract.md v1.4: section 4.3 request and section 4.4 packet."""
 from datetime import datetime
 from typing import Literal
 
@@ -92,7 +87,6 @@ class HandoffPacket(_Out):
     contact: Contact | None = None
     eta_min: int | None = None
     text: str
-    # EXTENSION fields (docs/contract-extensions.md), pending Dũng's review.
     status: Status
     family_history: list[str] | None = None
     withheld: list[Category] = []

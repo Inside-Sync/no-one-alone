@@ -13,10 +13,7 @@ from handoff.contracts import ErrorBody
 
 
 def extract_body(content: types.Content | None) -> object:
-    """Contract 4.4: the single part is a data part or JSON text equal to the /handoff body.
-
-    ADK delivers an A2A data part as an inline blob wrapped in <a2a_datapart_json> tags.
-    """
+    """The single part is JSON text or an A2A data part (an inline blob in <a2a_datapart_json> tags)."""
     for part in (content.parts or []) if content else []:
         if part.text:
             return json.loads(part.text)
@@ -34,7 +31,6 @@ class HospitalAgent(BaseAgent):
             result = ErrorBody.of("INVALID_REQUEST", "message must carry the /handoff body as one data part or JSON text").to_json()
         else:
             _, result = await pipeline.handle(body)
-        # Contract 4.4: the reply is the JSON as text; respond-agent parses it.
         text = json.dumps(result, ensure_ascii=False)
         yield Event(invocation_id=ctx.invocation_id, author=self.name,
                     content=types.Content(role="model", parts=[types.Part(text=text)]))

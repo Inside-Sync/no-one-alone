@@ -1,10 +1,4 @@
-"""Builds the contract 4.4 packet and its text from request facts and the consent-filtered record.
-
-Request facts (suspected, last known well, findings, ETA, family contact) come from the emergency
-itself and are always included. Everything from the FHIR record goes through the ConsentDecision.
-The text keeps the prototype's row order: Patient, Status, Last well, Findings, History, Medicines,
-Allergy, Function, Comms, Contact. Labels, zone and baseline come from the person's profile.
-"""
+"""Builds the contract 4.4 packet and text; record facts pass through the ConsentDecision."""
 from dataclasses import dataclass
 from datetime import datetime
 from zoneinfo import ZoneInfo

@@ -22,7 +22,7 @@ request ─ validate ─ read FHIR record ─ normalize ─ consent ─ packet (
 | `handoff/pipeline.py` | Orchestration, error mapping, one log line per request without patient data |
 | `scripts/probe_a2a.py` | Real A2A client; reference for respond-agent's caller |
 
-Proposed contract additions and the consent policy: [docs/contract-extensions.md](docs/contract-extensions.md).
+Packet fields, consent policy and text format: [docs/contract.md](../../docs/contract.md) section 4.4.
 
 ## Run and test
 

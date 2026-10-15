@@ -1,9 +1,4 @@
-"""Read-only access to a person's FHIR R4 record.
-
-A reader returns the resources Patient/{id}/$everything would return: the Patient plus every resource
-that points at it. An empty list means the Patient does not exist. RecordUnavailable means the store
-could not be read. The live Cloud Healthcare reader arrives in S3; FHIR_SOURCE=fixture is the default.
-"""
+"""Read-only FHIR R4 record access; FHIR_SOURCE=fixture is the default reader."""
 import json
 import os
 import re

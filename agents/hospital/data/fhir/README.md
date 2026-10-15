@@ -10,7 +10,7 @@ Content comes from docs/contract.md: 4.4 (conditions, medications, allergy, comm
 - No `birthDate`: no approved synthetic value yet. Age 78 (contract 2.1) is carried in the extension
   `https://noonealone.insidesync.ai/fhir/StructureDefinition/synthetic-stated-age`.
 - `Consent/ba-mai-hospital-sharing` is a synthetic consent that permits all six hospital-sharing
-  categories. See agents/hospital/docs/contract-extensions.md for the policy.
+  categories. See docs/contract.md section 4.4 for the policy.
 - Every entry is a `PUT` with a fixed id, so loading it twice changes nothing. The loader (`load.py`) is
   part of S3 and not written yet.
 

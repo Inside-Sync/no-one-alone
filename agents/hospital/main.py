@@ -1,13 +1,4 @@
-"""hospital-agent. Owner: Minh. Interface: docs/contract.md section 4.4.
-
-One Starlette app:
-- A2A (JSON-RPC at POST /, agent card at /.well-known/agent-card.json), built by ADK's to_a2a.
-- POST /handoff: the plain-HTTP fallback from contract 4.4, same body, same pipeline.
-- GET /health.
-
-A2A_PUBLIC_URL is the URL the agent card advertises; on Cloud Run it must be the service URL,
-because A2A clients send messages to the URL in the card.
-"""
+"""hospital-agent: A2A at POST / plus the POST /handoff fallback, contract 4.4."""
 import json
 import logging
 import os
@@ -22,7 +13,7 @@ from agent import root_agent
 from handoff import pipeline
 from handoff.contracts import ErrorBody
 
-# One JSON line per request to stdout (Cloud Logging). Only our logger: its lines never carry patient data.
+# Our logger only: its lines never carry patient data.
 _log = logging.getLogger("hospital_agent")
 _log.setLevel(logging.INFO)
 if not _log.handlers:
