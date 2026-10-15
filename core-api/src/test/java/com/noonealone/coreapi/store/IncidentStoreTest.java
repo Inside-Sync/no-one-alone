@@ -79,6 +79,6 @@ class IncidentStoreTest extends FirestoreTestBase {
 
         assertThat(store.person("ba-mai").displayName).isEqualTo("Bà Mai");
         assertThat(store.person("ba-mai").id).isEqualTo("ba-mai");
-        assertThat(store.hospitals()).hasSize(2);
+        assertThat(store.hospitals()).hasSize(4);
     }
 }

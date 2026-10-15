@@ -133,7 +133,9 @@ public class Actions {
         return store.mutate(incidentId, (x, now) -> {
             x.assignment(memberId).filter(a -> a.state != AssignmentState.QUEUED)
                     .orElseThrow(() -> ApiException.invalidState(memberId + " has not been notified"));
-            x.log(now, memberId, "CALLED_115", EscalationRules.name(people, memberId) + " called 115");
+            Person older = people.get(x.personId);
+            String number = older != null && older.emergencyNumber != null ? older.emergencyNumber : "115";
+            x.log(now, memberId, "CALLED_115", EscalationRules.name(people, memberId) + " called " + number);
             return true;
         }).incident().version;
     }

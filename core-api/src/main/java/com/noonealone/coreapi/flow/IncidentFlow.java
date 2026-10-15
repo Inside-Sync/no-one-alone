@@ -154,7 +154,8 @@ public class IncidentFlow {
                 t.at = now;
                 t.audioPath = personAudio;
                 if (input.yesNo() != null) {
-                    t.text = "YES".equals(input.yesNo()) ? "Có" : "Không";
+                    boolean en = person.locale != null && person.locale.startsWith("en");
+                    t.text = "YES".equals(input.yesNo()) ? (en ? "Yes" : "Có") : (en ? "No" : "Không");
                 } else if (result != null) {
                     t.text = result.transcript();
                     t.assessment = result.assessment();

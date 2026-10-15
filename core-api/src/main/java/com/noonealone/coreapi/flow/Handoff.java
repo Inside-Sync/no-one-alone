@@ -41,6 +41,10 @@ public class Handoff {
         }
         Map<String, Integer> eta = new HashMap<>();
         for (Hospital h : candidates) {
+            // About 500 km in degrees; skips Routes calls to the other continent.
+            if (distance(person, h) > 5) {
+                continue;
+            }
             routes.etaMinutes(person.location, h.location).ifPresent(m -> eta.put(h.id, m));
         }
         Hospital chosen = candidates.stream()

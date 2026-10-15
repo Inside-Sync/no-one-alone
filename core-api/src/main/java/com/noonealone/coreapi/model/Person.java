@@ -14,6 +14,7 @@ public class Person {
     public String locale;
     public String dialect;
     public String addressText;
+    public String emergencyNumber;
     public LatLng location;
     public Map<String, String> accessibility;
     public Map<String, Integer> baseline;

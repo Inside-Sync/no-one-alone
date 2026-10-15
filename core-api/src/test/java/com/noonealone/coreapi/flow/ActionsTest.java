@@ -211,12 +211,24 @@ class ActionsTest extends FirestoreTestBase {
     @Test
     void called115IsLoggedAndCloseWorksOnce() {
         actions.apply(ID, "lan", "CALLED_115");
-        assertThat(store.get(ID).timeline).extracting(t -> t.kind).contains("CALLED_115");
+        assertThat(store.get(ID).timeline).filteredOn(t -> "CALLED_115".equals(t.kind))
+                .extracting(t -> t.text).containsExactly("Lan called 115");
 
         actions.apply(ID, "console", "CLOSE");
         assertThat(store.get(ID).status).isEqualTo(Status.CLOSED);
         assertThatThrownBy(() -> actions.apply(ID, "console", "CLOSE"))
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_STATE");
+    }
+
+    @Test
+    void calledEmergencyUsesThePersonsNumber() {
+        flow.create(IncidentFlowAlertTest.stroke("m-1", "margaret"));
+        flow.process("m-1");
+
+        actions.apply("m-1", "david", "CALLED_115");
+
+        assertThat(store.get("m-1").timeline).filteredOn(t -> "CALLED_115".equals(t.kind))
+                .extracting(t -> t.text).containsExactly("David called 000");
     }
 
     @Test

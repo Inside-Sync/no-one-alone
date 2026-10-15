@@ -76,6 +76,8 @@ class DemoServiceTest extends FirestoreTestBase {
         assertThat(store.find(id)).isEmpty();
         assertThat(store.current()).isEmpty();
         assertThat(store.person("ba-mai").displayName).isEqualTo("Bà Mai");
+        assertThat(store.person("margaret").emergencyNumber).isEqualTo("000");
+        assertThat(store.hospitals()).extracting(h -> h.id).contains("sydney-stroke-center", "marrickville-clinic");
     }
 
     @Test

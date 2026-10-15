@@ -68,6 +68,19 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
     }
 
     @Test
+    void yesNoAnswerUsesThePersonsLanguage() {
+        flow.create(IncidentFlowAlertTest.stroke("c-m", "margaret"));
+        flow.process("c-m");
+
+        CheckInInput yes = CheckInInput.ofYesNo("YES");
+        flow.acceptCheckIn("c-m", yes);
+        flow.processCheckIn("c-m", yes);
+
+        assertThat(store.get("c-m").checkIn.turns).filteredOn(t -> "PERSON".equals(t.by))
+                .extracting(t -> t.text).containsExactly("Yes");
+    }
+
+    @Test
     void slurredAnswerIsStoredAndNextQuestionAsked() {
         when(agent.checkinTurn(any())).thenReturn(new TurnResult("Ừ... mạ nghe", slurred(),
                 new TurnResult.Next("Mạ nhắc lại giúp con: hôm nay trời đẹp.", "VOICE", null, null), false, false));
