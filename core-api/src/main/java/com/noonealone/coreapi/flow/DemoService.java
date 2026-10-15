@@ -45,7 +45,7 @@ public class DemoService {
     public String trigger(Scenario scenario, String personId, int timerSeconds, int noReplySeconds) {
         Person person = store.people().get(personId);
         if (person == null || person.circle == null || person.circle.isEmpty()) {
-            throw ApiException.badRequest("Unknown person " + personId);
+            throw ApiException.badRequest("Unknown person");
         }
         boolean running = store.current()
                 .map(c -> store.find(c.incidentId).map(i -> i.status != Status.CLOSED).orElse(true)).orElse(false);

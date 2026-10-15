@@ -41,7 +41,7 @@ public class Handoff {
         }
         Map<String, Integer> eta = new HashMap<>();
         for (Hospital h : candidates) {
-            // About 500 km in degrees; skips Routes calls to the other continent.
+            // 5 degrees, about 500 km: no Routes calls across continents.
             if (distance(person, h) > 5) {
                 continue;
             }
