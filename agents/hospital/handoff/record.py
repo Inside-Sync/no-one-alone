@@ -1,10 +1,4 @@
-"""Normalizes FHIR R4 resources into the facts the packet can use, each with its source reference.
-
-Rules that keep the packet honest:
-- A condition that is not confirmed keeps a "(provisional)" suffix; refuted and entered-in-error are dropped.
-- No AllergyIntolerance resource means allergies are unknown (None), never "no allergies".
-- Only active conditions, medications and allergies are used.
-"""
+"""Normalizes FHIR R4 resources into packet facts, each with its source reference."""
 from dataclasses import dataclass, field
 from datetime import date
 
@@ -73,7 +67,7 @@ def normalize(resources: list[dict], person_id: str, on: date) -> Record:
     rec = Record()
     known_none = False
     allergies: list[tuple[str, str]] = []
-    # Sorted by reference so the packet does not depend on the order the store returns resources in.
+    # Sorted so the packet does not depend on store order.
     for r in sorted(resources, key=ref):
         kind = r["resourceType"]
         if kind == "Patient" and r.get("id") == person_id:

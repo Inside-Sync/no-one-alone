@@ -1,12 +1,4 @@
-"""Deterministic, fail-closed hospital-sharing consent.
-
-A Consent authorizes sharing with the receiving emergency department only if all of these hold:
-status active, patient is this person, scope patient-privacy, provision.type permit, purpose ETREAT,
-an actor with role IRCP (information recipient), and now inside provision.period when one is set.
-The categories it permits are its provision.code values on our hospital-sharing code system, minus
-codes in nested deny provisions. No valid Consent means nothing from the record is shared.
-There is no emergency override: that would be a team policy decision (docs/contract-extensions.md).
-"""
+"""Fail-closed consent: only an active ETREAT permit Consent for this person shares record categories."""
 from dataclasses import dataclass
 from datetime import datetime
 

@@ -1,8 +1,4 @@
-"""Handoff pipeline shared by the A2A agent and the HTTP fallback.
-
-validate -> read FHIR record -> normalize -> consent -> build packet. Stateless; reads only.
-Logs one line per request with IDs, status, counts and timing: never names or clinical values.
-"""
+"""Handoff pipeline: validate, read, normalize, consent, build. Stateless, one log line per request."""
 import json
 import logging
 import time
@@ -33,7 +29,7 @@ async def run(req: HandoffRequest, *, reader: RecordReader, now: datetime) -> Ha
         return packet.build(req, None, None, "PARTIAL", ["RECORD_UNAVAILABLE"])
     if not resources:
         return packet.build(req, None, None, "PARTIAL", ["PATIENT_NOT_FOUND"])
-    # Age is computed for the day of the emergency when known, so replays give the same packet.
+    # Age is for the emergency day, so replays give the same packet.
     on = datetime.fromisoformat(req.last_known_well_at).date() if req.last_known_well_at else now.date()
     record = normalize(resources, req.person_id, on)
     decision = consent.decide(record.consents, req.person_id, now)

@@ -1,0 +1,754 @@
+{
+  "resourceType": "Bundle",
+  "id": "margaret-synthetic",
+  "meta": {
+    "tag": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+        "code": "HTEST",
+        "display": "test health data"
+      }
+    ]
+  },
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "Patient/margaret",
+      "request": {
+        "method": "PUT",
+        "url": "Patient/margaret"
+      },
+      "resource": {
+        "resourceType": "Patient",
+        "id": "margaret",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://noonealone.insidesync.ai/fhir/StructureDefinition/synthetic-stated-age",
+            "valueAge": {
+              "value": 78,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          }
+        ],
+        "name": [
+          {
+            "text": "Margaret Collins",
+            "given": [
+              "Margaret"
+            ],
+            "family": "Collins"
+          }
+        ],
+        "gender": "female",
+        "address": [
+          {
+            "text": "14 Wilga Street, Marrickville NSW 2204 (fictional)",
+            "city": "Sydney",
+            "country": "AU"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "Condition/margaret-hypertension",
+      "request": {
+        "method": "PUT",
+        "url": "Condition/margaret-hypertension"
+      },
+      "resource": {
+        "resourceType": "Condition",
+        "id": "margaret-hypertension",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "38341003",
+              "display": "Hypertensive disorder"
+            }
+          ],
+          "text": "hypertension"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        }
+      }
+    },
+    {
+      "fullUrl": "Condition/margaret-hearing-loss",
+      "request": {
+        "method": "PUT",
+        "url": "Condition/margaret-hearing-loss"
+      },
+      "resource": {
+        "resourceType": "Condition",
+        "id": "margaret-hearing-loss",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "15188001",
+              "display": "Hearing loss"
+            }
+          ],
+          "text": "hearing loss"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        }
+      }
+    },
+    {
+      "fullUrl": "Condition/margaret-ckd",
+      "request": {
+        "method": "PUT",
+        "url": "Condition/margaret-ckd"
+      },
+      "resource": {
+        "resourceType": "Condition",
+        "id": "margaret-ckd",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "700378005",
+              "display": "Chronic kidney disease stage 3A"
+            }
+          ],
+          "text": "chronic kidney disease stage 3a"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        }
+      }
+    },
+    {
+      "fullUrl": "Condition/margaret-prediabetes",
+      "request": {
+        "method": "PUT",
+        "url": "Condition/margaret-prediabetes"
+      },
+      "resource": {
+        "resourceType": "Condition",
+        "id": "margaret-prediabetes",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "714628002",
+              "display": "Prediabetes"
+            }
+          ],
+          "text": "prediabetes"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        }
+      }
+    },
+    {
+      "fullUrl": "Condition/margaret-knee-oa",
+      "request": {
+        "method": "PUT",
+        "url": "Condition/margaret-knee-oa"
+      },
+      "resource": {
+        "resourceType": "Condition",
+        "id": "margaret-knee-oa",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "239873007",
+              "display": "Osteoarthritis of knee"
+            }
+          ],
+          "text": "osteoarthritis of both knees"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        }
+      }
+    },
+    {
+      "fullUrl": "Condition/margaret-af",
+      "request": {
+        "method": "PUT",
+        "url": "Condition/margaret-af"
+      },
+      "resource": {
+        "resourceType": "Condition",
+        "id": "margaret-af",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "provisional"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "49436004",
+              "display": "Atrial fibrillation"
+            }
+          ],
+          "text": "atrial fibrillation"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        }
+      }
+    },
+    {
+      "fullUrl": "MedicationStatement/margaret-amlodipine",
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/margaret-amlodipine"
+      },
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "margaret-amlodipine",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "17767",
+              "display": "amlodipine"
+            }
+          ],
+          "text": "amlodipine"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        },
+        "dosage": [
+          {
+            "text": "5 mg each evening"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "MedicationStatement/margaret-vitamin-d",
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/margaret-vitamin-d"
+      },
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "margaret-vitamin-d",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "11253",
+              "display": "vitamin D3 (cholecalciferol)"
+            }
+          ],
+          "text": "vitamin D3"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        },
+        "dosage": [
+          {
+            "text": "1000 IU daily"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "MedicationStatement/margaret-paracetamol",
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/margaret-paracetamol"
+      },
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "margaret-paracetamol",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "161",
+              "display": "paracetamol (acetaminophen)"
+            }
+          ],
+          "text": "paracetamol"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        },
+        "dosage": [
+          {
+            "text": "500 mg as needed"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "AllergyIntolerance/margaret-penicillin",
+      "request": {
+        "method": "PUT",
+        "url": "AllergyIntolerance/margaret-penicillin"
+      },
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "margaret-penicillin",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "text": "penicillin"
+        },
+        "patient": {
+          "reference": "Patient/margaret"
+        }
+      }
+    },
+    {
+      "fullUrl": "FamilyMemberHistory/margaret-father",
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/margaret-father"
+      },
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "margaret-father",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/margaret"
+        },
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "FTH",
+              "display": "father"
+            }
+          ],
+          "text": "father"
+        },
+        "deceasedBoolean": true,
+        "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "230690007",
+                  "display": "Cerebrovascular accident"
+                }
+              ],
+              "text": "stroke"
+            },
+            "onsetAge": {
+              "value": 74,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "44054006",
+                  "display": "Diabetes mellitus type 2"
+                }
+              ],
+              "text": "type 2 diabetes"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "FamilyMemberHistory/margaret-mother",
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/margaret-mother"
+      },
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "margaret-mother",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/margaret"
+        },
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "MTH",
+              "display": "mother"
+            }
+          ],
+          "text": "mother"
+        },
+        "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "52448006",
+                  "display": "Dementia"
+                }
+              ],
+              "text": "dementia"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "Consent/margaret-hospital-sharing",
+      "request": {
+        "method": "PUT",
+        "url": "Consent/margaret-hospital-sharing"
+      },
+      "resource": {
+        "resourceType": "Consent",
+        "id": "margaret-hospital-sharing",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0",
+                "display": "Patient Consent"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/margaret"
+        },
+        "policyRule": {
+          "text": "SYNTHETIC demo consent: share the listed record categories with the receiving emergency department for treatment"
+        },
+        "provision": {
+          "type": "permit",
+          "actor": [
+            {
+              "role": {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "IRCP",
+                    "display": "information recipient"
+                  }
+                ]
+              },
+              "reference": {
+                "display": "Receiving emergency department (synthetic)"
+              }
+            }
+          ],
+          "purpose": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "ETREAT",
+              "display": "Emergency Treatment"
+            }
+          ],
+          "code": [
+            {
+              "coding": [
+                {
+                  "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing",
+                  "code": "identity"
+                }
+              ]
+            },
+            {
+              "coding": [
+                {
+                  "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing",
+                  "code": "conditions"
+                }
+              ]
+            },
+            {
+              "coding": [
+                {
+                  "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing",
+                  "code": "medications"
+                }
+              ]
+            },
+            {
+              "coding": [
+                {
+                  "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing",
+                  "code": "allergies"
+                }
+              ]
+            },
+            {
+              "coding": [
+                {
+                  "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing",
+                  "code": "familyHistory"
+                }
+              ]
+            },
+            {
+              "coding": [
+                {
+                  "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing",
+                  "code": "communication"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

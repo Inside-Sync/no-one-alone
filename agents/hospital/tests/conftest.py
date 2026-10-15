@@ -7,7 +7,7 @@ import pytest
 
 HERE = Path(__file__).parent
 ROOT = HERE.parent
-BUNDLE = ROOT.parent.parent / "data" / "fhir" / "ba-mai.json"
+BUNDLE = ROOT / "data" / "fhir" / "ba-mai.json"
 sys.path.insert(0, str(ROOT))
 
 

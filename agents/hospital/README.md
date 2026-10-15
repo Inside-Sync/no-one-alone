@@ -15,14 +15,14 @@ request ─ validate ─ read FHIR record ─ normalize ─ consent ─ packet (
 | `main.py` | Starlette app: A2A (`POST /`, `/.well-known/agent-card.json`), `POST /handoff`, `GET /health` |
 | `agent.py` | `HospitalAgent`: reads the data or text part, runs the pipeline, replies with JSON text |
 | `handoff/contracts.py` | Request, packet and error shapes |
-| `handoff/fhir.py` | Record readers. `FHIR_SOURCE=fixture` (default) reads `data/fhir/ba-mai.json` |
+| `handoff/fhir.py` | Record readers. `FHIR_SOURCE=fixture` (default) reads `data/fhir/{personId}.json` inside the service |
 | `handoff/record.py` | FHIR resources to facts with source references |
 | `handoff/consent.py` | Fail-closed hospital-sharing consent |
 | `handoff/packet.py` | Packet and text |
 | `handoff/pipeline.py` | Orchestration, error mapping, one log line per request without patient data |
 | `scripts/probe_a2a.py` | Real A2A client; reference for respond-agent's caller |
 
-Proposed contract additions and the consent policy: [docs/contract-extensions.md](docs/contract-extensions.md).
+Packet fields, consent policy and text format: [docs/contract.md](../../docs/contract.md) section 4.4.
 
 ## Run and test
 
@@ -42,7 +42,7 @@ A2A_PUBLIC_URL=http://localhost:8082 .venv/bin/uvicorn main:app --port 8082
 |---|---|---|
 | `A2A_PUBLIC_URL` | `http://localhost:$PORT` | Must be the Cloud Run service URL in the cloud |
 | `FHIR_SOURCE` | `fixture` | `live` (Cloud Healthcare API) arrives in S3 |
-| `FHIR_FIXTURE` | `data/fhir/ba-mai.json` | Not in the Docker image, so fixture mode in Cloud Run answers `PARTIAL` |
+| `FHIR_FIXTURE_DIR` | data/fhir (inside agents/hospital) | One bundle per personId |
 
 ## Calling it from respond-agent
 
