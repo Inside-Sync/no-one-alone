@@ -67,6 +67,7 @@ export function overlayPerson(p: Person, doc: PersonDoc): Person {
   // The mock's row labels are in the language in use, so match them in that language.
   const ageLabel = i18n.t('overlay:person.ageLabel')
   const genderLabel = i18n.t('overlay:person.genderLabel')
+  const restingHrLabel = i18n.t('overlay:person.restingHrLabel')
   const age = doc.age ?? p.age
   return {
     ...p,
@@ -80,6 +81,9 @@ export function overlayPerson(p: Person, doc: PersonDoc): Person {
       ...p.profile,
       rows: p.profile.rows.map((r) => (r.label === ageLabel ? { ...r, value: String(age) } : r.label === genderLabel ? { ...r, value: gender } : r)),
     },
+    kpisTechnical: doc.baseline
+      ? p.kpisTechnical.map((k) => (k.label === restingHrLabel ? { ...k, baseline: i18n.t('overlay:person.restingHrBase', { n: doc.baseline!.restingHr }) } : k))
+      : p.kpisTechnical,
   }
 }
 

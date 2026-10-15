@@ -22,6 +22,8 @@
   "person": {
     "ageLabel": "Age",
     "genderLabel": "Gender",
+    "restingHrLabel": "Resting heart rate",
+    "restingHrBase": "base {{n}}",
     "female": "Female",
     "male": "Male"
   },

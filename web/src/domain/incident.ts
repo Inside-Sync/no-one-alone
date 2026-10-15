@@ -281,11 +281,17 @@ export function packetRows(p: Partial<PacketDoc>, tz: string): LabelValue[] {
   if (p.lastKnownWellAt) rows.push([k('lastWell'), clockTime(p.lastKnownWellAt, tz)])
   if (p.findings?.length) rows.push([k('findings'), p.findings.join(' · ')])
   if (p.conditions?.length) rows.push([k('history'), p.conditions.join(', ')])
+  if (p.familyHistory?.length) rows.push([k('familyHistory'), p.familyHistory.join(' · ')])
   if (p.medications?.length) rows.push([k('medicines'), p.medications.map((m) => `${titleCase(m.name)} ${m.dose}`).join(', ')])
   if (p.allergies) rows.push([k('allergy'), p.allergies.length ? p.allergies.map(titleCase).join(', ') : k('noneKnown')])
+  else if (p.warnings?.includes('ALLERGIES_NOT_RECORDED')) rows.push([k('allergy'), k('notRecorded')])
   if (p.baseline) rows.push([k('function'), p.baseline])
   if (p.communication?.length) rows.push([k('comms'), p.communication.map((c) => k(`comm.${c}`)).join(' · ')])
   if (p.contact) rows.push([p.contact.onScene ? k('onScene') : k('contact'), `${p.contact.name} (${p.contact.relation})`])
+  if (p.withheld?.length) {
+    const what = p.withheld.map((c) => k(`cat.${c}`)).join(', ')
+    rows.push([k('withheld'), p.status === 'BLOCKED_CONSENT' ? `${k('noConsent')} · ${what}` : what])
+  }
   if (rows.length === 0 && p.text) rows.push([k('packet'), p.text])
   return rows
 }
@@ -317,7 +323,8 @@ export function liveView(id: string, inc: IncidentDoc, people: LivePeople, now: 
   const lkw = p?.lastKnownWellAt ?? inc.lastKnownWellAt
   const name = people.person?.displayName ?? p?.patient?.name ?? tl('incident.who.patient')
   const age = people.person?.age ?? p?.patient?.age
-  const short = `${first(name)} ${name.split(' ')[1]?.[0] ? `${name.split(' ')[1][0]}.` : ''}`.trim() + (age ? `, ${age}` : '')
+  const idWithheld = p?.withheld?.includes('identity') ?? false
+  const short = idWithheld ? tl('incident.packet.anonymous') : `${first(name)} ${name.split(' ')[1]?.[0] ? `${name.split(' ')[1][0]}.` : ''}`.trim() + (age ? `, ${age}` : '')
   const suspected = p?.suspected ? suspectedText(p.suspected) : tl('incident.packet.preArrival')
   return {
     id,

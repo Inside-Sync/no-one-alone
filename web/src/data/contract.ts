@@ -99,20 +99,32 @@ export interface TimelineDoc {
   text: string
 }
 
-/** 4.4: what hospital-agent returns and core-api stores as `handoff.packet`. */
+/** 4.4: categories hospital-agent can withhold from a packet. */
+export type PacketCategory = 'identity' | 'conditions' | 'medications' | 'allergies' | 'familyHistory' | 'communication'
+
+/**
+ * 4.4: what hospital-agent returns and core-api stores as `handoff.packet`. Fields it withholds are absent: an absent
+ * `allergies` means unknown, `[]` means recorded no known allergy. `status` is the packet's preparation status.
+ */
 export interface PacketDoc {
-  patient: { name: string; age: number; sex: string }
+  status: 'COMPLETED' | 'PARTIAL' | 'BLOCKED_CONSENT'
+  patient?: { name: string; age: number; sex: string }
   suspected: string
   lastKnownWellAt?: string
   findings: string[]
-  conditions: string[]
-  medications: { name: string; dose: string }[]
-  allergies: string[]
-  communication: ('HARD_OF_HEARING' | 'COGNITIVE_IMPAIRMENT')[]
+  conditions?: string[]
+  familyHistory?: string[]
+  medications?: { name: string; dose: string }[]
+  allergies?: string[]
+  communication?: ('HARD_OF_HEARING' | 'COGNITIVE_IMPAIRMENT')[]
   baseline?: string
   contact?: { name: string; relation: string; onScene: boolean }
   etaMin?: number
   text: string
+  withheld?: PacketCategory[]
+  warnings?: string[]
+  /** Typed only, not displayed. */
+  sources?: string[]
 }
 
 export interface HandoffDoc {

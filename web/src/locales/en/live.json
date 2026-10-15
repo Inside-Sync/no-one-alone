@@ -385,10 +385,23 @@
       "suspected": "Suspected {{what}}",
       "eta": "ETA {{eta}}",
       "unknown": "unknown",
+      "familyHistory": "Family history",
+      "withheld": "Withheld",
+      "noConsent": "No valid consent",
+      "notRecorded": "Not recorded",
       "noneKnown": "None known",
+      "anonymous": "Patient (identity withheld)",
       "preArrival": "Pre-arrival",
       "enrolled": "{{who}} · enrolled",
       "lastWellAt": "last well {{time}}",
+      "cat": {
+        "identity": "Identity",
+        "conditions": "History",
+        "medications": "Medicines",
+        "allergies": "Allergies",
+        "familyHistory": "Family history",
+        "communication": "Comms"
+      },
       "comm": {
         "HARD_OF_HEARING": "Hard of hearing: write questions down",
         "COGNITIVE_IMPAIRMENT": "Cognitive impairment: keep questions simple"

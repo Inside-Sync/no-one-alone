@@ -7,6 +7,7 @@ import { Pill } from '@/components/ui/Pill'
 import { useToast } from '@/components/ui/Toast'
 import { useTranslation } from 'react-i18next'
 import { getHospital } from '@/data/repo'
+import { useLiveIncident } from '@/state/LiveIncident'
 import type { HospitalReadiness, LabelValue } from '@/data/types'
 import { ClickRow } from '../ClickRow'
 import { Head } from '../home/parts'
@@ -33,7 +34,13 @@ export function HospitalsCard({ hospitals }: { hospitals: HospitalReadiness[] })
   const head = t('hospitals.head', { returnObjects: true })
   const recommended = t('hospitals.recommended')
   // The packet lives with the hospital data; it is fetched when the button is pressed so the table never waits on it.
+  const { live, view } = useLiveIncident()
   const preview = () => {
+    // Live mode: show the packet the hospital actually received, when there is one.
+    if (live && view?.packet) {
+      drawer.open(t('hospitals.packetTitle'), <PacketBody rows={view.packet.rows} />)
+      return
+    }
     getHospital()
       .then((h) => drawer.open(t('hospitals.packetTitle'), <PacketBody rows={h.packet} />))
       .catch(() => toast(t('common:pageError.toast')))

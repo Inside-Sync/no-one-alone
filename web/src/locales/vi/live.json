@@ -385,10 +385,23 @@
       "suspected": "Nghi {{what}}",
       "eta": "Dự kiến đến {{eta}}",
       "unknown": "chưa rõ",
-      "noneKnown": "Không rõ dị ứng",
+      "familyHistory": "Tiền sử gia đình",
+      "withheld": "Bị giữ lại",
+      "noConsent": "Không có đồng ý hợp lệ",
+      "notRecorded": "Chưa ghi nhận",
+      "noneKnown": "Không có dị ứng đã biết",
+      "anonymous": "Bệnh nhân (ẩn danh tính)",
       "preArrival": "Báo trước khi đến",
       "enrolled": "{{who}} · đã đăng ký",
       "lastWellAt": "lần cuối bình thường {{time}}",
+      "cat": {
+        "identity": "Danh tính",
+        "conditions": "Bệnh sử",
+        "medications": "Thuốc",
+        "allergies": "Dị ứng",
+        "familyHistory": "Tiền sử gia đình",
+        "communication": "Giao tiếp"
+      },
       "comm": {
         "HARD_OF_HEARING": "Khiếm thính: hãy viết câu hỏi ra giấy",
         "COGNITIVE_IMPAIRMENT": "Suy giảm nhận thức: hỏi thật đơn giản"

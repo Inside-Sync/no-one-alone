@@ -22,6 +22,8 @@
   "person": {
     "ageLabel": "Tuổi",
     "genderLabel": "Giới tính",
+    "restingHrLabel": "Nhịp tim lúc nghỉ",
+    "restingHrBase": "nền {{n}}",
     "female": "Nữ",
     "male": "Nam"
   },

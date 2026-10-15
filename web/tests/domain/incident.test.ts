@@ -1,4 +1,4 @@
-import type { IncidentDoc } from '@/data/contract'
+import type { IncidentDoc, PacketDoc } from '@/data/contract'
 import { liveView, packetRows, type LivePeople } from '@/domain/incident'
 import i18n from '@/i18n'
 
@@ -62,4 +62,64 @@ test('packet rows: labels, sex and communication needs come from the live namesp
   expect(rows).toContainEqual(['Patient', 'Margaret Collins, 78 · Female'])
   expect(rows).toContainEqual(['Allergy', 'None known'])
   expect(rows).toContainEqual(['Comms', 'Hard of hearing: write questions down'])
+})
+
+test('packet rows: family history follows history', () => {
+  const rows = packetRows({ ...incident.handoff!.packet!, conditions: ['hypertension'], familyHistory: ['father: stroke at 68, hypertension'] }, 'UTC')
+  const labels = rows.map((r) => r[0])
+  expect(labels.indexOf('Family history')).toBe(labels.indexOf('History') + 1)
+  expect(rows).toContainEqual(['Family history', 'father: stroke at 68, hypertension'])
+})
+
+test('packet rows: blocked by consent shows the emergency facts and what was withheld', () => {
+  const rows = packetRows({ suspected: 'STROKE', findings: ['HR 142'], text: 'PRE-ARRIVAL', status: 'BLOCKED_CONSENT',
+    withheld: ['identity', 'medications'] }, 'UTC')
+  expect(rows.find((r) => r[0] === 'Patient')).toBeUndefined()
+  expect(rows).toContainEqual(['Findings', 'HR 142'])
+  expect(rows).toContainEqual(['Withheld', 'No valid consent · Identity, Medicines'])
+})
+
+test('packet rows: partial packet lists withheld categories without the consent note', () => {
+  const rows = packetRows({ ...incident.handoff!.packet!, status: 'PARTIAL', withheld: ['allergies'] }, 'UTC')
+  expect(rows).toContainEqual(['Withheld', 'Allergies'])
+})
+
+test('packet rows: absent allergies with ALLERGIES_NOT_RECORDED read as not recorded, never none known', () => {
+  const p: Partial<PacketDoc> = { ...incident.handoff!.packet! }
+  delete p.allergies
+  const rows = packetRows({ ...p, warnings: ['ALLERGIES_NOT_RECORDED'] }, 'UTC')
+  expect(rows).toContainEqual(['Allergy', 'Not recorded'])
+})
+
+test('packet rows: Vietnamese labels for the new rows', async () => {
+  await i18n.changeLanguage('vi')
+  const rows = packetRows({ suspected: 'STROKE', findings: [], text: 'x', status: 'BLOCKED_CONSENT', withheld: ['identity'] }, 'UTC')
+  expect(rows).toContainEqual(['Bị giữ lại', 'Không có đồng ý hợp lệ · Danh tính'])
+  expect(i18n.t('live:incident.packet.noneKnown')).toBe('Không có dị ứng đã biết')
+})
+
+test('liveView: a packet that withheld identity shows the hospital no name or age, even with the seed person known', () => {
+  const seeded = { person: { displayName: 'Margaret Collins', age: 78 }, members: {} } as unknown as LivePeople
+  const blocked = {
+    ...incident,
+    handoff: { ...incident.handoff!, packet: { suspected: 'STROKE', findings: ['HR 142'], text: 'PRE-ARRIVAL', status: 'BLOCKED_CONSENT', withheld: ['identity', 'medications'] } },
+  } as unknown as IncidentDoc
+  const v = liveView('inc1', blocked, seeded, T0 + 120_000)
+  const label = 'Patient (identity withheld)'
+  expect(v.packet?.meta).toBe(label)
+  expect(v.packet?.incoming.patient).toContain(label)
+  for (const text of [v.packet!.meta, v.packet!.incoming.patient]) {
+    expect(text).not.toContain('Margaret')
+    expect(text).not.toContain('78')
+  }
+  expect(v.personName).toBe('Margaret Collins')
+})
+
+test('liveView: no packet for the hospital while the handoff is PENDING', () => {
+  const pending = { ...incident, handoff: { ...incident.handoff!, status: 'PENDING' } } as unknown as IncidentDoc
+  expect(liveView('inc1', pending, people, T0).packet).toBeNull()
+  const rest: Partial<typeof incident.handoff> = { ...incident.handoff! }
+  delete (rest as { packet?: unknown }).packet
+  const noPacket = { ...incident, handoff: { ...rest, status: 'PENDING' } } as unknown as IncidentDoc
+  expect(liveView('inc1', noPacket, people, T0).packet).toBeNull()
 })

@@ -88,6 +88,16 @@ describe('in English', () => {
     expect(p.profile.rows.find((r) => r.label === 'Age')!.value).toBe('79')
   })
 
+  test('resting HR baseline comes from the person doc', async () => {
+    const p = overlayPerson(await mockSource.getPerson('margaret'), { ...person, baseline: { restingHr: 60, nightHr: 55 } })
+    expect(p.kpisTechnical.find((k) => k.label === 'Resting heart rate')!.baseline).toBe('base 60')
+  })
+
+  test('no baseline keeps the mock', async () => {
+    const mock = await mockSource.getPerson('margaret')
+    expect(overlayPerson(mock, { ...person, baseline: undefined }).kpisTechnical).toEqual(mock.kpisTechnical)
+  })
+
   test('lineage labels', async () => {
     const l = overlayLineage(await mockSource.getLineage('margaret'), familyDoc, 'james')
     expect(l.generations.map((g) => g.label)).toEqual(['Parents', "Margaret's generation", 'Children'])
@@ -131,6 +141,16 @@ describe('in Vietnamese', () => {
     expect(p.gender).toBe('Nữ')
     expect(p.profile.rows.find((r) => r.label === 'Tuổi')!.value).toBe('79')
     expect(p.profile.rows.find((r) => r.label === 'Giới tính')!.value).toBe('Nữ')
+  })
+
+  test('resting HR baseline comes from the person doc', async () => {
+    const p = overlayPerson(await mockSource.getPerson('margaret'), { ...person, baseline: { restingHr: 60, nightHr: 55 } })
+    expect(p.kpisTechnical.find((k) => k.label === 'Nhịp tim lúc nghỉ')!.baseline).toBe('nền 60')
+  })
+
+  test('no baseline keeps the mock', async () => {
+    const mock = await mockSource.getPerson('margaret')
+    expect(overlayPerson(mock, { ...person, baseline: undefined }).kpisTechnical).toEqual(mock.kpisTechnical)
   })
 
   test('lineage labels', async () => {
