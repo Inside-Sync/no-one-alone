@@ -180,6 +180,8 @@ Size check: audio lives in Storage, so an incident stays small (at most 8 turns,
 
 Written once by Minh's job from BigQuery `AI.FORECAST`. Story day 0 is 2026-08-14, so day 21 is 2026-09-04 and day 63 is the stroke night of 2026-10-16 (Huế time). The synthetic `vitals_daily` series covers day 0 to day 63. The day-21 forecast uses days 0 to 21 and predicts 30 days ahead.
 
+The job writes one document for `ba-mai` and one for `margaret`. For Margaret, day 63 is the stroke night in Sydney time.
+
 ```json
 {
   "asOf": "2026-09-04T00:00:00Z",
@@ -198,6 +200,8 @@ Written once by Minh's job from BigQuery `AI.FORECAST`. Story day 0 is 2026-08-1
 `risks[].level` is `LOW` \| `MEDIUM` \| `HIGH`, set by rules over the forecast and family history, then explained by Gemini. No probabilities are stored or shown.
 
 ### 2.5 `families/{personId}`
+
+One document for `ba-mai` and one for `margaret`.
 
 ```json
 {
@@ -337,6 +341,8 @@ Returns `200` even when it does nothing.
 
 Each response carries `"fallback": true|false`.
 
+Language: when `person.locale` starts with `en` (Margaret, `en-AU`), every question, message, `callScript` and `personInstruction` is in English and addresses the person by `displayName`. `dialect` is absent for a person without one.
+
 **`POST /verify`**
 ```json
 {
@@ -401,7 +407,7 @@ Rules override the model: any `SLURRED` turn gives `EMERGENCY`; `noReplyCount >=
   "fallback": false
 }
 ```
-core-api reads `meds` and `allergies` from the scenario fixture, not from FHIR. `personInstruction.text` is built only from the safety script library (`/agents/respond/scripts.json`). The model picks `scriptIds` and fills names and forms of address; it never writes new safety instructions. Times inside `callScript` are rendered in the person's timezone. core-api stores the audio at `audio/{incidentId}/instruction.mp3`.
+core-api reads `meds` and `allergies` from the scenario fixture, not from FHIR. Every person shares the same fixtures. `personInstruction.text` is built only from the safety script library (`/agents/respond/scripts.json`). The model picks `scriptIds` and fills names and forms of address; it never writes new safety instructions. Times inside `callScript` are rendered in the person's timezone. core-api stores the audio at `audio/{incidentId}/instruction.mp3`.
 
 **`POST /handoff`**
 ```json
@@ -435,7 +441,7 @@ respond-agent sends one A2A message whose single part is a data part (or JSON te
   "text": "PRE-ARRIVAL · ETA 14 min\nBà Mai, 78, F ..."
 }
 ```
-`communication` values: `HARD_OF_HEARING`, `COGNITIVE_IMPAIRMENT`. `baseline` is a constant in the agent prompt; FHIR has no source for it.
+`communication` values: `HARD_OF_HEARING`, `COGNITIVE_IMPAIRMENT`. When the handoff has no `etaMin`, the packet omits `etaMin` and `text` starts with `PRE-ARRIVAL · ETA unknown`. The FHIR store holds a bundle for `ba-mai` and one for `margaret`. `baseline` is a constant in the agent prompt; FHIR has no source for it.
 
 A2A in ADK is experimental. Pin `google-adk` and `a2a-sdk` versions in each agent's `requirements.txt`. Minh's spike on 14/10 must prove that respond-agent can call a private Cloud Run hospital-agent with an OIDC token over A2A. If it cannot by 22:00 on 15/10, respond-agent calls hospital-agent over plain HTTP with the same JSON and the deck drops the A2A claim.
 
@@ -446,7 +452,7 @@ A2A in ADK is experimental. Pin `google-adk` and `a2a-sdk` versions in each agen
 | Cloud Storage (Firebase Storage) | default bucket, `audio/` | core-api writes | Agent and person audio. Clients read with auth |
 | Pub/Sub | topic `alerts`, push subscription to `/alerts`, ack deadline 120 s | Dũng | Alert messages from section 4.2 |
 | Cloud Tasks | queue `escalation` | Dũng | Escalation timers |
-| Cloud Healthcare API | dataset `noa`, FHIR R4 store `records` | Minh | Bà Mai's bundle |
+| Cloud Healthcare API | dataset `noa`, FHIR R4 store `records` | Minh | Bundles for Bà Mai and Margaret |
 | BigQuery | dataset `noa`, table `vitals_daily` | Minh | `person_id STRING, date DATE, systolic INT64, diastolic INT64, resting_hr INT64, steps INT64, meds_taken INT64, meds_scheduled INT64` |
 | Repo | `core-api/src/main/resources/data/scenarios/{scenario}.json` | Dũng | 15-minute vitals window, meds and allergies per scenario |
 | Repo | `core-api/src/main/resources/data/seed.json` | Dũng | people and hospitals loaded by reset |
