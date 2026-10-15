@@ -1,45 +1,11 @@
 """Local A2A tests: a real uvicorn server and the real a2a-sdk client from scripts/probe_a2a.py."""
 import asyncio
-import socket
-import threading
-import time
 
 import httpx
 import pytest
-import uvicorn
 
 from scripts.probe_a2a import call
 from tests.conftest import HERE, load_json
-
-
-@pytest.fixture(scope="module")
-def server_url(monkeypatch_module):
-    with socket.socket() as s:
-        s.bind(("127.0.0.1", 0))
-        port = s.getsockname()[1]
-    url = f"http://127.0.0.1:{port}"
-    monkeypatch_module.setenv("A2A_PUBLIC_URL", url)
-    import importlib
-
-    import main
-    importlib.reload(main)  # picks up A2A_PUBLIC_URL for the card
-    server = uvicorn.Server(uvicorn.Config(main.app, host="127.0.0.1", port=port, log_level="warning"))
-    thread = threading.Thread(target=server.run, daemon=True)
-    thread.start()
-    deadline = time.time() + 15
-    while not server.started:
-        assert time.time() < deadline, "server did not start"
-        time.sleep(0.05)
-    yield url
-    server.should_exit = True
-    thread.join(5)
-
-
-@pytest.fixture(scope="module")
-def monkeypatch_module():
-    mp = pytest.MonkeyPatch()
-    yield mp
-    mp.undo()
 
 
 def run(coro):
