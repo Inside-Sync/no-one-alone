@@ -16,11 +16,17 @@ interface Props {
   help?: string | null
   /** Show the Yes / No buttons. */
   yn?: boolean
+  /** Yes / No are shown but inactive (a reply is being processed). */
+  disabled?: boolean
+  /** Initials on the helper bubble. */
+  helpInitials?: string
   onAnswer: (answer: string) => void
+  /** The live screen's voice reply button (one big toggle: start, then send). */
+  record?: { label: string; recording: boolean; disabled?: boolean; onClick: () => void }
 }
 
 /** Margaret's phone in hearing mode (`#devLive`, prototype `renderEm`): one question, big text, big buttons. */
-export function PhoneScreen({ time, q, small, flash, listen, help, yn, onAnswer }: Props) {
+export function PhoneScreen({ time, q, small, flash, listen, help, yn, disabled, helpInitials = 'D', onAnswer, record }: Props) {
   const c = LIVE_COPY.phone
   return (
     <div className={`device ${s.frame}`}>
@@ -34,17 +40,24 @@ export function PhoneScreen({ time, q, small, flash, listen, help, yn, onAnswer 
         {listen && <div className="listen"><i></i><i></i><i></i><i></i><i></i></div>}
         {help && (
           <div className={`dev-help ${s.help}`}>
-            <span className="av sm" style={{ '--c': '#2f6fb0' } as CSSProperties}>D</span>
+            <span className="av sm" style={{ '--c': '#2f6fb0' } as CSSProperties}>{helpInitials}</span>
             {help}
           </div>
         )}
         {yn && (
           <div className="dev-btns">
-            <button type="button" className={`dev-b ok ${s.btn}`} onClick={() => onAnswer(c.yes)}>
+            <button type="button" className={`dev-b ok ${s.btn}`} disabled={disabled} onClick={() => onAnswer(c.yes)}>
               <span className="ic"><Icon name="check" /></span>{c.yes}
             </button>
-            <button type="button" className={`dev-b help ${s.btn}`} onClick={() => onAnswer(c.no)}>
+            <button type="button" className={`dev-b help ${s.btn}`} disabled={disabled} onClick={() => onAnswer(c.no)}>
               <span className="ic"><Icon name="x" /></span>{c.no}
+            </button>
+          </div>
+        )}
+        {record && (
+          <div className="dev-btns">
+            <button type="button" className={`dev-b ${record.recording ? 'help' : 'ok'} ${s.btn}`} disabled={record.disabled} aria-pressed={record.recording} onClick={record.onClick}>
+              <span className="ic"><Icon name="mic" /></span>{record.label}
             </button>
           </div>
         )}

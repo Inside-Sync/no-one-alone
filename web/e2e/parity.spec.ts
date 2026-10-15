@@ -133,7 +133,7 @@ for (const vp of VIEWPORTS) {
         const protoRects = await settle(proto, c)
         const protoPng = PNG.sync.read(await proto.screenshot({ fullPage: true }))
 
-        const appCtx = await browser.newContext({ viewport: vp, deviceScaleFactor: 1, baseURL: 'http://localhost:5173' })
+        const appCtx = await browser.newContext({ viewport: vp, deviceScaleFactor: 1, baseURL: 'http://localhost:5174' })
         const app = await appCtx.newPage()
         await openPage(app, c)
         const appRects = await settle(app, c)

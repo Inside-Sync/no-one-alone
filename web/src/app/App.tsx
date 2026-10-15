@@ -7,6 +7,7 @@ import { ToastProvider } from '@/components/ui/Toast'
 import { allRoutes } from '@/domain/views'
 import { RoutedPage } from '@/features/RoutedPage'
 import { AppStateProvider } from '@/state/AppState'
+import { LiveIncidentProvider } from '@/state/LiveIncident'
 import { NotFound } from './NotFound'
 
 const KNOWN = new Set(allRoutes().map((r) => `${r.view}/${r.page}`))
@@ -22,6 +23,7 @@ export function App() {
     <>
       <Scene />
       <div className="flash" id="flash"></div>
+      <LiveIncidentProvider>
       <AppStateProvider>
         <ToastProvider>
           <DrawerProvider>
@@ -38,6 +40,7 @@ export function App() {
           </DrawerProvider>
         </ToastProvider>
       </AppStateProvider>
+      </LiveIncidentProvider>
     </>
   )
 }

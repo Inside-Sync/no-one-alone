@@ -9,6 +9,7 @@ import { CATEGORY_IDS, countSees } from '@/domain/consent'
 import type { ContextBar as Ctx } from '@/data/types'
 import { OWN_CONTEXT, PAGE_TITLES, parsePath, VIEW_LABELS } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
+import { useLiveIncident } from '@/state/LiveIncident'
 import s from './shell.module.css'
 
 type Bars = { person: Ctx; lineage: Ctx; hospital: Ctx; community: Ctx }
@@ -31,6 +32,7 @@ export function ContextBar() {
   const router = useRouter()
   const { view, page } = parsePath(usePathname())
   const { who, setWho, setViewer, viewer, paused, share, people, emergency } = useAppState()
+  const { view: liveView, people: livePeople } = useLiveIncident()
   const bars = useContextBars()
 
   let ctx: Ctx | undefined
@@ -70,7 +72,7 @@ export function ContextBar() {
         <div>
           <span className="vbanner" id="vban">{banner}</span>
           <h1 id="pgTitle">{page ? PAGE_TITLES[page] : ''}</h1>
-          <div className="sub" id="pgSub">{page === 'live' && emergency.active ? repo.LIVE_COPY.subtitle(STEPS[emergency.step].t) : ctx?.sub}</div>
+          <div className="sub" id="pgSub">{page === 'live' && liveView?.open ? repo.LIVE_COPY.liveSubtitle(liveView.storyTime, livePeople.person?.addressText) : page === 'live' && emergency.active ? repo.LIVE_COPY.subtitle(STEPS[emergency.step].t) : ctx?.sub}</div>
         </div>
         <span className="sp"></span>
         {individual && <WhoSwitch who={who} onSelect={switchWho} />}

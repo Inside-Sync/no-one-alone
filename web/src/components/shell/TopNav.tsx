@@ -10,6 +10,7 @@ import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import { firstPage, parsePath, tabsFor, VIEW_USERS, type ViewId } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
+import { useLiveIncident } from '@/state/LiveIncident'
 
 const BELL_TOAST = '3 updates today: 2 routine, 1 needs your approval'
 
@@ -23,7 +24,8 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
   const router = useRouter()
   const { view, page } = parsePath(usePathname())
   const toastMsg = useToast()
-  const { who, setWho, viewer, people, emergency, packetNew, dispatchEmergency } = useAppState()
+  const { who, setWho, viewer, people, alertActive, packetNew, dispatchEmergency } = useAppState()
+  const { live } = useLiveIncident()
 
   useEffect(() => {
     document.body.dataset.view = view
@@ -48,7 +50,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
   }
 
   const badges: Record<string, string | undefined> = {}
-  if (emergency.active) {
+  if (alertActive) {
     badges.live = 'LIVE'
     if (packetNew) badges.ed = '1'
   }
@@ -65,7 +67,8 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
           className="btn sos"
           id="runDemo"
           aria-label="Night alert demo"
-          onClick={() => { setWho('family'); dispatchEmergency({ type: 'start' }); router.push('/individual/live') }}
+          // Live mode: the Live page starts a real scenario through core-api; the mock plays the scripted demo.
+          onClick={() => { setWho('family'); if (!live) dispatchEmergency({ type: 'start' }); router.push('/individual/live') }}
         >
           <span className="ic"><Icon name="bolt" /></span>
           <span className="t">Night alert demo</span>

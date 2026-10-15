@@ -2,11 +2,19 @@
 
 import { useEffect } from 'react'
 import { getOrbitScene } from '@/data/repo'
+import { PageError } from '@/features/shared/PageError'
 import { useRepo } from '@/features/shared/useRepo'
 import { STEPS } from '@/domain/emergency'
+import { useToast } from '@/components/ui/Toast'
+import { LIVE_COPY } from '@/data/repo'
 import { useAppState } from '@/state/AppState'
+import { useLiveIncident } from '@/state/LiveIncident'
 import { AlertCard } from './AlertCard'
 import { IdleCard } from './IdleCard'
+import { LiveAlertCard } from './LiveAlertCard'
+import { LiveIdleCard } from './LiveIdleCard'
+import { LivePhoneCard } from './LivePhoneCard'
+import { LiveTimelineCard } from './LiveTimelineCard'
 import { PhoneCard } from './PhoneCard'
 import { TimelineCard } from './TimelineCard'
 
@@ -36,6 +44,39 @@ function useFlash(on: boolean) {
  * never locked, so nothing here is wrapped in `<Locked>`: the demo runs while sharing is paused.
  */
 export function LivePage() {
+  return useLiveIncident().live ? <LiveIncidentPage /> : <ScriptedLivePage />
+}
+
+/**
+ * VITE_DATA_SOURCE=firebase: the same layout driven by `demo/current` → `incidents/{id}`; every button posts to
+ * core-api and the result comes back through Firestore. A closed incident stays on screen until the next start.
+ */
+function LiveIncidentPage() {
+  const toast = useToast()
+  const { viewer } = useAppState()
+  const { loading, error, incident, people, view, start, reset, checkin, act } = useLiveIncident()
+  const scene = useRepo(getOrbitScene).data
+  useFlash(Boolean(view?.phone.flash))
+  const c = LIVE_COPY.live
+  const onReset = () => { reset().then(() => toast(c.resetDone), () => toast(c.failed)) }
+
+  if (error) return <PageError page="live" onRetry={() => location.reload()} />
+  if (loading) return <main className="grid" data-page="live"><p className="fine c12">{c.loading}</p></main>
+  if (!incident || !view) {
+    return <main className="grid" data-page="live"><LiveIdleCard title={LIVE_COPY.idle.title} start={start} onReset={onReset} /></main>
+  }
+  return (
+    <main className="grid" data-page="live">
+      {!view.open && <LiveIdleCard title={c.closedTitle} start={start} onReset={onReset} />}
+      <LiveAlertCard view={view} incident={incident} people={people} scene={scene} viewer={viewer} act={act} onReset={onReset} />
+      <LiveTimelineCard view={view} />
+      <LivePhoneCard phone={view.phone} helpInitials={view.owner.initials} checkin={checkin} />
+    </main>
+  )
+}
+
+/** Mock mode: the prototype's scripted 02:03 demo. */
+function ScriptedLivePage() {
   const { emergency, dispatchEmergency, setWho } = useAppState()
   // Never gate the page on the scene (Task 10): on failure the canvas area stays empty and the safety controls,
   // which do not depend on it, keep working. So there is deliberately no PageError here.

@@ -9,7 +9,7 @@ import { Legend } from '../health/Legend'
 /** `Morning systolic blood pressure` (c7): observed 6 weeks, three projections, target band (`bpChart`, line 1449). */
 export function BpProjectionCard({ bp, adherence }: { bp: Forecast['bp']; adherence: number }) {
   const c = FORECAST_COPY.bp
-  const { projected } = bpProjection(adherence)
+  const { projected } = bpProjection(bp, adherence)
   const showWhatIf = adherence !== 86 && adherence !== 100
   const start = bp.todayWeek - 1
   return (

@@ -6,6 +6,7 @@ import type { AuditEntry, PersonId, SharePerson, ShareMatrix } from '@/data/type
 import { CATEGORIES, CATEGORY_IDS, type CategoryId } from '@/domain/consent'
 import { EM_INITIAL, emergencyReducer, packetArrived, TICK_MS, type EmAction, type EmState } from '@/domain/emergency'
 import type { Who } from '@/domain/views'
+import { useLiveIncident } from './LiveIncident'
 
 export type SharePreset = 'family' | 'safety' | 'all'
 
@@ -83,8 +84,10 @@ export interface AppStateValue {
   people: SharePerson[]
   emergency: EmergencyState
   dispatchEmergency: (action: EmergencyAction) => void
-  /** True once the hospital holds Margaret's packet (02:07 of a running demo): Pre-arrivals shows "1 new". */
+  /** True once the hospital holds Margaret's packet (02:07 of a running demo, or a received live handoff): Pre-arrivals shows "1 new". */
   packetNew: boolean
+  /** An alert is running: the scripted demo, or an open live incident. Drives night mode and the nav badges. */
+  alertActive: boolean
   hydrated: boolean
 }
 
@@ -147,10 +150,13 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   // The demo clock lives here, not in the page, so the alert keeps running on every tab. Cleared when paused, ended or unmounted.
   const { active, playing } = s.emergency
+  const liveIncident = useLiveIncident()
+  const alertActive = liveIncident.live ? Boolean(liveIncident.view?.open) : active
+  const packetNew = liveIncident.live ? Boolean(liveIncident.view?.packet) : packetArrived(s.emergency)
   useEffect(() => {
-    document.body.classList.toggle('night', active)
+    document.body.classList.toggle('night', alertActive)
     return () => document.body.classList.remove('night')
-  }, [active])
+  }, [alertActive])
   useEffect(() => {
     if (!active || !playing) return
     const timer = setInterval(() => commit({ type: 'emergency', action: { type: 'tick' } }), TICK_MS)
@@ -225,9 +231,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const value = useMemo<AppStateValue>(
     () => ({
       who: s.who, setWho, viewer: s.viewer, setViewer, paused: s.paused, togglePause, toggleShare, applyPreset,
-      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew: packetArrived(s.emergency), hydrated: s.hydrated,
+      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew, alertActive, hydrated: s.hydrated,
     }),
-    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency],
+    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency, packetNew, alertActive],
   )
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

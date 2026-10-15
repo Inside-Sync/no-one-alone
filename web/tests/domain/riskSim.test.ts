@@ -17,9 +17,11 @@ test('deltaLabel', () => {
   expect(deltaLabel(1.3, 2.1)).toEqual({ text: '−38% relative', tone: 'good' })
   expect(deltaLabel(2.5, 2.1)).toEqual({ text: '+19% relative', tone: 'bad' })
 })
+const BP = { observed: [128, 131, 133, 137, 140, 146], projectedNothing: [146, 148.5, 151, 153.5, 156], projectedAdherent: [146, 140, 136, 133, 131] }
+
 test('bpProjection', () => {
-  expect(bpProjection(86).observed).toEqual([128, 131, 133, 137, 140, 146])
-  expect(bpProjection(86).projected).toEqual([146, 148.5, 151, 153.5, 156])
-  expect(bpProjection(100).projected).toEqual([146, 140, 136, 133, 131])
-  expect(bpProjection(60).projected).toEqual([146, 151.5, 157, 162.5, 168])
+  expect(bpProjection(BP, 86).observed).toEqual([128, 131, 133, 137, 140, 146])
+  expect(bpProjection(BP, 86).projected).toEqual([146, 148.5, 151, 153.5, 156])
+  expect(bpProjection(BP, 100).projected).toEqual([146, 140, 136, 133, 131])
+  expect(bpProjection(BP, 60).projected).toEqual([146, 151.5, 157, 162.5, 168])
 })
