@@ -178,7 +178,9 @@ public class Escalation {
         context.put("allergies", f.allergies());
         Map<String, Object> p = new HashMap<>();
         p.put("displayName", person.displayName);
-        p.put("dialect", person.dialect);
+        if (person.dialect != null) {
+            p.put("dialect", person.dialect);
+        }
         p.put("locale", person.locale);
         p.put("timezone", person.timezone);
         p.put("addressText", person.addressText);

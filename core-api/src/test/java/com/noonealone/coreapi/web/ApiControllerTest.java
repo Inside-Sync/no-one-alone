@@ -42,11 +42,39 @@ class ApiControllerTest {
 
     @Test
     void triggerReturns202WithIncidentId() throws Exception {
-        when(demo.trigger(Scenario.STROKE, 30, 15)).thenReturn("alert-1-stroke");
+        when(demo.trigger(Scenario.STROKE, "ba-mai", 30, 15)).thenReturn("alert-1-stroke");
 
         mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.incidentId").value("alert-1-stroke"));
+    }
+
+    @Test
+    void triggerPassesPersonIdThrough() throws Exception {
+        when(demo.trigger(Scenario.FALL, "margaret", 30, 15)).thenReturn("alert-2-fall");
+
+        mvc.perform(post("/api/demo/fall").contentType(MediaType.APPLICATION_JSON).content("{\"personId\":\"margaret\"}"))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.incidentId").value("alert-2-fall"));
+    }
+
+    @Test
+    void timersWithoutPersonIdDefaultToBaMai() throws Exception {
+        when(demo.trigger(Scenario.STROKE, "ba-mai", 10, 5)).thenReturn("alert-3-stroke");
+
+        mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"timerSeconds\":10,\"noReplySeconds\":5}"))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.incidentId").value("alert-3-stroke"));
+    }
+
+    @Test
+    void triggerWithNoBodyDefaultsToBaMai() throws Exception {
+        when(demo.trigger(Scenario.STROKE, "ba-mai", 30, 15)).thenReturn("alert-4-stroke");
+
+        mvc.perform(post("/api/demo/stroke"))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.incidentId").value("alert-4-stroke"));
     }
 
     @Test

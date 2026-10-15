@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -11,6 +12,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -90,6 +92,20 @@ class EscalationTest extends FirestoreTestBase {
         assertThat(inc.callScript).isEqualTo("Địa chỉ 12 Kiệt 4");
         assertThat(inc.personInstruction.text).isEqualTo("Mạ ngồi yên.");
         verify(tasks).schedule("e-1", "ong-hung", 1, 30);
+    }
+
+    @Test
+    void personWithoutDialectSendsNoDialectKeyToPlan() {
+        when(agent.plan(any())).thenReturn(plan());
+        store.seed(seed.data());
+        when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null, null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.COME_NOW, List.of("no answer"), false));
+        when(tasks.schedule(anyString(), anyString(), anyInt(), anyInt())).thenReturn(TASK);
+        flow.create(IncidentFlowAlertTest.stroke("e-m", "margaret"));
+        flow.process("e-m");
+
+        verify(agent).plan(argThat(b -> !((Map<?, ?>) b.get("person")).containsKey("dialect")));
     }
 
     @Test

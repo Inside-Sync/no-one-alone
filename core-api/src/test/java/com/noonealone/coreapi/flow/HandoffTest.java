@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -64,7 +65,7 @@ class HandoffTest extends FirestoreTestBase {
         when(tasks.schedule(anyString(), anyString(), anyInt(), anyInt())).thenReturn("task");
         when(routes.etaMinutes(any(), any())).thenAnswer(inv -> {
             LatLng to = inv.getArgument(1);
-            return Optional.of(to.lat > 16.45 ? 14 : 3);
+            return to.lat < 0 ? Optional.empty() : Optional.of(to.lat > 16.45 ? 14 : 3);
         });
     }
 
@@ -89,6 +90,20 @@ class HandoffTest extends FirestoreTestBase {
         assertThat(inc.handoff.packet).containsEntry("text", "PRE-ARRIVAL");
         assertThat(inc.timeline).extracting(t -> t.kind).contains("HANDOFF_SENT", "HANDOFF_RECEIVED");
         verify(agent).handoff(argThat(b -> "STROKE".equals(b.get("suspected"))));
+    }
+
+    @Test
+    void margaretGoesToSydneyStrokeCenterNotTheCloserClinic() {
+        when(agent.handoff(any())).thenReturn(new HandoffResult("RECEIVED", Map.of("text", "PRE-ARRIVAL"), false));
+
+        flow.create(IncidentFlowAlertTest.stroke("h-m", "margaret"));
+        flow.process("h-m");
+        CheckInInput answer = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
+        flow.acceptCheckIn("h-m", answer);
+        flow.processCheckIn("h-m", answer);
+
+        assertThat(store.get("h-m").handoff.hospitalId).isEqualTo("sydney-stroke-center");
+        verify(routes, never()).etaMinutes(any(), argThat(to -> to.lat > 0));
     }
 
     @Test

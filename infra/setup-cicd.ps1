@@ -21,7 +21,7 @@ $roles = @(
     "roles/run.admin", "roles/iam.serviceAccountUser", "roles/cloudbuild.builds.editor",
     "roles/storage.admin", "roles/artifactregistry.writer", "roles/serviceusage.serviceUsageConsumer",
     "roles/secretmanager.viewer", "roles/pubsub.editor",
-    "roles/firebasehosting.admin", "roles/firebaserules.admin"
+    "roles/firebasehosting.admin", "roles/firebaserules.admin", "roles/firebasestorage.admin"
 )
 foreach ($role in $roles) {
     Step "Grant $role to github-deployer" {

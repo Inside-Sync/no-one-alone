@@ -1,13 +1,13 @@
 # No One Alone: data contract
 
-Version 1.3, 14/10. Owner: Dũng. Reviewers: Tài, Minh, Hải.
+Version 1.4, 15/10. Owner: Dũng. Reviewers: Tài, Minh, Hải.
 
 This file is the only source of truth for data shapes and service interfaces. A change goes through a PR that all four reviewers see. Do not change a shape in code first.
 
 ## 1. Conventions
 
 - Timestamps are ISO-8601 UTC strings with `Z`, for example `2026-10-15T19:03:00Z`. Screens convert to the viewer's `timezone`.
-- IDs are kebab-case strings. Seed entities use fixed IDs (`ba-mai`, `ong-hung`). Incident IDs equal the alert ID. A person's FHIR Patient ID equals their `personId`.
+- IDs are kebab-case strings. Seed entities use fixed IDs (`ba-mai`, `ong-hung`, `margaret`, `david`). Incident IDs equal the alert ID. A person's FHIR Patient ID equals their `personId`.
 - Enums are UPPER_SNAKE strings. An unknown enum value is a bug, not a fallback.
 - Absent optional fields are omitted, never `null`, except `ownerId`, which is `null` until someone accepts.
 - All people, places and records are fictional.
@@ -35,7 +35,7 @@ If the Hosting rewrite to Cloud Run does not work in `asia-southeast1` at the fi
 
 ### Story clock
 
-The video shows the stroke at 02:03 Huế time on 16/10, but the demo is recorded later. When a demo scenario starts, core-api stores `demo.clockOffsetMs = storyStart - realNow`. The value is negative whenever recording happens after the story date.
+Each scenario has a local story time. `storyStart` is that time in the older person's `timezone` (Bà Mai: `Asia/Ho_Chi_Minh`, Margaret: `Australia/Sydney`). A person without `timezone` uses `Asia/Ho_Chi_Minh`. The video shows the stroke at 02:03 local time on 16/10, but the demo is recorded later. When a demo scenario starts, core-api stores `demo.clockOffsetMs = storyStart - realNow`. The value is negative whenever recording happens after the story date.
 
 - core-api writes every incident timestamp as `realNow + clockOffsetMs`.
 - Cloud Tasks are scheduled in real time: `scheduleTime = realNow + timerSeconds`.
@@ -45,11 +45,11 @@ Example: recording at 20:00 Huế on 17/10 (`2026-10-17T13:00:00Z`) for the stro
 
 Story start per scenario:
 
-| Scenario | storyStart (UTC) | Huế time |
-|---|---|---|
-| STROKE | 2026-10-15T19:03:00Z | 16/10 02:03 |
-| FALL | 2026-10-15T20:12:00Z | 16/10 03:12 |
-| FALSE_ALARM | 2026-10-16T03:42:00Z | 16/10 10:42 |
+| Scenario | Local story time | Bà Mai storyStart (UTC) | Margaret storyStart (UTC) |
+|---|---|---|---|
+| STROKE | 16/10 02:03 | 2026-10-15T19:03:00Z | 2026-10-15T15:03:00Z |
+| FALL | 16/10 03:12 | 2026-10-15T20:12:00Z | 2026-10-15T16:12:00Z |
+| FALSE_ALARM | 16/10 10:42 | 2026-10-16T03:42:00Z | 2026-10-15T23:42:00Z |
 
 ## 2. Firestore collections
 
@@ -67,6 +67,7 @@ One collection for the older person and the Health Circle members.
   "timezone": "Asia/Ho_Chi_Minh",
   "locale": "vi-VN",
   "dialect": "HUE",
+  "emergencyNumber": "115",
   "addressText": "12 Kiệt 4, Hương Thủy, Huế (fictional)",
   "location": { "lat": 16.4, "lng": 107.6 },
   "accessibility": { "hearing": "LOSS" },
@@ -82,11 +83,14 @@ One collection for the older person and the Health Circle members.
 | Field | Type | Required | Notes |
 |---|---|---|---|
 | `dialect` | `HUE` \| `SOUTH` \| `STANDARD` | person only | Drives forms of address |
+| `emergencyNumber` | string | person only | Number shown and logged for `CALLED_115`; a missing value is logged as `115`; Bà Mai `115`, Margaret `000` |
 | `accessibility.hearing` | `NORMAL` \| `LOSS` | person only | `LOSS`: the person screen shows each spoken question as large captions too |
 | `circle` | array | person only | Members without `criticalAlerts: true` are never notified |
-| `circle[].role` | `NEARBY` \| `DISTANT` | yes | `NEARBY` can come to the door; `DISTANT` coordinates and calls 115 |
+| `circle[].role` | `NEARBY` \| `DISTANT` | yes | `NEARBY` can come to the door; `DISTANT` coordinates and calls the emergency number (`emergencyNumber`) |
 
-Members (`ong-hung`, `lan`, `tuan`) have `displayName`, `timezone`, `locale`, `location` and no other fields. Lan's timezone is `Asia/Tokyo`.
+Margaret Collins, 78, lives in Marrickville, Sydney (`en-AU`, no `dialect`). Her circle is `david` (NEARBY 1), `aisha` (NEARBY 2), `james` (DISTANT 3) and `sarah` (DISTANT 4, no critical alerts).
+
+Members (`ong-hung`, `lan`, `tuan`, `david`, `aisha`, `james`, `sarah`) have `displayName`, `timezone`, `locale`, `location` and no other fields. Lan's timezone is `Asia/Tokyo`.
 
 ### 2.2 `hospitals/{hospitalId}`
 
@@ -94,7 +98,7 @@ Members (`ong-hung`, `lan`, `tuan`) have `displayName`, `timezone`, `locale`, `l
 { "name": "Stroke Center A (demo)", "location": { "lat": 16.46, "lng": 107.59 }, "strokeReady": true }
 ```
 
-Hand-written list. Seed one stroke-ready hospital and one closer hospital with `strokeReady: false`, so the demo shows that the agent picks the capable one, not the nearest.
+Hand-written list. Seed one stroke-ready hospital and one closer hospital with `strokeReady: false`, so the demo shows that the agent picks the capable one, not the nearest. Sydney has the same pair: `sydney-stroke-center` (stroke-ready) and `marrickville-clinic` (closer, not stroke-ready).
 
 ### 2.3 `incidents/{incidentId}`
 
@@ -158,7 +162,7 @@ Hand-written list. Seed one stroke-ready hospital and one closer hospital with `
 | `checkIn.pending` | object `{ text, kind, audioPath }` | The question the person screen shows now. Absent when `done` or `busy` |
 | `checkIn.pending.kind` | `VOICE` \| `YES_NO` | Decided by respond-agent |
 | `turns[].by` | `AGENT` \| `PERSON` | |
-| `turns[].assessment` | object | Only on `PERSON` turns with audio. Absent for Yes/No and no-reply turns. A Yes/No answer is stored as a PERSON turn with text `Có` or `Không` |
+| `turns[].assessment` | object | Only on `PERSON` turns with audio. Absent for Yes/No and no-reply turns. A Yes/No answer is stored as a PERSON turn with text `Yes`/`No` when the person's `locale` starts with `en`, otherwise `Có`/`Không`. The `ANSWERED` timeline entry uses the same text |
 | `assessment.clarity` | `CLEAR` \| `SLURRED` \| `NO_SPEECH` | |
 | `assignments[].state` | `QUEUED` \| `NOTIFIED` \| `ACCEPTED` \| `DECLINED` \| `EXPIRED` \| `ARRIVED` | `QUEUED`: a NEARBY member not notified yet. Screens show nothing for `QUEUED` |
 | `assignments[].actions` | array | Buttons the member's screen shows. `ACCEPT`, `DECLINE`, `ARRIVED`, `CALLED_115` post to core-api. `CALL_PERSON` and `CALL_NEARBY` are client-only call buttons with no server write |
@@ -175,6 +179,8 @@ Size check: audio lives in Storage, so an incident stays small (at most 8 turns,
 ### 2.4 `forecasts/{personId}`
 
 Written once by Minh's job from BigQuery `AI.FORECAST`. Story day 0 is 2026-08-14, so day 21 is 2026-09-04 and day 63 is the stroke night of 2026-10-16 (Huế time). The synthetic `vitals_daily` series covers day 0 to day 63. The day-21 forecast uses days 0 to 21 and predicts 30 days ahead.
+
+The job writes one document for `ba-mai` and one for `margaret`. For Margaret, day 63 is the stroke night in Sydney time.
 
 ```json
 {
@@ -195,6 +201,8 @@ Written once by Minh's job from BigQuery `AI.FORECAST`. Story day 0 is 2026-08-1
 
 ### 2.5 `families/{personId}`
 
+One document for `ba-mai` and one for `margaret`.
+
 ```json
 {
   "members": [
@@ -211,7 +219,7 @@ Written once by Minh's job from BigQuery `AI.FORECAST`. Story day 0 is 2026-08-1
 ### 2.6 `demo/current`
 
 ```json
-{ "incidentId": "alert-123", "scenario": "STROKE", "startedAt": "2026-10-15T19:03:00Z" }
+{ "incidentId": "alert-123", "scenario": "STROKE", "personId": "ba-mai", "startedAt": "2026-10-15T19:03:00Z" }
 ```
 
 Every role screen subscribes to this document, then to the incident it points to. The person screen autoplays when `checkIn.pending.audioPath` or `personInstruction.audioPath` changes, not on every `version` change.
@@ -234,7 +242,7 @@ any status except CLOSED --CLOSE from console--> CLOSED
    - All `DISTANT` members with `criticalAlerts` are notified at once, without a timer.
    - `NEARBY` members are notified one at a time by `priority`. Each gets `deadlineAt = notifiedAt + timerSeconds` and a Cloud Task. All NEARBY assignments are written at once in priority order; the ones not yet notified are `QUEUED`.
    - When the last `NEARBY` member expires or declines: timeline `NO_NEARBY`, and every `DISTANT` assignment gets `actions: ["CALL_NEARBY", "CALLED_115"]`.
-7. `EMERGENCY` only: write `handoff.status: PENDING`, then call `/handoff` right after `/plan`, in parallel with escalation. Pick the nearest hospital with `strokeReady: true` when stroke is suspected (any `SLURRED` turn), the nearest hospital otherwise. ETA from Maps Routes. On success write the packet and `RECEIVED`; on `AGENT_FAILED` write `FAILED` and timeline `HANDOFF_FAILED`.
+7. `EMERGENCY` only: write `handoff.status: PENDING`, then call `/handoff` right after `/plan`, in parallel with escalation. Pick the nearest hospital with `strokeReady: true` when stroke is suspected (any `SLURRED` turn), the nearest hospital otherwise. ETA from Maps Routes. Hospitals more than about 500 km from the person are ranked by straight-line distance and get no Routes ETA call. `etaMin` is omitted when the chosen hospital has no Routes ETA, in the handoff, the `/handoff` body and the packet. On success write the packet and `RECEIVED`; on `AGENT_FAILED` write `FAILED` and timeline `HANDOFF_FAILED`.
 8. `ARRIVED` from the owner moves status to `ON_SCENE`. The demo console closes the incident.
 
 ### Action rules
@@ -246,7 +254,7 @@ any status except CLOSED --CLOSE from console--> CLOSED
 | `ACCEPT` | `ownerId` is this member | `200`, no change |
 | `DECLINE` | assignment `NOTIFIED` | Assignment `DECLINED`, timeline `DECLINED`. After commit, delete its task and notify the next NEARBY at once (or apply the last-NEARBY rule) |
 | `ARRIVED` | sender is `ownerId` | Assignment `ARRIVED`, `arrivedAt`, status `ON_SCENE`. Anyone else gets `409 INVALID_STATE` |
-| `CALLED_115` | any notified member | Timeline `CALLED_115`. No state change |
+| `CALLED_115` | any notified member | Timeline `CALLED_115` with text `{member} called {emergencyNumber}`. No state change |
 | `CLOSE` | `memberId` is `console`, status not `CLOSED` | Status `CLOSED`, timeline `CLOSED` |
 
 ### Reliability rules
@@ -282,8 +290,11 @@ The anonymous token only proves the call comes from our web app. The demo has no
 **`POST /api/demo/{scenario}`** with `scenario` in `stroke`, `fall`, `false-alarm`
 
 ```json
-{ "timerSeconds": 30, "noReplySeconds": 15 }
+{ "timerSeconds": 30, "noReplySeconds": 15, "personId": "margaret" }
 ```
+
+`personId` is optional and defaults to `ba-mai`. A `personId` that is not an older person in the seed returns `400 INVALID_REQUEST`.
+
 Response `202`:
 ```json
 { "incidentId": "alert-1760555000000-stroke" }
@@ -329,6 +340,8 @@ Returns `200` even when it does nothing.
 ### 4.3 respond-agent (private, called by core-api with OIDC)
 
 Each response carries `"fallback": true|false`.
+
+Language: when `person.locale` starts with `en` (Margaret, `en-AU`), every question, message, `callScript` and `personInstruction` is in English and addresses the person by `displayName`. `dialect` is absent for a person without one.
 
 **`POST /verify`**
 ```json
@@ -394,7 +407,7 @@ Rules override the model: any `SLURRED` turn gives `EMERGENCY`; `noReplyCount >=
   "fallback": false
 }
 ```
-core-api reads `meds` and `allergies` from the scenario fixture, not from FHIR. `personInstruction.text` is built only from the safety script library (`/agents/respond/scripts.json`). The model picks `scriptIds` and fills names and forms of address; it never writes new safety instructions. Times inside `callScript` are rendered in the person's timezone. core-api stores the audio at `audio/{incidentId}/instruction.mp3`.
+core-api reads `meds` and `allergies` from the scenario fixture, not from FHIR. Every person shares the same fixtures. `personInstruction.text` is built only from the safety script library (`/agents/respond/scripts.json`). The model picks `scriptIds` and fills names and forms of address; it never writes new safety instructions. Times inside `callScript` are rendered in the person's timezone. core-api stores the audio at `audio/{incidentId}/instruction.mp3`.
 
 **`POST /handoff`**
 ```json
@@ -428,7 +441,7 @@ respond-agent sends one A2A message whose single part is a data part (or JSON te
   "text": "PRE-ARRIVAL · ETA 14 min\nBà Mai, 78, F ..."
 }
 ```
-`communication` values: `HARD_OF_HEARING`, `COGNITIVE_IMPAIRMENT`. `baseline` is a constant in the agent prompt; FHIR has no source for it.
+`communication` values: `HARD_OF_HEARING`, `COGNITIVE_IMPAIRMENT`. When the handoff has no `etaMin`, the packet omits `etaMin` and `text` starts with `PRE-ARRIVAL · ETA unknown`. The FHIR store holds a bundle for `ba-mai` and one for `margaret`. `baseline` is a constant in the agent prompt; FHIR has no source for it.
 
 A2A in ADK is experimental. Pin `google-adk` and `a2a-sdk` versions in each agent's `requirements.txt`. Minh's spike on 14/10 must prove that respond-agent can call a private Cloud Run hospital-agent with an OIDC token over A2A. If it cannot by 22:00 on 15/10, respond-agent calls hospital-agent over plain HTTP with the same JSON and the deck drops the A2A claim.
 
@@ -439,7 +452,7 @@ A2A in ADK is experimental. Pin `google-adk` and `a2a-sdk` versions in each agen
 | Cloud Storage (Firebase Storage) | default bucket, `audio/` | core-api writes | Agent and person audio. Clients read with auth |
 | Pub/Sub | topic `alerts`, push subscription to `/alerts`, ack deadline 120 s | Dũng | Alert messages from section 4.2 |
 | Cloud Tasks | queue `escalation` | Dũng | Escalation timers |
-| Cloud Healthcare API | dataset `noa`, FHIR R4 store `records` | Minh | Bà Mai's bundle |
+| Cloud Healthcare API | dataset `noa`, FHIR R4 store `records` | Minh | Bundles for Bà Mai and Margaret |
 | BigQuery | dataset `noa`, table `vitals_daily` | Minh | `person_id STRING, date DATE, systolic INT64, diastolic INT64, resting_hr INT64, steps INT64, meds_taken INT64, meds_scheduled INT64` |
 | Repo | `core-api/src/main/resources/data/scenarios/{scenario}.json` | Dũng | 15-minute vitals window, meds and allergies per scenario |
 | Repo | `core-api/src/main/resources/data/seed.json` | Dũng | people and hospitals loaded by reset |
