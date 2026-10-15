@@ -1,0 +1,147 @@
+{
+  "resourceType": "Bundle",
+  "id": "ba-mai-synthetic",
+  "meta": {
+    "tag": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "HTEST", "display": "test health data" }]
+  },
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "Patient/ba-mai",
+      "request": { "method": "PUT", "url": "Patient/ba-mai" },
+      "resource": {
+        "resourceType": "Patient",
+        "id": "ba-mai",
+        "meta": { "tag": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "HTEST", "display": "test health data" }] },
+        "extension": [
+          {
+            "url": "https://noonealone.insidesync.ai/fhir/StructureDefinition/synthetic-stated-age",
+            "valueAge": { "value": 78, "unit": "a", "system": "http://unitsofmeasure.org", "code": "a" }
+          }
+        ],
+        "name": [{ "text": "Bà Mai", "given": ["Mai"] }],
+        "gender": "female",
+        "address": [{ "text": "12 Kiệt 4, Hương Thủy, Huế (fictional)", "city": "Huế", "country": "VN" }]
+      }
+    },
+    {
+      "fullUrl": "Condition/ba-mai-hypertension",
+      "request": { "method": "PUT", "url": "Condition/ba-mai-hypertension" },
+      "resource": {
+        "resourceType": "Condition",
+        "id": "ba-mai-hypertension",
+        "meta": { "tag": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "HTEST", "display": "test health data" }] },
+        "clinicalStatus": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/condition-clinical", "code": "active" }] },
+        "verificationStatus": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status", "code": "confirmed" }] },
+        "code": { "coding": [{ "system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder" }], "text": "hypertension" },
+        "subject": { "reference": "Patient/ba-mai" }
+      }
+    },
+    {
+      "fullUrl": "Condition/ba-mai-hearing-loss",
+      "request": { "method": "PUT", "url": "Condition/ba-mai-hearing-loss" },
+      "resource": {
+        "resourceType": "Condition",
+        "id": "ba-mai-hearing-loss",
+        "meta": { "tag": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "HTEST", "display": "test health data" }] },
+        "clinicalStatus": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/condition-clinical", "code": "active" }] },
+        "verificationStatus": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status", "code": "confirmed" }] },
+        "code": { "coding": [{ "system": "http://snomed.info/sct", "code": "15188001", "display": "Hearing loss" }], "text": "hearing loss" },
+        "subject": { "reference": "Patient/ba-mai" }
+      }
+    },
+    {
+      "fullUrl": "MedicationStatement/ba-mai-amlodipine",
+      "request": { "method": "PUT", "url": "MedicationStatement/ba-mai-amlodipine" },
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "ba-mai-amlodipine",
+        "meta": { "tag": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "HTEST", "display": "test health data" }] },
+        "status": "active",
+        "medicationCodeableConcept": { "coding": [{ "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "17767", "display": "amlodipine" }], "text": "amlodipine" },
+        "subject": { "reference": "Patient/ba-mai" },
+        "dosage": [{ "text": "5 mg daily" }]
+      }
+    },
+    {
+      "fullUrl": "MedicationStatement/ba-mai-aspirin",
+      "request": { "method": "PUT", "url": "MedicationStatement/ba-mai-aspirin" },
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "ba-mai-aspirin",
+        "meta": { "tag": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "HTEST", "display": "test health data" }] },
+        "status": "active",
+        "medicationCodeableConcept": { "coding": [{ "system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "1191", "display": "aspirin" }], "text": "aspirin" },
+        "subject": { "reference": "Patient/ba-mai" },
+        "dosage": [{ "text": "81 mg daily" }]
+      }
+    },
+    {
+      "fullUrl": "AllergyIntolerance/ba-mai-penicillin",
+      "request": { "method": "PUT", "url": "AllergyIntolerance/ba-mai-penicillin" },
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "ba-mai-penicillin",
+        "meta": { "tag": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "HTEST", "display": "test health data" }] },
+        "clinicalStatus": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical", "code": "active" }] },
+        "verificationStatus": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification", "code": "confirmed" }] },
+        "code": { "text": "penicillin" },
+        "patient": { "reference": "Patient/ba-mai" }
+      }
+    },
+    {
+      "fullUrl": "FamilyMemberHistory/ba-mai-father",
+      "request": { "method": "PUT", "url": "FamilyMemberHistory/ba-mai-father" },
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "ba-mai-father",
+        "meta": { "tag": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "HTEST", "display": "test health data" }] },
+        "status": "completed",
+        "patient": { "reference": "Patient/ba-mai" },
+        "relationship": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode", "code": "FTH", "display": "father" }], "text": "father" },
+        "deceasedBoolean": true,
+        "condition": [
+          {
+            "code": { "coding": [{ "system": "http://snomed.info/sct", "code": "230690007", "display": "Cerebrovascular accident" }], "text": "stroke" },
+            "onsetAge": { "value": 68, "unit": "a", "system": "http://unitsofmeasure.org", "code": "a" }
+          },
+          {
+            "code": { "coding": [{ "system": "http://snomed.info/sct", "code": "38341003", "display": "Hypertensive disorder" }], "text": "hypertension" }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "Consent/ba-mai-hospital-sharing",
+      "request": { "method": "PUT", "url": "Consent/ba-mai-hospital-sharing" },
+      "resource": {
+        "resourceType": "Consent",
+        "id": "ba-mai-hospital-sharing",
+        "meta": { "tag": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "HTEST", "display": "test health data" }] },
+        "status": "active",
+        "scope": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/consentscope", "code": "patient-privacy" }] },
+        "category": [{ "coding": [{ "system": "http://loinc.org", "code": "59284-0", "display": "Patient Consent" }] }],
+        "patient": { "reference": "Patient/ba-mai" },
+        "policyRule": { "text": "SYNTHETIC demo consent: share the listed record categories with the receiving emergency department for treatment" },
+        "provision": {
+          "type": "permit",
+          "actor": [
+            {
+              "role": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "code": "IRCP", "display": "information recipient" }] },
+              "reference": { "display": "Receiving emergency department (synthetic)" }
+            }
+          ],
+          "purpose": [{ "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason", "code": "ETREAT", "display": "Emergency Treatment" }],
+          "code": [
+            { "coding": [{ "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing", "code": "identity" }] },
+            { "coding": [{ "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing", "code": "conditions" }] },
+            { "coding": [{ "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing", "code": "medications" }] },
+            { "coding": [{ "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing", "code": "allergies" }] },
+            { "coding": [{ "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing", "code": "familyHistory" }] },
+            { "coding": [{ "system": "https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing", "code": "communication" }] }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -17,8 +17,22 @@ function Deploy-Run([string] $Service, [string] $Dir, [string] $Sa, [bool] $Publ
     if ($LASTEXITCODE -ne 0) { throw "Deploy of $Service failed" }
 }
 
-if ($Target -in "all", "respond") { Deploy-Run "respond-agent" "agents/respond" "respond-agent" $false }
-if ($Target -in "all", "hospital") { Deploy-Run "hospital-agent" "agents/hospital" "hospital-agent" $false }
+if ($Target -in "all", "hospital") {
+    Deploy-Run "hospital-agent" "agents/hospital" "hospital-agent" $false
+    # The agent card advertises this URL; A2A clients send messages to it.
+    $hospitalUrl = gcloud run services describe hospital-agent --region $Region --project $ProjectId --format="value(status.url)"
+    if (-not $hospitalUrl) { throw "hospital-agent URL not found" }
+    gcloud run services update hospital-agent --region $Region --project $ProjectId --update-env-vars "A2A_PUBLIC_URL=$hospitalUrl" --quiet
+    if ($LASTEXITCODE -ne 0) { throw "Setting A2A_PUBLIC_URL on hospital-agent failed" }
+}
+# respond-agent forwards /handoff to hospital-agent, so hospital-agent goes first.
+if ($Target -in "all", "respond") {
+    Deploy-Run "respond-agent" "agents/respond" "respond-agent" $false
+    $hospitalUrl = gcloud run services describe hospital-agent --region $Region --project $ProjectId --format="value(status.url)"
+    if (-not $hospitalUrl) { throw "hospital-agent is not deployed; deploy it first" }
+    gcloud run services update respond-agent --region $Region --project $ProjectId --update-env-vars "HOSPITAL_AGENT_URL=$hospitalUrl" --quiet
+    if ($LASTEXITCODE -ne 0) { throw "Setting HOSPITAL_AGENT_URL on respond-agent failed" }
+}
 # core-api is public for Hosting rewrites and checks tokens itself; the org blocks allUsers, hence --no-invoker-iam-check.
 if ($Target -in "all", "core-api") {
     $authFlag = if ($AuthEnabled) { "true" } else { "false" }

@@ -419,7 +419,7 @@ core-api reads `meds` and `allergies` from the scenario fixture, not from FHIR. 
 ```json
 { "status": "RECEIVED", "packet": { }, "fallback": false }
 ```
-`status` is `RECEIVED` or `FAILED`. respond-agent forwards the request to hospital-agent over A2A and returns its result.
+`status` is `RECEIVED` or `FAILED`. respond-agent forwards the request to hospital-agent over A2A and returns its result. It reads the hospital-agent URL from env `HOSPITAL_AGENT_URL`, which `infra/deploy.ps1` sets, and calls it with an OIDC token for that URL.
 
 ### 4.4 hospital-agent (private, A2A)
 
@@ -442,6 +442,44 @@ respond-agent sends one A2A message whose single part is a data part (or JSON te
 }
 ```
 `communication` values: `HARD_OF_HEARING`, `COGNITIVE_IMPAIRMENT`. When the handoff has no `etaMin`, the packet omits `etaMin` and `text` starts with `PRE-ARRIVAL · ETA unknown`. The FHIR store holds a bundle for `ba-mai` and one for `margaret`. `baseline` is a constant in the agent prompt; FHIR has no source for it.
+
+Extra packet fields. All are additive. core-api stores `packet` as a map, so they reach Firestore unchanged, and respond-agent passes the packet on without dropping fields.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `status` | `COMPLETED` \| `PARTIAL` \| `BLOCKED_CONSENT` | How the packet was prepared. It is not delivery status and never means the hospital received anything |
+| `familyHistory` | string[] | From FamilyMemberHistory, e.g. `"father: stroke at 68, hypertension"` |
+| `withheld` | category[] | Record categories left out because consent does not permit them |
+| `warnings` | string[] | Codes only: `RECORD_UNAVAILABLE`, `PATIENT_NOT_FOUND`, `ALLERGIES_NOT_RECORDED`, `ETA_UNKNOWN`, `LAST_KNOWN_WELL_UNKNOWN`, `CONDITION_UNREADABLE`, `MEDICATION_UNREADABLE`, `ALLERGY_UNREADABLE`, `ALLERGY_RECORD_CONFLICT` |
+| `sources` | string[] | FHIR references the packet was built from, including the Consent that authorized it |
+
+Categories: `identity`, `conditions`, `medications`, `allergies`, `familyHistory`, `communication`.
+
+Field presence. The example shows every field. hospital-agent omits a field (section 1) when:
+
+- its category is not permitted by consent (`patient` and `baseline` need `identity`);
+- the record could not be read (`status: PARTIAL`);
+- `allergies`: no AllergyIntolerance is recorded. Absent means unknown, never "no allergies". A recorded "no known allergy" gives `[]`;
+- `etaMin` or `lastKnownWellAt` is absent in the request.
+
+`suspected`, `findings`, `text` and `status` are always present. Conditions that are not confirmed carry a `(provisional)` suffix. Conditions, medications and other lists follow the order of their FHIR reference (`Condition/{id}`), so the output does not depend on store order.
+
+Consent. A FHIR `Consent` on the person authorizes sharing with the receiving emergency department when it has status `active`, scope `patient-privacy`, `provision.type = permit`, purpose `ETREAT`, actor role `IRCP`, and a period that covers now. Its `provision.code` values on `https://noonealone.insidesync.ai/fhir/CodeSystem/hospital-sharing` are the permitted categories. Nested `deny` provisions remove categories.
+
+- With no valid Consent the packet has `status: BLOCKED_CONSENT` and shares nothing from the record: no name, age, sex, conditions, medications, allergies, family history, communication needs or baseline.
+- Facts that core-api puts in the request (suspected, last known well, findings, ETA, family contact) come from the emergency itself and are always included.
+- There is no emergency override. Adding one is a team policy decision.
+- The synthetic Consents for `ba-mai` and `margaret` permit all six categories, so the demo shows the full packet.
+
+Text. The first line is `PRE-ARRIVAL · ETA n min`, or `PRE-ARRIVAL · ETA unknown` when the request has no ETA. The second line is the patient line. Then come these rows in a fixed order: Status, Last well, Findings, History, Medicines, Allergy, Function, Comms, Contact. Labels follow the person. `ba-mai` gets Vietnamese labels with the English term in brackets, `margaret` gets English only. Times use the person's timezone (UTC+7 for `ba-mai`, Australia/Sydney, shown as AEDT or AEST, for `margaret`). The last line says the data is synthetic: `DỮ LIỆU MÔ PHỎNG · SYNTHETIC DEMO DATA` for `ba-mai`, `SYNTHETIC DEMO DATA` for `margaret`. Any other `personId` uses the `ba-mai` labels, timezone and baseline.
+
+Transport.
+
+- The reply is a completed A2A task whose artifact holds one text part with the packet JSON. The input may be a data part or a JSON text part.
+- Errors use the error shape from section 4 (`{ "error": { "code", "message" } }`), inside that text: `INVALID_REQUEST` (bad body) or `AGENT_FAILED`. Over HTTP these are 400 and 502.
+- HTTP fallback: `POST /handoff` on hospital-agent, same body and reply.
+- hospital-agent pins `google-adk[a2a]==2.11.0` and `a2a-sdk==1.2.2`. respond-agent must pin the same a2a-sdk major when it adds the client: a2a-sdk 1.x and 0.3.x are not wire compatible.
+- hospital-agent needs env `A2A_PUBLIC_URL` set to its own Cloud Run URL. The agent card advertises it and A2A clients send messages there. `deploy.ps1` sets it.
 
 A2A in ADK is experimental. Pin `google-adk` and `a2a-sdk` versions in each agent's `requirements.txt`. Minh's spike on 14/10 must prove that respond-agent can call a private Cloud Run hospital-agent with an OIDC token over A2A. If it cannot by 22:00 on 15/10, respond-agent calls hospital-agent over plain HTTP with the same JSON and the deck drops the A2A claim.
 
