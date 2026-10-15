@@ -419,7 +419,7 @@ core-api reads `meds` and `allergies` from the scenario fixture, not from FHIR. 
 ```json
 { "status": "RECEIVED", "packet": { }, "fallback": false }
 ```
-`status` is `RECEIVED` or `FAILED`. respond-agent forwards the request to hospital-agent over A2A and returns its result.
+`status` is `RECEIVED` or `FAILED`. respond-agent forwards the request to hospital-agent over A2A and returns its result. It reads the hospital-agent URL from env `HOSPITAL_AGENT_URL`, which `infra/deploy.ps1` sets, and calls it with an OIDC token for that URL.
 
 ### 4.4 hospital-agent (private, A2A)
 
