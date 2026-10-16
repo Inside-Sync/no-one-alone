@@ -15,6 +15,13 @@ log = logging.getLogger("hospital_agent")
 _reader: RecordReader | None = None
 
 
+def configure() -> RecordReader:
+    """Builds the reader from the environment now, so a misconfigured revision fails at boot, not per request."""
+    global _reader
+    _reader = default_reader()
+    return _reader
+
+
 def _default() -> RecordReader:
     global _reader
     if _reader is None:

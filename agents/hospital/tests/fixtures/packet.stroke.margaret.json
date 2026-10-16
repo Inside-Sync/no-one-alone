@@ -1,0 +1,72 @@
+{
+  "patient": {
+    "name": "Margaret Collins",
+    "age": 78,
+    "sex": "F"
+  },
+  "suspected": "STROKE",
+  "lastKnownWellAt": "2026-10-15T14:55:00Z",
+  "findings": [
+    "slurred speech 02:04",
+    "HR 142"
+  ],
+  "conditions": [
+    "atrial fibrillation (provisional)",
+    "chronic kidney disease stage 3a",
+    "hearing loss",
+    "hypertension",
+    "osteoarthritis of both knees",
+    "prediabetes"
+  ],
+  "medications": [
+    {
+      "name": "amlodipine",
+      "dose": "5 mg each evening"
+    },
+    {
+      "name": "paracetamol",
+      "dose": "500 mg as needed"
+    },
+    {
+      "name": "vitamin D3",
+      "dose": "1000 IU daily"
+    }
+  ],
+  "allergies": [
+    "penicillin"
+  ],
+  "communication": [
+    "HARD_OF_HEARING"
+  ],
+  "baseline": "Lives alone, independent, walking stick outdoors",
+  "contact": {
+    "name": "David",
+    "relation": "son",
+    "onScene": true
+  },
+  "etaMin": 9,
+  "text": "PRE-ARRIVAL · ETA 9 min\nMargaret Collins, 78, F\nStatus: suspected stroke\nLast well: 01:55 16/10 (AEDT)\nFindings: slurred speech 02:04 · HR 142\nHistory: atrial fibrillation (provisional), chronic kidney disease stage 3a, hearing loss, hypertension, osteoarthritis of both knees, prediabetes · family: father: stroke at 74, type 2 diabetes; mother: dementia\nMedicines: amlodipine 5 mg each evening, paracetamol 500 mg as needed, vitamin D3 1000 IU daily\nAllergy: penicillin\nFunction: Lives alone, independent, walking stick outdoors\nComms: hard of hearing\nContact: David (son)\nSYNTHETIC DEMO DATA",
+  "status": "COMPLETED",
+  "familyHistory": [
+    "father: stroke at 74, type 2 diabetes",
+    "mother: dementia"
+  ],
+  "withheld": [],
+  "warnings": [],
+  "sources": [
+    "AllergyIntolerance/margaret-penicillin",
+    "Condition/margaret-af",
+    "Condition/margaret-ckd",
+    "Condition/margaret-hearing-loss",
+    "Condition/margaret-hypertension",
+    "Condition/margaret-knee-oa",
+    "Condition/margaret-prediabetes",
+    "Consent/margaret-hospital-sharing",
+    "FamilyMemberHistory/margaret-father",
+    "FamilyMemberHistory/margaret-mother",
+    "MedicationStatement/margaret-amlodipine",
+    "MedicationStatement/margaret-paracetamol",
+    "MedicationStatement/margaret-vitamin-d",
+    "Patient/margaret"
+  ]
+}

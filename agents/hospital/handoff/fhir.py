@@ -43,7 +43,11 @@ class FixtureReader:
 
 
 def default_reader() -> RecordReader:
+    """fixture (default) or live. A bad setting raises here; live never falls back to fixtures."""
     source = os.environ.get("FHIR_SOURCE", "fixture")
     if source == "fixture":
         return FixtureReader(os.environ.get("FHIR_FIXTURE_DIR", DEFAULT_DIR))
-    raise RuntimeError(f"FHIR_SOURCE={source!r} is not supported yet")
+    if source == "live":
+        from .live import HealthcareReader
+        return HealthcareReader(os.environ.get("FHIR_STORE"), base=os.environ.get("FHIR_API_BASE"))
+    raise RuntimeError(f"FHIR_SOURCE={source!r} must be fixture or live")
