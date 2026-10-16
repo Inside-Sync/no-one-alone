@@ -1,6 +1,5 @@
 {
   "forecast": {
-    "stroke90d": 2.1,
     "wellbeing": {
       "score": 72,
       "delta": -5
@@ -54,8 +53,8 @@
       "stats": [
         {
           "label": "90-day stroke risk",
-          "value": "2.1%",
-          "note": "2.4× her usual",
+          "value": "High",
+          "note": "demo rule, not a probability",
           "tone": "bad"
         },
         {
@@ -66,8 +65,8 @@
         },
         {
           "label": "If doses back to 100%",
-          "value": "1.3%",
-          "note": "−38% relative",
+          "value": "131",
+          "note": "systolic in 4 weeks",
           "tone": "good"
         }
       ],
@@ -155,17 +154,17 @@
       {
         "emoji": "👀",
         "label": "Watches",
-        "value": "64 signs"
+        "value": "11 signs"
       },
       {
         "emoji": "📚",
-        "label": "Learned from",
-        "value": "48,000 histories"
+        "label": "Forecast by",
+        "value": "BigQuery AI.FORECAST"
       },
       {
         "emoji": "🎯",
-        "label": "Right about",
-        "value": "8 in 10 times"
+        "label": "Risk level",
+        "value": "Demo rules, not a diagnosis"
       },
       {
         "emoji": "🩺",
@@ -187,10 +186,6 @@
     "risks": [
       {
         "name": "Stroke",
-        "nextMonth": "0.7%",
-        "threeMonths": "2.1%",
-        "nextYear": "7.8%",
-        "range": "1.4–3.0",
         "level": "High",
         "tone": "bad",
         "trend": "↑",
@@ -198,21 +193,13 @@
       },
       {
         "name": "Fall with injury",
-        "nextMonth": "9.0%",
-        "threeMonths": "21%",
-        "nextYear": "38%",
-        "range": "16–27",
         "level": "High",
         "tone": "bad",
         "trend": "↑",
-        "reason": "Gait speed −8%"
+        "reason": "Walking slower"
       },
       {
         "name": "Hospital admission",
-        "nextMonth": "5.2%",
-        "threeMonths": "14%",
-        "nextYear": "41%",
-        "range": "10–19",
         "level": "Medium",
         "tone": "warn",
         "trend": "↑",
@@ -220,10 +207,6 @@
       },
       {
         "name": "Heat-related illness",
-        "nextMonth": "6.0%",
-        "threeMonths": "—",
-        "nextYear": "—",
-        "range": "4.1–8.8 (7 d)",
         "level": "Medium",
         "tone": "warn",
         "trend": "↑",
@@ -231,10 +214,6 @@
       },
       {
         "name": "Hearing decline",
-        "nextMonth": "—",
-        "threeMonths": "18%",
-        "nextYear": "46%",
-        "range": "13–24",
         "level": "Medium",
         "tone": "warn",
         "trend": "↑",
@@ -242,10 +221,6 @@
       },
       {
         "name": "Cognitive decline (MCI)",
-        "nextMonth": "—",
-        "threeMonths": "3.1%",
-        "nextYear": "11%",
-        "range": "2.0–4.6",
         "level": "Watch",
         "tone": "warn",
         "trend": "→",
@@ -253,10 +228,6 @@
       },
       {
         "name": "Heart failure episode",
-        "nextMonth": "0.8%",
-        "threeMonths": "2.3%",
-        "nextYear": "8.1%",
-        "range": "1.5–3.4",
         "level": "Low",
         "tone": "good",
         "trend": "→",
@@ -264,10 +235,6 @@
       },
       {
         "name": "Low mood / loneliness",
-        "nextMonth": "7%",
-        "threeMonths": "12%",
-        "nextYear": "22%",
-        "range": "8–17",
         "level": "Low",
         "tone": "good",
         "trend": "↓",
@@ -308,7 +275,7 @@
         "value": -0.07
       }
     ],
-    "shapNote": "A typical woman her age on blood pressure tablets has about a 0.9% chance. These reasons add up to Margaret's 2.1%.",
+    "shapNote": "Bars show how strongly each reason pushes her risk level. Example weights for a prototype.",
     "signs": [
       {
         "sign": "🩺 Morning blood pressure",

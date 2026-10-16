@@ -2,13 +2,9 @@
   "modelTitle": "ℹ️ Dự báo này hoạt động thế nào",
   "risks": {
     "title": "📊 Nguy cơ theo thời gian",
-    "meta": "Trên 100 phụ nữ giống bà Margaret",
+    "meta": "Mức do quy tắc demo đặt, không phải xác suất",
     "columns": [
       "Điều có thể xảy ra",
-      "Tháng tới",
-      "3 tháng tới",
-      "Năm tới",
-      "Khoảng có thể",
       "Mức",
       "Xu hướng",
       "Lý do chính"
@@ -39,7 +35,8 @@
     ],
     "delta": {
       "none": "không đổi",
-      "relative": "{{pct}} tương đối"
+      "lower": "thấp hơn",
+      "higher": "cao hơn"
     }
   },
   "bp": {

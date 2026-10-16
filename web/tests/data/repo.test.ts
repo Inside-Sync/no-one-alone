@@ -30,7 +30,6 @@ test('margaret fixture matches prototype', async () => {
 
 test('forecast headline numbers', async () => {
   const f = await getForecast('margaret')
-  expect(f.stroke90d).toBe(2.1)
   expect(f.wellbeing).toEqual({ score: 72, delta: -5 })
 })
 
@@ -97,7 +96,7 @@ describe('forecast', () => {
   test('tables and projections', async () => {
     const f = await getForecast('margaret')
     expect(f.risks).toHaveLength(8)
-    expect(f.risks[0]).toMatchObject({ name: 'Stroke', threeMonths: '2.1%', level: 'High' })
+    expect(f.risks[0]).toMatchObject({ name: 'Stroke', level: 'High' })
     expect(f.shap).toHaveLength(8)
     expect(f.signs).toHaveLength(11)
     expect(f.bp.observed).toEqual([128, 131, 133, 137, 140, 146])

@@ -14,8 +14,8 @@ test('hearing aids', () => {
 })
 test('deltaLabel', () => {
   expect(deltaLabel(2.1, 2.1)).toEqual({ text: 'no change', tone: 'muted' })
-  expect(deltaLabel(1.3, 2.1)).toEqual({ text: '−38% relative', tone: 'good' })
-  expect(deltaLabel(2.5, 2.1)).toEqual({ text: '+19% relative', tone: 'bad' })
+  expect(deltaLabel(1.3, 2.1)).toEqual({ text: 'lower', tone: 'good' })
+  expect(deltaLabel(2.5, 2.1)).toEqual({ text: 'higher', tone: 'bad' })
 })
 const BP = { observed: [128, 131, 133, 137, 140, 146], projectedNothing: [146, 148.5, 151, 153.5, 156], projectedAdherent: [146, 140, 136, 133, 131] }
 

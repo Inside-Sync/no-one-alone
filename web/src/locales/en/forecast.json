@@ -2,13 +2,9 @@
   "modelTitle": "ℹ️ How this forecast works",
   "risks": {
     "title": "📊 Chances over time",
-    "meta": "Out of 100 women like Margaret",
+    "meta": "Levels set by demo rules, not probabilities",
     "columns": [
       "What could happen",
-      "Next month",
-      "Next 3 months",
-      "Next year",
-      "Likely range",
       "Level",
       "Trend",
       "Main reason"
@@ -39,7 +35,8 @@
     ],
     "delta": {
       "none": "no change",
-      "relative": "{{pct}} relative"
+      "lower": "lower",
+      "higher": "higher"
     }
   },
   "bp": {
@@ -79,7 +76,7 @@
     }
   },
   "shap": {
-    "title": "⚖️ What pushes her stroke chance up or down",
+    "title": "⚖️ What pushes her stroke risk up or down",
     "meta": "Red pushes up · green pulls down"
   },
   "signs": {

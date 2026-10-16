@@ -227,7 +227,7 @@ export function overlayForecast(f: Forecast, doc: ForecastDoc, seed: Seed | null
     const name = riskRowName(r.condition)
     const i = risks.findIndex((x) => x.name === name)
     if (i >= 0) risks[i] = { ...risks[i], level, tone }
-    else risks.push({ name, nextMonth: '—', threeMonths: '—', nextYear: '—', range: i18n.t('overlay:forecast.horizon', { n: r.horizonDays }), level, tone, trend: '→', reason: '' })
+    else risks.push({ name, level, tone, trend: '→', reason: i18n.t('overlay:forecast.horizon', { n: r.horizonDays }) })
   }
   const owner = doc.action?.ownerMemberId && seed ? nameOf(seed, doc.action.ownerMemberId) : null
   const actions = doc.action

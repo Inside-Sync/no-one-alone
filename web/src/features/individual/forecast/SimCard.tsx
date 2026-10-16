@@ -38,8 +38,7 @@ export function SimCard({ sim, value, onChange }: { sim: Forecast['sim']; value:
           return (
             <div key={key}>
               <small>{label}</small>
-              <b>{r[key].toFixed(1)}%</b>
-              <em style={{ color: toneColour[d.tone] }}>{d.text}</em>
+              <b style={{ color: toneColour[d.tone] }}>{d.text}</b>
             </div>
           )
         })}

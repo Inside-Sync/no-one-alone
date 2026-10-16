@@ -431,10 +431,6 @@ export interface ForecastModelFact {
 
 export interface RiskRow {
   name: string
-  nextMonth: string
-  threeMonths: string
-  nextYear: string
-  range: string
   level: string
   tone: Severity
   trend: '↑' | '↓' | '→'
@@ -490,8 +486,6 @@ export interface SimSlider {
 }
 
 export interface Forecast {
-  /** 90-day stroke risk, in percent. */
-  stroke90d: number
   wellbeing: { score: number; delta: number }
   wellbeingNote: string
   /** `#radar` axes: now vs last month. */
