@@ -1,15 +1,20 @@
-"""respond-agent. Owner: Tài. Interface: docs/contract.md section 4.3.
-
-Every route returns the contract example until the real agent replaces it,
-so core-api can integrate from day one.
-"""
+"""respond-agent. Owner: Tài. Interface: docs/contract.md section 4.3."""
+import base64
+import logging
 import os
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
+import checkin
+import gcp
+import plan
+import rules
 from hospital_client import send_handoff
 
+log = logging.getLogger("respond")
 app = FastAPI(title="respond-agent")
+assessor = gcp.GeminiAssessor()
+voice = gcp.ChirpVoice()
 
 
 @app.get("/health")
@@ -17,28 +22,52 @@ def health():
     return {"service": "respond-agent", "status": "ok"}
 
 
+def add_audio(holder: dict, locale: str) -> bool:
+    audio = voice.speak(holder["text"], locale)
+    if audio is not None:
+        holder["audioBase64"], holder["mimeType"] = base64.b64encode(audio).decode(), "audio/mpeg"
+    return audio is not None
+
+
 @app.post("/verify")
 def verify(body: dict):
-    return {"isReal": True, "reason": "stub", "lastKnownWellAt": "2026-10-15T18:55:00Z", "fallback": True}
+    try:
+        return rules.verify(body)
+    except Exception as e:
+        log.warning("verify failed: %s", type(e).__name__)
+        return {"isReal": True, "reason": "rules failed", "fallback": True}
 
 
 @app.post("/checkin/turn")
 def checkin_turn(body: dict):
-    return {"next": {"text": "Mạ ơi, Lan nhờ con hỏi thăm mạ. Mạ có nghe con nói không?", "kind": "VOICE"},
-            "done": False, "fallback": True}
+    try:
+        out = checkin.turn(body, assessor)
+        if out.get("next"):
+            out["fallback"] = out["fallback"] or not add_audio(out["next"], gcp.locale_for(body["person"]))
+        return out
+    except Exception as e:
+        log.warning("checkin failed: %s", type(e).__name__)
+        return {"done": True, "fallback": True}
 
 
 @app.post("/triage")
 def triage(body: dict):
-    return {"level": "EMERGENCY", "reasons": ["stub"], "fallback": True}
+    try:
+        return rules.triage(body)
+    except Exception as e:
+        log.warning("triage failed: %s", type(e).__name__)
+        return {"level": "EMERGENCY", "reasons": ["rules failed"], "fallback": True}
 
 
 @app.post("/plan")
-def plan(body: dict):
-    return {"messages": [{"memberId": m["memberId"], "text": "stub"} for m in body.get("members", [])],
-            "callScript": "stub",
-            "personInstruction": {"scriptIds": ["SIT_STILL"], "text": "stub"},
-            "fallback": True}
+def plan_route(body: dict):
+    try:
+        out = plan.plan(body)
+        out["fallback"] = out["fallback"] or not add_audio(out["personInstruction"], gcp.locale_for(body["person"]))
+        return out
+    except Exception as e:
+        log.warning("plan failed: %s", type(e).__name__)
+        raise HTTPException(status_code=503, detail="plan failed")
 
 
 @app.post("/handoff")
