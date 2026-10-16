@@ -10,7 +10,7 @@ vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/record/', u
 const idle = async () => {}
 const liveValue: LiveIncidentValue = {
   live: true, loading: false, error: null, incident: null, people: { person: null, members: {} }, view: null,
-  start: idle, reset: idle, checkin: idle, act: idle,
+  start: idle, reset: idle, checkin: idle, act: idle, recover: idle,
 }
 vi.mock('@/state/LiveIncident', () => ({ useLiveIncident: () => liveValue }))
 

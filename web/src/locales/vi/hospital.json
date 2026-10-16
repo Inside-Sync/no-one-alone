@@ -37,6 +37,30 @@
     "divert": {
       "label": "Chuyển hướng",
       "toast": "Đã đề nghị xe cứu thương chuyển hướng"
+    },
+    "recovery": {
+      "title": "Kế hoạch hồi phục",
+      "meta": "Cho người bệnh về nhà",
+      "staff": "Bác sĩ",
+      "diagnosis": "Chẩn đoán",
+      "meds": "Thuốc",
+      "medName": "Tên thuốc {{n}}",
+      "medDose": "Liều thuốc {{n}}",
+      "medTimes": "Giờ uống thuốc {{n}}",
+      "activities": "Hoạt động",
+      "actText": "Hoạt động {{n}}",
+      "actTimes": "Giờ hoạt động {{n}}",
+      "followUps": "Tái khám",
+      "fuText": "Tái khám {{n}}",
+      "fuDays": "Tái khám {{n}} sau bao nhiêu ngày",
+      "notes": "Dặn dò của bác sĩ",
+      "hint": "Giờ dạng HH:mm, cách nhau bằng dấu phẩy",
+      "send": "Cho về nhà với kế hoạch này",
+      "sending": "Đang gửi…",
+      "sentAt": "Đã cho về nhà lúc {{time}}",
+      "sent": "Đã cho về nhà",
+      "reminders": "Nhắc nhở",
+      "failed": "Không gửi được kế hoạch"
     }
   },
   "panel": {

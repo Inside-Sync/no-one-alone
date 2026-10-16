@@ -1,4 +1,4 @@
-import type { CheckinInput, DemoCurrentDoc, DemoScenario, IncidentDoc, ServerAction } from './contract'
+import type { CheckinInput, DemoCurrentDoc, DemoScenario, IncidentDoc, RecoveryRequest, ServerAction } from './contract'
 import { mockSource } from './sources/mock'
 import type { Seed } from './sources/overlay'
 import type { DataSource } from './sources/source'
@@ -113,6 +113,7 @@ const api = () => import('./api')
 export const startDemo = async (scenario: DemoScenario) => (await api()).startDemo(scenario, SUBJECT_ID)
 export const checkin = async (incidentId: string, input: CheckinInput) => (await api()).checkin(incidentId, input)
 export const act = async (incidentId: string, memberId: string, action: ServerAction) => (await api()).act(incidentId, memberId, action)
+export const recovery = async (incidentId: string, body: RecoveryRequest) => (await api()).recovery(incidentId, body)
 
 /** Resets the demo; the next read gets the re-seeded people and hospitals. */
 export async function resetDemo(): Promise<void> {
