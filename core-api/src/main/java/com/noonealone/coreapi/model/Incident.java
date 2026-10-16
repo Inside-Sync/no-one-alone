@@ -27,6 +27,7 @@ public class Incident {
     public String escalationTaskName;
     public String callScript;
     public HandoffInfo handoff;
+    public RecoveryInfo recovery;
     public List<TimelineEntry> timeline = new ArrayList<>();
     public DemoSettings demo = new DemoSettings();
 

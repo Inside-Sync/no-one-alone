@@ -42,6 +42,10 @@ public class RespondAgentClient {
         return post("/handoff", body, HandoffResult.class);
     }
 
+    public RecoveryResult recovery(Map<String, Object> body) {
+        return post("/recovery", body, RecoveryResult.class);
+    }
+
     private <T> T post(String path, Map<String, Object> body, Class<T> type) {
         try {
             T result = http.post().uri(path).contentType(MediaType.APPLICATION_JSON).body(body).retrieve().body(type);
