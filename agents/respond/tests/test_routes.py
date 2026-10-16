@@ -101,3 +101,11 @@ def test_gemini_strips_mime_parameters():
 def test_vi_findings_cover_symptoms():
     from lang import load_scripts
     assert set(gcp.SYMPTOMS) <= set(load_scripts()["vi"]["findings"])
+
+
+def test_validate_keeps_only_a_short_plain_ack():
+    ok = {"transcript": "t", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 1}
+    assert gcp.validate({**ok, "ack": " I'm glad you can hear me. "})["ack"] == "I'm glad you can hear me."
+    assert "ack" not in gcp.validate({**ok, "ack": "Are you okay?"})
+    assert "ack" not in gcp.validate({**ok, "ack": "x" * 121})
+    assert "ack" not in gcp.validate(ok)
