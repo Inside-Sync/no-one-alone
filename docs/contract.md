@@ -199,7 +199,7 @@ Size check: audio lives in Storage, so an incident stays small (at most 8 turns,
 
 ### 2.4 `forecasts/{personId}`
 
-Written once by Minh's job from BigQuery `AI.FORECAST`. Story day 0 is 2026-08-14, so day 21 is 2026-09-04 and day 63 is the stroke night of 2026-10-16 (Huế time). The synthetic `vitals_daily` series covers day 0 to day 63. The day-21 forecast uses days 0 to 21 and predicts 30 days ahead.
+Written once by Minh's job from BigQuery `AI.FORECAST`. Story day 0 is 2026-08-14, so day 21 is 2026-09-04 and day 63 is the stroke night of 2026-10-16 (Huế time). The synthetic `vitals_daily` series covers day -26 (2026-07-19) to day 63. The day-21 forecast uses the 48 days up to day 21 and predicts 30 days ahead, so `series` holds 48 history points and 30 forecast points.
 
 The job writes one document for `ba-mai` and one for `margaret`. For Margaret, day 63 is the stroke night in Sydney time.
 

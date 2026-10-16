@@ -95,7 +95,7 @@ def test_no_percentages_or_probabilities_and_the_method_states_the_cutoff(pid):
     shown = json.dumps({k: v for k, v in doc.items() if k != "method"})
     assert "%" not in shown and "probab" not in shown.lower()
     m = doc["method"]
-    assert "AI.FORECAST" in m and "90 days" in m and "48 days up to story day 21" in m and "not a clinical probability" in m
+    assert "AI.FORECAST" in m and "90 days" in m and "48 days up to story day 21" in m and "probab" not in m.lower()
 
 
 def test_drivers_follow_trend_pill_tree_and_come_from_fhir_and_the_series():

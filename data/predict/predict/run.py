@@ -22,10 +22,8 @@ import sys
 from pathlib import Path
 
 from . import bq, family, forecast, forecast_doc, forecast_review, review, sources, vitals
-from .contract import check_forecast_doc
-from .explain import gemini_drivers
-from .contract import check_family_doc
-from .explain import Explainer, GeminiExplainer, NoExplainer
+from .contract import check_family_doc, check_forecast_doc
+from .explain import Explainer, GeminiExplainer, NoExplainer, gemini_drivers
 from .firestore_out import firestore_client, write_doc
 
 PROJECT = "no-one-alone-511616"
@@ -173,11 +171,12 @@ def _forecast(ap, args, *, db, explainer, bq_client) -> int:
     if args.source:
         source, entries, problems = forecast_review.load(args.source, seed)
         print(f"review file {args.source} sha256 {forecast_review.sha256(args.source) if args.source.is_file() else '-'}")
+        held = entries
         entries = [e for e in entries if e["personId"] in people]
         if not problems and {e["personId"] for e in entries} != set(people):
             problems = [f"file does not hold every requested person: {sorted(people)}"]
         if not problems and args.write:
-            problems = forecast_review.job_problems(bq_client or bq.bigquery_client(args.project), source, entries)
+            problems = forecast_review.job_problems(bq_client or bq.bigquery_client(args.project), source, held)
         if problems:
             print("review file rejected, nothing written:\n  " + "\n  ".join(problems), file=sys.stderr)
             return 1

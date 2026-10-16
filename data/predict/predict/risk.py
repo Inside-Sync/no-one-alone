@@ -1,7 +1,4 @@
-"""Demo-only stroke risk level from the BP forecast, adherence and documented family history.
-
-This is a rule, not a model of stroke: no probability is computed or stored.
-"""
+"""Demo-only stroke risk level from the BP forecast, adherence and documented family history."""
 UPPER_LIMIT = 150     # mmHg, forecast upper bound within 30 days
 ADHERENCE_LIMIT = 0.8
 

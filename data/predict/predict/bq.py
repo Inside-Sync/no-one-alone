@@ -1,8 +1,4 @@
-"""BigQuery load for noa.vitals_daily: staging table, conflict check, insert-only MERGE, read-back.
-
-Never truncates, deletes from or drops vitals_daily. Only our (person_id, date) keys are inserted; an existing row
-for one of those keys that differs from ours aborts the load before anything is merged.
-"""
+"""BigQuery load for noa.vitals_daily: staging table, conflict check, insert-only MERGE, read-back."""
 from .sources import PERSON_ID
 from .vitals import COLUMNS
 

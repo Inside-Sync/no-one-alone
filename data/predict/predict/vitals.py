@@ -1,8 +1,4 @@
-"""Deterministic synthetic daily vitals, 90 days per person (story day -26 to day 63). Synthetic demo data only.
-
-Story day 0 is 2026-08-14 and day 21 (2026-09-04) is the forecast date (contract 2.4). Days 22 to 63 are stored
-in BigQuery as the later trend but are never model input: `history()` cuts at day 21.
-"""
+"""Deterministic synthetic daily vitals, 90 days per person (story day -26 to day 63). Synthetic demo data only."""
 import random
 from dataclasses import dataclass, field
 from datetime import date, timedelta

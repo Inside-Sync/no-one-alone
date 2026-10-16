@@ -1,9 +1,4 @@
-"""Reviewed forecast output: save what a real AI.FORECAST run produced, and re-check a saved file before writing.
-
-Loading never calls BigQuery's query API or Gemini. It rebuilds everything that is deterministic (observed series,
-facts, risk level, action, fallback drivers) and accepts the stored forecast points only if they come from a
-BigQuery job (never the local stand-in) and are 30 consecutive days after story day 21 with valid intervals.
-"""
+"""Reviewed forecast output: save what a real AI.FORECAST run produced, and re-check a saved file before writing."""
 import copy
 import hashlib
 import json
@@ -53,7 +48,7 @@ def verify(entry: dict, seed: dict) -> list[str]:
     doc = entry.get("doc")
     if problems := [f"{pid}: {p}" for p in check_forecast_doc(doc)]:
         return problems
-    shown = json.dumps({k: v for k, v in doc.items() if k != "method"})  # method only says it is NOT a probability
+    shown = json.dumps(doc)
     if "%" in shown or re.search(r"probab|percent", shown, re.I):
         return [f"{pid}: the document must not contain percentages or probabilities"]
     rows = vitals.generate(pid)
@@ -65,7 +60,7 @@ def verify(entry: dict, seed: dict) -> list[str]:
     expected = forecast_doc.build(pid, rows, points, sources.load_bundle(pid), seed)
     exp = expected["doc"]
     for key in ("asOf", "storyDay", "method", "risks", "action", "series"):
-        if doc[key] != exp[key]:
+        if doc.get(key) != exp.get(key):
             return [f"{pid}: {key} differs from what the rules give for this forecast"]
     if len(doc["drivers"]) != 3:
         return [f"{pid}: exactly three drivers (trend, pill, tree)"]

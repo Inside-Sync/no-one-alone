@@ -17,7 +17,7 @@ FIRST_DATE = (vitals.DAY0 + timedelta(days=vitals.FIRST_DAY)).isoformat()
 LAST_DATE = (vitals.DAY0 + timedelta(days=vitals.LAST_DAY)).isoformat()
 METHOD = (f"BigQuery AI.FORECAST (TimesFM) on systolic blood pressure. The synthetic daily series covers "
           f"{len(vitals.DAYS)} days ({FIRST_DATE} to {LAST_DATE}); model input is only the {HISTORY_DAYS} days up to "
-          f"story day {vitals.AS_OF_DAY} ({vitals.AS_OF.isoformat()}). Risk level by demo rules, not a clinical probability.")
+          f"story day {vitals.AS_OF_DAY} ({vitals.AS_OF.isoformat()}).")
 DRIVER_KINDS = ("trend", "adherence", "family")
 ALLOWED = ("blood pressure", "mmhg", "tablet", "dose", "medicine")
 DRIVER_PROMPT = (

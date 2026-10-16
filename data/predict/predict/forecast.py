@@ -1,8 +1,4 @@
-"""BigQuery AI.FORECAST (TimesFM) on systolic blood pressure, input cut at story day 21.
-
-`run_forecast` is the real job. `stand_in` is a local straight-line projection for dry runs and tests; its result
-is labelled `local-stand-in` and can never be written to Firestore (forecast_review rejects it).
-"""
+"""BigQuery AI.FORECAST (TimesFM) on systolic blood pressure, input cut at story day 21."""
 from dataclasses import asdict, dataclass
 from datetime import date, datetime, timedelta
 
