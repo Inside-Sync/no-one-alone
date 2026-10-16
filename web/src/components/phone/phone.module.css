@@ -24,3 +24,5 @@
 /* Taller than the prototype's 300/600 frame so 28 pt text and a 92 px button fit without clipping. */
 .frame:global(.device) { aspect-ratio: 300 / 780; }
 .screen .help { align-items: flex-start; }
+/* A long live question would push the reply button below a fixed-height screen; let the screen grow instead. */
+.frame .screen { height: auto; min-height: 100%; }
