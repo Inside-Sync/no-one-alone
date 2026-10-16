@@ -42,4 +42,6 @@ def triage(body: dict) -> dict:
         raise_to("COME_NOW", "answered no")
     if alert["hr"] >= 130 and not any(a.get("clarity") == "CLEAR" for a in assessments):
         raise_to("COME_NOW", f"HR {alert['hr']} without activity")
+    if alert["hr"] >= 130 and body.get("noReplyCount", 0) >= 2:
+        raise_to("EMERGENCY", f"unresponsive with HR {alert['hr']}")
     return {"level": level, "reasons": reasons, "fallback": False}
