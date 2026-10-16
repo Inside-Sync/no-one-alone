@@ -57,6 +57,11 @@ def test_high_hr_without_answers_is_come_now():
     assert rules.triage({"alert": alert(142), "turns": []})["level"] == "COME_NOW"
 
 
+def test_unresponsive_with_high_hr_is_emergency():
+    r = rules.triage({"alert": alert(142), "turns": [], "noReplyCount": 2})
+    assert r["level"] == "EMERGENCY" and "unresponsive with HR 142" in r["reasons"]
+
+
 def test_clear_yes_answer_is_monitor():
     r = rules.triage({"alert": alert(80), "turns": [person("Có")]})
     assert r["level"] == "MONITOR" and r["fallback"] is False
