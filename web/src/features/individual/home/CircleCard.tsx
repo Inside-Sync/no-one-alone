@@ -3,6 +3,7 @@
 import { useTranslation } from 'react-i18next'
 import { Orbit } from '@/components/canvas/Orbit'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Avatar } from '@/components/ui/Avatar'
 import { Pill } from '@/components/ui/Pill'
 import { useToast } from '@/components/ui/Toast'
 import type { CircleMember, OrbitScene } from '@/data/types'
@@ -19,7 +20,7 @@ export function CircleCard({ scene, members }: { scene: OrbitScene; members: Cir
       <ul className="ppl">
         {members.map((m) => (
           <li key={m.id}>
-            <span className="av sm" style={{ '--c': m.color } as React.CSSProperties}>{m.initials}</span>
+            <Avatar name={m.name} className="av sm" style={{ '--c': m.color } as React.CSSProperties}>{m.initials}</Avatar>
             <span><b>{m.name}</b><small>{m.note}</small></span>
             <Pill tone={m.role.tone}>{m.role.text}</Pill>
           </li>

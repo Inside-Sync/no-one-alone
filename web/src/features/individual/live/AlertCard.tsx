@@ -3,6 +3,7 @@
 import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Orbit } from '@/components/canvas/Orbit'
+import { Avatar } from '@/components/ui/Avatar'
 import { useDrawer } from '@/components/ui/Drawer'
 import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
@@ -45,7 +46,7 @@ export function AlertCard({ step, scene, onEnd }: { step: number; scene: OrbitSc
           <span style={right}><b id="emWhat" style={medium}>{v.what}</b><br /><small className="muted" id="emSub">{v.sub}</small></span>
         </div>
         <div className="owner">
-          <span className="av" style={ownerAv}>D</span>
+          <Avatar name="David" style={ownerAv}>D</Avatar>
           <span><b id="ownT">{v.own[0]}</b><small id="ownS">{v.own[1]}</small></span>
           <span className="eta" id="ownE">{v.own[2]}</span>
         </div>

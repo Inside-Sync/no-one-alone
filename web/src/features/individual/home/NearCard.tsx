@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslation } from 'react-i18next'
+import { Avatar } from '@/components/ui/Avatar'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Pill } from '@/components/ui/Pill'
 import type { Surroundings } from '@/data/types'
@@ -15,7 +16,7 @@ export function NearCard({ nearby }: { nearby: Surroundings['nearby'] }) {
       <ul className="list">
         {nearby.map((n) => (
           <li key={n.name}>
-            <span className="av sm" style={{ '--c': n.color } as React.CSSProperties}>{n.initials}</span>
+            <Avatar name={n.name} className="av sm" style={{ '--c': n.color } as React.CSSProperties}>{n.initials}</Avatar>
             <span><b>{n.name}</b><small>{n.note}</small></span>
             <Pill tone={n.pill.tone}>{n.pill.text}</Pill>
           </li>

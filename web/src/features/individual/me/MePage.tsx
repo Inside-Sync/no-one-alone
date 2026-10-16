@@ -3,6 +3,7 @@
 import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from '@/app/navigation'
+import { Avatar } from '@/components/ui/Avatar'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { OnceButton } from '@/components/ui/OnceButton'
 import { useToast } from '@/components/ui/Toast'
@@ -36,7 +37,7 @@ export function MePage() {
         <ul className="list">
           {people.map((p) => (
             <li key={p.id}>
-              <span className="av sm" style={{ '--c': p.color } as CSSProperties}>{p.initials}</span>
+              <Avatar name={p.name} className="av sm" style={{ '--c': p.color } as CSSProperties}>{p.initials}</Avatar>
               <span><b>{p.name}</b><small>{p.role}</small></span>
               {share && (
                 <span className={paused ? 'pill warn' : 'pill plain'}>

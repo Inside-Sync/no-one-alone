@@ -8,6 +8,7 @@ import { useToast } from '@/components/ui/Toast'
 import { apiErrorCode, audioUrl } from '@/data/repo'
 import type { CheckinInput } from '@/data/contract'
 import type { LivePhone } from '@/domain/incident'
+import { playRing } from './ring'
 import { useRecorder } from './useRecorder'
 
 /**
@@ -48,6 +49,16 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
     return () => clearTimeout(t)
   }, [waiting, phone.questionKey, phone.noReplySeconds, checkin])
 
+  // Ring once when an incident starts (VERIFYING, or its first question if that was missed); question audio waits for it.
+  const ring = useRef<Promise<void> | null>(null)
+  const rang = useRef(false)
+  useEffect(() => {
+    const firstQuestion = phone.questionKey?.startsWith('0:') && !rang.current
+    if (!phone.flash && !firstQuestion) return
+    rang.current = true
+    ring.current = playRing()
+  }, [phone.flash, phone.questionKey])
+
   // Autoplay when the question or the instruction audio changes (contract 2.6). Browsers may block it: then silent.
   const played = useRef<string | null>(null)
   useEffect(() => {
@@ -55,11 +66,13 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
     if (!path || played.current === path) return
     played.current = path
     let audio: HTMLAudioElement | null = null
-    audioUrl(path).then((url) => {
+    let stopped = false
+    ;(ring.current ?? Promise.resolve()).then(() => (stopped ? undefined : audioUrl(path))).then((url) => {
+      if (!url) return
       audio = new Audio(url)
       return audio.play()
     }).catch(() => {})
-    return () => { audio?.pause() }
+    return () => { stopped = true; audio?.pause() }
   }, [phone.audioPath])
 
   const disabled = phone.busy || sending
@@ -79,6 +92,8 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
         listen={rec.recording || phone.busy}
         help={phone.help}
         helpInitials={helpInitials}
+        helpName={phone.helperName}
+        caller={phone.callerName}
         yn={phone.yn}
         disabled={disabled}
         // PhoneScreen passes the button's label (`live:phone.yes` / `live:phone.no`) in the current language.

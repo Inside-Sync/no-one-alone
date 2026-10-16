@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Avatar } from '@/components/ui/Avatar'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Switch } from '@/components/ui/Switch'
 import { useToast } from '@/components/ui/Toast'
@@ -32,7 +33,7 @@ export function ShareCard() {
               <th>{t('what')}</th>
               {people.map((p) => (
                 <th key={p.id} style={{ textAlign: 'center' }}>
-                  <span className="av sm" style={{ '--c': p.color, margin: '0 auto' } as CSSProperties}>{p.initials}</span>
+                  <Avatar name={p.name} className="av sm" style={{ '--c': p.color, margin: '0 auto' } as CSSProperties}>{p.initials}</Avatar>
                   <div style={{ textTransform: 'none', letterSpacing: 0, fontSize: '11.5px', marginTop: 4, color: 'var(--ink)' }}>{p.name}</div>
                 </th>
               ))}

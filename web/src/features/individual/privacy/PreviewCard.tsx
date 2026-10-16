@@ -3,6 +3,7 @@
 import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from '@/app/navigation'
+import { Avatar } from '@/components/ui/Avatar'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { useToast } from '@/components/ui/Toast'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
@@ -30,7 +31,7 @@ export function PreviewCard() {
               toast(t('preview.toast', { name: p.name }))
             }}
           >
-            <span className="av sm" style={{ '--c': p.color, width: 22, height: 22, fontSize: 10 } as CSSProperties}>{p.initials}</span>
+            <Avatar name={p.name} className="av sm" style={{ '--c': p.color, width: 22, height: 22, fontSize: 10 } as CSSProperties}>{p.initials}</Avatar>
             {share ? t('seeWhatCount', { name: p.name, n: countSees(share, paused, p.id), total: CATEGORY_IDS.length }) : t('seeWhat', { name: p.name })}
           </button>
         ))}

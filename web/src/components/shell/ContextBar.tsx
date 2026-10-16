@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { usePathname, useRouter } from '@/app/navigation'
+import { Avatar } from '@/components/ui/Avatar'
 import { WhoSwitch } from './WhoSwitch'
 import * as repo from '@/data/repo'
 import { STEPS } from '@/domain/emergency'
@@ -70,13 +71,13 @@ export function ContextBar() {
   return (
     <>
       <section className="ctx glass" aria-live="polite">
-        <span
-          className="av"
+        <Avatar
+          name={individual ? 'Margaret' : undefined}
           id="ctxAv"
           style={{ '--c': ctx?.color ?? '#0b7f71', width: 46, height: 46, fontSize: 15 } as React.CSSProperties}
         >
           {ctx?.initials}
-        </span>
+        </Avatar>
         <div>
           <span className="vbanner" id="vban">{banner}</span>
           <h1 id="pgTitle">{page ? PAGE_TITLES[page] : ''}</h1>

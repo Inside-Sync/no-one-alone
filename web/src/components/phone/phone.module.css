@@ -26,3 +26,9 @@
 .screen .help { align-items: flex-start; }
 /* A long live question would push the reply button below a fixed-height screen; let the screen grow instead. */
 .frame .screen { height: auto; min-height: 100%; }
+.screen .caller { align-self: center; margin: 8px 0; }
+/* Nothing may push past the frame: the global .btn is nowrap and grid tracks default to min-content. */
+.screen > * { min-width: 0; max-width: 100%; }
+.screen .med { grid-template-columns: minmax(0, 1fr); overflow-wrap: anywhere; }
+.screen .btn { box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.screen :global(.dev-btns) { grid-template-columns: minmax(0, 1fr); }
