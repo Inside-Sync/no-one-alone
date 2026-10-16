@@ -46,3 +46,39 @@ def check_family_doc(doc: dict) -> list[str]:
         if f.get("memberId") not in ids:
             problems.append(f"flags[{i}].memberId: unknown member")
     return problems
+
+
+LEVELS = {"LOW", "MEDIUM", "HIGH"}
+POINT_FIELDS = {"date": str, "systolic": (int, float), "systolicForecast": (int, float), "lower": (int, float),
+                "upper": (int, float)}
+
+
+def check_forecast_doc(doc: dict) -> list[str]:
+    """Mirrors web/src/data/contract.ts ForecastDoc, SeriesPoint and RiskLevel."""
+    allowed = {"asOf", "storyDay", "method", "risks", "drivers", "action", "series"}
+    if not isinstance(doc, dict) or not {"asOf", "storyDay", "method", "risks", "drivers", "series"} <= set(doc) \
+            or set(doc) - allowed:
+        return [f"forecast doc keys must be {sorted(allowed)} (action optional)"]
+    problems = []
+    if not isinstance(doc["asOf"], str) or not doc["asOf"].endswith("Z"):
+        problems.append("asOf: ISO UTC string ending in Z")
+    if not isinstance(doc["storyDay"], int) or isinstance(doc["storyDay"], bool):
+        problems.append("storyDay: expected int")
+    if not isinstance(doc["method"], str):
+        problems.append("method: expected str")
+    for i, r in enumerate(doc["risks"] if isinstance(doc["risks"], list) else [None]):
+        problems += _fields(r, {"condition": str, "horizonDays": int, "level": str}, {}, f"risks[{i}]")
+        if isinstance(r, dict) and r.get("level") not in LEVELS:
+            problems.append(f"risks[{i}].level: one of {sorted(LEVELS)}")
+    if not isinstance(doc["drivers"], list) or not all(isinstance(d, str) for d in doc["drivers"]):
+        problems.append("drivers: expected list of str")
+    if "action" in doc:
+        problems += _fields(doc["action"], {"text": str}, {"ownerMemberId": str}, "action")
+    for i, p in enumerate(doc["series"] if isinstance(doc["series"], list) else [None]):
+        if not isinstance(p, dict) or "date" not in p or set(p) - set(POINT_FIELDS):
+            problems.append(f"series[{i}]: date plus systolic or systolicForecast/lower/upper only")
+            continue
+        for k, v in p.items():
+            if v is None or not isinstance(v, POINT_FIELDS[k]) or isinstance(v, bool):
+                problems.append(f"series[{i}].{k}: wrong type (absent fields are omitted, never null)")
+    return problems
