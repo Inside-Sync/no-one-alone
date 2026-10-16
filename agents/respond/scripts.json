@@ -1,0 +1,63 @@
+{
+  "vi": {
+    "questions": [
+      "Mạ ơi, {caller} nhờ con hỏi thăm mạ. Mạ có nghe con nói không?",
+      "Mạ nhắc lại giúp con: hôm nay trời đẹp.",
+      "Mạ có thấy đau ngực, chóng mặt hay vừa bị té không?",
+      "Mạ có cử động tay chân được không?"
+    ],
+    "repeat_phrase": "hôm nay trời đẹp",
+    "yes_no": "Mạ có nghe con không? Mạ bấm CÓ hoặc KHÔNG.",
+    "caller_default": "Gia đình",
+    "safety": {
+      "SIT_STILL": "Mạ ngồi yên, đừng cố đứng dậy.",
+      "HELP_COMING": "{helper} đang tới.",
+      "DOOR": "Mạ đừng khóa cửa."
+    },
+    "messages": {
+      "NEARBY": "{name} có thể đang {problem}. Đi khoảng {eta} phút là tới. Mở cửa bằng chìa dự phòng nếu cần.",
+      "NEARBY_NO_ETA": "{name} có thể đang {problem}. Xin đến ngay {address}.",
+      "DISTANT": "{name} có thể đang {problem}. {helper} đã được báo."
+    },
+    "problems": {
+      "EMERGENCY": "bị đột quỵ",
+      "COME_NOW": "gặp nguy hiểm"
+    },
+    "findings": {
+      "slurred speech": "nói ngọng",
+      "no answer": "không trả lời",
+      "fall detected": "té ngã",
+      "answered no": "trả lời không ổn"
+    },
+    "unknown": "không rõ",
+    "call_script": "Địa chỉ {address}. {name}. {findings}. Bình thường lần cuối {lkw}. Thuốc: {meds}. Dị ứng: {allergies}."
+  },
+  "en": {
+    "questions": [
+      "{name}, it's your No One Alone helper. {caller} asked me to check on you. Can you hear me?",
+      "Please say after me: the weather is nice today.",
+      "Do you have chest pain or dizziness, or did you fall?",
+      "Can you move your arms and legs?"
+    ],
+    "repeat_phrase": "the weather is nice today",
+    "yes_no": "Can you hear me? Press YES or NO.",
+    "caller_default": "Your family",
+    "safety": {
+      "SIT_STILL": "Please sit still, don't try to get up.",
+      "HELP_COMING": "{helper} is on the way.",
+      "DOOR": "Leave the door unlocked if you can."
+    },
+    "messages": {
+      "NEARBY": "{name} may be {problem}. You are {eta} min away. Use the spare key if needed.",
+      "NEARBY_NO_ETA": "{name} may be {problem}. Please go to {address} now.",
+      "DISTANT": "{name} may be {problem}. {helper} has been alerted."
+    },
+    "problems": {
+      "EMERGENCY": "having a stroke",
+      "COME_NOW": "in danger"
+    },
+    "findings": {},
+    "unknown": "unknown",
+    "call_script": "Address {address}. {name}. {findings}. Last known well {lkw}. Medicines: {meds}. Allergies: {allergies}."
+  }
+}
