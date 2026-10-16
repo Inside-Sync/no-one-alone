@@ -168,5 +168,17 @@
         "Gọi cho bà sau đó"
       ]
     ]
+  },
+  "recovery": {
+    "title": "Kế hoạch hồi phục của mạ",
+    "home": "Mạ đã về nhà",
+    "play": "Nghe",
+    "next": "Tiếp theo: {{time}} {{text}}",
+    "nextTomorrow": "Tiếp theo, ngày mai: {{time}} {{text}}",
+    "done": "Mạ làm xong rồi",
+    "today": "Hôm nay",
+    "followUps": "Sắp tới",
+    "followUp": "{{text}} · {{date}}",
+    "notes": "Dặn dò của bác sĩ"
   }
 }

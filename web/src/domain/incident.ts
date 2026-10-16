@@ -109,7 +109,7 @@ const PHASE: Record<TimelineKind, EmPhase> = {
   NOTIFIED: 'escalate', ACCEPTED: 'escalate', DECLINED: 'escalate', EXPIRED: 'escalate', NO_NEARBY: 'escalate',
   ARRIVED: 'escalate', CALLED_115: 'escalate',
   HANDOFF_SENT: 'handOff', HANDOFF_RECEIVED: 'handOff', HANDOFF_FAILED: 'handOff',
-  AGENT_FALLBACK: 'agent', CLOSED: 'close',
+  AGENT_FALLBACK: 'agent', CLOSED: 'close', DISCHARGED: 'close',
 }
 
 const LEVEL: Record<NonNullable<IncidentDoc['level']>, EmLevel> = { OK: 'ok', MONITOR: 'monitor', COME_NOW: 'comeNow', EMERGENCY: 'emergency' }

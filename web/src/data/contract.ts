@@ -54,7 +54,7 @@ export type ServerAction = 'ACCEPT' | 'DECLINE' | 'ARRIVED' | 'CALLED_115' | 'CL
 export type TimelineKind =
   | 'ALERT' | 'VERIFIED' | 'FALSE_ALARM' | 'ASKED' | 'ANSWERED' | 'NO_REPLY' | 'TRIAGED' | 'NOTIFIED' | 'ACCEPTED'
   | 'DECLINED' | 'EXPIRED' | 'NO_NEARBY' | 'ARRIVED' | 'CALLED_115' | 'HANDOFF_SENT' | 'HANDOFF_RECEIVED'
-  | 'HANDOFF_FAILED' | 'AGENT_FALLBACK' | 'CLOSED'
+  | 'HANDOFF_FAILED' | 'AGENT_FALLBACK' | 'CLOSED' | 'DISCHARGED'
 
 export interface Assessment {
   clarity: 'CLEAR' | 'SLURRED' | 'NO_SPEECH'
@@ -163,6 +163,7 @@ export interface IncidentDoc {
   }
   triage?: { reasons: string[]; fallback: boolean }
   personInstruction?: { scriptIds: string[]; text: string; audioPath?: string }
+  recovery?: RecoveryDoc
   assignments?: AssignmentDoc[]
   ownerId: string | null
   callScript?: string
@@ -226,3 +227,23 @@ export type DemoScenario = 'stroke' | 'fall' | 'false-alarm'
 export type CheckinInput = { audio: Blob } | { yesNo: 'YES' | 'NO' } | { noReply: true }
 
 export type ApiErrorCode = 'INVALID_REQUEST' | 'UNAUTHENTICATED' | 'NOT_FOUND' | 'ALREADY_OWNED' | 'INVALID_STATE' | 'AGENT_FAILED'
+
+/** Contract 4.1 `POST /api/incidents/{id}/recovery` body. */
+export interface RecoveryRequest {
+  staffName: string
+  diagnosis: string
+  meds: { name: string; dose: string; times: string[] }[]
+  activities: { text: string; times: string[] }[]
+  followUps: { text: string; inDays: number }[]
+  notes: string
+}
+
+/** Contract 2.3 `incidents/{id}.recovery`. */
+export interface RecoveryDoc extends RecoveryRequest {
+  createdAt: string
+  followUps: { text: string; inDays: number; date: string }[]
+  summary: string
+  summaryAudioPath?: string
+  reminders: { time: string; kind: 'MED' | 'ACTIVITY'; text: string; audioPath?: string }[]
+  fallback: boolean
+}

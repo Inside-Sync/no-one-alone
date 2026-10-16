@@ -37,6 +37,29 @@
     "divert": {
       "label": "Divert",
       "toast": "Diversion suggested to the ambulance"
+    },
+    "recovery": {
+      "title": "Recovery plan",
+      "meta": "Send the person home",
+      "staff": "Doctor",
+      "diagnosis": "Diagnosis",
+      "meds": "Medicines",
+      "medName": "Medicine {{n}} name",
+      "medDose": "Medicine {{n}} dose",
+      "medTimes": "Medicine {{n}} times",
+      "activities": "Activities",
+      "actText": "Activity {{n}}",
+      "actTimes": "Activity {{n}} times",
+      "followUps": "Follow-ups",
+      "fuText": "Follow-up {{n}}",
+      "fuDays": "Follow-up {{n}} in days",
+      "notes": "Doctor's notes",
+      "hint": "Times as HH:mm, separated by commas",
+      "send": "Send home with this plan",
+      "sending": "Sending…",
+      "sentAt": "Sent home at {{time}}",
+      "sent": "Sent home",
+      "failed": "Could not send the plan"
     }
   },
   "panel": {

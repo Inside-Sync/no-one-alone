@@ -27,6 +27,7 @@ import com.noonealone.coreapi.flow.Actions;
 import com.noonealone.coreapi.flow.AlertIntake;
 import com.noonealone.coreapi.flow.DemoService;
 import com.noonealone.coreapi.flow.IncidentFlow;
+import com.noonealone.coreapi.flow.Recovery;
 import com.noonealone.coreapi.model.Scenario;
 import com.noonealone.coreapi.support.SyncExecutorConfig;
 
@@ -39,6 +40,7 @@ class ApiControllerTest {
     @MockBean IncidentFlow flow;
     @MockBean Actions actions;
     @MockBean AlertIntake intake;
+    @MockBean Recovery recovery;
 
     @Test
     void triggerReturns202WithIncidentId() throws Exception {
@@ -147,5 +149,17 @@ class ApiControllerTest {
                 .andExpect(jsonPath("$.error.code").value("INVALID_REQUEST"));
 
         verify(intake, never()).receive(any());
+    }
+
+    @Test
+    void recoveryRouteReturnsVersion() throws Exception {
+        when(recovery.discharge(eq("i-1"), any())).thenReturn(7L);
+
+        mvc.perform(post("/api/incidents/i-1/recovery").contentType(MediaType.APPLICATION_JSON).content(
+                "{\"staffName\":\"Dr N\",\"meds\":[{\"name\":\"aspirin\",\"dose\":\"100 mg\",\"times\":[\"08:00\"]}]}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.version").value(7));
+
+        verify(recovery).discharge(eq("i-1"), argThat(p -> p.meds().get(0).name().equals("aspirin")));
     }
 }

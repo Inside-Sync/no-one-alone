@@ -10,6 +10,7 @@ import { PageError } from '@/features/shared/PageError'
 import { useHospital } from '../useHospital'
 import { InboxCard, type InboxItem } from './InboxCard'
 import { PacketCard } from './PacketCard'
+import { RecoveryCard } from './RecoveryCard'
 
 /** Hospital view · Pre-arrivals (`<main data-page="ed">`). */
 export function EdPage() {
@@ -17,7 +18,7 @@ export function EdPage() {
   const res = useHospital()
   const h = res.data
   const { packetNew, emergency } = useAppState()
-  const { live, view } = useLiveIncident()
+  const { live, view, incident } = useLiveIncident()
   // Live mode: the packet hospital-agent returned (contract 4.4); the mock replays the scripted one.
   const livePacket = live ? view?.packet ?? null : null
   // A pick belongs to one inbox: when the demo's packet arrives or leaves, the pane goes back to its default (prototype re-renders it).
@@ -55,6 +56,7 @@ export function EdPage() {
         window={packetNew ? h.pathwayWindow.demo : h.pathwayWindow.idle}
         step={packetNew ? (live ? view?.pathwayStep ?? null : emergency.step) : null}
       />
+      {live && incident?.handoff && <RecoveryCard />}
     </main>
   )
 }

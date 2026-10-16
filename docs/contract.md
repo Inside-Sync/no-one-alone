@@ -169,13 +169,33 @@ Hand-written list. Seed one stroke-ready hospital and one closer hospital with `
 | `assignments[].actions` | array | Buttons the member's screen shows. `ACCEPT`, `DECLINE`, `ARRIVED`, `CALLED_115` post to core-api. `CALL_PERSON` and `CALL_NEARBY` are client-only call buttons with no server write |
 | `assignments[].attempt` | int | NEARBY only. Used in the Cloud Task name |
 | `handoff.status` | `PENDING` \| `RECEIVED` \| `FAILED` | core-api writes `PENDING` before calling `/handoff` |
-| `timeline[].actor` | `SYSTEM` \| `AGENT` \| `PERSON` \| a memberId | |
-| `timeline[].kind` | `ALERT` \| `VERIFIED` \| `FALSE_ALARM` \| `ASKED` \| `ANSWERED` \| `NO_REPLY` \| `TRIAGED` \| `NOTIFIED` \| `ACCEPTED` \| `DECLINED` \| `EXPIRED` \| `NO_NEARBY` \| `ARRIVED` \| `CALLED_115` \| `HANDOFF_SENT` \| `HANDOFF_RECEIVED` \| `HANDOFF_FAILED` \| `AGENT_FALLBACK` \| `CLOSED` | |
+| `timeline[].actor` | `SYSTEM` \| `AGENT` \| `PERSON` \| `HOSPITAL` \| a memberId | |
+| `timeline[].kind` | `ALERT` \| `VERIFIED` \| `FALSE_ALARM` \| `ASKED` \| `ANSWERED` \| `NO_REPLY` \| `TRIAGED` \| `NOTIFIED` \| `ACCEPTED` \| `DECLINED` \| `EXPIRED` \| `NO_NEARBY` \| `ARRIVED` \| `CALLED_115` \| `HANDOFF_SENT` \| `HANDOFF_RECEIVED` \| `HANDOFF_FAILED` \| `AGENT_FALLBACK` \| `DISCHARGED` \| `CLOSED` | |
 | `*.fallback` | bool | `true` when the agent used its deterministic fallback; the timeline also gets an `AGENT_FALLBACK` entry |
 
 Assignments also get `arrivedAt` when the owner taps "Arrived". "Minutes to a person at the door" is not stored: the web computes it as that `arrivedAt` minus `alert.at`.
 
 Size check: audio lives in Storage, so an incident stays small (at most 8 turns, about 25 timeline entries, about 20 writes).
+
+**`recovery`** (set by `POST /api/incidents/{id}/recovery`, absent before)
+
+```json
+{
+  "createdAt": "2026-10-16T05:10:00Z",
+  "staffName": "...", "diagnosis": "...", "notes": "...",
+  "meds": [ ... as sent ... ], "activities": [ ... as sent ... ],
+  "followUps": [ { "text": "GP check with Dr Patel", "inDays": 7, "date": "2026-10-23" } ],
+  "summary": "Margaret, you are home. Your doctors treated a small stroke ...",
+  "summaryAudioPath": "audio/{incidentId}/recovery-summary.mp3",
+  "reminders": [
+    { "time": "08:00", "kind": "MED", "text": "Time for your aspirin, 100 mg.", "audioPath": "audio/{incidentId}/recovery-0.mp3" },
+    { "time": "10:00", "kind": "ACTIVITY", "text": "Time to walk for 15 minutes with your stick." }
+  ],
+  "fallback": false
+}
+```
+
+`followUps[].date` is the person's local date of `createdAt` plus `inDays`; `createdAt` is the `now` that `store.mutate` passes (story time), and the date uses that same instant. `reminders` is sorted by `time`, one per (item, time). `audioPath` and `summaryAudioPath` are present only when audio was saved.
 
 ### 2.4 `forecasts/{personId}`
 
@@ -319,6 +339,33 @@ Response `202`, or `409 INVALID_STATE` while `checkIn.busy`. The result appears 
 ```
 `action` is `ACCEPT` \| `DECLINE` \| `ARRIVED` \| `CALLED_115` \| `CLOSE`. Rules in section 3. Response `200` with `{ "version": 10 }`, or an error.
 
+ **`POST /api/incidents/{id}/recovery`** from the hospital screen.
+
+```json
+{
+  "staffName": "Dr Nguyen, Sydney Stroke Center",
+  "diagnosis": "Ischaemic stroke, treated with clot-busting medicine",
+  "meds": [
+    { "name": "aspirin", "dose": "100 mg", "times": ["08:00"] },
+    { "name": "atorvastatin", "dose": "40 mg", "times": ["20:00"] },
+    { "name": "amlodipine", "dose": "5 mg", "times": ["18:00"] }
+  ],
+  "activities": [
+    { "text": "Walk for 15 minutes with your stick", "times": ["10:00", "16:00"] },
+    { "text": "Speech exercises from your sheet", "times": ["11:00"] }
+  ],
+  "followUps": [
+    { "text": "GP check with Dr Patel", "inDays": 7 },
+    { "text": "Stroke clinic review", "inDays": 42 }
+  ],
+  "notes": "No driving for 4 weeks. Call 000 at once if face, arm or speech changes again."
+}
+```
+
+Rules: `meds` and `activities` may be empty but not both; every `times` entry matches `^([01]\d|2[0-3]):[0-5]\d$`; `inDays` 1 to 365; strings at most 300 chars; at most 10 meds, 10 activities, 5 follow-ups. Otherwise `400 INVALID_REQUEST`. Allowed only when `handoff` is present (any status, so the demo works when hospital-agent is down) and `recovery` is absent; otherwise `409 INVALID_STATE`. Response `200 { "version": n }`.
+
+Effect: incident gets `recovery` (2.3), timeline `DISCHARGED` by `HOSPITAL` with text `Discharged home with a recovery plan by {staffName}`, `status: CLOSED`.
+
 ### 4.2 core-api internal routes (`run.app` URL only, OIDC only)
 
 Both endpoints check the OIDC token's `aud` (the core-api service URL) and the caller's service account email.
@@ -421,6 +468,17 @@ core-api reads `meds` and `allergies` from the scenario fixture, not from FHIR. 
 { "status": "RECEIVED", "packet": { }, "fallback": false }
 ```
 `status` is `RECEIVED` or `FAILED`. respond-agent forwards the request to hospital-agent over A2A and returns its result. It reads the hospital-agent URL from env `HOSPITAL_AGENT_URL`, which `infra/deploy.ps1` sets, and calls it with an OIDC token for that URL.
+
+**respond-agent `POST /recovery`**
+
+Body: `{ "person": { "displayName", "locale", "timezone" }, "plan": <the 4.1 body> }`.
+Reply: `{ "summary": "...", "summaryAudioBase64"?: "...", "reminders": [ { "time", "kind", "text", "audioBase64"? } ], "fallback": bool }`, `mimeType` is always `audio/mpeg`.
+
+Reminder text templates in `scripts.json` (`recovery` key per language):
+- en: MED `"Time for your {name}, {dose}."`, ACTIVITY `"Time to {text_lower}."` (first letter lowercased).
+- vi: MED `"Mạ ơi, tới giờ uống {name} {dose} rồi."`, ACTIVITY `"Mạ ơi, tới giờ {text_lower} rồi."`.
+
+Summary: Gemini writes at most 3 short sentences addressed to the person (by `displayName` in English, "mạ" in Vietnamese) that restate the diagnosis and notes in plain words. Prompt forbids adding medicines, doses, advice or anything not in the plan. Gemini failure: `summary = notes`, `fallback: true`. Chirp failures drop audio only.
 
 ### 4.4 hospital-agent (private, A2A)
 

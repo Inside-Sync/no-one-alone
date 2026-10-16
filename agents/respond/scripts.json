@@ -36,6 +36,7 @@
       "cannot stand": "không đứng được"
     },
     "unknown": "không rõ",
+    "recovery": {"MED": "Mạ ơi, tới giờ uống {name} {dose} rồi.", "ACTIVITY": "Mạ ơi, tới giờ {text_lower} rồi."},
     "call_script": "Địa chỉ {address}. {name}. {findings}. Bình thường lần cuối {lkw}. Thuốc: {meds}. Dị ứng: {allergies}."
   },
   "en": {
@@ -64,6 +65,7 @@
     },
     "findings": {},
     "unknown": "unknown",
+    "recovery": {"MED": "Time for your {name}, {dose}.", "ACTIVITY": "Time to {text_lower}."},
     "call_script": "Address {address}. {name}. {findings}. Last known well {lkw}. Medicines: {meds}. Allergies: {allergies}."
   }
 }
