@@ -109,6 +109,21 @@ class EscalationTest extends FirestoreTestBase {
     }
 
     @Test
+    void planUsesThePersonsOwnMedsOverTheScenario() {
+        when(agent.plan(any())).thenReturn(plan());
+        store.seed(seed.data());
+        when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null, null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.COME_NOW, List.of("no answer"), false));
+        when(tasks.schedule(anyString(), anyString(), anyInt(), anyInt())).thenReturn(TASK);
+        flow.create(IncidentFlowAlertTest.stroke("e-meds", "margaret"));
+        flow.process("e-meds");
+
+        verify(agent).plan(argThat(b -> ((Map<?, ?>) b.get("context")).get("meds").equals(
+                List.of("amlodipine 5 mg each evening", "paracetamol 500 mg as needed", "vitamin D3 1000 IU daily"))));
+    }
+
+    @Test
     void noNearbyMemberMeansDistantGetsCallNearbyAnd115() {
         when(agent.plan(any())).thenReturn(plan());
         SeedData data = seed.data();

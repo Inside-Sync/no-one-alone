@@ -11,7 +11,7 @@
     "caller_default": "Gia đình",
     "safety": {
       "SIT_STILL": "Mạ ngồi yên, đừng cố đứng dậy.",
-      "HELP_COMING": "{helper} đang tới.",
+      "HELP_COMING": "Con đang gọi {helper} tới với mạ.",
       "DOOR": "Mạ đừng khóa cửa."
     },
     "messages": {
@@ -50,7 +50,7 @@
     "caller_default": "Your family",
     "safety": {
       "SIT_STILL": "Please sit still, don't try to get up.",
-      "HELP_COMING": "{helper} is on the way.",
+      "HELP_COMING": "I am asking {helper} to come to you.",
       "DOOR": "Leave the door unlocked if you can."
     },
     "messages": {

@@ -174,8 +174,8 @@ public class Escalation {
         Map<String, Object> context = new HashMap<>();
         context.put("lastKnownWellAt", inc.lastKnownWellAt);
         context.put("findings", inc.triage == null ? List.of() : inc.triage.reasons);
-        context.put("meds", f.meds());
-        context.put("allergies", f.allergies());
+        context.put("meds", person.meds != null ? person.meds : f.meds());
+        context.put("allergies", person.allergies != null ? person.allergies : f.allergies());
         Map<String, Object> p = new HashMap<>();
         p.put("displayName", person.displayName);
         if (person.dialect != null) {
