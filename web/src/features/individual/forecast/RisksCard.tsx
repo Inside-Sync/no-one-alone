@@ -21,10 +21,6 @@ export function RisksCard({ risks }: { risks: RiskRow[] }) {
             {risks.map((r) => (
               <tr key={r.name}>
                 <td><b style={{ fontWeight: 500 }}>{r.name}</b></td>
-                <td className="n">{r.nextMonth}</td>
-                <td className="n"><b>{r.threeMonths}</b></td>
-                <td className="n">{r.nextYear}</td>
-                <td className="n">{r.range}</td>
                 <td><Pill tone={r.tone}>{r.level}</Pill></td>
                 <td className="n" style={{ color: trendColour(r.trend) }}>{r.trend}</td>
                 <td>{r.reason}</td>

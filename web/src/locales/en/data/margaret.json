@@ -857,7 +857,7 @@
         "what": "Re-scored all risks (64 signals)",
         "how": "Autonomous",
         "why": "Scheduled",
-        "result": "Stroke 90 d unchanged at 2.1%",
+        "result": "Stroke risk level unchanged (High)",
         "tone": "plain",
         "needsApproval": false
       },

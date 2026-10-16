@@ -19,7 +19,7 @@ test('sections appear in prototype order with the disclaimer card', async () => 
   await ready()
   expect(Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)).toEqual([
     'ℹ️ How this forecast works', '📊 Chances over time', '🎛️ Try it: what if…', 'Morning systolic blood pressure',
-    '⚖️ What pushes her stroke chance up or down', '👀 What we keep an eye on',
+    '⚖️ What pushes her stroke risk up or down', '👀 What we keep an eye on',
   ])
   expect(screen.getByText('Example figures for a prototype')).toBeInTheDocument()
   expect(screen.getByText('Her doctor, not the app')).toBeInTheDocument()
@@ -27,15 +27,21 @@ test('sections appear in prototype order with the disclaimer card', async () => 
   expect(document.querySelectorAll('#sigRows tr')).toHaveLength(11)
 })
 
-test('baseline shows no change; dragging adherence to 100 shows 1.3% stroke', async () => {
+test('baseline shows no change; dragging adherence to 100 shows a lower stroke risk', async () => {
   renderWithProviders(<ForecastPage />, { who: 'self' })
   await ready()
-  expect(within(strokeCell()).getByText('2.1%')).toBeInTheDocument()
   expect(within(strokeCell()).getByText('no change')).toBeInTheDocument()
   fireEvent.change(screen.getByLabelText(/Tablets taken on time/), { target: { value: '100' } })
-  expect(within(strokeCell()).getByText('1.3%')).toBeInTheDocument()
-  expect(within(strokeCell()).getByText('−38% relative')).toBeInTheDocument()
+  expect(within(strokeCell()).getByText('lower')).toBeInTheDocument()
   expect(screen.getByText('100%')).toBeInTheDocument()
+})
+
+test('no probability is shown: risk table, what-if cells and model card carry no percentages', async () => {
+  renderWithProviders(<ForecastPage />, { who: 'self' })
+  await ready()
+  for (const sel of ['#riskRows', '#simOut', '.model']) expect(document.querySelector(sel)!.textContent).not.toMatch(/\d%/)
+  expect(screen.queryByText(/48,000|8 in 10/)).toBeNull()
+  expect(screen.getByText('Levels set by demo rules, not probabilities')).toBeInTheDocument()
 })
 
 test('salt label, steps format, hearing switch update the outputs', async () => {
@@ -46,7 +52,7 @@ test('salt label, steps format, hearing switch update the outputs', async () => 
   fireEvent.change(screen.getByLabelText(/Salt in food/), { target: { value: '2' } })
   expect(within(screen.getByLabelText(/Salt in food/).closest('label')!).getByText('High')).toBeInTheDocument()
   fireEvent.click(screen.getByRole('switch', { name: 'Wears hearing aids daily' }))
-  expect(within(screen.getByText('MCI · 90 d').closest('div')!).getByText('2.5%')).toBeInTheDocument()
+  expect(within(screen.getByText('MCI · 90 d').closest('div')!).getByText('lower')).toBeInTheDocument()
 })
 
 test('what-if line appears on the chart only when adherence is off 86 and 100', async () => {

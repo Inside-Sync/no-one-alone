@@ -23,14 +23,11 @@ export function simulateRisk(i: SimInput): RiskResult {
   return { stroke, fall, admission, mci }
 }
 
-/** Prototype `cell()` footer: change against the baseline, with a unicode minus. */
+/** Direction of change against the baseline; no percentage is shown. */
 export function deltaLabel(v: number, base: number): { text: string; tone: 'good' | 'bad' | 'muted' } {
   const d = ((v - base) / base) * 100
   if (Math.abs(d) < 0.5) return { text: i18n.t('forecast:sim.delta.none'), tone: 'muted' }
-  return {
-    text: i18n.t('forecast:sim.delta.relative', { pct: (d > 0 ? '+' : '−') + Math.abs(d).toFixed(0) + '%' }),
-    tone: d <= -0.5 ? 'good' : 'bad',
-  }
+  return d < 0 ? { text: i18n.t('forecast:sim.delta.lower'), tone: 'good' } : { text: i18n.t('forecast:sim.delta.higher'), tone: 'bad' }
 }
 
 /** The projection inputs of `Forecast['bp']` (kept structural so the domain does not depend on the data types). */
