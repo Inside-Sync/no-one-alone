@@ -6,7 +6,6 @@ import os
 from lang import is_en
 
 log = logging.getLogger("gcp")
-log.setLevel(logging.INFO)
 
 SYMPTOMS = ["chest pain", "dizziness", "fall", "headache", "weakness", "cannot stand"]
 CLARITY = ["CLEAR", "SLURRED", "NO_SPEECH"]
@@ -69,13 +68,13 @@ class GeminiAssessor:
                 prompt += f' The speaker was asked to repeat "{ctx["expected"]}"; use SLURRED if the repetition is garbled.'
             resp = self._get_client().models.generate_content(
                 model=os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"),
-                contents=[types.Part.from_bytes(data=audio, mime_type=mime), prompt],
+                contents=[types.Part.from_bytes(data=audio, mime_type=mime.split(";")[0].strip() or "audio/webm"), prompt],
                 config=types.GenerateContentConfig(
                     temperature=0, thinking_config=types.ThinkingConfig(thinking_budget=0),
                     response_mime_type="application/json", response_schema=SCHEMA))
             return validate(json.loads(resp.text))
         except Exception as e:
-            log.info("gemini failed: %s", type(e).__name__)
+            log.warning("gemini failed: %s", type(e).__name__)
             return None
 
 
@@ -106,5 +105,5 @@ class ChirpVoice:
                 self._voices[locale] = name
                 return self._synth(text, locale, name)
         except Exception as e:
-            log.info("chirp failed: %s", type(e).__name__)
+            log.warning("chirp failed: %s", type(e).__name__)
             return None

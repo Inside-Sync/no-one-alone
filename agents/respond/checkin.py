@@ -1,5 +1,6 @@
 """Scripted check-in turn for respond-agent (contract 4.3)."""
 import base64
+import binascii
 from typing import Callable
 
 from lang import is_en, load_scripts
@@ -17,8 +18,12 @@ def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
 
     if "audioBase64" in inp:
         expected = s["repeat_phrase"] if asked == 2 else None
-        res = assess(base64.b64decode(inp["audioBase64"]), inp.get("mimeType", ""),
-                     {"locale": person.get("locale"), "expected": expected})
+        try:
+            audio = base64.b64decode(inp["audioBase64"], validate=True)
+        except binascii.Error:
+            audio = None
+        res = None if audio is None else assess(
+            audio, inp.get("mimeType", ""), {"locale": person.get("locale"), "expected": expected})
         if res is None:
             out["assessment"], out["fallback"] = dict(NO_SPEECH, symptoms=[]), True
         else:

@@ -67,3 +67,9 @@ def test_yes_no_input_is_done():
 
 def test_four_questions_asked_is_done():
     assert checkin.turn(body(turns=agent(4)), fake(None))["done"] is True
+
+
+def test_bad_base64_is_like_gemini_down():
+    out = checkin.turn(body(input={"audioBase64": "AB!CD", "mimeType": "audio/webm"}), fake({"x": 1}))
+    assert out["fallback"] is True and out["assessment"]["clarity"] == "NO_SPEECH"
+    assert out["done"] is False and out["next"]

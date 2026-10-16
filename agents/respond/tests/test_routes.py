@@ -82,3 +82,22 @@ def test_plan_crash_is_503_so_core_api_uses_its_fallback(monkeypatch):
         raise ValueError("x")
     monkeypatch.setattr(main.plan, "plan", boom)
     assert client.post("/plan", json=mk(MAI, VI_MEMBERS)).status_code == 503
+
+
+def test_gemini_strips_mime_parameters():
+    seen = {}
+
+    class Models:
+        def generate_content(self, model, contents, config):
+            seen["mime"] = contents[0].inline_data.mime_type
+            return type("R", (), {"text": '{"transcript":"t","clarity":"CLEAR","coherent":true,"symptoms":[],"confidence":1}'})()
+
+    a = gcp.GeminiAssessor()
+    a._client = type("C", (), {"models": Models()})()
+    assert a(b"x", "audio/webm;codecs=opus", {"locale": "vi-VN"})["clarity"] == "CLEAR"
+    assert seen["mime"] == "audio/webm"
+
+
+def test_vi_findings_cover_symptoms():
+    from lang import load_scripts
+    assert set(gcp.SYMPTOMS) <= set(load_scripts()["vi"]["findings"])

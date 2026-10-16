@@ -34,7 +34,7 @@ def verify(body: dict):
     try:
         return rules.verify(body)
     except Exception as e:
-        log.info("verify failed: %s", type(e).__name__)
+        log.warning("verify failed: %s", type(e).__name__)
         return {"isReal": True, "reason": "rules failed", "fallback": True}
 
 
@@ -46,7 +46,7 @@ def checkin_turn(body: dict):
             out["fallback"] = out["fallback"] or not add_audio(out["next"], gcp.locale_for(body["person"]))
         return out
     except Exception as e:
-        log.info("checkin failed: %s", type(e).__name__)
+        log.warning("checkin failed: %s", type(e).__name__)
         return {"done": True, "fallback": True}
 
 
@@ -55,7 +55,7 @@ def triage(body: dict):
     try:
         return rules.triage(body)
     except Exception as e:
-        log.info("triage failed: %s", type(e).__name__)
+        log.warning("triage failed: %s", type(e).__name__)
         return {"level": "EMERGENCY", "reasons": ["rules failed"], "fallback": True}
 
 
@@ -66,7 +66,7 @@ def plan_route(body: dict):
         out["fallback"] = out["fallback"] or not add_audio(out["personInstruction"], gcp.locale_for(body["person"]))
         return out
     except Exception as e:
-        log.info("plan failed: %s", type(e).__name__)
+        log.warning("plan failed: %s", type(e).__name__)
         raise HTTPException(status_code=503, detail="plan failed")
 
 

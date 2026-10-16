@@ -27,7 +27,13 @@
       "slurred speech": "nói ngọng",
       "no answer": "không trả lời",
       "fall detected": "té ngã",
-      "answered no": "trả lời không ổn"
+      "answered no": "trả lời không ổn",
+      "chest pain": "đau ngực",
+      "dizziness": "chóng mặt",
+      "fall": "té ngã",
+      "headache": "đau đầu",
+      "weakness": "yếu tay chân",
+      "cannot stand": "không đứng được"
     },
     "unknown": "không rõ",
     "call_script": "Địa chỉ {address}. {name}. {findings}. Bình thường lần cuối {lkw}. Thuốc: {meds}. Dị ứng: {allergies}."
