@@ -378,7 +378,7 @@ Language: when `person.locale` starts with `en` (Margaret, `en-AU`), every quest
   "fallback": false
 }
 ```
-`transcript` and `assessment` are present only when `input` was audio. `next.kind` is `YES_NO` whenever `noReplyCount >= 1`. `next` is absent when `done` is true. core-api stores audio in Cloud Storage under `audio/{incidentId}/{turnIndex}-{agent|person}.{mp3|webm}` and writes the paths.
+`transcript` and `assessment` are present only when `input` was audio. `next.kind` is `YES_NO` whenever `noReplyCount >= 1`. `next` is absent when `done` is true. After an audio answer, `next.text` may start with one short acknowledgement sentence written by Gemini (no advice, no question); safety instructions never come from the model. core-api stores audio in Cloud Storage under `audio/{incidentId}/{turnIndex}-{agent|person}.{mp3|webm}` and writes the paths.
 
 **`POST /triage`**
 ```json

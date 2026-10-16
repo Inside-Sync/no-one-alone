@@ -10,6 +10,7 @@ log = logging.getLogger("gcp")
 SYMPTOMS = ["chest pain", "dizziness", "fall", "headache", "weakness", "cannot stand"]
 CLARITY = ["CLEAR", "SLURRED", "NO_SPEECH"]
 TIMEOUT_S = 15
+ACK_MAX = 120
 
 SCHEMA = {
     "type": "OBJECT",
@@ -19,6 +20,7 @@ SCHEMA = {
         "coherent": {"type": "BOOLEAN"},
         "symptoms": {"type": "ARRAY", "items": {"type": "STRING"}},
         "confidence": {"type": "NUMBER"},
+        "ack": {"type": "STRING"},
     },
     "required": ["transcript", "clarity", "coherent", "symptoms", "confidence"],
 }
@@ -39,8 +41,13 @@ def validate(data) -> dict | None:
         conf = min(1.0, max(0.0, float(data["confidence"])))
     except (KeyError, TypeError, ValueError):
         return None
-    return {"transcript": data["transcript"], "clarity": data["clarity"], "coherent": data["coherent"],
-            "symptoms": [s for s in data["symptoms"] if s in SYMPTOMS], "confidence": conf}
+    out = {"transcript": data["transcript"], "clarity": data["clarity"], "coherent": data["coherent"],
+           "symptoms": [s for s in data["symptoms"] if s in SYMPTOMS], "confidence": conf}
+    ack = data.get("ack")
+    # ponytail: length and no-question guard only; the prompt forbids advice
+    if isinstance(ack, str) and ack.strip() and len(ack.strip()) <= ACK_MAX and "?" not in ack:
+        out["ack"] = ack.strip()
+    return out
 
 
 class GeminiAssessor:
@@ -66,6 +73,11 @@ class GeminiAssessor:
                       f"this list only: {', '.join(SYMPTOMS)}, and your confidence from 0 to 1.")
             if ctx.get("expected"):
                 prompt += f' The speaker was asked to repeat "{ctx["expected"]}"; use SLURRED if the repetition is garbled.'
+            prompt += (" In ack, write one short warm sentence of at most 12 words in the speaker's language that "
+                       "acknowledges what they said. No medical advice, no instructions, no questions, and never say "
+                       "that help is coming. Leave ack empty if there is no speech.")
+            if not str(ctx.get("locale") or "").startswith("en"):
+                prompt += ' In Vietnamese, call the speaker "mạ" and yourself "con".'
             resp = self._get_client().models.generate_content(
                 model=os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"),
                 contents=[types.Part.from_bytes(data=audio, mime_type=mime.split(";")[0].strip() or "audio/webm"), prompt],

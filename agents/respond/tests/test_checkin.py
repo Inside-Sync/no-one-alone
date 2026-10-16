@@ -73,3 +73,11 @@ def test_bad_base64_is_like_gemini_down():
     out = checkin.turn(body(input={"audioBase64": "AB!CD", "mimeType": "audio/webm"}), fake({"x": 1}))
     assert out["fallback"] is True and out["assessment"]["clarity"] == "NO_SPEECH"
     assert out["done"] is False and out["next"]
+
+
+def test_ack_comes_before_the_next_question():
+    res = {"transcript": "I have a headache", "clarity": "CLEAR", "coherent": True, "symptoms": ["headache"],
+           "confidence": 0.9, "ack": "I'm sorry your head hurts."}
+    out = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(res))
+    assert out["next"]["text"] == "I'm sorry your head hurts. Please say after me: the weather is nice today."
+    assert "ack" not in out["assessment"]
