@@ -61,6 +61,14 @@ jobs:
       - name: Build web
         if: (contains(steps.targets.outputs.list, 'web') || contains(steps.targets.outputs.list, 'all')) && hashFiles('web/package.json') != ''
         working-directory: web
+        # Web config is public by design (contract section 6); mock mode stays the local default.
+        env:
+          VITE_DATA_SOURCE: ${{ vars.VITE_DATA_SOURCE }}
+          VITE_FIREBASE_API_KEY: ${{ vars.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ vars.GCP_PROJECT_ID }}.firebaseapp.com
+          VITE_FIREBASE_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ vars.GCP_PROJECT_ID }}.firebasestorage.app
         run: |
           npm ci
           npm run build
