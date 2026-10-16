@@ -31,7 +31,7 @@ def test_vi_emergency():
     assert "6 phút" in msgs["ong-hung"]
     assert "Ông Hùng" in msgs["lan"]
     assert out["personInstruction"]["scriptIds"] == ["SIT_STILL", "HELP_COMING", "DOOR"]
-    assert "Ông Hùng đang tới" in out["personInstruction"]["text"]
+    assert "Con đang gọi Ông Hùng tới với mạ." in out["personInstruction"]["text"]
     assert "01:55" in out["callScript"] and "nói ngọng" in out["callScript"]
     assert out["fallback"] is False
 

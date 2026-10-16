@@ -84,6 +84,7 @@ One collection for the older person and the Health Circle members.
 |---|---|---|---|
 | `dialect` | `HUE` \| `SOUTH` \| `STANDARD` | person only | Drives forms of address |
 | `emergencyNumber` | string | person only | Number shown and logged for `CALLED_115`; a missing value is logged as `115`; Bà Mai `115`, Margaret `000` |
+| `meds`, `allergies` | string[] | no | The person's own list for `/plan` `context`; when absent, core-api uses the scenario fixture. Margaret has them, Bà Mai uses the fixture |
 | `accessibility.hearing` | `NORMAL` \| `LOSS` | person only | `LOSS`: the person screen shows each spoken question as large captions too |
 | `circle` | array | person only | Members without `criticalAlerts: true` are never notified |
 | `circle[].role` | `NEARBY` \| `DISTANT` | yes | `NEARBY` can come to the door; `DISTANT` coordinates and calls the emergency number (`emergencyNumber`) |

@@ -21,6 +21,8 @@
       "location": { "lat": -33.9105, "lng": 151.1553 },
       "accessibility": { "hearing": "LOSS" },
       "baseline": { "restingHr": 63, "nightHr": 57 },
+      "meds": ["amlodipine 5 mg each evening", "paracetamol 500 mg as needed", "vitamin D3 1000 IU daily"],
+      "allergies": ["penicillin"],
       "circle": [
         { "memberId": "david", "relation": "son", "role": "NEARBY", "priority": 1, "criticalAlerts": true },
         { "memberId": "aisha", "relation": "neighbour", "role": "NEARBY", "priority": 2, "criticalAlerts": true },

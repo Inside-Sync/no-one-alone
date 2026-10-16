@@ -19,4 +19,6 @@ public class Person {
     public Map<String, String> accessibility;
     public Map<String, Integer> baseline;
     public List<CircleEntry> circle;
+    public List<String> meds;
+    public List<String> allergies;
 }
