@@ -14,7 +14,7 @@ const idle = async () => {}
 const start = vi.fn<(s: string) => Promise<void>>()
 const liveValue: LiveIncidentValue = {
   live: true, loading: false, error: null, incident: null, people: { person: null, members: {} }, view: null,
-  start: (s) => start(s), reset: idle, checkin: idle, act: idle,
+  start: (s) => start(s), reset: idle, checkin: idle, act: idle, recover: idle,
 }
 vi.mock('@/state/LiveIncident', () => ({ useLiveIncident: () => liveValue }))
 

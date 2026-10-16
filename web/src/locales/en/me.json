@@ -168,5 +168,17 @@
         "Called you afterwards"
       ]
     ]
+  },
+  "recovery": {
+    "title": "Your recovery plan",
+    "home": "You are home",
+    "play": "Play",
+    "next": "Next: {{time}} {{text}}",
+    "nextTomorrow": "Next, tomorrow: {{time}} {{text}}",
+    "done": "I've done it",
+    "today": "Today",
+    "followUps": "Coming up",
+    "followUp": "{{text}} · {{date}}",
+    "notes": "Doctor's notes"
   }
 }

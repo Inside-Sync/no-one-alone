@@ -90,6 +90,20 @@ class GeminiAssessor:
             return None
 
 
+class GeminiWriter(GeminiAssessor):
+    def __call__(self, prompt: str) -> str | None:
+        try:
+            from google.genai import types
+            resp = self._get_client().models.generate_content(
+                model=os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"), contents=[prompt],
+                config=types.GenerateContentConfig(
+                    temperature=0, thinking_config=types.ThinkingConfig(thinking_budget=0)))
+            return resp.text
+        except Exception as e:
+            log.warning("gemini writer failed: %s", type(e).__name__)
+            return None
+
+
 class ChirpVoice:
     def __init__(self):
         self._client = None

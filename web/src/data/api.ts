@@ -1,5 +1,5 @@
 import { idToken } from '@/lib/firebase'
-import type { ApiErrorCode, CheckinInput, DemoScenario, ServerAction } from './contract'
+import type { ApiErrorCode, CheckinInput, DemoScenario, RecoveryRequest, ServerAction } from './contract'
 
 /**
  * core-api public routes (contract 4.1). Same origin `/api` on Firebase Hosting and through the Vite proxy;
@@ -67,4 +67,9 @@ export function checkin(incidentId: string, input: CheckinInput) {
 /** A member's button (or `console` closing the incident). */
 export function act(incidentId: string, memberId: string, action: ServerAction) {
   return call<{ version: number }>(`/incidents/${encodeURIComponent(incidentId)}/actions`, { memberId, action })
+}
+
+/** Hospital sends the person home with a recovery plan (contract 4.1); `409` when there is no handoff or a plan exists. */
+export function recovery(incidentId: string, body: RecoveryRequest) {
+  return call<{ version: number }>(`/incidents/${encodeURIComponent(incidentId)}/recovery`, body)
 }

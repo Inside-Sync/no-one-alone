@@ -19,6 +19,7 @@ import com.noonealone.coreapi.flow.Actions;
 import com.noonealone.coreapi.flow.CheckInInput;
 import com.noonealone.coreapi.flow.DemoService;
 import com.noonealone.coreapi.flow.IncidentFlow;
+import com.noonealone.coreapi.flow.Recovery;
 import com.noonealone.coreapi.model.Scenario;
 
 @RestController
@@ -34,12 +35,14 @@ public class ApiController {
     private final DemoService demo;
     private final IncidentFlow flow;
     private final Actions actions;
+    private final Recovery recovery;
     private final Executor executor;
 
-    public ApiController(DemoService demo, IncidentFlow flow, Actions actions, Executor executor) {
+    public ApiController(DemoService demo, IncidentFlow flow, Actions actions, Recovery recovery, Executor executor) {
         this.demo = demo;
         this.flow = flow;
         this.actions = actions;
+        this.recovery = recovery;
         this.executor = executor;
     }
 
@@ -79,6 +82,11 @@ public class ApiController {
             throw ApiException.badRequest("memberId and action are required");
         }
         return Map.of("version", actions.apply(id, body.memberId(), body.action()));
+    }
+
+    @PostMapping("/incidents/{id}/recovery")
+    public Map<String, Long> recovery(@PathVariable String id, @RequestBody Recovery.Plan body) {
+        return Map.of("version", recovery.discharge(id, body));
     }
 
     private void checkIn(String id, CheckInInput input) {

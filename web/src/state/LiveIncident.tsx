@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as repo from '@/data/repo'
-import type { CheckinInput, DemoScenario, IncidentDoc, ServerAction } from '@/data/contract'
+import type { CheckinInput, DemoScenario, IncidentDoc, RecoveryRequest, ServerAction } from '@/data/contract'
 import { liveView, type LivePeople, type LiveView } from '@/domain/incident'
 import { storyNow } from '@/lib/clock'
 
@@ -21,6 +21,7 @@ export interface LiveIncidentValue {
   reset: () => Promise<void>
   checkin: (input: CheckinInput) => Promise<void>
   act: (memberId: string, action: ServerAction) => Promise<void>
+  recover: (body: RecoveryRequest) => Promise<void>
 }
 
 const NO_PEOPLE: LivePeople = { person: null, members: {} }
@@ -29,7 +30,7 @@ const idle = async () => {}
 
 /** Outside the provider (mock mode, unit tests): no live incident, and every write is a no-op. */
 const INERT: LiveIncidentValue = {
-  live: false, loading: false, error: null, incident: null, people: NO_PEOPLE, view: null, start: idle, reset: idle, checkin: idle, act: idle,
+  live: false, loading: false, error: null, incident: null, people: NO_PEOPLE, view: null, start: idle, reset: idle, checkin: idle, act: idle, recover: idle,
 }
 
 const Ctx = createContext<LiveIncidentValue>(INERT)
@@ -88,9 +89,13 @@ export function LiveIncidentProvider({ children }: { children: ReactNode }) {
     if (id) await repo.act(id, memberId, action)
   }, [id])
 
+  const recover = useCallback(async (body: RecoveryRequest) => {
+    if (id) await repo.recovery(id, body)
+  }, [id])
+
   const value = useMemo<LiveIncidentValue>(() => ({
-    live: repo.LIVE, loading: repo.LIVE && snap === null && !error, error, incident, people, view, start, reset, checkin, act,
-  }), [snap, error, incident, people, view, start, reset, checkin, act])
+    live: repo.LIVE, loading: repo.LIVE && snap === null && !error, error, incident, people, view, start, reset, checkin, act, recover,
+  }), [snap, error, incident, people, view, start, reset, checkin, act, recover])
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
 
