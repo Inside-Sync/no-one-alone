@@ -192,4 +192,31 @@ class RecoveryTest extends FirestoreTestBase {
                 .isInstanceOfSatisfying(ApiException.class, e -> assertThat(e.status()).isEqualTo(HttpStatus.BAD_REQUEST));
         verify(audio, never()).save(anyString(), anyString(), any(), anyString());
     }
+
+    @Test
+    void malformedAgentReplyFallsBackToRuleReminders() {
+        incident(ID, "margaret", true);
+        when(agent.recovery(any())).thenReturn(new RecoveryResult("hi", null, null, false));
+
+        recovery.discharge(ID, plan());
+
+        Incident inc = store.get(ID);
+        assertThat(inc.recovery.fallback).isTrue();
+        assertThat(inc.recovery.summary).isEqualTo("No driving for 4 weeks.");
+        assertThat(inc.recovery.reminders).extracting(r -> r.text()).containsExactly("Time for your aspirin, 100 mg.");
+    }
+
+    @Test
+    void badBase64AudioIsDroppedNotFatal() {
+        incident(ID, "margaret", true);
+        when(agent.recovery(any())).thenReturn(new RecoveryResult("hi", "!!not-base64", List.of(
+                new RecoveryResult.Reminder("08:00", "MED", "Time for your aspirin, 100 mg.", "!!not-base64")), false));
+
+        recovery.discharge(ID, plan());
+
+        Incident inc = store.get(ID);
+        assertThat(inc.status).isEqualTo(Status.CLOSED);
+        assertThat(inc.recovery.reminders.get(0).audioPath()).isNull();
+        assertThat(inc.recovery.summaryAudioPath).isNull();
+    }
 }

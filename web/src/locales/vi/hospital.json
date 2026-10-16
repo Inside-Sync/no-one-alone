@@ -59,7 +59,6 @@
       "sending": "Đang gửi…",
       "sentAt": "Đã cho về nhà lúc {{time}}",
       "sent": "Đã cho về nhà",
-      "reminders": "Nhắc nhở",
       "failed": "Không gửi được kế hoạch"
     }
   },

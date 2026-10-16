@@ -169,8 +169,8 @@ Hand-written list. Seed one stroke-ready hospital and one closer hospital with `
 | `assignments[].actions` | array | Buttons the member's screen shows. `ACCEPT`, `DECLINE`, `ARRIVED`, `CALLED_115` post to core-api. `CALL_PERSON` and `CALL_NEARBY` are client-only call buttons with no server write |
 | `assignments[].attempt` | int | NEARBY only. Used in the Cloud Task name |
 | `handoff.status` | `PENDING` \| `RECEIVED` \| `FAILED` | core-api writes `PENDING` before calling `/handoff` |
-| `timeline[].actor` | `SYSTEM` \| `AGENT` \| `PERSON` \| a memberId | |
-| `timeline[].kind` | `ALERT` \| `VERIFIED` \| `FALSE_ALARM` \| `ASKED` \| `ANSWERED` \| `NO_REPLY` \| `TRIAGED` \| `NOTIFIED` \| `ACCEPTED` \| `DECLINED` \| `EXPIRED` \| `NO_NEARBY` \| `ARRIVED` \| `CALLED_115` \| `HANDOFF_SENT` \| `HANDOFF_RECEIVED` \| `HANDOFF_FAILED` \| `AGENT_FALLBACK` \| `CLOSED` | |
+| `timeline[].actor` | `SYSTEM` \| `AGENT` \| `PERSON` \| `HOSPITAL` \| a memberId | |
+| `timeline[].kind` | `ALERT` \| `VERIFIED` \| `FALSE_ALARM` \| `ASKED` \| `ANSWERED` \| `NO_REPLY` \| `TRIAGED` \| `NOTIFIED` \| `ACCEPTED` \| `DECLINED` \| `EXPIRED` \| `NO_NEARBY` \| `ARRIVED` \| `CALLED_115` \| `HANDOFF_SENT` \| `HANDOFF_RECEIVED` \| `HANDOFF_FAILED` \| `AGENT_FALLBACK` \| `DISCHARGED` \| `CLOSED` | |
 | `*.fallback` | bool | `true` when the agent used its deterministic fallback; the timeline also gets an `AGENT_FALLBACK` entry |
 
 Assignments also get `arrivedAt` when the owner taps "Arrived". "Minutes to a person at the door" is not stored: the web computes it as that `arrivedAt` minus `alert.at`.

@@ -71,6 +71,9 @@ public class Recovery {
         } catch (AgentException e) {
             result = new RecoveryResult(plan.notes(), null, fallbackReminders(plan, isEnglish(person)), true);
         }
+        if (malformed(result)) {
+            result = new RecoveryResult(plan.notes(), null, fallbackReminders(plan, isEnglish(person)), true);
+        }
         List<RecoveryResult.Reminder> sorted = result.reminders().stream()
                 .sorted(Comparator.comparing(RecoveryResult.Reminder::time)).toList();
         List<Reminder> reminders = new ArrayList<>();
@@ -107,7 +110,18 @@ public class Recovery {
     }
 
     private String saveAudio(String incidentId, String fileName, String base64) {
-        return base64 == null ? null : audio.save(incidentId, fileName, Base64.getDecoder().decode(base64), "audio/mpeg");
+        if (base64 == null) {
+            return null;
+        }
+        try {
+            return audio.save(incidentId, fileName, Base64.getDecoder().decode(base64), "audio/mpeg");
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    private static boolean malformed(RecoveryResult r) {
+        return r.reminders() == null || r.reminders().stream().anyMatch(x -> x == null || x.time() == null || x.text() == null);
     }
 
     private static void requireOpen(Incident inc) {

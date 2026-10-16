@@ -176,7 +176,6 @@
     "next": "Next: {{time}} {{text}}",
     "nextTomorrow": "Next, tomorrow: {{time}} {{text}}",
     "done": "I've done it",
-    "allDone": "All done for today",
     "today": "Today",
     "followUps": "Coming up",
     "followUp": "{{text}} · {{date}}",

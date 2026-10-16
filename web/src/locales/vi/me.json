@@ -176,7 +176,6 @@
     "next": "Tiếp theo: {{time}} {{text}}",
     "nextTomorrow": "Tiếp theo, ngày mai: {{time}} {{text}}",
     "done": "Mạ làm xong rồi",
-    "allDone": "Hôm nay xong hết rồi",
     "today": "Hôm nay",
     "followUps": "Sắp tới",
     "followUp": "{{text}} · {{date}}",

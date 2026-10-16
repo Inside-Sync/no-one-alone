@@ -59,7 +59,6 @@
       "sending": "Sending…",
       "sentAt": "Sent home at {{time}}",
       "sent": "Sent home",
-      "reminders": "Reminders",
       "failed": "Could not send the plan"
     }
   },
