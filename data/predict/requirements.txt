@@ -1,0 +1,4 @@
+# Offline jobs (run from a laptop with ADC); not part of any Cloud Run image.
+google-auth==2.62.0
+google-cloud-firestore==2.34.1
+google-genai==2.31.0
