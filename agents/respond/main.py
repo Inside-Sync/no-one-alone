@@ -3,7 +3,11 @@
 Every route returns the contract example until the real agent replaces it,
 so core-api can integrate from day one.
 """
+import os
+
 from fastapi import FastAPI
+
+from hospital_client import send_handoff
 
 app = FastAPI(title="respond-agent")
 
@@ -38,5 +42,8 @@ def plan(body: dict):
 
 
 @app.post("/handoff")
-def handoff(body: dict):
-    return {"status": "RECEIVED", "packet": {"text": "stub"}, "fallback": True}
+async def handoff(body: dict):
+    url = os.environ.get("HOSPITAL_AGENT_URL")
+    if not url:
+        return {"status": "FAILED", "fallback": False}
+    return await send_handoff(url, body)
