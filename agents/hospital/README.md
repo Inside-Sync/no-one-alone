@@ -20,7 +20,7 @@ request ─ validate ─ read FHIR record ─ normalize ─ consent ─ packet (
 | `handoff/consent.py` | Fail-closed hospital-sharing consent |
 | `handoff/packet.py` | Packet and text |
 | `handoff/pipeline.py` | Orchestration, error mapping, one log line per request without patient data |
-| `scripts/hospital_client.py` | Client for respond-agent's `/handoff`: A2A with an identity token, HTTP fallback, contract 4.3 reply |
+| `../respond/hospital_client.py` | Client for respond-agent's `/handoff`: A2A with an identity token, HTTP fallback, contract 4.3 reply |
 | `scripts/probe_a2a.py` | Low-level A2A probe (data, text or HTTP part) |
 
 Packet fields, consent policy and text format: [docs/contract.md](../../docs/contract.md) section 4.4.
@@ -35,7 +35,7 @@ A2A_PUBLIC_URL=http://localhost:8082 .venv/bin/uvicorn main:app --port 8082
 .venv/bin/python scripts/probe_a2a.py --url http://localhost:8082              # A2A, data part
 .venv/bin/python scripts/probe_a2a.py --url http://localhost:8082 --mode text  # A2A, JSON text part
 .venv/bin/python scripts/probe_a2a.py --url http://localhost:8082 --mode http  # HTTP fallback
-.venv/bin/python scripts/hospital_client.py --url http://localhost:8082 --no-auth   # respond-agent's call
+.venv/bin/python ../respond/hospital_client.py --url http://localhost:8082 --no-auth --request tests/fixtures/request.stroke.json   # respond-agent's call
 ```
 
 ## Environment
@@ -48,8 +48,7 @@ A2A_PUBLIC_URL=http://localhost:8082 .venv/bin/uvicorn main:app --port 8082
 
 ## Calling it from respond-agent
 
-Copy `scripts/hospital_client.py` into `agents/respond/` and add `a2a-sdk==1.2.2` to its `requirements.txt`
-(1.x is not wire compatible with 0.3.x; it brings httpx, protobuf and google-auth). Then:
+respond-agent's `/handoff` uses `agents/respond/hospital_client.py`:
 
 ```python
 from hospital_client import send_handoff

@@ -13,6 +13,7 @@ HERE = Path(__file__).parent
 ROOT = HERE.parent
 BUNDLE = ROOT / "data" / "fhir" / "ba-mai.json"
 sys.path.insert(0, str(ROOT))
+sys.path.insert(1, str(ROOT.parent / "respond"))
 
 
 def load_json(path: Path) -> dict:

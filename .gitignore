@@ -4,6 +4,7 @@ web/dist/
 node_modules/
 __pycache__/
 .venv/
+.superpowers/
 .firebase/
 
 # Secrets: never commit service account keys or env files

@@ -1,14 +1,4 @@
-"""hospital-agent client for respond-agent's /handoff (contract 4.3/4.4): A2A first, plain-HTTP fallback.
-
-Self-contained so respond-agent can copy it unchanged. Needs only a2a-sdk==1.2.2 (it brings httpx,
-protobuf and google-auth).
-
-    python scripts/hospital_client.py --url http://localhost:8082 --no-auth
-    python scripts/hospital_client.py --url https://hospital-agent-....run.app      # service-account ADC token
-    python scripts/hospital_client.py --url https://hospital-agent-....run.app --token "$(gcloud auth print-identity-token)"
-
-fetch_id_token needs service-account or metadata-server credentials (Cloud Run); a personal gcloud login uses --token.
-"""
+"""hospital-agent client for /handoff (contract 4.3, 4.4): A2A first, HTTP fallback. Needs a2a-sdk, google-auth, httpx, requests."""
 import argparse
 import asyncio
 import json
@@ -24,7 +14,7 @@ from a2a.client.client import ClientConfig
 from a2a.types import Message, Part, Role, SendMessageRequest
 from google.protobuf import json_format, struct_pb2
 
-# One JSON line per call to stderr (Cloud Logging); codes and timings only, never patient data.
+# One JSON line per call to stderr; codes and timings only, never patient data.
 log = logging.getLogger("hospital_client")
 log.setLevel(logging.INFO)
 if not log.handlers:
@@ -98,12 +88,7 @@ def _classify(reply: object) -> tuple[dict | None, str | None]:
 async def send_handoff(url: str, body: dict, *, auth: bool = True, fallback_http: bool = True,
                        timeout: float = 20.0, token_provider: Callable[[str], str] | None = None,
                        transport: httpx.AsyncBaseTransport | None = None) -> dict:
-    """Returns the contract 4.3 reply {"status": "RECEIVED"|"FAILED", "packet"?, "fallback"}; never raises.
-
-    RECEIVED means hospital-agent returned a packet (status COMPLETED, PARTIAL or BLOCKED_CONSENT), not that the
-    hospital confirmed receipt. fallback is true when the outcome came over the HTTP fallback. One deadline
-    (timeout) covers the token, A2A and HTTP; with the fallback on, A2A gets at most 60% of it.
-    """
+    """Contract 4.3 reply {"status": "RECEIVED"|"FAILED", "packet"?, "fallback"}; never raises. One deadline covers all steps."""
     loop = asyncio.get_running_loop()
     t0 = loop.time()
     deadline = t0 + timeout
@@ -151,7 +136,7 @@ async def send_handoff(url: str, body: dict, *, auth: bool = True, fallback_http
     result = {"status": "RECEIVED" if packet else "FAILED", "fallback": path == "http"}
     if packet:
         result["packet"] = packet
-    # Codes, transport names and exception type names only: never the body, the packet or the token.
+    # Codes and type names only, never the body, packet or token.
     log.info(json.dumps({
         "stage": "hospital_client", "incidentId": body.get("incidentId") if isinstance(body, dict) else None,
         "transport": path, "status": result["status"], "packetStatus": packet["status"] if packet else None,
@@ -163,7 +148,7 @@ async def send_handoff(url: str, body: dict, *, auth: bool = True, fallback_http
 def main() -> None:
     ap = argparse.ArgumentParser(description="Send one /handoff body to hospital-agent and print the 4.3 reply.")
     ap.add_argument("--url", required=True)
-    ap.add_argument("--request", default="tests/fixtures/request.stroke.json")
+    ap.add_argument("--request", required=True)
     ap.add_argument("--no-auth", action="store_true", help="send no identity token (local server)")
     ap.add_argument("--token", help="identity token to send instead of fetching one")
     ap.add_argument("--no-fallback", action="store_true", help="A2A only, no HTTP fallback")

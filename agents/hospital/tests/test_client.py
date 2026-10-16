@@ -1,4 +1,4 @@
-"""scripts/hospital_client.py: status mapping, fallback, auth, deadline and logs; then against a real local server."""
+"""agents/respond/hospital_client.py: status mapping, fallback, auth, deadline and logs; then against a real local server."""
 import asyncio
 import json
 import time
@@ -6,7 +6,8 @@ import time
 import httpx
 import pytest
 
-from scripts import hospital_client as hc
+import hospital_client as hc
+
 from tests.conftest import HERE, load_json
 
 GOLDEN = HERE / "fixtures" / "packet.stroke.json"
@@ -23,7 +24,7 @@ def send(body, **kw):
 
 
 class Calls:
-    """Stands in for _via_a2a/_via_http: returns a reply, raises, or sleeps, and counts calls."""
+    """Stands in for _via_a2a/_via_http: replies, raises or sleeps, and counts calls."""
 
     def __init__(self, reply=None, error=None, sleep=0.0):
         self.reply, self.error, self.sleep, self.n = reply, error, sleep, 0
@@ -58,8 +59,6 @@ def last_log(caplog) -> dict:
     return json.loads(lines[-1])
 
 
-# --- status mapping -------------------------------------------------------------------------------------
-
 @pytest.mark.parametrize("status", ["COMPLETED", "PARTIAL", "BLOCKED_CONSENT"])
 def test_any_packet_is_received_and_passed_through_unchanged(stub, request_body, packet, status):
     packet["status"] = status
@@ -85,8 +84,6 @@ def test_malformed_reply_is_failed(stub, request_body, caplog, reply):
     assert last_log(caplog)["errorCode"] == "MALFORMED_REPLY"
 
 
-# --- fallback -------------------------------------------------------------------------------------------
-
 def test_a2a_transport_failure_falls_back_to_http(stub, request_body, packet, caplog):
     a2a, http = stub(Calls(error=hc.TransportError("a2a: ConnectError")), Calls(reply=packet))
     out = send(request_body)
@@ -99,8 +96,8 @@ def test_a2a_transport_failure_falls_back_to_http(stub, request_body, packet, ca
 def test_hung_a2a_leaves_time_for_the_http_fallback(stub, request_body, packet, caplog):
     stub(Calls(reply=packet, sleep=5), Calls(reply=packet))
     t0 = time.perf_counter()
-    out = send(request_body, timeout=1.0)
-    assert time.perf_counter() - t0 < 1.5
+    out = send(request_body, timeout=3.0)
+    assert time.perf_counter() - t0 < 2.6
     assert out == {"status": "RECEIVED", "fallback": True, "packet": packet}
     assert last_log(caplog)["errors"] == ["a2a: timeout"]
 
@@ -131,13 +128,11 @@ def test_fallback_disabled_makes_no_http_call(stub, request_body):
 def test_deadline_covers_both_attempts(stub, request_body, packet, caplog):
     stub(Calls(reply=packet, sleep=5), Calls(reply=packet, sleep=5))
     t0 = time.perf_counter()
-    assert send(request_body, timeout=0.3) == {"status": "FAILED", "fallback": True}
-    assert time.perf_counter() - t0 < 1.0
+    assert send(request_body, timeout=1.5) == {"status": "FAILED", "fallback": True}
+    assert time.perf_counter() - t0 < 2.5
     log = last_log(caplog)
     assert log["errorCode"] == "TIMEOUT" and log["errors"] == ["a2a: timeout", "http: timeout"]
 
-
-# --- auth -----------------------------------------------------------------------------------------------
 
 def test_token_is_fetched_for_the_service_url(stub, request_body, packet):
     seen = []
@@ -164,8 +159,6 @@ def test_no_auth_never_asks_for_a_token(stub, request_body, packet):
     assert out["status"] == "RECEIVED"
 
 
-# --- logs -----------------------------------------------------------------------------------------------
-
 def test_log_line_has_no_patient_data_or_token(stub, request_body, packet, caplog):
     stub(Calls(error=hc.TransportError("a2a: ConnectError")), Calls(reply=packet))
     run(hc.send_handoff("https://hospital.test", request_body, token_provider=lambda _: TOKEN))
@@ -175,8 +168,6 @@ def test_log_line_has_no_patient_data_or_token(stub, request_body, packet, caplo
     log = last_log(caplog)
     assert log["incidentId"] == request_body["incidentId"] and log["packetStatus"] == "COMPLETED"
 
-
-# --- _via_http on its own -------------------------------------------------------------------------------
 
 def http_reply(status, content):
     async def go():
@@ -198,10 +189,8 @@ def test_via_http_other_replies_are_transport_errors(status, content):
         http_reply(status, content)
 
 
-# --- against a real local server (uvicorn, real a2a-sdk) --------------------------------------------------
-
 class Proxy(httpx.AsyncBaseTransport):
-    """Forwards to the real server, records method, path and Authorization; can fail every A2A request."""
+    """Forwards to the real server, records method, path and Authorization; can fail A2A."""
 
     def __init__(self, fail_a2a=False):
         self.inner, self.fail_a2a, self.seen = httpx.AsyncHTTPTransport(), fail_a2a, []

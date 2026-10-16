@@ -59,9 +59,8 @@ jobs:
         run: |
           pip install -q -r requirements.txt
           python -c "import main"
-      - name: Hospital tests
-        if: matrix.agent == 'hospital'
-        working-directory: agents/hospital
+      - name: Tests
+        working-directory: agents/${{ matrix.agent }}
         run: |
           pip install -q -r requirements-dev.txt
           python -m pytest -q
