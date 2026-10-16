@@ -73,6 +73,7 @@ h1,h2,h3{text-wrap:balance}
 .rb .dot{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--sos);box-shadow:0 0 0 2px #fff}
 .av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:13.5px;font-weight:600;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.8);flex:none;background:radial-gradient(120% 120% at 30% 20%,rgba(255,255,255,.45),rgba(255,255,255,0) 45%),var(--c,#0b7f71)}
 .av.sm{width:30px;height:30px;font-size:12px}
+.av img{width:100%;height:100%;border-radius:inherit;object-fit:cover;display:block}
 
 /* context bar */
 .ctx{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:14px 18px}
@@ -382,7 +383,7 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 .toast{position:fixed;left:50%;bottom:26px;z-index:80;transform:translate(-50%,12px);background:rgba(6,40,38,.88);color:#fff;font-size:13px;padding:10px 16px;border-radius:13px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);max-width:calc(100vw - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
-body.night .chip,body.night .kpi,body.night .dev,body.night .mini div,body.night .bubble,body.night .mode,body.night .node,body.night .lab,body.night .rb,body.night .fact,body.night .search,body.night .sla div,body.night .days div,body.night .sim-out div{background:rgba(255,255,255,.08)}
+body.night .chip,body.night .kpi,body.night .dev,body.night .mini div,body.night .bubble,body.night .mode,body.night .node,body.night .lab,body.night .rb,body.night .fact,body.night .search,body.night .sla div,body.night .days div,body.night .sim-out div,body.night .bt{background:rgba(255,255,255,.08)}
 body.night .tabs button[aria-current="page"],body.night .seg button[aria-pressed="true"]{background:rgba(255,255,255,.92);color:var(--brand-text)}
 body.night .pill{background:rgba(255,255,255,.92)}
 /* R36 night: tone text sits on dark glass (#1f2432 measured on night KPI cards), where the light-theme text tones
@@ -511,6 +512,7 @@ body[data-view="community"]{--brand:#6d4fc0;--brand-2:#9a7fe0}
 
 /* Margaret's own pages (prototype `st2`, lines 2037-2056). */
 .me-hero{background:linear-gradient(140deg,rgba(255,255,255,.85),rgba(220,246,238,.7))}
+body.night .me-hero{background:rgba(255,255,255,.06)}
 .hello{font-size:34px;font-weight:500;letter-spacing:-.8px}
 .me-sub{font-size:16px;color:var(--ink2)}
 .big-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}

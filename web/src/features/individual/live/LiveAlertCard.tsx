@@ -3,6 +3,7 @@
 import { useState, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Orbit } from '@/components/canvas/Orbit'
+import { Avatar } from '@/components/ui/Avatar'
 import { useDrawer } from '@/components/ui/Drawer'
 import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
@@ -16,6 +17,8 @@ const gap16: CSSProperties = { display: 'grid', gap: 16, alignContent: 'start' }
 const orbitStyle: CSSProperties = { height: 360 }
 const endStyle: CSSProperties = { marginLeft: 'auto', display: 'flex', gap: 8 }
 const ownerAv = { '--c': '#2f6fb0' } as CSSProperties
+const avSm = { '--c': '#2f6fb0', width: 22, height: 22, fontSize: 10, marginRight: 6 } as CSSProperties
+const initialsOf = (s: string) => s.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('')
 const medium: CSSProperties = { fontWeight: 500 }
 const right: CSSProperties = { textAlign: 'right' }
 const chips: CSSProperties = { display: 'flex', flexWrap: 'wrap', gap: 8 }
@@ -93,7 +96,7 @@ export function LiveAlertCard({ view, incident, people, scene, viewer, act, onRe
           <span style={right}><b id="emWhat" style={medium}>{view.what}</b><br /><small className="muted" id="emSub">{view.sub}</small></span>
         </div>
         <div className="owner">
-          <span className="av" style={ownerAv}>{view.owner.initials}</span>
+          <Avatar name={view.owner.name} style={ownerAv}>{view.owner.initials}</Avatar>
           <span><b id="ownT">{view.owner.title}</b><small id="ownS">{view.owner.subtitle}</small></span>
           <span className="eta" id="ownE">{view.owner.eta}</span>
         </div>
@@ -109,6 +112,7 @@ export function LiveAlertCard({ view, incident, people, scene, viewer, act, onRe
           <div style={chips} role="group" aria-label={t('actAs')}>
             {alerted.map((id) => (
               <button key={id} type="button" className={`chip${id === actor ? ' on' : ''}`} aria-pressed={id === actor} onClick={() => setPicked(id)}>
+                <Avatar name={memberName(people, id)} className="av sm" style={avSm}>{initialsOf(memberName(people, id))}</Avatar>
                 {memberName(people, id)}
               </button>
             ))}

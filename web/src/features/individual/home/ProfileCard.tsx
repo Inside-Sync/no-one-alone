@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslation } from 'react-i18next'
+import { Avatar } from '@/components/ui/Avatar'
 import { Locked } from '@/components/ui/Locked'
 import { OnceButton } from '@/components/ui/OnceButton'
 import { useDrawer } from '@/components/ui/Drawer'
@@ -22,7 +23,7 @@ export function ProfileCard({ person }: { person: Person }) {
       </Head>
       <div className="prof">
         <div className="pf-id">
-          <span className="av" style={{ '--c': person.color, width: 64, height: 64, fontSize: 20 } as React.CSSProperties}>{person.initials}</span>
+          <Avatar name={person.name} style={{ '--c': person.color, width: 64, height: 64, fontSize: 20 } as React.CSSProperties}>{person.initials}</Avatar>
           <div><b>{person.name}</b><small>{t('profile.born', { born: person.born, nickname: person.nickname })}</small></div>
         </div>
         <div className="pf-grid">

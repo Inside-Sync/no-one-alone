@@ -39,6 +39,10 @@ export interface LivePhone {
   /** A reply is being processed: input is disabled (`checkIn.busy`). */
   busy: boolean
   help: string | null
+  /** First name of the helper on the way, for the photo on the help bubble. */
+  helperName: string | null
+  /** First name of the person calling while the alert is being verified (ringing). */
+  callerName: string | null
   /** Seconds before the screen posts `noReply` while a question waits (`demo.noReplySeconds`). */
   noReplySeconds: number
   /** Changes whenever a new question is shown: the no-reply timer and the autoplay key off it. */
@@ -63,7 +67,7 @@ export interface LiveView {
   storyTime: string
   what: string
   sub: string
-  owner: { initials: string; title: string; subtitle: string; eta: string }
+  owner: { name: string; initials: string; title: string; subtitle: string; eta: string }
   timeline: LiveTimelineRow[]
   sla: [label: string, value: string | null][]
   phone: LivePhone
@@ -179,10 +183,10 @@ function ownerView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
     const name = first(memberName(people, inc.ownerId))
     const a = (inc.assignments ?? []).find((x) => x.memberId === inc.ownerId)
     if (a?.state === 'ARRIVED') {
-      return { initials: initials(name), title: o('withSelf', { name, self }), subtitle: a.arrivedAt ? o('onSceneSince', { time: clockTime(a.arrivedAt, tz) }) : o('onScene'), eta: '✓' }
+      return { name, initials: initials(name), title: o('withSelf', { name, self }), subtitle: a.arrivedAt ? o('onSceneSince', { time: clockTime(a.arrivedAt, tz) }) : o('onScene'), eta: '✓' }
     }
     const left = ownerEtaMin(inc, now)
-    return { initials: initials(name), title: o('onTheWay', { name }), subtitle: o('owns'), eta: left === null ? '—' : `${left}′` }
+    return { name, initials: initials(name), title: o('onTheWay', { name }), subtitle: o('owns'), eta: left === null ? '—' : `${left}′` }
   }
   const waiting = nearby(inc).find((a) => a.state === 'NOTIFIED')
   if (waiting) {
@@ -190,12 +194,12 @@ function ownerView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
     const left = ms(waiting.deadlineAt) - now
     const secs = Math.max(0, Math.round(left / 1000))
     const eta = !Number.isFinite(left) ? '—' : secs < 60 ? `${secs}″` : duration(left)
-    return { initials: initials(name), title: o('alerted', { name }), subtitle: o('waiting'), eta }
+    return { name, initials: initials(name), title: o('alerted', { name }), subtitle: o('waiting'), eta }
   }
-  if (firstEntry(inc.timeline, 'NO_NEARBY')) return { initials: '!', title: o('noNearby'), subtitle: o('callNow', { num: people.person?.emergencyNumber ?? '000' }), eta: '—' }
+  if (firstEntry(inc.timeline, 'NO_NEARBY')) return { name: '', initials: '!', title: o('noNearby'), subtitle: o('callNow', { num: people.person?.emergencyNumber ?? '000' }), eta: '—' }
   const firstUp = [...(people.person?.circle ?? [])].sort((a, b) => a.priority - b.priority).find((c) => c.role === 'NEARBY')
   const name = firstUp ? first(memberName(people, firstUp.memberId)) : tl('incident.who.circle')
-  return { initials: initials(name), title: o('notYet', { name }), subtitle: o('firstToCall'), eta: '—' }
+  return { name, initials: initials(name), title: o('notYet', { name }), subtitle: o('firstToCall'), eta: '—' }
 }
 
 function slaRows(inc: IncidentDoc): LiveView['sla'] {
@@ -212,15 +216,22 @@ function slaRows(inc: IncidentDoc): LiveView['sla'] {
   ]
 }
 
+/** The first DISTANT circle member with critical alerts (the voice that rings first), else the first DISTANT one. */
+function callerOf(people: LivePeople): string | null {
+  const distant = [...(people.person?.circle ?? [])].filter((c) => c.role === 'DISTANT').sort((a, b) => a.priority - b.priority)
+  const c = distant.find((x) => x.criticalAlerts) ?? distant[0]
+  return c ? first(memberName(people, c.memberId)) : null
+}
+
 function phoneView(inc: IncidentDoc, people: LivePeople, now: number, tz: string): LivePhone {
   const ph = (k: string, o?: Record<string, unknown>) => tl(`incident.phone.${k}`, o)
   const name = first(people.person?.displayName ?? '')
   const ci = inc.checkIn
   const base: LivePhone = {
-    time: clockTime(now, tz), q: '', flash: false, yn: false, voice: false, busy: false, help: null,
+    time: clockTime(now, tz), q: '', flash: false, yn: false, voice: false, busy: false, help: null, helperName: null, callerName: null,
     noReplySeconds: inc.demo.noReplySeconds, questionKey: null, audioPath: null,
   }
-  if (inc.status === 'VERIFYING') return { ...base, q: `${name}…`, small: ph('ringing'), flash: true }
+  if (inc.status === 'VERIFYING') return { ...base, q: `${name}…`, small: ph('ringing'), flash: true, callerName: callerOf(people) }
   if (inc.status === 'CHECKING_IN') {
     if (ci?.pending && !ci.busy) {
       const yn = ci.pending.kind === 'YES_NO' || ci.mode === 'LARGE_TEXT'
@@ -235,14 +246,16 @@ function phoneView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
   if (inc.verify && !inc.verify.isReal) return { ...base, q: ph('fine') }
   if (inc.status === 'CLOSED' && (inc.level === 'OK' || inc.level === 'MONITOR')) return { ...base, q: ph('glad') }
   let help: string | null = null
+  let helperName: string | null = null
   if (inc.ownerId) {
     const helper = first(memberName(people, inc.ownerId))
+    helperName = helper
     const arrived = (inc.assignments ?? []).find((x) => x.memberId === inc.ownerId)?.state === 'ARRIVED'
     const left = ownerEtaMin(inc, now)
     help = inc.status === 'ON_SCENE' ? ph('withYou', { name: helper }) : ph('away', { name: helper, eta: left !== null ? min(left) : arrived ? '✓' : '—' })
   }
   const instr = inc.personInstruction
-  return { ...base, q: instr?.text ?? ph('onTheWay'), help, audioPath: instr?.audioPath ?? null, questionKey: instr ? 'instruction' : null }
+  return { ...base, q: instr?.text ?? ph('onTheWay'), help, helperName, audioPath: instr?.audioPath ?? null, questionKey: instr ? 'instruction' : null }
 }
 
 function orbitView(inc: IncidentDoc, now: number): EmOrbitTargets {

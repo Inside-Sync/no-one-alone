@@ -8,6 +8,7 @@ import { LocaleSwitch } from './LocaleSwitch'
 import { SearchBox } from './SearchBox'
 import { Tabs } from './Tabs'
 import { ViewSwitcher } from './ViewSwitcher'
+import { Avatar } from '@/components/ui/Avatar'
 import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import { firstPage, parsePath, tabsFor, VIEW_USERS, type ViewId } from '@/domain/views'
@@ -80,9 +81,10 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
           <span className="ic"><Icon name="bell" /></span>
           <span className="dot"></span>
         </button>
-        <button
+        <Avatar
+          as="button"
+          name={name}
           type="button"
-          className="av"
           id="meAv"
           style={{ '--c': color } as React.CSSProperties}
           aria-label={t('nav.signedInAs', { name })}
@@ -90,7 +92,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
           onClick={onAvatarClick ?? (() => toastMsg(toast))}
         >
           {initials}
-        </button>
+        </Avatar>
       </div>
     </header>
   )
