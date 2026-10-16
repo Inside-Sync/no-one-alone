@@ -8,6 +8,7 @@ from fastapi import FastAPI, HTTPException
 import checkin
 import gcp
 import plan
+import recovery
 import rules
 from hospital_client import send_handoff
 
@@ -15,6 +16,7 @@ log = logging.getLogger("respond")
 app = FastAPI(title="respond-agent")
 assessor = gcp.GeminiAssessor()
 voice = gcp.ChirpVoice()
+writer = gcp.GeminiWriter()
 
 
 @app.get("/health")
@@ -76,3 +78,22 @@ async def handoff(body: dict):
     if not url:
         return {"status": "FAILED", "fallback": False}
     return await send_handoff(url, body)
+
+
+@app.post("/recovery")
+def recovery_route(body: dict):
+    try:
+        person, plan_in = body["person"], body["plan"]
+        locale = gcp.locale_for(person)
+        text, fallback = recovery.summary(person, plan_in, writer)
+        out = {"summary": text, "reminders": recovery.reminders(person, plan_in), "fallback": fallback}
+        spoken = {"text": text}
+        if add_audio(spoken, locale):
+            out["summaryAudioBase64"] = spoken["audioBase64"]
+        for r in out["reminders"]:
+            add_audio(r, locale)
+        return out
+    except Exception as e:
+        log.warning("recovery failed: %s", type(e).__name__)
+        raise HTTPException(status_code=503, detail="recovery failed")
+
