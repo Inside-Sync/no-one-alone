@@ -10,7 +10,7 @@ import * as repo from '@/data/repo'
 import { STEPS } from '@/domain/emergency'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
 import type { ContextBar as Ctx } from '@/data/types'
-import { OWN_CONTEXT, PAGE_TITLES, parsePath, VIEW_LABELS } from '@/domain/views'
+import { hasOwnContext, OWN_CONTEXT, PAGE_TITLES, parsePath, VIEW_LABELS } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 import s from './shell.module.css'
@@ -40,8 +40,8 @@ export function ContextBar() {
   const bars = useContextBars()
 
   let ctx: Ctx | undefined
-  const ownIcon = page === 'me' || page === 'privacy' ? OWN_CONTEXT[page].icon : undefined
-  if (page === 'me' || page === 'privacy') ctx = { ...OWN_CONTEXT[page], facts: [...OWN_CONTEXT[page].facts] }
+  const ownIcon = hasOwnContext(page) ? OWN_CONTEXT[page].icon : undefined
+  if (hasOwnContext(page)) ctx = { ...OWN_CONTEXT[page], facts: [...OWN_CONTEXT[page].facts] }
   else if (view === 'hospital') ctx = bars?.hospital
   else if (view === 'community') ctx = bars?.community
   else ctx = page === 'lineage' ? bars?.lineage : bars?.person

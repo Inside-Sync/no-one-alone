@@ -197,6 +197,7 @@
     "tick": "完成",
     "idle": "您的康复计划会显示在这里",
     "idle_family": "Margaret 的康复计划会显示在这里",
+    "openHospital": "打开医院视图发送计划",
     "stop": "停用：{{name}}",
     "meds": "您的药物说明",
     "meds_family": "她的药物说明",

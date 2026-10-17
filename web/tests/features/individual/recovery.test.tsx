@@ -13,6 +13,7 @@ const idle = async () => {}
 const liveValue: LiveIncidentValue = {
   live: true, loading: false, error: null, incident: null, people: { person: null, members: {} }, view: null,
   start: idle, reset: idle, checkin: idle, act: idle, recover: idle,
+  get recovery() { return this.incident?.recovery },
 }
 vi.mock('@/state/LiveIncident', () => ({ useLiveIncident: () => liveValue }))
 

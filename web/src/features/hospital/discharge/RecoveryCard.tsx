@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useRouter } from '@/app/navigation'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Glyph } from '@/components/ui/Icon'
 import { TableScroll } from '@/components/ui/TableScroll'
@@ -7,6 +8,7 @@ import { useToast } from '@/components/ui/Toast'
 import type { MedChange, RecoveryRequest } from '@/data/contract'
 import { CALL_DAYS, SLOTS, deliverySteps, todayTasks } from '@/domain/recovery'
 import { Head } from '../../individual/home/parts'
+import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 
 const DEFAULT_PLAN: RecoveryRequest = {
@@ -72,30 +74,17 @@ const toRequest = (f: Form): RecoveryRequest => ({
   followUps: f.followUps.map((u) => ({ text: u.text.trim(), inDays: Number(u.inDays) })),
 })
 
-/** `Discharge and recovery plan` (c12): the doctor finalises the plan, then approves it and Noa delivers it (contract 4.1). */
-export function RecoveryCard() {
+/** The plan being written on the patient page: shared by the fit-for-discharge banner and the plan card. */
+export function usePlanBuilder() {
   const { t } = useTranslation('hospital')
-  const { incident, people, recover } = useLiveIncident()
+  const { people, recover, recovery } = useLiveIncident()
   const toast = useToast()
   const [form, setForm] = useState(() => toForm(DEFAULT_PLAN))
   const [signedAt, setSignedAt] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const [sent, setSent] = useState(false)
-  const recovery = incident?.recovery
-  const [shown, setShown] = useState(0)
-  const steps = recovery ? deliverySteps(recovery, Object.values(people.members).map((p) => p.displayName.split(' ')[0])) : []
-  const visible = sent ? shown : steps.length
-  useEffect(() => {
-    if (!recovery || !sent || shown >= steps.length) return
-    const id = setTimeout(() => setShown(shown + 1), 550)
-    return () => clearTimeout(id)
-  }, [recovery, sent, shown, steps.length])
   const tz = people.person?.timezone ?? 'Australia/Sydney'
   const clock = (ms: number) => new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(ms)
-
-  const set = <K extends keyof Form>(k: K, v: Form[K]) => setForm((f) => ({ ...f, [k]: v }))
-  const row = <K extends 'meds' | 'activities' | 'followUps'>(k: K, i: number, patch: Partial<Form[K][number]>) =>
-    set(k, form[k].map((r, j) => (j === i ? { ...r, ...patch } : r)) as Form[K])
 
   const finalise = () => {
     setSignedAt(clock(Date.now())) // layering-allow: the doctor's real signing time
@@ -115,10 +104,71 @@ export function RecoveryCard() {
     }
   }
 
+  /** The banner's one-click approval: the doctor signs and hands off in the same step. */
+  const approve = async () => {
+    if (!signedAt) setSignedAt(clock(Date.now())) // layering-allow: the doctor's real signing time
+    await send()
+  }
+
+  return { form, setForm, signedAt, setSignedAt, busy, sent, recovery, people, clock, finalise, send, approve }
+}
+
+export type PlanBuilder = ReturnType<typeof usePlanBuilder>
+
+/** `Margaret Collins is fit for discharge` (c12 sendbar): approve from the top, jump to the plan, then open her portal. */
+export function FitBanner({ plan }: { plan: PlanBuilder }) {
+  const { t } = useTranslation('hospital')
+  const router = useRouter()
+  const { setWho } = useAppState()
+  const done = Boolean(plan.recovery || plan.sent)
+  const at = plan.recovery && plan.clock(Date.parse(plan.recovery.createdAt))
+  const openPortal = () => {
+    setWho('self')
+    router.push('/individual/recovery')
+  }
+  return (
+    <GlassCard span={12}>
+      <div className="row" style={{ borderLeft: '4px solid var(--brand)', paddingLeft: 14, justifyContent: 'space-between', alignItems: 'center' }}>
+        <span>
+          <b style={{ fontSize: 16 }}><Glyph name="stethoscope" />{t('patient.banner.title')}</b>
+          <small className="meta" style={{ display: 'block' }}>{t('patient.banner.sub')}</small>
+        </span>
+        <span className="row">
+          <button type="button" className="btn" disabled={done || plan.busy} onClick={plan.approve}>
+            <Glyph name={done ? 'check' : 'circle-check'} />
+            {done ? t('patient.banner.sent', { time: at ?? '' }) : plan.busy ? t('ed.recovery.delivering') : t('patient.banner.approve')}
+          </button>
+          <button type="button" className="btn soft" onClick={() => document.getElementById('planBuilder')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+            <Glyph name="arrow-down" />{t('patient.banner.review')}
+          </button>
+          {done && <button type="button" className="btn soft" onClick={openPortal}><Glyph name="user-round" />{t('patient.banner.portal')}</button>}
+        </span>
+      </div>
+    </GlassCard>
+  )
+}
+
+/** `Discharge and recovery plan` (c12): the doctor finalises the plan, then approves it and Noa delivers it (contract 4.1). */
+export function RecoveryCard({ plan }: { plan: PlanBuilder }) {
+  const { t } = useTranslation('hospital')
+  const { form, setForm, signedAt, setSignedAt, busy, sent, recovery, people, clock, finalise, send } = plan
+  const [shown, setShown] = useState(0)
+  const steps = recovery ? deliverySteps(recovery, Object.values(people.members).map((p) => p.displayName.split(' ')[0])) : []
+  const visible = sent ? shown : steps.length
+  useEffect(() => {
+    if (!recovery || !sent || shown >= steps.length) return
+    const id = setTimeout(() => setShown(shown + 1), 550)
+    return () => clearTimeout(id)
+  }, [recovery, sent, shown, steps.length])
+
+  const set = <K extends keyof Form>(k: K, v: Form[K]) => setForm((f) => ({ ...f, [k]: v }))
+  const row = <K extends 'meds' | 'activities' | 'followUps'>(k: K, i: number, patch: Partial<Form[K][number]>) =>
+    set(k, form[k].map((r, j) => (j === i ? { ...r, ...patch } : r)) as Form[K])
+
   if (recovery || sent) {
     const at = recovery && clock(Date.parse(recovery.createdAt))
     return (
-      <GlassCard span={12}>
+      <GlassCard span={12} id="planBuilder">
         <Head icon="notebook-pen" title={t('ed.recovery.title')} meta={at ? t('ed.recovery.sentAt', { time: at }) : t('ed.recovery.sent')} />
         <ol className="list steps">
           {steps.slice(0, visible).map((s, i) => <li key={s.key}><b>{i + 1}</b><span>{t(`ed.recovery.steps.${s.key}`, s.vars)}</span></li>)}

@@ -1,5 +1,5 @@
 import type { RecoveryDoc } from '@/data/contract'
-import { CALL_DAYS, dayLabel, deliverySteps, followUpCalls, handoffFacts, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
+import { CALL_DAYS, dayLabel, deliverySteps, followUpCalls, handoffFacts, localRecovery, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
 import en from '@/locales/en/me.json'
 
 const R = [
@@ -113,4 +113,21 @@ test('the default reminders read naturally and keep their WHY lines', () => {
     r('Time for your speech exercises, 15 minutes.'), r('Time for a glass of water.'),
   ] }))
   expect(tasks.map((t) => t.why)).toEqual([en.recovery.why.walk, en.recovery.why.bloodPressure, en.recovery.why.speech, en.recovery.why.water])
+})
+
+test('localRecovery turns an approved request into the doc Margaret sees: notes as summary, a reminder per ticked time', () => {
+  const r = localRecovery({
+    staffName: 'Dr Ross', diagnosis: 'd', notes: 'You had a small stroke.',
+    meds: [{ name: 'Apixaban', dose: '5 mg', times: ['18:00', '08:00'], change: 'New' }, { name: 'Aspirin', dose: '100 mg', times: ['08:00'], change: 'Stop' }],
+    activities: [{ text: 'Walk 20 minutes daily', times: ['10:00'], reminder: 'Time for your 20-minute walk.' }, { text: 'No driving', times: [] }],
+    followUps: [{ text: 'GP review', inDays: 7 }],
+  }, Date.parse('2026-10-16T09:30:00Z'), 'Australia/Sydney')
+  expect(r.summary).toBe('You had a small stroke.')
+  expect(r.fallback).toBe(true)
+  expect(r.reminders).toEqual([
+    { time: '08:00', kind: 'MED', text: 'Apixaban 5 mg' },
+    { time: '10:00', kind: 'ACTIVITY', text: 'Time for your 20-minute walk.' },
+    { time: '18:00', kind: 'MED', text: 'Apixaban 5 mg' },
+  ])
+  expect(r.followUps).toEqual([{ text: 'GP review', inDays: 7, date: '2026-10-23' }])
 })

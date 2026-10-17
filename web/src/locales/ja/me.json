@@ -197,6 +197,7 @@
     "tick": "完了",
     "idle": "回復プランはここに表示されます",
     "idle_family": "Margaretさんの回復プランはここに表示されます",
+    "openHospital": "病院ビューを開いてプランを送る",
     "stop": "中止：{{name}}",
     "meds": "お薬の説明",
     "meds_family": "Margaretさんのお薬の説明",

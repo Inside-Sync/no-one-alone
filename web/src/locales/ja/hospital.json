@@ -222,6 +222,24 @@
       "new": "新規"
     }
   },
+  "patient": {
+    "banner": {
+      "title": "Margaret Collins さんは退院可能です",
+      "sub": "下のプランを確認してから承認してください。エージェントがリマインダー付きで Margaret さんのポータルに届けます。",
+      "approve": "承認して Margaret さんに送る",
+      "review": "プランを確認",
+      "portal": "Margaret さんのポータルを開く",
+      "sent": "Margaret さんに送信済み · {{time}}"
+    },
+    "summary": {
+      "title": "入院サマリー",
+      "tag": "受診"
+    },
+    "course": {
+      "title": "入院経過",
+      "meta": "主な出来事"
+    }
+  },
   "actions": {
     "row": [
       [

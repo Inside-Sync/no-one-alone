@@ -1,4 +1,4 @@
-import type { RecoveryDoc } from '@/data/contract'
+import type { RecoveryDoc, RecoveryRequest } from '@/data/contract'
 import type { IconName } from '@/data/types'
 import i18n, { intlLocale } from '@/i18n'
 
@@ -126,4 +126,24 @@ export function daysHome(createdAt: string, nowMs: number, tz: string): number {
 export function partOfDay(nowMs: number, tz: string): 'morning' | 'afternoon' | 'evening' {
   const h = hhmm(nowMs, tz)
   return h < '12:00' ? 'morning' : h < '18:00' ? 'afternoon' : 'evening'
+}
+
+/**
+ * The plan as Margaret's page shows it when there is no incident to post it to (mock mode, or before the night demo):
+ * the doctor's notes stand in for the summary, and every ticked time becomes a reminder, as core-api would set them.
+ */
+export function localRecovery(body: RecoveryRequest, nowMs: number, tz: string): RecoveryDoc {
+  const [y, m, d] = localDate(nowMs, tz).split('-').map(Number)
+  const reminders: Reminder[] = [
+    ...body.meds.filter((x) => !isStopped(x)).flatMap((x) => x.times.map((time) => ({ time, kind: 'MED' as const, text: `${x.name} ${x.dose}` }))),
+    ...body.activities.flatMap((a) => a.times.map((time) => ({ time, kind: 'ACTIVITY' as const, text: a.reminder ?? a.text }))),
+  ].sort((a, b) => a.time.localeCompare(b.time))
+  return {
+    ...body,
+    createdAt: new Date(nowMs).toISOString(),
+    followUps: body.followUps.map((f) => ({ ...f, date: new Date(Date.UTC(y, m - 1, d + f.inDays)).toISOString().slice(0, 10) })),
+    summary: body.notes,
+    reminders,
+    fallback: true,
+  }
 }

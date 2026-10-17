@@ -222,6 +222,24 @@
       "new": "New"
     }
   },
+  "patient": {
+    "banner": {
+      "title": "Margaret Collins is fit for discharge",
+      "sub": "Review the plan below, then approve. The agent delivers it to Margaret's portal with reminders.",
+      "approve": "Approve and send to Margaret",
+      "review": "Review the plan",
+      "portal": "Open Margaret's portal",
+      "sent": "Sent to Margaret · {{time}}"
+    },
+    "summary": {
+      "title": "Admission summary",
+      "tag": "ENCOUNTER"
+    },
+    "course": {
+      "title": "Inpatient course",
+      "meta": "Key events"
+    }
+  },
   "actions": {
     "row": [
       [

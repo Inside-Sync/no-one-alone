@@ -197,6 +197,7 @@
     "tick": "완료",
     "idle": "회복 계획이 여기에 표시돼요",
     "idle_family": "Margaret의 회복 계획이 여기에 표시돼요",
+    "openHospital": "병원 화면을 열어 계획 보내기",
     "stop": "중단: {{name}}",
     "meds": "내 약 쉽게 알아보기",
     "meds_family": "어머니의 약 쉽게 알아보기",

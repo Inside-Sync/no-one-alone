@@ -16,6 +16,7 @@ const idle = async () => {}
 const liveValue: LiveIncidentValue = {
   live: false, loading: false, error: null, incident: null, people: { person: null, members: {} }, view: null,
   start: idle, reset: idle, checkin: idle, act: idle, recover: idle,
+  get recovery() { return this.incident?.recovery },
 }
 vi.mock('@/state/LiveIncident', () => ({ useLiveIncident: () => liveValue }))
 
@@ -39,7 +40,8 @@ describe('ed', () => {
     expect(Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)).toEqual([
       'Pre-arrival inbox', 'Incoming ambulances', 'Packet', 'Stroke pathway',
     ])
-    expect(Array.from(document.querySelector('main')!.children).map((c) => c.className.match(/c\d+/)?.[0])).toEqual(['c12', 'c7', 'c5'])
+    expect(Array.from(document.querySelector('main')!.children).map((c) => c.className.match(/c\d+/)?.[0])).toEqual(['c12', 'c12', 'c7', 'c5'])
+    expect(screen.getByText('Ready for discharge: Margaret Collins, 78')).toBeInTheDocument()
     expect(document.querySelectorAll('.kpis .kpi')).toHaveLength(6)
     expect(screen.queryByText('Locked')).not.toBeInTheDocument()
   })

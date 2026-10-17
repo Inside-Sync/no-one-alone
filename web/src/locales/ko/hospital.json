@@ -222,6 +222,24 @@
       "new": "신규"
     }
   },
+  "patient": {
+    "banner": {
+      "title": "Margaret Collins 님은 퇴원 가능합니다",
+      "sub": "아래 계획을 검토한 뒤 승인하세요. 에이전트가 알림과 함께 Margaret 님의 포털로 전달합니다.",
+      "approve": "승인하고 Margaret 님께 보내기",
+      "review": "계획 검토",
+      "portal": "Margaret 님의 포털 열기",
+      "sent": "Margaret 님께 보냄 · {{time}}"
+    },
+    "summary": {
+      "title": "입원 요약",
+      "tag": "진료"
+    },
+    "course": {
+      "title": "입원 경과",
+      "meta": "주요 사건"
+    }
+  },
   "actions": {
     "row": [
       [

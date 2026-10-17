@@ -222,6 +222,24 @@
       "new": "Mới"
     }
   },
+  "patient": {
+    "banner": {
+      "title": "Margaret Collins đủ điều kiện xuất viện",
+      "sub": "Xem kế hoạch bên dưới rồi duyệt. Trợ lý sẽ gửi kế hoạch kèm nhắc nhở tới cổng thông tin của Margaret.",
+      "approve": "Duyệt và gửi cho Margaret",
+      "review": "Xem kế hoạch",
+      "portal": "Mở cổng thông tin của Margaret",
+      "sent": "Đã gửi cho Margaret · {{time}}"
+    },
+    "summary": {
+      "title": "Tóm tắt nhập viện",
+      "tag": "LẦN KHÁM"
+    },
+    "course": {
+      "title": "Diễn biến nội trú",
+      "meta": "Sự kiện chính"
+    }
+  },
   "actions": {
     "row": [
       [

@@ -197,6 +197,7 @@
     "tick": "Xong",
     "idle": "Kế hoạch hồi phục của mạ sẽ hiện ở đây",
     "idle_family": "Kế hoạch hồi phục của bà Margaret sẽ hiện ở đây",
+    "openHospital": "Mở màn hình bệnh viện để gửi kế hoạch",
     "stop": "Ngừng: {{name}}",
     "meds": "Thuốc của bạn, giải thích rõ",
     "meds_family": "Thuốc của bà, giải thích rõ",

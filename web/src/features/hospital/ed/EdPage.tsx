@@ -2,13 +2,10 @@
 
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useRouter } from '@/app/navigation'
-import { GlassCard } from '@/components/ui/GlassCard'
-import { Glyph } from '@/components/ui/Icon'
 import type { LabelValue } from '@/data/types'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
-import { HospitalKpis } from '../shared'
+import { HospitalKpis, ReadyBanner } from '../shared'
 import { PageError } from '@/features/shared/PageError'
 import { useHospital } from '../useHospital'
 import { InboxCard, type InboxItem } from './InboxCard'
@@ -20,8 +17,7 @@ export function EdPage() {
   const res = useHospital()
   const h = res.data
   const { packetNew, emergency } = useAppState()
-  const { live, view, incident } = useLiveIncident()
-  const router = useRouter()
+  const { live, view } = useLiveIncident()
   // Live mode: the packet hospital-agent returned (contract 4.4); the mock replays the scripted one.
   const livePacket = live ? view?.packet ?? null : null
   // A pick belongs to one inbox: when the demo's packet arrives or leaves, the pane goes back to its default (prototype re-renders it).
@@ -50,14 +46,7 @@ export function EdPage() {
 
   return (
     <main className="grid" data-page="ed">
-      {live && incident?.handoff && !incident.recovery && (
-        <GlassCard span={12}>
-          <div className="row" style={{ borderLeft: '4px solid var(--brand)', paddingLeft: 14, justifyContent: 'space-between' }}>
-            <span><b><Glyph name="stethoscope" />{t('ed.discharge.title')}</b><small className="meta" style={{ display: 'block' }}>{t('ed.discharge.sub')}</small></span>
-            <button type="button" className="btn" onClick={() => router.push('/hospital/discharge')}>{t('ed.discharge.open')}</button>
-          </div>
-        </GlassCard>
-      )}
+      <ReadyBanner />
       <HospitalKpis id="edKpis" kpis={h.edKpis} />
       <InboxCard items={items} incoming={incoming} showNew={packetNew} onSelect={(m) => setPick({ name: m.name, inbox: packetNew })} />
       <PacketCard

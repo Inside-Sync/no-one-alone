@@ -222,6 +222,24 @@
       "new": "新"
     }
   },
+  "patient": {
+    "banner": {
+      "title": "Margaret Collins 可以出院",
+      "sub": "请先查看下面的计划，再批准。助手会把计划连同提醒发送到 Margaret 的门户。",
+      "approve": "批准并发送给 Margaret",
+      "review": "查看计划",
+      "portal": "打开 Margaret 的门户",
+      "sent": "已发送给 Margaret · {{time}}"
+    },
+    "summary": {
+      "title": "入院摘要",
+      "tag": "就诊"
+    },
+    "course": {
+      "title": "住院经过",
+      "meta": "关键事件"
+    }
+  },
   "actions": {
     "row": [
       [

@@ -44,6 +44,9 @@ button{background:none;border:0;cursor:pointer;text-align:inherit}
 /* `span.ic>svg` outranks chart rules such as `.kpi svg{height:26px}`, so an icon inside a chart card keeps its 1em box. */
 span.ic>svg{width:100%;height:100%;display:block}
 .gl{vertical-align:-.14em;margin-right:.4em}
+.gl{color:var(--gl,currentColor)}
+/* On a filled button or a pressed segment the meaning colour clashes with the fill: the icon takes the text colour */
+:is(.btn:not(.soft),.views button[aria-pressed="true"],.rec-tabs button[aria-selected="true"],.txf .chip[aria-pressed="true"],.act.primary,.dev-b) .gl{color:inherit}
 h1,h2,h3{text-wrap:balance}
 .mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 

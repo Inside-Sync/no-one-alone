@@ -301,7 +301,8 @@
       "ed": "Báo trước khi đến",
       "panel": "Danh sách bệnh nhân",
       "demand": "Nhu cầu & giường",
-      "discharge": "Theo dõi sau xuất viện"
+      "discharge": "Theo dõi sau xuất viện",
+      "patient": "Hồ sơ bệnh nhân & xuất viện"
     },
     "community": {
       "community": "Tổng quan cộng đồng",
@@ -324,6 +325,7 @@
     "panel": "Danh sách bệnh nhân · người cao tuổi",
     "demand": "Nhu cầu và giường · 14 ngày tới",
     "discharge": "Theo dõi sau xuất viện · 30 ngày qua",
+    "patient": "Hồ sơ bệnh nhân · COLLINS, Margaret (Nữ, 78)",
     "community": "Cộng đồng Inner West",
     "watch": "Canh chừng khu phố · Inner West"
   },
@@ -355,6 +357,27 @@
         [
           "Vị trí",
           "tắt"
+        ]
+      ]
+    },
+    "patient": {
+      "sub": "MRN 0048213 · Đơn vị đột quỵ giường 4 · nhập viện 15/10 02:24 bằng xe cứu thương · ngày 3",
+      "facts": [
+        [
+          "Tình trạng",
+          "đủ điều kiện xuất viện"
+        ],
+        [
+          "NIHSS",
+          "6 → 1"
+        ],
+        [
+          "Dị ứng",
+          "penicillin"
+        ],
+        [
+          "Đồng ý",
+          "cổng thông tin + gia đình (theo cài đặt của bệnh nhân)"
         ]
       ]
     }
