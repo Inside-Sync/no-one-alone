@@ -21,8 +21,10 @@ vi.mock('@/state/LiveIncident', () => ({ useLiveIncident: () => liveValue }))
 
 let dialed: (() => void)[] = []
 const playDial000 = vi.fn(() => new Promise<void>((r) => { dialed.push(r) }))
+let rung: (() => void)[] = []
+const playRing = vi.fn(() => new Promise<void>((r) => { rung.push(r) }))
 vi.mock('@/features/individual/live/ring', async (orig) => ({
-  ...(await orig<typeof import('@/features/individual/live/ring')>()), playDial000: () => playDial000(), playRing: () => Promise.resolve(),
+  ...(await orig<typeof import('@/features/individual/live/ring')>()), playDial000: () => playDial000(), playRing: () => playRing(),
 }))
 vi.mock('@/data/repo', async (orig) => ({ ...(await orig<typeof import('@/data/repo')>()), audioUrl: (p: string) => Promise.resolve(p) }))
 
@@ -36,6 +38,8 @@ beforeEach(() => {
   liveValue = idleValue
   playDial000.mockClear()
   dialed = []
+  playRing.mockClear()
+  rung = []
   played = []
   vi.stubGlobal('Audio', vi.fn(function Audio(url: string) {
     return { play: () => { played.push(url); return new Promise(() => {}) }, pause: () => {}, addEventListener: () => {} }
@@ -73,8 +77,9 @@ const T0 = Date.parse('2026-10-14T14:30:00Z')
 const at = (sec: number) => new Date(T0 + sec * 1000).toISOString()
 const people: LivePeople = { person: null, members: {} }
 const ev = (sec: number, actor: string, kind: string, text: string) => ({ at: at(sec), actor, kind, text })
-function incidentAt(start: number, call: boolean): LiveIncidentValue {
-  const timeline = [ev(start, 'SYSTEM', 'ALERT', 'Heart rate 137'), ...(call ? [
+function incidentAt(start: number, call: boolean, david = false): LiveIncidentValue {
+  const timeline = [ev(start, 'SYSTEM', 'ALERT', 'Heart rate 137'),
+    ...(david || call ? [ev(start + 30, 'SYSTEM', 'NOTIFIED', 'Calling David: Margaret may be having a stroke.')] : []), ...(call ? [
     ev(start + 60, 'david', 'ACCEPTED', 'David accepted'),
     ev(start + 60, 'SYSTEM', 'CALLED_115', 'Calling 000 automatically with the call script (demo call)'),
   ] : [])]
@@ -123,4 +128,25 @@ test('a new 000 call dials once, then the dialogue starts; a second run in the s
   expect(screen.getByText('Dialling 000…')).toBeInTheDocument()
   await act(async () => { dialed[1]() })
   expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual(['/noa/000-1.mp3', '/noa/000-1.mp3'])
+})
+
+test('an incident that arrives after the empty first snapshot, already holding the 000 call: no dial, no audio', async () => {
+  liveValue = { ...idleValue, settled: false }
+  const show = mountLive()
+  await show(incidentAt(0, true))
+  expect(playDial000).not.toHaveBeenCalled()
+  expect(playRing).not.toHaveBeenCalled()
+  expect(screen.getByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
+  expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual([])
+})
+
+test("the dial waits for David's ring to finish", async () => {
+  const show = mountLive()
+  await show(incidentAt(0, false))
+  await show(incidentAt(0, false, true))
+  expect(playRing).toHaveBeenCalledTimes(1)
+  await show(incidentAt(0, true))
+  expect(playDial000).not.toHaveBeenCalled()
+  await act(async () => { rung[0]() })
+  expect(playDial000).toHaveBeenCalledTimes(1)
 })

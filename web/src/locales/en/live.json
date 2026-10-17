@@ -438,7 +438,6 @@
     "title": "Noa Speech Check",
     "slurred": "⚠ Slurred speech detected · possible stroke",
     "clear": "✓ Clear · matches her normal voice",
-    "sentence": "Sentence: “{{s}}”",
-    "heard": "Heard: “{{s}}”"
+    "sentence": "Sentence: “{{s}}”"
   }
 }

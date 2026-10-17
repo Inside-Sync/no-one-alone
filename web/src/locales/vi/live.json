@@ -438,7 +438,6 @@
     "title": "Kiểm tra giọng nói của Noa",
     "slurred": "⚠ Phát hiện nói ngọng · có thể đột quỵ",
     "clear": "✓ Rõ ràng · giống giọng bình thường của bà",
-    "sentence": "Câu cần nói: “{{s}}”",
-    "heard": "Nghe được: “{{s}}”"
+    "sentence": "Câu cần nói: “{{s}}”"
   }
 }

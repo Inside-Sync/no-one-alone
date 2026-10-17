@@ -44,12 +44,27 @@ test('000 call: waits for the dial, then plays the 8 clips in order with the Dav
   expect(screen.getByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
   expect(screen.getByText(/approved emergency relay/)).toBeInTheDocument()
   expect(onDone).toHaveBeenCalledTimes(1)
+  expect(onDone).toHaveBeenCalledWith(false)
 })
 
-test('000 call on reload: the whole transcript, no audio', async () => {
-  renderWithProviders(<EmergencyCallCard live={false} davidAccepted={false} dialDone={Promise.resolve()} onDone={() => {}} />)
+test("000 call: line 1 waits for Margaret's phone to finish speaking", async () => {
+  let spoke = () => {}
+  const speechRef = { current: new Promise<void>((r) => { spoke = r }) }
+  renderWithProviders(<EmergencyCallCard live davidAccepted dialDone={Promise.resolve()} speechRef={speechRef} onDone={() => {}} />)
+  await flush()
   await flush()
   expect(played).toEqual([])
+  await act(async () => { spoke() })
+  await flush()
+  expect(played).toEqual(['/noa/000-1.mp3'])
+})
+
+test('000 call on reload: the whole transcript, no audio, and done is silent', async () => {
+  const onDone = vi.fn()
+  renderWithProviders(<EmergencyCallCard live={false} davidAccepted={false} dialDone={Promise.resolve()} onDone={onDone} />)
+  await flush()
+  expect(played).toEqual([])
+  expect(onDone).toHaveBeenCalledWith(true)
   expect(screen.getAllByRole('listitem')).toHaveLength(8)
   expect(screen.getByText(/Nobody is with her\. Key lockbox by the front door/)).toBeInTheDocument()
 })
@@ -66,4 +81,11 @@ test('speech check: hidden until Q2 is answered, then the slurred verdict and th
   expect(screen.getByText('⚠ Slurred speech detected · possible stroke')).toBeInTheDocument()
   expect(screen.getByText('Sentence: “The sky is blue in Sydney.”')).toBeInTheDocument()
   expect(screen.queryByText('✓ Clear · matches her normal voice')).toBeNull()
+})
+
+test('speech check: a re-asked speech question still shows the latest verdict', () => {
+  const again = turn('AGENT', 'Say after me again, the sky is blue in Sydney.')
+  renderWithProviders(<SpeechCheckCard turns={[q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', '', 'CLEAR'), again, turn('PERSON', 'iz', 'SLURRED')]} />)
+  expect(screen.getByText('⚠ Slurred speech detected · possible stroke')).toBeInTheDocument()
+  expect(screen.getByText('Sentence: “Say after me again, the sky is blue in Sydney.”')).toBeInTheDocument()
 })

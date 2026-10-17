@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PhoneScreen } from '@/components/phone/PhoneScreen'
 import { GlassCard } from '@/components/ui/GlassCard'
@@ -15,13 +15,15 @@ import { useRecorder } from './useRecorder'
  * `Margaret's screen` for a live incident: the pending question, Yes / No or a voice reply posted to
  * `/api/incidents/{id}/checkin`, and `noReply` after `demo.noReplySeconds` without an answer (contract 3).
  */
-export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, statusOverride }: {
+export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, statusOverride, speechRef }: {
   phone: LivePhone
   helpInitials: string
   checkin: (i: CheckinInput) => Promise<void>
   onSpoken?: (questionKey: string) => void
   /** Said instead of `phone.status` (the ambulance line once the 000 call ends). */
   statusOverride?: HelperStatus | null
+  /** Mirrors the speech queue so other cards can wait for it. */
+  speechRef?: RefObject<Promise<void>>
 }) {
   const toast = useToast()
   const { t } = useTranslation('live')
@@ -83,6 +85,7 @@ export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, statusOv
     let stopped = false
     let done = () => {}
     speaking.current = new Promise<void>((r) => { done = r })
+    if (speechRef) speechRef.current = speaking.current
     ;(ring.current ?? Promise.resolve()).then(() => (stopped ? undefined : audioUrl(path))).then((url) => {
       if (!url) { done(); return }
       audio = new Audio(url)
@@ -91,7 +94,7 @@ export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, statusOv
       return audio.play()
     }).catch(() => { done(); finished() })
     return () => { stopped = true; audio?.pause(); done() }
-  }, [phone.audioPath])
+  }, [phone.audioPath, speechRef])
 
   // What Noa is doing (calling, on the way, 000): each status clip plays once, after the current audio.
   const status = statusOverride ?? phone.status
@@ -119,7 +122,8 @@ export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, statusOv
       a.addEventListener('error', () => done())
       a.play().catch(() => done())
     }))
-  }, [statusKey, statusClip, statusText])
+    if (speechRef) speechRef.current = speaking.current
+  }, [statusKey, statusClip, statusText, speechRef])
 
   const disabled = phone.busy || sending
   const onRecord = () => {

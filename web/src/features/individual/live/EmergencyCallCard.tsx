@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Head } from '../home/parts'
@@ -36,12 +36,9 @@ function playClip(src: string, track: (a: HTMLAudioElement) => void): Promise<vo
   })
 }
 
-/**
- * Noa's automatic 000 call. `live`: the call started in this tab, so the lines play after the dial sound
- * (`dialDone`, null until it starts); otherwise (a reload) the whole transcript shows without audio.
- */
-export function EmergencyCallCard({ davidAccepted, live, dialDone, onDone }: {
-  davidAccepted: boolean; live: boolean; dialDone: Promise<void> | null; onDone: () => void
+/** Noa's 000 call: when `live`, the lines play after the dial and the phone's speech; else (reload) the transcript only. */
+export function EmergencyCallCard({ davidAccepted, live, dialDone, speechRef, onDone }: {
+  davidAccepted: boolean; live: boolean; dialDone: Promise<void> | null; speechRef?: RefObject<Promise<void>>; onDone: (silent: boolean) => void
 }) {
   const { t } = useTranslation('live')
   const lines = callLines(davidAccepted)
@@ -50,21 +47,22 @@ export function EmergencyCallCard({ davidAccepted, live, dialDone, onDone }: {
   useEffect(() => { done.current = onDone })
 
   useEffect(() => {
-    if (!live) { done.current(); return }
+    if (!live) { done.current(true); return }
     if (!dialDone) return
     let stopped = false
     let audio: HTMLAudioElement | null = null
     void (async () => {
       await dialDone
+      await speechRef?.current
       const all = callLines(davidAccepted)
       for (let i = 0; i < all.length && !stopped; i++) {
         setShown(i + 1)
         await playClip(all[i].clip, (a) => { audio = a })
       }
-      if (!stopped) done.current()
+      if (!stopped) done.current(false)
     })()
     return () => { stopped = true; audio?.pause() }
-  }, [live, dialDone, davidAccepted])
+  }, [live, dialDone, davidAccepted, speechRef])
 
   return (
     <GlassCard span={7} id="call000">

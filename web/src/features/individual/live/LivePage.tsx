@@ -49,25 +49,24 @@ function useFlash(on: boolean) {
 type Timeline = readonly { at: string; kind: string; text: string }[]
 const autoCall = (timeline: Timeline) => timeline.find((e) => e.kind === 'CALLED_115' && e.text.startsWith('Calling '))
 
-/**
- * Rings once for each new call, and dials before ringing for the automatic 000 call; calls already on the timeline
- * at load stay silent. Returns the calls seen at load and the dial in progress, for the 000 call card.
- */
+/** Rings or dials once per new call, one sound after another; returns the calls seen at load and the 000 dial. */
 function useCallRing(timeline: Timeline | undefined) {
   const [initial, setInitial] = useState<ReadonlySet<string> | null>(null)
   if (timeline && initial === null) setInitial(new Set(callKeys(timeline)))
   const seen = useRef<Set<string> | null>(null)
   const [dial, setDial] = useState<{ at: string; done: Promise<void> } | null>(null)
+  const chain = useRef<Promise<void>>(Promise.resolve())
   useEffect(() => {
     if (!timeline) return
     if (seen.current === null) { seen.current = new Set(callKeys(timeline)); return }
     const sound = freshCallSound(timeline, seen.current)
     const at = autoCall(timeline)?.at
     if (sound === 'dial' && at) {
-      const done = playDial000()
+      const done = chain.current.then(() => playDial000())
+      chain.current = done
       // Async so the effect does not set state synchronously.
       void Promise.resolve().then(() => setDial({ at, done }))
-    } else if (sound === 'ring') void playRing(3000)
+    } else if (sound === 'ring') chain.current = chain.current.then(() => playRing(3000))
   }, [timeline])
   return { initial, dial }
 }
@@ -87,11 +86,14 @@ export function LivePage() {
 function LiveIncidentPage() {
   const toast = useToast()
   const { viewer } = useAppState()
-  const { loading, error, incident, people, view, start, reset, checkin, act } = useLiveIncident()
+  const { loading, settled = true, error, incident, people, view, start, reset, checkin, act } = useLiveIncident()
   const scene = useRepo(getOrbitScene).data
   useFlash(Boolean(view?.phone.flash))
-  const calls = useCallRing(loading ? undefined : incident?.timeline ?? [])
-  const [dialogueDoneFor, setDialogueDoneFor] = useState<string | null>(null)
+  // Not before the followed incident arrives, or a call already on it would count as new.
+  const calls = useCallRing(loading || !settled ? undefined : incident?.timeline ?? [])
+  const [dialogueDone, setDialogueDone] = useState<{ id: string; silent: boolean } | null>(null)
+  // Margaret's phone speech queue, shared so the 000 lines wait for her status clip.
+  const speech = useRef<Promise<void>>(Promise.resolve())
   const { t } = useTranslation('live')
   // Autopilot answers only for an incident this tab started from the Simulator.
   const [auto, setAuto] = useState(false)
@@ -116,18 +118,20 @@ function LiveIncidentPage() {
     return <main className="grid" data-page="live">{simCards}</main>
   }
   const call = autoCall(incident.timeline)
+  const ambulance = dialogueDone?.id === view.id ? { ...ambulanceStatus(view.id), ...(dialogueDone.silent ? { clip: null } : {}) } : null
   return (
     <main className="grid" data-page="live">
       {!open && simCards}
       <LiveAlertCard view={view} incident={incident} people={people} scene={scene} viewer={viewer} act={act} onReset={onReset} />
       <LiveTimelineCard view={view} />
-      <LivePhoneCard phone={view.phone} helpInitials={view.owner.initials} checkin={checkin} onSpoken={setSpoken}
-        statusOverride={dialogueDoneFor === view.id ? ambulanceStatus(view.id) : null} />
+      <LivePhoneCard phone={view.phone} helpInitials={view.owner.initials} checkin={checkin} onSpoken={setSpoken} speechRef={speech}
+        statusOverride={ambulance} />
       <SpeechCheckCard turns={incident.checkIn?.turns ?? []} />
       {call && calls.initial && (
         <EmergencyCallCard key={call.at} live={!calls.initial.has(callKeys([call])[0])}
           davidAccepted={incident.timeline.some((e) => e.kind === 'ACCEPTED')}
-          dialDone={calls.dial?.at === call.at ? calls.dial.done : null} onDone={() => setDialogueDoneFor(view.id)} />
+          dialDone={calls.dial?.at === call.at ? calls.dial.done : null} speechRef={speech}
+          onDone={(silent) => setDialogueDone({ id: view.id, silent })} />
       )}
       {open && simCards}
     </main>
