@@ -185,6 +185,39 @@
     "tick": "Done",
     "idle": "Your recovery plan will appear here",
     "idle_family": "Margaret's recovery plan will appear here",
+    "stop": "⛔ Stop: {{name}}",
+    "meds": "Your medicines, explained",
+    "meds_family": "Her medicines, explained",
+    "slots": {
+      "morning": "morning",
+      "midday": "midday",
+      "evening": "evening",
+      "night": "night"
+    },
+    "change": {
+      "New": "New",
+      "Increased": "Increased",
+      "Continue": "Continue",
+      "Stop": "Stop"
+    },
+    "noa": {
+      "title": "💬 From Noa",
+      "title_family": "💬 What Noa told Margaret",
+      "meta": "After the hospital approved the plan",
+      "noa": "Noa",
+      "margaret": "👵 Margaret",
+      "welcome": "Welcome home, Margaret. It's Noa 💙 The hospital has sent your recovery plan, and I've put it in your app in plain English.",
+      "newMeds_one": "You have 1 new tablet: {{names}}.",
+      "newMeds_other": "You have {{count}} new tablets: {{names}}.",
+      "stopMeds": "Please stop taking {{names}}.",
+      "pharmacy": "I've told the pharmacy and updated your pill box.",
+      "thanks": "Thank you, love. That's a lot to remember.",
+      "next": "Don't worry, I'll remind you every time, out loud and on the screen. Your next one is at {{time}}: {{items}}.",
+      "also": "I'll also remind you about your walk at 10:00, blood pressure checks and speech exercises at 14:00.",
+      "followUp": "Your {{text}} is {{date}}. David can drive you.",
+      "call": "I'll call you tomorrow at 17:00 to see how you're going. If your face drops, an arm feels weak or your speech goes funny, press Help and I'll call 000.",
+      "bye": "Lovely. Thank you, dear."
+    },
     "calls": {
       "title": "Your check-in calls",
       "title_family": "Her check-in calls",

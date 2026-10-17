@@ -39,15 +39,14 @@
       "toast": "Diversion suggested to the ambulance"
     },
     "recovery": {
-      "title": "Recovery plan",
-      "meta": "Send the person home",
+      "title": "📝 Discharge and recovery plan",
+      "meta": "Edit, approve, and the agent delivers it to Margaret's portal in plain English",
       "staff": "Doctor",
       "diagnosis": "Diagnosis",
       "meds": "Medicines",
       "medName": "Medicine {{n}} name",
       "medDose": "Medicine {{n}} dose",
-      "medTimes": "Medicine {{n}} times",
-      "activities": "Activities",
+      "activities": "Instructions",
       "actText": "Activity {{n}}",
       "actTimes": "Activity {{n}} times",
       "followUps": "Follow-ups",
@@ -55,12 +54,37 @@
       "fuDays": "Follow-up {{n}} in days",
       "notes": "Doctor's notes",
       "hint": "Times as HH:mm, separated by commas",
-      "send": "Send home with this plan",
       "sentAt": "Sent home at {{time}}",
       "sent": "Sent home",
       "failed": "Could not send the plan",
-      "delivering": "Agent is delivering…",
+      "delivering": "⏳ Agent is delivering…",
       "why": "Why: {{text}}",
+      "medHead": "Medicine",
+      "doseHead": "Dose",
+      "changeHead": "Change",
+      "slots": {
+        "morning": "Morning",
+        "midday": "Midday",
+        "evening": "Evening",
+        "night": "Night"
+      },
+      "medSlot": "Medicine {{n}} {{slot}}",
+      "medChange": "Medicine {{n}} change",
+      "change": {
+        "New": "New",
+        "Increased": "Increased",
+        "Continue": "Continue",
+        "Stop": "Stop"
+      },
+      "calls": "Agent follow-up calls",
+      "callDay": "✓ Day {{day}}",
+      "finalise": "✍️ Finalise the plan",
+      "signed": "✍️ Finalised by {{name}} · {{time}}",
+      "editAgain": "Edit again",
+      "approve": "✅ Approve and hand off to Noa",
+      "approveNote": "The agent translates the plan into plain English, sets reminders and shares it with her care circle according to Margaret's own settings.",
+      "toastFinal": "Plan finalised and signed. Now approve to hand it to the agent.",
+      "toastSent": "Recovery plan delivered to Margaret's portal",
       "steps": {
         "summary": "Summary written in plain words",
         "summaryFallback": "Doctor's notes used as the summary",
@@ -70,6 +94,11 @@
         "circle": "Visible to {{names}}",
         "delivered": "Plan is on Margaret's screen"
       }
+    },
+    "discharge": {
+      "title": "🩺 Ready for discharge: Margaret Collins, 78",
+      "sub": "Ischaemic stroke, thrombolysed · new paroxysmal AF · recovery plan waiting for approval",
+      "open": "📝 Open her record and recovery plan"
     }
   },
   "panel": {
