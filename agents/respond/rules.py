@@ -16,8 +16,8 @@ def _words(text: str | None) -> list[str]:
 
 
 def _signs(text: str | None) -> list[str]:
-    w = _words((text or "").lower().replace("n't", " not").replace("n’t", " not"))
-    return [s for s, words in SIGN_WORDS.items()
+    clauses = re.split(r"[.,;!?…]", (text or "").lower().replace("n't", " not").replace("n’t", " not"))
+    return [s for s, words in SIGN_WORDS.items() for w in map(_words, clauses)
             if any(x in words and not NEGATIONS & set(w[max(0, i - 2):i]) for i, x in enumerate(w))]
 
 
