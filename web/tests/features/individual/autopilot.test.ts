@@ -2,7 +2,7 @@ import { act as flush, renderHook } from '@testing-library/react'
 import { vi } from 'vitest'
 import type { AssignmentDoc, IncidentDoc } from '@/data/contract'
 import type { LiveView } from '@/domain/incident'
-import { NIGHT_ALERT, type SimSettings } from '@/domain/simulator'
+import { SIM_DEFAULTS, type SimSettings } from '@/domain/simulator'
 import { useAutopilot, type AutopilotOptions } from '@/features/individual/live/useAutopilot'
 
 const play = vi.fn(() => Promise.resolve())
@@ -38,7 +38,7 @@ function setup(settings: SimSettings, incident: IncidentDoc, view: LiveView) {
   return { checkin, act, rerender: (o: Partial<AutopilotOptions>) => hook.rerender({ ...props, ...o }) }
 }
 
-const clear: SimSettings = NIGHT_ALERT
+const clear: SimSettings = SIM_DEFAULTS
 
 test('waits for the question to finish, pauses, lets Margaret finish, then sends once per key', async () => {
   const key = '1:0:Can you hear me?'

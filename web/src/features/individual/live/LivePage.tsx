@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getOrbitScene } from '@/data/repo'
+import { apiErrorCode, getOrbitScene } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
 import { useRepo } from '@/features/shared/useRepo'
 import { STEPS } from '@/domain/emergency'
 import { ambulanceStatus } from '@/domain/incident'
-import { NIGHT_ALERT } from '@/domain/simulator'
+import { NO_REPLY_SECONDS, SIM_DEFAULTS, alertRun, scenarioFor, type Watch } from '@/domain/simulator'
 import { useToast } from '@/components/ui/Toast'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
@@ -23,6 +23,7 @@ import { PhoneCard } from './PhoneCard'
 import { SimulatorCard } from './SimulatorCard'
 import { SpeechCheckCard } from './SpeechCheckCard'
 import { useAutopilot } from './useAutopilot'
+import { useWatch } from './useWatch'
 import { TimelineCard } from './TimelineCard'
 
 const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -99,16 +100,30 @@ function LiveIncidentPage() {
   const [auto, setAuto] = useState(false)
   // questionKey is not incident-scoped, so a new run must forget the last one.
   const [spoken, setSpoken] = useState<string | null>(null)
-  const onReset = () => { setAuto(false); setSpoken(null); reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed'))) }
   // Kept here, not in the cards, so the settings survive the incident they started.
-  const [sim, setSim] = useState(NIGHT_ALERT)
+  const [sim, setSim] = useState(SIM_DEFAULTS)
+  const [busy, setBusy] = useState(false)
   const open = Boolean(view?.open)
-  const simStart: typeof start = async (s, o) => { setSpoken(null); await start(s, o); setAuto(true) }
+  const onAlert = (w: Watch) => {
+    setBusy(true)
+    setSpoken(null)
+    toast(t('live.starting'))
+    start(scenarioFor(), { hr: w.hr, movementMin: alertRun(w.readings), noReplySeconds: NO_REPLY_SECONDS })
+      .then(() => setAuto(true))
+      .catch((e: unknown) => toast(apiErrorCode(e) === 'INVALID_STATE' ? t('live.busy') : t('live.failed')))
+      .finally(() => setBusy(false))
+  }
+  const watch = useWatch({ locked: open, onAlert })
+  const onReset = () => {
+    if (busy) return
+    setAuto(false); setSpoken(null); watch.reset()
+    reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed')))
+  }
   useAutopilot({ enabled: auto && open, settings: sim, incident, view, spokenKey: spoken, checkin, act })
   const simCards = (
     <>
-      <SimulatorCard settings={sim} onChange={setSim} locked={open} start={simStart} onReset={onReset} />
-      <LiveReadingsCard settings={sim} baseline={people.person?.baseline?.nightHr ?? 57} />
+      <SimulatorCard watch={watch} settings={sim} onChange={setSim} locked={open || busy} onReset={onReset} />
+      <LiveReadingsCard watch={watch.watch} />
     </>
   )
 
