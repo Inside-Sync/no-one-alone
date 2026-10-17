@@ -26,8 +26,9 @@ def test_margaret_history_comes_from_fhir_and_relationships_from_the_seed():
     assert m["margaret-father"]["deceased"] is True
     assert m["margaret-mother"]["conditions"] == [{"label": "dementia"}]
     assert "deceased" not in m["margaret-mother"], "not recorded in FHIR, so omitted"
-    assert m["david"]["relation"] == "son" and m["david"]["generation"] == 2 and m["david"]["parentId"] == "margaret"
-    assert {k for k, v in m.items() if v["generation"] == 2} == {"david", "james", "sarah"}
+    assert m["david"]["relation"] == "brother" and m["david"]["generation"] == 1
+    assert m["david"]["parentId"] == "margaret-father", "a brother shares Margaret's parents"
+    assert {k for k, v in m.items() if v["generation"] == 2} == {"james", "sarah"}
     assert "aisha" not in m, "neighbours are not family"
 
 
@@ -38,7 +39,7 @@ def test_margaret_gets_no_invented_names_or_web_mock_conditions():
     labels = {c["label"] for x in doc["members"] for c in x["conditions"]}
     for mock_only in ("glaucoma", "atrial fibrillation", "osteopenia"):
         assert not any(mock_only in label for label in labels)
-    assert not any(x["relation"] in ("brother", "husband") for x in doc["members"])
+    assert [x["id"] for x in doc["members"] if x["relation"] in ("brother", "husband")] == ["david"], "only seed relatives"
     assert all("68" not in f["reason"] for f in doc["flags"]), "Margaret's father had his stroke at 74 in FHIR"
 
 
@@ -48,13 +49,15 @@ def test_margaret_provisional_af_is_left_out_of_the_tree():
     assert "hypertension" in self_labels and "prediabetes" in self_labels
 
 
-def test_margaret_children_get_bp_and_sugar_flags_with_documented_reasons():
+def test_margaret_children_and_brother_get_bp_and_sugar_flags_with_documented_reasons():
     doc = build("margaret")["doc"]
     assert flags(doc) == sorted((c, s) for c in ("david", "james", "sarah")
                                 for s in (family.BP_CHECK, family.SUGAR_TEST))
     reasons = {(f["memberId"], f["screening"]): f["reason"] for f in doc["flags"]}
-    assert reasons[("david", family.BP_CHECK)] == "Mother: hypertension; grandfather: stroke at 74"
-    assert reasons[("david", family.SUGAR_TEST)] == "Mother: prediabetes; grandfather: type 2 diabetes"
+    assert reasons[("james", family.BP_CHECK)] == "Mother: hypertension; grandfather: stroke at 74"
+    assert reasons[("james", family.SUGAR_TEST)] == "Mother: prediabetes; grandfather: type 2 diabetes"
+    assert reasons[("david", family.BP_CHECK)] == "Father: stroke at 74"
+    assert reasons[("david", family.SUGAR_TEST)] == "Father: type 2 diabetes"
 
 
 def test_ba_mai_father_uses_the_contract_name_and_hung_has_no_invented_history():
@@ -127,7 +130,8 @@ def test_facts_behind_each_flag_are_documented_strings():
 
 def test_only_relatives_recorded_as_deceased_are_marked():
     margaret = build("margaret")["facts"]
-    assert margaret[("david", family.BP_CHECK)] == ["mother: hypertension", "grandfather (deceased): stroke at 74"]
+    assert margaret[("james", family.BP_CHECK)] == ["mother: hypertension", "grandfather (deceased): stroke at 74"]
+    assert margaret[("david", family.BP_CHECK)] == ["father (deceased): stroke at 74"]
     hung = build("ba-mai")["facts"][("ong-hung", family.BP_CHECK)]
     assert hung == ["father (deceased): stroke at 68", "father (deceased): hypertension"]
 
