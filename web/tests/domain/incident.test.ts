@@ -1,5 +1,6 @@
 import type { IncidentDoc, PacketDoc } from '@/data/contract'
-import { helperStatus, liveView, packetRows, type LivePeople } from '@/domain/incident'
+import { helperStatus, liveView, orbitWithHospital, packetRows, type LivePeople } from '@/domain/incident'
+import type { OrbitScene } from '@/data/types'
 import i18n from '@/i18n'
 
 const T0 = Date.parse('2026-10-14T19:03:00Z')
@@ -133,6 +134,36 @@ test('liveView: after no one nearby accepted, the owner card says 000 was called
   } as unknown as IncidentDoc
   const v = liveView('inc1', inc, people, T0 + 120_000)
   expect(v.owner).toMatchObject({ title: 'No one nearby can come', subtitle: '000 called automatically' })
+})
+
+const queue = {
+  person: { displayName: 'Margaret Collins', circle: [
+    { memberId: 'james', role: 'DISTANT', priority: 1, criticalAlerts: true },
+    { memberId: 'david', role: 'NEARBY', priority: 2, criticalAlerts: true },
+    { memberId: 'aisha', role: 'NEARBY', priority: 3, criticalAlerts: false },
+    { memberId: 'sarah', role: 'DISTANT', priority: 4, criticalAlerts: true },
+  ] },
+  members: { james: { displayName: 'James Collins' }, david: { displayName: 'David Collins' } },
+} as unknown as LivePeople
+
+test('liveView: during check-in the owner card names the first in the call queue, James before David', () => {
+  const inc = { ...incident, status: 'CHECKING_IN', ownerId: undefined, assignments: [] } as unknown as IncidentDoc
+  expect(liveView('inc1', inc, queue, T0).owner).toMatchObject({ title: 'James · not yet alerted', subtitle: 'First to call' })
+})
+
+test('liveView: while James is rung the owner card says so; Sarah, alerted only, is not the one being called', () => {
+  const inc = { ...incident, ownerId: undefined, assignments: [
+    { memberId: 'james', role: 'DISTANT', actions: [], state: 'NOTIFIED', deadlineAt: at(60) },
+    { memberId: 'david', role: 'NEARBY', actions: [], state: 'QUEUED' },
+    { memberId: 'sarah', role: 'DISTANT', actions: [], state: 'NOTIFIED' },
+  ] } as unknown as IncidentDoc
+  expect(liveView('inc1', inc, queue, T0).owner).toMatchObject({ title: 'James · alerted', subtitle: 'Calling now', eta: '1:00' })
+})
+
+test('orbitWithHospital names the hospital ball after the handoff, without (demo)', () => {
+  const scene = { nodes: [{ id: 'hosp', name: 'Sydney Stroke Center' }, { id: 'david', name: 'David' }] } as unknown as OrbitScene
+  expect(orbitWithHospital(scene, 'Camperdown Stroke Centre (demo)').nodes.map((n) => n.name)).toEqual(['Camperdown Stroke Centre', 'David'])
+  expect(orbitWithHospital(scene, undefined)).toBe(scene)
 })
 
 describe('helperStatus: what Noa tells Margaret after the plan', () => {

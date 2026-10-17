@@ -36,7 +36,7 @@ test('renders the summary, the next reminder, the list, follow-ups and notes', (
   expect(screen.getByText('Margaret, you are home.')).toBeInTheDocument()
   expect(screen.getByText('Next: 18:00 Time for your amlodipine, 5 mg.')).toBeInTheDocument()
   expect(screen.getByText('Time for your apixaban, 5 mg.')).toBeInTheDocument()
-  expect(screen.getByText('GP check with Dr Patel · 2026-10-23')).toBeInTheDocument()
+  expect(screen.getByText('GP check with Dr Patel · Fri 23 Oct')).toBeInTheDocument()
   expect(screen.getByText('No driving for 4 weeks.')).toBeInTheDocument()
 })
 
@@ -74,9 +74,9 @@ test('with a live recovery the page shows the plan and 5 planned calls with date
   renderWithProviders(<RecoveryPage />, { who: 'self' })
   expect(screen.getByText('Margaret, you are home.')).toBeInTheDocument()
   const calls = screen.getByRole('heading', { name: 'Your check-in calls' }).closest('article')!
-  const rows = within(calls).getAllByText(/^Day \d+ · \d{4}-\d{2}-\d{2}$/)
+  const rows = within(calls).getAllByText(/^Day \d+ · \w{3} \d+ \w{3}$/)
   expect(rows.map((r) => r.textContent)).toEqual([
-    'Day 1 · 2026-10-17', 'Day 3 · 2026-10-19', 'Day 7 · 2026-10-23', 'Day 14 · 2026-10-30', 'Day 30 · 2026-11-15',
+    'Day 1 · Sat 17 Oct', 'Day 3 · Mon 19 Oct', 'Day 7 · Fri 23 Oct', 'Day 14 · Fri 30 Oct', 'Day 30 · Sun 15 Nov',
   ])
   expect(within(calls).getByText('How are you feeling, any headaches?')).toBeInTheDocument()
   expect(within(calls).getAllByText('Planned')).toHaveLength(5)

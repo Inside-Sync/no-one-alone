@@ -19,7 +19,7 @@ def reminders(person: dict, plan: dict) -> list[dict]:
         text = tpl["MED"].format(name=m["name"], dose=m.get("dose") or "").replace(" ,", ",").replace("  ", " ")
         out += [{"time": t, "kind": "MED", "text": text} for t in m["times"]]
     for a in plan.get("activities") or []:
-        text = tpl["ACTIVITY"].format(text_lower=a["text"][:1].lower() + a["text"][1:])
+        text = a.get("reminder") or tpl["ACTIVITY"].format(text_lower=a["text"][:1].lower() + a["text"][1:])
         out += [{"time": t, "kind": "ACTIVITY", "text": text} for t in a["times"]]
     return sorted(out, key=lambda r: r["time"])
 

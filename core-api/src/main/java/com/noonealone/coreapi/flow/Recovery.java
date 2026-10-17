@@ -143,7 +143,7 @@ public class Recovery {
                         ? "Time for your " + m.name() + ", " + m.dose() + "."
                         : "Mạ ơi, tới giờ uống " + m.name() + " " + m.dose() + " rồi.", null)));
         Stream<RecoveryResult.Reminder> activities = plan.activities().stream().flatMap(a -> a.times().stream()
-                .map(t -> new RecoveryResult.Reminder(t, "ACTIVITY", en
+                .map(t -> new RecoveryResult.Reminder(t, "ACTIVITY", !blank(a.reminder()) ? a.reminder() : en
                         ? "Time to " + lowerFirst(a.text()) + "."
                         : "Mạ ơi, tới giờ " + lowerFirst(a.text()) + " rồi.", null)));
         return Stream.concat(meds, activities).toList();
@@ -175,7 +175,7 @@ public class Recovery {
             if (blank(a.text())) {
                 throw ApiException.badRequest("Each activity needs text");
             }
-            text(a.text());
+            text(a.text(), a.reminder());
             times(a.times());
         }
         for (FollowUp f : p.followUps()) {

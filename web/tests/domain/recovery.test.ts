@@ -1,5 +1,5 @@
 import type { RecoveryDoc } from '@/data/contract'
-import { CALL_DAYS, WHY, deliverySteps, followUpCalls, handoffFacts, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
+import { CALL_DAYS, WHY, dayLabel, deliverySteps, followUpCalls, handoffFacts, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
 
 const R = [
   { time: '08:00', kind: 'MED' as const, text: 'aspirin' },
@@ -57,7 +57,7 @@ test('deliverySteps reports what the doc shows', () => {
   expect(steps.map((s) => s.key)).toEqual(['summary', 'reminders', 'calls', 'appointments', 'circle', 'delivered'])
   expect(steps[1].vars).toEqual({ n: 3, voiced: 2 })
   expect(steps[2].vars).toEqual({ days: '1, 3, 7, 14, 30' })
-  expect(steps[3].vars).toEqual({ list: 'GP check (2026-10-24)' })
+  expect(steps[3].vars).toEqual({ list: 'GP check (Sat 24 Oct)' })
   expect(steps[4].vars).toEqual({ names: 'Lan, Minh' })
 })
 
@@ -97,4 +97,19 @@ test('handoffFacts reads new and stopped medicines, the first slot and the GP fo
     next: { time: '08:00', items: ['Ramipril 5 mg', 'Vitamin D 1000 IU', 'Walk'] },
     followUp: plan.followUps[1],
   })
+})
+
+test('dayLabel: Fri 23 Oct in English, T6 23/10 in Vietnamese, CN on Sunday; no day shift', () => {
+  expect(dayLabel('2026-10-23', 'en')).toBe('Fri 23 Oct')
+  expect(dayLabel('2026-10-23', 'vi')).toBe('T6 23/10')
+  expect(dayLabel('2026-10-25', 'vi')).toBe('CN 25/10')
+})
+
+test('the default reminders read naturally and keep their WHY lines', () => {
+  const r = (text: string) => ({ time: '10:00', kind: 'ACTIVITY' as const, text })
+  const tasks = todayTasks(doc({ reminders: [
+    r('Time for your 20-minute walk.'), r('Time to check your blood pressure. Aim for under 130/80.'),
+    r('Time for your speech exercises, 15 minutes.'), r('Time for a glass of water.'),
+  ] }))
+  expect(tasks.map((t) => t.why)).toEqual([WHY.walk, WHY['blood pressure'], WHY.speech, WHY.water])
 })

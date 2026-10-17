@@ -334,6 +334,7 @@
       "owns": "Người phụ trách",
       "alerted": "{{name}} · đã được báo",
       "waiting": "Đang chờ người được báo nhận",
+      "calling": "Đang gọi",
       "noNearby": "Không có ai ở gần đến được",
       "callNow": "Gọi {{num}} ngay",
       "autoCalled": "Đã tự động gọi {{num}}",

@@ -62,8 +62,15 @@ test('posts the plan with each medicine change and its ticked slots, Stop with n
     ['Vitamin D', ['08:00'], 'Continue'],
     ['Aspirin', [], 'Stop'],
   ])
-  expect(body.activities[1]).toEqual({ text: 'Check blood pressure morning and evening, target under 130/80', times: ['08:15', '18:15'] })
-  expect(body.followUps[0]).toEqual({ text: 'GP review with Dr Patel at 10:30', inDays: 6 })
+  expect(body.activities[1]).toEqual({
+    text: 'Check blood pressure morning and evening, target under 130/80', times: ['08:15', '18:15'],
+    reminder: 'Time to check your blood pressure. Aim for under 130/80.',
+  })
+  expect(body.activities.map((a) => a.reminder)).toEqual([
+    'Time for your 20-minute walk.', 'Time to check your blood pressure. Aim for under 130/80.',
+    'Time for your speech exercises, 15 minutes.', 'Time for a glass of water.', undefined, undefined, undefined,
+  ])
+  expect(body.followUps.map((f) => f.inDays)).toEqual([7, 4, 6, 45, 7])
 })
 
 test('is hidden when there is no handoff', async () => {
@@ -120,7 +127,7 @@ test('after approval the delivery steps reveal one by one from the stored doc', 
       'Summary written in plain words',
       '2 reminders set, 2 with a spoken reminder',
       'Check-in call dates added to her plan: Day 1, 3, 7, 14, 30',
-      'Appointments: GP check (2026-10-23)',
+      'Appointments: GP check (Fri 23 Oct)',
       "Plan is on Margaret's screen",
     ])
   } finally {

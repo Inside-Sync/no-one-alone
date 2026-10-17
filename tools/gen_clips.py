@@ -1,9 +1,10 @@
-"""Generates the demo's fixed Chirp clips into web/public/noa and web/public/sim. Run: python tools/gen_clips.py"""
+"""Generates the demo's fixed Chirp clips into web/public/noa and web/public/sim. Run: python tools/gen_clips.py [sim/red-1.mp3 ...]"""
 import base64
 import json
 import pathlib
 import shutil
 import subprocess
+import sys
 import urllib.request
 
 URL = "https://texttospeech.googleapis.com/v1/text:synthesize"
@@ -30,7 +31,7 @@ CLIPS = [
     ("noa/000-7.mp3", OPERATOR, 1.0, "An ambulance is on its way, about 12 minutes. Don't give her anything to eat or drink."),
     ("noa/000-8.mp3", NOA, 0.9, "Thank you. Her details are going to Camperdown Stroke Centre, and I'm staying with her."),
     ("sim/red-0.mp3", MARGARET, 0.6, "Mmm... yeahh... yes..."),
-    ("sim/red-1.mp3", MARGARET, 0.55, "Thhuh... shgaah... ishh... bwuuh... nnn... Zhiddd... nehh..."),
+    ("sim/red-1.mp3", MARGARET, 0.5, "Thuh... sgyyh... izh... bwuuh... in... Zhid... neh..."),
 ]
 
 
@@ -54,7 +55,10 @@ def synthesize(bearer: str, voice: str, rate: float, text: str) -> bytes:
 
 def main() -> None:
     bearer = token()
+    only = set(sys.argv[1:])
     for path, voice, rate, text in CLIPS:
+        if only and path not in only:
+            continue
         out = WEB / path
         out.write_bytes(synthesize(bearer, voice, rate, text))
         print(f"{path} {out.stat().st_size} B")

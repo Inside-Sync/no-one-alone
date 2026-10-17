@@ -235,7 +235,8 @@ export interface RecoveryRequest {
   staffName: string
   diagnosis: string
   meds: { name: string; dose: string; times: string[]; change?: MedChange }[]
-  activities: { text: string; times: string[] }[]
+  /** `reminder`: what Noa says at each time, as written; else core-api's template. */
+  activities: { text: string; times: string[]; reminder?: string }[]
   followUps: { text: string; inDays: number }[]
   notes: string
 }
