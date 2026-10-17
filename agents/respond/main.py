@@ -2,9 +2,12 @@
 import base64
 import logging
 import os
+from typing import Literal
 
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
 
+import chat
 import checkin
 import gcp
 import plan
@@ -17,6 +20,7 @@ app = FastAPI(title="respond-agent")
 assessor = gcp.GeminiAssessor()
 voice = gcp.ChirpVoice()
 writer = gcp.GeminiWriter()
+chatter = gcp.GeminiChat()
 
 
 @app.get("/health")
@@ -97,3 +101,23 @@ def recovery_route(body: dict):
         log.warning("recovery failed: %s", type(e).__name__)
         raise HTTPException(status_code=503, detail="recovery failed")
 
+
+class ChatLine(BaseModel):
+    by: Literal["me", "noa"]
+    text: str = Field(max_length=2000)
+
+
+class ChatIn(BaseModel):
+    question: str = Field(min_length=1, max_length=500)
+    mode: Literal["hosp", "self", "fam"]
+    viewer: str | None = Field(default=None, max_length=100)
+    history: list[ChatLine] = Field(default=[], max_length=10)
+    snapshot: dict = {}
+
+
+@app.post("/chat")
+def chat_route(body: ChatIn):
+    text = chat.answer(body.model_dump(), chatter)
+    if text is None:
+        raise HTTPException(status_code=503, detail="chat failed")
+    return {"answer": text}

@@ -1,7 +1,7 @@
 """Messages, call script and safety instruction for respond-agent (contract 4.3)."""
 from lang import fmt_local, is_en, load_scripts
 
-SAFETY_IDS = {"EMERGENCY": ["SIT_STILL", "HELP_COMING", "DOOR"], "COME_NOW": ["SIT_STILL", "HELP_COMING"]}
+SAFETY_IDS = {"EMERGENCY": ["GET_HELP"], "COME_NOW": ["SIT_STILL", "HELP_COMING"]}
 
 
 def plan(body: dict) -> dict:
@@ -28,6 +28,6 @@ def plan(body: dict) -> dict:
         meds=", ".join(ctx.get("meds") or []), allergies=", ".join(ctx.get("allergies") or []))
 
     ids = SAFETY_IDS.get(level, ["HELP_COMING"])
-    instruction = " ".join(own["safety"][i].format(helper=helper) for i in ids)
+    instruction = " ".join(own["safety"][i].format(helper=helper, name=name.split(" ")[0]) for i in ids)
     return {"messages": messages, "callScript": call_script,
             "personInstruction": {"scriptIds": ids, "text": instruction}, "fallback": False}

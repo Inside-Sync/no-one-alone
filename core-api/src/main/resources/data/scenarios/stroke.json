@@ -1,8 +1,8 @@
 {
   "alert": {
     "kind": "HR_HIGH_NO_MOVEMENT",
-    "hr": 142,
-    "movementMin": 4
+    "hr": 137,
+    "movementMin": 10
   },
   "window": [
     {
@@ -97,8 +97,9 @@
     }
   ],
   "meds": [
-    "amlodipine 5mg",
-    "aspirin 81mg"
+    "amlodipine 5 mg",
+    "aspirin 100 mg",
+    "atorvastatin 20 mg"
   ],
   "allergies": [
     "penicillin"

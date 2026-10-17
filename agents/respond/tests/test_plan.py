@@ -30,8 +30,8 @@ def test_vi_emergency():
     msgs = by_id(out)
     assert "6 phút" in msgs["ong-hung"]
     assert "Ông Hùng" in msgs["lan"]
-    assert out["personInstruction"]["scriptIds"] == ["SIT_STILL", "HELP_COMING", "DOOR"]
-    assert "Con đang gọi Ông Hùng tới với mạ." in out["personInstruction"]["text"]
+    assert out["personInstruction"]["scriptIds"] == ["GET_HELP"]
+    assert out["personInstruction"]["text"].startswith("Mạ ơi, con là Noa đây. Con đang gọi người tới giúp mạ")
     assert "01:55" in out["callScript"] and "nói ngọng" in out["callScript"]
     assert out["fallback"] is False
 
@@ -41,7 +41,15 @@ def test_en_emergency():
     assert "You are 6 min away" in by_id(out)["david"]
     assert "05:55" in out["callScript"]
     assert "slurred speech" in out["callScript"]
+    assert out["personInstruction"]["text"] == (
+        "Margaret, it's Noa. I'm getting help for you right now. Please stay sitting and don't try to stand up. "
+        "I'm right here with you.")
     assert "Địa chỉ" not in out["callScript"] and "phút" not in " ".join(by_id(out).values())
+
+
+def test_come_now_keeps_sit_still_and_helper():
+    out = plan.plan(mk(MARGARET, EN_MEMBERS, "COME_NOW"))
+    assert out["personInstruction"]["text"] == "Please sit still, don't try to get up. I am asking David to come to you."
 
 
 def test_nearby_without_eta_uses_address():
@@ -65,5 +73,6 @@ def test_templates_resolve_and_instruction_sentences_exist(person, members, leve
     assert not any("{" in t for t in texts)
     safety = load_scripts()["en" if person is MARGARET else "vi"]["safety"]
     helper = members[0]["displayName"]
-    sentences = [safety[i].format(helper=helper) for i in out["personInstruction"]["scriptIds"]]
+    name = person["displayName"].split()[0]
+    sentences = [safety[i].format(helper=helper, name=name) for i in out["personInstruction"]["scriptIds"]]
     assert out["personInstruction"]["text"] == " ".join(sentences)
