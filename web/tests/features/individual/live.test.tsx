@@ -199,7 +199,7 @@ test('Call 000 opens the script drawer; the other calls toast', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Call 000' }))
   expect(await screen.findByText('Script for 000')).toBeInTheDocument()
   expect(screen.getByText('Margaret Collins, 78, lives alone')).toBeInTheDocument()
-  expect(screen.getByText('The agent prepares this. A person makes the call.')).toBeInTheDocument()
+  expect(screen.getByText('Noa prepares this. A person makes the call.')).toBeInTheDocument()
 })
 
 test('End demo returns to idle, clears body.night and stops the clock', async () => {

@@ -16,6 +16,8 @@ export interface LiveIncidentValue {
   /** True until the first `demo/current` snapshot. */
   loading: boolean
   error: string | null
+  /** False while `demo/current` names an incident whose document has not arrived yet; absent means settled. */
+  settled?: boolean
   incident: IncidentDoc | null
   people: LivePeople
   view: LiveView | null
@@ -106,6 +108,7 @@ export function LiveIncidentProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<LiveIncidentValue>(() => ({
     live: repo.LIVE, loading: repo.LIVE && snap === null && !error, error, incident, people, view, start, reset, checkin, act, recover,
+    settled: snap !== null && (!snap.demo?.incidentId || snap.incident !== null),
   }), [snap, error, incident, people, view, start, reset, checkin, act, recover])
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

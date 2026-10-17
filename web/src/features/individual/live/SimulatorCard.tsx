@@ -3,15 +3,13 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { Slider } from '@/components/ui/Slider'
 import { useToast } from '@/components/ui/Toast'
 import { apiErrorCode } from '@/data/repo'
-import { noReplySecondsFor, overridesFor, presetSettings, scenarioFor, type SimPreset, type SimSettings, type SimSpeech } from '@/domain/simulator'
+import { NO_REPLY_SECONDS, overridesFor, scenarioFor, type SimSettings, type SimSpeech } from '@/domain/simulator'
 import type { LiveIncidentValue } from '@/state/LiveIncident'
 import { Head } from '../home/parts'
 
-const PRESETS: SimPreset[] = ['night', 'stairs', 'asleep']
-const SPEECH: SimSpeech[] = ['clear', 'slurred', 'none']
+const SPEECH: SimSpeech[] = ['slurred', 'mic']
 
 function Toggle<T extends string | boolean>({ label, value, options, onChange, disabled }: {
   label: string; value: T; options: { v: T; text: string }[]; onChange: (v: T) => void; disabled: boolean
@@ -28,7 +26,11 @@ function Toggle<T extends string | boolean>({ label, value, options, onChange, d
   )
 }
 
-/** Live mode (c5): pick a scenario and the alert values, then start the real agents with them. Locked while an incident is open. */
+const Fact = ({ label, value }: { label: string; value: string }) => (
+  <div className="lv" style={{ fontSize: '12.5px' }}><span>{label}</span><b>{value}</b></div>
+)
+
+/** Live mode (c5): the night alert case and who answers, then start the real agents with it. Locked while an incident is open. */
 export function SimulatorCard({ settings: s, onChange, locked, start, onReset }: {
   settings: SimSettings; onChange: (s: SimSettings) => void; locked: boolean; start: LiveIncidentValue['start']; onReset: () => void
 }) {
@@ -40,25 +42,17 @@ export function SimulatorCard({ settings: s, onChange, locked, start, onReset }:
   const run = () => {
     setBusy(true)
     toast(t('live.starting'))
-    start(scenarioFor(s), { ...overridesFor(s), noReplySeconds: noReplySecondsFor(s) })
+    start(scenarioFor(), { ...overridesFor(s), noReplySeconds: NO_REPLY_SECONDS })
       .catch((e: unknown) => toast(apiErrorCode(e) === 'INVALID_STATE' ? t('live.busy') : t('live.failed')))
       .finally(() => setBusy(false))
   }
   return (
     <GlassCard span={5} id="simCard">
       <Head title={t('sim.title')} meta={t('sim.meta')} />
-      <div className="row" role="group" aria-label={t('sim.presets')}>
-        {PRESETS.map((p) => (
-          <button key={p} type="button" className={p === s.preset ? 'btn sm' : 'btn sm soft'} aria-pressed={p === s.preset} disabled={off} onClick={() => onChange(presetSettings(p))}>
-            {t(`sim.preset.${p}`)}
-          </button>
-        ))}
-      </div>
+      <h3>{t('sim.case')}</h3>
       <div className="sim">
-        <Slider min={40} max={180} value={s.hr} label={t('sim.hr')} valueText={t('sim.bpm', { n: s.hr })} disabled={off} onChange={(hr) => set({ hr })} />
-        <Toggle label={t('sim.movement')} value={s.moving} disabled={off} onChange={(moving) => set({ moving })}
-          options={[{ v: true, text: t('sim.moving') }, { v: false, text: t('sim.notMoving') }]} />
-        <Slider min={0} max={45} value={s.stillMin} label={t('sim.stillFor')} valueText={t('sim.min', { n: s.stillMin })} disabled={off || s.moving} onChange={(stillMin) => set({ stillMin })} />
+        <Fact label={t('sim.hr')} value={t('sim.bpm', { n: s.hr })} />
+        <Fact label={t('sim.stillFor')} value={t('sim.min', { n: s.stillMin })} />
         <Toggle label={t('sim.speech')} value={s.speech} disabled={off} onChange={(speech) => set({ speech })}
           options={SPEECH.map((v) => ({ v, text: t(`sim.speechOpt.${v}`) }))} />
         <Toggle label={t('sim.david')} value={s.davidPicksUp} disabled={off} onChange={(davidPicksUp) => set({ davidPicksUp })}

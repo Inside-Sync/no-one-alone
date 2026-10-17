@@ -37,7 +37,7 @@ test('labels are English; backend text (timeline, triage reason) is shown as is'
   expect(v.owner).toMatchObject({ title: 'David · on the way', subtitle: 'Owns the case', eta: '5′' })
   expect(v.timeline.map((r) => [r.ph, r.d, r.s])).toEqual([
     ['Verify', 'Heart rate 142 with no movement', 'System'],
-    ['Verify', 'Verified', 'Agent'],
+    ['Verify', 'Verified', 'Noa'],
     ['Escalate', 'David accepted', 'David Collins'],
   ])
   expect(v.sla[0]).toEqual(['Alert → verified', '41 s'])
@@ -135,60 +135,66 @@ test('liveView: after no one nearby accepted, the owner card says 000 was called
   expect(v.owner).toMatchObject({ title: 'No one nearby can come', subtitle: '000 called automatically' })
 })
 
-describe('helperStatus: what NOA tells Margaret after the plan', () => {
+describe('helperStatus: what Noa tells Margaret after the plan', () => {
   const circle = {
     person: { displayName: 'Margaret Collins', emergencyNumber: '000' },
-    members: { david: { displayName: 'David Collins' }, aisha: { displayName: 'Aisha Rahman' }, lan: { displayName: 'Lan Tran' } },
+    members: { james: { displayName: 'James Collins' }, david: { displayName: 'David Collins' }, lan: { displayName: 'Lan Tran' } },
   } as unknown as LivePeople
   const ev = (s: number, actor: string, kind: string, text: string) => ({ at: at(s), actor, kind, text })
-  const callDavid = ev(80, 'SYSTEM', 'NOTIFIED', 'Calling David Collins: Margaret may be having a stroke.')
+  const alerted = ev(79, 'SYSTEM', 'ALERTED', 'Alert sent to James, Sarah and David: Margaret may be having a stroke. Noa is calling for help now.')
+  const callJames = ev(80, 'SYSTEM', 'NOTIFIED', 'Calling James: Margaret may be having a stroke. Her speech is slurred.')
+  const jamesExpired = ev(85, 'SYSTEM', 'EXPIRED', 'James did not answer in 5 s · voicemail and text sent')
+  const callDavid = ev(85, 'SYSTEM', 'NOTIFIED', 'Calling David: Margaret may be having a stroke. You are 6 min away. Use the spare key if needed.')
+  const auto000 = (s: number) => ev(s, 'SYSTEM', 'CALLED_115', 'Calling 000 automatically with the call script (demo call)')
   const withTl = (...timeline: object[]) => ({ ...incident, timeline: [...incident.timeline.slice(0, 2), ...timeline] }) as unknown as IncidentDoc
 
-  test('first call: calling David, with his clip', () => {
-    expect(helperStatus(withTl(callDavid, ev(80, 'SYSTEM', 'NOTIFIED', 'James Collins notified')), circle)).toEqual({
-      text: "I'm calling David now. Please stay where you are.", clip: '/noa/calling-david.mp3', key: `${at(80)} NOTIFIED david`,
+  test('each Shared contract event maps to its status key, text and clip', () => {
+    const steps: [object[], string, string, string | null][] = [
+      [[alerted, callJames], 'calling-james', "I'm calling James now. Please stay sitting.", '/noa/calling-james.mp3'],
+      [[alerted, callJames, jamesExpired, callDavid], 'no-answer-james-calling-david',
+        "James didn't answer, so I've left him a message. I'm calling David now.", '/noa/no-answer-james-calling-david.mp3'],
+      [[alerted, callJames, jamesExpired, callDavid, ev(90, 'david', 'ACCEPTED', 'David accepted'), auto000(90)], 'on-the-way-david',
+        "David is on his way. He has a key. I'm calling 000 now.", '/noa/on-the-way-david.mp3'],
+      [[alerted, callJames, jamesExpired, callDavid, ev(95, 'SYSTEM', 'EXPIRED', 'David did not answer in 5 s'),
+        ev(95, 'SYSTEM', 'NO_NEARBY', 'No one nearby accepted'), auto000(95)], 'calling-000',
+        "I'm calling 000 for an ambulance now. Stay where you are. Help is coming.", null],
+    ]
+    for (const [tl, key, text, clip] of steps) {
+      const s = helperStatus(withTl(...tl), circle)
+      expect(s).toEqual({ text, clip, key: `${key} ${(tl[tl.length - 1] as { at: string }).at}` })
+    }
+  })
+
+  test('nothing to say before the plan calls anyone, after the helper arrived, or for the ALERTED event alone', () => {
+    expect(helperStatus(withTl(), circle)).toBeNull()
+    expect(helperStatus(withTl(alerted), circle)).toBeNull()
+    expect(helperStatus(withTl(callDavid, ev(84, 'david', 'ACCEPTED', 'x'), ev(99, 'david', 'ARRIVED', 'x')), circle)).toBeNull()
+  })
+
+  test('an accept without the 000 call (come now): on the way, text only', () => {
+    expect(helperStatus(withTl(callDavid, ev(84, 'david', 'ACCEPTED', 'x')), circle)).toEqual({
+      text: 'David is on the way. Help is coming.', clip: null, key: `on-the-way ${at(84)}`,
     })
-  })
-
-  test('after David did not answer: says so and who is next', () => {
-    const s = helperStatus(withTl(callDavid, ev(83, 'SYSTEM', 'EXPIRED', 'David Collins did not answer in 3 s'),
-      ev(83, 'SYSTEM', 'NOTIFIED', 'Calling Aisha Rahman: Margaret may be having a stroke.')), circle)
-    expect(s).toEqual({ text: "David didn't answer. I'm calling Aisha now.", clip: '/noa/no-answer-david-calling-aisha.mp3', key: `${at(83)} NOTIFIED aisha` })
-  })
-
-  test('accepted: the helper is on the way', () => {
-    const s = helperStatus(withTl(callDavid, ev(84, 'aisha', 'ACCEPTED', 'Aisha Rahman is on the way')), circle)
-    expect(s).toEqual({ text: 'Aisha is on the way. Help is coming.', clip: '/noa/on-the-way-aisha.mp3', key: `${at(84)} ACCEPTED aisha` })
-  })
-
-  test('no one nearby: calling 000, with the clip only for 000', () => {
-    const tl = [callDavid, ev(90, 'SYSTEM', 'NO_NEARBY', 'No one nearby accepted'), ev(90, 'SYSTEM', 'CALLED_115', 'Calling 000 automatically with the call script (demo call)')]
-    expect(helperStatus(withTl(...tl), circle)).toEqual({
-      text: "No one nearby can come, so I'm calling 000 for an ambulance now. Stay where you are. Help is coming.", clip: '/noa/calling-000.mp3', key: `${at(90)} CALLED_115 SYSTEM`,
-    })
-    const mai = { ...circle, person: { displayName: 'Mai', emergencyNumber: '115' } } as unknown as LivePeople
-    expect(helperStatus(withTl(...tl), mai)?.clip).toBeNull()
   })
 
   test('a member outside the clip list: text only', () => {
     const s = helperStatus(withTl(ev(80, 'SYSTEM', 'NOTIFIED', 'Calling Lan Tran: Bà Mai may be having a stroke.')), circle)
-    expect(s).toMatchObject({ text: "I'm calling Lan now. Please stay where you are.", clip: null })
-  })
-
-  test('nothing to say before the plan calls anyone, and after the helper arrived', () => {
-    expect(helperStatus(withTl(), circle)).toBeNull()
-    expect(helperStatus(withTl(callDavid, ev(84, 'david', 'ACCEPTED', 'x'), ev(99, 'david', 'ARRIVED', 'x')), circle)).toBeNull()
+    expect(s).toMatchObject({ text: "I'm calling Lan now. Please stay sitting.", clip: null })
   })
 
   test('Vietnamese text, same clip rule', async () => {
     await i18n.changeLanguage('vi')
-    expect(helperStatus(withTl(ev(84, 'david', 'ACCEPTED', 'x')), circle)?.text).toBe('David đang đến. Sắp có người giúp bà.')
+    expect(helperStatus(withTl(callJames), circle)).toMatchObject({ text: 'Tôi đang gọi James. Bà cứ ngồi yên nhé.', clip: '/noa/calling-james.mp3' })
   })
 
   test('phoneView: status only once the instruction exists', () => {
-    const inc = { ...withTl(ev(84, 'david', 'ACCEPTED', 'x')), personInstruction: undefined } as unknown as IncidentDoc
+    const inc = { ...withTl(callJames), personInstruction: undefined } as unknown as IncidentDoc
     expect(liveView('inc1', inc, circle, T0 + 120_000).phone.status).toBeNull()
     const withInstr = { ...inc, personInstruction: { scriptIds: [], text: 'Sit down.' } } as unknown as IncidentDoc
-    expect(liveView('inc1', withInstr, circle, T0 + 120_000).phone.status?.clip).toBe('/noa/on-the-way-david.mp3')
+    expect(liveView('inc1', withInstr, circle, T0 + 120_000).phone.status?.clip).toBe('/noa/calling-james.mp3')
+  })
+
+  test('the ALERTED event is in the escalate phase', () => {
+    expect(liveView('inc1', withTl(alerted), circle, T0).timeline[2].ph).toBe('Escalate')
   })
 })
