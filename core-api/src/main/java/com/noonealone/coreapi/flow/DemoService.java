@@ -82,6 +82,7 @@ public class DemoService {
         store.current().ifPresent(c -> {
             store.find(c.incidentId).ifPresent(inc -> {
                 inc.assignments.forEach(a -> tasks.deleteQuietly(tasks.taskName(inc.id, a.memberId, 1)));
+                tasks.deleteQuietly(tasks.taskName(inc.id, Handoff.TASK_MEMBER, 1));
                 audio.deleteIncident(inc.id);
                 store.delete(inc.id);
             });

@@ -131,7 +131,11 @@ class EscalationTest extends FirestoreTestBase {
     static final List<String> CALL_KINDS = List.of("ALERTED", "NOTIFIED", "EXPIRED", "ACCEPTED", "NO_NEARBY", "CALLED_115");
 
     void runMargaretEmergency(String id) {
-        store.seed(seed.data());
+        runMargaretEmergency(id, seed.data());
+    }
+
+    void runMargaretEmergency(String id, SeedData data) {
+        store.seed(data);
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null, null, true, false));
         when(agent.triage(any())).thenReturn(new TriageResult(Level.EMERGENCY, List.of("weakness"), false));
@@ -200,6 +204,53 @@ class EscalationTest extends FirestoreTestBase {
 
         assertThat(store.get("m-e3").timeline)
                 .filteredOn(t -> "CALLED_115".equals(t.kind) && "SYSTEM".equals(t.actor)).hasSize(1);
+    }
+
+    String text(String id, String kind) {
+        return store.get(id).timeline.stream().filter(t -> kind.equals(t.kind)).map(t -> t.text).findFirst().orElseThrow();
+    }
+
+    @Test
+    void nobodyNearbyAtStartHandsOffAfterThe000Call() {
+        SeedData data = seed.data();
+        data.people().get("margaret").circle.removeIf(c -> c.role == Role.NEARBY);
+        runMargaretEmergency("m-h1", data);
+
+        assertThat(store.get("m-h1").timeline).extracting(t -> t.kind)
+                .containsSubsequence("CALLED_115", "HANDOFF_SENT", "HANDOFF_RECEIVED", "FAMILY_UPDATE");
+    }
+
+    @Test
+    void davidAcceptHandsOffAndTellsTheFamilyHeIsComing() {
+        runMargaretEmergency("m-h2");
+
+        actions.timeout("m-h2", "james", 1);
+        actions.apply("m-h2", "david", "ACCEPT");
+
+        assertThat(store.get("m-h2").timeline).extracting(t -> t.kind).containsSubsequence("CALLED_115", "HANDOFF_SENT");
+        assertThat(text("m-h2", "FAMILY_UPDATE")).contains("David is on his way.");
+    }
+
+    @Test
+    void nobodyAcceptsMeansNoaStaysWithHer() {
+        runMargaretEmergency("m-h3");
+
+        actions.timeout("m-h3", "james", 1);
+        actions.timeout("m-h3", "david", 1);
+
+        assertThat(text("m-h3", "FAMILY_UPDATE")).isEqualTo("An ambulance is on its way to Margaret (about 12 minutes). "
+                + "The stroke team at Camperdown Stroke Centre has her details. I'm staying with her.");
+    }
+
+    @Test
+    void handoffTaskOnClosedIncidentDoesNothing() {
+        runMargaretEmergency("m-h4");
+        actions.apply("m-h4", "console", "CLOSE");
+
+        actions.timeout("m-h4", "handoff", 1);
+
+        assertThat(store.get("m-h4").handoff).isNull();
+        verify(agent, never()).handoff(any());
     }
 
     @Test

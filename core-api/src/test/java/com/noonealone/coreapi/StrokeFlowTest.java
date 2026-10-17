@@ -87,6 +87,6 @@ class StrokeFlowTest extends FirestoreTestBase {
         assertThat(inc.level).isEqualTo(Level.EMERGENCY);
         assertThat(inc.handoff.status).isEqualTo("RECEIVED");
         assertThat(inc.timeline).extracting(t -> t.kind).containsSubsequence(
-                "ALERT", "VERIFIED", "ASKED", "ANSWERED", "TRIAGED", "NOTIFIED", "HANDOFF_SENT", "HANDOFF_RECEIVED", "ACCEPTED", "ARRIVED");
+                "ALERT", "VERIFIED", "ASKED", "ANSWERED", "TRIAGED", "NOTIFIED", "ACCEPTED", "CALLED_115", "HANDOFF_SENT", "HANDOFF_RECEIVED", "FAMILY_UPDATE", "ARRIVED");
     }
 }

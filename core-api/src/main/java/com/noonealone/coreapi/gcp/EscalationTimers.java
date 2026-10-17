@@ -41,6 +41,10 @@ public class EscalationTimers {
         }
     }
 
+    public boolean enabled() {
+        return config.enabled();
+    }
+
     public String taskName(String incidentId, String memberId, int attempt) {
         return queue + "/tasks/" + incidentId + "-" + memberId + "-" + attempt;
     }
