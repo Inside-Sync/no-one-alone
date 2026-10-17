@@ -228,11 +228,13 @@ export type CheckinInput = { audio: Blob } | { yesNo: 'YES' | 'NO' } | { noReply
 
 export type ApiErrorCode = 'INVALID_REQUEST' | 'UNAUTHENTICATED' | 'NOT_FOUND' | 'ALREADY_OWNED' | 'INVALID_STATE' | 'AGENT_FAILED'
 
-/** Contract 4.1 `POST /api/incidents/{id}/recovery` body. */
+export type MedChange = 'New' | 'Increased' | 'Continue' | 'Stop'
+
+/** Contract 4.1 `POST /api/incidents/{id}/recovery` body; a med without `change` is Continue. */
 export interface RecoveryRequest {
   staffName: string
   diagnosis: string
-  meds: { name: string; dose: string; times: string[] }[]
+  meds: { name: string; dose: string; times: string[]; change?: MedChange }[]
   activities: { text: string; times: string[] }[]
   followUps: { text: string; inDays: number }[]
   notes: string

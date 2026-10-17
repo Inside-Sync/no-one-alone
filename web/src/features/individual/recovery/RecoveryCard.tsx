@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import type { RecoveryDoc } from '@/data/contract'
 import { audioUrl } from '@/data/repo'
-import { nextReminder, todayTasks, type Reminder } from '@/domain/recovery'
+import { SLOTS, isStopped, medsExplained, nextReminder, todayTasks, type Reminder } from '@/domain/recovery'
 
 /** Plays a saved audio file; a blocked or missing file stays silent. */
 function Play({ path }: { path?: string }) {
@@ -26,15 +26,22 @@ export function RecoveryCard({ recovery, tz, who = 'self' }: { recovery: Recover
   }, [])
   const tick = (id: string) => setDone(new Set(done).add(id))
 
-  const upcoming = nextReminder(recovery.reminders.filter((r) => !done.has(keyOf(r))), now, tz)
+  const tasks = todayTasks(recovery)
+  const meds = medsExplained(recovery)
+  const reminders = recovery.reminders.filter((r) => tasks.some((x) => x.id === keyOf(r)))
+  const upcoming = nextReminder(reminders.filter((r) => !done.has(keyOf(r))), now, tz)
   // Nothing left today: tomorrow starts again from the first reminder.
-  const first = recovery.reminders[0]
+  const first = reminders[0]
   const next = upcoming?.tomorrow === false ? upcoming : first ? { reminder: first, tomorrow: true } : null
   return (
     <GlassCard span={12}>
       <div className="ch"><h2>{t('recovery.title', { context: who })}</h2><span className="meta">{t('recovery.home')}</span></div>
       <p style={{ fontSize: 16 }}>{recovery.summary}</p>
       <Play path={recovery.summaryAudioPath} />
+      <div className="row" style={{ margin: '10px 0' }}>
+        {recovery.meds.filter(isStopped).map((m) => <span key={m.name} className="pill bad">{t('recovery.stop', { name: m.name })}</span>)}
+        {recovery.activities.filter((a) => !a.times.length).map((a) => <span key={a.text} className="chip" style={{ whiteSpace: 'normal' }}>{a.text}</span>)}
+      </div>
       {next && (
         <div className="row" style={{ margin: '12px 0' }}>
           <b style={{ fontSize: 24, color: 'var(--ink)' }}>
@@ -46,7 +53,7 @@ export function RecoveryCard({ recovery, tz, who = 'self' }: { recovery: Recover
       )}
       <h3>{t('recovery.today')}</h3>
       <ul className="list">
-        {todayTasks(recovery).map((task) => {
+        {tasks.map((task) => {
           const label = t(task.kind === 'MED' ? 'recovery.taken' : 'recovery.tick')
           return (
             <li key={task.id} style={done.has(task.id) ? { opacity: 0.6 } : undefined}>
@@ -61,6 +68,19 @@ export function RecoveryCard({ recovery, tz, who = 'self' }: { recovery: Recover
             </li>
           )
         })}
+      </ul>
+      {meds.length > 0 && <h3>{t('recovery.meds', { context: who })}</h3>}
+      <ul className="list">
+        {meds.map((m) => (
+          <li key={m.name}>
+            <b aria-hidden="true">💊</b>
+            <span>
+              <strong>{m.name} {m.dose}</strong> · {m.times.map((x) => (x in SLOTS ? t(`recovery.slots.${SLOTS[x as keyof typeof SLOTS]}`) : x)).join(', ')}
+              {m.why && <small style={{ display: 'block' }}>{m.why}</small>}
+            </span>
+            {m.change && <span className={`pill ${m.change === 'Continue' ? 'plain' : 'warn'}`}>{t(`recovery.change.${m.change as 'New'}`)}</span>}
+          </li>
+        ))}
       </ul>
       {recovery.followUps.length > 0 && (
         <>

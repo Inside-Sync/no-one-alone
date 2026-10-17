@@ -13,26 +13,60 @@ export function nextReminder(reminders: Reminder[], nowMs: number, tz: string): 
   return reminder ? { reminder, tomorrow: false } : { reminder: reminders[0], tomorrow: true }
 }
 
-/** Why each DEFAULT_PLAN item matters, keyed by lowercased medicine name or activity text (display only). */
+/** Why each DEFAULT_PLAN item matters, keyed by a lowercased word in the medicine name or reminder text (display only). */
 export const WHY: Record<string, string> = {
-  aspirin: 'Thins the blood a little so a new clot is less likely.',
-  atorvastatin: 'Lowers cholesterol to protect the blood vessels in the brain.',
-  amlodipine: 'Keeps blood pressure down, the biggest cause of a second stroke.',
-  'walk for 15 minutes with your stick': 'Gentle walking rebuilds strength and balance and helps prevent falls.',
-  'check your blood pressure': 'Readings show the family and GP if the medicines are working.',
-  'speech exercises from your sheet': 'Daily practice helps speech come back faster in the first weeks.',
-  'drink a glass of water': 'Staying hydrated keeps blood flowing and helps avoid dizziness.',
+  apixaban: 'Stops clots forming because of the uneven heartbeat. Replaces aspirin.',
+  perindopril: 'Lowers blood pressure and protects the brain.',
+  atorvastatin: 'Lowers cholesterol. Dose raised from 20 mg.',
+  amlodipine: 'Blood pressure tablet, as before.',
+  'vitamin d': 'For bones, as before.',
+  aspirin: 'Stop taking this. Apixaban does its job now.',
+  walk: 'Gentle walking helps the brain heal and keeps blood pressure down.',
+  'blood pressure': 'Sit for 5 minutes first. Aim for under 130/80.',
+  speech: 'Practise the sounds from your speech therapist.',
+  water: 'Aim for 1.5 L today.',
 }
+
+const whyOf = (text: string) => {
+  const t = text.toLowerCase()
+  const key = Object.keys(WHY).find((k) => t.includes(k))
+  return key && WHY[key]
+}
+
+export type Med = RecoveryDoc['meds'][number]
+
+export const isStopped = (m: Med) => m.change === 'Stop'
 
 export interface Task { id: string; time: string; kind: 'MED' | 'ACTIVITY'; title: string; why?: string; audioPath?: string }
 
-/** One task per reminder, in reminder order; `id` matches the reminder key used for ticks. */
+/** One task per reminder, in reminder order, minus any that name a stopped medicine; `id` matches the reminder key used for ticks. */
 export function todayTasks(r: RecoveryDoc): Task[] {
-  return r.reminders.map((x) => {
-    const text = x.text.toLowerCase()
-    const key = Object.keys(WHY).find((k) => text.includes(k))
-    return { id: x.time + x.text, time: x.time, kind: x.kind, title: x.text, why: key && WHY[key], audioPath: x.audioPath }
-  })
+  const stopped = r.meds.filter(isStopped).map((m) => m.name.toLowerCase())
+  return r.reminders
+    .filter((x) => !(x.kind === 'MED' && stopped.some((n) => x.text.toLowerCase().includes(n))))
+    .map((x) => ({ id: x.time + x.text, time: x.time, kind: x.kind, title: x.text, why: whyOf(x.text), audioPath: x.audioPath }))
+}
+
+/** Medicine table time slots, keyed by their clock time. */
+export const SLOTS = { '08:00': 'morning', '13:00': 'midday', '18:00': 'evening', '21:00': 'night' } as const
+
+/** Medicines Margaret still takes, with why each one matters. */
+export const medsExplained = (r: RecoveryDoc) => r.meds.filter((m) => !isStopped(m)).map((m) => ({ ...m, why: whyOf(m.name) }))
+
+/** What Noa says at hand-off, worked out from the plan: new and stopped medicines, the first slot of the day, the first follow-up. */
+export function handoffFacts(r: RecoveryDoc) {
+  const taking = r.meds.filter((m) => !isStopped(m))
+  const time = [...taking, ...r.activities].flatMap((x) => x.times).sort()[0]
+  const items = [
+    ...taking.filter((m) => m.times.includes(time)).map((m) => `${m.name} ${m.dose}`),
+    ...r.activities.filter((a) => a.times.includes(time)).map((a) => a.text),
+  ]
+  return {
+    newMeds: r.meds.filter((m) => m.change === 'New').map((m) => m.name.toLowerCase()),
+    stopMeds: r.meds.filter(isStopped).map((m) => m.name.toLowerCase()),
+    next: time ? { time, items } : null,
+    followUp: r.followUps[0] ?? null,
+  }
 }
 
 export const CALL_DAYS = [1, 3, 7, 14, 30] as const

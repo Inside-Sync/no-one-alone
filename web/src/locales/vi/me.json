@@ -185,6 +185,38 @@
     "tick": "Xong",
     "idle": "Kế hoạch hồi phục của mạ sẽ hiện ở đây",
     "idle_family": "Kế hoạch hồi phục của bà Margaret sẽ hiện ở đây",
+    "stop": "⛔ Ngừng: {{name}}",
+    "meds": "Thuốc của bạn, giải thích rõ",
+    "meds_family": "Thuốc của bà, giải thích rõ",
+    "slots": {
+      "morning": "sáng",
+      "midday": "trưa",
+      "evening": "chiều",
+      "night": "tối"
+    },
+    "change": {
+      "New": "Mới",
+      "Increased": "Tăng liều",
+      "Continue": "Tiếp tục"
+    },
+    "noa": {
+      "title": "💬 Lời Noa nhắn",
+      "title_family": "💬 Noa đã nói gì với Margaret",
+      "meta": "Sau khi bệnh viện duyệt kế hoạch",
+      "noa": "Noa",
+      "margaret": "👵 Margaret",
+      "welcome": "Chào mừng về nhà, Margaret. Noa đây 💙 Bệnh viện đã gửi kế hoạch hồi phục, và Noa đã đưa vào ứng dụng bằng lời dễ hiểu.",
+      "newMeds_one": "Bà có 1 viên thuốc mới: {{names}}.",
+      "newMeds_other": "Bà có {{count}} viên thuốc mới: {{names}}.",
+      "stopMeds": "Bà ngừng uống {{names}} nhé.",
+      "pharmacy": "Noa đã báo nhà thuốc và cập nhật hộp chia thuốc.",
+      "thanks": "Cảm ơn con. Nhiều thứ phải nhớ quá.",
+      "next": "Bà đừng lo, lần nào Noa cũng nhắc, bằng giọng nói và trên màn hình. Lần tới là lúc {{time}}: {{items}}.",
+      "also": "Noa cũng nhắc bà đi bộ lúc 10:00, đo huyết áp và tập nói lúc 14:00.",
+      "followUp": "{{text}} vào {{date}}. David có thể chở bà đi.",
+      "call": "Ngày mai Noa sẽ gọi bà lúc 17:00 để hỏi thăm. Nếu mặt bị xệ, tay yếu hay nói khó, bà bấm Help và Noa sẽ gọi 000.",
+      "bye": "Tốt quá. Cảm ơn con."
+    },
     "calls": {
       "title": "Các cuộc gọi hỏi thăm mạ",
       "title_family": "Các cuộc gọi hỏi thăm bà",

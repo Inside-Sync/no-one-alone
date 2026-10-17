@@ -39,15 +39,14 @@
       "toast": "Đã đề nghị xe cứu thương chuyển hướng"
     },
     "recovery": {
-      "title": "Kế hoạch hồi phục",
-      "meta": "Cho người bệnh về nhà",
+      "title": "📝 Kế hoạch xuất viện và hồi phục",
+      "meta": "Sửa, duyệt, rồi trợ lý gửi tới cổng của Margaret bằng lời dễ hiểu",
       "staff": "Bác sĩ",
       "diagnosis": "Chẩn đoán",
       "meds": "Thuốc",
       "medName": "Tên thuốc {{n}}",
       "medDose": "Liều thuốc {{n}}",
-      "medTimes": "Giờ uống thuốc {{n}}",
-      "activities": "Hoạt động",
+      "activities": "Dặn dò",
       "actText": "Hoạt động {{n}}",
       "actTimes": "Giờ hoạt động {{n}}",
       "followUps": "Tái khám",
@@ -55,12 +54,37 @@
       "fuDays": "Tái khám {{n}} sau bao nhiêu ngày",
       "notes": "Dặn dò của bác sĩ",
       "hint": "Giờ dạng HH:mm, cách nhau bằng dấu phẩy",
-      "send": "Cho về nhà với kế hoạch này",
       "sentAt": "Đã cho về nhà lúc {{time}}",
       "sent": "Đã cho về nhà",
       "failed": "Không gửi được kế hoạch",
-      "delivering": "Trợ lý đang gửi kế hoạch…",
+      "delivering": "⏳ Trợ lý đang gửi…",
       "why": "Vì sao: {{text}}",
+      "medHead": "Thuốc",
+      "doseHead": "Liều",
+      "changeHead": "Thay đổi",
+      "slots": {
+        "morning": "Sáng",
+        "midday": "Trưa",
+        "evening": "Chiều",
+        "night": "Tối"
+      },
+      "medSlot": "Thuốc {{n}} {{slot}}",
+      "medChange": "Thay đổi thuốc {{n}}",
+      "change": {
+        "New": "Mới",
+        "Increased": "Tăng liều",
+        "Continue": "Tiếp tục",
+        "Stop": "Ngừng"
+      },
+      "calls": "Cuộc gọi hỏi thăm của trợ lý",
+      "callDay": "✓ Ngày {{day}}",
+      "finalise": "✍️ Chốt kế hoạch",
+      "signed": "✍️ {{name}} đã chốt · {{time}}",
+      "editAgain": "Sửa lại",
+      "approve": "✅ Duyệt và giao cho Noa",
+      "approveNote": "Trợ lý chuyển kế hoạch sang lời dễ hiểu, đặt lời nhắc và chia sẻ với người thân theo cài đặt của Margaret.",
+      "toastFinal": "Đã chốt và ký kế hoạch. Giờ hãy duyệt để giao cho trợ lý.",
+      "toastSent": "Kế hoạch hồi phục đã tới cổng của Margaret",
       "steps": {
         "summary": "Đã viết tóm tắt bằng lời dễ hiểu",
         "summaryFallback": "Dùng lời dặn của bác sĩ làm tóm tắt",
@@ -70,6 +94,11 @@
         "circle": "{{names}} cũng xem được",
         "delivered": "Kế hoạch đã hiện trên màn hình của Margaret"
       }
+    },
+    "discharge": {
+      "title": "🩺 Sẵn sàng xuất viện: Margaret Collins, 78",
+      "sub": "Đột quỵ thiếu máu, đã tiêu sợi huyết · rung nhĩ kịch phát mới · kế hoạch hồi phục chờ duyệt",
+      "open": "📝 Mở hồ sơ và kế hoạch hồi phục"
     }
   },
   "panel": {
