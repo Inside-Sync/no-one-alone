@@ -81,19 +81,24 @@ describe('watch', () => {
     expect(start).toHaveBeenCalledTimes(1)
   })
 
-  test('sliders: HR 140 and still 10 count up from the readings that are really high and still', async () => {
+  test('sliders: HR 140 then still 10 starts at once, before any reading', async () => {
     await mount()
     slide('Heart rate', 140)
+    expect(start).not.toHaveBeenCalled()
     slide('Not moving for', 10)
     expect(screen.getByText('140 bpm')).toBeInTheDocument()
     expect(screen.getByText('10 min ⚠️')).toBeInTheDocument()
-    await beat(0)
-    expect(start).not.toHaveBeenCalled()
-    await beat(9000)
-    expect(start).not.toHaveBeenCalled()
-    await beat(1000)
     expect(start).toHaveBeenCalledTimes(1)
-    expect(start.mock.calls[0][1]).toMatchObject({ hr: 140, movementMin: 10 })
+    expect(start).toHaveBeenCalledWith('stroke', { hr: 140, movementMin: 10, noReplySeconds: 45 })
+  })
+
+  test('sliders: still 10 then HR 140 starts at once too', async () => {
+    await mount()
+    slide('Not moving for', 10)
+    expect(start).not.toHaveBeenCalled()
+    slide('Heart rate', 140)
+    expect(start).toHaveBeenCalledTimes(1)
+    expect(start).toHaveBeenCalledWith('stroke', { hr: 140, movementMin: 10, noReplySeconds: 45 })
   })
 
   test('Faster: the night preset fires after 4 readings of 250 ms', async () => {
