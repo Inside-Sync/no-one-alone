@@ -77,3 +77,12 @@ export function act(incidentId: string, memberId: string, action: ServerAction) 
 export function recovery(incidentId: string, body: RecoveryRequest) {
   return call<{ version: number }>(`/incidents/${encodeURIComponent(incidentId)}/recovery`, body)
 }
+
+export type ChatMode = 'hosp' | 'self' | 'fam'
+export interface ChatTurn { by: 'me' | 'noa'; text: string }
+export interface ChatRequest { question: string; mode: ChatMode; viewer?: string; history?: ChatTurn[] }
+
+/** Asks Noa about Margaret; `502 CHAT_UNAVAILABLE` when the agent fails. */
+export function chat(body: ChatRequest) {
+  return call<{ answer: string }>('/chat', body)
+}

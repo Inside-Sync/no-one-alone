@@ -2,7 +2,7 @@ import { act as flush, renderHook } from '@testing-library/react'
 import { vi } from 'vitest'
 import type { AssignmentDoc, IncidentDoc } from '@/data/contract'
 import type { LiveView } from '@/domain/incident'
-import { presetSettings, type SimSettings } from '@/domain/simulator'
+import { NIGHT_ALERT, type SimSettings } from '@/domain/simulator'
 import { useAutopilot, type AutopilotOptions } from '@/features/individual/live/useAutopilot'
 
 const play = vi.fn(() => Promise.resolve())
@@ -38,7 +38,7 @@ function setup(settings: SimSettings, incident: IncidentDoc, view: LiveView) {
   return { checkin, act, rerender: (o: Partial<AutopilotOptions>) => hook.rerender({ ...props, ...o }) }
 }
 
-const clear = { ...presetSettings('stairs'), speech: 'clear' } as SimSettings
+const clear: SimSettings = NIGHT_ALERT
 
 test('waits for the question to finish, pauses, lets Margaret finish, then sends once per key', async () => {
   const key = '1:0:Can you hear me?'
@@ -52,7 +52,7 @@ test('waits for the question to finish, pauses, lets Margaret finish, then sends
   expect(play).toHaveBeenCalledTimes(1)
   expect(checkin).not.toHaveBeenCalled()
   await flush(async () => { ended?.() })
-  expect(fetchMock).toHaveBeenCalledWith('/sim/clear-0.mp3')
+  expect(fetchMock).toHaveBeenCalledWith('/sim/red-0.mp3')
   expect(checkin).toHaveBeenCalledTimes(1)
   expect(checkin.mock.calls[0]).toEqual([{ audio: expect.any(Blob) }])
   rerender({ spokenKey: key, incident: incidentWith(1) })
@@ -70,8 +70,8 @@ test('answers after 14 s when the question audio never reports its end', async (
   expect(play).toHaveBeenCalledTimes(1)
 })
 
-test("speech 'none' sends nothing", async () => {
-  const { checkin } = setup({ ...clear, speech: 'none' }, incidentWith(1), viewWith('1:0:Can you hear me?'))
+test("speech 'mic' sends nothing", async () => {
+  const { checkin } = setup({ ...clear, speech: 'mic' }, incidentWith(1), viewWith('1:0:Can you hear me?'))
   await flush(() => vi.advanceTimersByTimeAsync(20000))
   expect(fetchMock).not.toHaveBeenCalled()
   expect(checkin).not.toHaveBeenCalled()

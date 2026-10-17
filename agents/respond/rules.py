@@ -1,20 +1,24 @@
 """Deterministic verify and triage rules for respond-agent (contract 4.3)."""
 import re
 
-from lang import load_scripts
-
 ORDER = ["OK", "MONITOR", "COME_NOW", "EMERGENCY"]
-NO = ("no", "không")
-LIMBS = tuple(load_scripts()[lang]["questions"][3].lower() for lang in ("en", "vi"))
+EMERGENCY_SIGNS = ("weakness", "chest pain", "fall")
+# ponytail: word match with a 2-word negation window; Gemini symptoms cover the rest
+SIGN_WORDS = {"weakness": {"arm", "face", "weak", "weakness", "heavy", "numb", "yếu", "tê"},
+              "chest pain": {"chest", "ngực"},
+              "fall": {"fall", "fell", "fallen", "té", "ngã"},
+              "dizziness": {"dizzy", "dizziness", "chóng"}}
+NEGATIONS = {"no", "not", "never", "không", "chưa"}
 
 
 def _words(text: str | None) -> list[str]:
     return re.sub(r"[^\w\s]", " ", (text or "").lower()).split()
 
 
-def _said_no(text: str | None) -> bool:
-    w = _words(text)
-    return bool(w) and (w[0] in NO or "cannot" in w or "can't" in (text or "").lower())
+def _signs(text: str | None) -> list[str]:
+    clauses = re.split(r"[.,;!?…]", (text or "").lower().replace("n't", " not").replace("n’t", " not"))
+    return [s for s, words in SIGN_WORDS.items() for w in map(_words, clauses)
+            if any(x in words and not NEGATIONS & set(w[max(0, i - 2):i]) for i, x in enumerate(w))]
 
 
 def verify(body: dict) -> dict:
@@ -22,9 +26,11 @@ def verify(body: dict) -> dict:
     base = body.get("person", {}).get("baseline") or {}
     baseline = base.get("nightHr") or base.get("restingHr") or 60
     hr, still = alert["hr"], alert.get("movementMin", 0)
-    real = (hr >= baseline + 30 and still >= 2) or "FALL" in alert.get("kind", "")
+    real = (hr > 120 and still >= 10) or "FALL" in alert.get("kind", "")
     if real:
         reason = f"HR {hr} at rest, baseline {baseline}, no movement for {still} min"
+    elif still >= 2 and hr >= baseline + 30:
+        reason = f"HR {hr}, still for {still} min: below the HR over 120 for 10 min rule"
     elif still >= 2:
         reason = f"HR {hr} near her baseline {baseline}, resting: not an emergency"
     else:
@@ -51,18 +57,15 @@ def triage(body: dict) -> dict:
     if any(a.get("clarity") == "SLURRED" for a in assessments):
         raise_to("EMERGENCY", "slurred speech")
     symptoms = [s for a in assessments for s in a.get("symptoms") or []]
-    if symptoms:
-        raise_to("COME_NOW", symptoms)
+    symptoms += [s for p in people for s in _signs(p.get("text"))]
+    for s in dict.fromkeys(symptoms):
+        raise_to("EMERGENCY" if s in EMERGENCY_SIGNS else "COME_NOW", s)
     if body.get("noReplyCount", 0) >= 2:
         raise_to("COME_NOW", "no answer")
     if "FALL" in alert.get("kind", ""):
         raise_to("COME_NOW", "fall detected")
     if people and _words(people[-1].get("text")) in (["no"], ["không"]):
         raise_to("COME_NOW", "answered no")
-    for q, a in zip(turns, turns[1:]):
-        limbs = q.get("by") == "AGENT" and (q.get("text") or "").lower().endswith(LIMBS)
-        if limbs and a.get("by") == "PERSON" and _said_no(a.get("text")):
-            raise_to("EMERGENCY", "weakness")
     if alert["hr"] >= 130 and not any(a.get("clarity") == "CLEAR" for a in assessments):
         raise_to("COME_NOW", f"HR {alert['hr']} without activity")
     if alert["hr"] >= 130 and body.get("noReplyCount", 0) >= 2:

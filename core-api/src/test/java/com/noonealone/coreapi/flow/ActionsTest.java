@@ -92,6 +92,7 @@ class ActionsTest extends FirestoreTestBase {
         assertThat(inc.ownerId).isEqualTo("ong-hung");
         assertThat(inc.assignment("ong-hung").orElseThrow().state).isEqualTo(AssignmentState.ACCEPTED);
         verify(tasks).deleteQuietly("task-ong-hung");
+        assertThat(inc.timeline).extracting(t -> t.kind).doesNotContain("CALLED_115");
     }
 
     @Test
@@ -230,10 +231,10 @@ class ActionsTest extends FirestoreTestBase {
         flow.create(IncidentFlowAlertTest.stroke("m-1", "margaret"));
         flow.process("m-1");
 
-        actions.apply("m-1", "david", "CALLED_115");
+        actions.apply("m-1", "james", "CALLED_115");
 
         assertThat(store.get("m-1").timeline).filteredOn(t -> "CALLED_115".equals(t.kind))
-                .extracting(t -> t.text).containsExactly("David called 000");
+                .extracting(t -> t.text).containsExactly("James called 000");
     }
 
     @Test

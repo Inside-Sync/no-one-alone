@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useRouter } from '@/app/navigation'
+import { GlassCard } from '@/components/ui/GlassCard'
 import type { LabelValue } from '@/data/types'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
@@ -10,7 +12,6 @@ import { PageError } from '@/features/shared/PageError'
 import { useHospital } from '../useHospital'
 import { InboxCard, type InboxItem } from './InboxCard'
 import { PacketCard } from './PacketCard'
-import { RecoveryCard } from './RecoveryCard'
 
 /** Hospital view · Pre-arrivals (`<main data-page="ed">`). */
 export function EdPage() {
@@ -19,6 +20,7 @@ export function EdPage() {
   const h = res.data
   const { packetNew, emergency } = useAppState()
   const { live, view, incident } = useLiveIncident()
+  const router = useRouter()
   // Live mode: the packet hospital-agent returned (contract 4.4); the mock replays the scripted one.
   const livePacket = live ? view?.packet ?? null : null
   // A pick belongs to one inbox: when the demo's packet arrives or leaves, the pane goes back to its default (prototype re-renders it).
@@ -47,6 +49,14 @@ export function EdPage() {
 
   return (
     <main className="grid" data-page="ed">
+      {live && incident?.handoff && !incident.recovery && (
+        <GlassCard span={12}>
+          <div className="row" style={{ borderLeft: '4px solid var(--brand)', paddingLeft: 14, justifyContent: 'space-between' }}>
+            <span><b>{t('ed.discharge.title')}</b><small className="meta" style={{ display: 'block' }}>{t('ed.discharge.sub')}</small></span>
+            <button type="button" className="btn" onClick={() => router.push('/hospital/discharge')}>{t('ed.discharge.open')}</button>
+          </div>
+        </GlassCard>
+      )}
       <HospitalKpis id="edKpis" kpis={h.edKpis} />
       <InboxCard items={items} incoming={incoming} showNew={packetNew} onSelect={(m) => setPick({ name: m.name, inbox: packetNew })} />
       <PacketCard
@@ -56,7 +66,6 @@ export function EdPage() {
         window={packetNew ? h.pathwayWindow.demo : h.pathwayWindow.idle}
         step={packetNew ? (live ? view?.pathwayStep ?? null : emergency.step) : null}
       />
-      {live && incident?.handoff && <RecoveryCard />}
     </main>
   )
 }

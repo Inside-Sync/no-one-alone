@@ -5,7 +5,7 @@ import { PhoneScreen } from '@/components/phone/PhoneScreen'
 test('structure: dark hearing-mode screen, question, optional parts', () => {
   const { container } = render(<PhoneScreen time="02:04" q="Can you hear me?" small="Phone rings" flash listen help="David · 6 min away" yn onAnswer={() => {}} />)
   expect(container.querySelector('.device .dev-screen.dark')).not.toBeNull()
-  expect(screen.getByText('02:04 · Hearing mode')).toBeInTheDocument()
+  expect(screen.getByText('Hearing mode')).toBeInTheDocument()
   expect(screen.getByText('Can you hear me?')).toBeInTheDocument()
   expect(screen.getByText('Phone rings')).toBeInTheDocument()
   expect(container.querySelector('.dev-flash.on')).not.toBeNull()
@@ -29,4 +29,13 @@ test('answers report Yes / No', () => {
   render(<PhoneScreen time="02:04" q="?" yn onAnswer={onAnswer} />)
   fireEvent.click(screen.getByRole('button', { name: 'No' }))
   expect(onAnswer).toHaveBeenCalledWith('No')
+})
+
+test('iPhone frame: status bar shows the time and a Noa label sits above the question', () => {
+  const { container } = render(<PhoneScreen time="02:04" q="Can you hear me?" onAnswer={() => {}} />)
+  expect(container.querySelector('.device [data-testid="statusbar"]')).toHaveTextContent('02:04')
+  expect(screen.getAllByText(/02:04/)).toHaveLength(1)
+  const label = screen.getByText('Noa')
+  expect(label.closest('[data-testid="noa-label"]')!.querySelector('.om')).not.toBeNull()
+  expect(label.compareDocumentPosition(screen.getByText('Can you hear me?')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
 })

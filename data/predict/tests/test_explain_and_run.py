@@ -138,7 +138,9 @@ def test_gemini_explanations_are_added_only_when_valid():
     assert run.main(["family", "--person", "margaret", "--write"], db=db,
                     explainer=GeminiExplainer(client=FakeClient(replies))) == 0
     flags = db.sets[0][2]["flags"]
-    assert [("explanation" in f) for f in flags] == [True, False] * 3
+    # David is her brother: "your mother ... grandfather" is not in his facts, so both his flags stay unexplained
+    assert [(f["memberId"], "explanation" in f) for f in flags] == [("james", True), ("james", False), ("david", False),
+                                                                    ("david", False), ("sarah", True), ("sarah", False)]
 
 
 def test_firestore_writer_refuses_other_collections():

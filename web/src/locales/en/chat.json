@@ -1,0 +1,31 @@
+{
+  "fab": "Ask Noa",
+  "label": "Chat with Noa",
+  "name": "Noa",
+  "close": "Close chat",
+  "placeholder": "Ask about Margaret…",
+  "input": "Your question",
+  "send": "Send",
+  "typing": "Noa is typing",
+  "offline": "Noa is offline in this preview.",
+  "failed": "Noa can't answer right now.",
+  "sub": {
+    "hosp": "Clinical mode · audit-logged",
+    "self": "Noa · private to you",
+    "fam": "Live · {{name}}'s view · follows Margaret's sharing"
+  },
+  "greet": {
+    "hosp": "Noa, clinical mode, for <b>COLLINS, Margaret</b> (MRN 0048213). Access is under clinical consent and every question is logged.",
+    "self": "Hello Margaret 💙 It's Noa. Ask me anything: your tablets, your plan, or who can see what.",
+    "fam": "Hi {{name}} 👋 I'm Noa, Margaret's No One Alone companion. I look after her day and night. Ask me anything about her. I only share what she has chosen to share with you."
+  },
+  "mum": "Mum",
+  "she": "she",
+  "there": "there",
+  "recoveryChip": "Recovery plan",
+  "chips": {
+    "hosp": ["Patient summary", "Pre-arrival packet", "Discharge medicines", "Plan status", "Readmission risk"],
+    "self": ["How am I doing?", "My next reminder", "My tablets", "Who can see my data?", "Remind me to walk", "Call David"],
+    "fam": ["How is {{who}} right now?", "Heart rate", "Tablets", "Who has been called?", "What happens in an emergency?", "What can I see?"]
+  }
+}

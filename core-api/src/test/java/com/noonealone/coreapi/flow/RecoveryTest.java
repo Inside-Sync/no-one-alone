@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -11,6 +12,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -78,7 +80,7 @@ class RecoveryTest extends FirestoreTestBase {
     }
 
     static Recovery.Plan plan() {
-        return plan(List.of(new Med("aspirin", "100 mg", List.of("08:00"))), List.of());
+        return plan(List.of(new Med("aspirin", "100 mg", List.of("08:00"), null)), List.of());
     }
 
     @Test
@@ -114,11 +116,24 @@ class RecoveryTest extends FirestoreTestBase {
     }
 
     @Test
+    void medChangeIsForwardedAndStored() {
+        incident(ID, "margaret", true);
+        when(agent.recovery(any())).thenReturn(new RecoveryResult("Home.", null,
+                List.of(new RecoveryResult.Reminder("08:00", "MED", "Aspirin.", null)), false));
+
+        recovery.discharge(ID, plan(List.of(new Med("aspirin", "100 mg", List.of("08:00"), "Stop")), List.of()));
+
+        verify(agent).recovery(argThat(b -> ((Map<?, ?>) ((List<?>) ((Map<?, ?>) b.get("plan")).get("meds")).get(0))
+                .get("change").equals("Stop")));
+        assertThat(store.get(ID).recovery.meds.get(0).change()).isEqualTo("Stop");
+    }
+
+    @Test
     void agentFailureFallsBackToSortedRuleReminders() {
         incident(ID, "margaret", true);
         when(agent.recovery(any())).thenThrow(new AgentException("down", null));
         Recovery.Plan p = plan(
-                List.of(new Med("atorvastatin", "40 mg", List.of("20:00")), new Med("aspirin", "100 mg", List.of("08:00"))),
+                List.of(new Med("atorvastatin", "40 mg", List.of("20:00"), null), new Med("aspirin", "100 mg", List.of("08:00"), null)),
                 List.of(new Activity("Walk for 15 minutes", List.of("10:00"))));
 
         recovery.discharge(ID, p);
@@ -138,7 +153,7 @@ class RecoveryTest extends FirestoreTestBase {
         incident(ID, "ba-mai", true);
         when(agent.recovery(any())).thenThrow(new AgentException("down", null));
 
-        recovery.discharge(ID, plan(List.of(new Med("aspirin", "100 mg", List.of("08:00"))),
+        recovery.discharge(ID, plan(List.of(new Med("aspirin", "100 mg", List.of("08:00"), null)),
                 List.of(new Activity("Đi bộ 15 phút", List.of("10:00")))));
 
         assertThat(store.get(ID).recovery.reminders).extracting(r -> r.text()).containsExactly(
@@ -148,7 +163,7 @@ class RecoveryTest extends FirestoreTestBase {
     @Test
     void badTimeIsRejectedAndNothingIsWritten() {
         incident(ID, "margaret", true);
-        Recovery.Plan p = plan(List.of(new Med("aspirin", "100 mg", List.of("8:00"))), List.of());
+        Recovery.Plan p = plan(List.of(new Med("aspirin", "100 mg", List.of("8:00"), null)), List.of());
 
         assertThatThrownBy(() -> recovery.discharge(ID, p)).isInstanceOfSatisfying(ApiException.class,
                 e -> assertThat(e.status()).isEqualTo(HttpStatus.BAD_REQUEST));

@@ -16,7 +16,6 @@ def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
     out = {"fallback": False}
     slurred = any((t.get("assessment") or {}).get("clarity") == "SLURRED" for t in turns)
 
-    res_ack = None
     if "audioBase64" in inp:
         expected = s["repeat_phrase"] if asked == 2 else None
         try:
@@ -31,16 +30,12 @@ def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
             out["transcript"] = res["transcript"]
             out["assessment"] = {k: v for k, v in res.items() if k not in ("transcript", "ack")}
             slurred = slurred or res.get("clarity") == "SLURRED"
-            res_ack = res.get("ack")
 
     out["done"] = asked >= len(s["questions"]) or "yesNo" in inp or (slurred and asked >= 2)
     if not out["done"]:
         if body.get("noReplyCount", 0) >= 1:
             out["next"] = {"text": s["yes_no"], "kind": "YES_NO"}
         else:
-            text = s["questions"][asked].format(
-                name=person.get("displayName", ""), caller=person.get("callerName") or s["caller_default"])
+            text = s["questions"][asked].format(name=(person.get("displayName") or "").split(" ")[0])
             out["next"] = {"text": text, "kind": "VOICE"}
-        if res_ack:
-            out["next"]["text"] = res_ack + " " + out["next"]["text"]
     return out

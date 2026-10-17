@@ -22,6 +22,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
 import com.noonealone.coreapi.agent.AgentException;
+import com.noonealone.coreapi.agent.HandoffResult;
 import com.noonealone.coreapi.agent.PlanResult;
 import com.noonealone.coreapi.agent.RespondAgentClient;
 import com.noonealone.coreapi.agent.TriageResult;
@@ -122,7 +123,83 @@ class EscalationTest extends FirestoreTestBase {
         flow.process("e-meds");
 
         verify(agent).plan(argThat(b -> ((Map<?, ?>) b.get("context")).get("meds").equals(
-                List.of("amlodipine 5 mg each evening", "paracetamol 500 mg as needed", "vitamin D3 1000 IU daily"))));
+                List.of("amlodipine 5 mg each evening", "aspirin 100 mg each morning", "atorvastatin 20 mg at night"))));
+    }
+
+    @Autowired Actions actions;
+
+    static final List<String> CALL_KINDS = List.of("ALERTED", "NOTIFIED", "EXPIRED", "ACCEPTED", "NO_NEARBY", "CALLED_115");
+
+    void runMargaretEmergency(String id) {
+        store.seed(seed.data());
+        when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null, null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.EMERGENCY, List.of("weakness"), false));
+        when(agent.plan(any())).thenReturn(new PlanResult(List.of(
+                new PlanResult.Message("james", "Margaret may be having a stroke. Her speech is slurred."),
+                new PlanResult.Message("david", "Margaret may be having a stroke. You are 6 min away. Use the spare key if needed."),
+                new PlanResult.Message("sarah", "Margaret may be having a stroke.")), "186 Marrickville Road", null, false));
+        when(agent.handoff(any())).thenReturn(new HandoffResult("RECEIVED", Map.of("text", "P"), false));
+        when(routes.etaMinutes(any(), any())).thenReturn(Optional.of(6));
+        when(tasks.schedule(anyString(), anyString(), anyInt(), anyInt())).thenAnswer(inv -> "task-" + inv.getArgument(1));
+        flow.create(IncidentFlowAlertTest.stroke(id, "margaret"));
+        flow.process(id);
+    }
+
+    List<String> callTexts(String id) {
+        return store.get(id).timeline.stream().filter(t -> CALL_KINDS.contains(t.kind)).map(t -> t.text).toList();
+    }
+
+    @Test
+    void margaretEmergencyCallsJamesThenDavidAndDavidAcceptCalls000() {
+        runMargaretEmergency("m-e1");
+
+        var james = store.get("m-e1").assignment("james").orElseThrow();
+        assertThat(james.state).isEqualTo(AssignmentState.NOTIFIED);
+        assertThat(james.actions).containsExactly("CALL_PERSON", "CALLED_115");
+        verify(tasks).schedule("m-e1", "james", 1, 30);
+
+        actions.timeout("m-e1", "james", 1);
+        actions.apply("m-e1", "david", "ACCEPT");
+
+        assertThat(callTexts("m-e1")).containsExactly(
+                "Alert sent to James, Sarah and David: Margaret may be having a stroke. Noa is calling for help now.",
+                "Calling James: Margaret may be having a stroke. Her speech is slurred.",
+                "James did not answer in 30 s · voicemail and text sent",
+                "Calling David: Margaret may be having a stroke. You are 6 min away. Use the spare key if needed.",
+                "David accepted",
+                "Calling 000 automatically with the call script (demo call)");
+    }
+
+    @Test
+    void margaretWithNoAcceptCallsJamesDavidThen000AndNeverAisha() {
+        runMargaretEmergency("m-e2");
+
+        actions.timeout("m-e2", "james", 1);
+        actions.timeout("m-e2", "david", 1);
+
+        assertThat(callTexts("m-e2")).containsExactly(
+                "Alert sent to James, Sarah and David: Margaret may be having a stroke. Noa is calling for help now.",
+                "Calling James: Margaret may be having a stroke. Her speech is slurred.",
+                "James did not answer in 30 s · voicemail and text sent",
+                "Calling David: Margaret may be having a stroke. You are 6 min away. Use the spare key if needed.",
+                "David did not answer in 30 s",
+                "No one nearby accepted",
+                "Calling 000 automatically with the call script (demo call)");
+        assertThat(store.get("m-e2").assignment("aisha")).isEmpty();
+        verify(tasks, never()).schedule(anyString(), eq("aisha"), anyInt(), anyInt());
+    }
+
+    @Test
+    void lateAcceptAfterNoNearbyDoesNotCall000Twice() {
+        runMargaretEmergency("m-e3");
+
+        actions.timeout("m-e3", "james", 1);
+        actions.timeout("m-e3", "david", 1);
+        actions.apply("m-e3", "david", "ACCEPT");
+
+        assertThat(store.get("m-e3").timeline)
+                .filteredOn(t -> "CALLED_115".equals(t.kind) && "SYSTEM".equals(t.actor)).hasSize(1);
     }
 
     @Test

@@ -7,13 +7,14 @@ import { HospitalKpis } from '../shared'
 import { PageError } from '@/features/shared/PageError'
 import { useHospital } from '../useHospital'
 import { BoardCard } from './BoardCard'
+import { RecoveryCard } from './RecoveryCard'
 
 /** Hospital view · Discharge follow-up (`<main data-page="discharge">`). */
 export function DischargePage() {
   const res = useHospital()
   const h = res.data
   const { t, i18n } = useTranslation('hospital')
-  const { incident, people } = useLiveIncident()
+  const { live, incident, people } = useLiveIncident()
   const recovery = incident?.recovery
   if (res.status === 'error') return <PageError page="discharge" onRetry={res.retry} />
   if (!h) return null
@@ -28,6 +29,7 @@ export function DischargePage() {
   }] : []
   return (
     <main className="grid" data-page="discharge">
+      {live && incident?.handoff && <RecoveryCard />}
       <HospitalKpis id="disKpis" kpis={h.discharge.kpis} />
       <BoardCard board={[...margaret, ...h.discharge.board]} />
     </main>

@@ -110,7 +110,7 @@ const PHASE: Record<TimelineKind, EmPhase> = {
   ALERT: 'verify', VERIFIED: 'verify', FALSE_ALARM: 'verify',
   ASKED: 'ask', ANSWERED: 'ask', NO_REPLY: 'ask',
   TRIAGED: 'triage',
-  NOTIFIED: 'escalate', ACCEPTED: 'escalate', DECLINED: 'escalate', EXPIRED: 'escalate', NO_NEARBY: 'escalate',
+  ALERTED: 'escalate', NOTIFIED: 'escalate', ACCEPTED: 'escalate', DECLINED: 'escalate', EXPIRED: 'escalate', NO_NEARBY: 'escalate',
   ARRIVED: 'escalate', CALLED_115: 'escalate',
   HANDOFF_SENT: 'handOff', HANDOFF_RECEIVED: 'handOff', HANDOFF_FAILED: 'handOff',
   AGENT_FALLBACK: 'agent', CLOSED: 'close', DISCHARGED: 'close',
@@ -265,10 +265,10 @@ function phoneView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
   }
 }
 
-const CLIPS = new Set(['calling-david', 'calling-aisha', 'no-answer-david-calling-aisha', 'on-the-way-david', 'on-the-way-aisha', 'calling-000'])
+const CLIPS = new Set(['calling-james', 'no-answer-james-calling-david', 'on-the-way-david'])
 const clip = (name: string) => (CLIPS.has(name) ? `/noa/${name}.mp3` : null)
 
-/** Margaret's status line from the latest escalation event. */
+/** Margaret's status line from the latest escalation event; `key` names the status and the event it came from. */
 export function helperStatus(inc: IncidentDoc, people: LivePeople): HelperStatus | null {
   const s = (k: string, o?: Record<string, unknown>) => tl(`incident.phone.status.${k}`, o)
   // SYSTEM events name the member by display name in the text; member events by `actor`.
@@ -277,26 +277,32 @@ export function helperStatus(inc: IncidentDoc, people: LivePeople): HelperStatus
     e.kind === 'NOTIFIED' ? idByName(e.text.slice('Calling '.length).split(':')[0])
       : e.kind === 'EXPIRED' ? idByName(e.text.split(' did not answer')[0]) : e.actor
   const firstOf = (id: string) => first(memberName(people, id))
-  const events = inc.timeline.filter((e) => (e.kind === 'NOTIFIED' && e.text.startsWith('Calling ')) || e.kind === 'EXPIRED'
-    || e.kind === 'DECLINED' || e.kind === 'ACCEPTED' || e.kind === 'ARRIVED' || (e.kind === 'CALLED_115' && e.actor === 'SYSTEM'))
+  const events = inc.timeline.filter((e) => ((e.kind === 'NOTIFIED' || e.kind === 'CALLED_115') && e.text.startsWith('Calling ')) || e.kind === 'EXPIRED'
+    || e.kind === 'DECLINED' || e.kind === 'ACCEPTED' || e.kind === 'ARRIVED')
   const last = events[events.length - 1]
   if (!last) return null
-  const id = memberOf(last)
-  const key = `${last.at} ${last.kind} ${id}`
+  const status = (name: string, text: string): HelperStatus => ({ text, clip: clip(name), key: `${name} ${last.at}` })
+  const num = people.person?.emergencyNumber ?? '115'
   if (last.kind === 'CALLED_115') {
-    const num = people.person?.emergencyNumber ?? '115'
-    return { text: s('calling000', { num }), clip: num === '000' ? clip('calling-000') : null, key }
+    const accepted = [...events].reverse().find((e) => e.kind === 'ACCEPTED')
+    if (!accepted) return status('calling-000', s('calling000', { num }))
+    const x = firstOf(memberOf(accepted))
+    return status(`on-the-way-${x.toLowerCase()}`, s('onTheWayCalling', { name: x, num }))
   }
-  const x = firstOf(id)
-  if (last.kind === 'ACCEPTED') return { text: s('onTheWay', { name: x }), clip: clip(`on-the-way-${x.toLowerCase()}`), key }
+  const x = firstOf(memberOf(last))
+  if (last.kind === 'ACCEPTED') return status('on-the-way', s('onTheWay', { name: x }))
   if (last.kind !== 'NOTIFIED') return null
   const prev = events[events.length - 2]
   if (prev && (prev.kind === 'EXPIRED' || prev.kind === 'DECLINED')) {
     const p = firstOf(memberOf(prev))
-    return { text: s('noAnswer', { prev: p, name: x }), clip: clip(`no-answer-${p.toLowerCase()}-calling-${x.toLowerCase()}`), key }
+    return status(`no-answer-${p.toLowerCase()}-calling-${x.toLowerCase()}`, s('noAnswer', { prev: p, name: x }))
   }
-  return { text: s('calling', { name: x }), clip: clip(`calling-${x.toLowerCase()}`), key }
+  return status(`calling-${x.toLowerCase()}`, s('calling', { name: x }))
 }
+
+/** Said on Margaret's phone once the 000 call has ended (LivePage owns when). */
+export const ambulanceStatus = (incidentId: string): HelperStatus =>
+  ({ text: tl('incident.phone.status.ambulance'), clip: '/noa/ambulance-coming.mp3', key: `ambulance-coming ${incidentId}` })
 
 function orbitView(inc: IncidentDoc, now: number): EmOrbitTargets {
   const severe = inc.level === 'COME_NOW' || inc.level === 'EMERGENCY'

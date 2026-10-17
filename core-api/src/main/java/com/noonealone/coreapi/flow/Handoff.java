@@ -82,7 +82,7 @@ public class Handoff {
                 x.log(now, "AGENT", "AGENT_FALLBACK", "Handoff used fallback");
             }
             if ("RECEIVED".equals(x.handoff.status)) {
-                x.log(now, "SYSTEM", "HANDOFF_RECEIVED", chosen.name + " received the packet");
+                x.log(now, "SYSTEM", "HANDOFF_RECEIVED", chosen.name + " received the packet: stroke call activated, CT scanner on standby");
             } else {
                 x.log(now, "SYSTEM", "HANDOFF_FAILED", "Could not reach " + chosen.name);
             }

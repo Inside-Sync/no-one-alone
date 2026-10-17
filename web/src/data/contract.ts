@@ -52,7 +52,7 @@ export type AssignmentState = 'QUEUED' | 'NOTIFIED' | 'ACCEPTED' | 'DECLINED' | 
 export type AssignmentAction = 'ACCEPT' | 'DECLINE' | 'ARRIVED' | 'CALLED_115' | 'CALL_PERSON' | 'CALL_NEARBY'
 export type ServerAction = 'ACCEPT' | 'DECLINE' | 'ARRIVED' | 'CALLED_115' | 'CLOSE'
 export type TimelineKind =
-  | 'ALERT' | 'VERIFIED' | 'FALSE_ALARM' | 'ASKED' | 'ANSWERED' | 'NO_REPLY' | 'TRIAGED' | 'NOTIFIED' | 'ACCEPTED'
+  | 'ALERT' | 'ALERTED' | 'VERIFIED' | 'FALSE_ALARM' | 'ASKED' | 'ANSWERED' | 'NO_REPLY' | 'TRIAGED' | 'NOTIFIED' | 'ACCEPTED'
   | 'DECLINED' | 'EXPIRED' | 'NO_NEARBY' | 'ARRIVED' | 'CALLED_115' | 'HANDOFF_SENT' | 'HANDOFF_RECEIVED'
   | 'HANDOFF_FAILED' | 'AGENT_FALLBACK' | 'CLOSED' | 'DISCHARGED'
 
@@ -228,11 +228,13 @@ export type CheckinInput = { audio: Blob } | { yesNo: 'YES' | 'NO' } | { noReply
 
 export type ApiErrorCode = 'INVALID_REQUEST' | 'UNAUTHENTICATED' | 'NOT_FOUND' | 'ALREADY_OWNED' | 'INVALID_STATE' | 'AGENT_FAILED'
 
-/** Contract 4.1 `POST /api/incidents/{id}/recovery` body. */
+export type MedChange = 'New' | 'Increased' | 'Continue' | 'Stop'
+
+/** Contract 4.1 `POST /api/incidents/{id}/recovery` body; a med without `change` is Continue. */
 export interface RecoveryRequest {
   staffName: string
   diagnosis: string
-  meds: { name: string; dose: string; times: string[] }[]
+  meds: { name: string; dose: string; times: string[]; change?: MedChange }[]
   activities: { text: string; times: string[] }[]
   followUps: { text: string; inDays: number }[]
   notes: string

@@ -73,7 +73,7 @@
     "failed": "That didn't go through · please try again",
     "busy": "Still working on the last answer",
     "scriptTitle": "Script for {{num}}",
-    "scriptPending": "The agent writes this script once she is triaged."
+    "scriptPending": "Noa writes this script once she is triaged."
   },
   "sos": {
     "title": "Script for 000",
@@ -108,7 +108,7 @@
     "callToast": "Dialling 000 · ask for ambulance",
     "copy": "Copy address",
     "copied": "Address copied",
-    "note": "The agent prepares this. A person makes the call."
+    "note": "Noa prepares this. A person makes the call."
   },
   "liveSubtitleShort": "Live · {{time}}",
   "phase": {
@@ -117,7 +117,7 @@
     "triage": "Triage",
     "escalate": "Escalate",
     "handOff": "Hand off",
-    "agent": "Agent",
+    "agent": "Noa",
     "close": "Close"
   },
   "level": {
@@ -154,7 +154,7 @@
         "—"
       ],
       "what": "Heart rate 142, not moving",
-      "sub": "The agent is checking before waking anyone",
+      "sub": "Noa is checking before waking anyone",
       "q": "Margaret…",
       "small": "Phone rings, screen flashes",
       "help": ""
@@ -168,7 +168,7 @@
         ""
       ],
       "what": "Answering slowly",
-      "sub": "The agent is talking with her now",
+      "sub": "Noa is talking with her now",
       "q": "Margaret, it's your check-in. Can you hear me?",
       "small": "",
       "help": ""
@@ -297,7 +297,7 @@
     "who": {
       "console": "Console",
       "system": "System",
-      "agent": "Agent",
+      "agent": "Noa",
       "person": "Person",
       "her": "her",
       "circle": "Circle",
@@ -313,13 +313,13 @@
     },
     "head": {
       "falseAlarm": "False alarm",
-      "verifying": "The agent is checking before waking anyone",
+      "verifying": "Noa is checking before waking anyone",
       "slurred": "Slurred speech",
       "slurredSub": "Possible stroke sign",
       "noAnswer": "No answer yet",
       "noAnswerSub": "Large text and yes/no on her screen now",
       "checking": "Checking in with her",
-      "checkingSub": "The agent is talking with her now",
+      "checkingSub": "Noa is talking with her now",
       "withHer": "{{name}} is with her",
       "hospital": "Hospital: {{name}}",
       "helpWithHer": "Help is with her",
@@ -349,10 +349,12 @@
       "away": "{{name}} · {{eta}} away",
       "onTheWay": "Help is on the way.",
       "status": {
-        "calling": "I'm calling {{name}} now. Please stay where you are.",
-        "noAnswer": "{{prev}} didn't answer. I'm calling {{name}} now.",
+        "calling": "I'm calling {{name}} now. Please stay sitting.",
+        "noAnswer": "{{prev}} didn't answer, so I've left him a message. I'm calling {{name}} now.",
         "onTheWay": "{{name}} is on the way. Help is coming.",
-        "calling000": "No one nearby can come, so I'm calling {{num}} for an ambulance now. Stay where you are. Help is coming."
+        "calling000": "I'm calling {{num}} for an ambulance now. Stay where you are. Help is coming.",
+        "onTheWayCalling": "{{name}} is on his way. He has a key. I'm calling {{num}} now.",
+        "ambulance": "Help is on the way, Margaret. The ambulance is 12 minutes away. Stay sitting. I'm right here with you."
       }
     },
     "packet": {
@@ -398,25 +400,15 @@
   },
   "sim": {
     "title": "Simulator",
-    "meta": "Pick a scenario, then Start",
-    "presets": "Scenario",
-    "preset": {
-      "night": "Night emergency",
-      "stairs": "Climbed stairs",
-      "asleep": "Sound asleep"
-    },
+    "meta": "One case. Press Start.",
     "hr": "Heart rate",
     "bpm": "{{n}} bpm",
-    "movement": "Movement",
-    "moving": "Moving",
-    "notMoving": "Not moving",
     "stillFor": "Not moving for",
     "min": "{{n}} min",
     "speech": "Speech",
     "speechOpt": {
-      "clear": "Clear",
-      "slurred": "Slurred",
-      "none": "No answer"
+      "slurred": "Slurred (auto)",
+      "mic": "I'll answer (mic)"
     },
     "david": "David picks up",
     "yes": "Yes",
@@ -430,11 +422,22 @@
       "ago": "40 min ago",
       "now": "Now",
       "movement": "Movement, one cell per minute: still for the last {{n}} min",
-      "checks": "Verify rule",
-      "still": "Not moving for 2 min or more",
-      "hrCheck": "Heart rate at least {{threshold}} (30 above her baseline)",
-      "met": "Met",
-      "notMet": "Not met"
-    }
+      "rule": "Heart rate above 120 for 10 minutes while she is not moving",
+      "progress": "{{n}} of 10 minutes · now {{hr}} bpm · not moving"
+    },
+    "case": "Night alert"
+  },
+  "call": {
+    "title": "000 call · demo call",
+    "operator": "000 operator",
+    "noa": "Noa",
+    "dialling": "Dialling 000…",
+    "fine": "In a real service, 000 calls go through an approved emergency relay and a human operator always takes over. The script is fixed and checked by clinicians, not made up by AI."
+  },
+  "speech": {
+    "title": "Noa Speech Check",
+    "slurred": "⚠ Slurred speech detected · possible stroke",
+    "clear": "✓ Clear · matches her normal voice",
+    "sentence": "Sentence: “{{s}}”"
   }
 }

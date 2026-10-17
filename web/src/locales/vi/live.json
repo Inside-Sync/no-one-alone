@@ -73,7 +73,7 @@
     "failed": "Chưa gửi được · vui lòng thử lại",
     "busy": "Vẫn đang xử lý câu trả lời trước",
     "scriptTitle": "Kịch bản gọi {{num}}",
-    "scriptPending": "Trợ lý sẽ soạn kịch bản này sau khi bà được phân loại."
+    "scriptPending": "Noa sẽ soạn kịch bản này sau khi bà được phân loại."
   },
   "sos": {
     "title": "Kịch bản gọi 000",
@@ -108,7 +108,7 @@
     "callToast": "Đang gọi 000 · yêu cầu xe cứu thương",
     "copy": "Sao chép địa chỉ",
     "copied": "Đã sao chép địa chỉ",
-    "note": "Trợ lý chuẩn bị nội dung này. Một người thật sẽ gọi điện."
+    "note": "Noa chuẩn bị nội dung này. Một người thật sẽ gọi điện."
   },
   "liveSubtitleShort": "Trực tiếp · {{time}}",
   "phase": {
@@ -117,7 +117,7 @@
     "triage": "Phân loại",
     "escalate": "Báo người",
     "handOff": "Bàn giao",
-    "agent": "Trợ lý",
+    "agent": "Noa",
     "close": "Kết thúc"
   },
   "level": {
@@ -154,7 +154,7 @@
         "—"
       ],
       "what": "Nhịp tim 142, không cử động",
-      "sub": "Trợ lý đang kiểm tra trước khi đánh thức ai",
+      "sub": "Noa đang kiểm tra trước khi đánh thức ai",
       "q": "Bà Margaret…",
       "small": "Điện thoại đổ chuông, màn hình nhấp nháy",
       "help": ""
@@ -168,7 +168,7 @@
         ""
       ],
       "what": "Trả lời chậm",
-      "sub": "Trợ lý đang nói chuyện với bà",
+      "sub": "Noa đang nói chuyện với bà",
       "q": "Bà Margaret ơi, đến giờ hỏi thăm rồi. Bà có nghe tôi nói không?",
       "small": "",
       "help": ""
@@ -297,7 +297,7 @@
     "who": {
       "console": "Bảng điều khiển",
       "system": "Hệ thống",
-      "agent": "Trợ lý",
+      "agent": "Noa",
       "person": "Người dùng",
       "her": "bà",
       "circle": "Vòng chăm sóc",
@@ -313,13 +313,13 @@
     },
     "head": {
       "falseAlarm": "Báo động nhầm",
-      "verifying": "Trợ lý đang kiểm tra trước khi đánh thức ai",
+      "verifying": "Noa đang kiểm tra trước khi đánh thức ai",
       "slurred": "Nói ngọng",
       "slurredSub": "Có thể là dấu hiệu đột quỵ",
       "noAnswer": "Chưa có câu trả lời",
       "noAnswerSub": "Màn hình của bà đang hiện chữ lớn và nút có/không",
       "checking": "Đang hỏi thăm bà",
-      "checkingSub": "Trợ lý đang nói chuyện với bà",
+      "checkingSub": "Noa đang nói chuyện với bà",
       "withHer": "{{name}} đang ở cạnh bà",
       "hospital": "Bệnh viện: {{name}}",
       "helpWithHer": "Đã có người ở cạnh bà",
@@ -349,10 +349,12 @@
       "away": "{{name}} · còn {{eta}}",
       "onTheWay": "Đang có người đến giúp bà.",
       "status": {
-        "calling": "Tôi đang gọi {{name}}. Bà cứ ở yên chỗ đó nhé.",
-        "noAnswer": "{{prev}} không bắt máy. Tôi đang gọi {{name}}.",
+        "calling": "Tôi đang gọi {{name}}. Bà cứ ngồi yên nhé.",
+        "noAnswer": "{{prev}} không bắt máy, nên tôi đã để lại lời nhắn. Tôi đang gọi {{name}}.",
         "onTheWay": "{{name}} đang đến. Sắp có người giúp bà.",
-        "calling000": "Không có ai ở gần đến được, nên tôi đang gọi {{num}} để xin xe cấp cứu. Bà cứ ở yên chỗ đó. Sắp có người giúp bà."
+        "calling000": "Tôi đang gọi {{num}} để xin xe cấp cứu. Bà cứ ở yên chỗ đó. Sắp có người giúp bà.",
+        "onTheWayCalling": "{{name}} đang đến, ông ấy có chìa khóa. Tôi đang gọi {{num}}.",
+        "ambulance": "Sắp có người giúp bà rồi, bà Margaret. Xe cấp cứu còn 12 phút nữa. Bà cứ ngồi yên. Tôi ở ngay đây với bà."
       }
     },
     "packet": {
@@ -398,25 +400,15 @@
   },
   "sim": {
     "title": "Mô phỏng",
-    "meta": "Chọn tình huống rồi bấm Bắt đầu",
-    "presets": "Tình huống",
-    "preset": {
-      "night": "Cấp cứu ban đêm",
-      "stairs": "Vừa leo cầu thang",
-      "asleep": "Ngủ say"
-    },
+    "meta": "Một tình huống. Bấm Bắt đầu.",
     "hr": "Nhịp tim",
     "bpm": "{{n}} nhịp/phút",
-    "movement": "Vận động",
-    "moving": "Đang cử động",
-    "notMoving": "Không cử động",
     "stillFor": "Không cử động trong",
     "min": "{{n}} phút",
     "speech": "Giọng nói",
     "speechOpt": {
-      "clear": "Rõ ràng",
-      "slurred": "Nói líu lưỡi",
-      "none": "Không trả lời"
+      "slurred": "Nói ngọng (tự động)",
+      "mic": "Tôi sẽ trả lời (micro)"
     },
     "david": "David nghe máy",
     "yes": "Có",
@@ -430,11 +422,22 @@
       "ago": "40 phút trước",
       "now": "Bây giờ",
       "movement": "Vận động, mỗi ô một phút: nằm yên {{n}} phút gần nhất",
-      "checks": "Quy tắc xác minh",
-      "still": "Không cử động từ 2 phút trở lên",
-      "hrCheck": "Nhịp tim từ {{threshold}} trở lên (cao hơn mức nền của bà 30)",
-      "met": "Đạt",
-      "notMet": "Chưa đạt"
-    }
+      "rule": "Nhịp tim trên 120 trong 10 phút khi bà không cử động",
+      "progress": "{{n}} trên 10 phút · hiện {{hr}} nhịp/phút · không cử động"
+    },
+    "case": "Cảnh báo ban đêm"
+  },
+  "call": {
+    "title": "Cuộc gọi 000 · cuộc gọi demo",
+    "operator": "Tổng đài viên 000",
+    "noa": "Noa",
+    "dialling": "Đang quay số 000…",
+    "fine": "Trong dịch vụ thật, cuộc gọi 000 đi qua một đơn vị chuyển tiếp khẩn cấp được phê duyệt và luôn có tổng đài viên là người thật tiếp nhận. Kịch bản cố định và được bác sĩ kiểm tra, không do AI tự nghĩ ra."
+  },
+  "speech": {
+    "title": "Kiểm tra giọng nói của Noa",
+    "slurred": "⚠ Phát hiện nói ngọng · có thể đột quỵ",
+    "clear": "✓ Rõ ràng · giống giọng bình thường của bà",
+    "sentence": "Câu cần nói: “{{s}}”"
   }
 }

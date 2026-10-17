@@ -69,7 +69,8 @@ test('starting shows the three cards, body.night and the first step', async () =
   expect(screen.getByRole('button', { name: 'Pause' })).toBeInTheDocument()
   expect(document.querySelectorAll('#sla > div')).toHaveLength(5)
   expect(within(document.getElementById('devLive')!).getByText('Margaret…')).toBeInTheDocument()
-  expect(within(document.getElementById('devLive')!).getByText('02:03 · Hearing mode')).toBeInTheDocument()
+  expect(within(document.getElementById('devLive')!).getByText('Hearing mode')).toBeInTheDocument()
+  expect(within(document.getElementById('devLive')!).getByText('02:03')).toBeInTheDocument()
 })
 
 test('Next shows step 2 "Calls Margaret by voice" and pauses; keyboard-operable buttons', async () => {
@@ -198,7 +199,7 @@ test('Call 000 opens the script drawer; the other calls toast', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Call 000' }))
   expect(await screen.findByText('Script for 000')).toBeInTheDocument()
   expect(screen.getByText('Margaret Collins, 78, lives alone')).toBeInTheDocument()
-  expect(screen.getByText('The agent prepares this. A person makes the call.')).toBeInTheDocument()
+  expect(screen.getByText('Noa prepares this. A person makes the call.')).toBeInTheDocument()
 })
 
 test('End demo returns to idle, clears body.night and stops the clock', async () => {

@@ -41,16 +41,16 @@ test('timeline entries that arrive after mount appear one every 1.5 s', () => {
 const phone: LivePhone = {
   time: '02:04', q: 'Please sit still.', flash: false, yn: false, voice: false, busy: false, help: null, helperName: null,
   callerName: null, noReplySeconds: 10, questionKey: 'instruction', audioPath: '/noa/instr.mp3',
-  status: { text: "I'm calling David now.", clip: '/noa/calling-david.mp3', key: 'calling-david' },
+  status: { text: "I'm calling James now.", clip: '/noa/calling-james.mp3', key: 'calling-james' },
 }
 
 test('the helper status shows only once the instruction audio has finished', async () => {
   const onSpoken = vi.fn()
   renderWithProviders(<LivePhoneCard phone={phone} helpInitials="DM" checkin={() => Promise.resolve()} onSpoken={onSpoken} />)
   await act(async () => {})
-  expect(screen.queryByText("I'm calling David now.")).toBeNull()
+  expect(screen.queryByText("I'm calling James now.")).toBeNull()
   expect(onSpoken).not.toHaveBeenCalled()
   await act(async () => { ended['/noa/instr.mp3']?.() })
-  expect(screen.getByText("I'm calling David now.")).toBeInTheDocument()
+  expect(screen.getByText("I'm calling James now.")).toBeInTheDocument()
   expect(onSpoken).toHaveBeenCalledWith('instruction')
 })

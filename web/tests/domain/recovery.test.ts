@@ -1,5 +1,5 @@
 import type { RecoveryDoc } from '@/data/contract'
-import { CALL_DAYS, WHY, deliverySteps, followUpCalls, nextReminder, todayTasks } from '@/domain/recovery'
+import { CALL_DAYS, WHY, deliverySteps, followUpCalls, handoffFacts, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
 
 const R = [
   { time: '08:00', kind: 'MED' as const, text: 'aspirin' },
@@ -32,7 +32,7 @@ const doc = (extra: Partial<RecoveryDoc> = {}): RecoveryDoc => ({
   reminders: [
     { time: '08:00', kind: 'MED', text: 'Time for your aspirin, 100 mg.', audioPath: 'a.mp3' },
     { time: '09:00', kind: 'ACTIVITY', text: 'Time to juggle.' },
-    { time: '10:00', kind: 'ACTIVITY', text: 'Time to walk for 15 minutes with your stick.', audioPath: 'b.mp3' },
+    { time: '10:00', kind: 'ACTIVITY', text: 'Time to walk 20 minutes daily.', audioPath: 'b.mp3' },
   ],
   ...extra,
 })
@@ -42,7 +42,7 @@ test('todayTasks follows reminder order and attaches why only for known items', 
   expect(tasks.map((t) => t.time)).toEqual(['08:00', '09:00', '10:00'])
   expect(tasks[0]).toMatchObject({ id: '08:00Time for your aspirin, 100 mg.', kind: 'MED', title: 'Time for your aspirin, 100 mg.', why: WHY.aspirin, audioPath: 'a.mp3' })
   expect(tasks[1].why).toBeUndefined()
-  expect(tasks[2].why).toBe(WHY['walk for 15 minutes with your stick'])
+  expect(tasks[2].why).toBe('Gentle walking helps the brain heal and keeps blood pressure down.')
 })
 
 test('followUpCalls dates each call day from the local date of createdAt', () => {
@@ -64,4 +64,37 @@ test('deliverySteps reports what the doc shows', () => {
 test('deliverySteps says the notes were used on fallback and drops empty circle and appointments', () => {
   const keys = deliverySteps(doc({ fallback: true }), []).map((s) => s.key)
   expect(keys).toEqual(['summaryFallback', 'reminders', 'calls', 'delivered'])
+})
+
+const plan = {
+  meds: [
+    { name: 'Warfarin', dose: '3 mg', times: ['18:00'], change: 'New' as const },
+    { name: 'Ramipril', dose: '5 mg', times: ['08:00'], change: 'New' as const },
+    { name: 'Atorvastatin', dose: '40 mg', times: ['21:00'], change: 'Increased' as const },
+    { name: 'Clopidogrel', dose: '75 mg', times: ['07:00'], change: 'Stop' as const },
+    { name: 'Vitamin D', dose: '1000 IU', times: ['08:00'] },
+  ],
+  activities: [{ text: 'Walk', times: ['08:00', '10:00'] }, { text: 'No driving', times: [] }],
+  followUps: [{ text: 'Physio home visit', inDays: 3, date: '2026-10-20' }, { text: 'GP review with Dr Patel at 10:30', inDays: 6, date: '2026-10-23' }],
+}
+
+test('todayTasks drops a medicine reminder for a stopped medicine', () => {
+  const tasks = todayTasks(doc({ ...plan, reminders: [
+    { time: '07:00', kind: 'MED', text: 'Time for your clopidogrel, 75 mg.' },
+    { time: '08:00', kind: 'MED', text: 'Time for your ramipril, 5 mg.' },
+  ] }))
+  expect(tasks.map((t) => t.title)).toEqual(['Time for your ramipril, 5 mg.'])
+})
+
+test('medsExplained leaves out stopped medicines', () => {
+  expect(medsExplained(doc(plan)).map((m) => m.name)).toEqual(['Warfarin', 'Ramipril', 'Atorvastatin', 'Vitamin D'])
+})
+
+test('handoffFacts reads new and stopped medicines, the first slot and the GP follow-up from the plan', () => {
+  expect(handoffFacts(doc(plan))).toEqual({
+    newMeds: ['warfarin', 'ramipril'],
+    stopMeds: ['clopidogrel'],
+    next: { time: '08:00', items: ['Ramipril 5 mg', 'Vitamin D 1000 IU', 'Walk'] },
+    followUp: plan.followUps[1],
+  })
 })

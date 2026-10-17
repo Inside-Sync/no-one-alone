@@ -3,7 +3,7 @@
     "title": "🟢 Margaret today",
     "soFar": "Today so far",
     "soFarMeta": "What Margaret shares with you",
-    "askAgent": "Ask the agent"
+    "askAgent": "Ask Noa"
   },
   "profile": {
     "title": "👤 About Margaret",
@@ -57,7 +57,7 @@
     "meta": "Within 1 km"
   },
   "helper": {
-    "title": "🤖 What the helper did today",
+    "title": "🤖 What Noa did today",
     "meta": "Every step is recorded so the family can check it",
     "columns": [
       "Time",

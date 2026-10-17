@@ -17,7 +17,7 @@ final class EscalationRules {
 
     static Optional<Assignment> nextQueued(Incident inc) {
         return inc.assignments.stream()
-                .filter(a -> a.role == Role.NEARBY && a.state == AssignmentState.QUEUED)
+                .filter(a -> a.state == AssignmentState.QUEUED)
                 .findFirst();
     }
 
@@ -32,10 +32,14 @@ final class EscalationRules {
     static void noNearby(Incident inc, String now, Map<String, Person> people) {
         inc.escalationTaskName = null;
         inc.log(now, "SYSTEM", "NO_NEARBY", "No one nearby accepted");
+        autoCall(inc, now, people);
+        inc.assignments.stream().filter(a -> a.role == Role.DISTANT).forEach(a -> a.actions = List.of("CALL_NEARBY"));
+    }
+
+    static void autoCall(Incident inc, String now, Map<String, Person> people) {
         Person p = people.get(inc.personId);
         String number = p != null && p.emergencyNumber != null ? p.emergencyNumber : "115";
         inc.log(now, "SYSTEM", "CALLED_115", "Calling " + number + " automatically with the call script (demo call)");
-        inc.assignments.stream().filter(a -> a.role == Role.DISTANT).forEach(a -> a.actions = List.of("CALL_NEARBY"));
     }
 
     static String name(Map<String, Person> people, String memberId) {
