@@ -10,10 +10,10 @@
 .chat-orb{display:grid;place-items:center}
 .chat-msgs{flex:1;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
 .chat-turn{display:flex;flex-direction:column;gap:10px}
-.cm{max-width:88%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.5;background:#fff;box-shadow:0 1px 0 rgba(13,42,42,.06),inset 0 0 0 1px rgba(13,42,42,.06);border-bottom-left-radius:5px;overflow-wrap:anywhere;white-space:pre-wrap}
-.cm.me{align-self:flex-end;background:linear-gradient(160deg,#0b7f71,#139a86);color:#fff;border-bottom-left-radius:16px;border-bottom-right-radius:5px}
-.cm.typing{display:flex;gap:4px;padding:13px;align-self:flex-start}.cm.typing i{width:7px;height:7px;border-radius:50%;background:#7aa39d;animation:blink7 1s infinite}
-.cm.typing i:nth-child(2){animation-delay:.15s}.cm.typing i:nth-child(3){animation-delay:.3s}
+.chat-msg{max-width:88%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.5;background:#fff;box-shadow:0 1px 0 rgba(13,42,42,.06),inset 0 0 0 1px rgba(13,42,42,.06);border-bottom-left-radius:5px;overflow-wrap:anywhere;white-space:pre-wrap}
+.chat-msg.me{align-self:flex-end;background:linear-gradient(160deg,#0b7f71,#139a86);color:#fff;border-bottom-left-radius:16px;border-bottom-right-radius:5px}
+.chat-msg.typing{display:flex;gap:4px;padding:13px;align-self:flex-start}.chat-msg.typing i{width:7px;height:7px;border-radius:50%;background:#7aa39d;animation:blink7 1s infinite}
+.chat-msg.typing i:nth-child(2){animation-delay:.15s}.chat-msg.typing i:nth-child(3){animation-delay:.3s}
 @keyframes blink7{50%{opacity:.25}}
 .cav{display:flex;align-items:center;gap:8px;padding-left:5px;font-size:10.5px;font-weight:700;color:#56706e;font-family:var(--mono);margin-bottom:-4px}
 .chat-chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px 16px}.chat-chips .chip{font-size:12px;cursor:pointer;border:0;color:inherit;font-family:inherit;white-space:normal;text-align:left}
@@ -27,4 +27,4 @@
 .chat-fab.hide{opacity:0;pointer-events:none;visibility:hidden}
 .chat-chips .chip:disabled,.chat-f button:disabled{opacity:.55;cursor:default}
 @media (max-width:600px){.chat-fab{padding:8px}.chat-fab>span,.chat-fab>.live{display:none}}
-@media (prefers-reduced-motion:reduce){.chat-fab .live,.cm.typing i{animation:none!important}.chat,.chat.on{transition:none}}
+@media (prefers-reduced-motion:reduce){.chat-fab .live,.chat-msg.typing i{animation:none!important}.chat,.chat.on{transition:none}}
