@@ -14,6 +14,8 @@ def reminders(person: dict, plan: dict) -> list[dict]:
     tpl = load_scripts()["en" if is_en(person) else "vi"]["recovery"]
     out = []
     for m in plan.get("meds") or []:
+        if m.get("change") == "Stop":
+            continue
         text = tpl["MED"].format(name=m["name"], dose=m.get("dose") or "").replace(" ,", ",").replace("  ", " ")
         out += [{"time": t, "kind": "MED", "text": text} for t in m["times"]]
     for a in plan.get("activities") or []:

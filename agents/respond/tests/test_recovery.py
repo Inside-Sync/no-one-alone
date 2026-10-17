@@ -25,6 +25,14 @@ def test_reminders_sorted_one_per_time():
     assert out[1]["kind"] == "ACTIVITY"
 
 
+def test_stopped_medicines_get_no_reminder():
+    meds = [{**PLAN["meds"][0], "change": "Increased"}, {**PLAN["meds"][1], "change": "Stop"},
+            {"name": "apixaban", "dose": "5 mg", "times": ["08:00"]}]
+    texts = [r["text"] for r in recovery.reminders(EN, {**PLAN, "meds": meds})]
+    assert "Time for your aspirin, 100 mg." not in texts
+    assert "Time for your atorvastatin, 40 mg." in texts and "Time for your apixaban, 5 mg." in texts
+
+
 def test_templates_follow_locale():
     assert recovery.reminders(EN, PLAN)[1]["text"] == "Time to walk for 15 minutes."
     vi = recovery.reminders(VI, PLAN)
