@@ -14,7 +14,7 @@ beforeEach(() => {
   mockRaf()
 })
 
-const ready = () => screen.findByText('🤖 What the helper did today')
+const ready = () => screen.findByText('🤖 What Noa did today')
 const toastText = () => document.getElementById('toast')!.textContent
 
 test('is registered for individual/home', () => {
@@ -40,7 +40,7 @@ test('shows every section heading in prototype order', async () => {
   expect(heads).toEqual([
     '🟢 Margaret today', 'Today so far', '👤 About Margaret', '🩺 Health conditions', '🧭 Overall wellbeing',
     '🕰️ Daily rhythm', '🔮 Coming up: one thing to act on', "This week's plan", '💞 Her care circle',
-    "🗣️ Today's chat with her", '🏠 Her home today', '🤝 People and places near her', '🤖 What the helper did today',
+    "🗣️ Today's chat with her", '🏠 Her home today', '🤝 People and places near her', '🤖 What Noa did today',
   ])
 })
 
@@ -93,7 +93,7 @@ test('Ask how she is opens the chat drawer and answers questions', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Ask how she is' }))
   const drawer = document.getElementById('drawer')!
   expect(drawer).toHaveClass('on')
-  expect(within(drawer).getByRole('heading', { name: 'Ask the agent' })).toBeInTheDocument()
+  expect(within(drawer).getByRole('heading', { name: 'Ask Noa' })).toBeInTheDocument()
   expect(within(drawer).getByText(/Mum is steady today/)).toBeInTheDocument()
   fireEvent.click(within(drawer).getByRole('button', { name: 'Why is stroke risk high?' }))
   expect(within(drawer).getByText(/Four drivers: morning blood pressure/)).toBeInTheDocument()
