@@ -115,6 +115,7 @@ function LiveIncidentPage() {
   }
   const watch = useWatch({ locked: open, onAlert })
   const onReset = () => {
+    if (busy) return
     setAuto(false); setSpoken(null); watch.reset()
     reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed')))
   }
