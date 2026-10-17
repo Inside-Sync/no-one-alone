@@ -401,11 +401,26 @@
   },
   "sim": {
     "title": "Mô phỏng",
-    "meta": "Một tình huống. Bấm Bắt đầu.",
-    "hr": "Nhịp tim",
+    "meta": "Thử Noa an toàn",
+    "howto": [
+      "Kéo nhịp tim lên trên 120",
+      "Kéo thời gian không cử động lên 10 phút",
+      "Noa tự vào cuộc, nói chuyện với Margaret và tìm ra chuyện gì đang xảy ra",
+      "Tuỳ chọn: chạm vào câu trả lời của Margaret trên điện thoại để đổi diễn biến"
+    ],
+    "preset": {
+      "night": "🌙 Cấp cứu ban đêm"
+    },
+    "hr": "❤️ Nhịp tim",
+    "hrAria": "Nhịp tim",
     "bpm": "{{n}} nhịp/phút",
-    "stillFor": "Không cử động trong",
+    "still": "🛋️ Không cử động trong",
+    "stillAria": "Không cử động trong",
+    "moving": "Đang cử động",
     "min": "{{n}} phút",
+    "minAlert": "{{n}} phút ⚠️",
+    "alertTick": "10 phút · cảnh báo",
+    "more": "Tuỳ chọn thêm: ai nghe máy",
     "speech": "Giọng nói",
     "speechOpt": {
       "slurred": "Nói ngọng (tự động)",
@@ -414,19 +429,33 @@
     "david": "David nghe máy",
     "yes": "Có",
     "no": "Không",
-    "start": "Bắt đầu",
+    "pause": "⏸️ Tạm dừng",
+    "resume": "▶️ Tiếp tục",
+    "runTitle": "Theo dõi chạy trực tiếp. Có thể tạm dừng bất cứ lúc nào.",
+    "faster": "⏩ Nhanh hơn",
+    "normal": "🐢 Tốc độ thường",
+    "reset": "↺ Đặt lại",
     "readings": {
-      "title": "Số đo mô phỏng",
-      "meta": "40 phút gần nhất",
+      "title": "📈 Số đo trực tiếp",
+      "meta": "Mỗi phút một số đo từ đồng hồ và cảm biến trong nhà",
       "hr": "Nhịp tim",
-      "alert": "Ngưỡng cảnh báo",
-      "ago": "40 phút trước",
-      "now": "Bây giờ",
+      "run": "Chuỗi đang đếm",
+      "alert": "Ngưỡng cảnh báo 120",
+      "ago": "−40 phút · xanh = đang cử động",
+      "now": "bây giờ {{time}}",
       "movement": "Vận động, mỗi ô một phút: nằm yên {{n}} phút gần nhất",
       "rule": "Nhịp tim trên 120 trong 10 phút khi bà không cử động",
-      "progress": "{{n}} trên 10 phút · hiện {{hr}} nhịp/phút · không cử động"
-    },
-    "case": "Cảnh báo ban đêm"
+      "progress": "{{n}} trên 10 phút · hiện {{hr}} nhịp/phút · {{state}}",
+      "moving": "đang cử động",
+      "still": "không cử động",
+      "note": {
+        "alert": "🚨 Noa đang hỏi thăm bà",
+        "moving": "Nhịp tim cao nhưng bà đang cử động (leo cầu thang, làm vườn): không cảnh báo",
+        "resting": "Nằm yên nhưng nhịp tim bình thường (đang ngủ, nghỉ ngơi): không cảnh báo",
+        "counting": "Đang đếm… Noa chờ 10 phút để một lần tăng ngắn không đánh thức ai",
+        "normal": "Mọi thứ bình thường"
+      }
+    }
   },
   "call": {
     "title": "Cuộc gọi 000 · cuộc gọi demo",

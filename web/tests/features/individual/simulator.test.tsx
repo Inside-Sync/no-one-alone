@@ -53,24 +53,80 @@ const render = async () => {
 }
 const click = (name: string) => fireEvent.click(screen.getByRole('button', { name }))
 
-test('one case: Night alert, read-only values and the rule, no presets or sliders', async () => {
-  await render()
-  expect(screen.getByText('Night alert')).toBeInTheDocument()
-  expect(screen.getByText('137 bpm')).toBeInTheDocument()
-  expect(screen.getByText('10 min')).toBeInTheDocument()
-  expect(screen.getByText('Heart rate above 120 for 10 minutes while she is not moving')).toBeInTheDocument()
-  expect(screen.queryByRole('slider')).toBeNull()
-  expect(screen.queryByRole('button', { name: 'Sound asleep' })).toBeNull()
+const TIMERS: ('setTimeout' | 'clearTimeout' | 'setInterval' | 'clearInterval')[] = ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']
+const beat = (ms: number) => act(async () => { vi.advanceTimersByTime(ms) })
+const slide = (name: string, value: number) => fireEvent.change(screen.getByRole('slider', { name }), { target: { value: String(value) } })
+
+describe('watch', () => {
+  beforeEach(() => { vi.useFakeTimers({ toFake: TIMERS }) })
+  afterEach(() => { vi.useRealTimers() })
+  const mount = async () => {
+    renderWithProviders(<LivePage />)
+    await act(async () => { await vi.advanceTimersByTimeAsync(0) })
+    expect(screen.getByRole('heading', { name: 'Simulator' })).toBeInTheDocument()
+  }
+
+  test('Night emergency starts stroke once after 4 readings, with HR 142 and 10 min still', async () => {
+    await mount()
+    click('🌙 Night emergency')
+    expect(screen.getByRole('button', { name: '🌙 Night emergency' })).toHaveAttribute('aria-pressed', 'true')
+    await beat(3000)
+    expect(start).not.toHaveBeenCalled()
+    await beat(1000)
+    expect(start).toHaveBeenCalledTimes(1)
+    expect(start).toHaveBeenCalledWith('stroke', { hr: 142, movementMin: 10, noReplySeconds: 45 })
+    await beat(10_000)
+    click('▶️ Resume')
+    await beat(5000)
+    expect(start).toHaveBeenCalledTimes(1)
+  })
+
+  test('sliders: HR 140 and still 10 count up from the readings that are really high and still', async () => {
+    await mount()
+    slide('Heart rate', 140)
+    slide('Not moving for', 10)
+    expect(screen.getByText('140 bpm')).toBeInTheDocument()
+    expect(screen.getByText('10 min ⚠️')).toBeInTheDocument()
+    await beat(0)
+    expect(start).not.toHaveBeenCalled()
+    await beat(9000)
+    expect(start).not.toHaveBeenCalled()
+    await beat(1000)
+    expect(start).toHaveBeenCalledTimes(1)
+    expect(start.mock.calls[0][1]).toMatchObject({ hr: 140, movementMin: 10 })
+  })
+
+  test('Faster: the night preset fires after 4 readings of 250 ms', async () => {
+    await mount()
+    click('⏩ Faster')
+    expect(screen.getByRole('button', { name: '🐢 Normal speed' })).toBeInTheDocument()
+    click('🌙 Night emergency')
+    await beat(750)
+    expect(start).not.toHaveBeenCalled()
+    await beat(250)
+    expect(start).toHaveBeenCalledTimes(1)
+  })
+
+  test('locked: with an open incident the sliders are disabled and time never starts a run', async () => {
+    liveValue = incidentAt(0, false)
+    await mount()
+    expect(screen.getByRole('slider', { name: 'Heart rate' })).toBeDisabled()
+    expect(screen.getByRole('slider', { name: 'Not moving for' })).toBeDisabled()
+    click('🌙 Night emergency')
+    await beat(30_000)
+    expect(start).not.toHaveBeenCalled()
+    expect(screen.getByText('01:30')).toBeInTheDocument()
+  })
 })
 
-test('Start runs stroke with HR 137 and 10 min still; the speech and David toggles are buttons', async () => {
+test('the Speech toggle sits in More options and still flips', async () => {
   await render()
-  const speech = within(screen.getByRole('group', { name: 'Speech' }))
+  const group = screen.getByRole('group', { name: 'Speech' })
+  expect(group.closest('details')?.querySelector('summary')).toHaveTextContent('More options: who answers the phone')
+  const speech = within(group)
   expect(speech.getByRole('button', { name: 'Slurred (auto)' })).toHaveAttribute('aria-pressed', 'true')
   click("I'll answer (mic)")
   expect(speech.getByRole('button', { name: "I'll answer (mic)" })).toHaveAttribute('aria-pressed', 'true')
-  click('Start')
-  expect(start).toHaveBeenCalledWith('stroke', { hr: 137, movementMin: 10, noReplySeconds: 45 })
 })
 
 const T0 = Date.parse('2026-10-14T14:30:00Z')

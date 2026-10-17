@@ -401,11 +401,26 @@
   },
   "sim": {
     "title": "Simulator",
-    "meta": "One case. Press Start.",
-    "hr": "Heart rate",
+    "meta": "Try Noa safely",
+    "howto": [
+      "Drag heart rate above 120",
+      "Drag not moving to 10 minutes",
+      "Noa steps in by itself, talks to Margaret and works out what is wrong",
+      "Optional: tap Margaret's replies on her phone to change the story"
+    ],
+    "preset": {
+      "night": "🌙 Night emergency"
+    },
+    "hr": "❤️ Heart rate",
+    "hrAria": "Heart rate",
     "bpm": "{{n}} bpm",
-    "stillFor": "Not moving for",
+    "still": "🛋️ Not moving for",
+    "stillAria": "Not moving for",
+    "moving": "Moving",
     "min": "{{n}} min",
+    "minAlert": "{{n}} min ⚠️",
+    "alertTick": "10 min · alert",
+    "more": "More options: who answers the phone",
     "speech": "Speech",
     "speechOpt": {
       "slurred": "Slurred (auto)",
@@ -414,19 +429,33 @@
     "david": "David picks up",
     "yes": "Yes",
     "no": "No",
-    "start": "Start",
+    "pause": "⏸️ Pause",
+    "resume": "▶️ Resume",
+    "runTitle": "Monitoring runs live. Pause it any time.",
+    "faster": "⏩ Faster",
+    "normal": "🐢 Normal speed",
+    "reset": "↺ Reset",
     "readings": {
-      "title": "Simulated readings",
-      "meta": "Last 40 minutes",
+      "title": "📈 Live readings",
+      "meta": "One reading per minute from her watch and home sensors",
       "hr": "Heart rate",
-      "alert": "Alert line",
-      "ago": "40 min ago",
-      "now": "Now",
+      "run": "Counting run",
+      "alert": "Alert line 120",
+      "ago": "−40 min · green = moving",
+      "now": "now {{time}}",
       "movement": "Movement, one cell per minute: still for the last {{n}} min",
       "rule": "Heart rate above 120 for 10 minutes while she is not moving",
-      "progress": "{{n}} of 10 minutes · now {{hr}} bpm · not moving"
-    },
-    "case": "Night alert"
+      "progress": "{{n}} of 10 minutes · now {{hr}} bpm · {{state}}",
+      "moving": "moving",
+      "still": "not moving",
+      "note": {
+        "alert": "🚨 Noa is checking on her",
+        "moving": "Heart rate is high but she is moving (stairs, gardening): no alert",
+        "resting": "Still, but heart rate is normal (sleeping, resting): no alert",
+        "counting": "Counting… Noa waits 10 minutes so a short spike does not wake anyone",
+        "normal": "All normal"
+      }
+    }
   },
   "call": {
     "title": "000 call · demo call",
