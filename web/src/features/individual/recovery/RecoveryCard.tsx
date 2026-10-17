@@ -39,7 +39,7 @@ export function RecoveryCard({ recovery, tz, who = 'self' }: { recovery: Recover
       <p style={{ fontSize: 16 }}>{recovery.summary}</p>
       <Play path={recovery.summaryAudioPath} />
       <div className="row" style={{ margin: '10px 0' }}>
-        {recovery.meds.filter(isStopped).map((m) => <span key={m.name} className="pill bad">{t('recovery.stop', { name: m.name })}</span>)}
+        {recovery.meds.filter(isStopped).map((m, i) => <span key={i} className="pill bad">{t('recovery.stop', { name: m.name })}</span>)}
         {recovery.activities.filter((a) => !a.times.length).map((a) => <span key={a.text} className="chip" style={{ whiteSpace: 'normal' }}>{a.text}</span>)}
       </div>
       {next && (
@@ -71,14 +71,14 @@ export function RecoveryCard({ recovery, tz, who = 'self' }: { recovery: Recover
       </ul>
       {meds.length > 0 && <h3>{t('recovery.meds', { context: who })}</h3>}
       <ul className="list">
-        {meds.map((m) => (
-          <li key={m.name}>
+        {meds.map((m, i) => (
+          <li key={i}>
             <b aria-hidden="true">💊</b>
             <span>
-              <strong>{m.name} {m.dose}</strong> · {m.times.map((x) => (x in SLOTS ? t(`recovery.slots.${SLOTS[x as keyof typeof SLOTS]}`) : x)).join(', ')}
+              <strong>{m.name} {m.dose}</strong>{m.times.length > 0 && ` · ${m.times.map((x) => (x in SLOTS ? t(`recovery.slots.${SLOTS[x as keyof typeof SLOTS]}`) : x)).join(', ')}`}
               {m.why && <small style={{ display: 'block' }}>{m.why}</small>}
             </span>
-            {m.change && <span className={`pill ${m.change === 'Continue' ? 'plain' : 'warn'}`}>{t(`recovery.change.${m.change as 'New'}`)}</span>}
+            {m.change && <span className={`pill ${m.change === 'Continue' ? 'plain' : 'warn'}`}>{t(`recovery.change.${m.change}`)}</span>}
           </li>
         ))}
       </ul>

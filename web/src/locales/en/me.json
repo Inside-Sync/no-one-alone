@@ -197,7 +197,8 @@
     "change": {
       "New": "New",
       "Increased": "Increased",
-      "Continue": "Continue"
+      "Continue": "Continue",
+      "Stop": "Stop"
     },
     "noa": {
       "title": "💬 From Noa",

@@ -75,7 +75,7 @@ const plan = {
     { name: 'Vitamin D', dose: '1000 IU', times: ['08:00'] },
   ],
   activities: [{ text: 'Walk', times: ['08:00', '10:00'] }, { text: 'No driving', times: [] }],
-  followUps: [{ text: 'GP review with Dr Patel at 10:30', inDays: 6, date: '2026-10-23' }],
+  followUps: [{ text: 'Physio home visit', inDays: 3, date: '2026-10-20' }, { text: 'GP review with Dr Patel at 10:30', inDays: 6, date: '2026-10-23' }],
 }
 
 test('todayTasks drops a medicine reminder for a stopped medicine', () => {
@@ -90,11 +90,11 @@ test('medsExplained leaves out stopped medicines', () => {
   expect(medsExplained(doc(plan)).map((m) => m.name)).toEqual(['Warfarin', 'Ramipril', 'Atorvastatin', 'Vitamin D'])
 })
 
-test('handoffFacts reads new and stopped medicines, the first slot and the first follow-up from the plan', () => {
+test('handoffFacts reads new and stopped medicines, the first slot and the GP follow-up from the plan', () => {
   expect(handoffFacts(doc(plan))).toEqual({
     newMeds: ['warfarin', 'ramipril'],
     stopMeds: ['clopidogrel'],
     next: { time: '08:00', items: ['Ramipril 5 mg', 'Vitamin D 1000 IU', 'Walk'] },
-    followUp: plan.followUps[0],
+    followUp: plan.followUps[1],
   })
 })

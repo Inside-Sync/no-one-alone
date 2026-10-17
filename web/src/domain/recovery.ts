@@ -53,7 +53,7 @@ export const SLOTS = { '08:00': 'morning', '13:00': 'midday', '18:00': 'evening'
 /** Medicines Margaret still takes, with why each one matters. */
 export const medsExplained = (r: RecoveryDoc) => r.meds.filter((m) => !isStopped(m)).map((m) => ({ ...m, why: whyOf(m.name) }))
 
-/** What Noa says at hand-off, worked out from the plan: new and stopped medicines, the first slot of the day, the first follow-up. */
+/** What Noa says at hand-off, worked out from the plan: new and stopped medicines, the first slot of the day, the GP follow-up (else the first). */
 export function handoffFacts(r: RecoveryDoc) {
   const taking = r.meds.filter((m) => !isStopped(m))
   const time = [...taking, ...r.activities].flatMap((x) => x.times).sort()[0]
@@ -65,7 +65,7 @@ export function handoffFacts(r: RecoveryDoc) {
     newMeds: r.meds.filter((m) => m.change === 'New').map((m) => m.name.toLowerCase()),
     stopMeds: r.meds.filter(isStopped).map((m) => m.name.toLowerCase()),
     next: time ? { time, items } : null,
-    followUp: r.followUps[0] ?? null,
+    followUp: r.followUps.find((f) => /GP/i.test(f.text)) ?? r.followUps[0] ?? null,
   }
 }
 

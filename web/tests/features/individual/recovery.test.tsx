@@ -91,7 +91,7 @@ const plan: Partial<RecoveryDoc> = {
     { name: 'Clopidogrel', dose: '75 mg', times: [], change: 'Stop' },
   ],
   activities: [{ text: 'No driving for 1 month', times: [] }],
-  followUps: [{ text: 'GP review with Dr Patel at 10:30', inDays: 6, date: '2026-10-23' }],
+  followUps: [{ text: 'Physio home visit', inDays: 3, date: '2026-10-20' }, { text: 'GP review with Dr Patel at 10:30', inDays: 6, date: '2026-10-23' }],
   reminders: [
     { time: '07:00', kind: 'MED', text: 'Time for your clopidogrel, 75 mg.' },
     { time: '08:00', kind: 'MED', text: 'Time for your ramipril, 5 mg.' },

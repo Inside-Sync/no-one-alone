@@ -33,8 +33,8 @@ function NoaHandoffCard({ recovery, who }: { recovery: RecoveryDoc; who: 'self' 
     <GlassCard span={12}>
       <div className="ch"><h2>{t('recovery.noa.title', { context: who })}</h2><span className="meta">{t('recovery.noa.meta')}</span></div>
       <ol className="list">
-        {lines.filter(([, text]) => text).map(([noa, text]) => (
-          <li key={text} style={{ display: 'block' }}><b>{t(noa ? 'recovery.noa.noa' : 'recovery.noa.margaret')}</b><span>{text}</span></li>
+        {lines.filter(([, text]) => text).map(([noa, text], i) => (
+          <li key={i} style={{ display: 'block' }}><b>{t(noa ? 'recovery.noa.noa' : 'recovery.noa.margaret')}</b><span>{text}</span></li>
         ))}
       </ol>
     </GlassCard>
