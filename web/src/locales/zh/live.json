@@ -1,0 +1,728 @@
+{
+  "idle": {
+    "title": "当前没有警报",
+    "body": "有警报时，这一页会逐分钟显示应对过程：谁正在赶来、Margaret 的屏幕上显示什么、医院何时收到她的资料。本周社区内共有 37 次警报，其中 29 次被识别为误报，没有吵醒任何人。",
+    "run": "运行 02:03 夜间警报演示"
+  },
+  "endDemo": "结束演示",
+  "orbitLabel": "紧急情况下的照护圈：帮助正赶往 Margaret 身边",
+  "since": "距警报",
+  "subtitle": "实时 · {{time}} AEDT · 186 Marrickville Rd",
+  "actions": {
+    "call000": "拨打 000",
+    "callMum": {
+      "label": "给妈妈打电话",
+      "toast": "正在呼叫妈妈 · 字幕已开启"
+    },
+    "callDavid": {
+      "label": "给 David 打电话",
+      "toast": "正在呼叫 David"
+    }
+  },
+  "timeline": {
+    "title": "实时时间线",
+    "meta": "已分享给照护圈"
+  },
+  "player": {
+    "prev": "上一步",
+    "next": "下一步",
+    "pause": "暂停",
+    "play": "播放"
+  },
+  "phone": {
+    "title": "Margaret 的屏幕",
+    "meta": "同一时刻",
+    "note": "听力模式已开启，所以每个问题都会以大字显示，并附有“是/否”按钮。",
+    "header": "{{time}} · 听力模式",
+    "yes": "是",
+    "no": "否",
+    "answered": "Margaret：{{a}}"
+  },
+  "liveSubtitle": "实时 · {{time}} · {{address}}",
+  "live": {
+    "starting": "正在启动情景…",
+    "reset": "重置演示",
+    "resetDone": "演示已重置 · 初始数据已重新载入",
+    "close": "关闭事件",
+    "closed": "事件已关闭",
+    "loading": "正在连接实时事件…",
+    "noLog": "正在等待第一条更新…",
+    "actionsTitle": "{{name}} 的按钮",
+    "noActions": "{{name}} 目前没有需要做的事。请将查看者切换为已收到提醒的成员。",
+    "action": {
+      "ACCEPT": "我在路上了",
+      "DECLINE": "我来不了",
+      "ARRIVED": "我在她身边",
+      "CALLED_115": "我已拨打 {{num}}",
+      "CALL_PERSON": "打给 {{name}}",
+      "CALL_NEARBY": "打给附近的帮手"
+    },
+    "actionDone": {
+      "ACCEPT": "由您负责此事 · 所有人都能看到",
+      "DECLINE": "已拒绝 · 正在联系下一位",
+      "ARRIVED": "已标记为在她身边",
+      "CALLED_115": "已记录在时间线中"
+    },
+    "calling": "正在呼叫 {{who}}",
+    "record": "点击回答",
+    "recording": "录音中… 点击发送",
+    "sending": "发送中…",
+    "noMic": "此处无法使用麦克风 · 请使用按钮",
+    "noReplyIn": "{{s}} 秒内未回答视为无回应",
+    "answered": "Margaret：{{a}}",
+    "failed": "未能发送 · 请重试",
+    "busy": "仍在处理上一个回答",
+    "scriptTitle": "{{num}} 通话稿",
+    "scriptPending": "完成分诊后，Noa 会写好这份通话稿。"
+  },
+  "sos": {
+    "title": "000 通话稿",
+    "intro": "请求派救护车。请照着读出来。",
+    "rows": [
+      [
+        "地址",
+        "186 Marrickville Rd, Marrickville NSW 2204"
+      ],
+      [
+        "患者",
+        "Margaret Collins，78 岁，独居"
+      ],
+      [
+        "症状",
+        "从 02:04 起说话含糊，心率 142"
+      ],
+      [
+        "最后正常时间",
+        "01:55"
+      ],
+      [
+        "用药",
+        "氨氯地平、阿司匹林、阿托伐他汀 · 青霉素过敏"
+      ],
+      [
+        "进门方式",
+        "弟弟 02:11 带钥匙到达 · 邻居 Aisha 有备用钥匙"
+      ]
+    ],
+    "call": "拨打 000",
+    "callToast": "正在拨打 000 · 请求派救护车",
+    "copy": "复制地址",
+    "copied": "地址已复制",
+    "note": "由 Noa 准备好这些信息。电话由真人来打。"
+  },
+  "liveSubtitleShort": "实时 · {{time}}",
+  "phase": {
+    "verify": "核实",
+    "ask": "询问",
+    "triage": "分诊",
+    "escalate": "升级",
+    "handOff": "交接",
+    "agent": "Noa",
+    "close": "结案"
+  },
+  "level": {
+    "ok": "一切正常",
+    "monitor": "留意观察",
+    "comeNow": "马上过来",
+    "emergency": "紧急情况",
+    "checking": "正在确认",
+    "helpArrived": "帮助已到达",
+    "falseAlarm": "误报",
+    "closed": "已结案"
+  },
+  "units": {
+    "sec": "{{n}} 秒",
+    "min": "{{n}} 分钟"
+  },
+  "sla": {
+    "verified": "警报 → 已核实",
+    "escalated": "已核实 → 已升级",
+    "accepted": "已接受",
+    "atDoor": "到达门口",
+    "edNotice": "急诊提前获知时间",
+    "edPacket": "急诊已收到资料包",
+    "minAhead": "提前 {{n}} 分钟",
+    "yes": "是"
+  },
+  "steps": [
+    {
+      "d": "心率 142，4 分钟没有活动",
+      "s": "夜间基线为 61。无法用活动来解释。",
+      "own": [
+        "David · 尚未通知",
+        "距离 450 米 · 第一个联系",
+        "—"
+      ],
+      "what": "心率 142，没有活动",
+      "sub": "Noa 正在确认，暂不吵醒任何人",
+      "q": "Margaret……",
+      "small": "手机响铃，屏幕闪烁",
+      "help": ""
+    },
+    {
+      "d": "用语音呼叫 Margaret。她回答得很慢",
+      "s": "她的屏幕上也会显示大字问题",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "回答缓慢",
+      "sub": "Noa 正在和她说话",
+      "q": "Margaret，这是您的问候电话。您能听到我吗？",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "跟读测试：说话含糊",
+      "s": "构音评分 0.41（基线 0.94）",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "说话含糊",
+      "sub": "可能是中风征兆",
+      "q": "请跟我说：“悉尼的天空是蓝色的。”",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "等级：紧急情况",
+      "s": "最后已知正常时间 01:55",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "疑似中风征兆",
+      "sub": "最后已知正常时间 01:55",
+      "q": "亲爱的，坐着别动。不要试着站起来。",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "已通知 David 和您",
+      "s": "在伦敦的 Sarah 会收到最新消息",
+      "own": [
+        "David · 已通知",
+        "等待他接受",
+        "5:00"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "我已经给 David 打电话了。",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "David：“我在路上了”",
+      "s": "由他负责此事。所有人都能看到。",
+      "own": [
+        "David · 在路上",
+        "负责此事",
+        "6′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "David 正在赶来。",
+      "small": "",
+      "help": "David · 还有 6 分钟"
+    },
+    {
+      "d": "您按照准备好的通话稿拨打 000",
+      "s": "地址、年龄、症状、用药、进门方式",
+      "own": [
+        "",
+        "",
+        "5′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "James 正在叫救护车。",
+      "small": "",
+      "help": "David · 还有 5 分钟"
+    },
+    {
+      "d": "Camperdown Stroke Centre 已收到她的资料",
+      "s": "因提供 24/7 卒中救治而选定 · 11 分钟",
+      "own": [
+        "",
+        "",
+        "4′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "医院已经有您的资料了。",
+      "small": "",
+      "help": "David · 还有 4 分钟"
+    },
+    {
+      "d": "David 已在 Margaret 身边",
+      "s": "门已打开，她坐着，意识清醒",
+      "own": [
+        "David · 在 Margaret 身边",
+        "02:11 起在现场",
+        "✓"
+      ],
+      "what": "David 在她身边",
+      "sub": "救护车正在路上",
+      "q": "亲爱的，David 来了。",
+      "small": "",
+      "help": "David 在您身边"
+    },
+    {
+      "d": "救护车到达 · 卒中团队已就绪",
+      "s": "急诊在到达前 14 分钟已阅读资料包",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "正在前往 Camperdown",
+      "sub": "出院后开始 30 天康复计划",
+      "q": "救护车到了。您会得到很好的照顾。",
+      "small": "",
+      "help": "David 会陪您一起去"
+    }
+  ],
+  "script": {
+    "label": "通话稿",
+    "call": "拨打 {{num}}",
+    "dialling": "正在拨打 {{num}} · 请求派救护车",
+    "copy": "复制通话稿"
+  },
+  "actAs": "扮演",
+  "incident": {
+    "who": {
+      "console": "控制台",
+      "system": "系统",
+      "agent": "Noa",
+      "person": "个人",
+      "her": "她",
+      "circle": "照护圈",
+      "patient": "患者"
+    },
+    "alert": {
+      "hr": "心率 {{hr}}",
+      "hrHigh": "心率过高",
+      "fall": "可能跌倒",
+      "fallStill": "可能跌倒，已 {{min}} 分钟没有活动",
+      "whileActive": "活动时 {{hr}}",
+      "notMoving": "{{hr}}，没有活动"
+    },
+    "head": {
+      "falseAlarm": "误报",
+      "verifying": "Noa 正在确认，暂不吵醒任何人",
+      "slurred": "说话含糊",
+      "slurredSub": "可能是中风征兆",
+      "noAnswer": "尚无回应",
+      "noAnswerSub": "她的屏幕上正在显示大字和“是/否”按钮",
+      "checking": "正在询问她的情况",
+      "checkingSub": "Noa 正在和她说话",
+      "withHer": "{{name}} 在她身边",
+      "hospital": "医院：{{name}}",
+      "helpWithHer": "帮助已到她身边",
+      "lastWell": "最后已知正常时间 {{time}}",
+      "ok": "她没事"
+    },
+    "owner": {
+      "withSelf": "{{name}} · 在 {{self}} 身边",
+      "onSceneSince": "{{time}} 起在现场",
+      "onScene": "在现场",
+      "onTheWay": "{{name}} · 在路上",
+      "owns": "负责此事",
+      "alerted": "{{name}} · 已通知",
+      "waiting": "等待对方接受",
+      "calling": "正在呼叫",
+      "noNearby": "附近没有人能过来",
+      "callNow": "立即拨打 {{num}}",
+      "autoCalled": "已自动拨打 {{num}}",
+      "notYet": "{{name}} · 尚未通知",
+      "firstToCall": "第一个联系"
+    },
+    "phone": {
+      "ringing": "手机响铃，屏幕闪烁",
+      "listening": "正在听…",
+      "fine": "一切都好。抱歉打扰您了。",
+      "glad": "谢谢。很高兴您没事。",
+      "withYou": "{{name}} 在您身边",
+      "away": "{{name}} · 还有 {{eta}}",
+      "onTheWay": "帮助正在路上。",
+      "status": {
+        "calling": "我现在给 {{name}} 打电话。请坐着别动。",
+        "noAnswer": "{{prev}} 没有接，我已经给他留了言。我现在给 {{name}} 打电话。",
+        "onTheWay": "{{name}} 正在路上。帮助马上就到。",
+        "calling000": "我现在拨打 {{num}} 叫救护车。请待在原地。帮助马上就到。",
+        "onTheWayCalling": "{{name}} 正在赶来，他有钥匙。我现在拨打 {{num}}。",
+        "ambulance": "Margaret，帮助正在路上。救护车还有 12 分钟到。请坐着别动。我一直在这里陪着您。"
+      }
+    },
+    "packet": {
+      "patient": "患者",
+      "status": "状态",
+      "lastWell": "最后正常时间",
+      "findings": "检查所见",
+      "history": "病史",
+      "medicines": "用药",
+      "allergy": "过敏",
+      "function": "功能状况",
+      "comms": "沟通",
+      "onScene": "在现场",
+      "contact": "联系人",
+      "packet": "资料包",
+      "female": "女",
+      "male": "男",
+      "suspected": "疑似{{what}}",
+      "eta": "预计到达 {{eta}}",
+      "unknown": "未知",
+      "familyHistory": "家族史",
+      "withheld": "未提供",
+      "noConsent": "无有效同意",
+      "notRecorded": "未记录",
+      "noneKnown": "无已知",
+      "anonymous": "患者（身份保密）",
+      "preArrival": "预到达",
+      "enrolled": "{{who}} · 已登记",
+      "lastWellAt": "最后正常 {{time}}",
+      "cat": {
+        "identity": "身份",
+        "conditions": "病史",
+        "medications": "用药",
+        "allergies": "过敏",
+        "familyHistory": "家族史",
+        "communication": "沟通"
+      },
+      "comm": {
+        "HARD_OF_HEARING": "听力不佳：请把问题写下来",
+        "COGNITIVE_IMPAIRMENT": "认知障碍：问题请简单明了"
+      }
+    }
+  },
+  "sim": {
+    "title": "🎛️ 模拟器",
+    "meta": "安全地试用 Noa",
+    "howto": [
+      "把**心率**拖到 120 以上",
+      "把**没有活动**拖到 10 分钟",
+      "Noa 会自动介入，和 Margaret 说话，并判断出了什么问题",
+      "可选：在她的手机上点选 Margaret 的回答，改变事情的走向"
+    ],
+    "preset": {
+      "night": "🌙 夜间急症",
+      "stairs": "🪜 刚爬完楼梯",
+      "asleep": "😴 熟睡中"
+    },
+    "hr": "❤️ 心率",
+    "hrAria": "心率",
+    "bpm": "{{n}} 次/分",
+    "still": "🛋️ 没有活动",
+    "stillAria": "没有活动",
+    "moving": "活动中",
+    "min": "{{n}} 分钟",
+    "minAlert": "{{n}} 分钟 ⚠️",
+    "alertTick": "10 分钟 · 警报",
+    "more": "更多选项：谁来接电话",
+    "speech": "说话",
+    "speechOpt": {
+      "slurred": "含糊（自动）",
+      "mic": "我来回答（麦克风）"
+    },
+    "david": "David 接电话",
+    "yes": "是",
+    "no": "否",
+    "pause": "⏸️ 暂停",
+    "resume": "▶️ 继续",
+    "runTitle": "监测实时运行。随时可以暂停。",
+    "faster": "⏩ 加速",
+    "normal": "🐢 正常速度",
+    "reset": "↺ 重置",
+    "readings": {
+      "title": "📈 实时读数",
+      "meta": "手表和家中传感器每分钟一个读数",
+      "hr": "心率",
+      "run": "计数中",
+      "alert": "警报线 120",
+      "ago": "−40 分钟 · 绿色 = 活动中",
+      "now": "现在 {{time}}",
+      "movement": "活动情况，每格一分钟：最近 {{n}} 分钟没有活动",
+      "rule": "她没有活动时，心率连续 10 分钟高于 120",
+      "progress": "10 分钟中的第 {{n}} 分钟 · 现在 {{hr}} 次/分 · {{state}}",
+      "moving": "活动中",
+      "still": "没有活动",
+      "note": {
+        "alert": "🚨 Noa 正在确认她的情况",
+        "moving": "心率高，但她在活动（爬楼梯、做园艺）：不报警",
+        "resting": "没有活动，但心率正常（睡觉、休息）：不报警",
+        "counting": "计数中… Noa 会等 10 分钟，以免短暂的升高吵醒任何人",
+        "normal": "一切正常"
+      },
+      "movementLabel": "活动",
+      "condHr": "心率高于 120",
+      "condHrSub": "现在 {{hr}} 次/分",
+      "condStill": "没有活动",
+      "condStillSub": "已 {{n}} 分钟没有活动",
+      "condMoving": "正在活动",
+      "meter": "连续分钟数"
+    },
+    "locked": "🔒 警报进行中，已锁定"
+  },
+  "call": {
+    "title": "000 通话 · 演示通话",
+    "operator": "000 接线员",
+    "noa": "Noa",
+    "dialling": "正在拨打 000…",
+    "fine": "在真实服务中，000 电话会经由经批准的紧急中继转接，并始终由真人接线员接手。通话稿是固定的，经过临床人员审核，不是由 AI 编出来的。"
+  },
+  "speech": {
+    "title": "Noa 语音检测",
+    "tag": "我们的核心技术",
+    "meta": "将今晚的声音与 {{name}} 自己的声音比较，而不是与平均水平比较",
+    "state": {
+      "ready": "就绪 · 基线来自 41 次早间聊天",
+      "listen": "🎙️ 正在听 {{name}} 说话…",
+      "analyse": "正在与她自己的声音进行比对分析…",
+      "clear": "✓ 清晰 · 与她平时的声音一致",
+      "slurred": "⚠ 检测到说话含糊 · 可能是中风"
+    },
+    "slurred": "⚠ 检测到说话含糊 · 可能是中风",
+    "clear": "✓ 清晰 · 与她平时的声音一致",
+    "normal": "她平时",
+    "baseline": "基线 · 30 天",
+    "tonight": "今晚",
+    "repeating": "{{name}} 正在跟读“悉尼的天空是蓝色的”",
+    "idle": "在 Noa 需要确认她的情况时运行。{{name}} 只需跟读一句短句。",
+    "measure": "指标",
+    "normalCol": "她平时",
+    "tonightCol": "今晚",
+    "measures": [
+      "清晰度（构音）",
+      "语速",
+      "词间停顿",
+      "识别出的词",
+      "声音稳定度"
+    ],
+    "how": [
+      [
+        "学习她的声音",
+        "来自每天 2 分钟的早间聊天"
+      ],
+      [
+        "一句话",
+        "在情况看起来不对时"
+      ],
+      [
+        "5 项指标",
+        "与她自己的平时水平比较，不到 2 秒"
+      ],
+      [
+        "含糊 = 红色：",
+        "Noa 跳过提问，直接求助"
+      ]
+    ],
+    "fine": "助听器和口音都已包含在她的基线中，因此不会引起误报。只保存评分，不保存录音。演示中的数字仅作示意。"
+  },
+  "agent": {
+    "title": "Noa",
+    "sub": "您的 No One Alone 助手",
+    "ask": "💬 问 Noa",
+    "her": "她",
+    "idle": "一切看起来正常。只有两个警示信号同时出现时，Noa 才会介入。",
+    "nowHr": "警示信号：她没有活动时心率连续 10 分钟高于 120（现在 {{hr}} 次/分）。先确认 {{name}} 的情况，暂不吵醒任何人。",
+    "nowFall": "警示信号：重重跌倒后一直没有活动。先确认 {{name}} 的情况，暂不吵醒任何人。",
+    "pending": {
+      "title": "下一步取决于她的回答",
+      "text": "🟢 没事 → 安抚她并再次检查 · 🟡 不舒服但说话清楚 → 护士 + 家人 · 🔴 说话含糊、没有回应、胸痛、无力或跌倒 → {{num}}"
+    },
+    "decision": {
+      "green": {
+        "title": {
+          "stroke": "🟢 绿色：她没事",
+          "fall": "🟢 绿色：她没事",
+          "other": "🟢 绿色：她没事"
+        },
+        "text": "说话清楚，没有警示症状，听起来和平时一样。保持冷静，不吵醒任何人。"
+      },
+      "amber": {
+        "title": {
+          "stroke": "🟡 黄色：不舒服，但说话清楚",
+          "fall": "🟡 黄色：不舒服，但说话清楚",
+          "other": "🟡 黄色：不舒服，但说话清楚"
+        },
+        "text": "今晚需要有人陪着她。Noa 会按顺序联系她的照护圈。"
+      },
+      "red": {
+        "title": {
+          "stroke": "🔴 红色：可能中风",
+          "fall": "🔴 红色：可能严重跌倒",
+          "other": "🔴 红色：紧急情况"
+        },
+        "text": "时间就是关键，所以 Noa 跳过其他提问，立即求助。"
+      }
+    },
+    "step": {
+      "detect": "发现警示信号",
+      "ask": "确认 {{name}} 的情况",
+      "speech": "语音测试",
+      "feel": "询问她的感受",
+      "decide": "判断：绿色、黄色还是红色",
+      "alertAll": "通知她的整个照护圈",
+      "call": "打给 {{name}}（{{detail}}）",
+      "scan": "寻找最近的人",
+      "ooo": "按通话稿拨打 {{num}}",
+      "packet": "把她的资料发送给医院",
+      "company": "陪着她直到帮助到达",
+      "paramedics": "陪着她 · 交接给急救人员",
+      "g1": "安抚她：喝水、慢慢呼吸",
+      "g2": "10 分钟后再次检查她的心率",
+      "g3": "给家人写一条早间留言"
+    },
+    "state": {
+      "done": "完成",
+      "cur": "进行中",
+      "fail": "失败",
+      "skip": "已跳过",
+      "noAnswer": "无人接听"
+    },
+    "pill": {
+      "watching": "守护中",
+      "verifying": "正在确认警报",
+      "deciding": "正在判断",
+      "falseAlarm": "误报",
+      "allClear": "一切无事",
+      "handedOver": "已交接",
+      "withHer": "帮助已到她身边",
+      "detect": "正在确认警报",
+      "ask": "正在确认她的情况",
+      "speech": "语音测试",
+      "feel": "正在询问她的感受",
+      "decide": "正在判断",
+      "alertall": "正在通知照护圈",
+      "calling": "正在呼叫 {{name}}",
+      "scan": "正在寻找帮助",
+      "ooo": "正在拨打 {{num}}",
+      "packet": "正在通知医院",
+      "company": "陪着她",
+      "g1": "正在安抚她",
+      "g2": "再次检查",
+      "g3": "收尾"
+    },
+    "calls": {
+      "title": "📞 呼叫顺序",
+      "meta": "先按优先名单，再找最近的人"
+    },
+    "alerts": {
+      "title": "🔔 发给照护圈的提醒",
+      "meta": "所有开启安全提醒的人",
+      "none": "未发送提醒",
+      "noneSub": "没有需要报告的事"
+    },
+    "call": {
+      "waiting": "等待中",
+      "ringing": "响铃中…",
+      "answered": "已接听",
+      "onTheWay": "已接听 · 在路上",
+      "withHer": "在她身边",
+      "declined": "来不了",
+      "voicemail": "无人接听 · 已留言",
+      "text": "无人接听 · 已发短信",
+      "notNeeded": "无需联系",
+      "dialling": "拨号中…",
+      "connected": "已接通 · 通话中",
+      "dispatched": "救护车已派出"
+    },
+    "ambulance": "救护车",
+    "priority": "优先级 {{n}}",
+    "nearest": "最近，{{d}}",
+    "m": "{{n}} m",
+    "km": "{{n}} km",
+    "sent": "{{time}} 已发送",
+    "relation": {
+      "son": "儿子",
+      "daughter": "女儿",
+      "brother": "兄弟",
+      "sister": "姐妹",
+      "neighbour": "邻居",
+      "neighbor": "邻居",
+      "wife": "妻子",
+      "husband": "丈夫",
+      "friend": "朋友"
+    },
+    "phone": {
+      "title": "📱 {{name}} 的手机",
+      "spoken": "语音朗读 · 大字显示",
+      "goodnight": "晚安，{{name}}",
+      "sleep": "好好睡吧。有需要我随时都在 💙",
+      "ok": "我没事",
+      "help": "救救我",
+      "okToast": "家人已知道您没事"
+    },
+    "log": {
+      "title": "🗒️ Noa 的日志",
+      "meta": "每一步都有时间记录",
+      "idle": "正在安静守护。没有需要报告的事。",
+      "sla": "目前的响应时间"
+    },
+    "circle": {
+      "title": "🫂 {{name}} 的照护圈",
+      "allNormal": "一切正常",
+      "watching": "正在安静守护",
+      "lkw": "最后已知正常时间 —",
+      "inPlace": "所有人都在各自的位置",
+      "inPlaceSub": "没有吵醒任何人",
+      "checking": "Noa 正在确认 {{name}} 的情况",
+      "checkingSub": "暂未吵醒任何人",
+      "allClear": "一切无事",
+      "allClearSub": "没有吵醒任何人",
+      "farAway": "{{names}} 在远方",
+      "and": " 和 "
+    },
+    "light": {
+      "green": "🟢 绿色",
+      "greenSub": "她没事",
+      "amber": "🟡 黄色",
+      "amberSub": "不舒服，说话清楚",
+      "red": "🔴 红色",
+      "redSub": "立即求助"
+    }
+  },
+  "talk": {
+    "title": "🎙️ 实时对话",
+    "meta": "Noa 说的每一句话，以及对谁说",
+    "live": "实时 · {{time}}",
+    "filter": "筛选对话",
+    "all": "全部",
+    "to": "Noa → {{name}}",
+    "none": "还没有任何对话。Noa 正在安静守护。",
+    "noReply": "（无回应）",
+    "operator": "接线员",
+    "hospital": "医院",
+    "strokeTeam": "卒中团队",
+    "ACCEPTED": "“我在路上了。”",
+    "DECLINED": "“我来不了。”",
+    "ARRIVED": "“我现在在她身边。”",
+    "onCall": "正在与 {{num}} 通话"
+  },
+  "hand": {
+    "title": "📦 谁收到了什么",
+    "meta": "每个人只收到所需的信息 · 点击查看",
+    "none": "未分享任何信息",
+    "noneSub": "只有在 Noa 采取行动时才会交出信息",
+    "safety": "安全提醒",
+    "push": "推送提醒 + 短信",
+    "message": "消息",
+    "distant": "电话 + 实时页面",
+    "distantMissed": "语音留言 + 短信 + 实时页面",
+    "nearby": "立即前往 + 应对指引",
+    "nearbyMissed": "语音留言 + 短信",
+    "how": "方式",
+    "told": "告知内容",
+    "eta": "在路上",
+    "ambulance": "{{num}} 救护车",
+    "fullCall": "完整紧急通话",
+    "script": "通话稿",
+    "packet": "预到达资料（FHIR）",
+    "status": "状态",
+    "fine": "按照 {{name}} 自己的设置分享。每次交接都有记录，她之后可以查看。"
+  }
+}

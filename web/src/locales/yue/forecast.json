@@ -1,0 +1,111 @@
+{
+  "modelTitle": "ℹ️ 呢個預測點運作",
+  "risks": {
+    "title": "📊 隨時間變化嘅機會",
+    "meta": "程度由示範規則設定，唔係概率",
+    "columns": [
+      "可能發生嘅事",
+      "程度",
+      "趨勢",
+      "主要原因"
+    ]
+  },
+  "sim": {
+    "title": "🎛️ 試下：如果…",
+    "meta": "拉動滑桿",
+    "hearingSwitchLabel": "每日戴助聽器",
+    "adherenceValue": "{{n}}%",
+    "cells": [
+      {
+        "key": "stroke",
+        "label": "中風 · 90 日"
+      },
+      {
+        "key": "fall",
+        "label": "跌倒 · 90 日"
+      },
+      {
+        "key": "admission",
+        "label": "入院 · 90 日"
+      },
+      {
+        "key": "mci",
+        "label": "輕度認知障礙 · 90 日"
+      }
+    ],
+    "delta": {
+      "none": "冇變",
+      "lower": "較低",
+      "higher": "較高"
+    }
+  },
+  "bp": {
+    "title": "朝早上壓",
+    "meta": "已觀察 6 個星期 · 預測 4 個星期 · mmHg",
+    "yLabel": "朝早上壓",
+    "ariaLabel": "朝早上壓喺六個星期內由 128 升到 146，如果唔改變預計會去到 156",
+    "today": "今日",
+    "weekLabel": "第{{n}}週",
+    "legend": [
+      {
+        "color": "#c88a05",
+        "label": "實際觀察"
+      },
+      {
+        "color": "rgba(217,68,63,.5)",
+        "label": "唔改變嘅預測"
+      },
+      {
+        "color": "rgba(31,179,156,.6)",
+        "label": "100% 按時食藥嘅預測"
+      },
+      {
+        "color": "#8f6fd0",
+        "label": "你嘅假設情境"
+      },
+      {
+        "color": "rgba(31,179,156,.15)",
+        "label": "目標低於 135"
+      }
+    ],
+    "series": {
+      "observed": "實際觀察",
+      "nothing": "唔改變嘅預測",
+      "adherent": "100% 按時食藥嘅預測",
+      "whatIf": "你嘅假設情境"
+    }
+  },
+  "shap": {
+    "title": "⚖️ 乜嘢推高或者拉低佢嘅中風風險",
+    "meta": "紅色推高 · 綠色拉低"
+  },
+  "signs": {
+    "title": "👀 我哋留意緊嘅嘢",
+    "meta": "今日同佢平時比較",
+    "columns": [
+      "跡象",
+      "來源",
+      "頻率",
+      "而家",
+      "平時",
+      "同平時比較",
+      "狀態"
+    ],
+    "status": {
+      "good": "正常",
+      "warn": "留意",
+      "bad": "要行動"
+    }
+  },
+  "modes": {
+    "on": "開",
+    "off": "閂",
+    "toastOn": "已開啟{{name}}模式",
+    "toastOff": "已關閉{{name}}模式",
+    "names": {
+      "Hearing": "聽力",
+      "Vision": "視力",
+      "Memory": "記憶"
+    }
+  }
+}

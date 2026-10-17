@@ -1,0 +1,48 @@
+{
+  "mapChip": "撳個圖釘睇詳情",
+  "thursday": {
+    "title": "🔥 星期四，逐個鐘睇",
+    "meta": "室外溫度同佢屋企會有幾熱",
+    "ariaLabel": "星期四室外溫度 13:00 最高 38 度；冇冷氣嘅話室內會去到 34 度；助手會安排 Margaret 11:00 至 16:00 去圖書館冷氣室"
+  },
+  "air": {
+    "title": "🍃 空氣、花粉同煙霧",
+    "meta": "7 日預測",
+    "columns": [
+      "日子",
+      "空氣質素",
+      "PM2.5",
+      "花粉",
+      "煙霧",
+      "建議"
+    ]
+  },
+  "newsFilterLabel": "新聞篩選",
+  "severity": {
+    "act": {
+      "color": "#d9443f",
+      "label": "要行動"
+    },
+    "aware": {
+      "color": "#c88a05",
+      "label": "要留意"
+    },
+    "help": {
+      "color": "#1fb39c",
+      "label": "有用"
+    },
+    "done": {
+      "color": "#56706e",
+      "label": "已解決"
+    }
+  },
+  "newsCategory": {
+    "All": "全部",
+    "Health": "健康",
+    "Safety": "安全",
+    "Weather": "天氣",
+    "Community": "社區",
+    "Transport": "交通"
+  },
+  "newsAge": "{{age}}前"
+}

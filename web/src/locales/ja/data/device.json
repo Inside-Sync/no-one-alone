@@ -1,0 +1,135 @@
+{
+  "deviceFeed": {
+    "meta": "6台の機器から48件の測定値 · スマートウォッチのような機器に加え、自宅と本人の声から",
+    "sources": [
+      {
+        "device": "腕時計型ウェアラブル",
+        "metrics": "心拍数、HRV、心拍リズム、心電図、血中酸素、睡眠段階、歩数、消費エネルギー、手首の温度、転倒検知、騒音",
+        "frequency": "常時 · 5分ごと",
+        "status": "64% · 装着中",
+        "tone": "good",
+        "sharedWith": "家族、かかりつけ医"
+      },
+      {
+        "device": "スマートフォン",
+        "metrics": "歩行速度、歩幅、安定性、日光 · 位置情報はオフ（Margaretさんは在宅／外出のみオンにできます）",
+        "frequency": "自動",
+        "status": "充電中",
+        "tone": "good",
+        "sharedWith": "家族"
+      },
+      {
+        "device": "Bluetooth血圧計",
+        "metrics": "収縮期、拡張期、脈拍",
+        "frequency": "朝＋夜",
+        "status": "電池 70%",
+        "tone": "good",
+        "sharedWith": "家族、かかりつけ医"
+      },
+      {
+        "device": "スマート体重計",
+        "metrics": "体重、BMI",
+        "frequency": "毎日",
+        "status": "正常",
+        "tone": "good",
+        "sharedWith": "かかりつけ医"
+      },
+      {
+        "device": "スマートピルケース",
+        "metrics": "服用、時刻、飲み忘れ",
+        "frequency": "服用ごと",
+        "status": "正常",
+        "tone": "good",
+        "sharedWith": "家族、かかりつけ医、薬局"
+      },
+      {
+        "device": "ホームハブ · センサー6個",
+        "metrics": "2部屋の動き（カメラ・マイクなし）、温度、湿度",
+        "frequency": "常時",
+        "status": "オンライン",
+        "tone": "good",
+        "sharedWith": "家族（緊急時の詳細のみ）"
+      },
+      {
+        "device": "音声での見守り連絡",
+        "metrics": "気分、話す速さ、間、構音、聞こえ、食事、水分",
+        "frequency": "1日2〜3回の電話",
+        "status": "次回 18:00",
+        "tone": "plain",
+        "sharedWith": "家族、かかりつけ医。病院は緊急時のみ"
+      }
+    ],
+    "phone": {
+      "home": {
+        "date": "10月14日(水)",
+        "greeting": "こんにちは、Margaretさん",
+        "medicine": {
+          "title": "血圧のお薬",
+          "sub": "18:00 · アムロジピン1錠",
+          "button": "飲みました",
+          "toast": "記録しました · Jamesさんに伝わります"
+        },
+        "ok": {
+          "label": "大丈夫",
+          "toast": "ご家族にあなたが無事だと伝わりました"
+        },
+        "help": {
+          "label": "助けを呼ぶ"
+        }
+      },
+      "heading": "Margaretさんのための設計",
+      "meta": "練習もメニューも不要",
+      "minis": [
+        {
+          "label": "文字サイズ",
+          "value": "28 pt",
+          "note": "最小"
+        },
+        {
+          "label": "タップ領域",
+          "value": "92 px",
+          "note": "WCAG AAA"
+        },
+        {
+          "label": "音声",
+          "value": "豪州英語",
+          "note": "ゆっくり、温かく"
+        },
+        {
+          "label": "1操作の手順",
+          "value": "1",
+          "note": "常に"
+        },
+        {
+          "label": "対応機器",
+          "value": "どの電話でも",
+          "note": "固定電話を含む"
+        },
+        {
+          "label": "聞こえサポート",
+          "value": "オン",
+          "note": "字幕＋点滅"
+        }
+      ],
+      "bullets": [
+        {
+          "icon": "check",
+          "text": "大きなボタン2つと、一度に1つの作業だけ。画面を移動する必要はありません。"
+        },
+        {
+          "icon": "ear",
+          "text": "聞こえサポート：エージェントからの電話では大きな字幕が出て、画面が点滅します。"
+        },
+        {
+          "icon": "mic",
+          "text": "音声が中心で、本人が家族に使う呼び名（「あなた」「Davey」）で話します。"
+        },
+        {
+          "icon": "phone",
+          "text": "スマートフォンがない人にも、同じ見守り連絡が普通の電話でできます。"
+        }
+      ],
+      "note": "本人の画面の「助けを呼ぶ」を押すと、夜間アラートのデモが始まります。"
+    }
+  }
+}

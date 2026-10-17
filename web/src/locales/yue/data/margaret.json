@@ -1,0 +1,1106 @@
+{
+  "margaret": {
+    "id": "margaret",
+    "name": "Margaret Collins",
+    "initials": "MC",
+    "color": "#0b7f71",
+    "nickname": "Maggie",
+    "born": "1948年3月3日",
+    "age": 78,
+    "gender": "女",
+    "suburb": "Marrickville",
+    "postcode": "2204",
+    "heightCm": 162,
+    "weightKg": 61.2,
+    "bmi": 23.4,
+    "bloodType": "O型（Rh陽性）",
+    "mobilityAid": "出街用拐杖",
+    "hearingAids": "兩邊耳都戴助聽器",
+    "advanceCarePlan": "已存檔預設照顧計劃",
+    "allergies": [
+      "Penicillin"
+    ],
+    "medicineCount": 4,
+    "conditions": [
+      {
+        "emoji": "🩺",
+        "title": "高血壓",
+        "since": "61歲開始（2009年）",
+        "now": "最近控制得唔太好",
+        "color": "#d9443f",
+        "detail": "佢血壓6個星期以嚟慢慢升咗。佢每晚食amlodipine，呢個禮拜漏咗3次。目標：朝早低過135。"
+      },
+      {
+        "emoji": "🦻",
+        "title": "聽力減退",
+        "since": "雙耳 · 72歲開始（2020年）",
+        "now": "今日冇戴助聽器",
+        "color": "#c88a05",
+        "detail": "年紀大引起嘅聽力減退。助聽器有幫助，戴住仲可以減低將來出現記憶問題嘅機會。已約10月22日做聽力測試。"
+      },
+      {
+        "emoji": "🫘",
+        "title": "腎功能慢咗少少",
+        "since": "3a期 · 2025年發現",
+        "now": "穩定，每年檢查",
+        "color": "#c88a05",
+        "detail": "腎功能（eGFR）係58，正常係60或以上。佢呢個年紀好常見。家庭醫生每年檢查一次，會避免用傷腎嘅藥。"
+      },
+      {
+        "emoji": "🍬",
+        "title": "血糖偏高",
+        "since": "HbA1c 5.9% · 2026年",
+        "now": "留意",
+        "color": "#c88a05",
+        "detail": "唔係糖尿病，但接近界線（6.0%）。佢爸爸有2型糖尿病。多啲行路、少飲甜嘢有幫助。"
+      },
+      {
+        "emoji": "🦴",
+        "title": "雙膝關節炎",
+        "since": "2015年開始",
+        "now": "輕微痛，用拐杖",
+        "color": "#56706e",
+        "detail": "退化性關節炎。輕鬆散步同肌力班有幫助。有需要就食必理痛（paracetamol）。"
+      },
+      {
+        "emoji": "💔",
+        "title": "心跳唔規律（可能）",
+        "since": "檢查緊 · 2026年10月",
+        "now": "呢個禮拜2次提示",
+        "color": "#c2417a",
+        "detail": "佢隻錶夜晚兩次偵測到心律唔規律。10月12日做嘅心電圖正常。家庭醫生可能會安排戴2星期心臟監察器。"
+      },
+      {
+        "emoji": "🧠",
+        "title": "記性",
+        "since": "冇診斷",
+        "now": "輕輕留意緊",
+        "color": "#1f8f5f",
+        "detail": "冇記憶方面嘅病。佢媽媽有認知障礙症，所以每日傾偈會留意講嘢有冇慢慢變化。暫時一切正常。"
+      },
+      {
+        "emoji": "🦴",
+        "title": "骨質",
+        "since": "骨質減少 · 2022年",
+        "now": "每日食維他命D",
+        "color": "#56706e",
+        "detail": "骨比平均薄少少，70歲之後好常見。佢食維他命D，又做平衡運動預防跌倒。"
+      }
+    ],
+    "status": "good",
+    "lastChat": "上次傾偈13:02 · 好開心",
+    "devices": {
+      "wearableBattery": 64,
+      "hubSensors": 6
+    },
+    "profile": {
+      "checkedBy": "佢嘅健康檔案 · 家庭醫生9月12日核對過",
+      "shareToast": "已將檔案分享畀關懷圈",
+      "rows": [
+        {
+          "emoji": "👩",
+          "label": "性別",
+          "value": "女"
+        },
+        {
+          "emoji": "🎂",
+          "label": "年齡",
+          "value": "78"
+        },
+        {
+          "emoji": "📏",
+          "label": "身高",
+          "value": "162 cm"
+        },
+        {
+          "emoji": "⚖️",
+          "label": "體重",
+          "value": "61.2 kg"
+        },
+        {
+          "emoji": "📐",
+          "label": "BMI",
+          "value": "23.4 · 健康"
+        },
+        {
+          "emoji": "🩸",
+          "label": "血型",
+          "value": "O型（Rh陽性）"
+        },
+        {
+          "emoji": "🏠",
+          "label": "居住",
+          "value": "獨居 · 兩層排屋"
+        },
+        {
+          "emoji": "🗣️",
+          "label": "語言",
+          "value": "英語"
+        },
+        {
+          "emoji": "🦯",
+          "label": "助行用具",
+          "value": "出街用拐杖"
+        },
+        {
+          "emoji": "👓",
+          "label": "視力",
+          "value": "老花鏡"
+        },
+        {
+          "emoji": "🦻",
+          "label": "聽力",
+          "value": "兩邊耳都戴助聽器"
+        },
+        {
+          "emoji": "📝",
+          "label": "照顧意願",
+          "value": "已存檔預設照顧計劃"
+        }
+      ],
+      "chips": [
+        {
+          "text": "⚠️ 過敏：盤尼西林（出疹）",
+          "danger": true
+        },
+        {
+          "text": "💊 4種長期藥物"
+        },
+        {
+          "text": "🚬 從未食煙"
+        },
+        {
+          "text": "🍷 每星期飲1–2杯"
+        },
+        {
+          "text": "💉 2026年4月打咗流感針 · 要打新冠針"
+        }
+      ]
+    },
+    "today": {
+      "updated": "15:08更新",
+      "headline": "狀態良好",
+      "devices": [
+        {
+          "label": "穿戴裝置",
+          "value": "64% · 戴緊"
+        },
+        {
+          "label": "家居中樞",
+          "value": "在線 · 6個感應器"
+        },
+        {
+          "label": "手機",
+          "value": "充緊電"
+        }
+      ],
+      "actions": [
+        {
+          "label": "問候佢",
+          "icon": "mic",
+          "kind": "chat"
+        },
+        {
+          "label": "打畀媽咪",
+          "toast": "打緊畀Margaret · 已開字幕",
+          "kind": "call"
+        }
+      ]
+    },
+    "dayline": [
+      {
+        "time": "朝早",
+        "text": "🌅 起咗身 · 講咗早晨"
+      },
+      {
+        "time": "08:12",
+        "text": "💬 朝早傾偈 · 一切安好"
+      },
+      {
+        "time": "08:31",
+        "text": "💊 食咗朝早嘅藥"
+      },
+      {
+        "time": "09:31",
+        "text": "💊 提醒之後食咗尋晚嗰粒藥",
+        "flag": "w"
+      },
+      {
+        "time": "近晏晝",
+        "text": "🚶 出咗去散步"
+      },
+      {
+        "time": "13:02",
+        "text": "🍽️ 晏晝傾偈 · 好開心"
+      },
+      {
+        "time": "下晝",
+        "text": "😴 休息緊 · 今日好熱",
+        "flag": "w"
+      },
+      {
+        "time": "18:00",
+        "text": "💬 下次傾偈",
+        "flag": "n"
+      }
+    ],
+    "context": {
+      "initials": "MC",
+      "color": "#0b7f71",
+      "sub": "Marrickville NSW 2204 · Inner West · 10月14日（星期三）15:10 AEDT",
+      "facts": [
+        {
+          "live": true,
+          "label": "女",
+          "value": "78"
+        },
+        {
+          "live": false,
+          "label": "出生",
+          "value": "1948年3月3日"
+        },
+        {
+          "live": false,
+          "label": "病況",
+          "value": "8"
+        },
+        {
+          "live": false,
+          "label": "過敏",
+          "value": "penicillin"
+        },
+        {
+          "live": false,
+          "label": "模式",
+          "value": "聽力"
+        },
+        {
+          "live": false,
+          "label": "照顧團隊",
+          "value": "5人"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "emoji": "❤️",
+        "label": "心率",
+        "value": "68",
+        "unit": "bpm",
+        "color": "#ef6a5e",
+        "baseline": "平時63",
+        "delta": "高咗少少",
+        "tone": "good",
+        "spark": [
+          62,
+          63,
+          64,
+          63,
+          65,
+          64,
+          66,
+          64,
+          68
+        ]
+      },
+      {
+        "emoji": "🩺",
+        "label": "血壓",
+        "value": "146",
+        "unit": "/88",
+        "color": "#c88a05",
+        "baseline": "平時132/82",
+        "delta": "比平時高",
+        "tone": "warn",
+        "spark": [
+          128,
+          130,
+          131,
+          133,
+          135,
+          137,
+          140,
+          143,
+          146
+        ]
+      },
+      {
+        "emoji": "🌿",
+        "label": "放鬆指數（HRV）",
+        "value": "26",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "平時31",
+        "delta": "偏低：壓力較大",
+        "tone": "warn",
+        "spark": [
+          32,
+          31,
+          30,
+          31,
+          29,
+          28,
+          27,
+          27,
+          26
+        ]
+      },
+      {
+        "emoji": "😴",
+        "label": "瞓覺",
+        "value": "6小時12分",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "平時7小時",
+        "delta": "少過平時",
+        "tone": "warn",
+        "spark": [
+          7.1,
+          6.9,
+          7,
+          6.6,
+          6.8,
+          6.3,
+          6.5,
+          6,
+          6.2
+        ]
+      },
+      {
+        "emoji": "👣",
+        "label": "步數",
+        "value": "3,240",
+        "unit": "今日",
+        "color": "#1fb39c",
+        "baseline": "平時3,600",
+        "delta": "同平時差唔多",
+        "tone": "good",
+        "spark": [
+          3800,
+          3500,
+          3900,
+          3400,
+          3600,
+          3300,
+          3700,
+          3100,
+          3240
+        ]
+      },
+      {
+        "emoji": "🚶",
+        "label": "行路速度",
+        "value": "0.82",
+        "unit": "m/s",
+        "color": "#1f8f5f",
+        "baseline": "平時0.89",
+        "delta": "慢過平時",
+        "tone": "warn",
+        "spark": [
+          0.9,
+          0.89,
+          0.9,
+          0.88,
+          0.87,
+          0.86,
+          0.85,
+          0.83,
+          0.82
+        ]
+      },
+      {
+        "emoji": "💊",
+        "label": "有冇食藥",
+        "value": "86",
+        "unit": "%",
+        "color": "#c88a05",
+        "baseline": "目標95%",
+        "delta": "有漏食",
+        "tone": "warn",
+        "spark": [
+          97,
+          96,
+          95,
+          94,
+          92,
+          90,
+          89,
+          87,
+          86
+        ]
+      },
+      {
+        "emoji": "📞",
+        "label": "有聽電話",
+        "value": "97",
+        "unit": "%",
+        "color": "#0b7f71",
+        "baseline": "平時98%",
+        "delta": "同平時一樣",
+        "tone": "good",
+        "spark": [
+          98,
+          99,
+          97,
+          98,
+          98,
+          96,
+          97,
+          98,
+          97
+        ]
+      },
+      {
+        "emoji": "🗣️",
+        "label": "講嘢速度",
+        "value": "132",
+        "unit": "字/分鐘",
+        "color": "#2f6fb0",
+        "baseline": "平時141",
+        "delta": "慢咗少少",
+        "tone": "good",
+        "spark": [
+          142,
+          140,
+          141,
+          139,
+          138,
+          137,
+          135,
+          134,
+          132
+        ]
+      },
+      {
+        "emoji": "🤝",
+        "label": "同人相處",
+        "value": "5",
+        "unit": "今個禮拜",
+        "color": "#c2417a",
+        "baseline": "平時6",
+        "delta": "同平時差唔多",
+        "tone": "good",
+        "spark": [
+          6,
+          7,
+          6,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "emoji": "🌡️",
+        "label": "屋企溫度",
+        "value": "29.5",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "平時25",
+        "delta": "太熱",
+        "tone": "warn",
+        "spark": [
+          24,
+          25,
+          25,
+          26,
+          27,
+          27,
+          28,
+          29,
+          29.5
+        ]
+      },
+      {
+        "emoji": "⚖️",
+        "label": "體重",
+        "value": "61.2",
+        "unit": "kg",
+        "color": "#56706e",
+        "baseline": "平時61.0",
+        "delta": "穩定",
+        "tone": "good",
+        "spark": [
+          61,
+          61.1,
+          60.9,
+          61,
+          61.2,
+          61.1,
+          61,
+          61.3,
+          61.2
+        ]
+      }
+    ],
+    "kpisTechnical": [
+      {
+        "label": "靜止心率",
+        "value": "68",
+        "unit": "bpm",
+        "color": "#ef6a5e",
+        "baseline": "基線63",
+        "delta": "+0.4σ",
+        "tone": "good",
+        "spark": [
+          62,
+          63,
+          64,
+          63,
+          65,
+          64,
+          66,
+          64,
+          68
+        ]
+      },
+      {
+        "label": "血壓（7日）",
+        "value": "146",
+        "unit": "/88",
+        "color": "#c88a05",
+        "baseline": "基線132/82",
+        "delta": "+2.8σ",
+        "tone": "warn",
+        "spark": [
+          128,
+          130,
+          131,
+          133,
+          135,
+          137,
+          140,
+          143,
+          146
+        ]
+      },
+      {
+        "label": "HRV (RMSSD)",
+        "value": "26",
+        "unit": "ms",
+        "color": "#5a7fe0",
+        "baseline": "基線31",
+        "delta": "−1.9σ",
+        "tone": "warn",
+        "spark": [
+          32,
+          31,
+          30,
+          31,
+          29,
+          28,
+          27,
+          27,
+          26
+        ]
+      },
+      {
+        "label": "睡眠",
+        "value": "6:12",
+        "unit": "小時",
+        "color": "#8f6fd0",
+        "baseline": "效率81%",
+        "delta": "−1.2σ",
+        "tone": "warn",
+        "spark": [
+          7.1,
+          6.9,
+          7,
+          6.6,
+          6.8,
+          6.3,
+          6.5,
+          6,
+          6.2
+        ]
+      },
+      {
+        "label": "步數",
+        "value": "3,240",
+        "unit": "今日",
+        "color": "#1fb39c",
+        "baseline": "基線3,600",
+        "delta": "−0.6σ",
+        "tone": "good",
+        "spark": [
+          3800,
+          3500,
+          3900,
+          3400,
+          3600,
+          3300,
+          3700,
+          3100,
+          3240
+        ]
+      },
+      {
+        "label": "步速",
+        "value": "0.82",
+        "unit": "m/s",
+        "color": "#1f8f5f",
+        "baseline": "基線0.89",
+        "delta": "−2.1σ",
+        "tone": "warn",
+        "spark": [
+          0.9,
+          0.89,
+          0.9,
+          0.88,
+          0.87,
+          0.86,
+          0.85,
+          0.83,
+          0.82
+        ]
+      },
+      {
+        "label": "服藥依從性",
+        "value": "86",
+        "unit": "% 30日",
+        "color": "#c88a05",
+        "baseline": "目標95",
+        "delta": "−1.8σ",
+        "tone": "warn",
+        "spark": [
+          97,
+          96,
+          95,
+          94,
+          92,
+          90,
+          89,
+          87,
+          86
+        ]
+      },
+      {
+        "label": "問候回應率",
+        "value": "97",
+        "unit": "% 30日",
+        "color": "#0b7f71",
+        "baseline": "基線98",
+        "delta": "−0.3σ",
+        "tone": "good",
+        "spark": [
+          98,
+          99,
+          97,
+          98,
+          98,
+          96,
+          97,
+          98,
+          97
+        ]
+      },
+      {
+        "label": "語速",
+        "value": "132",
+        "unit": "字/分鐘",
+        "color": "#2f6fb0",
+        "baseline": "基線141",
+        "delta": "−1.4σ",
+        "tone": "good",
+        "spark": [
+          142,
+          140,
+          141,
+          139,
+          138,
+          137,
+          135,
+          134,
+          132
+        ]
+      },
+      {
+        "label": "社交接觸",
+        "value": "5",
+        "unit": "本週",
+        "color": "#c2417a",
+        "baseline": "基線6",
+        "delta": "−0.5σ",
+        "tone": "good",
+        "spark": [
+          6,
+          7,
+          6,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "label": "室內溫度",
+        "value": "29.5",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "基線25.1",
+        "delta": "+2.2σ",
+        "tone": "warn",
+        "spark": [
+          24,
+          25,
+          25,
+          26,
+          27,
+          27,
+          28,
+          29,
+          29.5
+        ]
+      },
+      {
+        "label": "體重",
+        "value": "61.2",
+        "unit": "kg",
+        "color": "#56706e",
+        "baseline": "基線61.0",
+        "delta": "+0.2σ",
+        "tone": "good",
+        "spark": [
+          61,
+          61.1,
+          60.9,
+          61,
+          61.2,
+          61.1,
+          61,
+          61.3,
+          61.2
+        ]
+      }
+    ],
+    "helperLog": [
+      {
+        "time": "15:00",
+        "what": "重新檢查咗佢所有健康指標",
+        "how": "已做",
+        "why": "每個鐘",
+        "result": "中風機會冇變",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "13:02",
+        "what": "同佢傾咗2分鐘偈",
+        "how": "已做",
+        "why": "每日電話",
+        "result": "講嘢清楚 · 講咗兩次「吓？」",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "12:40",
+        "what": "提佢開風扇同飲水",
+        "how": "已做",
+        "why": "屋企29.5°",
+        "result": "佢話「好呀，乖」",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "10:05",
+        "what": "提佢星期四步行小組",
+        "how": "已做",
+        "why": "佢叫我提佢",
+        "result": "佢話會去",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "09:31",
+        "what": "跟進尋晚漏食嗰粒藥",
+        "how": "已做",
+        "why": "藥盒冇打開過",
+        "result": "9:33食咗",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "08:12",
+        "what": "朝早傾偈",
+        "how": "已做",
+        "why": "每日電話",
+        "result": "一切安好",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "尋日 21:40",
+        "what": "建議David整個每週藥盒",
+        "how": "要你批准",
+        "why": "漏食藥 + 血壓上升",
+        "result": "等緊你",
+        "tone": "warn",
+        "needsApproval": true
+      },
+      {
+        "time": "尋日 16:00",
+        "what": "將佢嘅血壓報告發咗畀Dr Patel",
+        "how": "你批准咗",
+        "why": "每週總結",
+        "result": "已送達 · 下晝4:42已讀",
+        "tone": "good",
+        "needsApproval": false
+      }
+    ],
+    "helperLogTechnical": [
+      {
+        "time": "15:00",
+        "what": "重新評估所有風險（64個訊號）",
+        "how": "自動",
+        "why": "排程",
+        "result": "中風風險級別不變（高）",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "13:02",
+        "what": "語音問候，2分14秒",
+        "how": "自動",
+        "why": "每日排程",
+        "result": "言語清晰 · 「吓？」×2",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "12:40",
+        "what": "防暑提醒：開風扇、飲水",
+        "how": "自動",
+        "why": "室內29.5 °C",
+        "result": "已口頭確認",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "10:05",
+        "what": "偵測到去藥房（10:14–10:22）",
+        "how": "被動",
+        "why": "地理圍欄",
+        "result": "正常作息",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "09:31",
+        "what": "漏服跟進",
+        "how": "自動",
+        "why": "藥盒：未服藥",
+        "result": "09:33已服",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "08:12",
+        "what": "朝早問候",
+        "how": "自動",
+        "why": "每日排程",
+        "result": "正常",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "尋日 21:40",
+        "what": "建議由David設置藥盒",
+        "how": "待批准",
+        "why": "血壓趨勢 + 漏服",
+        "result": "等緊James",
+        "tone": "warn",
+        "needsApproval": true
+      },
+      {
+        "time": "尋日 16:00",
+        "what": "血壓報告已發畀Dr Patel",
+        "how": "James已批准",
+        "why": "每週總結",
+        "result": "已送達 · 16:42已讀",
+        "tone": "good",
+        "needsApproval": false
+      }
+    ],
+    "ownView": {
+      "greeting": "午安，Maggie 🌞",
+      "sub": "你今日幾好呀。呢度係你今日嘅安排，專登為你整嘅。",
+      "tiles": [
+        {
+          "emoji": "❤️",
+          "title": "心臟",
+          "note": "68 · 平穩"
+        },
+        {
+          "emoji": "👣",
+          "title": "3,240步",
+          "note": "就快夠3,500喇！"
+        },
+        {
+          "emoji": "😴",
+          "title": "瞓咗6個鐘",
+          "note": "少咗少少",
+          "warn": true
+        },
+        {
+          "emoji": "💧",
+          "title": "飲水",
+          "note": "而家飲杯水啦",
+          "warn": true
+        },
+        {
+          "emoji": "💊",
+          "title": "下一粒藥",
+          "note": "6點，amlodipine"
+        },
+        {
+          "emoji": "📞",
+          "title": "James會打嚟",
+          "note": "今晚8點"
+        }
+      ],
+      "ideas": [
+        {
+          "emoji": "🔥",
+          "title": "星期四會有38°。你想唔想搭車去圖書館冷氣房？",
+          "note": "義工Tom可以11點嚟接你。",
+          "yes": {
+            "label": "好呀，唔該",
+            "toast": "已約好星期四11:00接送",
+            "done": "已預約"
+          },
+          "no": {
+            "label": "唔使喇，唔該",
+            "toast": "冇問題，我哋打電話問候你",
+            "done": "暫時唔使"
+          }
+        },
+        {
+          "emoji": "💊",
+          "title": "用個每週藥盒，會唔會易啲記得食夜晚嗰粒藥？",
+          "note": "David話星期六可以幫你整。",
+          "yes": {
+            "label": "好呀，唔該",
+            "toast": "David星期六10:00會嚟",
+            "done": "好"
+          },
+          "no": {
+            "label": "唔使喇，唔該",
+            "toast": "好，咁淨係保留提醒",
+            "done": "暫時唔使"
+          }
+        },
+        {
+          "emoji": "🦻",
+          "title": "今個下晝傾偈前，戴返個助聽器好唔好？",
+          "note": "咁傾電話會容易啲。",
+          "yes": {
+            "label": "戴好喇",
+            "toast": "好嘢",
+            "done": "戴好喇"
+          },
+          "no": {
+            "label": "遲啲",
+            "toast": "冇問題",
+            "done": "遲啲"
+          }
+        }
+      ],
+      "promise": [
+        {
+          "emoji": "✋",
+          "lead": "你話事。",
+          "text": "邊個睇到乜嘢由你決定，隨時都可以改。"
+        },
+        {
+          "emoji": "📷",
+          "lead": "永遠冇鏡頭。",
+          "text": "屋企感應器淨係偵測郁動同溫度。"
+        },
+        {
+          "emoji": "🎙️",
+          "lead": "唔會偷聽。",
+          "text": "淨係你聽電話嗰陣先會開咪。"
+        },
+        {
+          "emoji": "📍",
+          "lead": "唔會追蹤。",
+          "text": "定位係關咗嘅。如果你開，其他人都只會見到「喺屋企」或者「出咗街」。"
+        },
+        {
+          "emoji": "🚨",
+          "lead": "只限緊急情況：",
+          "text": "David同James一定會收到安全警報，等有人可以嚟幫你。"
+        }
+      ],
+      "accessLog": [
+        {
+          "when": "今日 09:12",
+          "who": "James",
+          "what": "你嘅心臟同血壓總結",
+          "why": "每週睇一次"
+        },
+        {
+          "when": "今日 08:40",
+          "who": "David",
+          "what": "「我冇事」問候",
+          "why": "朝早問候"
+        },
+        {
+          "when": "尋日 16:42",
+          "who": "Dr Patel",
+          "what": "血壓報告",
+          "why": "你同意咗發出去"
+        },
+        {
+          "when": "尋日 11:05",
+          "who": "Priya",
+          "what": "今個禮拜食藥情況",
+          "why": "安排護士探訪"
+        },
+        {
+          "when": "星期一 19:30",
+          "who": "Sarah",
+          "what": "瞓覺同步數",
+          "why": "之後打咗畀你"
+        }
+      ],
+      "privacy": {
+        "presets": [
+          {
+            "id": "family",
+            "label": "👨‍👩‍👧 家人睇大部分，唔睇我心情"
+          },
+          {
+            "id": "safety",
+            "label": "🚨 只限安全警報"
+          },
+          {
+            "id": "all",
+            "label": "🤝 全部同家人分享"
+          }
+        ],
+        "safetyNote": "🚨 安全警報對你嘅緊急聯絡人係關唔到嘅，咁你有需要時一定有人嚟到。你可以改邊個做緊急聯絡人。",
+        "emergency": {
+          "agreed": "10月1日已同意",
+          "text": "如果你要召救護車，醫院會收到你嘅病況、藥物同過敏資料，等佢哋可以快啲幫你。唔會有其他資料，而且只限嗰次。",
+          "buttons": [
+            {
+              "label": "睇協議",
+              "toast": "你嘅緊急協議已喺手機顯示",
+              "done": "已打開"
+            },
+            {
+              "label": "緊急聯絡人",
+              "toast": "緊急聯絡人：David同James",
+              "done": "已查看"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

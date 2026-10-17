@@ -1,0 +1,20 @@
+{
+  "strengthMeta": "진료지침 기반",
+  "screeningHead": [
+    "검사",
+    "주기",
+    "예정일",
+    ""
+  ],
+  "matrix": {
+    "title": "질환 매트릭스",
+    "meta": "발병 나이 · 빈칸 = 해당 없음 또는 비공개",
+    "person": "가족"
+  },
+  "consent": {
+    "title": "공유와 동의",
+    "meta": "각자 결정해요",
+    "shares": "{{person}} 님이 {{column}} 정보를 공유해요"
+  },
+  "requested": "✓ 요청함"
+}

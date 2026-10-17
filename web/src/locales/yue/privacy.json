@@ -1,0 +1,109 @@
+{
+  "title": "🔐 邊個睇到乜",
+  "meta": "撳開關就可以分享或者停止分享 · 即時生效",
+  "quick": "快速選擇：",
+  "presets": [
+    {
+      "kind": "family",
+      "label": "👨‍👩‍👧 家人睇到大部分，唔包我心情"
+    },
+    {
+      "kind": "safety",
+      "label": "🚨 淨係安全警報"
+    },
+    {
+      "kind": "all",
+      "label": "🤝 全部同家人分享"
+    }
+  ],
+  "pause": "⏸️ 暫停分享到聽日",
+  "resume": "▶️ 恢復分享",
+  "what": "項目",
+  "lockedTitle": "緊急聯絡人一定會收到",
+  "fine": "🚨 安全警報對你嘅緊急聯絡人係閂唔到嘅，咁你有需要嗰陣一定有人嚟幫你。你可以改邊個做你嘅緊急聯絡人。",
+  "preview": {
+    "title": "👁️ 預覽",
+    "meta": "睇清楚人哋睇到啲乜",
+    "toast": "預覽緊 {{name}} 睇到嘅嘢"
+  },
+  "emergency": {
+    "title": "🏥 緊急情況下",
+    "meta": "10 月 1 日同意",
+    "text": "如果你要叫救護車，醫院會收到你嘅病況、藥物同過敏資料，等佢哋可以快啲幫你。唔會有其他嘢，亦只限嗰次求診。",
+    "agreement": [
+      "睇協議",
+      "你嘅緊急協議已經喺你部電話度顯示",
+      "已打開"
+    ],
+    "contacts": [
+      "緊急聯絡人",
+      "緊急聯絡人：David 同 James",
+      "已確認"
+    ],
+    "clinician": "臨床人員只可以睇到已同意同醫院分享資料嘅具名病人。"
+  },
+  "audit": {
+    "title": "🧾 你做過嘅改動",
+    "meta": "最新嘅喺最上面",
+    "empty": "暫時未有改動",
+    "label": "審計記錄"
+  },
+  "categories": {
+    "safety": {
+      "name": "安全警報",
+      "detail": "跌倒、緊急情況、酷熱警告"
+    },
+    "checkin": {
+      "name": "「我冇事」報平安",
+      "detail": "佢有冇應、係咪安好"
+    },
+    "heart": {
+      "name": "心臟、血壓、身體",
+      "detail": "心率、血壓、體重"
+    },
+    "sleep": {
+      "name": "睡眠",
+      "detail": "瞓咗幾耐、瞓得好唔好"
+    },
+    "activity": {
+      "name": "活動同步數",
+      "detail": "步數、行路、平衡"
+    },
+    "mood": {
+      "name": "心情同感受",
+      "detail": "佢自己話覺得點"
+    },
+    "meds": {
+      "name": "食藥",
+      "detail": "食咗定漏咗"
+    },
+    "speech": {
+      "name": "聽力同說話",
+      "detail": "嚟自佢每日傾偈"
+    },
+    "home": {
+      "name": "家居感應器",
+      "detail": "溫度、2 間房嘅活動"
+    },
+    "records": {
+      "name": "健康記錄",
+      "detail": "病況、檢查、求診"
+    },
+    "location": {
+      "name": "喺屋企定出咗街",
+      "detail": "永遠唔會有地址或者地圖"
+    }
+  },
+  "switchLabel": "同 {{name}} 分享{{category}}",
+  "shareOn": "而家同 {{name}} 分享緊{{category}}",
+  "shareOff": "已停止同 {{name}} 分享{{category}}",
+  "paused": "分享暫停到聽朝 9 點 · 安全警報照開",
+  "resumed": "已恢復分享",
+  "presetDone": {
+    "safety": "家人而家淨係睇到安全警報",
+    "all": "家人而家睇到全部",
+    "family": "家人睇到大部分嘢，唔包你嘅心情"
+  },
+  "seeWhat": "睇下 {{name}} 睇到乜",
+  "seeWhatCount": "睇下 {{name}} 睇到乜 · {{total}} 項中嘅 {{n}} 項"
+}

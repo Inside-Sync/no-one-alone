@@ -2,6 +2,7 @@ import { GlassCard } from '@/components/ui/GlassCard'
 import { Slider } from '@/components/ui/Slider'
 import { Switch } from '@/components/ui/Switch'
 import { useTranslation } from 'react-i18next'
+import { intlLocale } from '@/i18n'
 import type { Forecast } from '@/data/types'
 import { deltaLabel, simulateRisk, type SimInput } from '@/domain/riskSim'
 import { Head } from '../home/parts'
@@ -12,7 +13,7 @@ const toneColour = { good: 'var(--good-text)', bad: 'var(--bad-text)', muted: 'v
 export function SimCard({ sim, value, onChange }: { sim: Forecast['sim']; value: SimInput; onChange: (next: SimInput) => void }) {
   const { t, i18n } = useTranslation('forecast')
   const cells = t('sim.cells', { returnObjects: true }) as { key: 'stroke' | 'fall' | 'admission' | 'mci'; label: string }[]
-  const numLocale = i18n.resolvedLanguage === 'vi' ? 'vi-VN' : 'en-US'
+  const numLocale = intlLocale(i18n.resolvedLanguage)
   const [adh, steps, salt] = sim.sliders
   const r = simulateRisk(value)
   const sliderProps = (s: typeof adh, key: 'adherence' | 'steps' | 'salt', text: string) => ({

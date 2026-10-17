@@ -1,0 +1,855 @@
+{
+  "community": {
+    "context": {
+      "initials": "IW",
+      "color": "#6d4fc0",
+      "sub": "Inner West社區健康服務 · 15個區 · 1,846位長者已登記",
+      "facts": [
+        {
+          "live": true,
+          "label": "已同步",
+          "value": "15:00"
+        },
+        {
+          "live": false,
+          "label": "少過10人嘅組別",
+          "value": "已隱藏"
+        },
+        {
+          "live": false,
+          "label": "熱浪",
+          "value": "星期四"
+        },
+        {
+          "live": false,
+          "label": "今日當值義工",
+          "value": "23"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "label": "已登記長者",
+        "value": "1,846",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "15個區",
+        "delta": "+64 /月",
+        "tone": "good",
+        "spark": [
+          1600,
+          1640,
+          1680,
+          1710,
+          1740,
+          1770,
+          1800,
+          1825,
+          1846
+        ]
+      },
+      {
+        "label": "獨居",
+        "value": "38",
+        "unit": "%",
+        "color": "#2f6fb0",
+        "baseline": "703人",
+        "delta": "+1個百分點",
+        "tone": "good",
+        "spark": [
+          36,
+          36,
+          37,
+          37,
+          37,
+          38,
+          38,
+          38,
+          38
+        ]
+      },
+      {
+        "label": "高風險",
+        "value": "212",
+        "unit": "人",
+        "color": "#d9443f",
+        "baseline": "佔登記人數11.5%",
+        "delta": "+6 /月",
+        "tone": "warn",
+        "spark": [
+          180,
+          186,
+          190,
+          195,
+          199,
+          204,
+          206,
+          209,
+          212
+        ]
+      },
+      {
+        "label": "有回應問候",
+        "value": "92.7",
+        "unit": "% 今日",
+        "color": "#1fb39c",
+        "baseline": "1,846人之中1,712人",
+        "delta": "−0.4個百分點",
+        "tone": "good",
+        "spark": [
+          94,
+          93,
+          94,
+          93,
+          92,
+          93,
+          94,
+          93,
+          92.7
+        ]
+      },
+      {
+        "label": "警報到上門",
+        "value": "8.6",
+        "unit": "分鐘中位數",
+        "color": "#0b7f71",
+        "baseline": "p90 14.2分鐘",
+        "delta": "−0.9分鐘",
+        "tone": "good",
+        "spark": [
+          10.2,
+          9.8,
+          9.6,
+          9.4,
+          9.1,
+          9,
+          8.9,
+          8.7,
+          8.6
+        ]
+      },
+      {
+        "label": "活躍義工",
+        "value": "64",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "每人每週探訪2.3次",
+        "delta": "+5 /月",
+        "tone": "good",
+        "spark": [
+          48,
+          50,
+          53,
+          55,
+          57,
+          59,
+          61,
+          62,
+          64
+        ]
+      },
+      {
+        "label": "本週警報",
+        "value": "37",
+        "unit": "",
+        "color": "#ef4e4a",
+        "baseline": "8宗已上報",
+        "delta": "−4 /週",
+        "tone": "good",
+        "spark": [
+          44,
+          41,
+          39,
+          42,
+          40,
+          38,
+          41,
+          39,
+          37
+        ]
+      },
+      {
+        "label": "已過濾假警報",
+        "value": "78",
+        "unit": "%",
+        "color": "#1fb39c",
+        "baseline": "37宗之中29宗",
+        "delta": "+3個百分點",
+        "tone": "good",
+        "spark": [
+          70,
+          71,
+          73,
+          74,
+          75,
+          76,
+          77,
+          77,
+          78
+        ]
+      },
+      {
+        "label": "本週欠缺探訪",
+        "value": "180",
+        "unit": "次探訪",
+        "color": "#d9443f",
+        "baseline": "Tempe, Sydenham, St Peters",
+        "delta": "+8 /週",
+        "tone": "warn",
+        "spark": [
+          38,
+          42,
+          40,
+          45,
+          48,
+          50,
+          52,
+          55,
+          180
+        ]
+      },
+      {
+        "label": "語音支援語言",
+        "value": "7",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "+2種測試中",
+        "delta": "+1 /季",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          5,
+          5,
+          5,
+          6,
+          6,
+          7,
+          7
+        ]
+      },
+      {
+        "label": "冷氣房位",
+        "value": "260",
+        "unit": "星期四",
+        "color": "#e07a3f",
+        "baseline": "3個地點 · 尚餘137個",
+        "delta": "新",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          120,
+          200,
+          200,
+          260,
+          260
+        ]
+      },
+      {
+        "label": "星期四急症室預測",
+        "value": "34",
+        "unit": "75歲以上",
+        "color": "#d9443f",
+        "baseline": "舒適線28",
+        "delta": "比星期三+13",
+        "tone": "warn",
+        "spark": [
+          21,
+          22,
+          20,
+          23,
+          21,
+          22,
+          21,
+          25,
+          34
+        ]
+      }
+    ],
+    "suburbs": [
+      {
+        "name": "Marrickville",
+        "col": 2,
+        "row": 1,
+        "enrolled": 312,
+        "alonePct": 41,
+        "highRisk": 38,
+        "heat": 0.82,
+        "volunteers": 9,
+        "language": "希臘語"
+      },
+      {
+        "name": "Dulwich Hill",
+        "col": 1,
+        "row": 1,
+        "enrolled": 198,
+        "alonePct": 36,
+        "highRisk": 22,
+        "heat": 0.64,
+        "volunteers": 6,
+        "language": "希臘語"
+      },
+      {
+        "name": "Petersham",
+        "col": 2,
+        "row": 2,
+        "enrolled": 121,
+        "alonePct": 39,
+        "highRisk": 14,
+        "heat": 0.58,
+        "volunteers": 4,
+        "language": "葡萄牙語"
+      },
+      {
+        "name": "Stanmore",
+        "col": 3,
+        "row": 2,
+        "enrolled": 96,
+        "alonePct": 33,
+        "highRisk": 9,
+        "heat": 0.44,
+        "volunteers": 5,
+        "language": "英語"
+      },
+      {
+        "name": "Enmore",
+        "col": 3,
+        "row": 1,
+        "enrolled": 84,
+        "alonePct": 44,
+        "highRisk": 12,
+        "heat": 0.72,
+        "volunteers": 3,
+        "language": "英語"
+      },
+      {
+        "name": "Newtown",
+        "col": 4,
+        "row": 1,
+        "enrolled": 143,
+        "alonePct": 47,
+        "highRisk": 17,
+        "heat": 0.69,
+        "volunteers": 7,
+        "language": "英語"
+      },
+      {
+        "name": "Lewisham",
+        "col": 1,
+        "row": 2,
+        "enrolled": 77,
+        "alonePct": 35,
+        "highRisk": 8,
+        "heat": 0.51,
+        "volunteers": 2,
+        "language": "阿拉伯語"
+      },
+      {
+        "name": "Summer Hill",
+        "col": 0,
+        "row": 3,
+        "enrolled": 110,
+        "alonePct": 31,
+        "highRisk": 10,
+        "heat": 0.4,
+        "volunteers": 6,
+        "language": "意大利語"
+      },
+      {
+        "name": "Ashfield",
+        "col": 0,
+        "row": 2,
+        "enrolled": 264,
+        "alonePct": 37,
+        "highRisk": 31,
+        "heat": 0.77,
+        "volunteers": 8,
+        "language": "普通話"
+      },
+      {
+        "name": "Leichhardt",
+        "col": 2,
+        "row": 3,
+        "enrolled": 156,
+        "alonePct": 34,
+        "highRisk": 13,
+        "heat": 0.38,
+        "volunteers": 7,
+        "language": "意大利語"
+      },
+      {
+        "name": "Annandale",
+        "col": 3,
+        "row": 3,
+        "enrolled": 72,
+        "alonePct": 30,
+        "highRisk": 6,
+        "heat": 0.33,
+        "volunteers": 4,
+        "language": "英語"
+      },
+      {
+        "name": "Tempe",
+        "col": 2,
+        "row": 0,
+        "enrolled": 58,
+        "alonePct": 42,
+        "highRisk": 9,
+        "heat": 0.86,
+        "volunteers": 1,
+        "language": "越南語"
+      },
+      {
+        "name": "St Peters",
+        "col": 4,
+        "row": 0,
+        "enrolled": 49,
+        "alonePct": 39,
+        "highRisk": 7,
+        "heat": 0.79,
+        "volunteers": 1,
+        "language": "越南語"
+      },
+      {
+        "name": "Sydenham",
+        "col": 3,
+        "row": 0,
+        "enrolled": 31,
+        "alonePct": 45,
+        "highRisk": 6,
+        "heat": 0.83,
+        "volunteers": 0,
+        "language": "葡萄牙語"
+      },
+      {
+        "name": "Camperdown",
+        "col": 4,
+        "row": 2,
+        "enrolled": 75,
+        "alonePct": 40,
+        "highRisk": 10,
+        "heat": 0.55,
+        "volunteers": 1,
+        "language": "英語"
+      }
+    ],
+    "districtKicker": "Inner West · 15個區",
+    "heatwave": {
+      "pill": "星期四 38 °C",
+      "temps": [
+        {
+          "day": "週三",
+          "value": 33
+        },
+        {
+          "day": "週四",
+          "value": 38
+        },
+        {
+          "day": "週五",
+          "value": 36
+        },
+        {
+          "day": "週六",
+          "value": 26
+        },
+        {
+          "day": "週日",
+          "value": 24
+        },
+        {
+          "day": "週一",
+          "value": 23
+        },
+        {
+          "day": "週二",
+          "value": 25
+        }
+      ],
+      "tempsThreshold": {
+        "value": 35,
+        "label": "熱浪 35°",
+        "max": 40,
+        "unit": "°"
+      },
+      "stats": [
+        {
+          "label": "額外問候",
+          "value": "318",
+          "note": "星期四 11:00–15:00"
+        },
+        {
+          "label": "冇冷氣",
+          "value": "127",
+          "note": "優先",
+          "tone": "bad"
+        },
+        {
+          "label": "提供接送",
+          "value": "14",
+          "note": "義工司機"
+        }
+      ],
+      "coolRooms": [
+        {
+          "name": "Marrickville圖書館冷氣房",
+          "detail": "120個位 · 09:00–20:00",
+          "left": "尚餘74個",
+          "tone": "good"
+        },
+        {
+          "name": "Ashfield市政中心",
+          "detail": "80個位 · 10:00–18:00",
+          "left": "尚餘22個",
+          "tone": "warn"
+        },
+        {
+          "name": "Newtown鄰里中心",
+          "detail": "60個位 · 10:00–17:00",
+          "left": "尚餘41個",
+          "tone": "good"
+        }
+      ],
+      "scheduleToast": "已為星期四安排318次額外問候"
+    },
+    "visits": [
+      {
+        "name": "Margaret C.",
+        "age": 78,
+        "suburb": "Marrickville",
+        "risk": "高",
+        "tone": "bad",
+        "reason": "血壓上升，漏食藥",
+        "language": "英語",
+        "nearestHelp": "David · 450 m"
+      },
+      {
+        "name": "Eleni P.",
+        "age": 84,
+        "suburb": "Marrickville",
+        "risk": "高",
+        "tone": "bad",
+        "reason": "心臟衰竭：72小時內 +2.1 kg",
+        "language": "希臘語",
+        "nearestHelp": "義工Tom · 1.2 km"
+      },
+      {
+        "name": "Nguyen Van T.",
+        "age": 81,
+        "suburb": "Tempe",
+        "risk": "高",
+        "tone": "bad",
+        "reason": "炎熱：冇冷氣，室內33 °C",
+        "language": "越南語",
+        "nearestHelp": "冇 · 有缺口"
+      },
+      {
+        "name": "Maria S.",
+        "age": 86,
+        "suburb": "Petersham",
+        "risk": "高",
+        "tone": "bad",
+        "reason": "30日內跌倒2次",
+        "language": "葡萄牙語",
+        "nearestHelp": "女兒 · 15分鐘"
+      },
+      {
+        "name": "Fatima A.",
+        "age": 79,
+        "suburb": "Lewisham",
+        "risk": "中",
+        "tone": "warn",
+        "reason": "聽力退化，3次冇回應問候",
+        "language": "阿拉伯語",
+        "nearestHelp": "義工Aisha"
+      },
+      {
+        "name": "Giuseppe R.",
+        "age": 88,
+        "suburb": "Leichhardt",
+        "risk": "中",
+        "tone": "warn",
+        "reason": "夜間遊走 ×2",
+        "language": "意大利語",
+        "nearestHelp": "兒子 · 8分鐘"
+      },
+      {
+        "name": "Wei L.",
+        "age": 77,
+        "suburb": "Ashfield",
+        "risk": "中",
+        "tone": "warn",
+        "reason": "情緒低落3個星期",
+        "language": "普通話",
+        "nearestHelp": "義工Jun"
+      },
+      {
+        "name": "Peter H.",
+        "age": 80,
+        "suburb": "Newtown",
+        "risk": "留意",
+        "tone": "plain",
+        "reason": "新安眠藥",
+        "language": "英語",
+        "nearestHelp": "鄰居 · 2分鐘"
+      }
+    ],
+    "funnel": [
+      {
+        "label": "收到警報",
+        "value": 37,
+        "color": "#5a7fe0"
+      },
+      {
+        "label": "助手已核實",
+        "value": 37,
+        "color": "#2f6fb0"
+      },
+      {
+        "label": "已過濾假警報",
+        "value": 29,
+        "color": "#1fb39c"
+      },
+      {
+        "label": "轉交真人跟進",
+        "value": 8,
+        "color": "#c88a05"
+      },
+      {
+        "label": "有人上門",
+        "value": 8,
+        "color": "#e07a3f"
+      },
+      {
+        "label": "已召救護車",
+        "value": 3,
+        "color": "#d9443f"
+      },
+      {
+        "label": "到院前資料包",
+        "value": 3,
+        "color": "#8f6fd0"
+      }
+    ],
+    "funnelMinis": [
+      {
+        "label": "核實",
+        "value": "44秒",
+        "note": "中位數"
+      },
+      {
+        "label": "接單",
+        "value": "1:12",
+        "note": "中位數"
+      },
+      {
+        "label": "到門口",
+        "value": "8.6′",
+        "note": "中位數"
+      }
+    ],
+    "capacity": [
+      {
+        "name": "Marrickville",
+        "need": 76,
+        "capacity": 36
+      },
+      {
+        "name": "Ashfield",
+        "need": 62,
+        "capacity": 32
+      },
+      {
+        "name": "Dulwich Hill",
+        "need": 44,
+        "capacity": 24
+      },
+      {
+        "name": "Camperdown",
+        "need": 20,
+        "capacity": 4
+      },
+      {
+        "name": "Tempe",
+        "need": 18,
+        "capacity": 4
+      },
+      {
+        "name": "Petersham",
+        "need": 28,
+        "capacity": 16
+      },
+      {
+        "name": "Enmore",
+        "need": 24,
+        "capacity": 12
+      },
+      {
+        "name": "Sydenham",
+        "need": 12,
+        "capacity": 0
+      },
+      {
+        "name": "St Peters",
+        "need": 14,
+        "capacity": 4
+      }
+    ],
+    "edForecast": {
+      "meta": "75歲以上求診人次，Camperdown急症室",
+      "values": [
+        {
+          "day": "週三",
+          "value": 21
+        },
+        {
+          "day": "週四",
+          "value": 34
+        },
+        {
+          "day": "週五",
+          "value": 31
+        },
+        {
+          "day": "週六",
+          "value": 25
+        },
+        {
+          "day": "週日",
+          "value": 22
+        },
+        {
+          "day": "週一",
+          "value": 20
+        },
+        {
+          "day": "週二",
+          "value": 21
+        }
+      ],
+      "threshold": {
+        "value": 29,
+        "label": "舒適線28",
+        "max": 36,
+        "unit": ""
+      },
+      "note": "根據酷熱指數、星期幾同過去90日數據預測。預計星期四會超出28人舒適線6人。"
+    },
+    "languages": [
+      {
+        "name": "英語",
+        "percent": 42,
+        "support": "Full"
+      },
+      {
+        "name": "希臘語",
+        "percent": 13,
+        "support": "Full"
+      },
+      {
+        "name": "越南語",
+        "percent": 9,
+        "support": "Full"
+      },
+      {
+        "name": "普通話",
+        "percent": 8,
+        "support": "Full"
+      },
+      {
+        "name": "意大利語",
+        "percent": 7,
+        "support": "Full"
+      },
+      {
+        "name": "葡萄牙語",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "阿拉伯語",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "其他",
+        "percent": 9,
+        "support": "Interpreter"
+      }
+    ],
+    "programs": [
+      {
+        "program": "步行小組（3個公園）",
+        "regulars": 42,
+        "attendance": "78% (+18%)",
+        "outcome": "步速 +0.04 m/s"
+      },
+      {
+        "program": "星期五社交午餐",
+        "regulars": 65,
+        "attendance": "81%",
+        "outcome": "孤獨感分數 −0.6（UCLA-3）"
+      },
+      {
+        "program": "肌力同平衡班",
+        "regulars": 28,
+        "attendance": "72%",
+        "outcome": "跌倒受傷 −12%"
+      },
+      {
+        "program": "圖書館科技支援",
+        "regulars": 31,
+        "attendance": "64%",
+        "outcome": "同家人視像通話每週2.1次"
+      },
+      {
+        "program": "男士工作坊（Men's Shed）",
+        "regulars": 19,
+        "attendance": "70%",
+        "outcome": "情緒低落提示 −30%"
+      },
+      {
+        "program": "冷氣房穿梭車",
+        "regulars": 14,
+        "attendance": "司機",
+        "outcome": "上個夏天因熱求診急症室 −9%"
+      }
+    ],
+    "watchSummary": [
+      {
+        "icon": "shield",
+        "tone": "bad",
+        "title": "上門「太陽能回贈」騙案",
+        "detail": "Marrickville、Dulwich Hill · 14宗舉報 · 已用語音提醒1,240位居民",
+        "pill": {
+          "tone": "bad",
+          "text": "進行中"
+        }
+      },
+      {
+        "icon": "sun",
+        "tone": "warn",
+        "title": "星期四至五熱浪",
+        "detail": "318次額外問候 · 127人冇冷氣",
+        "pill": {
+          "tone": "warn",
+          "text": "已計劃"
+        }
+      },
+      {
+        "icon": "target",
+        "tone": "warn",
+        "title": "行人路工程 · Marrickville Rd",
+        "detail": "行呢條路嘅46位居民有絆倒危險",
+        "pill": {
+          "tone": "warn",
+          "text": "至10月24日"
+        }
+      }
+    ],
+    "footnote": "社區健康職員可以睇到自己區內登記人士嘅名。市議會同州政府視圖係彙總兼去識別化，少過10人嘅組別會隱藏。所有人物同數字都係虛構。"
+  }
+}

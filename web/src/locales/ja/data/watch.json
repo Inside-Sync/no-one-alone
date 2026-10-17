@@ -1,0 +1,311 @@
+{
+  "watch": {
+    "kpis": [
+      {
+        "label": "対応中の報告",
+        "value": "23",
+        "unit": "",
+        "color": "#6d4fc0",
+        "baseline": "8カテゴリー",
+        "delta": "+5/週",
+        "tone": "good",
+        "spark": [
+          14,
+          16,
+          15,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      {
+        "label": "詐欺の接触",
+        "value": "37",
+        "unit": "今週",
+        "color": "#d9443f",
+        "baseline": "訪問14件",
+        "delta": "+11",
+        "tone": "warn",
+        "spark": [
+          18,
+          20,
+          22,
+          21,
+          25,
+          26,
+          30,
+          26,
+          37
+        ]
+      },
+      {
+        "label": "音声で注意喚起した住民",
+        "value": "1,240",
+        "unit": "",
+        "color": "#1f8f5f",
+        "baseline": "中央値2.4時間以内",
+        "delta": "",
+        "tone": "good",
+        "spark": [
+          300,
+          450,
+          600,
+          700,
+          820,
+          950,
+          1050,
+          1150,
+          1240
+        ]
+      },
+      {
+        "label": "自治体に報告した危険箇所",
+        "value": "9",
+        "unit": "今月",
+        "color": "#c88a05",
+        "baseline": "4件修理済み",
+        "delta": "",
+        "tone": "good",
+        "spark": [
+          2,
+          3,
+          4,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "label": "ボランティア募集",
+        "value": "12",
+        "unit": "受付中",
+        "color": "#6d4fc0",
+        "baseline": "暑さ関連6件",
+        "delta": "+6",
+        "tone": "warn",
+        "spark": [
+          4,
+          5,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12
+        ]
+      },
+      {
+        "label": "設置したキーボックス",
+        "value": "38",
+        "unit": "今年",
+        "color": "#2f6fb0",
+        "baseline": "救急隊の入室用",
+        "delta": "+4/月",
+        "tone": "good",
+        "spark": [
+          10,
+          14,
+          18,
+          22,
+          26,
+          30,
+          33,
+          36,
+          38
+        ]
+      }
+    ],
+    "reports": [
+      {
+        "title": "「太陽光発電の還付金」訪問詐欺",
+        "suburbs": "Marrickville, Dulwich Hill",
+        "type": "詐欺",
+        "typeTone": "bad",
+        "affected": "1,240人に注意喚起",
+        "since": "3日前",
+        "status": "発生中"
+      },
+      {
+        "title": "「孫がトラブルに」電話詐欺",
+        "suburbs": "15地区すべて",
+        "type": "詐欺",
+        "typeTone": "bad",
+        "affected": "1,846人に注意喚起",
+        "since": "2週間前",
+        "status": "発生中"
+      },
+      {
+        "title": "木曜〜金曜の熱波",
+        "suburbs": "全域",
+        "type": "天気",
+        "typeTone": "warn",
+        "affected": "見守り連絡318件追加",
+        "since": "今日",
+        "status": "計画済み"
+      },
+      {
+        "title": "歩道工事、Marrickville Rd",
+        "suburbs": "Marrickville",
+        "type": "危険箇所",
+        "typeTone": "warn",
+        "affected": "歩行者46人",
+        "since": "10月6日",
+        "status": "10月24日まで"
+      },
+      {
+        "title": "街灯の故障、Calvert St",
+        "suburbs": "Marrickville",
+        "type": "危険箇所",
+        "typeTone": "warn",
+        "affected": "住民12人",
+        "since": "日曜日",
+        "status": "報告済み"
+      },
+      {
+        "title": "カササギの急降下",
+        "suburbs": "公園3か所",
+        "type": "野生動物",
+        "typeTone": "plain",
+        "affected": "歩行者61人",
+        "since": "9月",
+        "status": "季節性"
+      },
+      {
+        "title": "今週末は電車運休",
+        "suburbs": "Marrickville, Sydenham, Dulwich Hill",
+        "type": "交通",
+        "typeTone": "plain",
+        "affected": "定期利用者214人",
+        "since": "土〜日",
+        "status": "計画済み"
+      },
+      {
+        "title": "暑さによる停電のおそれ",
+        "suburbs": "Tempe, St Peters",
+        "type": "ライフライン",
+        "typeTone": "warn",
+        "affected": "住民58人",
+        "since": "木曜日",
+        "status": "監視中"
+      }
+    ],
+    "scams": [
+      [
+        10,
+        3,
+        5
+      ],
+      [
+        12,
+        2,
+        6
+      ],
+      [
+        11,
+        4,
+        7
+      ],
+      [
+        9,
+        5,
+        7
+      ],
+      [
+        13,
+        4,
+        8
+      ],
+      [
+        12,
+        6,
+        8
+      ],
+      [
+        14,
+        8,
+        8
+      ],
+      [
+        13,
+        14,
+        10
+      ]
+    ],
+    "scamLabels": {
+      "phone": "電話",
+      "door": "訪問",
+      "text": "SMS / メール"
+    },
+    "feed": [
+      {
+        "source": "安全 · 地元警察",
+        "age": "5時間",
+        "headline": "Marrickvilleで高齢住民を狙う訪問詐欺",
+        "body": "エージェントが登録住民1,240人に、2.4時間以内にそれぞれの言語で音声で注意喚起しました。"
+      },
+      {
+        "source": "健康 · 州保健局",
+        "age": "2時間",
+        "headline": "木曜〜金曜の暑さに関する健康警報",
+        "body": "318人の見守り連絡を予約。エアコンのない127人をクールルームに優先案内。"
+      },
+      {
+        "source": "交通 · 交通情報",
+        "age": "1日",
+        "headline": "今週末の駅閉鎖",
+        "body": "定期利用者214人を特定。うち通院予定のある19人にボランティアの送迎を提案しました。"
+      },
+      {
+        "source": "地域 · 自治体",
+        "age": "1日",
+        "headline": "シニアフェスティバル週間、10月20日〜25日",
+        "body": "人との交流がいつもより少ない住民412人に招待状を送りました。"
+      },
+      {
+        "source": "ライフライン · 電力網",
+        "age": "1日",
+        "headline": "木曜日午後に電力需要の増加が見込まれます",
+        "body": "冷蔵保存の薬を使うTempeとSt Petersの住民58人を、停電時の電話対象として登録しました。"
+      }
+    ],
+    "callouts": [
+      {
+        "title": "クールルームへの送迎",
+        "detail": "Nguyen Van T.、Tempe · 木 11:00 · ベトナム語話者が望ましい",
+        "button": "引き受ける"
+      },
+      {
+        "title": "キーボックスの設置",
+        "detail": "Margaret C.、Marrickville · 10月18日まで",
+        "button": "引き受ける"
+      },
+      {
+        "title": "ゴミ出しの手伝い",
+        "detail": "Margaret C. · 火 19:00 Aishaさんの不在中",
+        "button": "引き受ける"
+      },
+      {
+        "title": "扇風機の配達",
+        "detail": "TempeとSydenhamの9世帯 · 水曜午後",
+        "button": "引き受ける"
+      },
+      {
+        "title": "買い物の配達",
+        "detail": "Eleni P.、Marrickville · ギリシャ語話者が望ましい",
+        "button": "引き受ける"
+      },
+      {
+        "title": "電話ボランティア",
+        "detail": "Fatima A.、Lewisham · アラビア語 · 週2回の電話",
+        "button": "引き受ける"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1055 @@
+{
+  "surroundings": {
+    "homeMap": {
+      "kicker": "📍 Margaret住喺邊",
+      "title": "Marrickville, Sydney",
+      "detail": "Inner West · 市中心西南面5.8 km · −33.911, 151.155",
+      "lat": -33.911,
+      "lng": 151.155,
+      "address": "186 Marrickville Rd, Marrickville NSW 2204",
+      "legend": [
+        {
+          "color": "#14a08c",
+          "label": "Margaret屋企"
+        },
+        {
+          "color": "#2f6fb0",
+          "label": "附近家人"
+        },
+        {
+          "color": "#ffffff",
+          "label": "醫療服務",
+          "ring": true
+        },
+        {
+          "color": "#8f6fd0",
+          "label": "社區"
+        },
+        {
+          "color": "#9b7fd4",
+          "label": "藍花楹開緊花",
+          "round": true
+        }
+      ],
+      "chips": [
+        {
+          "icon": "people",
+          "text": "David · 450 m · 行6分鐘"
+        },
+        {
+          "icon": "clinic",
+          "text": "家庭醫生 · 350 m"
+        },
+        {
+          "icon": "pill",
+          "text": "藥房 · 280 m"
+        },
+        {
+          "icon": "hospital",
+          "text": "中風中心 · 4.2 km · 11分鐘"
+        },
+        {
+          "icon": "siren",
+          "text": "救護車中位數9.4分鐘（2204）"
+        },
+        {
+          "icon": "sun",
+          "text": "星期四 38 °C"
+        }
+      ],
+      "ariaLabel": "Margaret喺Marrickville附近街道嘅3D模型：佢屋企喺Marrickville Road，佢細佬David住喺西面450米，附近有家庭醫生同藥房，仲有圖書館冷氣房、公園步行小組，南面係Cooks River",
+      "pins": [
+        {
+          "name": "Margaret屋企",
+          "sub": "屋企",
+          "color": "#14a08c",
+          "initials": "M",
+          "big": true,
+          "kind": "home",
+          "geo": {
+            "lat": -33.911,
+            "lng": 151.155
+          }
+        },
+        {
+          "name": "David（細佬）",
+          "sub": "",
+          "detail": "450 m · 行6分鐘",
+          "color": "#2f6fb0",
+          "initials": "D",
+          "phase": 0.3,
+          "kind": "family",
+          "geo": {
+            "lat": -33.913964,
+            "lng": 151.151753
+          }
+        },
+        {
+          "name": "家庭醫生",
+          "sub": "",
+          "detail": "Illawarra Rd Family Practice · Dr Patel · 350 m",
+          "color": "#ffffff",
+          "ink": "#0b7f71",
+          "initials": "+",
+          "phase": 0.5,
+          "at": {
+            "x": 162,
+            "y": 132,
+            "z": 12
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908548,
+            "lng": 151.153182
+          }
+        },
+        {
+          "name": "藥房",
+          "sub": "",
+          "detail": "280 m · 開到21:00",
+          "color": "#ffffff",
+          "ink": "#1fb39c",
+          "initials": "Rx",
+          "phase": 0.7,
+          "at": {
+            "x": 127,
+            "y": 133,
+            "z": 9
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908579,
+            "lng": 151.151856
+          }
+        },
+        {
+          "name": "圖書館冷氣房",
+          "sub": "",
+          "detail": "400 m · 120個位",
+          "color": "#8f6fd0",
+          "initials": "L",
+          "phase": 0.1,
+          "at": {
+            "x": 305,
+            "y": 301,
+            "z": 21
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.913861,
+            "lng": 151.158598
+          }
+        },
+        {
+          "name": "步行小組",
+          "sub": "",
+          "detail": "星期四 9:00 · Calvert Reserve",
+          "color": "#8f6fd0",
+          "initials": "W",
+          "phase": 0.6,
+          "at": {
+            "x": 329,
+            "y": 211,
+            "z": 2
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.911031,
+            "lng": 151.159508
+          }
+        },
+        {
+          "name": "→ 中風中心 4.2 km",
+          "sub": "",
+          "detail": "Camperdown Stroke Centre · 東北面 · 救護車11分鐘",
+          "color": "#ef4e4a",
+          "initials": "",
+          "tag": true,
+          "at": {
+            "x": 398,
+            "y": 398,
+            "z": 2
+          }
+        }
+      ],
+      "walkRing": {
+        "label": "步行5分鐘",
+        "radius": 118
+      },
+      "labels": [
+        {
+          "text": "Marrickville Rd",
+          "x": 345,
+          "y": 150,
+          "bold": true
+        },
+        {
+          "text": "Illawarra Rd",
+          "x": 110,
+          "y": 384,
+          "bold": true
+        },
+        {
+          "text": "Calvert St",
+          "x": 52,
+          "y": 270
+        },
+        {
+          "text": "Victoria Rd",
+          "x": 250,
+          "y": 305
+        },
+        {
+          "text": "Cooks River",
+          "x": 300,
+          "y": 12
+        },
+        {
+          "text": "Calvert Reserve",
+          "x": 329,
+          "y": 240
+        },
+        {
+          "text": "Marrickville站",
+          "x": 220,
+          "y": 345
+        }
+      ]
+    },
+    "watchMap": {
+      "kicker": "👀 鄰里守望",
+      "title": "Margaret屋企附近",
+      "detail": "獨居要留意嘅嘢 · 1 km範圍內有8項",
+      "ariaLabel": "Margaret附近街道嘅3D地圖，附鄰里提示：行人路工程、有人舉報騙案、街燈壞咗、喜鵲啄人、有人見到蛇，仲有防暑冷氣房",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "要處理"
+        },
+        {
+          "color": "#c88a05",
+          "label": "要留意"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "有用"
+        }
+      ],
+      "ring": {
+        "label": "守望範圍",
+        "radius": 150
+      }
+    },
+    "pins": [
+      {
+        "name": "Margaret",
+        "sub": "",
+        "detail": "屋企",
+        "color": "#14a08c",
+        "initials": "M",
+        "big": true,
+        "kind": "home",
+        "geo": {
+          "lat": -33.911,
+          "lng": 151.155
+        }
+      },
+      {
+        "name": "行人路工程",
+        "sub": "",
+        "detail": "藥房門口嘅Marrickville Rd · 路面唔平，至10月24日",
+        "color": "#c88a05",
+        "initials": "!",
+        "phase": 0.2,
+        "at": {
+          "x": 225,
+          "y": 146,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.908988,
+          "lng": 151.155568
+        }
+      },
+      {
+        "name": "有人舉報騙案",
+        "sub": "",
+        "detail": "上門「太陽能回贈」騙案 · 禮拜一至今呢條街有3宗舉報",
+        "color": "#d9443f",
+        "initials": "!",
+        "phase": 0.4,
+        "at": {
+          "x": 70,
+          "y": 205,
+          "z": 8
+        },
+        "kind": "alert",
+        "tone": "act",
+        "geo": {
+          "lat": -33.910843,
+          "lng": 151.149697
+        }
+      },
+      {
+        "name": "街燈壞咗",
+        "sub": "",
+        "detail": "Calvert St由禮拜日開始 · 已報市議會 #IW-48213",
+        "color": "#c88a05",
+        "initials": "☾",
+        "phase": 0.6,
+        "at": {
+          "x": 160,
+          "y": 270,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.912886,
+          "lng": 151.153106
+        }
+      },
+      {
+        "name": "喜鵲啄人",
+        "sub": "",
+        "detail": "Calvert Reserve西面小徑 · 春天築巢季節",
+        "color": "#c88a05",
+        "initials": "M",
+        "phase": 0.8,
+        "at": {
+          "x": 350,
+          "y": 235,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.911786,
+          "lng": 151.160303
+        }
+      },
+      {
+        "name": "有人見到蛇",
+        "sub": "",
+        "detail": "Cooks River小徑 · 行有鋪好嘅路",
+        "color": "#c88a05",
+        "initials": "S",
+        "phase": 0.1,
+        "at": {
+          "x": 60,
+          "y": 36,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.905529,
+          "lng": 151.149318
+        }
+      },
+      {
+        "name": "冷氣房",
+        "sub": "",
+        "detail": "圖書館 · 星期四9點至8點開放 · 尚餘74個位",
+        "color": "#1fb39c",
+        "initials": "L",
+        "phase": 0.5,
+        "at": {
+          "x": 305,
+          "y": 301,
+          "z": 21
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.913861,
+          "lng": 151.158598
+        }
+      },
+      {
+        "name": "疫苗",
+        "sub": "",
+        "detail": "藥房 · 星期四至六流感同新冠疫苗免預約",
+        "color": "#1fb39c",
+        "initials": "+",
+        "phase": 0.7,
+        "at": {
+          "x": 127,
+          "y": 133,
+          "z": 9
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.908579,
+          "lng": 151.151856
+        }
+      }
+    ],
+    "weather": {
+      "heading": "🌤️ Marrickville天氣",
+      "meta": "而家 · 15:10",
+      "temp": "33°",
+      "summary": "天晴，吹熱嘅東北風",
+      "feelsLike": "體感35° · 室內29.5°",
+      "stats": [
+        {
+          "label": "日出",
+          "value": "05:47",
+          "note": "日落19:14"
+        },
+        {
+          "label": "濕度",
+          "value": "41%",
+          "note": "露點18°"
+        },
+        {
+          "label": "氣壓",
+          "value": "1009",
+          "note": "hPa · 下降緊"
+        },
+        {
+          "label": "夜間最低",
+          "value": "24°",
+          "note": "星期四 · 熱夜"
+        },
+        {
+          "label": "火災危險",
+          "value": "高",
+          "note": "星期四至五"
+        },
+        {
+          "label": "能見度",
+          "value": "10 km",
+          "note": "清晰"
+        }
+      ],
+      "note": "星期四同星期五有熱浪。預計星期五傍晚轉吹南風，陣風每小時60公里。"
+    },
+    "week": [
+      {
+        "day": "週三",
+        "icon": "sun",
+        "high": 33,
+        "low": 19,
+        "hot": false
+      },
+      {
+        "day": "週四",
+        "icon": "sun",
+        "high": 38,
+        "low": 24,
+        "hot": true
+      },
+      {
+        "day": "週五",
+        "icon": "wind",
+        "high": 36,
+        "low": 18,
+        "hot": true
+      },
+      {
+        "day": "週六",
+        "icon": "cloud",
+        "high": 26,
+        "low": 16,
+        "hot": false
+      },
+      {
+        "day": "週日",
+        "icon": "cloud",
+        "high": 24,
+        "low": 15,
+        "hot": false
+      },
+      {
+        "day": "週一",
+        "icon": "drop",
+        "high": 23,
+        "low": 14,
+        "hot": false
+      },
+      {
+        "day": "週二",
+        "icon": "sun",
+        "high": 25,
+        "low": 15,
+        "hot": false
+      }
+    ],
+    "kpis": [
+      {
+        "emoji": "🌡️",
+        "label": "氣溫",
+        "value": "33",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "今日最高",
+        "delta": "比正常高6°",
+        "tone": "warn",
+        "spark": [
+          22,
+          24,
+          27,
+          29,
+          31,
+          32,
+          33,
+          33,
+          33
+        ]
+      },
+      {
+        "emoji": "🥵",
+        "label": "體感溫度",
+        "value": "35",
+        "unit": "°C",
+        "color": "#d9443f",
+        "baseline": "空氣潮濕",
+        "delta": "熱",
+        "tone": "warn",
+        "spark": [
+          23,
+          25,
+          28,
+          31,
+          33,
+          34,
+          35,
+          35,
+          35
+        ]
+      },
+      {
+        "emoji": "💨",
+        "label": "風",
+        "value": "22",
+        "unit": "km/h",
+        "color": "#5a7fe0",
+        "baseline": "吹東北風",
+        "delta": "星期五轉涼",
+        "tone": "good",
+        "spark": [
+          8,
+          10,
+          12,
+          15,
+          18,
+          20,
+          22,
+          22,
+          22
+        ]
+      },
+      {
+        "emoji": "🕶️",
+        "label": "太陽猛度",
+        "value": "11",
+        "unit": "UV",
+        "color": "#c2417a",
+        "baseline": "朝早10點至下晝3點半",
+        "delta": "極高：留喺陰涼地方",
+        "tone": "bad",
+        "spark": [
+          1,
+          3,
+          6,
+          9,
+          11,
+          11,
+          10,
+          8,
+          6
+        ]
+      },
+      {
+        "emoji": "🌧️",
+        "label": "落雨",
+        "value": "10",
+        "unit": "% 機會",
+        "color": "#2f6fb0",
+        "baseline": "星期六60%",
+        "delta": "今日乾爽",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          5,
+          5,
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "emoji": "🍃",
+        "label": "空氣質素",
+        "value": "良好",
+        "unit": "",
+        "color": "#1f8f5f",
+        "baseline": "今日空氣清新",
+        "delta": "星期六有煙",
+        "tone": "good",
+        "spark": [
+          28,
+          30,
+          31,
+          33,
+          32,
+          31,
+          32,
+          32,
+          32
+        ]
+      },
+      {
+        "emoji": "🌾",
+        "label": "花粉",
+        "value": "高",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "草花粉",
+        "delta": "噴劑放近身",
+        "tone": "warn",
+        "spark": [
+          3,
+          3,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "emoji": "✈️",
+        "label": "飛機噪音",
+        "value": "68",
+        "unit": "dB",
+        "color": "#56706e",
+        "baseline": "航道下面",
+        "delta": "夜晚11點至朝早6點安靜",
+        "tone": "good",
+        "spark": [
+          50,
+          62,
+          66,
+          68,
+          67,
+          68,
+          66,
+          68,
+          68
+        ]
+      },
+      {
+        "emoji": "🔥",
+        "label": "中暑風險",
+        "value": "中",
+        "unit": "",
+        "color": "#d9443f",
+        "baseline": "星期四高",
+        "delta": "已有計劃",
+        "tone": "warn",
+        "spark": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3
+        ]
+      },
+      {
+        "emoji": "🌅",
+        "label": "日照",
+        "value": "13小時",
+        "unit": "",
+        "color": "#e2a32c",
+        "baseline": "夜晚7:14日落",
+        "delta": "日頭長咗",
+        "tone": "good",
+        "spark": [
+          12.8,
+          12.8,
+          12.9,
+          12.9,
+          12.9,
+          13,
+          13,
+          13,
+          13.03
+        ]
+      },
+      {
+        "emoji": "🌊",
+        "label": "海風",
+        "value": "冇",
+        "unit": "",
+        "color": "#2f6fb0",
+        "baseline": "到星期五",
+        "delta": "夜晚暖",
+        "tone": "warn",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "emoji": "🔌",
+        "label": "停電風險",
+        "value": "低",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "星期四中",
+        "delta": "雪櫃藥物冇問題",
+        "tone": "good",
+        "spark": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    ],
+    "alertsHeading": {
+      "title": "👀 獨居值得知嘅嘢",
+      "meta": "獨居 · 按緊急程度排"
+    },
+    "alerts": [
+      {
+        "severity": "act",
+        "icon": "shield",
+        "title": "佢條街有騙徒拍門",
+        "text": "自稱「太陽能回贈」嘅人，禮拜一至今有3宗舉報。Noa提咗佢唔好同陌生人開門。如果有人令佢擔心，一㩒就可以打畀David。",
+        "source": "警方 + 街坊 · 2日"
+      },
+      {
+        "severity": "act",
+        "icon": "sun",
+        "title": "星期四熱浪，38°",
+        "text": "冇冷氣嘅話預計室內34°。已約好11:00車佢去圖書館冷氣房，12:00同15:00加多兩次問候。",
+        "source": "天文台 · 今日"
+      },
+      {
+        "severity": "aware",
+        "icon": "people",
+        "title": "10月18至25日鎖匙保管人唔喺度",
+        "text": "Aisha唔喺度，所以得David有鎖匙。建議裝個鎖匙盒畀救護員用。",
+        "source": "關懷圈 · 1日"
+      },
+      {
+        "severity": "aware",
+        "icon": "target",
+        "title": "藥房門口行人路工程",
+        "text": "路面唔平，至10月24日。佢散步路線而家改行Calvert St。",
+        "source": "市議會 · 10月6日"
+      },
+      {
+        "severity": "aware",
+        "icon": "moon",
+        "title": "Calvert St街燈壞咗",
+        "text": "已報市議會。夜晚問候提早咗，等佢唔使摸黑行返屋企。",
+        "source": "Noa · 星期日"
+      },
+      {
+        "severity": "aware",
+        "icon": "eye",
+        "title": "Calvert Reserve有喜鵲啄人",
+        "text": "步行小組改咗行東面小徑，直至11月。",
+        "source": "居民 · 9月"
+      },
+      {
+        "severity": "help",
+        "icon": "plus",
+        "title": "免費流感同新冠疫苗",
+        "text": "佢間藥房星期四至六免預約。佢要打新冠加強劑（上一針係7個月前）。",
+        "source": "藥房 · 今日"
+      }
+    ],
+    "newsHeading": {
+      "title": "📰 同佢有關嘅新聞",
+      "meta": "為住喺2204、78歲獨居長者篩選"
+    },
+    "newsCategories": [
+      "All",
+      "Health",
+      "Safety",
+      "Weather",
+      "Community",
+      "Transport"
+    ],
+    "news": [
+      {
+        "category": "Health",
+        "source": "州衛生署",
+        "age": "2小時",
+        "headline": "悉尼星期四同星期五酷熱健康警告",
+        "body": "有心臟病嘅長者要保持涼爽、多飲水，每日同家人報兩次平安。",
+        "shownBecause": "顯示原因：有心臟病、屋企冇冷氣"
+      },
+      {
+        "category": "Safety",
+        "source": "本區警方",
+        "age": "5小時",
+        "headline": "上門太陽能回贈騙案針對長者",
+        "body": "騙徒會問銀行資料話要「預先批核」回贈。警方建議唔好開門。",
+        "shownBecause": "顯示原因：獨居、佢條街有3宗舉報"
+      },
+      {
+        "category": "Weather",
+        "source": "天文台",
+        "age": "6小時",
+        "headline": "星期五傍晚轉吹南風，陣風每小時60公里",
+        "body": "一個鐘內氣溫跌12°。戶外傢俬要綁好。",
+        "shownBecause": "顯示原因：花園傢俬、睡房外有樹"
+      },
+      {
+        "category": "Community",
+        "source": "Inner West市議會",
+        "age": "1日",
+        "headline": "長者節：10月20日（星期二）Marrickville大會堂免費早茶",
+        "body": "有現場音樂、健康檢查，圖書館有車接送。",
+        "shownBecause": "顯示原因：社交接觸少過平時"
+      },
+      {
+        "category": "Transport",
+        "source": "交通消息",
+        "age": "1日",
+        "headline": "今個週末Marrickville冇火車，改由巴士代替",
+        "body": "巴士每10分鐘由Illawarra Rd開出。",
+        "shownBecause": "顯示原因：禮拜日去Sydenham教會"
+      },
+      {
+        "category": "Health",
+        "source": "藥房",
+        "age": "1日",
+        "headline": "流感同新冠疫苗免預約接種",
+        "body": "星期四至星期六，65歲以上唔使預約。",
+        "shownBecause": "顯示原因：要打新冠加強劑"
+      },
+      {
+        "category": "Safety",
+        "source": "市議會",
+        "age": "2日",
+        "headline": "減災燒林星期六可能帶嚟煙霞",
+        "body": "閂好窗，呼吸藥放喺身邊。",
+        "shownBecause": "顯示原因：間中哮喘"
+      },
+      {
+        "category": "Community",
+        "source": "圖書館",
+        "age": "2日",
+        "headline": "星期四冷氣房9點至8點開放，留座畀75歲以上長者",
+        "body": "免費飲水、Wi-Fi，仲有安靜房間可以瞓晏覺。",
+        "shownBecause": "顯示原因：熱浪計劃"
+      }
+    ],
+    "thursday": {
+      "outdoor": [
+        22,
+        24,
+        27,
+        30,
+        33,
+        35,
+        37,
+        38,
+        38,
+        37,
+        36,
+        34,
+        32,
+        30,
+        28,
+        27,
+        26
+      ],
+      "indoor": [
+        26,
+        26.5,
+        27,
+        27.8,
+        28.8,
+        30,
+        31,
+        32,
+        33,
+        33.8,
+        34,
+        33.8,
+        33.2,
+        32.5,
+        31.5,
+        30.8,
+        30
+      ],
+      "coolRoom": {
+        "from": 5,
+        "to": 10,
+        "label": "喺圖書館冷氣房"
+      },
+      "plan": [
+        {
+          "at": 3,
+          "label": "飲水"
+        },
+        {
+          "at": 6,
+          "label": "問候"
+        },
+        {
+          "at": 9,
+          "label": "問候"
+        },
+        {
+          "at": 12,
+          "label": "問候"
+        }
+      ],
+      "legend": [
+        {
+          "color": "#e07a3f",
+          "label": "戶外"
+        },
+        {
+          "color": "#d9443f",
+          "label": "佢屋企入面（冇冷氣）"
+        },
+        {
+          "color": "rgba(143,111,208,.2)",
+          "label": "Noa嘅計劃"
+        }
+      ]
+    },
+    "air": [
+      {
+        "day": "週三",
+        "quality": "良好 · 32",
+        "pm25": "9",
+        "pollen": "高",
+        "smoke": "冇",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "週四",
+        "quality": "一般 · 48",
+        "pm25": "14",
+        "pollen": "高",
+        "smoke": "冇",
+        "advice": "正午留喺室內",
+        "tone": "warn"
+      },
+      {
+        "day": "週五",
+        "quality": "一般 · 51",
+        "pm25": "16",
+        "pollen": "極高",
+        "smoke": "冇",
+        "advice": "轉南風，留意哮喘",
+        "tone": "bad"
+      },
+      {
+        "day": "週六",
+        "quality": "差 · 88",
+        "pm25": "31",
+        "pollen": "中",
+        "smoke": "可能有",
+        "advice": "閂好窗",
+        "tone": "bad"
+      },
+      {
+        "day": "週日",
+        "quality": "一般 · 45",
+        "pm25": "12",
+        "pollen": "中",
+        "smoke": "低",
+        "advice": "—",
+        "tone": "warn"
+      },
+      {
+        "day": "週一",
+        "quality": "良好 · 28",
+        "pm25": "7",
+        "pollen": "低",
+        "smoke": "冇",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "週二",
+        "quality": "良好 · 30",
+        "pm25": "8",
+        "pollen": "中",
+        "smoke": "冇",
+        "advice": "—",
+        "tone": "good"
+      }
+    ],
+    "airNote": "春天草花粉高，悉尼南面嘅減災燒林星期六可能帶嚟煙霞。嗰幾日已經開咗佢嘅噴劑提醒。",
+    "nearby": [
+      {
+        "initials": "W",
+        "color": "#8f6fd0",
+        "name": "步行小組 · Calvert Reserve",
+        "note": "星期四 9:00 · 過去4個禮拜佢嚟咗3次",
+        "pill": {
+          "tone": "good",
+          "text": "會去"
+        }
+      },
+      {
+        "initials": "A",
+        "color": "#c2611f",
+        "name": "Aisha · 鄰居，隔兩間",
+        "note": "已核實義工 · 有鎖匙",
+        "pill": {
+          "tone": "brand",
+          "text": "後備"
+        }
+      },
+      {
+        "initials": "M",
+        "color": "#5a7fe0",
+        "name": "送飯服務",
+        "note": "星期二同五 · 下次星期五11:30",
+        "pill": {
+          "tone": "plain",
+          "text": "已預約"
+        }
+      },
+      {
+        "initials": "L",
+        "color": "#22a593",
+        "name": "圖書館科技支援",
+        "note": "逢星期一10:00 · 同Sarah視像通話",
+        "pill": {
+          "tone": "plain",
+          "text": "自選"
+        }
+      }
+    ]
+  }
+}

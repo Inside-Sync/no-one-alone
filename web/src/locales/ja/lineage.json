@@ -1,0 +1,20 @@
+{
+  "strengthMeta": "ガイドラインに基づく",
+  "screeningHead": [
+    "検査",
+    "間隔",
+    "予定",
+    ""
+  ],
+  "matrix": {
+    "title": "疾患マトリックス",
+    "meta": "発症年齢 · 空欄 = 該当なし または非共有",
+    "person": "人"
+  },
+  "consent": {
+    "title": "共有と同意",
+    "meta": "一人ひとりが決めます",
+    "shares": "{{person}}さんは{{column}}を共有しています"
+  },
+  "requested": "✓ 依頼済み"
+}

@@ -1,0 +1,20 @@
+{
+  "strengthMeta": "基于指南",
+  "screeningHead": [
+    "检查",
+    "间隔",
+    "到期",
+    ""
+  ],
+  "matrix": {
+    "title": "疾病矩阵",
+    "meta": "发病年龄 · 空白 = 未患病或未分享",
+    "person": "人员"
+  },
+  "consent": {
+    "title": "分享与同意",
+    "meta": "每个人自己决定",
+    "shares": "{{person}} 分享{{column}}"
+  },
+  "requested": "✓ 已请求"
+}

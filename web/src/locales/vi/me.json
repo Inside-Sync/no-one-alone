@@ -181,6 +181,18 @@
     "followUps": "Sắp tới",
     "followUp": "{{text}} · {{date}}",
     "notes": "Dặn dò của bác sĩ",
+    "why": {
+      "apixaban": "Ngừa cục máu đông do tim đập không đều. Thay cho aspirin.",
+      "perindopril": "Hạ huyết áp và bảo vệ não.",
+      "atorvastatin": "Hạ mỡ máu. Liều tăng từ 20 mg.",
+      "amlodipine": "Thuốc huyết áp, uống như trước.",
+      "vitaminD": "Tốt cho xương, uống như trước.",
+      "aspirin": "Ngừng uống thuốc này. Giờ đã có apixaban thay thế.",
+      "walk": "Đi bộ nhẹ nhàng giúp não hồi phục và giữ huyết áp thấp.",
+      "bloodPressure": "Ngồi nghỉ 5 phút trước khi đo. Mục tiêu dưới 130/80.",
+      "speech": "Tập các âm mà chuyên viên ngôn ngữ trị liệu đã hướng dẫn.",
+      "water": "Cố gắng uống đủ 1,5 L hôm nay."
+    },
     "taken": "Đã uống",
     "tick": "Xong",
     "idle": "Kế hoạch hồi phục của mạ sẽ hiện ở đây",
@@ -230,6 +242,63 @@
         "7": "Khám bác sĩ gia đình và xem lại huyết áp",
         "14": "Kiểm tra đi lại và nguy cơ té ngã",
         "30": "Một tháng qua thế nào rồi?"
+      }
+    },
+    "self": {
+      "layout": {
+        "label": "Bố cục",
+        "detailed": "📋 Chi tiết",
+        "simple": "🔆 Đơn giản"
+      },
+      "happened": "🌱 Chuyện gì đã xảy ra",
+      "happenedMeta": "Nói cho dễ hiểu",
+      "dayOf": "Ngày {{day}} / 30",
+      "doneToday": "Xong {{done}} / {{total}} việc hôm nay",
+      "nextTitle": "⏰ Nhắc tiếp theo",
+      "allDone": "🎉 Hôm nay xong hết rồi",
+      "tasksTitle": "💊 Thuốc và việc hôm nay",
+      "tasksMeta": "Chạm khi làm xong",
+      "appts": "🗓️ Lịch hẹn",
+      "callsMeta": "Trò chuyện ngắn hỏi thăm mạ",
+      "callToday": "Hôm nay",
+      "logged": "Giỏi lắm 👍 Đã ghi lại.",
+      "fast": {
+        "title": "🚨 Gọi 000 ngay nếu…",
+        "face": "Mặt",
+        "faceText": "bị xệ một bên",
+        "arm": "Tay",
+        "armText": "hoặc chân yếu, tê",
+        "speech": "Nói",
+        "speechText": "ngọng hoặc lẫn lộn",
+        "time": "Thời gian",
+        "timeText": "rất quan trọng. Đừng chờ.",
+        "call": "📞 Gọi 000",
+        "calling": "Đang gọi 000 · xin xe cứu thương"
+      },
+      "simple": {
+        "hello_morning": "Chào buổi sáng, mạ",
+        "hello_afternoon": "Chào buổi chiều, mạ",
+        "hello_evening": "Chào buổi tối, mạ",
+        "sub": "Ngày {{day}} / 30 ở nhà · Noa luôn ở bên mạ",
+        "now": "Bây giờ",
+        "tookThem": "✓ Mạ uống rồi",
+        "didIt": "✓ Mạ làm rồi",
+        "snooze": "⏰ Nhắc lại sau 10 phút",
+        "snoozed": "Được rồi, 10 phút nữa Noa nhắc lại nhé",
+        "later": "Lát nữa hôm nay",
+        "laterMeta": "Mạ sẽ được nhắc",
+        "nothingLater": "Hôm nay không còn việc nào nữa.",
+        "tabs": {
+          "meds": "💊 Thuốc",
+          "appts": "🗓️ Lịch khám",
+          "calls": "📞 Cuộc gọi",
+          "help": "🚨 Dấu hiệu nguy hiểm"
+        },
+        "tablets": "Thuốc của mạ",
+        "visits": "Lịch khám và xét nghiệm",
+        "noaCalls": "Noa sẽ gọi cho mạ",
+        "noaCallsMeta": "Mỗi lần một cuộc trò chuyện ngắn",
+        "happened": "Chuyện gì đã xảy ra"
       }
     }
   }

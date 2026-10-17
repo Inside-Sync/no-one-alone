@@ -1,0 +1,489 @@
+{
+  "forecast": {
+    "wellbeing": {
+      "score": 72,
+      "delta": -5
+    },
+    "wellbeingNote": "100分入面得72分，比上個禮拜跌咗5分。有兩樣嘢拉低咗分數：佢血壓慢慢升緊，同埋屋企太熱。",
+    "wellbeingAxes": [
+      {
+        "label": "❤️ 身體",
+        "now": 61,
+        "lastMonth": 74
+      },
+      {
+        "label": "💊 食藥",
+        "now": 68,
+        "lastMonth": 90
+      },
+      {
+        "label": "🚶 活動",
+        "now": 74,
+        "lastMonth": 80
+      },
+      {
+        "label": "😴 瞓覺",
+        "now": 70,
+        "lastMonth": 76
+      },
+      {
+        "label": "🤝 社交",
+        "now": 82,
+        "lastMonth": 84
+      },
+      {
+        "label": "🧠 記性",
+        "now": 88,
+        "lastMonth": 90
+      },
+      {
+        "label": "🏠 屋企",
+        "now": 58,
+        "lastMonth": 78
+      }
+    ],
+    "comingUp": {
+      "title": "🔮 就快發生：有一樣嘢要跟進",
+      "meta": "中風 · 90日",
+      "pill": {
+        "tone": "bad",
+        "text": "比同齡大部分女士高"
+      },
+      "headline": "媽咪血壓慢慢升緊，呢個禮拜要處理。",
+      "stats": [
+        {
+          "label": "90日中風風險",
+          "value": "高",
+          "note": "示範規則，唔係機率",
+          "tone": "bad"
+        },
+        {
+          "label": "朝早上壓，7日平均",
+          "value": "146",
+          "note": "+14 mmHg / 6星期",
+          "tone": "warn"
+        },
+        {
+          "label": "如果食齊100%藥",
+          "value": "131",
+          "note": "4個星期後嘅上壓",
+          "tone": "good"
+        }
+      ],
+      "reasons": [
+        {
+          "icon": "trend",
+          "text": "朝早血壓6個星期升咗14 mmHg，每個禮拜都穩定咁升"
+        },
+        {
+          "icon": "pill",
+          "text": "佢呢個禮拜漏食咗3次夜晚嗰粒血壓藥"
+        },
+        {
+          "icon": "tree",
+          "text": "佢爸爸同哥哥都喺70歲前中過風"
+        }
+      ],
+      "actions": [
+        {
+          "label": "叫David整藥盒",
+          "kind": "toast",
+          "value": "已通知David · 佢禮拜六會整好藥盒",
+          "icon": "people",
+          "soft": false
+        },
+        {
+          "label": "將血壓報告畀Dr Patel",
+          "kind": "toast",
+          "value": "血壓報告已經發咗畀Dr Patel",
+          "soft": true
+        },
+        {
+          "label": "睇完整預測",
+          "kind": "go",
+          "value": "forecast",
+          "soft": true
+        }
+      ]
+    },
+    "weeklyPlan": [
+      {
+        "icon": "sun",
+        "iconColor": "var(--sun-ink)",
+        "title": "星期四 11:00–15:00 · 加密防暑問候",
+        "owner": "助手",
+        "note": "助手 · 每2個鐘提佢飲水 · 可以車佢去圖書館冷氣房",
+        "status": {
+          "tone": "brand",
+          "text": "已排好"
+        }
+      },
+      {
+        "icon": "pill",
+        "title": "星期六 10:00 · 每週整藥盒",
+        "owner": "David",
+        "note": "David · 減少夜晚漏食藥",
+        "status": {
+          "tone": "warn",
+          "text": "要批准"
+        }
+      },
+      {
+        "icon": "clinic",
+        "title": "星期一 · 家庭醫生覆檢血壓",
+        "owner": "Dr Patel",
+        "note": "Dr Patel · 報告已經發咗",
+        "status": {
+          "tone": "plain",
+          "text": "未預約"
+        }
+      },
+      {
+        "icon": "ear",
+        "title": "10月22日 · 聽力測試",
+        "owner": "David",
+        "note": "Marrickville聽力中心 · David車佢去",
+        "status": {
+          "tone": "good",
+          "text": "已預約"
+        }
+      }
+    ],
+    "weeklyPlanMeta": "4項任務 · 2個負責人",
+    "model": [
+      {
+        "emoji": "👀",
+        "label": "監察",
+        "value": "11項指標"
+      },
+      {
+        "emoji": "📚",
+        "label": "預測工具",
+        "value": "BigQuery AI.FORECAST"
+      },
+      {
+        "emoji": "🎯",
+        "label": "風險級別",
+        "value": "示範規則，唔係診斷"
+      },
+      {
+        "emoji": "🩺",
+        "label": "依照",
+        "value": "醫生指引"
+      },
+      {
+        "emoji": "🔄",
+        "label": "更新",
+        "value": "每個鐘"
+      },
+      {
+        "emoji": "🧑‍⚕️",
+        "label": "話事人",
+        "value": "佢嘅醫生，唔係個app"
+      }
+    ],
+    "modelMeta": "原型示範數字",
+    "risks": [
+      {
+        "name": "中風",
+        "level": "高",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "血壓趨勢"
+      },
+      {
+        "name": "跌倒受傷",
+        "level": "高",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "行路慢咗"
+      },
+      {
+        "name": "入院",
+        "level": "中",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "血壓 + 天氣熱"
+      },
+      {
+        "name": "中暑相關疾病",
+        "level": "中",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "冇冷氣，29.5 °C"
+      },
+      {
+        "name": "聽力退化",
+        "level": "中",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "「吓？」每週×9"
+      },
+      {
+        "name": "認知退化（MCI）",
+        "level": "留意",
+        "tone": "warn",
+        "trend": "→",
+        "reason": "諗唔到字 + 聽力"
+      },
+      {
+        "name": "心臟衰竭發作",
+        "level": "低",
+        "tone": "good",
+        "trend": "→",
+        "reason": "體重穩定"
+      },
+      {
+        "name": "情緒低落 / 孤獨",
+        "level": "低",
+        "tone": "good",
+        "trend": "↓",
+        "reason": "步行小組"
+      }
+    ],
+    "shap": [
+      {
+        "label": "血壓趨勢",
+        "value": 0.58
+      },
+      {
+        "label": "家族病史",
+        "value": 0.31
+      },
+      {
+        "label": "漏食藥",
+        "value": 0.22
+      },
+      {
+        "label": "心律不正提示",
+        "value": 0.09
+      },
+      {
+        "label": "HRV偏低",
+        "value": 0.08
+      },
+      {
+        "label": "室內炎熱",
+        "value": 0.05
+      },
+      {
+        "label": "日常活動",
+        "value": -0.06
+      },
+      {
+        "label": "LDL受控（2.4）",
+        "value": -0.07
+      }
+    ],
+    "shapNote": "條棒顯示每個原因對佢風險級別嘅影響有幾大。原型示範權重。",
+    "signs": [
+      {
+        "sign": "🩺 朝早血壓",
+        "from": "手臂血壓計",
+        "frequency": "每朝",
+        "now": "146",
+        "usual": "132",
+        "comparison": "高好多",
+        "sigma": "+2.8",
+        "tone": "bad"
+      },
+      {
+        "sign": "❤️ 靜止心率",
+        "from": "手錶",
+        "frequency": "成日",
+        "now": "68",
+        "usual": "63",
+        "comparison": "差唔多",
+        "sigma": "+0.4",
+        "tone": "good"
+      },
+      {
+        "sign": "🌿 放鬆指數（HRV）",
+        "from": "手錶",
+        "frequency": "每晚",
+        "now": "26",
+        "usual": "31",
+        "comparison": "低咗",
+        "sigma": "−1.9",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚡ 心跳唔規律提示",
+        "from": "手錶",
+        "frequency": "有就記錄",
+        "now": "呢個禮拜2次",
+        "usual": "好少",
+        "comparison": "多咗",
+        "sigma": "+2.4",
+        "tone": "warn"
+      },
+      {
+        "sign": "🚶 行路速度",
+        "from": "手機 + 屋企",
+        "frequency": "每日",
+        "now": "0.82 m/s",
+        "usual": "0.89",
+        "comparison": "慢咗",
+        "sigma": "−2.1",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌙 半夜起身",
+        "from": "屋企感應器",
+        "frequency": "成晚",
+        "now": "41次",
+        "usual": "18",
+        "comparison": "多好多",
+        "sigma": "+2.3",
+        "tone": "warn"
+      },
+      {
+        "sign": "💊 有冇食藥",
+        "from": "藥盒",
+        "frequency": "每劑",
+        "now": "86%",
+        "usual": "95%",
+        "comparison": "低咗",
+        "sigma": "−1.8",
+        "tone": "warn"
+      },
+      {
+        "sign": "⏸️ 講嘢停頓",
+        "from": "每日傾偈",
+        "frequency": "每日",
+        "now": "多咗",
+        "usual": "較少",
+        "comparison": "多咗",
+        "sigma": "+1.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "👂 「吓？」",
+        "from": "每日傾偈",
+        "frequency": "每日",
+        "now": "呢個禮拜9次",
+        "usual": "3",
+        "comparison": "多好多",
+        "sigma": "+2.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌡️ 屋企溫度",
+        "from": "屋企感應器",
+        "frequency": "成日",
+        "now": "29.5°",
+        "usual": "25.1°",
+        "comparison": "高好多",
+        "sigma": "+2.2",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚖️ 體重",
+        "from": "磅",
+        "frequency": "每日",
+        "now": "61.2 kg",
+        "usual": "61.0",
+        "comparison": "差唔多",
+        "sigma": "+0.2",
+        "tone": "good"
+      }
+    ],
+    "bp": {
+      "observed": [
+        128,
+        131,
+        133,
+        137,
+        140,
+        146
+      ],
+      "projectedNothing": [
+        146,
+        148.5,
+        151,
+        153.5,
+        156
+      ],
+      "projectedAdherent": [
+        146,
+        140,
+        136,
+        133,
+        131
+      ],
+      "target": 135,
+      "weeks": 10,
+      "todayWeek": 6,
+      "lo": 120,
+      "hi": 166
+    },
+    "sim": {
+      "sliders": [
+        {
+          "id": "adherence",
+          "label": "💊 準時食藥",
+          "min": 60,
+          "max": 100,
+          "step": 1,
+          "value": 86
+        },
+        {
+          "id": "steps",
+          "label": "👣 每日步數",
+          "min": 1500,
+          "max": 7000,
+          "step": 100,
+          "value": 3240
+        },
+        {
+          "id": "salt",
+          "label": "🧂 食物鹽分",
+          "min": 0,
+          "max": 2,
+          "step": 1,
+          "value": 1
+        }
+      ],
+      "saltLabels": [
+        "少",
+        "中",
+        "多"
+      ],
+      "hearingLabel": "👂 每日戴助聽器",
+      "hearingAids": false,
+      "base": {
+        "stroke": 2.1,
+        "fall": 21,
+        "admission": 14,
+        "mci": 3.1
+      },
+      "note": "相對效果來自已發表嘅研究效應值，再套落佢而家嘅風險度。只係同家庭醫生傾嘅起點，唔係處方。"
+    },
+    "modes": [
+      {
+        "name": "Hearing",
+        "icon": "ear",
+        "title": "聽力模式",
+        "description": "佢冇用把聲回應時，會顯示字幕、閃屏同「係／唔係」卡",
+        "on": true,
+        "tag": "已開 · 10月9日自動開啟"
+      },
+      {
+        "name": "Vision",
+        "icon": "eye",
+        "title": "視力模式",
+        "description": "淨係用聲，唔使搵掣；鏡頭會讀出藥樽標籤",
+        "on": false,
+        "tag": "已關"
+      },
+      {
+        "name": "Memory",
+        "icon": "brain",
+        "title": "記憶模式",
+        "description": "用熟悉嘅聲音提醒日常作息、幫佢搵路返屋企，要Margaret同意先會開",
+        "on": false,
+        "tag": "已關 · 觀察中"
+      }
+    ]
+  }
+}

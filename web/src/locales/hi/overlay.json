@@ -1,0 +1,75 @@
+{
+  "you": "आप",
+  "youParen": " (आप)",
+  "youSuffix": " · आप",
+  "relation": {
+    "self": "स्वयं",
+    "son": "बेटा",
+    "daughter": "बेटी",
+    "brother": "भाई",
+    "sister": "बहन",
+    "father": "पिता",
+    "mother": "माँ",
+    "husband": "पति",
+    "wife": "पत्नी",
+    "neighbour": "पड़ोसी",
+    "friend": "दोस्त",
+    "grandson": "पोता",
+    "granddaughter": "पोती",
+    "nephew": "भतीजा",
+    "niece": "भतीजी"
+  },
+  "person": {
+    "ageLabel": "उम्र",
+    "genderLabel": "लिंग",
+    "restingHrLabel": "आराम की धड़कन",
+    "restingHrBase": "आधार {{n}}",
+    "female": "महिला",
+    "male": "पुरुष"
+  },
+  "circle": {
+    "noteNearby": "{{place}} दूर · {{order}}",
+    "firstToCall": "सबसे पहले कॉल",
+    "nextToCall": "अगली कॉल",
+    "noteCalls": "{{place}} · ज़रूरत पर {{num}} पर कॉल करते हैं",
+    "noteUpdates": "{{place}} · अपडेट मिलते हैं",
+    "onCall": "ऑन कॉल",
+    "backup": "बैकअप",
+    "calls": "{{num}} पर कॉल",
+    "updates": "अपडेट"
+  },
+  "forecast": {
+    "risk": {
+      "STROKE": "स्ट्रोक",
+      "FALL": "गिरकर चोट लगना"
+    },
+    "level": {
+      "HIGH": "उच्च",
+      "MEDIUM": "मध्यम",
+      "LOW": "कम"
+    },
+    "horizon": "{{n}} दिन",
+    "sentTo": "{{name}} को भेजा",
+    "shared": "सर्कल के साथ शेयर किया"
+  },
+  "lineage": {
+    "generation": {
+      "grandparents": "दादा-दादी",
+      "parents": "माता-पिता",
+      "self": "{{name}} की पीढ़ी",
+      "children": "बच्चे",
+      "grandchildren": "पोते-पोतियाँ",
+      "ancestors": "पूर्वज",
+      "descendants": "वंशज"
+    },
+    "herself": "खुद",
+    "selfRow": "स्वयं",
+    "strength": {
+      "strong": "मज़बूत",
+      "moderate": "मध्यम",
+      "weak": "कमज़ोर"
+    },
+    "dueNow": "अभी देय",
+    "book": "बुक करें"
+  }
+}

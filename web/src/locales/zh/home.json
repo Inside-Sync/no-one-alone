@@ -1,0 +1,109 @@
+{
+  "today": {
+    "title": "🟢 Margaret 今天",
+    "soFar": "今天到目前为止",
+    "soFarMeta": "Margaret 与您分享的内容",
+    "askAgent": "问 Noa"
+  },
+  "profile": {
+    "title": "👤 关于 Margaret",
+    "share": {
+      "label": "📤 分享资料",
+      "done": "已分享"
+    },
+    "conditionsTitle": "🩺 健康状况",
+    "conditionsMeta": "点击查看详情",
+    "born": "生于 {{born}} · 喜欢被称为“{{nickname}}”"
+  },
+  "wellbeing": {
+    "title": "🧭 整体状况",
+    "meta": "与她平常的月份相比",
+    "ariaLabel": "整体状况 72 分（满分 100）：身体 61，用药 68，活动 74，睡眠 70，社交 82，记忆 88，居家 58",
+    "legend": [
+      "现在",
+      "上个月"
+    ]
+  },
+  "rhythm": {
+    "title": "🕰️ 日常作息",
+    "meta": "一周中每个小时她起身活动的情况",
+    "legend": [
+      "少",
+      "多",
+      "与她平时不同"
+    ]
+  },
+  "plan": {
+    "title": "本周计划",
+    "approve": {
+      "label": "批准",
+      "toast": "已批准 · 已通知 David",
+      "done": "已批准"
+    }
+  },
+  "circle": {
+    "title": "💞 她的照护圈",
+    "meta": "拖动旋转 · 点击某个人",
+    "ariaLabel": "Margaret 的照护圈：David 和社区护士在附近，Sarah 和 James 在远方，卒中中心在照护环上"
+  },
+  "chat": {
+    "title": "🗣️ 今天和她的聊天"
+  },
+  "home": {
+    "title": "🏠 她今天的家"
+  },
+  "near": {
+    "title": "🤝 她附近的人和地方",
+    "meta": "1 公里以内"
+  },
+  "helper": {
+    "title": "🤖 Noa 今天做了什么",
+    "meta": "每一步都有记录，方便家人查看",
+    "columns": [
+      "时间",
+      "做了什么",
+      "方式",
+      "原因",
+      "结果"
+    ],
+    "approve": {
+      "label": "批准",
+      "toast": "已批准 · 已通知 David"
+    }
+  },
+  "mapControls": {
+    "left": "向左旋转",
+    "right": "向右旋转",
+    "reset": "重置视图"
+  },
+  "condition": {
+    "since": "始于",
+    "rightNow": "目前"
+  },
+  "drawer": {
+    "mini": [
+      [
+        "🗣️ 问问她",
+        "已加入她 18:00 的下一次聊天",
+        "已添加"
+      ],
+      [
+        "📈 查看 30 天趋势",
+        "完整版应用将提供趋势视图",
+        "已记下"
+      ]
+    ],
+    "kpi": [
+      [
+        "🗣️ 问问她",
+        "已加入她 18:00 的下一次聊天",
+        "已添加"
+      ],
+      [
+        "📤 分享给家人",
+        "已分享给 David 和 Sarah",
+        "已分享"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,489 @@
+{
+  "forecast": {
+    "wellbeing": {
+      "score": 72,
+      "delta": -5
+    },
+    "wellbeingNote": "100点中72点で、先週より5点下がりました。下がった理由は2つです。血圧が少しずつ上がっていることと、家の中が暑すぎることです。",
+    "wellbeingAxes": [
+      {
+        "label": "❤️ 体",
+        "now": 61,
+        "lastMonth": 74
+      },
+      {
+        "label": "💊 お薬",
+        "now": 68,
+        "lastMonth": 90
+      },
+      {
+        "label": "🚶 運動",
+        "now": 74,
+        "lastMonth": 80
+      },
+      {
+        "label": "😴 睡眠",
+        "now": 70,
+        "lastMonth": 76
+      },
+      {
+        "label": "🤝 交流",
+        "now": 82,
+        "lastMonth": 84
+      },
+      {
+        "label": "🧠 記憶",
+        "now": 88,
+        "lastMonth": 90
+      },
+      {
+        "label": "🏠 住まい",
+        "now": 58,
+        "lastMonth": 78
+      }
+    ],
+    "comingUp": {
+      "title": "🔮 今後：対応が必要なこと1つ",
+      "meta": "脳卒中 · 90日",
+      "pill": {
+        "tone": "bad",
+        "text": "同年代の女性より高め"
+      },
+      "headline": "お母さんの血圧が上がってきています。今週中に対応を。",
+      "stats": [
+        {
+          "label": "90日以内の脳卒中リスク",
+          "value": "高",
+          "note": "デモ用ルールで、確率ではありません",
+          "tone": "bad"
+        },
+        {
+          "label": "朝の収縮期血圧・7日間",
+          "value": "146",
+          "note": "6週で+14 mmHg",
+          "tone": "warn"
+        },
+        {
+          "label": "服薬が100%に戻った場合",
+          "value": "131",
+          "note": "4週間後の収縮期血圧",
+          "tone": "good"
+        }
+      ],
+      "reasons": [
+        {
+          "icon": "trend",
+          "text": "朝の血圧が6週間で14 mmHg上昇、毎週少しずつ上がっています"
+        },
+        {
+          "icon": "pill",
+          "text": "今週、夜の血圧の薬を3回飲み忘れました"
+        },
+        {
+          "icon": "tree",
+          "text": "お父さんとお兄さんが、どちらも70歳前に脳卒中を起こしています"
+        }
+      ],
+      "actions": [
+        {
+          "label": "David にピルケースを頼む",
+          "kind": "toast",
+          "value": "David に送信しました · 土曜日にピルケースを準備してくれます",
+          "icon": "people",
+          "soft": false
+        },
+        {
+          "label": "血圧レポートを Dr Patel に送る",
+          "kind": "toast",
+          "value": "血圧レポートを Dr Patel に送信しました",
+          "soft": true
+        },
+        {
+          "label": "予測をすべて見る",
+          "kind": "go",
+          "value": "forecast",
+          "soft": true
+        }
+      ]
+    },
+    "weeklyPlan": [
+      {
+        "icon": "sun",
+        "iconColor": "var(--sun-ink)",
+        "title": "木 11:00–15:00 · 暑さ対策の追加確認",
+        "owner": "エージェント",
+        "note": "エージェント · 2時間ごとに水分補給 · 図書館の涼しい部屋への送迎を提案済み",
+        "status": {
+          "tone": "brand",
+          "text": "予定済み"
+        }
+      },
+      {
+        "icon": "pill",
+        "title": "土 10:00 · 毎週のピルケース準備",
+        "owner": "David",
+        "note": "David · 夜の飲み忘れを減らします",
+        "status": {
+          "tone": "warn",
+          "text": "承認待ち"
+        }
+      },
+      {
+        "icon": "clinic",
+        "title": "月 · かかりつけ医の血圧チェック",
+        "owner": "Dr Patel",
+        "note": "Dr Patel · レポート送信済み",
+        "status": {
+          "tone": "plain",
+          "text": "要予約"
+        }
+      },
+      {
+        "icon": "ear",
+        "title": "10月22日 · 聴力検査",
+        "owner": "David",
+        "note": "Marrickville の聴覚クリニック · David が送迎",
+        "status": {
+          "tone": "good",
+          "text": "予約済み"
+        }
+      }
+    ],
+    "weeklyPlanMeta": "タスク4件 · 担当2人",
+    "model": [
+      {
+        "emoji": "👀",
+        "label": "見守り",
+        "value": "11項目"
+      },
+      {
+        "emoji": "📚",
+        "label": "予測方法",
+        "value": "BigQuery AI.FORECAST"
+      },
+      {
+        "emoji": "🎯",
+        "label": "リスクレベル",
+        "value": "デモ用ルールで、診断ではありません"
+      },
+      {
+        "emoji": "🩺",
+        "label": "準拠",
+        "value": "医師のガイドライン"
+      },
+      {
+        "emoji": "🔄",
+        "label": "更新",
+        "value": "1時間ごと"
+      },
+      {
+        "emoji": "🧑‍⚕️",
+        "label": "判断するのは",
+        "value": "アプリではなく主治医"
+      }
+    ],
+    "modelMeta": "プロトタイプ用の例示数値です",
+    "risks": [
+      {
+        "name": "脳卒中",
+        "level": "高",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "血圧の推移"
+      },
+      {
+        "name": "けがを伴う転倒",
+        "level": "高",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "歩行が遅くなっている"
+      },
+      {
+        "name": "入院",
+        "level": "中",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "血圧＋暑さ"
+      },
+      {
+        "name": "熱中症",
+        "level": "中",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "エアコンなし、29.5 °C"
+      },
+      {
+        "name": "聴力の低下",
+        "level": "中",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "「え？」週9回"
+      },
+      {
+        "name": "認知機能の低下（MCI）",
+        "level": "注意",
+        "tone": "warn",
+        "trend": "→",
+        "reason": "言葉が出にくい＋聴力"
+      },
+      {
+        "name": "心不全の悪化",
+        "level": "低",
+        "tone": "good",
+        "trend": "→",
+        "reason": "体重は安定"
+      },
+      {
+        "name": "気分の落ち込み・孤独",
+        "level": "低",
+        "tone": "good",
+        "trend": "↓",
+        "reason": "ウォーキンググループ"
+      }
+    ],
+    "shap": [
+      {
+        "label": "血圧の推移",
+        "value": 0.58
+      },
+      {
+        "label": "家族歴",
+        "value": 0.31
+      },
+      {
+        "label": "飲み忘れ",
+        "value": 0.22
+      },
+      {
+        "label": "不整脈アラート",
+        "value": 0.09
+      },
+      {
+        "label": "HRVの低下",
+        "value": 0.08
+      },
+      {
+        "label": "室内の暑さ",
+        "value": 0.05
+      },
+      {
+        "label": "日々の活動量",
+        "value": -0.06
+      },
+      {
+        "label": "LDLは管理良好（2.4）",
+        "value": -0.07
+      }
+    ],
+    "shapNote": "バーは各要因がリスクレベルをどれだけ押し上げているかを示します。プロトタイプ用の例示的な重みです。",
+    "signs": [
+      {
+        "sign": "🩺 朝の血圧",
+        "from": "上腕式血圧計",
+        "frequency": "毎朝",
+        "now": "146",
+        "usual": "132",
+        "comparison": "かなり高い",
+        "sigma": "+2.8",
+        "tone": "bad"
+      },
+      {
+        "sign": "❤️ 安静時心拍数",
+        "from": "注意",
+        "frequency": "終日",
+        "now": "68",
+        "usual": "63",
+        "comparison": "ほぼ同じ",
+        "sigma": "+0.4",
+        "tone": "good"
+      },
+      {
+        "sign": "🌿 リラックス度（HRV）",
+        "from": "注意",
+        "frequency": "毎晩",
+        "now": "26",
+        "usual": "31",
+        "comparison": "低い",
+        "sigma": "−1.9",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚡ 不規則な心拍のアラート",
+        "from": "注意",
+        "frequency": "発生時",
+        "now": "今週2回",
+        "usual": "まれ",
+        "comparison": "高い",
+        "sigma": "+2.4",
+        "tone": "warn"
+      },
+      {
+        "sign": "🚶 歩く速さ",
+        "from": "スマホ＋自宅",
+        "frequency": "毎日",
+        "now": "0.82 m/s",
+        "usual": "0.89",
+        "comparison": "遅い",
+        "sigma": "−2.1",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌙 夜中に起きた回数",
+        "from": "自宅センサー",
+        "frequency": "一晩中",
+        "now": "41回",
+        "usual": "18",
+        "comparison": "かなり高い",
+        "sigma": "+2.3",
+        "tone": "warn"
+      },
+      {
+        "sign": "💊 服薬",
+        "from": "ピルケース",
+        "frequency": "毎回",
+        "now": "86%",
+        "usual": "95%",
+        "comparison": "低い",
+        "sigma": "−1.8",
+        "tone": "warn"
+      },
+      {
+        "sign": "⏸️ 会話中の間",
+        "from": "毎日の会話",
+        "frequency": "毎日",
+        "now": "多い",
+        "usual": "少ない",
+        "comparison": "高い",
+        "sigma": "+1.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "👂「え？」",
+        "from": "毎日の会話",
+        "frequency": "毎日",
+        "now": "今週9回",
+        "usual": "3",
+        "comparison": "かなり高い",
+        "sigma": "+2.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌡️ 室温",
+        "from": "自宅センサー",
+        "frequency": "終日",
+        "now": "29.5°",
+        "usual": "25.1°",
+        "comparison": "かなり高い",
+        "sigma": "+2.2",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚖️ 体重",
+        "from": "体重計",
+        "frequency": "毎日",
+        "now": "61.2 kg",
+        "usual": "61.0",
+        "comparison": "ほぼ同じ",
+        "sigma": "+0.2",
+        "tone": "good"
+      }
+    ],
+    "bp": {
+      "observed": [
+        128,
+        131,
+        133,
+        137,
+        140,
+        146
+      ],
+      "projectedNothing": [
+        146,
+        148.5,
+        151,
+        153.5,
+        156
+      ],
+      "projectedAdherent": [
+        146,
+        140,
+        136,
+        133,
+        131
+      ],
+      "target": 135,
+      "weeks": 10,
+      "todayWeek": 6,
+      "lo": 120,
+      "hi": 166
+    },
+    "sim": {
+      "sliders": [
+        {
+          "id": "adherence",
+          "label": "💊 時間どおりの服薬",
+          "min": 60,
+          "max": 100,
+          "step": 1,
+          "value": 86
+        },
+        {
+          "id": "steps",
+          "label": "👣 1日の歩数",
+          "min": 1500,
+          "max": 7000,
+          "step": 100,
+          "value": 3240
+        },
+        {
+          "id": "salt",
+          "label": "🧂 食事の塩分",
+          "min": 0,
+          "max": 2,
+          "step": 1,
+          "value": 1
+        }
+      ],
+      "saltLabels": [
+        "低",
+        "中",
+        "高"
+      ],
+      "hearingLabel": "👂 補聴器を毎日つける",
+      "hearingAids": false,
+      "base": {
+        "stroke": 2.1,
+        "fall": 21,
+        "admission": 14,
+        "mci": 3.1
+      },
+      "note": "相対的な効果は公表された効果量に基づき、現在のリスクに当てはめています。処方ではなく、かかりつけ医と話すきっかけです。"
+    },
+    "modes": [
+      {
+        "name": "Hearing",
+        "icon": "ear",
+        "title": "聴覚モード",
+        "description": "音声で返事がないときは字幕、画面の点滅、はい/いいえカードを使います",
+        "on": true,
+        "tag": "オン · 10月9日に自動で有効化"
+      },
+      {
+        "name": "Vision",
+        "icon": "eye",
+        "title": "視覚モード",
+        "description": "音声のみで、探すボタンはありません。カメラが薬のラベルを読み上げます",
+        "on": false,
+        "tag": "オフ"
+      },
+      {
+        "name": "Memory",
+        "icon": "brain",
+        "title": "記憶モード",
+        "description": "聞き慣れた声で毎日の生活をお知らせし、帰り道の案内もします。Margaret が同意した場合のみ",
+        "on": false,
+        "tag": "オフ · 見守り中"
+      }
+    ]
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "hello": "午安，Maggie 🌞",
+  "sub": "你今日幾好呀。呢度係你嘅一日，專為你而設。",
+  "tiles": [
+    {
+      "emoji": "❤️",
+      "title": "心臟",
+      "note": "68 · 穩定",
+      "warn": false
+    },
+    {
+      "emoji": "👣",
+      "title": "3,240 步",
+      "note": "差少少就夠 3,500！",
+      "warn": false
+    },
+    {
+      "emoji": "😴",
+      "title": "瞓咗 6 個鐘",
+      "note": "少咗少少",
+      "warn": true
+    },
+    {
+      "emoji": "💧",
+      "title": "飲水",
+      "note": "而家飲杯水啦",
+      "warn": true
+    },
+    {
+      "emoji": "💊",
+      "title": "下一粒藥",
+      "note": "夜晚 6 點，amlodipine",
+      "warn": false
+    },
+    {
+      "emoji": "📞",
+      "title": "James 打嚟",
+      "note": "今晚 8 點",
+      "warn": false
+    }
+  ],
+  "people": {
+    "title": "💞 你身邊嘅人",
+    "meta": "每個人睇到乜由你揀",
+    "change": "🔐 改邊個睇到乜",
+    "paused": "已暫停",
+    "sees": "睇到 {{total}} 項中嘅 {{seen}} 項"
+  },
+  "ideasTitle": "💡 畀你嘅建議",
+  "ideasMeta": "你想先至做",
+  "ideas": [
+    {
+      "emoji": "🔥",
+      "title": "星期四會有 38°。使唔使車你去圖書館嘅冷氣室？",
+      "note": "義工 Tom 可以 11 點嚟接你。",
+      "yes": [
+        "好呀，唔該",
+        "已經約好星期四 11:00 接你",
+        "已預約"
+      ],
+      "no": [
+        "唔使喇，多謝",
+        "冇問題，我哋改為打電話問候你",
+        "暫時唔使"
+      ]
+    },
+    {
+      "emoji": "💊",
+      "title": "用個每週藥盒會唔會方便你食夜晚嗰粒藥？",
+      "note": "David 話星期六可以幫你整好。",
+      "yes": [
+        "好呀，唔該",
+        "David 星期六 10:00 會過嚟",
+        "好"
+      ],
+      "no": [
+        "唔使喇，多謝",
+        "好，咁我哋淨係保留提醒",
+        "暫時唔使"
+      ]
+    },
+    {
+      "emoji": "🦻",
+      "title": "今日下晝傾偈之前戴埋助聽器？",
+      "note": "咁講電話會容易啲。",
+      "yes": [
+        "戴好喇",
+        "好嘢",
+        "完成"
+      ],
+      "no": [
+        "遲啲",
+        "冇問題",
+        "遲啲"
+      ]
+    }
+  ],
+  "promise": {
+    "title": "🔐 你嘅私隱承諾",
+    "meta": "係健康支援，唔係監視",
+    "items": [
+      {
+        "emoji": "✋",
+        "bold": "你話事。",
+        "text": "邊個睇到乜由你決定，隨時都可以改。"
+      },
+      {
+        "emoji": "📷",
+        "bold": "永遠冇鏡頭。",
+        "text": "家居感應器只會留意活動同溫度。"
+      },
+      {
+        "emoji": "🎙️",
+        "bold": "唔會偷聽。",
+        "text": "只有你接聽電話嗰陣先會開咪。"
+      },
+      {
+        "emoji": "📍",
+        "bold": "唔會追蹤。",
+        "text": "位置係閂咗嘅。如果你開返，其他人只會見到「喺屋企」或者「出咗街」。"
+      },
+      {
+        "emoji": "🚨",
+        "bold": "只限緊急情況：",
+        "text": "David 同 James 一定會收到安全警報，咁就有人嚟幫你。"
+      }
+    ],
+    "settings": "睇所有設定"
+  },
+  "access": {
+    "title": "👀 邊個睇過你嘅資料",
+    "meta": "冇嘢會喺你背後發生",
+    "head": [
+      "幾時",
+      "邊個",
+      "睇咗乜",
+      "點解"
+    ],
+    "rows": [
+      [
+        "今日 09:12",
+        "James",
+        "你嘅心臟同血壓摘要",
+        "每週睇一睇"
+      ],
+      [
+        "今日 08:40",
+        "David",
+        "「我冇事」報平安",
+        "朝早問候"
+      ],
+      [
+        "琴日 16:42",
+        "Dr Patel",
+        "血壓報告",
+        "你同意咗傳過去"
+      ],
+      [
+        "琴日 11:05",
+        "Priya",
+        "今個星期食咗嘅藥",
+        "安排護士探訪"
+      ],
+      [
+        "星期一 19:30",
+        "Sarah",
+        "睡眠同步數",
+        "之後打咗畀你"
+      ]
+    ]
+  },
+  "recovery": {
+    "title": "你嘅康復計劃",
+    "title_family": "Margaret 嘅康復計劃",
+    "home": "你返到屋企喇",
+    "play": "播放",
+    "next": "下一樣：{{time}} {{text}}",
+    "nextTomorrow": "下一樣，聽日：{{time}} {{text}}",
+    "done": "我做咗喇",
+    "today": "今日",
+    "followUps": "即將進行",
+    "followUp": "{{text}} · {{date}}",
+    "notes": "醫生筆記",
+    "why": {
+      "apixaban": "防止心跳唔規律搞到生血塊，代替亞士匹靈。",
+      "perindopril": "降血壓，保護個腦。",
+      "atorvastatin": "降膽固醇。劑量由 20 mg 加咗。",
+      "amlodipine": "血壓藥，照舊食。",
+      "vitaminD": "保護骨骼，照舊食。",
+      "aspirin": "唔好再食呢隻藥，而家由阿哌沙班代替。",
+      "walk": "輕鬆行吓幫個腦復原，又可以穩定血壓。",
+      "bloodPressure": "先坐低抖 5 分鐘先量。目標係低過 130/80。",
+      "speech": "練習言語治療師教你嘅發音。",
+      "water": "今日目標飲 1.5 公升水。"
+    },
+    "taken": "食咗",
+    "tick": "完成",
+    "idle": "你嘅康復計劃會喺度顯示",
+    "idle_family": "Margaret 嘅康復計劃會喺度顯示",
+    "stop": "⛔ 停用：{{name}}",
+    "meds": "你嘅藥，逐樣講清楚",
+    "meds_family": "佢嘅藥，逐樣講清楚",
+    "slots": {
+      "morning": "朝早",
+      "midday": "中午",
+      "evening": "夜晚",
+      "night": "臨瞓"
+    },
+    "change": {
+      "New": "新",
+      "Increased": "加量",
+      "Continue": "繼續",
+      "Stop": "停用"
+    },
+    "noa": {
+      "title": "💬 Noa 話你知",
+      "title_family": "💬 Noa 同 Margaret 講咗乜",
+      "meta": "醫院批准計劃之後",
+      "noa": "Noa",
+      "margaret": "👵 Margaret",
+      "welcome": "歡迎返屋企，Margaret。我係 Noa 💙 醫院已經傳咗你嘅康復計劃過嚟，我已經用淺白嘅說話放咗喺你個 app 度。",
+      "newMeds_one": "你有 1 隻新藥：{{names}}。",
+      "newMeds_other": "你有 {{count}} 隻新藥：{{names}}。",
+      "stopMeds": "請停食 {{names}}。",
+      "pharmacy": "我已經通知咗藥房，亦更新咗你個藥盒。",
+      "thanks": "多謝你呀。要記嘅嘢真係好多。",
+      "next": "唔使擔心，每次我都會提你，有聲又有畫面。下一次係 {{time}}：{{items}}。",
+      "also": "我仲會提你 10:00 去散步、量血壓，同埋 14:00 做說話練習。",
+      "followUp": "你嘅{{text}}係{{date}}。David 可以車你去。",
+      "call": "我聽日 17:00 會打畀你，睇下你點。如果你塊面歪咗、隻手冇力或者講嘢怪怪哋，撳「求助」，我會打 000。",
+      "bye": "好呀。多謝你呀。"
+    },
+    "calls": {
+      "title": "你嘅問候電話",
+      "title_family": "佢嘅問候電話",
+      "meta": "返屋企頭 30 日",
+      "when": "第 {{day}} 日 · {{date}}",
+      "planned": "已安排",
+      "topics": {
+        "1": "你覺得點呀，有冇頭痛？",
+        "3": "啲新藥食得慣唔慣？",
+        "7": "睇家庭醫生同檢查血壓",
+        "14": "行路同跌倒檢查",
+        "30": "呢個月過得點呀？"
+      }
+    },
+    "self": {
+      "layout": {
+        "label": "版面",
+        "detailed": "📋 詳細",
+        "simple": "🔆 簡單"
+      },
+      "happened": "🌱 發生咗乜事",
+      "happenedMeta": "用淺白說話講",
+      "dayOf": "第 {{day}} 日（共 30 日）",
+      "doneToday": "今日完成咗 {{total}} 樣中嘅 {{done}} 樣",
+      "nextTitle": "⏰ 下一個提醒",
+      "allDone": "🎉 今日全部完成",
+      "tasksTitle": "💊 今日嘅藥同要做嘅事",
+      "tasksMeta": "做完就撳一下",
+      "appts": "🗓️ 預約",
+      "callsMeta": "簡短傾下偈，睇下你點",
+      "callToday": "今日",
+      "logged": "好嘢 👍 記低咗。",
+      "fast": {
+        "title": "🚨 如果有以下情況，即刻打 000…",
+        "face": "面",
+        "faceText": "一邊垂低",
+        "arm": "手",
+        "armText": "或者腳冇力、麻痺",
+        "speech": "說話",
+        "speechText": "口齒不清或者混亂",
+        "time": "時間",
+        "timeText": "好重要，唔好等。",
+        "call": "📞 打 000",
+        "calling": "撥緊 000 · 叫救護車"
+      },
+      "simple": {
+        "hello_morning": "早晨，Margaret",
+        "hello_afternoon": "午安，Margaret",
+        "hello_evening": "晚上好，Margaret",
+        "sub": "返屋企第 {{day}} 日（共 30 日）· Noa 陪住你",
+        "now": "而家",
+        "tookThem": "✓ 我食咗喇",
+        "didIt": "✓ 我做咗喇",
+        "snooze": "⏰ 10 分鐘後再提我",
+        "snoozed": "好，我 10 分鐘後再提你",
+        "later": "今日稍後",
+        "laterMeta": "到時會提你",
+        "nothingLater": "今日冇其他嘢喇。",
+        "tabs": {
+          "meds": "💊 藥",
+          "appts": "🗓️ 覆診",
+          "calls": "📞 電話",
+          "help": "🚨 警號"
+        },
+        "tablets": "你嘅藥",
+        "visits": "覆診同檢查",
+        "noaCalls": "Noa 會打畀你",
+        "noaCallsMeta": "每次簡短傾下偈",
+        "happened": "發生咗乜事"
+      }
+    }
+  }
+}

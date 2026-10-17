@@ -134,10 +134,10 @@ describe('watch', () => {
   })
 })
 
-test('the Speech toggle sits in More options, defaults to the mic and still flips', async () => {
+test('the Speech toggle sits with the phone options, defaults to the mic and still flips', async () => {
   await render()
   const group = screen.getByRole('group', { name: 'Speech' })
-  expect(group.closest('details')?.querySelector('summary')).toHaveTextContent('More options: who answers the phone')
+  expect(group.closest('.sim-opts')).not.toBeNull()
   const speech = within(group)
   expect(speech.getByRole('button', { name: "I'll answer (mic)" })).toHaveAttribute('aria-pressed', 'true')
   click('Slurred (auto)')

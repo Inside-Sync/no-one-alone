@@ -1,0 +1,300 @@
+{
+  "careCircle": [
+    {
+      "id": "david",
+      "initials": "D",
+      "color": "#2f6fb0",
+      "name": "👨 David · 佢細佬",
+      "note": "450 米外 · 第一個打",
+      "role": {
+        "tone": "good",
+        "text": "當值"
+      },
+      "technicalName": "David · 細佬",
+      "technicalNote": "450 米 · 第一個打"
+    },
+    {
+      "id": "james",
+      "initials": "J",
+      "color": "#e07a3f",
+      "name": "🙋 James · 你",
+      "note": "Melbourne · 有需要會打 000",
+      "role": {
+        "tone": "brand",
+        "text": "第二"
+      },
+      "technicalName": "James · 你",
+      "technicalNote": "Melbourne · 負責打 000"
+    },
+    {
+      "id": "sarah",
+      "initials": "S",
+      "color": "#c2417a",
+      "name": "👩 Sarah · 女",
+      "note": "London · 收到更新",
+      "role": {
+        "tone": "plain",
+        "text": "更新"
+      },
+      "technicalName": "Sarah · 女",
+      "technicalNote": "London · 只收更新"
+    },
+    {
+      "id": "priya",
+      "initials": "P",
+      "color": "#8a6bd1",
+      "name": "🩺 Priya · 社康護士",
+      "note": "平日",
+      "role": {
+        "tone": "plain",
+        "text": "後備"
+      },
+      "technicalName": "Priya Sharma",
+      "technicalNote": "社康護士 · 平日"
+    },
+    {
+      "id": "aisha",
+      "initials": "A",
+      "color": "#c2611f",
+      "name": "🏡 Aisha · 鄰居",
+      "note": "隔兩間屋 · 有鎖匙",
+      "role": {
+        "tone": "plain",
+        "text": "後備"
+      },
+      "technicalName": "Aisha · 鄰居",
+      "technicalNote": "隔兩間屋 · 持有鎖匙"
+    }
+  ],
+  "circleOrbit": [
+    {
+      "id": "david",
+      "name": "David",
+      "sub": "細佬 · 450 米",
+      "initials": "D",
+      "ring": 0,
+      "angle": 0.5,
+      "colors": [
+        "#cfe0fb",
+        "#2f6fb0",
+        "#173a66"
+      ]
+    },
+    {
+      "id": "nurse",
+      "name": "Priya",
+      "sub": "社康護士",
+      "initials": "P",
+      "ring": 0,
+      "angle": 3.6,
+      "colors": [
+        "#ddd0ff",
+        "#8a6bd1",
+        "#45308a"
+      ]
+    },
+    {
+      "id": "james",
+      "name": "James",
+      "sub": "仔 · Melbourne（你）",
+      "initials": "J",
+      "ring": 1,
+      "angle": 1.4,
+      "colors": [
+        "#ffd2b0",
+        "#e07a3f",
+        "#8f3e14"
+      ]
+    },
+    {
+      "id": "sarah",
+      "name": "Sarah",
+      "sub": "女 · London",
+      "initials": "S",
+      "ring": 1,
+      "angle": 4.4,
+      "colors": [
+        "#ffd0e4",
+        "#c2417a",
+        "#6e1d43"
+      ]
+    },
+    {
+      "id": "hosp",
+      "name": "中風中心",
+      "sub": "Camperdown · 4.2 公里",
+      "initials": "+",
+      "ring": 2,
+      "angle": 2.5,
+      "colors": [
+        "#ffffff",
+        "#eef5f4",
+        "#a9bdba"
+      ],
+      "ink": "#e0413d"
+    }
+  ],
+  "orbitRings": [
+    {
+      "radius": 78,
+      "y": -2,
+      "speed": 0.18
+    },
+    {
+      "radius": 126,
+      "y": 2,
+      "speed": 0.1
+    },
+    {
+      "radius": 172,
+      "y": 8,
+      "speed": 0.055,
+      "dashed": true
+    }
+  ],
+  "orbitScene": {
+    "nodes": [
+      {
+        "id": "david",
+        "name": "David",
+        "sub": "細佬 · 450 米",
+        "initials": "D",
+        "ring": 0,
+        "angle": 0.5,
+        "colors": [
+          "#cfe0fb",
+          "#2f6fb0",
+          "#173a66"
+        ]
+      },
+      {
+        "id": "nurse",
+        "name": "Priya",
+        "sub": "社康護士",
+        "initials": "P",
+        "ring": 0,
+        "angle": 3.6,
+        "colors": [
+          "#ddd0ff",
+          "#8a6bd1",
+          "#45308a"
+        ]
+      },
+      {
+        "id": "james",
+        "name": "James",
+        "sub": "仔 · Melbourne（你）",
+        "initials": "J",
+        "ring": 1,
+        "angle": 1.4,
+        "colors": [
+          "#ffd2b0",
+          "#e07a3f",
+          "#8f3e14"
+        ]
+      },
+      {
+        "id": "sarah",
+        "name": "Sarah",
+        "sub": "女 · London",
+        "initials": "S",
+        "ring": 1,
+        "angle": 4.4,
+        "colors": [
+          "#ffd0e4",
+          "#c2417a",
+          "#6e1d43"
+        ]
+      },
+      {
+        "id": "hosp",
+        "name": "中風中心",
+        "sub": "Camperdown · 4.2 公里",
+        "initials": "+",
+        "ring": 2,
+        "angle": 2.5,
+        "colors": [
+          "#ffffff",
+          "#eef5f4",
+          "#a9bdba"
+        ],
+        "ink": "#e0413d"
+      }
+    ],
+    "rings": [
+      {
+        "radius": 78,
+        "y": -2,
+        "speed": 0.18
+      },
+      {
+        "radius": 126,
+        "y": 2,
+        "speed": 0.1
+      },
+      {
+        "radius": 172,
+        "y": 8,
+        "speed": 0.055,
+        "dashed": true
+      }
+    ],
+    "centre": {
+      "initials": "M",
+      "label": "Margaret, 78",
+      "name": "Margaret",
+      "calmSub": "喺屋企好安全",
+      "alertSub": "而家需要幫助"
+    }
+  },
+  "sharePeople": [
+    {
+      "id": "james",
+      "name": "James",
+      "role": "仔 · Melbourne",
+      "color": "#e07a3f",
+      "initials": "J",
+      "emergency": true
+    },
+    {
+      "id": "sarah",
+      "name": "Sarah",
+      "role": "女 · London",
+      "color": "#c2417a",
+      "initials": "S",
+      "emergency": false
+    },
+    {
+      "id": "david",
+      "name": "David",
+      "role": "細佬 · 450 米",
+      "color": "#2f6fb0",
+      "initials": "D",
+      "emergency": true
+    },
+    {
+      "id": "priya",
+      "name": "Priya",
+      "role": "社康護士",
+      "color": "#8a6bd1",
+      "initials": "P",
+      "emergency": false
+    },
+    {
+      "id": "gp",
+      "name": "Dr Patel",
+      "role": "佢嘅家庭醫生",
+      "color": "#0b7f71",
+      "initials": "GP",
+      "emergency": false
+    },
+    {
+      "id": "hosp",
+      "name": "醫院",
+      "role": "只限緊急情況",
+      "color": "#2563a8",
+      "initials": "H",
+      "emergency": false
+    }
+  ]
+}

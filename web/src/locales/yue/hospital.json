@@ -1,0 +1,268 @@
+{
+  "ed": {
+    "inbox": {
+      "title": "到院前收件匣",
+      "meta": "資料包會喺救護車到達前送到",
+      "newPill": "1 個新",
+      "newTag": "新"
+    },
+    "incoming": {
+      "title": "即將到達嘅救護車",
+      "meta": "未來 60 分鐘",
+      "head": [
+        "預計到達",
+        "病人",
+        "主訴",
+        "分流",
+        "資料包",
+        "病床"
+      ]
+    },
+    "packet": {
+      "title": "資料包",
+      "meta": "揀一位病人",
+      "demoMeta": "Margaret C.，78 歲",
+      "statusLabel": "狀態",
+      "noteLabel": "備註"
+    },
+    "pathway": {
+      "title": "中風治療路徑",
+      "meta": "治療時間窗",
+      "pending": "待定"
+    },
+    "page": {
+      "label": "傳呼中風小組",
+      "toast": "已傳呼中風小組 · CT 2 已預留"
+    },
+    "divert": {
+      "label": "改道",
+      "toast": "已建議救護車改道"
+    },
+    "recovery": {
+      "title": "📝 出院及康復計劃",
+      "meta": "編輯、批准後，助手會用淺白語言送到 Margaret 嘅平台",
+      "staff": "醫生",
+      "diagnosis": "診斷",
+      "meds": "藥物",
+      "medName": "藥物 {{n}} 名稱",
+      "medDose": "藥物 {{n}} 劑量",
+      "activities": "指示",
+      "actText": "活動 {{n}}",
+      "actTimes": "活動 {{n}} 時間",
+      "followUps": "覆診跟進",
+      "fuText": "跟進 {{n}}",
+      "fuDays": "跟進 {{n}}（日數）",
+      "notes": "醫生筆記",
+      "hint": "時間格式 HH:mm，用逗號分隔",
+      "sentAt": "{{time}} 已送返屋企",
+      "sent": "已送返屋企",
+      "failed": "傳送唔到計劃",
+      "delivering": "⏳ 助手傳送緊…",
+      "why": "原因：{{text}}",
+      "medHead": "藥物",
+      "doseHead": "劑量",
+      "changeHead": "變更",
+      "slots": {
+        "morning": "朝早",
+        "midday": "中午",
+        "evening": "夜晚",
+        "night": "臨瞓"
+      },
+      "medSlot": "藥物 {{n}} {{slot}}",
+      "medChange": "藥物 {{n}} 變更",
+      "change": {
+        "New": "新增",
+        "Increased": "加量",
+        "Continue": "繼續",
+        "Stop": "停用"
+      },
+      "calls": "助手跟進電話",
+      "callDay": "✓ 第 {{day}} 日",
+      "finalise": "✍️ 落實計劃",
+      "signed": "✍️ 由 {{name}} 落實 · {{time}}",
+      "editAgain": "再編輯",
+      "approve": "✅ 批准並交畀 Noa",
+      "approveNote": "助手會將計劃轉成淺白語言、設定提醒，並按 Margaret 自己嘅設定同佢嘅照顧圈分享。",
+      "toastFinal": "計劃已落實及簽署。而家請批准，交畀助手處理。",
+      "toastSent": "康復計劃已送到 Margaret 嘅平台",
+      "steps": {
+        "summary": "已用淺白語言寫好摘要",
+        "summaryFallback": "用咗醫生筆記做摘要",
+        "reminders": "已設定 {{n}} 個提醒，其中 {{voiced}} 個有語音提醒",
+        "calls": "問候電話日期已加入佢嘅計劃：第 {{days}} 日",
+        "appointments": "預約：{{list}}",
+        "circle": "{{names}} 睇到",
+        "delivered": "計劃已顯示喺 Margaret 嘅螢幕"
+      }
+    },
+    "discharge": {
+      "title": "🩺 可以出院：Margaret Collins，78 歲",
+      "sub": "缺血性中風，已溶栓 · 新發陣發性心房顫動 · 康復計劃等待批准",
+      "open": "📝 打開佢嘅病歷同康復計劃"
+    }
+  },
+  "panel": {
+    "table": {
+      "title": "服務範圍內嘅長者病人",
+      "meta": "已登記 No One Alone · 按 30 日入院風險排序",
+      "head": [
+        "病人",
+        "地區",
+        "30 日入院",
+        "主要因素",
+        "上次急症",
+        "家庭醫生",
+        "訊號"
+      ],
+      "sex": {
+        "F": "女",
+        "M": "男"
+      }
+    },
+    "scatter": {
+      "title": "風險對比年齡",
+      "ariaLabel": "30 日入院風險對年齡散佈圖；風險隨年齡上升；Margaret 78 歲，風險 22%",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "高"
+        },
+        {
+          "color": "#c88a05",
+          "label": "中"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "低"
+        }
+      ],
+      "axis": "年齡"
+    }
+  },
+  "demand": {
+    "forecast": {
+      "title": "75 歲以上求診人次，未來 14 日",
+      "tag": "預測",
+      "ariaLabel": "75 歲以上求診人次預測：星期四 34、星期五 31，高於 28 嘅舒適線",
+      "legend": [
+        {
+          "color": "#2f6fb0",
+          "label": "預測"
+        },
+        {
+          "color": "rgba(47,111,176,.15)",
+          "label": "80% 區間"
+        },
+        {
+          "color": "#56706e",
+          "label": "去年"
+        },
+        {
+          "color": "#d9443f",
+          "label": "高於舒適線"
+        }
+      ],
+      "heatwave": "熱浪",
+      "secondSpell": "第二輪酷熱？"
+    },
+    "beds": {
+      "title": "現時病床",
+      "meta": "15:00"
+    },
+    "shap": {
+      "title": "星期四高峰嘅成因",
+      "meta": "對預測嘅貢獻"
+    },
+    "actions": {
+      "title": "建議行動",
+      "meta": "根據預測生成",
+      "buttons": {
+        "Approve": "批准",
+        "Linked": "已連結",
+        "Review": "審閱",
+        "Auto": "自動"
+      },
+      "toastApproved": "{{title}} · 已批准",
+      "toastNoted": "{{title}} · 已記錄"
+    }
+  },
+  "discharge": {
+    "board": {
+      "title": "30 日跟進板",
+      "meta": "助手用每位病人嘅語言致電 · 警號會轉介出院護士",
+      "head": [
+        "病人",
+        "出院日期",
+        "診斷",
+        "第 1 日",
+        "第 3 日",
+        "第 7 日",
+        "第 14 日",
+        "第 30 日",
+        "再入院風險"
+      ],
+      "legend": [
+        {
+          "color": "#1fb39c",
+          "label": "完成，正常"
+        },
+        {
+          "color": "#c88a05",
+          "label": "完成，有標記"
+        },
+        {
+          "color": "#d9443f",
+          "label": "已轉介護士"
+        },
+        {
+          "color": "var(--track)",
+          "label": "即將進行"
+        }
+      ],
+      "new": "新"
+    }
+  },
+  "actions": {
+    "row": [
+      [
+        "打開完整病歷",
+        "已喺電子病歷打開（示範）",
+        "已打開"
+      ],
+      [
+        "通知家庭醫生",
+        "已向家庭醫生發送加密訊息",
+        "已傳送"
+      ],
+      [
+        "指派畀我",
+        "已指派畀你",
+        "已指派"
+      ]
+    ],
+    "kpi": [
+      [
+        "加入關注清單",
+        "已加入你嘅關注清單",
+        "關注中"
+      ],
+      [
+        "匯出 CSV",
+        "已排隊匯出",
+        "已匯出"
+      ]
+    ],
+    "mini": [
+      [
+        "標記待審閱",
+        "已標記",
+        "已標記"
+      ],
+      [
+        "指派畀我",
+        "已指派畀你",
+        "已指派"
+      ]
+    ]
+  }
+}

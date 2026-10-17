@@ -1,0 +1,111 @@
+{
+  "modelTitle": "ℹ️ 이 예측의 원리",
+  "risks": {
+    "title": "📊 시간에 따른 가능성",
+    "meta": "데모 규칙에 따른 수준이며 확률이 아니에요",
+    "columns": [
+      "일어날 수 있는 일",
+      "수준",
+      "추세",
+      "주된 이유"
+    ]
+  },
+  "sim": {
+    "title": "🎛️ 해 보기: 만약…",
+    "meta": "슬라이더를 움직여 보세요",
+    "hearingSwitchLabel": "보청기를 매일 착용",
+    "adherenceValue": "{{n}}%",
+    "cells": [
+      {
+        "key": "stroke",
+        "label": "뇌졸중 · 90일"
+      },
+      {
+        "key": "fall",
+        "label": "낙상 · 90일"
+      },
+      {
+        "key": "admission",
+        "label": "입원 · 90일"
+      },
+      {
+        "key": "mci",
+        "label": "경도인지장애 · 90일"
+      }
+    ],
+    "delta": {
+      "none": "변화 없음",
+      "lower": "낮아짐",
+      "higher": "높아짐"
+    }
+  },
+  "bp": {
+    "title": "아침 수축기 혈압",
+    "meta": "관측 6주 · 예측 4주 · mmHg",
+    "yLabel": "아침 수축기 혈압",
+    "ariaLabel": "아침 수축기 혈압이 6주 동안 128에서 146으로 올랐고, 변화가 없으면 156에 이를 것으로 예측돼요",
+    "today": "오늘",
+    "weekLabel": "{{n}}주",
+    "legend": [
+      {
+        "color": "#c88a05",
+        "label": "관측값"
+      },
+      {
+        "color": "rgba(217,68,63,.5)",
+        "label": "변화 없을 때 예측"
+      },
+      {
+        "color": "rgba(31,179,156,.6)",
+        "label": "복약 100% 시 예측"
+      },
+      {
+        "color": "#8f6fd0",
+        "label": "나의 가정 시나리오"
+      },
+      {
+        "color": "rgba(31,179,156,.15)",
+        "label": "목표 135 미만"
+      }
+    ],
+    "series": {
+      "observed": "관측값",
+      "nothing": "변화 없을 때 예측",
+      "adherent": "복약 100% 시 예측",
+      "whatIf": "나의 가정 시나리오"
+    }
+  },
+  "shap": {
+    "title": "⚖️ 뇌졸중 위험을 높이고 낮추는 요인",
+    "meta": "빨강은 높이고 · 초록은 낮춰요"
+  },
+  "signs": {
+    "title": "👀 지켜보는 항목",
+    "meta": "오늘과 평소 비교",
+    "columns": [
+      "항목",
+      "출처",
+      "빈도",
+      "현재",
+      "평소",
+      "평소 대비",
+      "상태"
+    ],
+    "status": {
+      "good": "양호",
+      "warn": "관찰",
+      "bad": "조치"
+    }
+  },
+  "modes": {
+    "on": "켜짐",
+    "off": "꺼짐",
+    "toastOn": "{{name}} 모드 켜짐",
+    "toastOff": "{{name}} 모드 꺼짐",
+    "names": {
+      "Hearing": "청력",
+      "Vision": "시력",
+      "Memory": "기억"
+    }
+  }
+}

@@ -82,22 +82,30 @@ export function ConversationsCard({ incident, people, call, dialling }: {
         <div className="txf" role="group" aria-label={t('talk.filter')}>
           {chans.map((c) => {
             const [icon, name] = c === 'all' ? ['', t('talk.all')] : channel(c)
-            return <button key={c} type="button" className="chip" aria-pressed={pick === c} onClick={() => setFilter(c)}>{icon ? `${icon} ${name}` : name}</button>
+            const n = c === 'all' ? all.length : all.filter((x) => x.ch === c).length
+            return <button key={c} type="button" className="chip" aria-pressed={pick === c} onClick={() => setFilter(c)}>{icon ? `${icon} ${name}` : name}<em>{n}</em></button>
           })}
         </div>
       )}
       <ol className="tx" ref={box} aria-live="polite">
-        {list.length ? list.map((s, k) => {
+        {list.length ? list.flatMap((s, k) => {
           const [icon, name] = channel(s.ch)
-          return (
+          // The 000 call is one block: a divider marks where it starts.
+          const divider = s.ch === 'ooo' && (k === 0 || list[k - 1].ch !== 'ooo')
+            ? [<li key={`div-${s.at}`} className="tx-div">{t('talk.onCall', { num })}</li>] : []
+          return [...divider, (
             <li key={`${s.at}-${k}`} className={s.agent ? 'ag' : 'ot'}>
-              <span className="who">
-                {clockTime(s.at, tz)} · {s.agent ? <><NoaOrb size={12} /> {t('talk.to', { name })}</> : `${icon} ${s.who}`}
+              {s.agent ? <NoaOrb size={26} /> : <span className="tx-av" aria-hidden="true">{icon}</span>}
+              <span className="tx-body">
+                <span className="who">
+                  {clockTime(s.at, tz)} · {s.agent ? t('talk.to', { name }) : s.who}
+                </span>
+                <span className="b">{s.text}</span>
               </span>
-              <span className="b">{s.text}</span>
             </li>
-          )
+          )]
         }) : <li className="sys">{t('talk.none')}</li>}
+        {dialling && <li className="ot"><span className="tx-av" aria-hidden="true">🚑</span><span className="typing" aria-label={t('call.dialling', { num })}><i></i><i></i><i></i></span></li>}
       </ol>
       <p className="fine">{t('call.fine', { num })}</p>
     </GlassCard>

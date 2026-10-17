@@ -1,0 +1,397 @@
+{
+  "lineage": {
+    "heading": "4세대",
+    "meta": "Family Connect 제공 · 11명 · 9명 동의",
+    "conditionKeys": {
+      "HTN": {
+        "name": "고혈압",
+        "color": "#c88a05"
+      },
+      "STR": {
+        "name": "뇌졸중",
+        "color": "#d9443f"
+      },
+      "AF": {
+        "name": "심방세동",
+        "color": "#c2417a"
+      },
+      "T2D": {
+        "name": "제2형 당뇨병",
+        "color": "#e07a3f"
+      },
+      "GLA": {
+        "name": "녹내장",
+        "color": "#2f6fb0"
+      },
+      "DEM": {
+        "name": "치매",
+        "color": "#8f6fd0"
+      },
+      "HEAR": {
+        "name": "난청",
+        "color": "#1fb39c"
+      }
+    },
+    "legendNote": "숫자 = 발병 나이",
+    "generations": [
+      {
+        "label": "조부모",
+        "nodes": [
+          {
+            "name": "Arthur Hughes",
+            "sub": "†72 · Margaret의 아버지",
+            "conditions": [
+              [
+                "HTN",
+                55
+              ],
+              [
+                "STR",
+                68
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "Edith Hughes",
+            "sub": "†80 · Margaret의 어머니",
+            "conditions": [
+              [
+                "GLA",
+                60
+              ],
+              [
+                "HEAR",
+                74
+              ],
+              [
+                "DEM",
+                77
+              ]
+            ],
+            "kind": "dec"
+          }
+        ]
+      },
+      {
+        "label": "Margaret 세대",
+        "nodes": [
+          {
+            "name": "Margaret Collins",
+            "sub": "78 · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                61
+              ],
+              [
+                "HEAR",
+                72
+              ]
+            ],
+            "kind": "focus"
+          },
+          {
+            "name": "Robert Collins",
+            "sub": "†75 · 남편",
+            "conditions": [
+              [
+                "HTN",
+                60
+              ],
+              [
+                "T2D",
+                58
+              ],
+              [
+                "AF",
+                70
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "David Hughes",
+            "sub": "74 · 남동생 · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                52
+              ],
+              [
+                "STR",
+                69
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "label": "자녀",
+        "nodes": [
+          {
+            "name": "Sarah Collins",
+            "sub": "49 · London",
+            "conditions": []
+          },
+          {
+            "name": "James Collins",
+            "sub": "46 · 멜버른 · 나",
+            "conditions": [
+              [
+                "HTN",
+                "138/86"
+              ]
+            ],
+            "kind": "you"
+          }
+        ]
+      },
+      {
+        "label": "손주",
+        "nodes": [
+          {
+            "name": "Lily Collins",
+            "sub": "19 · Melbourne",
+            "conditions": []
+          },
+          {
+            "name": "Noah Collins",
+            "sub": "16 · Melbourne",
+            "conditions": []
+          }
+        ]
+      }
+    ],
+    "strengthHeading": "James 님의 가족력 강도",
+    "strength": [
+      {
+        "condition": "고혈압",
+        "dots": 4,
+        "label": "강함"
+      },
+      {
+        "condition": "제2형 당뇨병",
+        "dots": 3,
+        "label": "보통+"
+      },
+      {
+        "condition": "뇌졸중",
+        "dots": 2,
+        "label": "보통"
+      },
+      {
+        "condition": "심방세동",
+        "dots": 2,
+        "label": "보통"
+      },
+      {
+        "condition": "녹내장",
+        "dots": 2,
+        "label": "보통"
+      },
+      {
+        "condition": "치매",
+        "dots": 1,
+        "label": "약함"
+      },
+      {
+        "condition": "난청",
+        "dots": 1,
+        "label": "약함"
+      }
+    ],
+    "strengthNote": "강도는 영향을 받은 친척 수, 촌수, 발병 나이를 반영해요. 검진 안내용이며 유전자를 예측하지 않아요.",
+    "screeningHeading": {
+      "title": "나의 검진 계획",
+      "meta": "James Collins · 46"
+    },
+    "screening": [
+      {
+        "check": "혈압 측정",
+        "interval": "12개월",
+        "due": "기한 지남",
+        "tone": "bad",
+        "action": "주치의 예약"
+      },
+      {
+        "check": "심장 건강 검진 (절대 심혈관 위험도)",
+        "interval": "45세부터 2년마다",
+        "due": "지금 해야 함",
+        "tone": "warn",
+        "action": "예약"
+      },
+      {
+        "check": "당뇨병 위험 (AUSDRISK) + HbA1c",
+        "interval": "3년",
+        "due": "2027년 1월",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "안압 포함 안과 검사",
+        "interval": "2년",
+        "due": "2027년 3월",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "지질",
+        "interval": "5년",
+        "due": "2025년 8월 완료",
+        "tone": "good",
+        "action": ""
+      },
+      {
+        "check": "청력 기준 검사",
+        "interval": "50세에",
+        "due": "2030",
+        "tone": "plain",
+        "action": ""
+      }
+    ],
+    "screeningToast": "멜버른의 주치의에게 예약 요청을 보냈어요",
+    "matrixColumns": [
+      "HTN",
+      "STR",
+      "AF",
+      "T2D",
+      "GLA",
+      "DEM",
+      "HEAR"
+    ],
+    "matrix": [
+      {
+        "person": "Arthur (할아버지)",
+        "onset": {
+          "HTN": 55,
+          "STR": 68
+        }
+      },
+      {
+        "person": "Edith (할머니)",
+        "onset": {
+          "GLA": 60,
+          "DEM": 77,
+          "HEAR": 74
+        }
+      },
+      {
+        "person": "Robert (아버지)",
+        "onset": {
+          "HTN": 60,
+          "T2D": 58,
+          "AF": 70
+        }
+      },
+      {
+        "person": "Margaret (어머니)",
+        "onset": {
+          "HTN": 61,
+          "HEAR": 72
+        }
+      },
+      {
+        "person": "David (외삼촌)",
+        "onset": {
+          "HTN": 52,
+          "STR": 69
+        }
+      },
+      {
+        "person": "Sarah (누나)",
+        "onset": {}
+      },
+      {
+        "person": "James (나)",
+        "onset": {
+          "HTN": "↑"
+        }
+      }
+    ],
+    "consent": {
+      "columns": [
+        "질환",
+        "약",
+        "활력 징후",
+        "위치",
+        "유전"
+      ],
+      "rows": [
+        {
+          "person": "Margaret",
+          "shares": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ]
+        },
+        {
+          "person": "David",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Sarah",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "James (나)",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Robert (유산 관리)",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ],
+      "note": "사람별, 데이터 종류별로 저장돼요. 변경 사항은 1분 안에 적용되고 감사 기록에 남아요."
+    },
+    "context": {
+      "initials": "HL",
+      "color": "#8f6fd0",
+      "sub": "4세대 · 11명 · Family Connect",
+      "facts": [
+        {
+          "live": true,
+          "label": "동의",
+          "value": "11명 중 9명"
+        },
+        {
+          "live": false,
+          "label": "질환",
+          "value": "7"
+        },
+        {
+          "live": false,
+          "label": "나의 계획",
+          "value": "2건 예정"
+        }
+      ]
+    }
+  }
+}

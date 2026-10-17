@@ -1,0 +1,48 @@
+{
+  "mapChip": "핀을 누르면 자세히 보여요",
+  "thursday": {
+    "title": "🔥 목요일, 시간대별",
+    "meta": "바깥 기온과 집 안이 얼마나 더워질지",
+    "ariaLabel": "목요일 바깥 기온은 13:00에 38도로 가장 높아요. 에어컨이 없으면 집 안은 34도까지 올라가요. Noa가 11:00부터 16:00까지 Margaret을 도서관 냉방실로 모셔요"
+  },
+  "air": {
+    "title": "🍃 공기, 꽃가루, 연기",
+    "meta": "7일 전망",
+    "columns": [
+      "요일",
+      "대기질",
+      "PM2.5",
+      "꽃가루",
+      "연기",
+      "안내"
+    ]
+  },
+  "newsFilterLabel": "뉴스 필터",
+  "severity": {
+    "act": {
+      "color": "#d9443f",
+      "label": "조치 필요"
+    },
+    "aware": {
+      "color": "#c88a05",
+      "label": "주의"
+    },
+    "help": {
+      "color": "#1fb39c",
+      "label": "도움 정보"
+    },
+    "done": {
+      "color": "#56706e",
+      "label": "해결됨"
+    }
+  },
+  "newsCategory": {
+    "All": "전체",
+    "Health": "건강",
+    "Safety": "안전",
+    "Weather": "날씨",
+    "Community": "지역사회",
+    "Transport": "교통"
+  },
+  "newsAge": "{{age}} 전"
+}

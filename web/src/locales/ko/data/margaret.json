@@ -1,0 +1,1106 @@
+{
+  "margaret": {
+    "id": "margaret",
+    "name": "Margaret Collins",
+    "initials": "MC",
+    "color": "#0b7f71",
+    "nickname": "Maggie",
+    "born": "1948년 3월 3일",
+    "age": 78,
+    "gender": "여성",
+    "suburb": "Marrickville",
+    "postcode": "2204",
+    "heightCm": 162,
+    "weightKg": 61.2,
+    "bmi": 23.4,
+    "bloodType": "O형 Rh+",
+    "mobilityAid": "외출 시 지팡이",
+    "hearingAids": "양쪽 귀 보청기",
+    "advanceCarePlan": "사전 돌봄 계획 등록됨",
+    "allergies": [
+      "Penicillin"
+    ],
+    "medicineCount": 4,
+    "conditions": [
+      {
+        "emoji": "🩺",
+        "title": "고혈압",
+        "since": "61세부터 (2009)",
+        "now": "최근 조절이 잘 안 됨",
+        "color": "#d9443f",
+        "detail": "6주 동안 혈압이 조금씩 올랐어요. 매일 저녁 암로디핀을 드시는데, 이번 주에 3번 놓치셨어요. 목표: 아침 135 미만."
+      },
+      {
+        "emoji": "🦻",
+        "title": "난청",
+        "since": "양쪽 귀 · 72세부터 (2020)",
+        "now": "오늘 보청기 미착용",
+        "color": "#c88a05",
+        "detail": "노인성 난청이에요. 보청기가 도움이 되고, 착용하면 나중에 기억력 문제가 생길 가능성도 낮아져요. 10월 22일 청력 검사 예약됨."
+      },
+      {
+        "emoji": "🫘",
+        "title": "신장 기능이 약간 느려짐",
+        "since": "3a기 · 2025년 발견",
+        "now": "안정, 매년 검사",
+        "color": "#c88a05",
+        "detail": "신장 기능(eGFR)은 58이며, 정상은 60 이상이에요. 이 나이에 흔한 일이에요. GP가 매년 검사하고 신장에 부담을 주는 약은 피하고 있어요."
+      },
+      {
+        "emoji": "🍬",
+        "title": "혈당이 높은 편",
+        "since": "HbA1c 5.9% · 2026",
+        "now": "관찰",
+        "color": "#c88a05",
+        "detail": "당뇨는 아니지만 기준선(6.0%)에 가까워요. 아버지가 2형 당뇨였어요. 걷기와 단 음료 줄이기가 도움이 돼요."
+      },
+      {
+        "emoji": "🦴",
+        "title": "양쪽 무릎 관절염",
+        "since": "2015년부터",
+        "now": "가벼운 통증, 지팡이 사용",
+        "color": "#56706e",
+        "detail": "퇴행성 관절염이에요. 가벼운 걷기와 근력 수업이 도움이 돼요. 필요할 때 파라세타몰을 드세요."
+      },
+      {
+        "emoji": "💔",
+        "title": "불규칙 심박 (의심)",
+        "since": "검사 중 · 2026년 10월",
+        "now": "이번 주 알림 2회",
+        "color": "#c2417a",
+        "detail": "밤에 시계가 불규칙 리듬을 두 번 감지했어요. 10월 12일 심전도는 정상이었어요. GP가 2주간 심장 모니터를 처방할 수도 있어요."
+      },
+      {
+        "emoji": "🧠",
+        "title": "기억력",
+        "since": "진단 없음",
+        "now": "부드럽게 지켜보는 중",
+        "color": "#1f8f5f",
+        "detail": "기억력 질환은 없어요. 어머니가 치매를 앓으셨기 때문에, 매일 대화에서 말투의 느린 변화를 살펴요. 지금까지 모두 정상이에요."
+      },
+      {
+        "emoji": "🦴",
+        "title": "뼈 건강",
+        "since": "골감소증 · 2022",
+        "now": "매일 비타민 D",
+        "color": "#56706e",
+        "detail": "뼈가 평균보다 조금 얇은데, 70세 이후에는 흔한 일이에요. 비타민 D를 드시고 낙상 예방을 위해 균형 운동을 하세요."
+      }
+    ],
+    "status": "good",
+    "lastChat": "마지막 대화 13:02 · 밝음",
+    "devices": {
+      "wearableBattery": 64,
+      "hubSensors": 6
+    },
+    "profile": {
+      "checkedBy": "그녀의 건강 프로필 · 9월 12일 GP 확인",
+      "shareToast": "돌봄 서클과 공유된 프로필",
+      "rows": [
+        {
+          "emoji": "👩",
+          "label": "성별",
+          "value": "여성"
+        },
+        {
+          "emoji": "🎂",
+          "label": "나이",
+          "value": "78"
+        },
+        {
+          "emoji": "📏",
+          "label": "키",
+          "value": "162 cm"
+        },
+        {
+          "emoji": "⚖️",
+          "label": "체중",
+          "value": "61.2 kg"
+        },
+        {
+          "emoji": "📐",
+          "label": "BMI",
+          "value": "23.4 · 정상"
+        },
+        {
+          "emoji": "🩸",
+          "label": "혈액형",
+          "value": "O형 Rh+"
+        },
+        {
+          "emoji": "🏠",
+          "label": "거주",
+          "value": "혼자 · 2층 테라스 하우스"
+        },
+        {
+          "emoji": "🗣️",
+          "label": "언어",
+          "value": "영어"
+        },
+        {
+          "emoji": "🦯",
+          "label": "보행 보조기",
+          "value": "외출 시 지팡이"
+        },
+        {
+          "emoji": "👓",
+          "label": "시력",
+          "value": "돋보기"
+        },
+        {
+          "emoji": "🦻",
+          "label": "청력",
+          "value": "양쪽 귀 보청기"
+        },
+        {
+          "emoji": "📝",
+          "label": "돌봄 희망 사항",
+          "value": "사전 돌봄 계획 등록됨"
+        }
+      ],
+      "chips": [
+        {
+          "text": "⚠️ 알레르기: 페니실린 (발진)",
+          "danger": true
+        },
+        {
+          "text": "💊 정기 복용 약 4가지"
+        },
+        {
+          "text": "🚬 흡연 경험 없음"
+        },
+        {
+          "text": "🍷 주 1–2잔"
+        },
+        {
+          "text": "💉 독감 접종 2026년 4월 · 코로나 접종 시기"
+        }
+      ]
+    },
+    "today": {
+      "updated": "15:08 업데이트",
+      "headline": "잘 지내고 계세요",
+      "devices": [
+        {
+          "label": "웨어러블",
+          "value": "64% · 착용 중"
+        },
+        {
+          "label": "홈 허브",
+          "value": "온라인 · 센서 6개"
+        },
+        {
+          "label": "휴대폰",
+          "value": "충전 중"
+        }
+      ],
+      "actions": [
+        {
+          "label": "안부 묻기",
+          "icon": "mic",
+          "kind": "chat"
+        },
+        {
+          "label": "엄마에게 전화",
+          "toast": "Margaret에게 전화 중 · 자막 켜짐",
+          "kind": "call"
+        }
+      ]
+    },
+    "dayline": [
+      {
+        "time": "아침",
+        "text": "🌅 일어나서 움직이세요 · 아침 인사를 하셨어요"
+      },
+      {
+        "time": "08:12",
+        "text": "💬 아침 대화 · 모두 좋음"
+      },
+      {
+        "time": "08:31",
+        "text": "💊 아침 약 복용함"
+      },
+      {
+        "time": "09:31",
+        "text": "💊 어젯밤 약은 알림 후 복용",
+        "flag": "w"
+      },
+      {
+        "time": "늦은 아침",
+        "text": "🚶 산책하러 나가셨어요"
+      },
+      {
+        "time": "13:02",
+        "text": "🍽️ 점심 대화 · 밝음"
+      },
+      {
+        "time": "오후",
+        "text": "😴 쉬는 중 · 오늘은 따뜻해요",
+        "flag": "w"
+      },
+      {
+        "time": "18:00",
+        "text": "💬 다음 대화",
+        "flag": "n"
+      }
+    ],
+    "context": {
+      "initials": "MC",
+      "color": "#0b7f71",
+      "sub": "Marrickville NSW 2204 · Inner West · 10월 14일 (수) 15:10 AEDT",
+      "facts": [
+        {
+          "live": true,
+          "label": "여성",
+          "value": "78"
+        },
+        {
+          "live": false,
+          "label": "생년월일",
+          "value": "1948년 3월 3일"
+        },
+        {
+          "live": false,
+          "label": "질환",
+          "value": "8"
+        },
+        {
+          "live": false,
+          "label": "알레르기",
+          "value": "penicillin"
+        },
+        {
+          "live": false,
+          "label": "모드",
+          "value": "청각"
+        },
+        {
+          "live": false,
+          "label": "돌봄 팀",
+          "value": "5명"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "emoji": "❤️",
+        "label": "심박수",
+        "value": "68",
+        "unit": "bpm",
+        "color": "#ef6a5e",
+        "baseline": "평소 63",
+        "delta": "약간 높음",
+        "tone": "good",
+        "spark": [
+          62,
+          63,
+          64,
+          63,
+          65,
+          64,
+          66,
+          64,
+          68
+        ]
+      },
+      {
+        "emoji": "🩺",
+        "label": "혈압",
+        "value": "146",
+        "unit": "/88",
+        "color": "#c88a05",
+        "baseline": "평소 132/82",
+        "delta": "평소보다 높음",
+        "tone": "warn",
+        "spark": [
+          128,
+          130,
+          131,
+          133,
+          135,
+          137,
+          140,
+          143,
+          146
+        ]
+      },
+      {
+        "emoji": "🌿",
+        "label": "안정 점수 (HRV)",
+        "value": "26",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "평소 31",
+        "delta": "낮음: 부담 증가",
+        "tone": "warn",
+        "spark": [
+          32,
+          31,
+          30,
+          31,
+          29,
+          28,
+          27,
+          27,
+          26
+        ]
+      },
+      {
+        "emoji": "😴",
+        "label": "수면",
+        "value": "6시간 12분",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "평소 7시간",
+        "delta": "평소보다 적음",
+        "tone": "warn",
+        "spark": [
+          7.1,
+          6.9,
+          7,
+          6.6,
+          6.8,
+          6.3,
+          6.5,
+          6,
+          6.2
+        ]
+      },
+      {
+        "emoji": "👣",
+        "label": "걸음 수",
+        "value": "3,240",
+        "unit": "오늘",
+        "color": "#1fb39c",
+        "baseline": "평소 3,600",
+        "delta": "평소와 비슷",
+        "tone": "good",
+        "spark": [
+          3800,
+          3500,
+          3900,
+          3400,
+          3600,
+          3300,
+          3700,
+          3100,
+          3240
+        ]
+      },
+      {
+        "emoji": "🚶",
+        "label": "걷는 속도",
+        "value": "0.82",
+        "unit": "m/s",
+        "color": "#1f8f5f",
+        "baseline": "평소 0.89",
+        "delta": "평소보다 느림",
+        "tone": "warn",
+        "spark": [
+          0.9,
+          0.89,
+          0.9,
+          0.88,
+          0.87,
+          0.86,
+          0.85,
+          0.83,
+          0.82
+        ]
+      },
+      {
+        "emoji": "💊",
+        "label": "약 복용",
+        "value": "86",
+        "unit": "%",
+        "color": "#c88a05",
+        "baseline": "목표 95%",
+        "delta": "일부 누락",
+        "tone": "warn",
+        "spark": [
+          97,
+          96,
+          95,
+          94,
+          92,
+          90,
+          89,
+          87,
+          86
+        ]
+      },
+      {
+        "emoji": "📞",
+        "label": "받은 전화",
+        "value": "97",
+        "unit": "%",
+        "color": "#0b7f71",
+        "baseline": "평소 98%",
+        "delta": "평소와 같음",
+        "tone": "good",
+        "spark": [
+          98,
+          99,
+          97,
+          98,
+          98,
+          96,
+          97,
+          98,
+          97
+        ]
+      },
+      {
+        "emoji": "🗣️",
+        "label": "말하는 속도",
+        "value": "132",
+        "unit": "단어/분",
+        "color": "#2f6fb0",
+        "baseline": "평소 141",
+        "delta": "약간 느림",
+        "tone": "good",
+        "spark": [
+          142,
+          140,
+          141,
+          139,
+          138,
+          137,
+          135,
+          134,
+          132
+        ]
+      },
+      {
+        "emoji": "🤝",
+        "label": "사람들과 보낸 시간",
+        "value": "5",
+        "unit": "이번 주",
+        "color": "#c2417a",
+        "baseline": "평소 6",
+        "delta": "평소와 비슷",
+        "tone": "good",
+        "spark": [
+          6,
+          7,
+          6,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "emoji": "🌡️",
+        "label": "집 온도",
+        "value": "29.5",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "평소 25",
+        "delta": "너무 더움",
+        "tone": "warn",
+        "spark": [
+          24,
+          25,
+          25,
+          26,
+          27,
+          27,
+          28,
+          29,
+          29.5
+        ]
+      },
+      {
+        "emoji": "⚖️",
+        "label": "체중",
+        "value": "61.2",
+        "unit": "kg",
+        "color": "#56706e",
+        "baseline": "평소 61.0",
+        "delta": "안정적",
+        "tone": "good",
+        "spark": [
+          61,
+          61.1,
+          60.9,
+          61,
+          61.2,
+          61.1,
+          61,
+          61.3,
+          61.2
+        ]
+      }
+    ],
+    "kpisTechnical": [
+      {
+        "label": "안정 시 심박수",
+        "value": "68",
+        "unit": "bpm",
+        "color": "#ef6a5e",
+        "baseline": "기준 63",
+        "delta": "+0.4σ",
+        "tone": "good",
+        "spark": [
+          62,
+          63,
+          64,
+          63,
+          65,
+          64,
+          66,
+          64,
+          68
+        ]
+      },
+      {
+        "label": "혈압 (7일)",
+        "value": "146",
+        "unit": "/88",
+        "color": "#c88a05",
+        "baseline": "기준 132/82",
+        "delta": "+2.8σ",
+        "tone": "warn",
+        "spark": [
+          128,
+          130,
+          131,
+          133,
+          135,
+          137,
+          140,
+          143,
+          146
+        ]
+      },
+      {
+        "label": "HRV (RMSSD)",
+        "value": "26",
+        "unit": "ms",
+        "color": "#5a7fe0",
+        "baseline": "기준 31",
+        "delta": "−1.9σ",
+        "tone": "warn",
+        "spark": [
+          32,
+          31,
+          30,
+          31,
+          29,
+          28,
+          27,
+          27,
+          26
+        ]
+      },
+      {
+        "label": "수면",
+        "value": "6:12",
+        "unit": "시간",
+        "color": "#8f6fd0",
+        "baseline": "효율 81%",
+        "delta": "−1.2σ",
+        "tone": "warn",
+        "spark": [
+          7.1,
+          6.9,
+          7,
+          6.6,
+          6.8,
+          6.3,
+          6.5,
+          6,
+          6.2
+        ]
+      },
+      {
+        "label": "걸음 수",
+        "value": "3,240",
+        "unit": "오늘",
+        "color": "#1fb39c",
+        "baseline": "기준 3,600",
+        "delta": "−0.6σ",
+        "tone": "good",
+        "spark": [
+          3800,
+          3500,
+          3900,
+          3400,
+          3600,
+          3300,
+          3700,
+          3100,
+          3240
+        ]
+      },
+      {
+        "label": "보행 속도",
+        "value": "0.82",
+        "unit": "m/s",
+        "color": "#1f8f5f",
+        "baseline": "기준 0.89",
+        "delta": "−2.1σ",
+        "tone": "warn",
+        "spark": [
+          0.9,
+          0.89,
+          0.9,
+          0.88,
+          0.87,
+          0.86,
+          0.85,
+          0.83,
+          0.82
+        ]
+      },
+      {
+        "label": "복약 순응도",
+        "value": "86",
+        "unit": "% 30일",
+        "color": "#c88a05",
+        "baseline": "목표 95",
+        "delta": "−1.8σ",
+        "tone": "warn",
+        "spark": [
+          97,
+          96,
+          95,
+          94,
+          92,
+          90,
+          89,
+          87,
+          86
+        ]
+      },
+      {
+        "label": "안부 확인 응답",
+        "value": "97",
+        "unit": "% 30일",
+        "color": "#0b7f71",
+        "baseline": "기준 98",
+        "delta": "−0.3σ",
+        "tone": "good",
+        "spark": [
+          98,
+          99,
+          97,
+          98,
+          98,
+          96,
+          97,
+          98,
+          97
+        ]
+      },
+      {
+        "label": "발화 속도",
+        "value": "132",
+        "unit": "wpm",
+        "color": "#2f6fb0",
+        "baseline": "기준 141",
+        "delta": "−1.4σ",
+        "tone": "good",
+        "spark": [
+          142,
+          140,
+          141,
+          139,
+          138,
+          137,
+          135,
+          134,
+          132
+        ]
+      },
+      {
+        "label": "사회적 접촉",
+        "value": "5",
+        "unit": "이번 주",
+        "color": "#c2417a",
+        "baseline": "기준 6",
+        "delta": "−0.5σ",
+        "tone": "good",
+        "spark": [
+          6,
+          7,
+          6,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "label": "실내 온도",
+        "value": "29.5",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "기준 25.1",
+        "delta": "+2.2σ",
+        "tone": "warn",
+        "spark": [
+          24,
+          25,
+          25,
+          26,
+          27,
+          27,
+          28,
+          29,
+          29.5
+        ]
+      },
+      {
+        "label": "체중",
+        "value": "61.2",
+        "unit": "kg",
+        "color": "#56706e",
+        "baseline": "기준 61.0",
+        "delta": "+0.2σ",
+        "tone": "good",
+        "spark": [
+          61,
+          61.1,
+          60.9,
+          61,
+          61.2,
+          61.1,
+          61,
+          61.3,
+          61.2
+        ]
+      }
+    ],
+    "helperLog": [
+      {
+        "time": "15:00",
+        "what": "모든 건강 신호를 다시 확인했어요",
+        "how": "완료",
+        "why": "매시간",
+        "result": "뇌졸중 가능성 변동 없음",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "13:02",
+        "what": "그녀와 2분간 대화했어요",
+        "how": "완료",
+        "why": "매일 통화",
+        "result": "말이 또렷함 · \"뭐라고요?\" 2번",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "12:40",
+        "what": "선풍기를 켜고 물을 마시도록 알려 드렸어요",
+        "how": "완료",
+        "why": "집 온도 29.5°",
+        "result": "\"그럴게, 얘야\"라고 하셨어요",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "10:05",
+        "what": "목요일 걷기 모임을 알려 드렸어요",
+        "how": "완료",
+        "why": "알려 달라고 하셨어요",
+        "result": "가시겠다고 하셨어요",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "09:31",
+        "what": "어젯밤 놓친 약을 확인했어요",
+        "how": "완료",
+        "why": "약통이 열리지 않음",
+        "result": "9:33에 복용",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "08:12",
+        "what": "아침 대화",
+        "how": "완료",
+        "why": "매일 통화",
+        "result": "모두 좋음",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "어제 21:40",
+        "what": "David가 주간 약통을 정리하도록 제안했어요",
+        "how": "승인 필요",
+        "why": "약 누락 + 혈압 상승",
+        "result": "승인 대기 중",
+        "tone": "warn",
+        "needsApproval": true
+      },
+      {
+        "time": "어제 16:00",
+        "what": "Dr Patel에게 혈압 보고서를 보냈어요",
+        "how": "승인하셨어요",
+        "why": "주간 요약",
+        "result": "전달됨 · 오후 4:42 읽음",
+        "tone": "good",
+        "needsApproval": false
+      }
+    ],
+    "helperLogTechnical": [
+      {
+        "time": "15:00",
+        "what": "모든 위험 재평가 (신호 64개)",
+        "how": "자율",
+        "why": "예약",
+        "result": "뇌졸중 위험 수준 변동 없음 (높음)",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "13:02",
+        "what": "음성 안부 확인, 2분 14초",
+        "how": "자율",
+        "why": "일일 일정",
+        "result": "발음 또렷함 · \"뭐라고요?\" 2회",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "12:40",
+        "what": "더위 알림: 선풍기 켜기, 물 마시기",
+        "how": "자율",
+        "why": "실내 29.5 °C",
+        "result": "음성으로 확인함",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "10:05",
+        "what": "약국 방문 감지 (10:14–10:22)",
+        "how": "수동 감지",
+        "why": "지오펜스",
+        "result": "평소 일과",
+        "tone": "plain",
+        "needsApproval": false
+      },
+      {
+        "time": "09:31",
+        "what": "복용 누락 후속 확인",
+        "how": "자율",
+        "why": "약통: 복용 안 함",
+        "result": "09:33에 복용",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "08:12",
+        "what": "아침 안부 확인",
+        "how": "자율",
+        "why": "일일 일정",
+        "result": "이상 없음",
+        "tone": "good",
+        "needsApproval": false
+      },
+      {
+        "time": "어제 21:40",
+        "what": "David의 약통 정리 제안",
+        "how": "승인 필요",
+        "why": "혈압 추세 + 복용 누락",
+        "result": "James 승인 대기",
+        "tone": "warn",
+        "needsApproval": true
+      },
+      {
+        "time": "어제 16:00",
+        "what": "Dr Patel에게 혈압 보고서 전송",
+        "how": "James가 승인함",
+        "why": "주간 요약",
+        "result": "전달됨 · 16:42 읽음",
+        "tone": "good",
+        "needsApproval": false
+      }
+    ],
+    "ownView": {
+      "greeting": "좋은 오후예요, Maggie 🌞",
+      "sub": "오늘 잘 지내고 계세요. 오늘 하루를 알려 드릴게요.",
+      "tiles": [
+        {
+          "emoji": "❤️",
+          "title": "심장",
+          "note": "68 · 안정적"
+        },
+        {
+          "emoji": "👣",
+          "title": "3,240걸음",
+          "note": "3,500걸음까지 거의 다 왔어요!"
+        },
+        {
+          "emoji": "😴",
+          "title": "수면 6시간",
+          "note": "조금 부족해요",
+          "warn": true
+        },
+        {
+          "emoji": "💧",
+          "title": "물",
+          "note": "지금 한 잔 드세요",
+          "warn": true
+        },
+        {
+          "emoji": "💊",
+          "title": "다음 약",
+          "note": "오후 6시, 암로디핀"
+        },
+        {
+          "emoji": "📞",
+          "title": "James의 전화",
+          "note": "오늘 밤 8시"
+        }
+      ],
+      "ideas": [
+        {
+          "emoji": "🔥",
+          "title": "목요일은 38°까지 오른대요. 도서관 냉방실까지 차를 태워 드릴까요?",
+          "note": "자원봉사자 Tom이 11시에 모시러 갈 수 있어요.",
+          "yes": {
+            "label": "네, 부탁해요",
+            "toast": "목요일 11:00 차량 예약됨",
+            "done": "예약됨"
+          },
+          "no": {
+            "label": "괜찮아요",
+            "toast": "괜찮아요, 대신 전화로 안부를 여쭐게요",
+            "done": "나중에"
+          }
+        },
+        {
+          "emoji": "💊",
+          "title": "저녁 약 드실 때 주간 약통이 도움이 될까요?",
+          "note": "David가 토요일에 정리해 주겠다고 했어요.",
+          "yes": {
+            "label": "네, 부탁해요",
+            "toast": "David가 토요일 10:00에 올 거예요",
+            "done": "네"
+          },
+          "no": {
+            "label": "괜찮아요",
+            "toast": "알겠어요, 알림만 계속할게요",
+            "done": "나중에"
+          }
+        },
+        {
+          "emoji": "🦻",
+          "title": "오후 대화 때 보청기를 끼실래요?",
+          "note": "통화가 더 편해져요.",
+          "yes": {
+            "label": "했어요",
+            "toast": "좋아요",
+            "done": "했어요"
+          },
+          "no": {
+            "label": "나중에",
+            "toast": "괜찮아요",
+            "done": "나중에"
+          }
+        }
+      ],
+      "promise": [
+        {
+          "emoji": "✋",
+          "lead": "결정은 당신이 해요.",
+          "text": "누가 무엇을 볼지 직접 정하고, 언제든 바꿀 수 있어요."
+        },
+        {
+          "emoji": "📷",
+          "lead": "카메라는 절대 없어요.",
+          "text": "집 센서는 움직임과 온도만 감지해요."
+        },
+        {
+          "emoji": "🎙️",
+          "lead": "엿듣지 않아요.",
+          "text": "마이크는 직접 받은 통화 중에만 켜져요."
+        },
+        {
+          "emoji": "📍",
+          "lead": "위치 추적 안 해요.",
+          "text": "위치는 꺼져 있어요. 켜더라도 \"집\" 또는 \"외출\"만 보여요."
+        },
+        {
+          "emoji": "🚨",
+          "lead": "긴급 상황만:",
+          "text": "David와 James는 항상 안전 알림을 받아서 도움이 올 수 있어요."
+        }
+      ],
+      "accessLog": [
+        {
+          "when": "오늘 09:12",
+          "who": "James",
+          "what": "심장과 혈압 요약",
+          "why": "주간 보기"
+        },
+        {
+          "when": "오늘 08:40",
+          "who": "David",
+          "what": "\"괜찮아요\" 안부 확인",
+          "why": "아침 확인"
+        },
+        {
+          "when": "어제 16:42",
+          "who": "Dr Patel",
+          "what": "혈압 보고서",
+          "why": "보내는 데 동의하셨어요"
+        },
+        {
+          "when": "어제 11:05",
+          "who": "Priya",
+          "what": "이번 주 약 복용",
+          "why": "간호사 방문 계획"
+        },
+        {
+          "when": "월 19:30",
+          "who": "Sarah",
+          "what": "수면과 걸음 수",
+          "why": "이후에 전화드렸어요"
+        }
+      ],
+      "privacy": {
+        "presets": [
+          {
+            "id": "family",
+            "label": "👨‍👩‍👧 가족은 대부분 보고, 기분은 비공개"
+          },
+          {
+            "id": "safety",
+            "label": "🚨 안전 알림만"
+          },
+          {
+            "id": "all",
+            "label": "🤝 가족과 모두 공유"
+          }
+        ],
+        "safetyNote": "🚨 비상 연락처에 대한 안전 알림은 끌 수 없어요. 도움이 필요할 때 누군가 항상 올 수 있도록요. 비상 연락처는 바꿀 수 있어요.",
+        "emergency": {
+          "agreed": "10월 1일 동의함",
+          "text": "구급차가 필요하면 병원이 빠르게 도울 수 있도록 질환, 약, 알레르기 정보를 받아요. 그 외에는 아무것도 없고, 그 방문에만 해당돼요.",
+          "buttons": [
+            {
+              "label": "동의서 읽기",
+              "toast": "휴대폰에 비상 동의서가 표시돼요",
+              "done": "열림"
+            },
+            {
+              "label": "비상 연락처",
+              "toast": "비상 연락처: David와 James",
+              "done": "확인됨"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

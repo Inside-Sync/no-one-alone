@@ -1,5 +1,23 @@
 import type { OrbitCentre, OrbitNode, OrbitRing } from '@/data/types'
+import { avatarSrc } from '@/data/avatars'
 import type { CanvasFonts } from '../fonts'
+
+/** Decoded avatar photos, shared by every orbit; `onLoad` asks for a frame once a photo arrives. */
+const photos = new Map<string, HTMLImageElement>()
+function photo(name: string, onLoad?: () => void): HTMLImageElement | null {
+  const src = typeof Image === 'function' ? avatarSrc(name) : undefined
+  if (!src) return null
+  let img = photos.get(src)
+  if (!img) {
+    img = new Image()
+    img.decoding = 'async'
+    img.src = src
+    photos.set(src, img)
+  }
+  if (img.complete && img.naturalWidth) return img
+  if (onLoad) img.addEventListener('load', onLoad, { once: true })
+  return null
+}
 
 /**
  * Pure port of the prototype's care-circle `Orbit` (lines 1347–1397): a tilted
@@ -111,6 +129,8 @@ export interface OrbitFrame extends OrbitOptions {
   reduced: boolean
   dragging: boolean
   fonts: CanvasFonts
+  /** A photo finished loading (redraw when no loop is running). */
+  onAsset?: () => void
 }
 
 export interface OrbitSceneInput {
@@ -125,10 +145,16 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, sim: OrbitSim, scene: O
   const RINGS = scene.rings
   for (const k of KEYS) sim.st[k] = reduced ? sim.tg[k] : sim.st[k] + (sim.tg[k] - sim.st[k]) * Math.min(1, dt * 3)
   const st = sim.st
-  const K = () => Math.min(W / 400, H / (2 * 180 * Math.sin(sim.tilt) + 110)) * (o.zoom || 1)
+  // A slow breath in the tilt so the plane never sits dead still.
+  const tilt = sim.tilt + (reduced || o.dragging ? 0 : 0.025 * Math.sin(now / 4200))
+  // Zoomed, but never so far that the outer ring, its balls or their names leave the canvas.
+  const maxR = Math.max(...RINGS.map((r) => r.radius)), sinT = Math.sin(tilt), cy = o.cy || 0.52
+  const kFit = Math.min((W / 2 - 14) / (maxR + 24), (H * (1 - cy) - 14) / (maxR * sinT * 1.12 + 40), (H * cy - 10) / (maxR * sinT + 34))
+  const kMain = Math.min(W / 400, H / (2 * 180 * sinT + 110)) * (o.zoom || 1)
+  const K = () => Math.min(kMain, kFit)
   const P = (x: number, y: number, z: number) => {
-    const c = Math.cos(sim.tilt), s = Math.sin(sim.tilt), k = K(), y2 = y * c - z * s, z2 = y * s + z * c, p = F / (F + z2 * k)
-    return { x: W / 2 + x * k * p, y: H * (o.cy || 0.52) + y2 * k * p, z: z2, p }
+    const c = Math.cos(tilt), s = Math.sin(tilt), k = K(), y2 = y * c - z * s, z2 = y * s + z * c, p = F / (F + z2 * k)
+    return { x: W / 2 + x * k * p, y: H * cy + y2 * k * p, z: z2, p }
   }
   const slow = sim.mode === 'calm' ? 1 : 0.3
   const pl = pal(sim.mode, !!o.night)
@@ -136,7 +162,21 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, sim: OrbitSim, scene: O
   if (!reduced && !o.dragging) for (let i = 0; i < RINGS.length; i++) sim.spin[i] = (sim.spin[i] ?? 0) + dt * RINGS[i].speed * slow
 
   const sans = fonts.sans
-  const ball = (x: number, y: number, r: number, c: readonly string[], ini: string, a: number, glow: string | null, ink?: string) => {
+  /** Soft contact shadow on the orbit plane at (x, y); fainter and wider the higher the ball floats. */
+  const shade = (x: number, y: number, w: number, a: number) => {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, w)
+    g.addColorStop(0, 'rgba(0,30,28,' + (0.22 * a).toFixed(3) + ')')
+    g.addColorStop(1, 'rgba(0,30,28,0)')
+    ctx.save()
+    ctx.translate(x, y)
+    ctx.scale(1, Math.max(0.2, Math.sin(tilt) * 0.55))
+    ctx.fillStyle = g
+    ctx.beginPath()
+    ctx.arc(0, 0, w, 0, 7)
+    ctx.fill()
+    ctx.restore()
+  }
+  const ball = (x: number, y: number, r: number, c: readonly string[], ini: string, a: number, glow: string | null, ink?: string, img?: HTMLImageElement | null) => {
     ctx.globalAlpha = a
     if (glow) {
       const g = ctx.createRadialGradient(x, y, r * 0.6, x, y, r * 2.8)
@@ -147,35 +187,88 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, sim: OrbitSim, scene: O
       ctx.arc(x, y, r * 2.8, 0, 7)
       ctx.fill()
     }
-    ctx.fillStyle = 'rgba(0,25,24,.16)'
-    ctx.beginPath()
-    ctx.ellipse(x, y + r * 1.08, r * 0.78, r * 0.2, 0, 0, 7)
-    ctx.fill()
-    const g2 = ctx.createRadialGradient(x - r * 0.35, y - r * 0.45, r * 0.08, x, y, r)
-    g2.addColorStop(0, c[0])
-    g2.addColorStop(0.55, c[1])
-    g2.addColorStop(1, c[2])
-    ctx.fillStyle = g2
+    // Coloured glass rim with a soft drop shadow.
+    ctx.save()
+    ctx.shadowColor = 'rgba(0,30,28,.28)'
+    ctx.shadowBlur = r * 0.7
+    ctx.shadowOffsetY = r * 0.22
+    const rim = ctx.createLinearGradient(x, y - r, x, y + r)
+    rim.addColorStop(0, c[0])
+    rim.addColorStop(0.5, c[1])
+    rim.addColorStop(1, c[2])
+    ctx.fillStyle = rim
     ctx.beginPath()
     ctx.arc(x, y, r, 0, 7)
     ctx.fill()
-    ctx.strokeStyle = 'rgba(255,255,255,.5)'
-    ctx.lineWidth = 1
+    ctx.restore()
+    const ir = img ? r * 0.86 : r
+    ctx.save()
     ctx.beginPath()
-    ctx.arc(x, y, r - 0.6, Math.PI * 1.05, Math.PI * 1.7)
+    ctx.arc(x, y, ir, 0, 7)
+    ctx.clip()
+    if (img) {
+      const s = Math.min(img.naturalWidth, img.naturalHeight)
+      ctx.drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, x - ir, y - ir, ir * 2, ir * 2)
+    } else {
+      const g2 = ctx.createRadialGradient(x - r * 0.35, y - r * 0.45, r * 0.08, x, y, r)
+      g2.addColorStop(0, c[0])
+      g2.addColorStop(0.55, c[1])
+      g2.addColorStop(1, c[2])
+      ctx.fillStyle = g2
+      ctx.fillRect(x - r, y - r, r * 2, r * 2)
+    }
+    // Spherical shading: lit from the top left, darker towards the lower rim.
+    const sh = ctx.createRadialGradient(x - ir * 0.3, y - ir * 0.4, ir * 0.2, x, y, ir * 1.05)
+    sh.addColorStop(0, 'rgba(255,255,255,0)')
+    sh.addColorStop(0.7, 'rgba(0,20,20,0)')
+    sh.addColorStop(1, 'rgba(0,20,20,' + (img ? 0.32 : 0.18) + ')')
+    ctx.fillStyle = sh
+    ctx.fillRect(x - ir, y - ir, ir * 2, ir * 2)
+    ctx.restore()
+    // Specular: a crescent of light along the upper edge, plus a small hot spot.
+    ctx.strokeStyle = 'rgba(255,255,255,.7)'
+    ctx.lineWidth = Math.max(1, r * 0.07)
+    ctx.lineCap = 'round'
+    ctx.beginPath()
+    ctx.arc(x, y, r * 0.93, Math.PI * 1.1, Math.PI * 1.55)
     ctx.stroke()
-    const g3 = ctx.createRadialGradient(x - r * 0.36, y - r * 0.5, 0, x - r * 0.36, y - r * 0.5, r * 0.5)
-    g3.addColorStop(0, 'rgba(255,255,255,.9)')
+    ctx.lineCap = 'butt'
+    const g3 = ctx.createRadialGradient(x - r * 0.42, y - r * 0.5, 0, x - r * 0.42, y - r * 0.5, r * 0.42)
+    g3.addColorStop(0, 'rgba(255,255,255,' + (img ? 0.55 : 0.9) + ')')
     g3.addColorStop(1, 'rgba(255,255,255,0)')
     ctx.fillStyle = g3
     ctx.beginPath()
-    ctx.arc(x - r * 0.36, y - r * 0.5, r * 0.5, 0, 7)
+    ctx.arc(x - r * 0.42, y - r * 0.5, r * 0.42, 0, 7)
     ctx.fill()
-    ctx.fillStyle = ink || '#fff'
-    ctx.font = '600 ' + Math.round(r * 0.74) + 'px ' + sans + ',sans-serif'
+    ctx.strokeStyle = 'rgba(255,255,255,.55)'
+    ctx.lineWidth = 1
+    ctx.beginPath()
+    ctx.arc(x, y, r - 0.5, 0, 7)
+    ctx.stroke()
+    if (!img) {
+      ctx.fillStyle = ink || '#fff'
+      ctx.font = '600 ' + Math.round(r * 0.74) + 'px ' + sans + ',sans-serif'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText(ini, x, y + r * 0.04)
+    }
+    ctx.globalAlpha = 1
+  }
+  /** Name under a ball on a small frosted pill, so it reads over rings and the background. */
+  const tag = (text: string, x: number, y: number, font: string, color: string, a: number) => {
+    ctx.font = font
+    const w = ctx.measureText(text).width + 12
+    x = Math.max(w / 2 + 4, Math.min(W - w / 2 - 4, x))
+    ctx.globalAlpha = a
+    ctx.fillStyle = o.night || sim.mode !== 'calm' ? 'rgba(10,16,30,.42)' : 'rgba(255,255,255,.62)'
+    ctx.beginPath()
+    ctx.roundRect(x - w / 2, y - 8.5, w, 17, 8.5)
+    ctx.fill()
+    ctx.fillStyle = color
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    ctx.fillText(ini, x, y + r * 0.04)
+    ctx.fillText(text, x, y + 0.5)
+    ctx.textBaseline = 'alphabetic'
     ctx.globalAlpha = 1
   }
   const ell = (R: number, y: number, color: string, lw: number) => {
@@ -195,7 +288,7 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, sim: OrbitSim, scene: O
   const fc = P(0, 6, 0)
   ctx.save()
   ctx.translate(fc.x, fc.y)
-  ctx.scale(1, Math.sin(sim.tilt))
+  ctx.scale(1, Math.sin(tilt))
   const fg = ctx.createRadialGradient(0, 0, 0, 0, 0, 205 * k0)
   fg.addColorStop(0, pl.pool)
   fg.addColorStop(1, 'rgba(255,255,255,0)')
@@ -218,42 +311,73 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, sim: OrbitSim, scene: O
   })
   sim.waves.forEach((w) => ell(w.r, 0, 'rgba(' + pl.ring + ',' + w.a.toFixed(3) + ')', 1.6))
 
+  // Calm heartbeat: two soft ripples leave Margaret on the plane.
+  if (sim.mode === 'calm' && !reduced)
+    for (let k = 0; k < 2; k++) {
+      const f = (now / 3600 + k / 2) % 1
+      ell(36 + f * 110, 0, 'rgba(' + pl.ring + ',' + (0.16 * (1 - f) * Math.min(1, f * 6)).toFixed(3) + ')', 1.2)
+    }
+
   const items: { z: number; d: () => void }[] = []
+  // Names go on top of every ball, so a passing ball never hides one.
+  const names: (() => void)[] = []
+  const frontOf = (z: number, R: number) => Math.max(0, Math.min(1, 0.5 - (z / (R * Math.sin(tilt) + 1)) * 0.5))
   RINGS.forEach((R, ri) => {
-    const N = 96
+    const N = 120
     for (let s = 0; s < N; s++) {
-      if (R.dashed && s % 2) continue
-      const t1 = (s / N) * Math.PI * 2, t2 = ((s + 1) / N) * Math.PI * 2
+      if (R.dashed && s % 3 === 2) continue
+      const t1 = (s / N) * Math.PI * 2, t2 = ((s + (R.dashed ? 0.6 : 1)) / N) * Math.PI * 2
       const a = P(R.radius * Math.cos(t1), R.y, R.radius * Math.sin(t1)), b = P(R.radius * Math.cos(t2), R.y, R.radius * Math.sin(t2))
-      const front = Math.max(0, Math.min(1, 0.5 - (a.z / (R.radius * Math.sin(sim.tilt) + 1)) * 0.5))
+      const front = frontOf(a.z, R.radius)
       items.push({
         z: (a.z + b.z) / 2,
         d: () => {
-          ctx.strokeStyle = 'rgba(' + pl.ring + ',' + (0.12 + 0.5 * front).toFixed(3) + ')'
-          ctx.lineWidth = (1 + 1.8 * front) * (ri === 2 ? 0.8 : 1)
+          ctx.strokeStyle = 'rgba(' + pl.ring + ',' + (0.08 + 0.42 * front).toFixed(3) + ')'
+          ctx.lineWidth = (0.8 + 1.4 * front) * (ri === 2 ? 0.8 : 1)
+          ctx.lineCap = 'round'
           ctx.beginPath()
           ctx.moveTo(a.x, a.y)
           ctx.lineTo(b.x, b.y)
           ctx.stroke()
+          ctx.lineCap = 'butt'
         },
       })
     }
+    // A couple of glints travelling the ring a little faster than the people on it.
+    if (!reduced)
+      for (let k = 0; k < 2; k++) {
+        const t = (sim.spin[ri] ?? 0) * 2.4 + now / 1000 * (0.35 - ri * 0.08) + k * Math.PI + ri
+        const q = P(R.radius * Math.cos(t), R.y, R.radius * Math.sin(t))
+        const front = frontOf(q.z, R.radius), gr = (3 + 3 * front) * k0
+        items.push({
+          z: q.z,
+          d: () => {
+            const g = ctx.createRadialGradient(q.x, q.y, 0, q.x, q.y, gr)
+            g.addColorStop(0, 'rgba(255,255,255,' + (0.35 + 0.55 * front).toFixed(3) + ')')
+            g.addColorStop(0.4, 'rgba(' + pl.ring + ',' + (0.25 + 0.35 * front).toFixed(3) + ')')
+            g.addColorStop(1, 'rgba(' + pl.ring + ',0)')
+            ctx.fillStyle = g
+            ctx.beginPath()
+            ctx.arc(q.x, q.y, gr, 0, 7)
+            ctx.fill()
+          },
+        })
+      }
   })
-  const cP = P(0, -16, 0)
-  const br = reduced ? 1 : 1 + 0.035 * Math.sin((now / 650) * (sim.mode === 'sos' ? 2.2 : 1))
+  const cLift = reduced ? 0 : 2.5 * Math.sin(now / 1700)
+  const cP = P(0, -16 - cLift, 0)
+  const cS = P(0, 0, 0)
+  const br = reduced ? 1 : 1 + 0.03 * Math.sin((now / 650) * (sim.mode === 'sos' ? 2.2 : 1))
   const cr = 34 * k0 * cP.p * br
   const c = scene.centre
+  const cImg = photo(c.name, o.onAsset)
   const hits: OrbitHit[] = [{ x: cP.x, y: cP.y, r: cr, text: c.name + ' · ' + (sim.mode === 'calm' ? c.calmSub : c.alertSub) }]
   items.push({
     z: cP.z,
     d: () => {
-      ball(cP.x, cP.y, cr, pl.core, c.initials, 1, pl.halo)
-      if (o.labels && sim.mode === 'calm') {
-        ctx.fillStyle = pl.lab
-        ctx.font = '500 12px ' + sans
-        ctx.textAlign = 'center'
-        ctx.fillText(c.label, cP.x, cP.y + cr + 16)
-      }
+      shade(cS.x, cS.y + cr * 0.15, cr * 1.25, 1)
+      ball(cP.x, cP.y, cr, pl.core, c.initials, 1, pl.halo, undefined, cImg)
+      if (o.labels && sim.mode === 'calm') names.push(() => tag(c.label, cP.x, cP.y + cr + 15, '600 12px ' + sans, pl.lab, 1))
     },
   })
   const pos: Record<string, { x: number; y: number }> = {}
@@ -261,7 +385,8 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, sim: OrbitSim, scene: O
     const R = RINGS[p.ring]
     let rad = R.radius
     if (sim.ang[i] == null) sim.ang[i] = p.angle
-    if (p.id === 'david' && st.app > 0.01) {
+    const approaching = p.id === 'david' && st.app > 0.01
+    if (approaching) {
       if (reduced) sim.ang[i] = -Math.PI / 2
       else {
         let d = -Math.PI / 2 - sim.ang[i]
@@ -271,8 +396,12 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, sim: OrbitSim, scene: O
       rad = R.radius + (50 - R.radius) * st.app
     } else sim.ang[i] = p.angle + (sim.spin[p.ring] ?? 0)
     const ang = sim.ang[i]
-    const q = P(rad * Math.cos(ang), R.y - 10, rad * Math.sin(ang))
+    // Each ball floats a few px above its ring on its own slow rhythm.
+    const lift = reduced ? 10 : 10 + 3 * Math.sin(now / 1300 + i * 1.9)
+    const q = P(rad * Math.cos(ang), R.y - lift, rad * Math.sin(ang))
+    const ground = P(rad * Math.cos(ang), R.y, rad * Math.sin(ang))
     const r = (p.id === 'hosp' ? 15 : 18) * k0 * q.p
+    const img = photo(p.name, o.onAsset)
     pos[p.id] = q
     let a = 1
     let glow: string | null = null
@@ -285,25 +414,50 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, sim: OrbitSim, scene: O
       if (p.id === 'james' && st.call > 0.5) glow = 'rgba(255,180,120,.55)'
       if (p.id === 'david' && st.app > 0.05) glow = 'rgba(140,190,255,.55)'
     }
-    const front = Math.max(0, Math.min(1, 0.5 - (q.z / (rad * Math.sin(sim.tilt) + 1)) * 0.5))
-    a *= 0.55 + 0.45 * front
+    const front = frontOf(q.z, rad)
+    a *= 0.62 + 0.38 * front
     hits.push({ x: q.x, y: q.y, r: r + 6, text: p.name + ' · ' + p.sub })
+    // A fading comet tail along the ring behind the ball, in the person's colour.
+    if (!approaching && !reduced) {
+      const TAIL = 14, span = 0.55
+      for (let s = 0; s < TAIL; s++) {
+        const t1 = ang - (s / TAIL) * span, t2 = ang - ((s + 1) / TAIL) * span
+        const u = P(rad * Math.cos(t1), R.y, rad * Math.sin(t1)), v = P(rad * Math.cos(t2), R.y, rad * Math.sin(t2))
+        const f = 1 - s / TAIL
+        items.push({
+          z: (u.z + v.z) / 2 - 0.01,
+          d: () => {
+            ctx.globalAlpha = a * f * f * 0.75
+            ctx.strokeStyle = p.colors[1]
+            ctx.lineWidth = (1.2 + 2.2 * f) * k0 * u.p
+            ctx.lineCap = 'round'
+            ctx.beginPath()
+            ctx.moveTo(u.x, u.y)
+            ctx.lineTo(v.x, v.y)
+            ctx.stroke()
+            ctx.lineCap = 'butt'
+            ctx.globalAlpha = 1
+          },
+        })
+      }
+    }
     items.push({
       z: q.z,
       d: () => {
-        ball(q.x, q.y, r, p.colors, p.initials, a, glow, p.ink)
+        shade(ground.x, ground.y, r * 0.95, a)
+        ball(q.x, q.y, r, p.colors, p.initials, a, glow, p.ink, img)
         if (o.labels) {
-          ctx.globalAlpha = a
-          ctx.textAlign = 'center'
-          ctx.fillStyle = pl.lab
-          ctx.font = '500 11.5px ' + sans
-          ctx.fillText(p.name, q.x, q.y + r + 14)
-          if (o.subs) {
-            ctx.fillStyle = pl.sub
-            ctx.font = '400 10px ' + sans
-            ctx.fillText(p.sub, q.x, q.y + r + 26)
-          }
-          ctx.globalAlpha = 1
+          names.push(() => {
+            tag(p.name, q.x, q.y + r + 13, '600 11px ' + sans, pl.lab, a)
+            if (o.subs) {
+              ctx.globalAlpha = a
+              ctx.textAlign = 'center'
+              ctx.fillStyle = pl.sub
+              ctx.font = '400 10px ' + sans
+              ctx.fillText(p.sub, q.x, q.y + r + 33)
+              ctx.globalAlpha = 1
+            }
+          })
         }
       },
     })
@@ -325,6 +479,7 @@ export function drawOrbit(ctx: CanvasRenderingContext2D, sim: OrbitSim, scene: O
   link('hosp', st.hosp, 'rgba(150,215,255,A)')
   link('david', st.app > 0.02 && st.arrived < 0.5 ? 1 : 0, 'rgba(140,190,255,A)')
   items.sort((a, b) => b.z - a.z).forEach((it) => it.d())
+  names.forEach((d) => d())
   return hits
 }
 

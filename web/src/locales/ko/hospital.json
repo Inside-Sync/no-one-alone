@@ -1,0 +1,268 @@
+{
+  "ed": {
+    "inbox": {
+      "title": "도착 전 수신함",
+      "meta": "구급차보다 먼저 정보가 도착합니다",
+      "newPill": "신규 1건",
+      "newTag": "신규"
+    },
+    "incoming": {
+      "title": "도착 예정 구급차",
+      "meta": "향후 60분",
+      "head": [
+        "도착 예정",
+        "환자",
+        "주 증상",
+        "중증도 분류",
+        "정보",
+        "병상"
+      ]
+    },
+    "packet": {
+      "title": "도착 전 정보",
+      "meta": "환자를 선택하세요",
+      "demoMeta": "Margaret C., 78세",
+      "statusLabel": "상태",
+      "noteLabel": "메모"
+    },
+    "pathway": {
+      "title": "뇌졸중 경로",
+      "meta": "치료 가능 시간",
+      "pending": "대기"
+    },
+    "page": {
+      "label": "뇌졸중팀 호출",
+      "toast": "뇌졸중팀 호출됨 · CT 2 대기"
+    },
+    "divert": {
+      "label": "우회",
+      "toast": "구급차에 우회를 제안했습니다"
+    },
+    "recovery": {
+      "title": "📝 퇴원 및 회복 계획",
+      "meta": "수정하고 승인하면 Noa가 쉬운 말로 Margaret의 포털에 전달합니다",
+      "staff": "의사",
+      "diagnosis": "진단",
+      "meds": "약",
+      "medName": "약 {{n}} 이름",
+      "medDose": "약 {{n}} 용량",
+      "activities": "지시 사항",
+      "actText": "활동 {{n}}",
+      "actTimes": "활동 {{n}} 시간",
+      "followUps": "추적 진료",
+      "fuText": "추적 진료 {{n}}",
+      "fuDays": "추적 진료 {{n}} (일 후)",
+      "notes": "의사 소견",
+      "hint": "시간은 HH:mm, 쉼표로 구분",
+      "sentAt": "{{time}}에 집으로 보냄",
+      "sent": "집으로 보냄",
+      "failed": "계획을 보내지 못했습니다",
+      "delivering": "⏳ Noa가 전달하는 중…",
+      "why": "이유: {{text}}",
+      "medHead": "약",
+      "doseHead": "용량",
+      "changeHead": "변경",
+      "slots": {
+        "morning": "아침",
+        "midday": "점심",
+        "evening": "저녁",
+        "night": "취침 전"
+      },
+      "medSlot": "약 {{n}} {{slot}}",
+      "medChange": "약 {{n}} 변경",
+      "change": {
+        "New": "신규",
+        "Increased": "증량",
+        "Continue": "유지",
+        "Stop": "중단"
+      },
+      "calls": "Noa 추적 전화",
+      "callDay": "✓ {{day}}일차",
+      "finalise": "✍️ 계획 확정",
+      "signed": "✍️ {{name}} 확정 · {{time}}",
+      "editAgain": "다시 수정",
+      "approve": "✅ 승인하고 Noa에게 넘기기",
+      "approveNote": "Noa가 계획을 쉬운 말로 옮기고, 알림을 설정하고, Margaret 본인의 설정에 따라 돌봄 모임과 공유합니다.",
+      "toastFinal": "계획이 확정·서명되었습니다. 이제 승인하여 Noa에게 넘기세요.",
+      "toastSent": "회복 계획을 Margaret의 포털에 전달했습니다",
+      "steps": {
+        "summary": "쉬운 말로 요약 작성",
+        "summaryFallback": "의사 소견을 요약으로 사용",
+        "reminders": "알림 {{n}}개 설정, 그중 {{voiced}}개는 음성 알림",
+        "calls": "안부 전화 날짜를 계획에 추가: {{days}}일차",
+        "appointments": "예약: {{list}}",
+        "circle": "{{names}} 님에게 공개",
+        "delivered": "Margaret의 화면에 계획이 표시됨"
+      }
+    },
+    "discharge": {
+      "title": "🩺 퇴원 준비: Margaret Collins, 78세",
+      "sub": "허혈성 뇌졸중, 혈전용해술 시행 · 신규 발작성 AF · 회복 계획 승인 대기",
+      "open": "📝 기록과 회복 계획 열기"
+    }
+  },
+  "panel": {
+    "table": {
+      "title": "관할 지역 고령 환자",
+      "meta": "No One Alone 등록 · 30일 입원 위험 순",
+      "head": [
+        "환자",
+        "동네",
+        "30일 입원",
+        "주요 요인",
+        "최근 응급실",
+        "주치의",
+        "신호"
+      ],
+      "sex": {
+        "F": "여",
+        "M": "남"
+      }
+    },
+    "scatter": {
+      "title": "나이별 위험",
+      "ariaLabel": "나이 대비 30일 입원 위험 산점도. 나이가 많을수록 위험 증가. Margaret은 78세, 22%",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "높음"
+        },
+        {
+          "color": "#c88a05",
+          "label": "보통"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "낮음"
+        }
+      ],
+      "axis": "나이"
+    }
+  },
+  "demand": {
+    "forecast": {
+      "title": "75세 이상 내원, 향후 14일",
+      "tag": "예측",
+      "ariaLabel": "75세 이상 내원 예측: 목요일 34명, 금요일 31명으로 적정선 28명 초과",
+      "legend": [
+        {
+          "color": "#2f6fb0",
+          "label": "예측"
+        },
+        {
+          "color": "rgba(47,111,176,.15)",
+          "label": "80% 구간"
+        },
+        {
+          "color": "#56706e",
+          "label": "작년"
+        },
+        {
+          "color": "#d9443f",
+          "label": "적정선 초과"
+        }
+      ],
+      "heatwave": "폭염",
+      "secondSpell": "두 번째 더위?"
+    },
+    "beds": {
+      "title": "현재 병상",
+      "meta": "15:00"
+    },
+    "shap": {
+      "title": "목요일 급증 요인",
+      "meta": "예측 기여도"
+    },
+    "actions": {
+      "title": "권장 조치",
+      "meta": "예측에서 생성",
+      "buttons": {
+        "Approve": "승인",
+        "Linked": "연계됨",
+        "Review": "검토",
+        "Auto": "자동"
+      },
+      "toastApproved": "{{title}} · 승인됨",
+      "toastNoted": "{{title}} · 확인됨"
+    }
+  },
+  "discharge": {
+    "board": {
+      "title": "30일 추적 관리 현황",
+      "meta": "Noa가 환자마다 본인 언어로 전화합니다 · 경고 징후는 퇴원 간호사에게 전달",
+      "head": [
+        "환자",
+        "퇴원일",
+        "진단",
+        "1일차",
+        "3일차",
+        "7일차",
+        "14일차",
+        "30일차",
+        "재입원 위험"
+      ],
+      "legend": [
+        {
+          "color": "#1fb39c",
+          "label": "완료, 양호"
+        },
+        {
+          "color": "#c88a05",
+          "label": "완료, 주의 표시"
+        },
+        {
+          "color": "#d9443f",
+          "label": "간호사에게 보고"
+        },
+        {
+          "color": "var(--track)",
+          "label": "예정"
+        }
+      ],
+      "new": "신규"
+    }
+  },
+  "actions": {
+    "row": [
+      [
+        "전체 차트 열기",
+        "EMR에서 차트 열림 (데모)",
+        "열림"
+      ],
+      [
+        "주치의에게 메시지",
+        "주치의에게 보안 메시지 전송",
+        "전송됨"
+      ],
+      [
+        "나에게 배정",
+        "나에게 배정됨",
+        "배정됨"
+      ]
+    ],
+    "kpi": [
+      [
+        "관심 목록에 추가",
+        "관심 목록에 추가됨",
+        "관심 중"
+      ],
+      [
+        "CSV 내보내기",
+        "내보내기 대기 중",
+        "내보냄"
+      ]
+    ],
+    "mini": [
+      [
+        "검토 표시",
+        "표시함",
+        "표시함"
+      ],
+      [
+        "나에게 배정",
+        "나에게 배정됨",
+        "배정됨"
+      ]
+    ]
+  }
+}

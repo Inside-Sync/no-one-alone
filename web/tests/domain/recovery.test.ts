@@ -1,5 +1,6 @@
 import type { RecoveryDoc } from '@/data/contract'
-import { CALL_DAYS, WHY, dayLabel, deliverySteps, followUpCalls, handoffFacts, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
+import { CALL_DAYS, dayLabel, deliverySteps, followUpCalls, handoffFacts, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
+import en from '@/locales/en/me.json'
 
 const R = [
   { time: '08:00', kind: 'MED' as const, text: 'aspirin' },
@@ -40,7 +41,7 @@ const doc = (extra: Partial<RecoveryDoc> = {}): RecoveryDoc => ({
 test('todayTasks follows reminder order and attaches why only for known items', () => {
   const tasks = todayTasks(doc())
   expect(tasks.map((t) => t.time)).toEqual(['08:00', '09:00', '10:00'])
-  expect(tasks[0]).toMatchObject({ id: '08:00Time for your aspirin, 100 mg.', kind: 'MED', title: 'Time for your aspirin, 100 mg.', why: WHY.aspirin, audioPath: 'a.mp3' })
+  expect(tasks[0]).toMatchObject({ id: '08:00Time for your aspirin, 100 mg.', kind: 'MED', title: 'Time for your aspirin, 100 mg.', why: 'Stop taking this. Apixaban does its job now.', audioPath: 'a.mp3' })
   expect(tasks[1].why).toBeUndefined()
   expect(tasks[2].why).toBe('Gentle walking helps the brain heal and keeps blood pressure down.')
 })
@@ -111,5 +112,5 @@ test('the default reminders read naturally and keep their WHY lines', () => {
     r('Time for your 20-minute walk.'), r('Time to check your blood pressure. Aim for under 130/80.'),
     r('Time for your speech exercises, 15 minutes.'), r('Time for a glass of water.'),
   ] }))
-  expect(tasks.map((t) => t.why)).toEqual([WHY.walk, WHY['blood pressure'], WHY.speech, WHY.water])
+  expect(tasks.map((t) => t.why)).toEqual([en.recovery.why.walk, en.recovery.why.bloodPressure, en.recovery.why.speech, en.recovery.why.water])
 })

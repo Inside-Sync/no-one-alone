@@ -1,0 +1,1055 @@
+{
+  "surroundings": {
+    "homeMap": {
+      "kicker": "📍 Margaret이 사는 곳",
+      "title": "Marrickville, Sydney",
+      "detail": "Inner West · CBD에서 남서쪽으로 5.8 km · −33.911, 151.155",
+      "lat": -33.911,
+      "lng": 151.155,
+      "address": "186 Marrickville Rd, Marrickville NSW 2204",
+      "legend": [
+        {
+          "color": "#14a08c",
+          "label": "Margaret의 집"
+        },
+        {
+          "color": "#2f6fb0",
+          "label": "근처 가족"
+        },
+        {
+          "color": "#ffffff",
+          "label": "의료 서비스",
+          "ring": true
+        },
+        {
+          "color": "#8f6fd0",
+          "label": "지역사회"
+        },
+        {
+          "color": "#9b7fd4",
+          "label": "자카란다 개화",
+          "round": true
+        }
+      ],
+      "chips": [
+        {
+          "icon": "people",
+          "text": "David · 450 m · 걸어서 6분"
+        },
+        {
+          "icon": "clinic",
+          "text": "GP · 350 m"
+        },
+        {
+          "icon": "pill",
+          "text": "약국 · 280 m"
+        },
+        {
+          "icon": "hospital",
+          "text": "뇌졸중 센터 · 4.2 km · 11분"
+        },
+        {
+          "icon": "siren",
+          "text": "구급차 중앙값 9.4분 (2204)"
+        },
+        {
+          "icon": "sun",
+          "text": "목요일 38 °C"
+        }
+      ],
+      "ariaLabel": "Marrickville에 있는 Margaret 동네의 3D 모형: Marrickville Road의 집, 서쪽으로 450미터 떨어진 남동생 David의 집, 가까운 GP와 약국, 도서관 냉방실, 공원 걷기 모임, 남쪽의 Cooks River",
+      "pins": [
+        {
+          "name": "Margaret의 집",
+          "sub": "집",
+          "color": "#14a08c",
+          "initials": "M",
+          "big": true,
+          "kind": "home",
+          "geo": {
+            "lat": -33.911,
+            "lng": 151.155
+          }
+        },
+        {
+          "name": "David (남동생)",
+          "sub": "",
+          "detail": "450 m · 걸어서 6분",
+          "color": "#2f6fb0",
+          "initials": "D",
+          "phase": 0.3,
+          "kind": "family",
+          "geo": {
+            "lat": -33.913964,
+            "lng": 151.151753
+          }
+        },
+        {
+          "name": "GP",
+          "sub": "",
+          "detail": "Illawarra Rd Family Practice · Dr Patel · 350 m",
+          "color": "#ffffff",
+          "ink": "#0b7f71",
+          "initials": "+",
+          "phase": 0.5,
+          "at": {
+            "x": 162,
+            "y": 132,
+            "z": 12
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908548,
+            "lng": 151.153182
+          }
+        },
+        {
+          "name": "약국",
+          "sub": "",
+          "detail": "280 m · 21:00까지 영업",
+          "color": "#ffffff",
+          "ink": "#1fb39c",
+          "initials": "Rx",
+          "phase": 0.7,
+          "at": {
+            "x": 127,
+            "y": 133,
+            "z": 9
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908579,
+            "lng": 151.151856
+          }
+        },
+        {
+          "name": "도서관 냉방실",
+          "sub": "",
+          "detail": "400 m · 120석",
+          "color": "#8f6fd0",
+          "initials": "L",
+          "phase": 0.1,
+          "at": {
+            "x": 305,
+            "y": 301,
+            "z": 21
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.913861,
+            "lng": 151.158598
+          }
+        },
+        {
+          "name": "걷기 모임",
+          "sub": "",
+          "detail": "목 9:00 · Calvert Reserve",
+          "color": "#8f6fd0",
+          "initials": "W",
+          "phase": 0.6,
+          "at": {
+            "x": 329,
+            "y": 211,
+            "z": 2
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.911031,
+            "lng": 151.159508
+          }
+        },
+        {
+          "name": "→ 뇌졸중 센터 4.2 km",
+          "sub": "",
+          "detail": "Camperdown Stroke Centre · 북동쪽 · 구급차로 11분",
+          "color": "#ef4e4a",
+          "initials": "",
+          "tag": true,
+          "at": {
+            "x": 398,
+            "y": 398,
+            "z": 2
+          }
+        }
+      ],
+      "walkRing": {
+        "label": "걸어서 5분",
+        "radius": 118
+      },
+      "labels": [
+        {
+          "text": "Marrickville Rd",
+          "x": 345,
+          "y": 150,
+          "bold": true
+        },
+        {
+          "text": "Illawarra Rd",
+          "x": 110,
+          "y": 384,
+          "bold": true
+        },
+        {
+          "text": "Calvert St",
+          "x": 52,
+          "y": 270
+        },
+        {
+          "text": "Victoria Rd",
+          "x": 250,
+          "y": 305
+        },
+        {
+          "text": "Cooks River",
+          "x": 300,
+          "y": 12
+        },
+        {
+          "text": "Calvert Reserve",
+          "x": 329,
+          "y": 240
+        },
+        {
+          "text": "Marrickville 역",
+          "x": 220,
+          "y": 345
+        }
+      ]
+    },
+    "watchMap": {
+      "kicker": "👀 동네 살피기",
+      "title": "Margaret의 집 주변",
+      "detail": "혼자 살 때 주의할 점 · 1 km 안 8가지",
+      "ariaLabel": "동네 알림이 표시된 Margaret 동네의 3D 지도: 보도 공사, 신고된 사기, 꺼진 가로등, 공격하는 까치, 뱀 목격, 폭염 냉방실",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "조치"
+        },
+        {
+          "color": "#c88a05",
+          "label": "주의"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "도움"
+        }
+      ],
+      "ring": {
+        "label": "관찰 구역",
+        "radius": 150
+      }
+    },
+    "pins": [
+      {
+        "name": "Margaret",
+        "sub": "",
+        "detail": "집",
+        "color": "#14a08c",
+        "initials": "M",
+        "big": true,
+        "kind": "home",
+        "geo": {
+          "lat": -33.911,
+          "lng": 151.155
+        }
+      },
+      {
+        "name": "보도 공사",
+        "sub": "",
+        "detail": "약국 앞 Marrickville Rd · 10월 24일까지 노면 고르지 않음",
+        "color": "#c88a05",
+        "initials": "!",
+        "phase": 0.2,
+        "at": {
+          "x": 225,
+          "y": 146,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.908988,
+          "lng": 151.155568
+        }
+      },
+      {
+        "name": "사기 신고",
+        "sub": "",
+        "detail": "방문형 \"태양광 환급\" 사기 · 월요일 이후 이 거리에서 3건 신고",
+        "color": "#d9443f",
+        "initials": "!",
+        "phase": 0.4,
+        "at": {
+          "x": 70,
+          "y": 205,
+          "z": 8
+        },
+        "kind": "alert",
+        "tone": "act",
+        "geo": {
+          "lat": -33.910843,
+          "lng": 151.149697
+        }
+      },
+      {
+        "name": "가로등 꺼짐",
+        "sub": "",
+        "detail": "일요일부터 Calvert St · 시의회에 신고 #IW-48213",
+        "color": "#c88a05",
+        "initials": "☾",
+        "phase": 0.6,
+        "at": {
+          "x": 160,
+          "y": 270,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.912886,
+          "lng": 151.153106
+        }
+      },
+      {
+        "name": "공격하는 까치",
+        "sub": "",
+        "detail": "Calvert Reserve 서쪽 길 · 봄철 둥지 시기",
+        "color": "#c88a05",
+        "initials": "M",
+        "phase": 0.8,
+        "at": {
+          "x": 350,
+          "y": 235,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.911786,
+          "lng": 151.160303
+        }
+      },
+      {
+        "name": "뱀 목격",
+        "sub": "",
+        "detail": "Cooks River 산책로 · 포장된 길로만 다니세요",
+        "color": "#c88a05",
+        "initials": "S",
+        "phase": 0.1,
+        "at": {
+          "x": 60,
+          "y": 36,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.905529,
+          "lng": 151.149318
+        }
+      },
+      {
+        "name": "냉방실",
+        "sub": "",
+        "detail": "도서관 · 목요일 9–8시 운영 · 74석 남음",
+        "color": "#1fb39c",
+        "initials": "L",
+        "phase": 0.5,
+        "at": {
+          "x": 305,
+          "y": 301,
+          "z": 21
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.913861,
+          "lng": 151.158598
+        }
+      },
+      {
+        "name": "백신",
+        "sub": "",
+        "detail": "약국 · 독감 및 코로나 백신 목–토 예약 없이",
+        "color": "#1fb39c",
+        "initials": "+",
+        "phase": 0.7,
+        "at": {
+          "x": 127,
+          "y": 133,
+          "z": 9
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.908579,
+          "lng": 151.151856
+        }
+      }
+    ],
+    "weather": {
+      "heading": "🌤️ Marrickville 날씨",
+      "meta": "현재 · 15:10",
+      "temp": "33°",
+      "summary": "맑음, 뜨거운 북동풍",
+      "feelsLike": "체감 35° · 실내 29.5°",
+      "stats": [
+        {
+          "label": "일출",
+          "value": "05:47",
+          "note": "일몰 19:14"
+        },
+        {
+          "label": "습도",
+          "value": "41%",
+          "note": "이슬점 18°"
+        },
+        {
+          "label": "기압",
+          "value": "1009",
+          "note": "hPa · 하강 중"
+        },
+        {
+          "label": "밤 최저 기온",
+          "value": "24°",
+          "note": "목 · 열대야"
+        },
+        {
+          "label": "산불 위험",
+          "value": "높음",
+          "note": "목–금"
+        },
+        {
+          "label": "가시거리",
+          "value": "10 km",
+          "note": "맑음"
+        }
+      ],
+      "note": "목요일과 금요일 폭염. 금요일 저녁 남풍으로 바뀌며 최대 60 km/h의 돌풍이 예상돼요."
+    },
+    "week": [
+      {
+        "day": "수",
+        "icon": "sun",
+        "high": 33,
+        "low": 19,
+        "hot": false
+      },
+      {
+        "day": "목",
+        "icon": "sun",
+        "high": 38,
+        "low": 24,
+        "hot": true
+      },
+      {
+        "day": "금",
+        "icon": "wind",
+        "high": 36,
+        "low": 18,
+        "hot": true
+      },
+      {
+        "day": "토",
+        "icon": "cloud",
+        "high": 26,
+        "low": 16,
+        "hot": false
+      },
+      {
+        "day": "일",
+        "icon": "cloud",
+        "high": 24,
+        "low": 15,
+        "hot": false
+      },
+      {
+        "day": "월",
+        "icon": "drop",
+        "high": 23,
+        "low": 14,
+        "hot": false
+      },
+      {
+        "day": "화",
+        "icon": "sun",
+        "high": 25,
+        "low": 15,
+        "hot": false
+      }
+    ],
+    "kpis": [
+      {
+        "emoji": "🌡️",
+        "label": "기온",
+        "value": "33",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "오늘 최고",
+        "delta": "평년보다 6° 높음",
+        "tone": "warn",
+        "spark": [
+          22,
+          24,
+          27,
+          29,
+          31,
+          32,
+          33,
+          33,
+          33
+        ]
+      },
+      {
+        "emoji": "🥵",
+        "label": "체감 온도",
+        "value": "35",
+        "unit": "°C",
+        "color": "#d9443f",
+        "baseline": "습한 공기",
+        "delta": "더움",
+        "tone": "warn",
+        "spark": [
+          23,
+          25,
+          28,
+          31,
+          33,
+          34,
+          35,
+          35,
+          35
+        ]
+      },
+      {
+        "emoji": "💨",
+        "label": "바람",
+        "value": "22",
+        "unit": "km/h",
+        "color": "#5a7fe0",
+        "baseline": "북동쪽에서",
+        "delta": "금 기온 하강",
+        "tone": "good",
+        "spark": [
+          8,
+          10,
+          12,
+          15,
+          18,
+          20,
+          22,
+          22,
+          22
+        ]
+      },
+      {
+        "emoji": "🕶️",
+        "label": "자외선 세기",
+        "value": "11",
+        "unit": "UV",
+        "color": "#c2417a",
+        "baseline": "오전 10시–오후 3:30",
+        "delta": "매우 높음: 그늘에 계세요",
+        "tone": "bad",
+        "spark": [
+          1,
+          3,
+          6,
+          9,
+          11,
+          11,
+          10,
+          8,
+          6
+        ]
+      },
+      {
+        "emoji": "🌧️",
+        "label": "비",
+        "value": "10",
+        "unit": "% 확률",
+        "color": "#2f6fb0",
+        "baseline": "토요일 60%",
+        "delta": "오늘 건조",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          5,
+          5,
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "emoji": "🍃",
+        "label": "대기질",
+        "value": "좋음",
+        "unit": "",
+        "color": "#1f8f5f",
+        "baseline": "오늘 공기 깨끗함",
+        "delta": "토요일 연기",
+        "tone": "good",
+        "spark": [
+          28,
+          30,
+          31,
+          33,
+          32,
+          31,
+          32,
+          32,
+          32
+        ]
+      },
+      {
+        "emoji": "🌾",
+        "label": "꽃가루",
+        "value": "높음",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "풀 꽃가루",
+        "delta": "흡입기를 가까이 두세요",
+        "tone": "warn",
+        "spark": [
+          3,
+          3,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "emoji": "✈️",
+        "label": "비행기 소음",
+        "value": "68",
+        "unit": "dB",
+        "color": "#56706e",
+        "baseline": "비행 경로",
+        "delta": "밤 11시–오전 6시 조용함",
+        "tone": "good",
+        "spark": [
+          50,
+          62,
+          66,
+          68,
+          67,
+          68,
+          66,
+          68,
+          68
+        ]
+      },
+      {
+        "emoji": "🔥",
+        "label": "더위 위험",
+        "value": "보통",
+        "unit": "",
+        "color": "#d9443f",
+        "baseline": "목요일 높음",
+        "delta": "계획 마련됨",
+        "tone": "warn",
+        "spark": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3
+        ]
+      },
+      {
+        "emoji": "🌅",
+        "label": "일조 시간",
+        "value": "13시간",
+        "unit": "",
+        "color": "#e2a32c",
+        "baseline": "일몰 오후 7:14",
+        "delta": "낮이 길어짐",
+        "tone": "good",
+        "spark": [
+          12.8,
+          12.8,
+          12.9,
+          12.9,
+          12.9,
+          13,
+          13,
+          13,
+          13.03
+        ]
+      },
+      {
+        "emoji": "🌊",
+        "label": "바닷바람",
+        "value": "없음",
+        "unit": "",
+        "color": "#2f6fb0",
+        "baseline": "금요일까지",
+        "delta": "따뜻한 밤",
+        "tone": "warn",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "emoji": "🔌",
+        "label": "정전 위험",
+        "value": "낮음",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "목요일 보통",
+        "delta": "냉장 보관 약 이상 없음",
+        "tone": "good",
+        "spark": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    ],
+    "alertsHeading": {
+      "title": "👀 혼자 사신다면 알아 두면 좋은 것",
+      "meta": "혼자 거주 · 긴급도순"
+    },
+    "alerts": [
+      {
+        "severity": "act",
+        "icon": "shield",
+        "title": "그녀의 거리에 사기 방문",
+        "text": "\"태양광 환급\" 방문자, 월요일 이후 3건 신고. Noa가 예상치 못한 방문객에게 문을 열지 마시라고 알려 드렸어요. 걱정되는 사람이 있으면 한 번만 눌러 David에게 전화할 수 있어요.",
+        "source": "경찰 + 이웃 · 2일"
+      },
+      {
+        "severity": "act",
+        "icon": "sun",
+        "title": "목요일 폭염, 38°",
+        "text": "에어컨이 없으면 실내가 34°까지 오를 것으로 예상돼요. 11:00 도서관 냉방실 차량 예약, 12:00와 15:00 추가 안부 확인.",
+        "source": "기상청 · 오늘"
+      },
+      {
+        "severity": "aware",
+        "icon": "people",
+        "title": "열쇠 보관자 부재 10월 18–25일",
+        "text": "Aisha가 자리를 비워 David만 열쇠를 갖고 있어요. 구급대원을 위한 열쇠 보관함을 권해요.",
+        "source": "서클 · 1일"
+      },
+      {
+        "severity": "aware",
+        "icon": "target",
+        "title": "약국 앞 보도 공사",
+        "text": "10월 24일까지 노면이 고르지 않아요. 걷는 길이 이제 Calvert St로 돌아가요.",
+        "source": "시의회 · 10월 6일"
+      },
+      {
+        "severity": "aware",
+        "icon": "moon",
+        "title": "Calvert St 가로등 꺼짐",
+        "text": "시의회에 신고했어요. 어두울 때 걸어서 귀가하지 않도록 저녁 안부 확인을 앞당겼어요.",
+        "source": "Noa · 일"
+      },
+      {
+        "severity": "aware",
+        "icon": "eye",
+        "title": "Calvert Reserve에 공격하는 까치",
+        "text": "걷기 모임이 11월까지 동쪽 길로 옮겼어요.",
+        "source": "주민 · 9월"
+      },
+      {
+        "severity": "help",
+        "icon": "plus",
+        "title": "무료 독감 및 코로나 백신",
+        "text": "목–토 다니는 약국에서 예약 없이 접종. 코로나 추가 접종 시기예요 (마지막 접종 7개월 전).",
+        "source": "약국 · 오늘"
+      }
+    ],
+    "newsHeading": {
+      "title": "📰 그녀에게 중요한 소식",
+      "meta": "2204에 혼자 사는 78세에 맞춰 선별"
+    },
+    "newsCategories": [
+      "All",
+      "Health",
+      "Safety",
+      "Weather",
+      "Community",
+      "Transport"
+    ],
+    "news": [
+      {
+        "category": "Health",
+        "source": "주 보건부",
+        "age": "2시간",
+        "headline": "시드니 폭염 건강 경보, 목요일과 금요일",
+        "body": "심장 질환이 있는 어르신은 시원하게 지내고, 물을 마시고, 하루 두 번 가족과 연락하세요.",
+        "shownBecause": "표시 이유: 심장 질환, 집에 에어컨 없음"
+      },
+      {
+        "category": "Safety",
+        "source": "지역 경찰",
+        "age": "5시간",
+        "headline": "태양광 환급을 내세운 방문 사기, 고령 주민 노려",
+        "body": "환급을 \"사전 승인\"한다며 은행 정보를 요구해요. 경찰은 문을 열지 말라고 권고해요.",
+        "shownBecause": "표시 이유: 혼자 거주, 그녀의 거리에서 3건 신고"
+      },
+      {
+        "category": "Weather",
+        "source": "기상청",
+        "age": "6시간",
+        "headline": "금요일 저녁 남풍 전환, 최대 60 km/h 돌풍",
+        "body": "한 시간 안에 기온이 12° 떨어져요. 야외 가구를 고정하세요.",
+        "shownBecause": "표시 이유: 정원 가구, 침실 옆 나무"
+      },
+      {
+        "category": "Community",
+        "source": "Inner West 시의회",
+        "age": "1일",
+        "headline": "어르신 축제: 10월 20일 (화) Marrickville 시청 무료 모닝 티",
+        "body": "라이브 음악, 건강 검진, 도서관에서 출발하는 차량 서비스.",
+        "shownBecause": "표시 이유: 사회적 교류가 평소보다 적음"
+      },
+      {
+        "category": "Transport",
+        "source": "교통 소식",
+        "age": "1일",
+        "headline": "이번 주말 Marrickville 기차 운행 없음, 대체 버스 운행",
+        "body": "버스는 Illawarra Rd에서 10분마다 출발해요.",
+        "shownBecause": "표시 이유: Sydenham 일요일 교회"
+      },
+      {
+        "category": "Health",
+        "source": "약국",
+        "age": "1일",
+        "headline": "독감 및 코로나 백신 예약 없이 접종 가능",
+        "body": "목요일부터 토요일까지, 65세 이상은 예약 필요 없음.",
+        "shownBecause": "표시 이유: 코로나 추가 접종 시기"
+      },
+      {
+        "category": "Safety",
+        "source": "시의회",
+        "age": "2일",
+        "headline": "산불 예방 소각으로 토요일에 연기가 생길 수 있음",
+        "body": "창문을 닫고 호흡기 약을 가까이 두세요.",
+        "shownBecause": "표시 이유: 가끔 천식"
+      },
+      {
+        "category": "Community",
+        "source": "도서관",
+        "age": "2일",
+        "headline": "목요일 냉방실 9–8시 운영, 75세 이상 좌석 확보",
+        "body": "무료 물, Wi-Fi, 낮잠을 위한 조용한 방.",
+        "shownBecause": "표시 이유: 폭염 계획"
+      }
+    ],
+    "thursday": {
+      "outdoor": [
+        22,
+        24,
+        27,
+        30,
+        33,
+        35,
+        37,
+        38,
+        38,
+        37,
+        36,
+        34,
+        32,
+        30,
+        28,
+        27,
+        26
+      ],
+      "indoor": [
+        26,
+        26.5,
+        27,
+        27.8,
+        28.8,
+        30,
+        31,
+        32,
+        33,
+        33.8,
+        34,
+        33.8,
+        33.2,
+        32.5,
+        31.5,
+        30.8,
+        30
+      ],
+      "coolRoom": {
+        "from": 5,
+        "to": 10,
+        "label": "도서관 냉방실"
+      },
+      "plan": [
+        {
+          "at": 3,
+          "label": "수분"
+        },
+        {
+          "at": 6,
+          "label": "안부 확인"
+        },
+        {
+          "at": 9,
+          "label": "안부 확인"
+        },
+        {
+          "at": 12,
+          "label": "안부 확인"
+        }
+      ],
+      "legend": [
+        {
+          "color": "#e07a3f",
+          "label": "실외"
+        },
+        {
+          "color": "#d9443f",
+          "label": "그녀의 집 안 (에어컨 없음)"
+        },
+        {
+          "color": "rgba(143,111,208,.2)",
+          "label": "Noa의 계획"
+        }
+      ]
+    },
+    "air": [
+      {
+        "day": "수",
+        "quality": "좋음 · 32",
+        "pm25": "9",
+        "pollen": "높음",
+        "smoke": "없음",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "목",
+        "quality": "보통 · 48",
+        "pm25": "14",
+        "pollen": "높음",
+        "smoke": "없음",
+        "advice": "한낮엔 실내에",
+        "tone": "warn"
+      },
+      {
+        "day": "금",
+        "quality": "보통 · 51",
+        "pm25": "16",
+        "pollen": "매우 높음",
+        "smoke": "없음",
+        "advice": "남풍과 함께 천식 경보",
+        "tone": "bad"
+      },
+      {
+        "day": "토",
+        "quality": "나쁨 · 88",
+        "pm25": "31",
+        "pollen": "보통",
+        "smoke": "가능성 높음",
+        "advice": "창문 닫기",
+        "tone": "bad"
+      },
+      {
+        "day": "일",
+        "quality": "보통 · 45",
+        "pm25": "12",
+        "pollen": "보통",
+        "smoke": "낮음",
+        "advice": "—",
+        "tone": "warn"
+      },
+      {
+        "day": "월",
+        "quality": "좋음 · 28",
+        "pm25": "7",
+        "pollen": "낮음",
+        "smoke": "없음",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "화",
+        "quality": "좋음 · 30",
+        "pm25": "8",
+        "pollen": "보통",
+        "smoke": "없음",
+        "advice": "—",
+        "tone": "good"
+      }
+    ],
+    "airNote": "봄철 풀 꽃가루가 많고, 시드니 남쪽의 산불 예방 소각으로 토요일에 연기가 올 수 있어요. 그날들은 흡입기 알림이 켜져 있어요.",
+    "nearby": [
+      {
+        "initials": "W",
+        "color": "#8f6fd0",
+        "name": "걷기 모임 · Calvert Reserve",
+        "note": "목 9:00 · 최근 4주 중 3번 참석",
+        "pill": {
+          "tone": "good",
+          "text": "참석"
+        }
+      },
+      {
+        "initials": "A",
+        "color": "#c2611f",
+        "name": "Aisha · 두 집 건너 이웃",
+        "note": "인증된 자원봉사자 · 열쇠 보관자",
+        "pill": {
+          "tone": "brand",
+          "text": "대체"
+        }
+      },
+      {
+        "initials": "M",
+        "color": "#5a7fe0",
+        "name": "식사 배달",
+        "note": "화·금 · 다음 금 11:30",
+        "pill": {
+          "tone": "plain",
+          "text": "예약됨"
+        }
+      },
+      {
+        "initials": "L",
+        "color": "#22a593",
+        "name": "도서관 디지털 기기 도움",
+        "note": "월요일 10:00 · Sarah와 영상 통화",
+        "pill": {
+          "tone": "plain",
+          "text": "선택"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,728 @@
+{
+  "idle": {
+    "title": "冇進行中嘅警報",
+    "body": "有警報嗰陣，呢頁會逐分鐘顯示應對情況：邊個趕緊過去、Margaret 個螢幕顯示乜，同埋醫院幾時收到佢嘅記錄。今個星期社區有 37 個警報，其中 29 個被過濾為假警報，冇嘈醒任何人。",
+    "run": "播放 02:03 夜間警報示範"
+  },
+  "endDemo": "結束示範",
+  "orbitLabel": "緊急情況下嘅照顧圈：支援正趕往 Margaret 身邊",
+  "since": "自警報起",
+  "subtitle": "即時 · {{time}} AEDT · 186 Marrickville Rd",
+  "actions": {
+    "call000": "打 000",
+    "callMum": {
+      "label": "打畀媽媽",
+      "toast": "打緊畀媽媽 · 字幕已開"
+    },
+    "callDavid": {
+      "label": "打畀 David",
+      "toast": "打緊畀 David"
+    }
+  },
+  "timeline": {
+    "title": "即時時間線",
+    "meta": "同照顧圈分享"
+  },
+  "player": {
+    "prev": "上一步",
+    "next": "下一步",
+    "pause": "暫停",
+    "play": "播放"
+  },
+  "phone": {
+    "title": "Margaret 嘅螢幕",
+    "meta": "同一時刻",
+    "note": "聽力模式已開，所以每條問題都會用大字顯示，仲有「係／唔係」掣。",
+    "header": "{{time}} · 聽力模式",
+    "yes": "係",
+    "no": "唔係",
+    "answered": "Margaret：{{a}}"
+  },
+  "liveSubtitle": "即時 · {{time}} · {{address}}",
+  "live": {
+    "starting": "開始緊情境…",
+    "reset": "重設示範",
+    "resetDone": "示範已重設 · 已重新載入資料",
+    "close": "結束事件",
+    "closed": "事件已結束",
+    "loading": "連接緊即時事件…",
+    "noLog": "等緊第一個更新…",
+    "actionsTitle": "{{name}} 嘅按鈕",
+    "noActions": "{{name}} 暫時冇嘢要做。將視圖轉去一個已收到警報嘅成員。",
+    "action": {
+      "ACCEPT": "我而家過嚟",
+      "DECLINE": "我嚟唔到",
+      "ARRIVED": "我喺佢身邊",
+      "CALLED_115": "我打咗 {{num}}",
+      "CALL_PERSON": "打畀 {{name}}",
+      "CALL_NEARBY": "打畀附近嘅幫手"
+    },
+    "actionDone": {
+      "ACCEPT": "由你負責呢個個案 · 人人都睇到",
+      "DECLINE": "已拒絕 · 正問緊下一個人",
+      "ARRIVED": "已標記為喺佢身邊",
+      "CALLED_115": "已記錄喺時間線"
+    },
+    "calling": "打緊畀 {{who}}",
+    "record": "撳一下回答",
+    "recording": "錄緊音… 撳一下傳送",
+    "sending": "傳送緊…",
+    "noMic": "呢度用唔到咪 · 請用按鈕",
+    "noReplyIn": "{{s}} 秒內冇回應就當冇回覆",
+    "answered": "Margaret：{{a}}",
+    "failed": "傳唔到 · 請再試一次",
+    "busy": "仲處理緊上一個回答",
+    "scriptTitle": "打 {{num}} 嘅講稿",
+    "scriptPending": "完成分流之後 Noa 會寫好呢份講稿。"
+  },
+  "sos": {
+    "title": "打 000 嘅講稿",
+    "intro": "叫救護車。照讀以下內容。",
+    "rows": [
+      [
+        "地址",
+        "186 Marrickville Rd, Marrickville NSW 2204"
+      ],
+      [
+        "病人",
+        "Margaret Collins，78 歲，獨居"
+      ],
+      [
+        "症狀",
+        "02:04 起講嘢口齒不清，心跳 142"
+      ],
+      [
+        "最後正常時間",
+        "01:55"
+      ],
+      [
+        "藥物",
+        "Amlodipine、aspirin、atorvastatin · 對盤尼西林過敏"
+      ],
+      [
+        "入屋方法",
+        "細佬 02:11 帶鎖匙到 · 鄰居 Aisha 有後備鎖匙"
+      ]
+    ],
+    "call": "打 000",
+    "callToast": "撥緊 000 · 叫救護車",
+    "copy": "複製地址",
+    "copied": "已複製地址",
+    "note": "Noa 準備好內容，由真人打電話。"
+  },
+  "liveSubtitleShort": "即時 · {{time}}",
+  "phase": {
+    "verify": "核實",
+    "ask": "詢問",
+    "triage": "分流",
+    "escalate": "升級",
+    "handOff": "交接",
+    "agent": "Noa",
+    "close": "結束"
+  },
+  "level": {
+    "ok": "一切正常",
+    "monitor": "留意住",
+    "comeNow": "即刻過嚟",
+    "emergency": "即時緊急",
+    "checking": "檢查緊",
+    "helpArrived": "支援已到",
+    "falseAlarm": "假警報",
+    "closed": "已結束"
+  },
+  "units": {
+    "sec": "{{n}} 秒",
+    "min": "{{n}} 分鐘"
+  },
+  "sla": {
+    "verified": "警報 → 核實",
+    "escalated": "核實 → 升級",
+    "accepted": "已接手",
+    "atDoor": "到達門口",
+    "edNotice": "到院前通知急症室",
+    "edPacket": "急症室已收資料包",
+    "minAhead": "提早 {{n}} 分鐘",
+    "yes": "係"
+  },
+  "steps": [
+    {
+      "d": "心跳 142，4 分鐘冇郁過",
+      "s": "夜間基線 61。唔係因為活動。",
+      "own": [
+        "David · 未通知",
+        "450 米外 · 第一個打",
+        "—"
+      ],
+      "what": "心跳 142，冇郁",
+      "sub": "Noa 先檢查清楚，先至嘈醒人",
+      "q": "Margaret…",
+      "small": "電話響、螢幕閃",
+      "help": ""
+    },
+    {
+      "d": "用語音叫 Margaret。佢慢慢咁應",
+      "s": "佢螢幕上亦有大字問題",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "應得好慢",
+      "sub": "Noa 而家同緊佢傾",
+      "q": "Margaret，係問候時間。你聽唔聽到我講嘢？",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "跟讀檢查：講嘢口齒不清",
+      "s": "清晰度 0.41（基線 0.94）",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "口齒不清",
+      "sub": "可能係中風徵狀",
+      "q": "請跟住我講：「悉尼個天好藍。」",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "程度：即時緊急",
+      "s": "最後正常時間 01:55",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "懷疑中風徵狀",
+      "sub": "最後正常時間 01:55",
+      "q": "坐定定呀，唔好試住企起身。",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "已通知 David 同你",
+      "s": "喺 London 嘅 Sarah 會收到更新",
+      "own": [
+        "David · 已通知",
+        "等緊佢接手",
+        "5:00"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "我已經打咗畀 David。",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "David：「我而家過嚟」",
+      "s": "由佢負責個案。人人都睇到。",
+      "own": [
+        "David · 趕緊過嚟",
+        "負責個案",
+        "6′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "David 而家過緊嚟。",
+      "small": "",
+      "help": "David · 仲有 6 分鐘"
+    },
+    {
+      "d": "你用預備好嘅講稿打 000",
+      "s": "地址、年齡、症狀、藥物、入屋方法",
+      "own": [
+        "",
+        "",
+        "5′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "James 幫你叫緊救護車。",
+      "small": "",
+      "help": "David · 仲有 5 分鐘"
+    },
+    {
+      "d": "Camperdown Stroke Centre 已收到佢嘅記錄",
+      "s": "因為 24/7 中風治療而揀 · 11 分鐘",
+      "own": [
+        "",
+        "",
+        "4′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "醫院已經有你嘅資料。",
+      "small": "",
+      "help": "David · 仲有 4 分鐘"
+    },
+    {
+      "d": "David 喺 Margaret 身邊",
+      "s": "門已開，佢坐住，清醒",
+      "own": [
+        "David · 喺 Margaret 身邊",
+        "02:11 起喺現場",
+        "✓"
+      ],
+      "what": "David 喺佢身邊",
+      "sub": "救護車趕緊嚟",
+      "q": "David 嚟咗喇。",
+      "small": "",
+      "help": "David 喺你身邊"
+    },
+    {
+      "d": "救護車到達 · 中風小組準備就緒",
+      "s": "急症室喺到達前 14 分鐘已睇咗資料包",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "前往 Camperdown 途中",
+      "sub": "出院後開始 30 日康復計劃",
+      "q": "救護車到咗喇。有人好好照顧你。",
+      "small": "",
+      "help": "David 陪你一齊去"
+    }
+  ],
+  "script": {
+    "label": "講稿",
+    "call": "打 {{num}}",
+    "dialling": "撥緊 {{num}} · 叫救護車",
+    "copy": "複製講稿"
+  },
+  "actAs": "扮演",
+  "incident": {
+    "who": {
+      "console": "控制台",
+      "system": "系統",
+      "agent": "Noa",
+      "person": "人物",
+      "her": "佢",
+      "circle": "照顧圈",
+      "patient": "病人"
+    },
+    "alert": {
+      "hr": "心跳 {{hr}}",
+      "hrHigh": "心跳過快",
+      "fall": "可能跌倒",
+      "fallStill": "可能跌倒，{{min}} 分鐘冇郁",
+      "whileActive": "活動中 {{hr}}",
+      "notMoving": "{{hr}}，冇郁"
+    },
+    "head": {
+      "falseAlarm": "假警報",
+      "verifying": "Noa 先檢查清楚，先至嘈醒人",
+      "slurred": "口齒不清",
+      "slurredSub": "可能係中風徵狀",
+      "noAnswer": "暫時冇回應",
+      "noAnswerSub": "佢螢幕而家顯示大字同「係／唔係」",
+      "checking": "問候緊佢",
+      "checkingSub": "Noa 而家同緊佢傾",
+      "withHer": "{{name}} 喺佢身邊",
+      "hospital": "醫院：{{name}}",
+      "helpWithHer": "支援已喺佢身邊",
+      "lastWell": "最後正常時間 {{time}}",
+      "ok": "佢冇事"
+    },
+    "owner": {
+      "withSelf": "{{name}} · 喺 {{self}} 身邊",
+      "onSceneSince": "{{time}} 起喺現場",
+      "onScene": "喺現場",
+      "onTheWay": "{{name}} · 趕緊過嚟",
+      "owns": "負責個案",
+      "alerted": "{{name}} · 已通知",
+      "waiting": "等緊對方接手",
+      "calling": "而家打緊",
+      "noNearby": "附近冇人可以過嚟",
+      "callNow": "即刻打 {{num}}",
+      "autoCalled": "已自動打咗 {{num}}",
+      "notYet": "{{name}} · 未通知",
+      "firstToCall": "第一個打"
+    },
+    "phone": {
+      "ringing": "電話響、螢幕閃",
+      "listening": "聽緊…",
+      "fine": "冇事呀。唔好意思打擾你。",
+      "glad": "多謝你。你冇事就好。",
+      "withYou": "{{name}} 喺你身邊",
+      "away": "{{name}} · 仲有 {{eta}}",
+      "onTheWay": "有人嚟緊幫你。",
+      "status": {
+        "calling": "我而家打緊畀 {{name}}。請你坐定定。",
+        "noAnswer": "{{prev}} 冇聽電話，我已經留咗言畀佢。我而家打緊畀 {{name}}。",
+        "onTheWay": "{{name}} 過緊嚟。有人嚟緊幫你。",
+        "calling000": "我而家打緊 {{num}} 叫救護車。留喺原位唔好郁。有人嚟緊幫你。",
+        "onTheWayCalling": "{{name}} 過緊嚟，佢有鎖匙。我而家打緊 {{num}}。",
+        "ambulance": "有人嚟緊幫你，Margaret。救護車仲有 12 分鐘到。坐定定，我一直喺度陪住你。"
+      }
+    },
+    "packet": {
+      "patient": "病人",
+      "status": "狀態",
+      "lastWell": "最後正常時間",
+      "findings": "發現",
+      "history": "病史",
+      "medicines": "藥物",
+      "allergy": "過敏",
+      "function": "功能",
+      "comms": "溝通",
+      "onScene": "現場",
+      "contact": "聯絡人",
+      "packet": "資料包",
+      "female": "女",
+      "male": "男",
+      "suspected": "懷疑{{what}}",
+      "eta": "預計 {{eta}} 到達",
+      "unknown": "不詳",
+      "familyHistory": "家族病史",
+      "withheld": "已保留",
+      "noConsent": "冇有效同意",
+      "notRecorded": "未有記錄",
+      "noneKnown": "未知有",
+      "anonymous": "病人（身份已保留）",
+      "preArrival": "到院前",
+      "enrolled": "{{who}} · 已登記",
+      "lastWellAt": "最後正常 {{time}}",
+      "cat": {
+        "identity": "身份",
+        "conditions": "病史",
+        "medications": "藥物",
+        "allergies": "過敏",
+        "familyHistory": "家族病史",
+        "communication": "溝通"
+      },
+      "comm": {
+        "HARD_OF_HEARING": "聽力欠佳：請將問題寫低",
+        "COGNITIVE_IMPAIRMENT": "認知障礙：問題要簡單"
+      }
+    }
+  },
+  "sim": {
+    "title": "🎛️ 模擬器",
+    "meta": "安全咁試下 Noa",
+    "howto": [
+      "將**心跳**拉到 120 以上",
+      "將**冇郁**拉到 10 分鐘",
+      "Noa 會自己出手，同 Margaret 傾，搞清楚出咗咩事",
+      "可選：喺佢電話撳 Margaret 嘅回答，改變故事發展"
+    ],
+    "preset": {
+      "night": "🌙 夜間緊急情況",
+      "stairs": "🪜 行完樓梯",
+      "asleep": "😴 瞓得好熟"
+    },
+    "hr": "❤️ 心跳",
+    "hrAria": "心跳",
+    "bpm": "每分鐘 {{n}} 下",
+    "still": "🛋️ 冇郁咗",
+    "stillAria": "冇郁咗",
+    "moving": "郁緊",
+    "min": "{{n}} 分鐘",
+    "minAlert": "{{n}} 分鐘 ⚠️",
+    "alertTick": "10 分鐘 · 警報",
+    "more": "更多選項：邊個聽電話",
+    "speech": "說話",
+    "speechOpt": {
+      "slurred": "口齒不清（自動）",
+      "mic": "我自己答（用咪）"
+    },
+    "david": "David 聽電話",
+    "yes": "係",
+    "no": "唔係",
+    "pause": "⏸️ 暫停",
+    "resume": "▶️ 繼續",
+    "runTitle": "監察即時運行，隨時可以暫停。",
+    "faster": "⏩ 加快",
+    "normal": "🐢 正常速度",
+    "reset": "↺ 重設",
+    "readings": {
+      "title": "📈 即時讀數",
+      "meta": "佢隻手錶同家居感應器每分鐘一個讀數",
+      "hr": "心跳",
+      "run": "連續計數",
+      "alert": "警報線 120",
+      "ago": "−40 分鐘 · 綠色 = 郁緊",
+      "now": "而家 {{time}}",
+      "movement": "活動，每格一分鐘：過去 {{n}} 分鐘冇郁",
+      "rule": "冇郁嘅時候心跳連續 10 分鐘超過 120",
+      "progress": "10 分鐘中嘅 {{n}} 分鐘 · 而家每分鐘 {{hr}} 下 · {{state}}",
+      "moving": "郁緊",
+      "still": "冇郁",
+      "note": {
+        "alert": "🚨 Noa 睇緊佢點",
+        "moving": "心跳高但佢郁緊（行樓梯、整花園）：唔會發警報",
+        "resting": "冇郁但心跳正常（瞓緊、休息緊）：唔會發警報",
+        "counting": "計緊… Noa 會等 10 分鐘，免得短暫飆升嘈醒人",
+        "normal": "一切正常"
+      },
+      "movementLabel": "活動",
+      "condHr": "心跳超過 120",
+      "condHrSub": "而家每分鐘 {{hr}} 下",
+      "condStill": "冇郁",
+      "condStillSub": "{{n}} 分鐘冇郁",
+      "condMoving": "而家郁緊",
+      "meter": "連續分鐘"
+    },
+    "locked": "🔒 警報進行中，已鎖定"
+  },
+  "call": {
+    "title": "000 電話 · 示範通話",
+    "operator": "000 接線員",
+    "noa": "Noa",
+    "dialling": "撥緊 000…",
+    "fine": "喺真實服務入面，000 電話會經過認可嘅緊急轉駁服務，最後一定由真人接線員接手。講稿係固定嘅，經臨床人員審核，唔係 AI 作出嚟。"
+  },
+  "speech": {
+    "title": "Noa 說話檢查",
+    "tag": "我哋嘅核心技術",
+    "meta": "將今晚嘅聲音同 {{name}} 自己嘅聲音比較，唔係同平均值比",
+    "state": {
+      "ready": "準備就緒 · 基線來自 41 次朝早傾偈",
+      "listen": "🎙️ 聽緊 {{name}} 講嘢…",
+      "analyse": "同佢自己嘅聲音比較分析緊…",
+      "clear": "✓ 清楚 · 同佢平時嘅聲音一樣",
+      "slurred": "⚠ 偵測到口齒不清 · 可能中風"
+    },
+    "slurred": "⚠ 偵測到口齒不清 · 可能中風",
+    "clear": "✓ 清楚 · 同佢平時嘅聲音一樣",
+    "normal": "佢平時",
+    "baseline": "基線 · 30 日",
+    "tonight": "今晚",
+    "repeating": "{{name}} 跟讀緊「悉尼個天好藍」",
+    "idle": "Noa 要睇下佢點嘅時候先會運行。{{name}} 只需要跟讀一句短句。",
+    "measure": "指標",
+    "normalCol": "佢平時",
+    "tonightCol": "今晚",
+    "measures": [
+      "清晰度（咬字）",
+      "語速",
+      "字與字之間嘅停頓",
+      "認得出嘅字",
+      "聲線穩定度"
+    ],
+    "how": [
+      [
+        "學識佢把聲",
+        "嚟自每朝 2 分鐘嘅傾偈"
+      ],
+      [
+        "一句說話",
+        "覺得有啲唔妥嘅時候"
+      ],
+      [
+        "5 個指標",
+        "同佢自己平時比較，2 秒內完成"
+      ],
+      [
+        "口齒不清 = 紅色：",
+        "Noa 會跳過問題，即刻求助"
+      ]
+    ],
+    "fine": "助聽器同口音都已計入佢嘅基線，所以唔會引起假警報。只會保留分數，唔會保留錄音。示範入面嘅數字只作說明。"
+  },
+  "agent": {
+    "title": "Noa",
+    "sub": "你嘅 No One Alone 助手",
+    "ask": "💬 問 Noa",
+    "her": "佢",
+    "idle": "一切睇落正常。只有兩個警號同時出現，Noa 先會出手。",
+    "nowHr": "警號：佢冇郁嘅時候心跳連續 10 分鐘超過 120（而家每分鐘 {{hr}} 下）。先睇下 {{name}} 點，先至嘈醒人。",
+    "nowFall": "警號：重重咁跌咗一跤，之後一直冇郁。先睇下 {{name}} 點，先至嘈醒人。",
+    "pending": {
+      "title": "下一步要睇佢點答",
+      "text": "🟢 冇事 → 安撫佢再檢查 · 🟡 唔舒服但講嘢清楚 → 護士 + 家人 · 🔴 口齒不清、冇回應、心口痛、乏力或者跌倒 → {{num}}"
+    },
+    "decision": {
+      "green": {
+        "title": {
+          "stroke": "🟢 綠色：佢冇事",
+          "fall": "🟢 綠色：佢冇事",
+          "other": "🟢 綠色：佢冇事"
+        },
+        "text": "講嘢清楚，冇警號症狀，聽落同平時一樣。保持冷靜，唔好嘈醒人。"
+      },
+      "amber": {
+        "title": {
+          "stroke": "🟡 黃色：唔舒服，但講嘢清楚",
+          "fall": "🟡 黃色：唔舒服，但講嘢清楚",
+          "other": "🟡 黃色：唔舒服，但講嘢清楚"
+        },
+        "text": "佢今晚需要有人陪。Noa 會按次序打畀佢嘅照顧圈。"
+      },
+      "red": {
+        "title": {
+          "stroke": "🔴 紅色：可能中風",
+          "fall": "🔴 紅色：可能嚴重跌倒",
+          "other": "🔴 紅色：緊急情況"
+        },
+        "text": "時間好重要，所以 Noa 會跳過其他問題，即刻求助。"
+      }
+    },
+    "step": {
+      "detect": "留意到警號",
+      "ask": "睇下 {{name}} 點",
+      "speech": "說話測試",
+      "feel": "問佢覺得點",
+      "decide": "決定：綠、黃定紅",
+      "alertAll": "通知佢成個照顧圈",
+      "call": "打畀 {{name}}（{{detail}}）",
+      "scan": "搵最近嘅人",
+      "ooo": "用講稿打 {{num}}",
+      "packet": "將佢嘅記錄傳畀醫院",
+      "company": "陪住佢直到有人嚟",
+      "paramedics": "陪住佢 · 交接畀救護員",
+      "g1": "安撫佢：飲啖水、慢慢呼吸",
+      "g2": "10 分鐘後再檢查佢心跳",
+      "g3": "朝早留言畀家人"
+    },
+    "state": {
+      "done": "完成",
+      "cur": "進行中",
+      "fail": "失敗",
+      "skip": "已跳過",
+      "noAnswer": "冇人聽"
+    },
+    "pill": {
+      "watching": "留意緊",
+      "verifying": "核實緊警報",
+      "deciding": "決定緊",
+      "falseAlarm": "假警報",
+      "allClear": "一切安好",
+      "handedOver": "已交接",
+      "withHer": "支援已喺佢身邊",
+      "detect": "核實緊警報",
+      "ask": "睇緊佢點",
+      "speech": "說話測試",
+      "feel": "問緊佢覺得點",
+      "decide": "決定緊",
+      "alertall": "通知緊照顧圈",
+      "calling": "打緊畀 {{name}}",
+      "scan": "搵緊幫手",
+      "ooo": "打緊 {{num}}",
+      "packet": "通知緊醫院",
+      "company": "陪住佢",
+      "g1": "安撫緊佢",
+      "g2": "再檢查緊",
+      "g3": "收尾"
+    },
+    "calls": {
+      "title": "📞 按次序打電話",
+      "meta": "先按優先名單，再搵最近嘅人"
+    },
+    "alerts": {
+      "title": "🔔 通知佢嘅照顧圈",
+      "meta": "所有開咗安全警報嘅人",
+      "none": "冇發出通知",
+      "noneSub": "冇嘢要報告"
+    },
+    "call": {
+      "waiting": "等緊",
+      "ringing": "響緊…",
+      "answered": "已接聽",
+      "onTheWay": "已接聽 · 過緊嚟",
+      "withHer": "喺佢身邊",
+      "declined": "嚟唔到",
+      "voicemail": "冇人聽 · 留言信箱",
+      "text": "冇人聽 · 已發短訊",
+      "notNeeded": "唔需要",
+      "dialling": "撥緊…",
+      "connected": "已接通 · 通話中",
+      "dispatched": "救護車已出發"
+    },
+    "ambulance": "救護車",
+    "priority": "優先 {{n}}",
+    "nearest": "最近，{{d}}",
+    "m": "{{n}} m",
+    "km": "{{n}} km",
+    "sent": "{{time}} 已發出",
+    "relation": {
+      "son": "仔",
+      "daughter": "女",
+      "brother": "兄弟",
+      "sister": "姊妹",
+      "neighbour": "鄰居",
+      "neighbor": "鄰居",
+      "wife": "老婆",
+      "husband": "老公",
+      "friend": "朋友"
+    },
+    "phone": {
+      "title": "📱 {{name}} 部電話",
+      "spoken": "讀出聲 · 大字",
+      "goodnight": "早唞，{{name}}",
+      "sleep": "瞓個好覺。有咩需要我都喺度 💙",
+      "ok": "我冇事",
+      "help": "幫我",
+      "okToast": "家人知道你冇事"
+    },
+    "log": {
+      "title": "🗒️ Noa 嘅記錄",
+      "meta": "每一步都有時間",
+      "idle": "靜靜咁留意緊，冇嘢要報告。",
+      "sla": "目前嘅反應時間"
+    },
+    "circle": {
+      "title": "🫂 {{name}} 嘅照顧圈",
+      "allNormal": "一切正常",
+      "watching": "靜靜咁留意緊",
+      "lkw": "最後正常時間 —",
+      "inPlace": "人人都喺原位",
+      "inPlaceSub": "冇嘈醒任何人",
+      "checking": "Noa 睇緊 {{name}} 點",
+      "checkingSub": "暫時未嘈醒人",
+      "allClear": "一切安好",
+      "allClearSub": "冇嘈醒任何人",
+      "farAway": "{{names}} 喺遠方",
+      "and": " 同 "
+    },
+    "light": {
+      "green": "🟢 綠色",
+      "greenSub": "佢冇事",
+      "amber": "🟡 黃色",
+      "amberSub": "唔舒服，講嘢清楚",
+      "red": "🔴 紅色",
+      "redSub": "即刻求助"
+    }
+  },
+  "talk": {
+    "title": "🎙️ 即時對話",
+    "meta": "Noa 講嘅每句說話，同埋講畀邊個聽",
+    "live": "即時 · {{time}}",
+    "filter": "篩選對話",
+    "all": "全部",
+    "to": "Noa → {{name}}",
+    "none": "暫時未講嘢。Noa 靜靜咁留意緊。",
+    "noReply": "（冇回應）",
+    "operator": "接線員",
+    "hospital": "醫院",
+    "strokeTeam": "中風小組",
+    "ACCEPTED": "「我而家過嚟。」",
+    "DECLINED": "「我嚟唔到。」",
+    "ARRIVED": "「我而家喺佢身邊。」",
+    "onCall": "同 {{num}} 通話中"
+  },
+  "hand": {
+    "title": "📦 邊個收到乜",
+    "meta": "每人只會收到佢需要嘅資料 · 撳一下睇",
+    "none": "冇分享任何資料",
+    "noneSub": "Noa 採取行動嗰陣先會交出資料",
+    "safety": "安全警報",
+    "push": "推送通知 + 短訊",
+    "message": "訊息",
+    "distant": "電話 + 即時頁面",
+    "distantMissed": "留言 + 短訊 + 即時頁面",
+    "nearby": "即刻去 + 點樣做",
+    "nearbyMissed": "留言 + 短訊",
+    "how": "方式",
+    "told": "告知內容",
+    "eta": "途中",
+    "ambulance": "{{num}} 救護車",
+    "fullCall": "完整緊急電話",
+    "script": "講稿",
+    "packet": "到院前記錄（FHIR）",
+    "status": "狀態",
+    "fine": "按 {{name}} 自己嘅設定分享。每次交接都有記錄，佢之後都睇得到。"
+  }
+}

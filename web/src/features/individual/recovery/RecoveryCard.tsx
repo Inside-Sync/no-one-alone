@@ -6,7 +6,7 @@ import { audioUrl } from '@/data/repo'
 import { SLOTS, dayLabel, isStopped, medsExplained, nextReminder, todayTasks, type Reminder } from '@/domain/recovery'
 
 /** Plays a saved audio file; a blocked or missing file stays silent. */
-function Play({ path }: { path?: string }) {
+export function Play({ path }: { path?: string }) {
   const { t } = useTranslation('me')
   if (!path) return null
   const play = () => { audioUrl(path).then((url) => new Audio(url).play()).catch(() => {}) }

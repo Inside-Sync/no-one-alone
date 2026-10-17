@@ -1,0 +1,855 @@
+{
+  "community": {
+    "context": {
+      "initials": "IW",
+      "color": "#6d4fc0",
+      "sub": "Inner West सामुदायिक स्वास्थ्य · 15 उपनगर · 1,846 बुज़ुर्ग निवासी पंजीकृत",
+      "facts": [
+        {
+          "live": true,
+          "label": "सिंक हुआ",
+          "value": "15:00"
+        },
+        {
+          "live": false,
+          "label": "10 से छोटे समूह",
+          "value": "छिपाए गए"
+        },
+        {
+          "live": false,
+          "label": "लू",
+          "value": "गुरुवार"
+        },
+        {
+          "live": false,
+          "label": "आज ड्यूटी पर स्वयंसेवक",
+          "value": "23"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "label": "पंजीकृत बुज़ुर्ग निवासी",
+        "value": "1,846",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "15 उपनगर",
+        "delta": "+64 माह",
+        "tone": "good",
+        "spark": [
+          1600,
+          1640,
+          1680,
+          1710,
+          1740,
+          1770,
+          1800,
+          1825,
+          1846
+        ]
+      },
+      {
+        "label": "अकेले रहते हैं",
+        "value": "38",
+        "unit": "%",
+        "color": "#2f6fb0",
+        "baseline": "703 लोग",
+        "delta": "+1 अंक",
+        "tone": "good",
+        "spark": [
+          36,
+          36,
+          37,
+          37,
+          37,
+          38,
+          38,
+          38,
+          38
+        ]
+      },
+      {
+        "label": "उच्च जोखिम",
+        "value": "212",
+        "unit": "लोग",
+        "color": "#d9443f",
+        "baseline": "पंजीकृत लोगों का 11.5%",
+        "delta": "+6 माह",
+        "tone": "warn",
+        "spark": [
+          180,
+          186,
+          190,
+          195,
+          199,
+          204,
+          206,
+          209,
+          212
+        ]
+      },
+      {
+        "label": "हालचाल के जवाब मिले",
+        "value": "92.7",
+        "unit": "% आज",
+        "color": "#1fb39c",
+        "baseline": "1,846 में से 1,712",
+        "delta": "−0.4 अंक",
+        "tone": "good",
+        "spark": [
+          94,
+          93,
+          94,
+          93,
+          92,
+          93,
+          94,
+          93,
+          92.7
+        ]
+      },
+      {
+        "label": "अलर्ट से दरवाज़े तक",
+        "value": "8.6",
+        "unit": "मिनट माध्यिका",
+        "color": "#0b7f71",
+        "baseline": "p90 14.2 मिनट",
+        "delta": "−0.9 मिनट",
+        "tone": "good",
+        "spark": [
+          10.2,
+          9.8,
+          9.6,
+          9.4,
+          9.1,
+          9,
+          8.9,
+          8.7,
+          8.6
+        ]
+      },
+      {
+        "label": "सक्रिय स्वयंसेवक",
+        "value": "64",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "हर एक 2.3 विज़िट/हफ़्ता",
+        "delta": "+5 माह",
+        "tone": "good",
+        "spark": [
+          48,
+          50,
+          53,
+          55,
+          57,
+          59,
+          61,
+          62,
+          64
+        ]
+      },
+      {
+        "label": "इस हफ़्ते के अलर्ट",
+        "value": "37",
+        "unit": "",
+        "color": "#ef4e4a",
+        "baseline": "8 आगे बढ़ाए गए",
+        "delta": "−4 हफ़्ता",
+        "tone": "good",
+        "spark": [
+          44,
+          41,
+          39,
+          42,
+          40,
+          38,
+          41,
+          39,
+          37
+        ]
+      },
+      {
+        "label": "झूठे अलार्म छाँटे गए",
+        "value": "78",
+        "unit": "%",
+        "color": "#1fb39c",
+        "baseline": "37 में से 29",
+        "delta": "+3 अंक",
+        "tone": "good",
+        "spark": [
+          70,
+          71,
+          73,
+          74,
+          75,
+          76,
+          77,
+          77,
+          78
+        ]
+      },
+      {
+        "label": "इस हफ़्ते कम पड़ी विज़िट",
+        "value": "180",
+        "unit": "विज़िट",
+        "color": "#d9443f",
+        "baseline": "Tempe, Sydenham, St Peters",
+        "delta": "+8 हफ़्ता",
+        "tone": "warn",
+        "spark": [
+          38,
+          42,
+          40,
+          45,
+          48,
+          50,
+          52,
+          55,
+          180
+        ]
+      },
+      {
+        "label": "आवाज़ वाली भाषाएँ",
+        "value": "7",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "+2 बीटा में",
+        "delta": "+1 तिमाही",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          5,
+          5,
+          5,
+          6,
+          6,
+          7,
+          7
+        ]
+      },
+      {
+        "label": "ठंडे कमरे में जगहें",
+        "value": "260",
+        "unit": "गुरु",
+        "color": "#e07a3f",
+        "baseline": "3 जगहें · 137 खाली",
+        "delta": "नया",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          120,
+          200,
+          200,
+          260,
+          260
+        ]
+      },
+      {
+        "label": "गुरु का ED पूर्वानुमान",
+        "value": "34",
+        "unit": "75+ उम्र",
+        "color": "#d9443f",
+        "baseline": "आराम सीमा 28",
+        "delta": "बुध से +13",
+        "tone": "warn",
+        "spark": [
+          21,
+          22,
+          20,
+          23,
+          21,
+          22,
+          21,
+          25,
+          34
+        ]
+      }
+    ],
+    "suburbs": [
+      {
+        "name": "Marrickville",
+        "col": 2,
+        "row": 1,
+        "enrolled": 312,
+        "alonePct": 41,
+        "highRisk": 38,
+        "heat": 0.82,
+        "volunteers": 9,
+        "language": "ग्रीक"
+      },
+      {
+        "name": "Dulwich Hill",
+        "col": 1,
+        "row": 1,
+        "enrolled": 198,
+        "alonePct": 36,
+        "highRisk": 22,
+        "heat": 0.64,
+        "volunteers": 6,
+        "language": "ग्रीक"
+      },
+      {
+        "name": "Petersham",
+        "col": 2,
+        "row": 2,
+        "enrolled": 121,
+        "alonePct": 39,
+        "highRisk": 14,
+        "heat": 0.58,
+        "volunteers": 4,
+        "language": "पुर्तगाली"
+      },
+      {
+        "name": "Stanmore",
+        "col": 3,
+        "row": 2,
+        "enrolled": 96,
+        "alonePct": 33,
+        "highRisk": 9,
+        "heat": 0.44,
+        "volunteers": 5,
+        "language": "अंग्रेज़ी"
+      },
+      {
+        "name": "Enmore",
+        "col": 3,
+        "row": 1,
+        "enrolled": 84,
+        "alonePct": 44,
+        "highRisk": 12,
+        "heat": 0.72,
+        "volunteers": 3,
+        "language": "अंग्रेज़ी"
+      },
+      {
+        "name": "Newtown",
+        "col": 4,
+        "row": 1,
+        "enrolled": 143,
+        "alonePct": 47,
+        "highRisk": 17,
+        "heat": 0.69,
+        "volunteers": 7,
+        "language": "अंग्रेज़ी"
+      },
+      {
+        "name": "Lewisham",
+        "col": 1,
+        "row": 2,
+        "enrolled": 77,
+        "alonePct": 35,
+        "highRisk": 8,
+        "heat": 0.51,
+        "volunteers": 2,
+        "language": "अरबी"
+      },
+      {
+        "name": "Summer Hill",
+        "col": 0,
+        "row": 3,
+        "enrolled": 110,
+        "alonePct": 31,
+        "highRisk": 10,
+        "heat": 0.4,
+        "volunteers": 6,
+        "language": "इतालवी"
+      },
+      {
+        "name": "Ashfield",
+        "col": 0,
+        "row": 2,
+        "enrolled": 264,
+        "alonePct": 37,
+        "highRisk": 31,
+        "heat": 0.77,
+        "volunteers": 8,
+        "language": "मंदारिन"
+      },
+      {
+        "name": "Leichhardt",
+        "col": 2,
+        "row": 3,
+        "enrolled": 156,
+        "alonePct": 34,
+        "highRisk": 13,
+        "heat": 0.38,
+        "volunteers": 7,
+        "language": "इतालवी"
+      },
+      {
+        "name": "Annandale",
+        "col": 3,
+        "row": 3,
+        "enrolled": 72,
+        "alonePct": 30,
+        "highRisk": 6,
+        "heat": 0.33,
+        "volunteers": 4,
+        "language": "अंग्रेज़ी"
+      },
+      {
+        "name": "Tempe",
+        "col": 2,
+        "row": 0,
+        "enrolled": 58,
+        "alonePct": 42,
+        "highRisk": 9,
+        "heat": 0.86,
+        "volunteers": 1,
+        "language": "वियतनामी"
+      },
+      {
+        "name": "St Peters",
+        "col": 4,
+        "row": 0,
+        "enrolled": 49,
+        "alonePct": 39,
+        "highRisk": 7,
+        "heat": 0.79,
+        "volunteers": 1,
+        "language": "वियतनामी"
+      },
+      {
+        "name": "Sydenham",
+        "col": 3,
+        "row": 0,
+        "enrolled": 31,
+        "alonePct": 45,
+        "highRisk": 6,
+        "heat": 0.83,
+        "volunteers": 0,
+        "language": "पुर्तगाली"
+      },
+      {
+        "name": "Camperdown",
+        "col": 4,
+        "row": 2,
+        "enrolled": 75,
+        "alonePct": 40,
+        "highRisk": 10,
+        "heat": 0.55,
+        "volunteers": 1,
+        "language": "अंग्रेज़ी"
+      }
+    ],
+    "districtKicker": "Inner West · 15 उपनगर",
+    "heatwave": {
+      "pill": "गुरुवार 38 °C",
+      "temps": [
+        {
+          "day": "बुध",
+          "value": 33
+        },
+        {
+          "day": "गुरु",
+          "value": 38
+        },
+        {
+          "day": "शुक्र",
+          "value": 36
+        },
+        {
+          "day": "शनि",
+          "value": 26
+        },
+        {
+          "day": "रवि",
+          "value": 24
+        },
+        {
+          "day": "सोम",
+          "value": 23
+        },
+        {
+          "day": "मंगल",
+          "value": 25
+        }
+      ],
+      "tempsThreshold": {
+        "value": 35,
+        "label": "लू 35°",
+        "max": 40,
+        "unit": "°"
+      },
+      "stats": [
+        {
+          "label": "अतिरिक्त हालचाल",
+          "value": "318",
+          "note": "गुरु 11:00–15:00"
+        },
+        {
+          "label": "AC नहीं",
+          "value": "127",
+          "note": "प्राथमिकता",
+          "tone": "bad"
+        },
+        {
+          "label": "सवारी की पेशकश",
+          "value": "14",
+          "note": "स्वयंसेवक ड्राइवर"
+        }
+      ],
+      "coolRooms": [
+        {
+          "name": "Marrickville लाइब्रेरी का ठंडा कमरा",
+          "detail": "120 जगहें · 09:00–20:00",
+          "left": "74 बाकी",
+          "tone": "good"
+        },
+        {
+          "name": "Ashfield सिविक सेंटर",
+          "detail": "80 जगहें · 10:00–18:00",
+          "left": "22 बाकी",
+          "tone": "warn"
+        },
+        {
+          "name": "Newtown नेबरहुड सेंटर",
+          "detail": "60 जगहें · 10:00–17:00",
+          "left": "41 बाकी",
+          "tone": "good"
+        }
+      ],
+      "scheduleToast": "गुरुवार के लिए 318 अतिरिक्त हालचाल तय"
+    },
+    "visits": [
+      {
+        "name": "Margaret C.",
+        "age": 78,
+        "suburb": "Marrickville",
+        "risk": "उच्च",
+        "tone": "bad",
+        "reason": "BP बढ़ रहा, खुराकें छूटीं",
+        "language": "अंग्रेज़ी",
+        "nearestHelp": "David · 450 m"
+      },
+      {
+        "name": "Eleni P.",
+        "age": 84,
+        "suburb": "Marrickville",
+        "risk": "उच्च",
+        "tone": "bad",
+        "reason": "हार्ट फ़ेल्योर: 72 घंटे में +2.1 kg",
+        "language": "ग्रीक",
+        "nearestHelp": "स्वयंसेवक Tom · 1.2 km"
+      },
+      {
+        "name": "Nguyen Van T.",
+        "age": 81,
+        "suburb": "Tempe",
+        "risk": "उच्च",
+        "tone": "bad",
+        "reason": "गर्मी: AC नहीं, अंदर 33 °C",
+        "language": "वियतनामी",
+        "nearestHelp": "कोई नहीं · कमी"
+      },
+      {
+        "name": "Maria S.",
+        "age": 86,
+        "suburb": "Petersham",
+        "risk": "उच्च",
+        "tone": "bad",
+        "reason": "30 दिनों में 2 बार गिरे",
+        "language": "पुर्तगाली",
+        "nearestHelp": "बेटी · 15 मिनट"
+      },
+      {
+        "name": "Fatima A.",
+        "age": 79,
+        "suburb": "Lewisham",
+        "risk": "मध्यम",
+        "tone": "warn",
+        "reason": "सुनने में कमी, 3 हालचाल छूटे",
+        "language": "अरबी",
+        "nearestHelp": "स्वयंसेवक Aisha"
+      },
+      {
+        "name": "Giuseppe R.",
+        "age": 88,
+        "suburb": "Leichhardt",
+        "risk": "मध्यम",
+        "tone": "warn",
+        "reason": "रात में भटकना ×2",
+        "language": "इतालवी",
+        "nearestHelp": "बेटा · 8 मिनट"
+      },
+      {
+        "name": "Wei L.",
+        "age": 77,
+        "suburb": "Ashfield",
+        "risk": "मध्यम",
+        "tone": "warn",
+        "reason": "3 हफ़्तों से उदासी",
+        "language": "मंदारिन",
+        "nearestHelp": "स्वयंसेवक Jun"
+      },
+      {
+        "name": "Peter H.",
+        "age": 80,
+        "suburb": "Newtown",
+        "risk": "नज़र रखें",
+        "tone": "plain",
+        "reason": "नींद की नई गोली",
+        "language": "अंग्रेज़ी",
+        "nearestHelp": "पड़ोसी · 2 मिनट"
+      }
+    ],
+    "funnel": [
+      {
+        "label": "मिले अलर्ट",
+        "value": 37,
+        "color": "#5a7fe0"
+      },
+      {
+        "label": "एजेंट ने जाँचे",
+        "value": 37,
+        "color": "#2f6fb0"
+      },
+      {
+        "label": "झूठे अलार्म छाँटे गए",
+        "value": 29,
+        "color": "#1fb39c"
+      },
+      {
+        "label": "इंसान तक पहुँचाए गए",
+        "value": 8,
+        "color": "#c88a05"
+      },
+      {
+        "label": "कोई दरवाज़े पर पहुँचा",
+        "value": 8,
+        "color": "#e07a3f"
+      },
+      {
+        "label": "एम्बुलेंस बुलाई गई",
+        "value": 3,
+        "color": "#d9443f"
+      },
+      {
+        "label": "पहुँचने से पहले की जानकारी",
+        "value": 3,
+        "color": "#8f6fd0"
+      }
+    ],
+    "funnelMinis": [
+      {
+        "label": "पुष्टि",
+        "value": "44 सेकंड",
+        "note": "माध्यिका"
+      },
+      {
+        "label": "स्वीकार",
+        "value": "1:12",
+        "note": "माध्यिका"
+      },
+      {
+        "label": "दरवाज़े पर",
+        "value": "8.6′",
+        "note": "माध्यिका"
+      }
+    ],
+    "capacity": [
+      {
+        "name": "Marrickville",
+        "need": 76,
+        "capacity": 36
+      },
+      {
+        "name": "Ashfield",
+        "need": 62,
+        "capacity": 32
+      },
+      {
+        "name": "Dulwich Hill",
+        "need": 44,
+        "capacity": 24
+      },
+      {
+        "name": "Camperdown",
+        "need": 20,
+        "capacity": 4
+      },
+      {
+        "name": "Tempe",
+        "need": 18,
+        "capacity": 4
+      },
+      {
+        "name": "Petersham",
+        "need": 28,
+        "capacity": 16
+      },
+      {
+        "name": "Enmore",
+        "need": 24,
+        "capacity": 12
+      },
+      {
+        "name": "Sydenham",
+        "need": 12,
+        "capacity": 0
+      },
+      {
+        "name": "St Peters",
+        "need": 14,
+        "capacity": 4
+      }
+    ],
+    "edForecast": {
+      "meta": "75+ उम्र के मरीज़, Camperdown ED",
+      "values": [
+        {
+          "day": "बुध",
+          "value": 21
+        },
+        {
+          "day": "गुरु",
+          "value": 34
+        },
+        {
+          "day": "शुक्र",
+          "value": 31
+        },
+        {
+          "day": "शनि",
+          "value": 25
+        },
+        {
+          "day": "रवि",
+          "value": 22
+        },
+        {
+          "day": "सोम",
+          "value": 20
+        },
+        {
+          "day": "मंगल",
+          "value": 21
+        }
+      ],
+      "threshold": {
+        "value": 29,
+        "label": "आराम 28",
+        "max": 36,
+        "unit": ""
+      },
+      "note": "पूर्वानुमान गर्मी सूचकांक, हफ़्ते के दिन और पिछले 90 दिनों पर आधारित है। गुरुवार को 28 मरीज़ों की आराम सीमा से 6 ज़्यादा होने की उम्मीद है।"
+    },
+    "languages": [
+      {
+        "name": "अंग्रेज़ी",
+        "percent": 42,
+        "support": "Full"
+      },
+      {
+        "name": "ग्रीक",
+        "percent": 13,
+        "support": "Full"
+      },
+      {
+        "name": "वियतनामी",
+        "percent": 9,
+        "support": "Full"
+      },
+      {
+        "name": "मंदारिन",
+        "percent": 8,
+        "support": "Full"
+      },
+      {
+        "name": "इतालवी",
+        "percent": 7,
+        "support": "Full"
+      },
+      {
+        "name": "पुर्तगाली",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "अरबी",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "अन्य",
+        "percent": 9,
+        "support": "Interpreter"
+      }
+    ],
+    "programs": [
+      {
+        "program": "वॉकिंग ग्रुप (3 पार्क)",
+        "regulars": 42,
+        "attendance": "78% (+18%)",
+        "outcome": "चलने की रफ़्तार +0.04 m/s"
+      },
+      {
+        "program": "शुक्रवार का सामूहिक लंच",
+        "regulars": 65,
+        "attendance": "81%",
+        "outcome": "अकेलापन स्कोर −0.6 (UCLA-3)"
+      },
+      {
+        "program": "ताक़त और संतुलन की कक्षाएँ",
+        "regulars": 28,
+        "attendance": "72%",
+        "outcome": "चोट वाले गिरने −12%"
+      },
+      {
+        "program": "लाइब्रेरी में टेक मदद",
+        "regulars": 31,
+        "attendance": "64%",
+        "outcome": "परिवार से वीडियो कॉल 2.1/हफ़्ता"
+      },
+      {
+        "program": "मेन्स शेड",
+        "regulars": 19,
+        "attendance": "70%",
+        "outcome": "उदासी के संकेत −30%"
+      },
+      {
+        "program": "ठंडे कमरे की शटल",
+        "regulars": 14,
+        "attendance": "ड्राइवर",
+        "outcome": "पिछली गर्मी में गर्मी से ED विज़िट −9%"
+      }
+    ],
+    "watchSummary": [
+      {
+        "icon": "shield",
+        "tone": "bad",
+        "title": "घर-घर \"सोलर छूट\" धोखाधड़ी",
+        "detail": "Marrickville, Dulwich Hill · 14 शिकायतें · 1,240 निवासियों को आवाज़ से चेताया",
+        "pill": {
+          "tone": "bad",
+          "text": "सक्रिय"
+        }
+      },
+      {
+        "icon": "sun",
+        "tone": "warn",
+        "title": "लू गुरुवार–शुक्रवार",
+        "detail": "318 अतिरिक्त हालचाल · 127 बिना AC",
+        "pill": {
+          "tone": "warn",
+          "text": "योजना में"
+        }
+      },
+      {
+        "icon": "target",
+        "tone": "warn",
+        "title": "फ़ुटपाथ का काम · Marrickville Rd",
+        "detail": "उस रास्ते पर चलने वाले 46 निवासियों के लिए ठोकर का ख़तरा",
+        "pill": {
+          "tone": "warn",
+          "text": "24 अक्टू तक"
+        }
+      }
+    ],
+    "footnote": "सामुदायिक स्वास्थ्य कर्मचारी अपने इलाके में पंजीकृत लोगों के नाम देखते हैं। काउंसिल और राज्य के दृश्य समेकित और पहचान-रहित हैं, 10 से छोटे समूह छिपाए जाते हैं। सभी लोग और आँकड़े काल्पनिक हैं।"
+  }
+}

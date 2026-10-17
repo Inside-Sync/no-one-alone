@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import { AgentOrb } from '@/components/noa/AgentOrb'
+import { NoaOrb } from '@/components/noa/NoaOrb'
 import { GlassCard } from '@/components/ui/GlassCard'
-import type { AgentView } from '@/domain/agent'
+import type { AgentView, Tone } from '@/domain/agent'
 import { openChat } from '@/features/chat/events'
+
+const LIGHTS: Tone[] = ['green', 'amber', 'red']
 
 /** `Noa · your No One Alone agent` (c4): state, the decision, what Noa is doing now and every step. */
 export function AgentCard({ agent, num }: { agent: AgentView; num: string }) {
@@ -15,15 +18,20 @@ export function AgentCard({ agent, num }: { agent: AgentView; num: string }) {
         <span className={`pill ${agent.pill}`} id="agentState">{agent.label}</span>
         <button type="button" className="btn sm soft" style={{ marginLeft: 8 }} onClick={openChat}>{t('agent.ask')}</button>
       </div>
+      <div className="light" aria-hidden="true">
+        {LIGHTS.map((tone) => (
+          <div key={tone} className={agent.decision?.tone === tone ? `on ${tone}` : ''}><b>{t(`agent.light.${tone}`)}</b>{t(`agent.light.${tone}Sub`)}</div>
+        ))}
+      </div>
       {agent.decision ? (
         <div className={`dec ${agent.decision.tone}`}><b>{agent.decision.title}</b><span>{agent.decision.text}</span></div>
       ) : (
         <div className="dec none"><b>{t('agent.pending.title')}</b><span>{t('agent.pending.text', { num })}</span></div>
       )}
-      <p className="agent-now" aria-live="polite">{agent.now}</p>
+      <div className="saynow"><NoaOrb size={22} /><p className="agent-now" aria-live="polite">{agent.now}</p></div>
       <ol className="steps2">
         {agent.steps.map((s) => (
-          <li key={s.key} className={s.state}><span aria-hidden="true">{s.icon}</span><span>{s.label}</span><em>{s.note}</em></li>
+          <li key={s.key} className={s.state || 'todo'}><span className="d" aria-hidden="true">{s.state === 'done' ? '✓' : s.icon}</span><span>{s.label}</span><em>{s.note}</em></li>
         ))}
       </ol>
     </GlassCard>

@@ -456,8 +456,16 @@
         "resting": "Still, but heart rate is normal (sleeping, resting): no alert",
         "counting": "Counting… Noa waits 10 minutes so a short spike does not wake anyone",
         "normal": "All normal"
-      }
-    }
+      },
+      "movementLabel": "Movement",
+      "condHr": "Heart rate above 120",
+      "condHrSub": "now {{hr}} bpm",
+      "condStill": "Not moving",
+      "condStillSub": "still for {{n}} min",
+      "condMoving": "moving now",
+      "meter": "minutes in a row"
+    },
+    "locked": "🔒 Locked while the alert runs"
   },
   "call": {
     "title": "000 call · demo call",
@@ -652,7 +660,8 @@
     "log": {
       "title": "🗒️ Noa's log",
       "meta": "Every step, time-stamped",
-      "idle": "Watching quietly. Nothing to report."
+      "idle": "Watching quietly. Nothing to report.",
+      "sla": "Response times so far"
     },
     "circle": {
       "title": "🫂 {{name}}'s circle",
@@ -667,6 +676,14 @@
       "allClearSub": "Nobody was woken",
       "farAway": "{{names}} far away",
       "and": " and "
+    },
+    "light": {
+      "green": "🟢 Green",
+      "greenSub": "She is fine",
+      "amber": "🟡 Amber",
+      "amberSub": "Unwell, talking clearly",
+      "red": "🔴 Red",
+      "redSub": "Call for help now"
     }
   },
   "talk": {
@@ -683,7 +700,8 @@
     "strokeTeam": "Stroke team",
     "ACCEPTED": "“I'm on my way.”",
     "DECLINED": "“I can't come.”",
-    "ARRIVED": "“I'm with her now.”"
+    "ARRIVED": "“I'm with her now.”",
+    "onCall": "On the call with {{num}}"
   },
   "hand": {
     "title": "📦 Who got what",

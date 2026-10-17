@@ -83,7 +83,8 @@ svg.scan{-webkit-mask-image:linear-gradient(90deg,#000 40%,rgba(0,0,0,.25) 60%);
 @media (prefers-reduced-motion:reduce){.spk-wait .listen i,svg.scan,.tx li.new .b{animation:none}}
 /* Margaret's circle (prototype part 11). */
 .circ{display:grid;gap:10px;align-content:start}
-.circ .c3d{min-height:240px;border-radius:16px;background:radial-gradient(120% 90% at 50% 40%,rgba(255,255,255,.18),rgba(255,255,255,0))}
+.circ{grid-template-rows:auto minmax(270px,1fr) auto auto auto}
+.circ .c3d{min-height:270px;border-radius:16px;background:radial-gradient(120% 90% at 50% 40%,rgba(255,255,255,.18),rgba(255,255,255,0))}
 body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,140,190,.16),rgba(0,0,0,0))}
 .circ-stat{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
 .circ-min{display:flex;align-items:center;gap:10px}
@@ -97,3 +98,158 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .circ-ic{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;color:#fff;font-weight:700;font-size:16px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
 .circ-ic.b{background:radial-gradient(circle at 35% 30%,#8fb4ee,#2f5fae)}.circ-ic.g{background:radial-gradient(circle at 35% 30%,#7ee0c9,#0b7f71)}.circ-ic.w{background:radial-gradient(circle at 35% 30%,#f6cf7d,#b97f04)}
 .circ-call{justify-self:start;min-width:150px;justify-content:center}
+
+/* ===== Redesign (design artifact DwS5YsRJwVouZLSyVMqKiK): every block kept, each one restyled. Tokens only, so the
+   same rules read in the day look before an alert and in the night look during one. ===== */
+
+/* Simulator: how-to steps that tick off, preset cards, sliders with the alert zone marked. */
+.simc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;align-items:start}
+.howto2{list-style:none;display:grid;gap:8px;margin:0;padding:0}
+.howto2 li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:center;padding:9px 12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:13px;color:var(--ink2)}
+.howto2 .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:600;background:var(--track)}
+.howto2 li.done .n{background:var(--good);color:#fff}
+.howto2 li.cur{box-shadow:var(--glass-edge),inset 0 0 0 1.5px var(--sos)}
+.howto2 li.cur .n{background:var(--sos);color:#fff}
+.howto2 strong{color:var(--ink)}
+.sim-ctl{display:grid;gap:14px}
+.presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.preset{display:grid;gap:2px;padding:10px 12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:12px;color:var(--muted-text)}
+.preset b{font-size:13.5px;font-weight:600;color:var(--ink)}
+.preset[aria-pressed="true"]{background:rgba(31,179,156,.16);box-shadow:inset 0 0 0 1.5px var(--brand-2)}
+.preset:disabled{cursor:not-allowed}
+.slider{display:grid;gap:6px}
+.slider .top{display:flex;justify-content:space-between;align-items:baseline;font-size:13px}
+.slider .val{font-family:var(--mono);font-size:14px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--track)}
+.slider .val.hot{background:rgba(239,78,74,.16);color:var(--bad)}
+.rng{-webkit-appearance:none;appearance:none;width:100%;height:10px;margin:6px 0;border-radius:5px;cursor:pointer;
+  background:linear-gradient(90deg,var(--brand-2) 0,#ef6a5e var(--v),transparent var(--v)),linear-gradient(90deg,var(--track) 0 var(--z),rgba(239,78,74,.3) var(--z) 100%)}
+.rng::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.35),0 0 0 4px rgba(31,179,156,.25)}
+.rng::-moz-range-thumb{width:20px;height:20px;border:0;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.35),0 0 0 4px rgba(31,179,156,.25)}
+.rng:disabled{cursor:not-allowed;opacity:.75}
+.ticks{position:relative;height:16px;font-family:var(--mono);font-size:10.5px;color:var(--muted-text)}
+.ticks>*{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.ticks>:first-child{transform:none}.ticks>:last-child{transform:translateX(-100%)}
+.ticks b{color:var(--bad);font-weight:600}
+.sim-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sim-opt{display:grid;gap:6px;justify-items:start;padding:10px 12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:12.5px}
+#simCard .btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sim-lock{margin-left:auto;font-size:12px;font-weight:500;color:var(--warn)}
+@media (max-width:1000px){.simc{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){.presets,.sim-opts{grid-template-columns:minmax(0,1fr)}.sim-lock{margin-left:0}}
+
+/* Circle: the minutes in a box, the owner card with the ETA, a full-width call button. */
+.circ-stat{padding:12px 14px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge)}
+.circ-min b{font-family:var(--mono);font-size:40px}
+.circ-now{grid-template-columns:40px minmax(0,1fr) auto}
+.circ-eta{font-family:var(--mono);font-size:22px;font-weight:400}
+.circ-call{justify-self:stretch;width:100%;padding:13px;font-size:15px;font-weight:600}
+.bubble{padding:9px 12px;border-radius:14px 14px 14px 4px;background:rgba(31,179,156,.14);font-size:12.5px;color:var(--ink2)}
+.actions.acts2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.acts2 .act{min-height:64px;font-size:13px;font-weight:600}
+.acts2 .act.primary{background:var(--brand);box-shadow:0 8px 18px rgba(11,127,113,.3)}
+
+/* Live readings: movement row, the two rule conditions and a minutes meter. */
+.mvrow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;font-size:11.5px;color:var(--muted-text)}
+.mv{display:flex;gap:2px}
+.mv i{flex:1;height:12px;border-radius:3px;background:var(--brand-2)}
+.mv i.still{background:var(--track)}.mv i.run{background:rgba(239,78,74,.55)}
+.conds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr)) auto;gap:10px;align-items:stretch}
+.cond{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge)}
+.cond .ck{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;box-shadow:inset 0 0 0 2px var(--line)}
+.cond.on{background:rgba(239,78,74,.12);box-shadow:inset 0 0 0 1px rgba(239,78,74,.35)}
+.cond.on .ck{background:var(--bad);color:#fff;box-shadow:none}
+.cond b{display:block;font-size:13px}.cond small{font-size:11.5px;color:var(--muted-text)}
+.meter{display:grid;justify-items:center;align-content:center;gap:4px;min-width:112px;padding:8px 14px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);text-align:center}
+.meter b{font-family:var(--mono);font-size:22px;line-height:1}
+.meter.on b{color:var(--bad)}
+.meter small{font-size:10.5px;color:var(--muted-text)}
+.meter .wbar{display:block;width:100%}
+.noteline{padding:10px 12px;border-radius:14px;background:var(--glass-2);font-size:13px;font-weight:500}
+.noteline.alert{background:rgba(239,78,74,.2);font-weight:600}
+.noteline.counting{background:rgba(185,127,4,.16)}
+@media (max-width:640px){.conds{grid-template-columns:minmax(0,1fr)}}
+
+/* Noa: green / amber / red lights, what Noa says as a bubble, the steps as a connected list. */
+.light{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.light div{display:grid;gap:1px;padding:7px 9px;border-radius:12px;background:var(--glass-2);font-size:11px;color:var(--muted-text);opacity:.55}
+.light div b{font-size:12px;color:var(--ink2)}
+.light div.on{opacity:1}
+.light div.on.green{box-shadow:inset 0 0 0 1.5px var(--good)}.light div.on.green b{color:var(--good)}
+.light div.on.amber{box-shadow:inset 0 0 0 1.5px var(--warn)}.light div.on.amber b{color:var(--warn)}
+.light div.on.red{background:rgba(239,78,74,.14);box-shadow:inset 0 0 0 1.5px var(--sos)}.light div.on.red b{color:var(--bad)}
+.saynow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
+.saynow .agent-now{padding:10px 12px;border-radius:4px 14px 14px 14px;background:rgba(31,179,156,.14);font-size:13.5px;min-height:0}
+.steps2{gap:0}
+.steps2 li{position:relative;grid-template-columns:24px minmax(0,1fr) auto;align-items:start;padding:5px 0;border-radius:0;background:none;opacity:1}
+.steps2 li::before{content:"";position:absolute;left:11px;top:28px;bottom:-4px;width:2px;background:var(--line)}
+.steps2 li:last-child::before{display:none}
+.steps2 .d{position:relative;z-index:1;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--glass-2);box-shadow:var(--glass-edge)}
+.steps2 li>span:nth-child(2){padding-top:2px}
+.steps2 em{padding-top:4px}
+.steps2 li.done .d{background:var(--good);color:#fff;box-shadow:none}.steps2 li.done::before{background:var(--good)}
+.steps2 li.cur{background:none}.steps2 li.cur .d{background:var(--sos);color:#fff;box-shadow:0 0 0 5px rgba(239,78,74,.2)}
+.steps2 li.fail .d{background:var(--bad);color:#fff}
+.steps2 li.todo{color:var(--muted-text)}
+.steps2 li.skip{opacity:.45}
+
+/* Calls: numbered cards, the owner in green, 000 in red; alerts as chips. */
+.ccard{grid-template-columns:18px 32px minmax(0,1fr) auto}
+.ccard .n{font-family:var(--mono);font-size:11px;color:var(--muted-text);text-align:center}
+.ccard.ok{background:rgba(31,143,95,.13);box-shadow:inset 0 0 0 1.5px rgba(31,143,95,.5)}
+.ccard.ooo{background:rgba(239,78,74,.12);box-shadow:inset 0 0 0 1.5px rgba(239,78,74,.45)}
+.subh{padding-top:8px;border-top:1px solid var(--line)}
+.alist{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0}
+.alist li{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 3px;border-radius:999px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:12px}
+.alist .av.sm{width:24px;height:24px;font-size:10px}
+.alist em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--good)}
+
+/* Speech check: verdict banner, normal vs tonight bars, how-it-works cards. */
+.spk-verdict{padding:12px 14px;border-radius:16px;font-weight:600;font-size:15px}
+.spk-verdict.slurred{background:linear-gradient(90deg,rgba(239,78,74,.3),rgba(239,78,74,.08));color:var(--bad)}
+.spk-verdict.clear{background:linear-gradient(90deg,rgba(31,143,95,.25),rgba(31,143,95,.06));color:var(--good)}
+.spk-dual{display:grid;gap:3px;margin-top:5px}
+.spk-dual i{display:block;height:4px;border-radius:2px}
+.spk-dual .n{background:var(--spk-base)}.spk-dual .t{background:currentColor}
+.spk-how li{grid-template-columns:minmax(0,1fr);gap:4px}
+.spk-how li>b{width:auto;height:auto;background:none;font-size:20px;place-items:start}
+.spk-how li.red{background:rgba(239,78,74,.12)}
+
+/* Conversations: Noa on the left with her orb, people on the right, a divider where the 000 call starts. */
+.txf .chip em{font-style:normal;font-family:var(--mono);font-size:10.5px;opacity:.7;margin-left:2px}
+.tx li{grid-template-columns:28px minmax(0,1fr);align-items:end;gap:8px;max-width:88%}
+.tx .tx-body{display:grid;gap:3px;min-width:0}
+.tx li.ag{align-self:flex-start}.tx li.ag .who{text-align:left}
+.tx li.ag .b{background:rgba(31,179,156,.18);color:var(--ink);border-radius:16px 16px 16px 5px}
+.tx li.ot{align-self:flex-end;grid-template-columns:minmax(0,1fr) 28px}
+.tx li.ot .tx-av{order:2}.tx li.ot .who{text-align:right}
+.tx li.ot .b{border-radius:16px 16px 5px 16px}
+.tx-av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:15px;background:var(--glass-2);box-shadow:var(--glass-edge)}
+.tx li.sys{display:block}
+.tx li.tx-div{display:flex;align-self:stretch;max-width:none;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--bad)}
+.tx li.tx-div::before,.tx li.tx-div::after{content:"";flex:1;height:1px;background:rgba(239,78,74,.35)}
+.typing{display:inline-flex;gap:3px;justify-self:end;padding:10px 12px;border-radius:16px;background:var(--glass-2)}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--ink2);animation:typing 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes typing{50%{opacity:.2}}
+
+/* Who got what: cards with an icon tile, the time and a chevron. */
+.list.hlist{gap:8px}
+.list.hlist li{grid-template-columns:34px minmax(0,1fr) auto 10px;padding:10px 12px;border-top:0;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge)}
+.list.hlist li.clk:hover,.list.hlist li.clk:focus-visible{background:rgba(31,179,156,.12)}
+.h-ic{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;font-size:17px;background:var(--glass-2);box-shadow:var(--glass-edge)}
+.h-tm{font-family:var(--mono);font-size:11px;color:var(--muted-text)}
+.h-chev{color:var(--muted-text);font-size:16px}
+
+/* Noa's log: a connected timeline beside the response times. */
+.loggrid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:20px;align-items:start}
+.alog{max-height:420px}
+.alog li{position:relative;border-top:0;padding:6px 0}
+.alog li::before{content:"";position:absolute;left:64px;top:28px;bottom:-6px;width:2px;background:var(--line)}
+.alog li:last-child::before{display:none}
+.sla-col{display:grid;gap:10px}
+.sla-col .eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-text)}
+.sla-col .sla{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sla-col .sla div{padding:12px}
+.sla-col .sla b{font-size:20px;font-weight:400}
+@media (max-width:1000px){.loggrid{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){.typing i{animation:none}}

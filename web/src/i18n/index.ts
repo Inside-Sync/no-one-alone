@@ -1,53 +1,49 @@
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
-import enCommon from '../locales/en/common.json' with { type: 'json' }
-import enHome from '../locales/en/home.json' with { type: 'json' }
-import enHealth from '../locales/en/health.json' with { type: 'json' }
-import enAround from '../locales/en/around.json' with { type: 'json' }
-import enForecast from '../locales/en/forecast.json' with { type: 'json' }
-import enLive from '../locales/en/live.json' with { type: 'json' }
-import enMe from '../locales/en/me.json' with { type: 'json' }
-import enPrivacy from '../locales/en/privacy.json' with { type: 'json' }
-import enLineage from '../locales/en/lineage.json' with { type: 'json' }
-import enRecord from '../locales/en/record.json' with { type: 'json' }
-import enHospital from '../locales/en/hospital.json' with { type: 'json' }
-import enCommunity from '../locales/en/community.json' with { type: 'json' }
-import enOverlay from '../locales/en/overlay.json' with { type: 'json' }
-import enChat from '../locales/en/chat.json' with { type: 'json' }
-import viCommon from '../locales/vi/common.json' with { type: 'json' }
-import viHome from '../locales/vi/home.json' with { type: 'json' }
-import viHealth from '../locales/vi/health.json' with { type: 'json' }
-import viAround from '../locales/vi/around.json' with { type: 'json' }
-import viForecast from '../locales/vi/forecast.json' with { type: 'json' }
-import viLive from '../locales/vi/live.json' with { type: 'json' }
-import viMe from '../locales/vi/me.json' with { type: 'json' }
-import viPrivacy from '../locales/vi/privacy.json' with { type: 'json' }
-import viLineage from '../locales/vi/lineage.json' with { type: 'json' }
-import viRecord from '../locales/vi/record.json' with { type: 'json' }
-import viHospital from '../locales/vi/hospital.json' with { type: 'json' }
-import viCommunity from '../locales/vi/community.json' with { type: 'json' }
-import viOverlay from '../locales/vi/overlay.json' with { type: 'json' }
-import viChat from '../locales/vi/chat.json' with { type: 'json' }
+import en from '../locales/en'
+import vi from '../locales/vi'
+import hi from '../locales/hi'
+import zh from '../locales/zh'
+import yue from '../locales/yue'
+import ja from '../locales/ja'
+import ko from '../locales/ko'
 
 /**
- * i18next with one JSON file per namespace and language: `src/locales/{lng}/{ns}.json`. The mock's data lives next to
- * it in `src/locales/{lng}/data/*.json` and is read by the data layer, not by i18next.
+ * i18next with one JSON file per namespace and language: `src/locales/{lng}/{ns}.json`, gathered per language by
+ * `src/locales/{lng}/index.ts`. The mock's data lives next to it in `src/locales/{lng}/data/*.json` and is read by the
+ * data layer, not by i18next.
  *
- * The language is detected from the stored choice, then the browser (vi → Vietnamese, anything else → English), and
- * switching (`i18n.changeLanguage`) re-renders every `useTranslation()` user and re-runs every `useRepo` load.
+ * The language is detected from the stored choice, then the browser (zh-HK / zh-MO → Cantonese, other zh → Mandarin,
+ * unsupported → English), and switching (`i18n.changeLanguage`) re-renders every `useTranslation()` user and re-runs
+ * every `useRepo` load.
  */
-export const LANGUAGES = ['en', 'vi'] as const
+export const LANGUAGES = ['en', 'vi', 'hi', 'zh', 'yue', 'ja', 'ko'] as const
 export type Language = (typeof LANGUAGES)[number]
+
+/** Per language: its own name, the short badge on the switcher, the `Intl` locale and the `<html lang>` tag. */
+export const LANGUAGE_INFO: Record<Language, { name: string; short: string; intl: string; html: string }> = {
+  en: { name: 'English', short: 'EN', intl: 'en-GB', html: 'en' },
+  vi: { name: 'Tiếng Việt', short: 'VI', intl: 'vi-VN', html: 'vi' },
+  hi: { name: 'हिन्दी', short: 'हि', intl: 'hi-IN', html: 'hi' },
+  zh: { name: '普通话', short: '中', intl: 'zh-CN', html: 'zh-Hans' },
+  yue: { name: '廣東話', short: '粵', intl: 'zh-HK', html: 'zh-HK' },
+  ja: { name: '日本語', short: '日', intl: 'ja-JP', html: 'ja' },
+  ko: { name: '한국어', short: '한', intl: 'ko-KR', html: 'ko' },
+}
 
 export const NAMESPACES = [
   'common', 'home', 'health', 'around', 'forecast', 'live', 'me', 'privacy', 'lineage', 'record', 'hospital', 'community', 'overlay', 'chat',
 ] as const
 
 // Explicit imports (not import.meta.glob) so this module also loads outside Vite, e.g. in Playwright's e2e helpers.
-const resources = {
-  en: { common: enCommon, home: enHome, health: enHealth, around: enAround, forecast: enForecast, live: enLive, me: enMe, privacy: enPrivacy, lineage: enLineage, record: enRecord, hospital: enHospital, community: enCommunity, overlay: enOverlay, chat: enChat },
-  vi: { common: viCommon, home: viHome, health: viHealth, around: viAround, forecast: viForecast, live: viLive, me: viMe, privacy: viPrivacy, lineage: viLineage, record: viRecord, hospital: viHospital, community: viCommunity, overlay: viOverlay, chat: viChat },
+const resources = { en, vi, hi, zh, yue, ja, ko }
+
+/** Browser tags to ours: Hong Kong / Macau Chinese is Cantonese, any other Chinese is Mandarin. */
+const toLanguage = (tag: string) => {
+  if (/^(yue|zh-(hk|mo|hant-hk|hant-mo))\b/i.test(tag)) return 'yue'
+  if (/^zh\b/i.test(tag)) return 'zh'
+  return tag
 }
 
 void i18n
@@ -62,17 +58,26 @@ void i18n
     ns: NAMESPACES,
     defaultNS: 'common',
     interpolation: { escapeValue: false }, // React escapes
-    detection: { order: ['localStorage', 'navigator'], lookupLocalStorage: 'noa-locale', caches: ['localStorage'] },
+    detection: { order: ['localStorage', 'navigator'], lookupLocalStorage: 'noa-locale', caches: ['localStorage'], convertDetectedLanguage: toLanguage },
     react: { useSuspense: false },
   })
 
-const syncLang = (lng: string) => {
-  if (typeof document !== 'undefined') document.documentElement.lang = lng
+/** The language in use (one of `LANGUAGES`, English when the resolved one is not ours). */
+export const currentLanguage = (): Language => {
+  const lng = i18n.resolvedLanguage
+  return (LANGUAGES as readonly string[]).includes(lng ?? '') ? (lng as Language) : 'en'
 }
-syncLang(i18n.resolvedLanguage ?? 'en')
-i18n.on('languageChanged', syncLang)
 
-/** The language in use (`en` or `vi`). */
-export const currentLanguage = (): Language => (i18n.resolvedLanguage === 'vi' ? 'vi' : 'en')
+/** The `Intl` locale for dates, numbers and lists in the language in use (or in `lng`, an i18next language). */
+export const intlLocale = (lng?: string): string => {
+  const l = lng ? toLanguage(lng).split('-')[0] : currentLanguage()
+  return (LANGUAGE_INFO as Record<string, { intl: string }>)[l]?.intl ?? LANGUAGE_INFO.en.intl
+}
+
+const syncLang = () => {
+  if (typeof document !== 'undefined') document.documentElement.lang = LANGUAGE_INFO[currentLanguage()].html
+}
+syncLang()
+i18n.on('languageChanged', syncLang)
 
 export default i18n

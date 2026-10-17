@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { usePathname } from '@/app/navigation'
+import { AgentOrb } from '@/components/noa/AgentOrb'
 import { NoaOrb } from '@/components/noa/NoaOrb'
 import type { ChatMode, ChatTurn } from '@/data/api'
 import { parsePath } from '@/domain/views'
@@ -27,6 +28,8 @@ export function ChatPanel() {
   const key = mode === 'fam' ? `fam:${viewer}` : mode
   const name = people.find((p) => p.id === viewer)?.name ?? ''
   const greetName = name || t('there')
+  // The prototype turns the button's globe red while an incident is still being handled.
+  const busy = !!incident && incident.status !== 'CLOSED'
 
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
@@ -92,7 +95,7 @@ export function ChatPanel() {
     <>
       <aside className={open ? 'chat on' : 'chat'} aria-label={t('label')}>
         <header>
-          <span className="chat-orb"><NoaOrb size={40} talk={cur.waiting} /></span>
+          <span className="chat-orb"><AgentOrb size={48} talk={cur.waiting} /></span>
           <div><b>{t('name')}</b><small>{mode === 'fam' ? t('sub.fam', { name }) : t(`sub.${mode}`)}</small></div>
           <button type="button" className="rb" aria-label={t('close')} onClick={close}>✕</button>
         </header>
@@ -119,7 +122,7 @@ export function ChatPanel() {
         </form>
       </aside>
       <button ref={fab} type="button" className={open ? 'chat-fab hide' : 'chat-fab'} aria-expanded={open} tabIndex={open ? -1 : undefined} aria-label={t('fab')} onClick={() => setOpen(true)}>
-        <NoaOrb size={32} /><span>{t('fab')}</span><i className="live" />
+        <AgentOrb size={40} alert={busy} /><span>{t('fab')}</span><i className="live" />
       </button>
     </>
   )

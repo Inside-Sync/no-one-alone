@@ -1,0 +1,855 @@
+{
+  "community": {
+    "context": {
+      "initials": "IW",
+      "color": "#6d4fc0",
+      "sub": "Inner West 地域保健 · 15地区 · 高齢住民1,846人が登録",
+      "facts": [
+        {
+          "live": true,
+          "label": "同期済み",
+          "value": "15:00"
+        },
+        {
+          "live": false,
+          "label": "10人未満のグループ",
+          "value": "非表示"
+        },
+        {
+          "live": false,
+          "label": "猛暑",
+          "value": "木曜日"
+        },
+        {
+          "live": false,
+          "label": "本日のボランティア",
+          "value": "23"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "label": "登録している高齢住民",
+        "value": "1,846",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "15地区",
+        "delta": "月+64",
+        "tone": "good",
+        "spark": [
+          1600,
+          1640,
+          1680,
+          1710,
+          1740,
+          1770,
+          1800,
+          1825,
+          1846
+        ]
+      },
+      {
+        "label": "一人暮らし",
+        "value": "38",
+        "unit": "%",
+        "color": "#2f6fb0",
+        "baseline": "703人",
+        "delta": "+1ポイント",
+        "tone": "good",
+        "spark": [
+          36,
+          36,
+          37,
+          37,
+          37,
+          38,
+          38,
+          38,
+          38
+        ]
+      },
+      {
+        "label": "高リスク",
+        "value": "212",
+        "unit": "人",
+        "color": "#d9443f",
+        "baseline": "登録者の11.5%",
+        "delta": "月+6",
+        "tone": "warn",
+        "spark": [
+          180,
+          186,
+          190,
+          195,
+          199,
+          204,
+          206,
+          209,
+          212
+        ]
+      },
+      {
+        "label": "安否確認の応答",
+        "value": "92.7",
+        "unit": "%（今日）",
+        "color": "#1fb39c",
+        "baseline": "1,846人中1,712人",
+        "delta": "−0.4ポイント",
+        "tone": "good",
+        "spark": [
+          94,
+          93,
+          94,
+          93,
+          92,
+          93,
+          94,
+          93,
+          92.7
+        ]
+      },
+      {
+        "label": "通報から訪問まで",
+        "value": "8.6",
+        "unit": "分（中央値）",
+        "color": "#0b7f71",
+        "baseline": "90パーセンタイル 14.2分",
+        "delta": "−0.9分",
+        "tone": "good",
+        "spark": [
+          10.2,
+          9.8,
+          9.6,
+          9.4,
+          9.1,
+          9,
+          8.9,
+          8.7,
+          8.6
+        ]
+      },
+      {
+        "label": "活動中のボランティア",
+        "value": "64",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "1人あたり週2.3回訪問",
+        "delta": "月+5",
+        "tone": "good",
+        "spark": [
+          48,
+          50,
+          53,
+          55,
+          57,
+          59,
+          61,
+          62,
+          64
+        ]
+      },
+      {
+        "label": "今週のアラート",
+        "value": "37",
+        "unit": "",
+        "color": "#ef4e4a",
+        "baseline": "8件エスカレーション",
+        "delta": "週−4",
+        "tone": "good",
+        "spark": [
+          44,
+          41,
+          39,
+          42,
+          40,
+          38,
+          41,
+          39,
+          37
+        ]
+      },
+      {
+        "label": "除外した誤報",
+        "value": "78",
+        "unit": "%",
+        "color": "#1fb39c",
+        "baseline": "37件中29件",
+        "delta": "+3ポイント",
+        "tone": "good",
+        "spark": [
+          70,
+          71,
+          73,
+          74,
+          75,
+          76,
+          77,
+          77,
+          78
+        ]
+      },
+      {
+        "label": "今週の訪問不足",
+        "value": "180",
+        "unit": "件",
+        "color": "#d9443f",
+        "baseline": "Tempe, Sydenham, St Peters",
+        "delta": "週+8",
+        "tone": "warn",
+        "spark": [
+          38,
+          42,
+          40,
+          45,
+          48,
+          50,
+          52,
+          55,
+          180
+        ]
+      },
+      {
+        "label": "音声対応言語",
+        "value": "7",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "ベータ版で+2",
+        "delta": "四半期+1",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          5,
+          5,
+          5,
+          6,
+          6,
+          7,
+          7
+        ]
+      },
+      {
+        "label": "涼しい部屋の定員",
+        "value": "260",
+        "unit": "木",
+        "color": "#e07a3f",
+        "baseline": "3か所 · 空き137",
+        "delta": "新規",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          120,
+          200,
+          200,
+          260,
+          260
+        ]
+      },
+      {
+        "label": "木曜の救急外来予測",
+        "value": "34",
+        "unit": "75歳以上",
+        "color": "#d9443f",
+        "baseline": "適正ライン 28",
+        "delta": "水曜比+13",
+        "tone": "warn",
+        "spark": [
+          21,
+          22,
+          20,
+          23,
+          21,
+          22,
+          21,
+          25,
+          34
+        ]
+      }
+    ],
+    "suburbs": [
+      {
+        "name": "Marrickville",
+        "col": 2,
+        "row": 1,
+        "enrolled": 312,
+        "alonePct": 41,
+        "highRisk": 38,
+        "heat": 0.82,
+        "volunteers": 9,
+        "language": "ギリシャ語"
+      },
+      {
+        "name": "Dulwich Hill",
+        "col": 1,
+        "row": 1,
+        "enrolled": 198,
+        "alonePct": 36,
+        "highRisk": 22,
+        "heat": 0.64,
+        "volunteers": 6,
+        "language": "ギリシャ語"
+      },
+      {
+        "name": "Petersham",
+        "col": 2,
+        "row": 2,
+        "enrolled": 121,
+        "alonePct": 39,
+        "highRisk": 14,
+        "heat": 0.58,
+        "volunteers": 4,
+        "language": "ポルトガル語"
+      },
+      {
+        "name": "Stanmore",
+        "col": 3,
+        "row": 2,
+        "enrolled": 96,
+        "alonePct": 33,
+        "highRisk": 9,
+        "heat": 0.44,
+        "volunteers": 5,
+        "language": "英語"
+      },
+      {
+        "name": "Enmore",
+        "col": 3,
+        "row": 1,
+        "enrolled": 84,
+        "alonePct": 44,
+        "highRisk": 12,
+        "heat": 0.72,
+        "volunteers": 3,
+        "language": "英語"
+      },
+      {
+        "name": "Newtown",
+        "col": 4,
+        "row": 1,
+        "enrolled": 143,
+        "alonePct": 47,
+        "highRisk": 17,
+        "heat": 0.69,
+        "volunteers": 7,
+        "language": "英語"
+      },
+      {
+        "name": "Lewisham",
+        "col": 1,
+        "row": 2,
+        "enrolled": 77,
+        "alonePct": 35,
+        "highRisk": 8,
+        "heat": 0.51,
+        "volunteers": 2,
+        "language": "アラビア語"
+      },
+      {
+        "name": "Summer Hill",
+        "col": 0,
+        "row": 3,
+        "enrolled": 110,
+        "alonePct": 31,
+        "highRisk": 10,
+        "heat": 0.4,
+        "volunteers": 6,
+        "language": "イタリア語"
+      },
+      {
+        "name": "Ashfield",
+        "col": 0,
+        "row": 2,
+        "enrolled": 264,
+        "alonePct": 37,
+        "highRisk": 31,
+        "heat": 0.77,
+        "volunteers": 8,
+        "language": "中国語（北京語）"
+      },
+      {
+        "name": "Leichhardt",
+        "col": 2,
+        "row": 3,
+        "enrolled": 156,
+        "alonePct": 34,
+        "highRisk": 13,
+        "heat": 0.38,
+        "volunteers": 7,
+        "language": "イタリア語"
+      },
+      {
+        "name": "Annandale",
+        "col": 3,
+        "row": 3,
+        "enrolled": 72,
+        "alonePct": 30,
+        "highRisk": 6,
+        "heat": 0.33,
+        "volunteers": 4,
+        "language": "英語"
+      },
+      {
+        "name": "Tempe",
+        "col": 2,
+        "row": 0,
+        "enrolled": 58,
+        "alonePct": 42,
+        "highRisk": 9,
+        "heat": 0.86,
+        "volunteers": 1,
+        "language": "ベトナム語"
+      },
+      {
+        "name": "St Peters",
+        "col": 4,
+        "row": 0,
+        "enrolled": 49,
+        "alonePct": 39,
+        "highRisk": 7,
+        "heat": 0.79,
+        "volunteers": 1,
+        "language": "ベトナム語"
+      },
+      {
+        "name": "Sydenham",
+        "col": 3,
+        "row": 0,
+        "enrolled": 31,
+        "alonePct": 45,
+        "highRisk": 6,
+        "heat": 0.83,
+        "volunteers": 0,
+        "language": "ポルトガル語"
+      },
+      {
+        "name": "Camperdown",
+        "col": 4,
+        "row": 2,
+        "enrolled": 75,
+        "alonePct": 40,
+        "highRisk": 10,
+        "heat": 0.55,
+        "volunteers": 1,
+        "language": "英語"
+      }
+    ],
+    "districtKicker": "Inner West · 15地区",
+    "heatwave": {
+      "pill": "木曜日 38 °C",
+      "temps": [
+        {
+          "day": "水",
+          "value": 33
+        },
+        {
+          "day": "木",
+          "value": 38
+        },
+        {
+          "day": "金",
+          "value": 36
+        },
+        {
+          "day": "土",
+          "value": 26
+        },
+        {
+          "day": "日",
+          "value": 24
+        },
+        {
+          "day": "月",
+          "value": 23
+        },
+        {
+          "day": "火",
+          "value": 25
+        }
+      ],
+      "tempsThreshold": {
+        "value": 35,
+        "label": "猛暑 35°",
+        "max": 40,
+        "unit": "°"
+      },
+      "stats": [
+        {
+          "label": "追加の安否確認",
+          "value": "318",
+          "note": "木 11:00–15:00"
+        },
+        {
+          "label": "エアコンなし",
+          "value": "127",
+          "note": "優先",
+          "tone": "bad"
+        },
+        {
+          "label": "送迎を提案",
+          "value": "14",
+          "note": "ボランティアドライバー"
+        }
+      ],
+      "coolRooms": [
+        {
+          "name": "Marrickville 図書館の涼しい部屋",
+          "detail": "定員120人 · 09:00–20:00",
+          "left": "残り74",
+          "tone": "good"
+        },
+        {
+          "name": "Ashfield シビックセンター",
+          "detail": "定員80人 · 10:00–18:00",
+          "left": "残り22",
+          "tone": "warn"
+        },
+        {
+          "name": "Newtown 地域センター",
+          "detail": "定員60人 · 10:00–17:00",
+          "left": "残り41",
+          "tone": "good"
+        }
+      ],
+      "scheduleToast": "木曜日に追加の安否確認を318件予定"
+    },
+    "visits": [
+      {
+        "name": "Margaret C.",
+        "age": 78,
+        "suburb": "Marrickville",
+        "risk": "高",
+        "tone": "bad",
+        "reason": "血圧上昇、飲み忘れ",
+        "language": "英語",
+        "nearestHelp": "David · 450 m"
+      },
+      {
+        "name": "Eleni P.",
+        "age": 84,
+        "suburb": "Marrickville",
+        "risk": "高",
+        "tone": "bad",
+        "reason": "心不全：72時間で+2.1 kg",
+        "language": "ギリシャ語",
+        "nearestHelp": "ボランティア Tom · 1.2 km"
+      },
+      {
+        "name": "Nguyen Van T.",
+        "age": 81,
+        "suburb": "Tempe",
+        "risk": "高",
+        "tone": "bad",
+        "reason": "暑さ：エアコンなし、室内33 °C",
+        "language": "ベトナム語",
+        "nearestHelp": "なし · 空白"
+      },
+      {
+        "name": "Maria S.",
+        "age": 86,
+        "suburb": "Petersham",
+        "risk": "高",
+        "tone": "bad",
+        "reason": "30日間で2回転倒",
+        "language": "ポルトガル語",
+        "nearestHelp": "娘 · 15分"
+      },
+      {
+        "name": "Fatima A.",
+        "age": 79,
+        "suburb": "Lewisham",
+        "risk": "中",
+        "tone": "warn",
+        "reason": "聴力低下、安否確認に3回応答なし",
+        "language": "アラビア語",
+        "nearestHelp": "ボランティア Aisha"
+      },
+      {
+        "name": "Giuseppe R.",
+        "age": 88,
+        "suburb": "Leichhardt",
+        "risk": "中",
+        "tone": "warn",
+        "reason": "夜間の徘徊 ×2",
+        "language": "イタリア語",
+        "nearestHelp": "息子 · 8分"
+      },
+      {
+        "name": "Wei L.",
+        "age": 77,
+        "suburb": "Ashfield",
+        "risk": "中",
+        "tone": "warn",
+        "reason": "3週間続く気分の落ち込み",
+        "language": "中国語（北京語）",
+        "nearestHelp": "ボランティア Jun"
+      },
+      {
+        "name": "Peter H.",
+        "age": 80,
+        "suburb": "Newtown",
+        "risk": "注意",
+        "tone": "plain",
+        "reason": "新しい睡眠薬",
+        "language": "英語",
+        "nearestHelp": "隣人 · 2分"
+      }
+    ],
+    "funnel": [
+      {
+        "label": "受信したアラート",
+        "value": 37,
+        "color": "#5a7fe0"
+      },
+      {
+        "label": "エージェントが確認",
+        "value": 37,
+        "color": "#2f6fb0"
+      },
+      {
+        "label": "除外した誤報",
+        "value": 29,
+        "color": "#1fb39c"
+      },
+      {
+        "label": "人にエスカレーション",
+        "value": 8,
+        "color": "#c88a05"
+      },
+      {
+        "label": "自宅に駆けつけ",
+        "value": 8,
+        "color": "#e07a3f"
+      },
+      {
+        "label": "救急車を要請",
+        "value": 3,
+        "color": "#d9443f"
+      },
+      {
+        "label": "到着前情報パケット",
+        "value": 3,
+        "color": "#8f6fd0"
+      }
+    ],
+    "funnelMinis": [
+      {
+        "label": "確認",
+        "value": "44秒",
+        "note": "中央値"
+      },
+      {
+        "label": "受諾",
+        "value": "1:12",
+        "note": "中央値"
+      },
+      {
+        "label": "到着",
+        "value": "8.6′",
+        "note": "中央値"
+      }
+    ],
+    "capacity": [
+      {
+        "name": "Marrickville",
+        "need": 76,
+        "capacity": 36
+      },
+      {
+        "name": "Ashfield",
+        "need": 62,
+        "capacity": 32
+      },
+      {
+        "name": "Dulwich Hill",
+        "need": 44,
+        "capacity": 24
+      },
+      {
+        "name": "Camperdown",
+        "need": 20,
+        "capacity": 4
+      },
+      {
+        "name": "Tempe",
+        "need": 18,
+        "capacity": 4
+      },
+      {
+        "name": "Petersham",
+        "need": 28,
+        "capacity": 16
+      },
+      {
+        "name": "Enmore",
+        "need": 24,
+        "capacity": 12
+      },
+      {
+        "name": "Sydenham",
+        "need": 12,
+        "capacity": 0
+      },
+      {
+        "name": "St Peters",
+        "need": 14,
+        "capacity": 4
+      }
+    ],
+    "edForecast": {
+      "meta": "75歳以上の受診者数、Camperdown 救急外来",
+      "values": [
+        {
+          "day": "水",
+          "value": 21
+        },
+        {
+          "day": "木",
+          "value": 34
+        },
+        {
+          "day": "金",
+          "value": 31
+        },
+        {
+          "day": "土",
+          "value": 25
+        },
+        {
+          "day": "日",
+          "value": 22
+        },
+        {
+          "day": "月",
+          "value": 20
+        },
+        {
+          "day": "火",
+          "value": 21
+        }
+      ],
+      "threshold": {
+        "value": 29,
+        "label": "適正 28",
+        "max": 36,
+        "unit": ""
+      },
+      "note": "暑さ指数、曜日、過去90日のデータから予測。木曜日は適正ラインの28人を6人上回る見込みです。"
+    },
+    "languages": [
+      {
+        "name": "英語",
+        "percent": 42,
+        "support": "Full"
+      },
+      {
+        "name": "ギリシャ語",
+        "percent": 13,
+        "support": "Full"
+      },
+      {
+        "name": "ベトナム語",
+        "percent": 9,
+        "support": "Full"
+      },
+      {
+        "name": "中国語（北京語）",
+        "percent": 8,
+        "support": "Full"
+      },
+      {
+        "name": "イタリア語",
+        "percent": 7,
+        "support": "Full"
+      },
+      {
+        "name": "ポルトガル語",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "アラビア語",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "その他",
+        "percent": 9,
+        "support": "Interpreter"
+      }
+    ],
+    "programs": [
+      {
+        "program": "ウォーキンググループ（公園3か所）",
+        "regulars": 42,
+        "attendance": "78% (+18%)",
+        "outcome": "歩行速度 +0.04 m/s"
+      },
+      {
+        "program": "金曜日の交流ランチ",
+        "regulars": 65,
+        "attendance": "81%",
+        "outcome": "孤独スコア −0.6（UCLA-3）"
+      },
+      {
+        "program": "筋力・バランス教室",
+        "regulars": 28,
+        "attendance": "72%",
+        "outcome": "けがを伴う転倒 −12%"
+      },
+      {
+        "program": "図書館のIT相談",
+        "regulars": 31,
+        "attendance": "64%",
+        "outcome": "家族とのビデオ通話 週2.1回"
+      },
+      {
+        "program": "メンズシェッド",
+        "regulars": 19,
+        "attendance": "70%",
+        "outcome": "気分の落ち込みフラグ −30%"
+      },
+      {
+        "program": "涼しい部屋への送迎バス",
+        "regulars": 14,
+        "attendance": "人のドライバー",
+        "outcome": "暑さによる救急受診 昨夏−9%"
+      }
+    ],
+    "watchSummary": [
+      {
+        "icon": "shield",
+        "tone": "bad",
+        "title": "訪問販売の「太陽光リベート」詐欺",
+        "detail": "Marrickville、Dulwich Hill · 通報14件 · 住民1,240人に音声で注意喚起",
+        "pill": {
+          "tone": "bad",
+          "text": "対応中"
+        }
+      },
+      {
+        "icon": "sun",
+        "tone": "warn",
+        "title": "木曜〜金曜は猛暑",
+        "detail": "追加の安否確認318件 · エアコンなし127件",
+        "pill": {
+          "tone": "warn",
+          "text": "予定"
+        }
+      },
+      {
+        "icon": "target",
+        "tone": "warn",
+        "title": "歩道工事 · Marrickville Rd",
+        "detail": "この道を歩く住民46人につまずきの危険",
+        "pill": {
+          "tone": "warn",
+          "text": "10月24日まで"
+        }
+      }
+    ],
+    "footnote": "地域保健スタッフには担当地域の登録者の名前が表示されます。市や州の画面は集計・匿名化され、10人未満のグループは非表示です。人物と数値はすべて架空のものです。"
+  }
+}

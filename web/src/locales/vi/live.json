@@ -456,8 +456,16 @@
         "resting": "Nằm yên nhưng nhịp tim bình thường (đang ngủ, nghỉ ngơi): không cảnh báo",
         "counting": "Đang đếm… Noa chờ 10 phút để một lần tăng ngắn không đánh thức ai",
         "normal": "Mọi thứ bình thường"
-      }
-    }
+      },
+      "movementLabel": "Vận động",
+      "condHr": "Nhịp tim trên 120",
+      "condHrSub": "hiện {{hr}} nhịp/phút",
+      "condStill": "Không cử động",
+      "condStillSub": "nằm yên {{n}} phút",
+      "condMoving": "đang cử động",
+      "meter": "phút liên tiếp"
+    },
+    "locked": "🔒 Đã khoá trong lúc có cảnh báo"
   },
   "call": {
     "title": "Cuộc gọi 000 · cuộc gọi demo",
@@ -652,7 +660,8 @@
     "log": {
       "title": "🗒️ Nhật ký của Noa",
       "meta": "Từng bước, có giờ",
-      "idle": "Đang lặng lẽ theo dõi. Không có gì cần báo."
+      "idle": "Đang lặng lẽ theo dõi. Không có gì cần báo.",
+      "sla": "Thời gian phản hồi đến giờ"
     },
     "circle": {
       "title": "🫂 Người thân của {{name}}",
@@ -667,6 +676,14 @@
       "allClearSub": "Không ai bị đánh thức",
       "farAway": "{{names}} ở xa",
       "and": " và "
+    },
+    "light": {
+      "green": "🟢 Xanh",
+      "greenSub": "Bà ổn",
+      "amber": "🟡 Vàng",
+      "amberSub": "Mệt nhưng nói rõ",
+      "red": "🔴 Đỏ",
+      "redSub": "Gọi trợ giúp ngay"
     }
   },
   "talk": {
@@ -683,7 +700,8 @@
     "strokeTeam": "Đội đột quỵ",
     "ACCEPTED": "“Tôi đang tới.”",
     "DECLINED": "“Tôi không tới được.”",
-    "ARRIVED": "“Tôi đang ở cạnh bà.”"
+    "ARRIVED": "“Tôi đang ở cạnh bà.”",
+    "onCall": "Đang gọi {{num}}"
   },
   "hand": {
     "title": "📦 Ai nhận được gì",

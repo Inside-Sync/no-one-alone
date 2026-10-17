@@ -1,0 +1,20 @@
+{
+  "strengthMeta": "根據指引",
+  "screeningHead": [
+    "檢查",
+    "相隔",
+    "到期",
+    ""
+  ],
+  "matrix": {
+    "title": "病況矩陣",
+    "meta": "發病年齡 · 空白 = 冇患病或者冇分享",
+    "person": "人物"
+  },
+  "consent": {
+    "title": "分享同同意",
+    "meta": "每個人自己決定",
+    "shares": "{{person}} 分享{{column}}"
+  },
+  "requested": "✓ 已請求"
+}

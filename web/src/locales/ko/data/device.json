@@ -1,0 +1,135 @@
+{
+  "deviceFeed": {
+    "meta": "기기 6대의 측정값 48개 · 스마트워치처럼, 집과 목소리까지 더해서",
+    "sources": [
+      {
+        "device": "손목 착용 기기",
+        "metrics": "심박수, HRV, 리듬, 심전도, 혈중 산소, 수면 단계, 걸음 수, 에너지, 손목 온도, 낙상 감지, 소음",
+        "frequency": "연속 · 5분",
+        "status": "64% · 착용 중",
+        "tone": "good",
+        "sharedWith": "가족, 주치의"
+      },
+      {
+        "device": "휴대폰",
+        "metrics": "보행 속도, 보폭, 안정성, 햇빛 · 위치는 꺼짐 (Margaret이 집/외출만 켤 수 있음)",
+        "frequency": "자동",
+        "status": "충전 중",
+        "tone": "good",
+        "sharedWith": "가족"
+      },
+      {
+        "device": "블루투스 혈압계",
+        "metrics": "수축기, 이완기, 맥박",
+        "frequency": "아침 + 저녁",
+        "status": "배터리 70%",
+        "tone": "good",
+        "sharedWith": "가족, 주치의"
+      },
+      {
+        "device": "스마트 체중계",
+        "metrics": "체중, BMI",
+        "frequency": "매일",
+        "status": "정상",
+        "tone": "good",
+        "sharedWith": "주치의"
+      },
+      {
+        "device": "스마트 약통",
+        "metrics": "복용 여부, 시간, 누락",
+        "frequency": "복용 시마다",
+        "status": "정상",
+        "tone": "good",
+        "sharedWith": "가족, 주치의, 약국"
+      },
+      {
+        "device": "홈 허브 · 센서 6개",
+        "metrics": "방 2곳의 움직임 (카메라, 마이크 없음), 온도, 습도",
+        "frequency": "연속",
+        "status": "온라인",
+        "tone": "good",
+        "sharedWith": "가족 (응급 정보만)"
+      },
+      {
+        "device": "음성 안부 확인",
+        "metrics": "기분, 말 속도, 쉼, 발음, 청력, 식사, 수분",
+        "frequency": "하루 2–3회 통화",
+        "status": "다음 18:00",
+        "tone": "plain",
+        "sharedWith": "가족, 주치의; 병원은 응급 시에만"
+      }
+    ],
+    "phone": {
+      "home": {
+        "date": "10월 14일 수요일",
+        "greeting": "안녕하세요, Margaret",
+        "medicine": {
+          "title": "혈압약",
+          "sub": "18:00 · 암로디핀 1알",
+          "button": "먹었어요",
+          "toast": "기록했어요 · James가 볼 수 있어요"
+        },
+        "ok": {
+          "label": "괜찮아요",
+          "toast": "가족이 괜찮으신 걸 알게 됐어요"
+        },
+        "help": {
+          "label": "도움 요청"
+        }
+      },
+      "heading": "Margaret을 위한 디자인",
+      "meta": "배울 필요도, 메뉴도 없어요",
+      "minis": [
+        {
+          "label": "글자 크기",
+          "value": "28 pt",
+          "note": "최소"
+        },
+        {
+          "label": "터치 영역",
+          "value": "92 px",
+          "note": "WCAG AAA"
+        },
+        {
+          "label": "음성",
+          "value": "호주 영어",
+          "note": "느리고 따뜻하게"
+        },
+        {
+          "label": "작업당 단계",
+          "value": "1",
+          "note": "항상"
+        },
+        {
+          "label": "사용 기기",
+          "value": "모든 전화",
+          "note": "유선 전화 포함"
+        },
+        {
+          "label": "청력 모드",
+          "value": "켜짐",
+          "note": "자막 + 깜박임"
+        }
+      ],
+      "bullets": [
+        {
+          "icon": "check",
+          "text": "큰 버튼 두 개, 한 번에 한 가지 일. 찾아다닐 필요가 없어요."
+        },
+        {
+          "icon": "ear",
+          "text": "청력 모드: Noa가 전화하면 큰 자막과 깜박이는 화면."
+        },
+        {
+          "icon": "mic",
+          "text": "음성 우선, 가족을 부르는 그분만의 호칭(\"love\", \"Davey\")으로."
+        },
+        {
+          "icon": "phone",
+          "text": "스마트폰이 없는 사람도 같은 안부 확인을 일반 전화로 받을 수 있어요."
+        }
+      ],
+      "note": "화면에서 도움 요청을 누르면 야간 알림 데모가 시작돼요."
+    }
+  }
+}

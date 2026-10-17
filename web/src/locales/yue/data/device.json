@@ -1,0 +1,135 @@
+{
+  "deviceFeed": {
+    "meta": "6 部裝置共 48 個讀數 · 好似智能手錶咁，再加埋佢屋企同佢把聲",
+    "sources": [
+      {
+        "device": "手腕穿戴裝置",
+        "metrics": "心率、HRV、心律、ECG、血氧、睡眠階段、步數、熱量、手腕溫度、跌倒偵測、噪音",
+        "frequency": "持續 · 5 分鐘",
+        "status": "64% · 戴緊",
+        "tone": "good",
+        "sharedWith": "家人、家庭醫生"
+      },
+      {
+        "device": "電話",
+        "metrics": "步速、步幅、平穩度、日照 · 位置已閂（Margaret 只可以開「喺屋企／出咗街」）",
+        "frequency": "被動",
+        "status": "充緊電",
+        "tone": "good",
+        "sharedWith": "家人"
+      },
+      {
+        "device": "藍牙血壓計",
+        "metrics": "上壓、下壓、脈搏",
+        "frequency": "朝早 + 夜晚",
+        "status": "電池 70%",
+        "tone": "good",
+        "sharedWith": "家人、家庭醫生"
+      },
+      {
+        "device": "智能磅",
+        "metrics": "體重、BMI",
+        "frequency": "每日",
+        "status": "正常",
+        "tone": "good",
+        "sharedWith": "家庭醫生"
+      },
+      {
+        "device": "智能藥盒",
+        "metrics": "食咗嘅劑量、時間、漏食",
+        "frequency": "每次食藥",
+        "status": "正常",
+        "tone": "good",
+        "sharedWith": "家人、家庭醫生、藥房"
+      },
+      {
+        "device": "家居中樞 · 6 個感應器",
+        "metrics": "2 間房嘅活動（冇鏡頭、冇咪）、溫度、濕度",
+        "frequency": "持續",
+        "status": "在線",
+        "tone": "good",
+        "sharedWith": "家人（只限緊急詳情）"
+      },
+      {
+        "device": "語音問候",
+        "metrics": "心情、語速、停頓、咬字、聽力、食飯、飲水",
+        "frequency": "每日 2–3 次電話",
+        "status": "下次 18:00",
+        "tone": "plain",
+        "sharedWith": "家人、家庭醫生；醫院只限緊急情況"
+      }
+    ],
+    "phone": {
+      "home": {
+        "date": "10月14日（星期三）",
+        "greeting": "你好，Margaret",
+        "medicine": {
+          "title": "血壓藥",
+          "sub": "18:00 · 1 粒 amlodipine",
+          "button": "我食咗喇",
+          "toast": "記低咗 · James 會見到"
+        },
+        "ok": {
+          "label": "我冇事",
+          "toast": "家人知道你冇事"
+        },
+        "help": {
+          "label": "求助"
+        }
+      },
+      "heading": "專為 Margaret 設計",
+      "meta": "唔使學，冇選單",
+      "minis": [
+        {
+          "label": "字體大小",
+          "value": "28 pt",
+          "note": "最少"
+        },
+        {
+          "label": "觸控範圍",
+          "value": "92 px",
+          "note": "WCAG AAA"
+        },
+        {
+          "label": "語音",
+          "value": "澳洲英語",
+          "note": "慢、溫柔"
+        },
+        {
+          "label": "每項任務步驟",
+          "value": "1",
+          "note": "永遠"
+        },
+        {
+          "label": "適用於",
+          "value": "任何電話",
+          "note": "包括固網電話"
+        },
+        {
+          "label": "聽力模式",
+          "value": "開",
+          "note": "字幕 + 閃燈"
+        }
+      ],
+      "bullets": [
+        {
+          "icon": "check",
+          "text": "兩個大掣，一次一件事。唔使周圍撳。"
+        },
+        {
+          "icon": "ear",
+          "text": "聽力模式：助手打嚟嗰陣會有大字幕同閃螢幕。"
+        },
+        {
+          "icon": "mic",
+          "text": "以語音為主，用佢平時叫屋企人嘅稱呼（「love」、「Davey」）。"
+        },
+        {
+          "icon": "phone",
+          "text": "冇智能電話嘅人，同樣嘅問候都可以用普通電話完成。"
+        }
+      ],
+      "note": "喺佢螢幕撳「求助」就可以開始夜間警報示範。"
+    }
+  }
+}

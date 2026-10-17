@@ -1,0 +1,576 @@
+{
+  "careRecord": {
+    "kpis": [
+      {
+        "emoji": "📁",
+        "label": "健康記録",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "6か所から",
+        "delta": "今週38件追加",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "emoji": "🏥",
+        "label": "2023年以降の受診",
+        "value": "46",
+        "unit": "",
+        "color": "#1fb39c",
+        "baseline": "かかりつけ医 18 · 検査 14",
+        "delta": "今月2件",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "emoji": "💊",
+        "label": "お薬",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "飲み合わせの問題なし",
+        "delta": "変化なし",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "emoji": "🧪",
+        "label": "検査結果",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "最新 10月12日",
+        "delta": "今月9件",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "emoji": "✅",
+        "label": "記録の充実度",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "目標 90%",
+        "delta": "良好",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "emoji": "📅",
+        "label": "かかりつけ医受診からの日数",
+        "value": "32",
+        "unit": "日",
+        "color": "#2f6fb0",
+        "baseline": "前回 9月12日",
+        "delta": "11月7日までに受診",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "kpisTechnical": [
+      {
+        "label": "FHIRリソース",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "6ソース",
+        "delta": "週+38",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "label": "受診歴",
+        "value": "46",
+        "unit": "2023年以降",
+        "color": "#1fb39c",
+        "baseline": "GP 18 · 検体検査 14",
+        "delta": "月+2",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "label": "服用中の薬",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "相互作用 0件",
+        "delta": "安定",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "label": "検体検査結果",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "最新 10月12日",
+        "delta": "月+9",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "label": "記録の完全性",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "目標 90",
+        "delta": "+6ポイント",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "label": "GP受診からの日数",
+        "value": "32",
+        "unit": "日",
+        "color": "#2f6fb0",
+        "baseline": "9月12日",
+        "delta": "期限 11月7日",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "encounters": {
+      "meta": "6ソースから46件の受診歴",
+      "types": [
+        {
+          "type": "GP",
+          "color": "#1fb39c",
+          "count": 18,
+          "months": [
+            0.500035217963192,
+            3.5919200462213903,
+            5.900223949365526,
+            8.563925593219627,
+            11.39745256807418,
+            13.98531633823674,
+            15.711700772365276,
+            18.054891225234503,
+            20.55683382559273,
+            24.206118031596876,
+            25.725759348111,
+            28.837373673997234,
+            31.23934405715144,
+            33.155574496747526,
+            35.7405773571139,
+            38.88365086972122,
+            40.52017222765849,
+            43.034641837267806
+          ]
+        },
+        {
+          "type": "Specialist",
+          "color": "#5a7fe0",
+          "count": 6,
+          "months": [
+            3.2253704278034814,
+            10.8007900682751,
+            18.378686884537977,
+            25.59047720496587,
+            34.15039489269294,
+            41.68696422612943
+          ]
+        },
+        {
+          "type": "Pathology",
+          "color": "#c88a05",
+          "count": 14,
+          "months": [
+            1.664893864109082,
+            4.9426080702735185,
+            7.699556293617522,
+            11.942635330318133,
+            14.086282819589863,
+            17.083929102946005,
+            21.239300879872683,
+            23.787034035229155,
+            27.75246704276881,
+            29.999304596799707,
+            33.31236848008108,
+            37.69133973186029,
+            40.77544498399407,
+            43.046704329128104
+          ]
+        },
+        {
+          "type": "Emergency",
+          "color": "#ef4e4a",
+          "count": 2,
+          "months": [
+            14,
+            33
+          ]
+        },
+        {
+          "type": "Hearing",
+          "color": "#8f6fd0",
+          "count": 6,
+          "months": [
+            28,
+            31,
+            34,
+            37,
+            40,
+            43
+          ]
+        }
+      ],
+      "now": 45.5,
+      "markers": [
+        {
+          "month": 14,
+          "label": "転倒 · 手首"
+        },
+        {
+          "month": 33,
+          "label": "めまい"
+        }
+      ]
+    },
+    "medicines": [
+      {
+        "name": "Amlodipine 5 mg",
+        "timing": "夜",
+        "adherence": 82,
+        "tone": "warn",
+        "last": "今日 09:33（遅れ）"
+      },
+      {
+        "name": "Aspirin 100 mg",
+        "timing": "朝",
+        "adherence": 96,
+        "tone": "good",
+        "last": "今日 08:31"
+      },
+      {
+        "name": "Atorvastatin 20 mg",
+        "timing": "就寝前",
+        "adherence": 88,
+        "tone": "warn",
+        "last": "昨日 21:02"
+      },
+      {
+        "name": "Vitamin D 1000 IU",
+        "timing": "朝",
+        "adherence": 90,
+        "tone": "good",
+        "last": "今日 08:31"
+      }
+    ],
+    "allergyNote": {
+      "allergen": "penicillin",
+      "detail": "発疹、1998年",
+      "checked": "10月14日、服用中の全薬剤について相互作用チェックを実施。"
+    },
+    "medicinesPill": {
+      "tone": "good",
+      "text": "相互作用なし"
+    },
+    "labs": [
+      {
+        "name": "eGFR",
+        "unit": "mL/min",
+        "values": [
+          64,
+          62,
+          60,
+          58
+        ],
+        "reference": [
+          60,
+          120
+        ],
+        "axis": [
+          55,
+          70
+        ],
+        "note": "60未満 · 腎機能チェック"
+      },
+      {
+        "name": "HbA1c",
+        "unit": "%",
+        "values": [
+          5.6,
+          5.7,
+          5.8,
+          5.9
+        ],
+        "reference": [
+          4,
+          6
+        ],
+        "axis": [
+          5.4,
+          6.2
+        ],
+        "note": "上昇中 · まもなく糖尿病予備群の範囲"
+      },
+      {
+        "name": "LDLコレステロール",
+        "unit": "mmol/L",
+        "values": [
+          3.1,
+          2.6,
+          2.5,
+          2.4
+        ],
+        "reference": [
+          0,
+          2.6
+        ],
+        "axis": [
+          2,
+          3.4
+        ],
+        "note": "目標範囲内"
+      },
+      {
+        "name": "ナトリウム",
+        "unit": "mmol/L",
+        "values": [
+          139,
+          138,
+          137,
+          136
+        ],
+        "reference": [
+          135,
+          145
+        ],
+        "axis": [
+          132,
+          142
+        ],
+        "note": "正常、低下傾向"
+      }
+    ],
+    "hospitals": [
+      {
+        "name": "Camperdown Stroke Centre",
+        "capability": "脳卒中ユニット 24時間 · 血栓回収",
+        "eta": "11分",
+        "load": "24/28",
+        "tone": "warn",
+        "recommended": true
+      },
+      {
+        "name": "Inner West General",
+        "capability": "救急外来 · 脳卒中ユニットなし",
+        "eta": "9分",
+        "load": "14/30",
+        "tone": "good",
+        "recommended": false
+      },
+      {
+        "name": "Kogarah Regional",
+        "capability": "脳卒中ユニット 24時間",
+        "eta": "17分",
+        "load": "31/28",
+        "tone": "bad",
+        "recommended": false
+      }
+    ],
+    "sources": [
+      {
+        "source": "手首のウェアラブル",
+        "standard": "ベンダーAPI → FHIR Observation",
+        "records": "18,402",
+        "lastSync": "2分前",
+        "status": "リアルタイム",
+        "tone": "good"
+      },
+      {
+        "source": "ホームハブ · センサー6台",
+        "standard": "MQTT → Pub/Sub → FHIR",
+        "records": "52,110",
+        "lastSync": "1分前",
+        "status": "リアルタイム",
+        "tone": "good"
+      },
+      {
+        "source": "音声での安否確認",
+        "standard": "Gemini → QuestionnaireResponse",
+        "records": "612",
+        "lastSync": "13:04",
+        "status": "リアルタイム",
+        "tone": "good"
+      },
+      {
+        "source": "Illawarra Rd Family Practice",
+        "standard": "FHIR R4",
+        "records": "386",
+        "lastSync": "06:00",
+        "status": "毎日",
+        "tone": "good"
+      },
+      {
+        "source": "検査機関",
+        "standard": "HL7 v2 → FHIR R4",
+        "records": "212",
+        "lastSync": "10月12日",
+        "status": "結果が出たとき",
+        "tone": "good"
+      },
+      {
+        "source": "スキャンした手紙・報告書",
+        "standard": "Gemini OCR → FHIR DocumentReference",
+        "records": "74",
+        "lastSync": "9月3日",
+        "status": "完了",
+        "tone": "plain"
+      },
+      {
+        "source": "My Health Record",
+        "standard": "FHIR（予定）",
+        "records": "—",
+        "lastSync": "—",
+        "status": "予定",
+        "tone": "plain"
+      }
+    ],
+    "sourcesTag": "FHIR R4",
+    "followUp": [
+      {
+        "day": "1日目",
+        "text": "音声通話で痛みと混乱の確認"
+      },
+      {
+        "day": "3日目",
+        "text": "新しい薬を以前の薬と照合"
+      },
+      {
+        "day": "7日目",
+        "text": "かかりつけ医を予約、血圧の見直し"
+      },
+      {
+        "day": "14日目",
+        "text": "歩行機能と転倒の確認"
+      },
+      {
+        "day": "30日目",
+        "text": "再入院リスクを再評価"
+      }
+    ],
+    "followUpNote": "危険なサインは家族だけでなく退院支援看護師にも届きます。"
+  }
+}

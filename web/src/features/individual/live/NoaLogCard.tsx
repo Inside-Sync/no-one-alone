@@ -38,23 +38,28 @@ export function NoaLogCard({ view, time }: { view: LiveView | null; time: string
   return (
     <GlassCard span={12} id="liveB">
       <div className="ch"><h2>{t('agent.log.title')}</h2><span className="meta">{t('agent.log.meta')}</span></div>
-      <ol className="alog" id="tl" aria-live="polite">
-        {rows.length === 0 ? (
-          <li><span className="t">{time}</span><span aria-hidden="true">👀</span><span>{t('agent.log.idle')}</span></li>
-        ) : rows.map((x, k) => (
-          <li key={all.length - k} className={TONE[x.kind] ?? ''}>
-            <span className="t">{x.t}</span><span aria-hidden="true">{ICON[x.kind]}</span>
-            <span>{x.d} <small>· {x.s}</small></span>
-          </li>
-        ))}
-      </ol>
-      {view && (
-        <div className="sla" id="sla">
-          {view.sla.map(([label, value]) => (
-            <div key={label}><small>{label}</small><b style={{ color: value ? 'var(--good)' : 'var(--muted-text)' }}>{value ?? '—'}</b></div>
+      <div className="loggrid">
+        <ol className="alog" id="tl" aria-live="polite">
+          {rows.length === 0 ? (
+            <li><span className="t">{time}</span><span aria-hidden="true">👀</span><span>{t('agent.log.idle')}</span></li>
+          ) : rows.map((x, k) => (
+            <li key={all.length - k} className={TONE[x.kind] ?? ''}>
+              <span className="t">{x.t}</span><span aria-hidden="true">{ICON[x.kind]}</span>
+              <span>{x.d} <small>· {x.s}</small></span>
+            </li>
           ))}
-        </div>
-      )}
+        </ol>
+        {view && (
+          <div className="sla-col">
+            <div className="eyebrow">{t('agent.log.sla')}</div>
+            <div className="sla" id="sla">
+              {view.sla.map(([label, value]) => (
+                <div key={label}><small>{label}</small><b style={{ color: value ? 'var(--good)' : 'var(--muted-text)' }}>{value ?? '—'}</b></div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </GlassCard>
   )
 }

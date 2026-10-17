@@ -1,0 +1,576 @@
+{
+  "careRecord": {
+    "kpis": [
+      {
+        "emoji": "📁",
+        "label": "健康紀錄",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "來自6個地方",
+        "delta": "呢個禮拜新增38項",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "emoji": "🏥",
+        "label": "2023年至今睇症次數",
+        "value": "46",
+        "unit": "",
+        "color": "#1fb39c",
+        "baseline": "家庭醫生18 · 化驗14",
+        "delta": "今個月2次",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "emoji": "💊",
+        "label": "藥物",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "冇發現相沖",
+        "delta": "冇變",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "emoji": "🧪",
+        "label": "化驗結果",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "最新10月12日",
+        "delta": "今個月9項",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "emoji": "✅",
+        "label": "紀錄完整度",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "目標90%",
+        "delta": "良好",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "emoji": "📅",
+        "label": "距上次睇家庭醫生",
+        "value": "32",
+        "unit": "日",
+        "color": "#2f6fb0",
+        "baseline": "上次9月12日",
+        "delta": "11月7日前要覆診",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "kpisTechnical": [
+      {
+        "label": "FHIR資源",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "6個來源",
+        "delta": "+38 /週",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "label": "診症紀錄",
+        "value": "46",
+        "unit": "自2023年",
+        "color": "#1fb39c",
+        "baseline": "家庭醫生18 · 病理14",
+        "delta": "+2 /月",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "label": "現用藥物",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "0項相互作用",
+        "delta": "穩定",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "label": "病理化驗結果",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "最近10月12日",
+        "delta": "+9 /月",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "label": "紀錄完整度",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "目標90",
+        "delta": "+6分",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "label": "距上次家庭醫生診症",
+        "value": "32",
+        "unit": "日",
+        "color": "#2f6fb0",
+        "baseline": "9月12日",
+        "delta": "11月7日到期",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "encounters": {
+      "meta": "來自6個來源嘅46次診症",
+      "types": [
+        {
+          "type": "GP",
+          "color": "#1fb39c",
+          "count": 18,
+          "months": [
+            0.500035217963192,
+            3.5919200462213903,
+            5.900223949365526,
+            8.563925593219627,
+            11.39745256807418,
+            13.98531633823674,
+            15.711700772365276,
+            18.054891225234503,
+            20.55683382559273,
+            24.206118031596876,
+            25.725759348111,
+            28.837373673997234,
+            31.23934405715144,
+            33.155574496747526,
+            35.7405773571139,
+            38.88365086972122,
+            40.52017222765849,
+            43.034641837267806
+          ]
+        },
+        {
+          "type": "Specialist",
+          "color": "#5a7fe0",
+          "count": 6,
+          "months": [
+            3.2253704278034814,
+            10.8007900682751,
+            18.378686884537977,
+            25.59047720496587,
+            34.15039489269294,
+            41.68696422612943
+          ]
+        },
+        {
+          "type": "Pathology",
+          "color": "#c88a05",
+          "count": 14,
+          "months": [
+            1.664893864109082,
+            4.9426080702735185,
+            7.699556293617522,
+            11.942635330318133,
+            14.086282819589863,
+            17.083929102946005,
+            21.239300879872683,
+            23.787034035229155,
+            27.75246704276881,
+            29.999304596799707,
+            33.31236848008108,
+            37.69133973186029,
+            40.77544498399407,
+            43.046704329128104
+          ]
+        },
+        {
+          "type": "Emergency",
+          "color": "#ef4e4a",
+          "count": 2,
+          "months": [
+            14,
+            33
+          ]
+        },
+        {
+          "type": "Hearing",
+          "color": "#8f6fd0",
+          "count": 6,
+          "months": [
+            28,
+            31,
+            34,
+            37,
+            40,
+            43
+          ]
+        }
+      ],
+      "now": 45.5,
+      "markers": [
+        {
+          "month": 14,
+          "label": "跌倒 · 手腕"
+        },
+        {
+          "month": 33,
+          "label": "頭暈"
+        }
+      ]
+    },
+    "medicines": [
+      {
+        "name": "Amlodipine 5 mg",
+        "timing": "夜晚",
+        "adherence": 82,
+        "tone": "warn",
+        "last": "今日 09:33（遲咗）"
+      },
+      {
+        "name": "Aspirin 100 mg",
+        "timing": "朝早",
+        "adherence": 96,
+        "tone": "good",
+        "last": "今日 08:31"
+      },
+      {
+        "name": "Atorvastatin 20 mg",
+        "timing": "瞓前",
+        "adherence": 88,
+        "tone": "warn",
+        "last": "尋日 21:02"
+      },
+      {
+        "name": "Vitamin D 1000 IU",
+        "timing": "朝早",
+        "adherence": 90,
+        "tone": "good",
+        "last": "今日 08:31"
+      }
+    ],
+    "allergyNote": {
+      "allergen": "penicillin",
+      "detail": "出疹，1998年",
+      "checked": "10月14日已就所有現用藥物做咗相互作用檢查。"
+    },
+    "medicinesPill": {
+      "tone": "good",
+      "text": "冇相互作用"
+    },
+    "labs": [
+      {
+        "name": "eGFR",
+        "unit": "mL/min",
+        "values": [
+          64,
+          62,
+          60,
+          58
+        ],
+        "reference": [
+          60,
+          120
+        ],
+        "axis": [
+          55,
+          70
+        ],
+        "note": "低過60 · 要檢查腎功能"
+      },
+      {
+        "name": "HbA1c",
+        "unit": "%",
+        "values": [
+          5.6,
+          5.7,
+          5.8,
+          5.9
+        ],
+        "reference": [
+          4,
+          6
+        ],
+        "axis": [
+          5.4,
+          6.2
+        ],
+        "note": "上升緊 · 就快到前期糖尿病範圍"
+      },
+      {
+        "name": "LDL膽固醇",
+        "unit": "mmol/L",
+        "values": [
+          3.1,
+          2.6,
+          2.5,
+          2.4
+        ],
+        "reference": [
+          0,
+          2.6
+        ],
+        "axis": [
+          2,
+          3.4
+        ],
+        "note": "達標"
+      },
+      {
+        "name": "鈉",
+        "unit": "mmol/L",
+        "values": [
+          139,
+          138,
+          137,
+          136
+        ],
+        "reference": [
+          135,
+          145
+        ],
+        "axis": [
+          132,
+          142
+        ],
+        "note": "正常，慢慢向下"
+      }
+    ],
+    "hospitals": [
+      {
+        "name": "Camperdown Stroke Centre",
+        "capability": "24/7中風科 · 血管內取栓",
+        "eta": "11分鐘",
+        "load": "24/28",
+        "tone": "warn",
+        "recommended": true
+      },
+      {
+        "name": "Inner West General",
+        "capability": "急症室 · 冇中風科",
+        "eta": "9分鐘",
+        "load": "14/30",
+        "tone": "good",
+        "recommended": false
+      },
+      {
+        "name": "Kogarah Regional",
+        "capability": "24/7中風科",
+        "eta": "17分鐘",
+        "load": "31/28",
+        "tone": "bad",
+        "recommended": false
+      }
+    ],
+    "sources": [
+      {
+        "source": "手腕穿戴裝置",
+        "standard": "廠商API → FHIR Observation",
+        "records": "18,402",
+        "lastSync": "2分鐘前",
+        "status": "即時",
+        "tone": "good"
+      },
+      {
+        "source": "家居中樞 · 6個感應器",
+        "standard": "MQTT → Pub/Sub → FHIR",
+        "records": "52,110",
+        "lastSync": "1分鐘前",
+        "status": "即時",
+        "tone": "good"
+      },
+      {
+        "source": "語音問候",
+        "standard": "Gemini → QuestionnaireResponse",
+        "records": "612",
+        "lastSync": "13:04",
+        "status": "即時",
+        "tone": "good"
+      },
+      {
+        "source": "Illawarra Rd Family Practice",
+        "standard": "FHIR R4",
+        "records": "386",
+        "lastSync": "06:00",
+        "status": "每日",
+        "tone": "good"
+      },
+      {
+        "source": "化驗所",
+        "standard": "HL7 v2 → FHIR R4",
+        "records": "212",
+        "lastSync": "10月12日",
+        "status": "有結果先同步",
+        "tone": "good"
+      },
+      {
+        "source": "掃描信件同報告",
+        "standard": "Gemini OCR → FHIR DocumentReference",
+        "records": "74",
+        "lastSync": "9月3日",
+        "status": "完成",
+        "tone": "plain"
+      },
+      {
+        "source": "My Health Record",
+        "standard": "FHIR（計劃中）",
+        "records": "—",
+        "lastSync": "—",
+        "status": "計劃中",
+        "tone": "plain"
+      }
+    ],
+    "sourcesTag": "FHIR R4",
+    "followUp": [
+      {
+        "day": "第1日",
+        "text": "打電話，問痛唔痛、有冇混亂"
+      },
+      {
+        "day": "第3日",
+        "text": "新藥同舊藥對清楚"
+      },
+      {
+        "day": "第7日",
+        "text": "約好家庭醫生，覆檢血壓"
+      },
+      {
+        "day": "第14日",
+        "text": "活動能力同跌倒檢查"
+      },
+      {
+        "day": "第30日",
+        "text": "重新評估再入院風險"
+      }
+    ],
+    "followUpNote": "警告徵兆會同時通知出院護士同家人。"
+  }
+}

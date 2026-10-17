@@ -14,8 +14,8 @@ import { circleAtRest, circleTone } from '@/domain/agent'
 import { isServerAction, memberButtons, memberName, orbitWithHospital, type LivePeople, type LiveView } from '@/domain/incident'
 import { LiveScriptBody } from './LiveScriptBody'
 
-const gap16: CSSProperties = { display: 'grid', gap: 16, alignContent: 'start' }
-const orbitStyle: CSSProperties = { height: 270 }
+// The circle card fills the row next to the readings; the actions card, when shown, sits under it.
+const gap16: CSSProperties = { display: 'grid', gap: 16, gridTemplateRows: 'minmax(0,1fr)', gridAutoRows: 'auto' }
 const IDLE_ORBIT = { mode: 'check', app: 0, call: 0, hosp: 0, arrived: 0 } as const
 const endStyle: CSSProperties = { marginLeft: 'auto', display: 'flex', gap: 8 }
 const avSm = { '--c': '#2f6fb0', width: 22, height: 22, fontSize: 10, marginRight: 6 } as CSSProperties
@@ -100,9 +100,9 @@ export function LiveAlertCard({ view, incident, people, scene, viewer, act, manu
           {view?.open && manual && <span style={endStyle}><button type="button" className="chip" disabled={pending} onClick={close}>{t('live.close')}</button></span>}
         </div>
         {orbitScene ? (
-          <Orbit scene={orbitScene} ariaLabel={t('orbitLabel')} mode={orbitMode} state={view?.orbit ?? IDLE_ORBIT} labels tilt={0.62} zoom={1.3} style={orbitStyle} />
+          <Orbit scene={orbitScene} ariaLabel={t('orbitLabel')} mode={orbitMode} state={view?.orbit ?? IDLE_ORBIT} labels tilt={0.62} zoom={1.3} />
         ) : (
-          <div className="c3d" style={orbitStyle}></div>
+          <div className="c3d"></div>
         )}
         <div className="circ-stat">
           <div className="circ-min">
@@ -114,6 +114,7 @@ export function LiveAlertCard({ view, incident, people, scene, viewer, act, manu
         <div className="circ-now">
           <span className={`circ-ic ${now.c}`}>{now.ic}</span>
           <span><b id="ownT">{now.title}</b><small id="ownS">{now.sub}</small></span>
+          {view?.open && view.owner.eta && view.owner.eta !== '—' && <b className="circ-eta">{view.owner.eta}</b>}
         </div>
         <button type="button" className="btn sos circ-call"
           onClick={() => (view ? drawer.open(t('live.scriptTitle', { num }), <LiveScriptBody view={view} />) : toast(t('live.calling', { who: num })))}>
@@ -131,9 +132,9 @@ export function LiveAlertCard({ view, incident, people, scene, viewer, act, manu
               </button>
             ))}
           </div>
-          {buttons?.assignment.message && <p className="fine">{buttons.assignment.message}</p>}
+          {buttons?.assignment.message && <p className="bubble">{buttons.assignment.message}</p>}
           {buttons && buttons.actions.length > 0 ? (
-            <div className="actions">
+            <div className="actions acts2">
               {buttons.actions.map((a) => (
                 <button key={a} type="button" className={`act${a === 'ACCEPT' || a === 'ARRIVED' ? ' primary' : ''}`} disabled={pending} onClick={() => press(a)}>
                   {label(a)}

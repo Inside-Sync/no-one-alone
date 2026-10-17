@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useImperativeHandle, useRef, type CSSProperties, type Ref } from 'react'
+import { useCallback, useEffect, useImperativeHandle, useReducer, useRef, type CSSProperties, type Ref } from 'react'
 import type { OrbitScene } from '@/data/types'
 import { bodyIsNight, readCanvasFonts, type CanvasFonts } from './fonts'
 import { createOrbitSim, dragOrbit, drawOrbit, orbitHit, setOrbit, type OrbitHit, type OrbitMode, type OrbitSim, type OrbitTargets } from './orbit/draw'
@@ -40,6 +40,8 @@ export function Orbit({ scene, ariaLabel, mode = 'calm', state, labels, subs, ti
   const getSim = useCallback(() => (simRef.current ??= createOrbitSim(scene.nodes, initTilt.current)), [scene.nodes])
   const hits = useRef<OrbitHit[]>([])
   const fonts = useRef<CanvasFonts | null>(null)
+  // A photo that arrives later needs a frame when no loop is running (reduced motion).
+  const [photos, photoLoaded] = useReducer((n: number) => n + 1, 0)
 
   // Node list changes (e.g. a different `only` filter) reset the start angles.
   useEffect(() => {
@@ -58,6 +60,7 @@ export function Orbit({ scene, ariaLabel, mode = 'calm', state, labels, subs, ti
         reduced: info.reduced,
         dragging: info.dragging,
         fonts: fonts.current,
+        onAsset: photoLoaded,
         labels,
         subs,
         zoom,
@@ -94,7 +97,7 @@ export function Orbit({ scene, ariaLabel, mode = 'calm', state, labels, subs, ti
     }
   }, [getSim, handle, tilt])
 
-  useEffect(() => handle.redraw(), [handle, draw])
+  useEffect(() => handle.redraw(), [handle, draw, photos])
 
   return (
     <div className={className ? 'c3d ' + className : 'c3d'} role="img" aria-label={ariaLabel} style={style}>

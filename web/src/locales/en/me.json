@@ -181,6 +181,18 @@
     "followUps": "Coming up",
     "followUp": "{{text}} · {{date}}",
     "notes": "Doctor's notes",
+    "why": {
+      "apixaban": "Stops clots forming because of the uneven heartbeat. Replaces aspirin.",
+      "perindopril": "Lowers blood pressure and protects the brain.",
+      "atorvastatin": "Lowers cholesterol. Dose raised from 20 mg.",
+      "amlodipine": "Blood pressure tablet, as before.",
+      "vitaminD": "For bones, as before.",
+      "aspirin": "Stop taking this. Apixaban does its job now.",
+      "walk": "Gentle walking helps the brain heal and keeps blood pressure down.",
+      "bloodPressure": "Sit for 5 minutes first. Aim for under 130/80.",
+      "speech": "Practise the sounds from your speech therapist.",
+      "water": "Aim for 1.5 L today."
+    },
     "taken": "Taken",
     "tick": "Done",
     "idle": "Your recovery plan will appear here",
@@ -230,6 +242,63 @@
         "7": "GP visit and blood pressure review",
         "14": "Walking and falls check",
         "30": "How is the month going?"
+      }
+    },
+    "self": {
+      "layout": {
+        "label": "Layout",
+        "detailed": "📋 Detailed",
+        "simple": "🔆 Simple"
+      },
+      "happened": "🌱 What happened",
+      "happenedMeta": "In plain English",
+      "dayOf": "Day {{day}} of 30",
+      "doneToday": "{{done}} of {{total}} done today",
+      "nextTitle": "⏰ Next reminder",
+      "allDone": "🎉 All done for today",
+      "tasksTitle": "💊 Today's tablets and tasks",
+      "tasksMeta": "Tap when done",
+      "appts": "🗓️ Appointments",
+      "callsMeta": "Short chats to see how you are",
+      "callToday": "Today",
+      "logged": "Nice one 👍 Logged.",
+      "fast": {
+        "title": "🚨 Call 000 straight away if…",
+        "face": "Face",
+        "faceText": "drooping on one side",
+        "arm": "Arm",
+        "armText": "or leg weak or numb",
+        "speech": "Speech",
+        "speechText": "slurred or confused",
+        "time": "Time",
+        "timeText": "matters. Don't wait.",
+        "call": "📞 Call 000",
+        "calling": "Calling 000 · ask for an ambulance"
+      },
+      "simple": {
+        "hello_morning": "Good morning, Margaret",
+        "hello_afternoon": "Good afternoon, Margaret",
+        "hello_evening": "Good evening, Margaret",
+        "sub": "Day {{day}} of 30 at home · Noa is with you",
+        "now": "Now",
+        "tookThem": "✓ I took them",
+        "didIt": "✓ I did it",
+        "snooze": "⏰ Remind me in 10 minutes",
+        "snoozed": "OK, I'll remind you again in 10 minutes",
+        "later": "Later today",
+        "laterMeta": "You will get a reminder",
+        "nothingLater": "Nothing else today.",
+        "tabs": {
+          "meds": "💊 Tablets",
+          "appts": "🗓️ Visits",
+          "calls": "📞 Calls",
+          "help": "🚨 Warning signs"
+        },
+        "tablets": "Your tablets",
+        "visits": "Visits and tests",
+        "noaCalls": "Noa will call you",
+        "noaCallsMeta": "A short chat each time",
+        "happened": "What happened"
       }
     }
   }

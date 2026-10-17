@@ -1,0 +1,75 @@
+{
+  "you": "あなた",
+  "youParen": "（あなた）",
+  "youSuffix": " · あなた",
+  "relation": {
+    "self": "本人",
+    "son": "息子",
+    "daughter": "娘",
+    "brother": "兄弟",
+    "sister": "姉妹",
+    "father": "父",
+    "mother": "母",
+    "husband": "夫",
+    "wife": "妻",
+    "neighbour": "隣人",
+    "friend": "友人",
+    "grandson": "孫（男）",
+    "granddaughter": "孫（女）",
+    "nephew": "甥",
+    "niece": "姪"
+  },
+  "person": {
+    "ageLabel": "年齢",
+    "genderLabel": "性別",
+    "restingHrLabel": "安静時心拍数",
+    "restingHrBase": "基準 {{n}}",
+    "female": "女性",
+    "male": "男性"
+  },
+  "circle": {
+    "noteNearby": "{{place}}先 · {{order}}",
+    "firstToCall": "最初の連絡先",
+    "nextToCall": "次の連絡先",
+    "noteCalls": "{{place}} · 必要時に{{num}}へ通報",
+    "noteUpdates": "{{place}} · 近況を受け取る",
+    "onCall": "待機中",
+    "backup": "予備",
+    "calls": "{{num}}へ通報",
+    "updates": "近況"
+  },
+  "forecast": {
+    "risk": {
+      "STROKE": "脳卒中",
+      "FALL": "けがを伴う転倒"
+    },
+    "level": {
+      "HIGH": "高",
+      "MEDIUM": "中",
+      "LOW": "低"
+    },
+    "horizon": "{{n}}日",
+    "sentTo": "{{name}}さんに送信しました",
+    "shared": "見守りの輪と共有しました"
+  },
+  "lineage": {
+    "generation": {
+      "grandparents": "祖父母",
+      "parents": "両親",
+      "self": "{{name}}さんの世代",
+      "children": "子",
+      "grandchildren": "孫",
+      "ancestors": "祖先",
+      "descendants": "子孫"
+    },
+    "herself": "本人",
+    "selfRow": "本人",
+    "strength": {
+      "strong": "強い",
+      "moderate": "中程度",
+      "weak": "弱い"
+    },
+    "dueNow": "今すぐ受診",
+    "book": "予約"
+  }
+}

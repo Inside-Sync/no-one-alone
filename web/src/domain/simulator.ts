@@ -20,6 +20,8 @@ export function clipFor(s: SimSettings, questionIndex: number): string | null {
 }
 
 export const ALERT_MIN = 10
+/** Heart rate (bpm) above which a still minute counts toward the alert rule. */
+export const ALERT_HR = 120
 export const STILL_MAX = 15
 export const HR_MIN = 45
 export const HR_MAX = 180
@@ -84,7 +86,7 @@ export function setHr(w: Watch, hr: number): Watch {
 /** The verify rule respond-agent applies: the trailing run of readings above 120 while not moving. */
 export function alertRun(readings: Reading[]): number {
   let n = 0
-  for (let i = readings.length - 1; i >= 0 && readings[i].hr > 120 && !readings[i].moving; i--) n++
+  for (let i = readings.length - 1; i >= 0 && readings[i].hr > ALERT_HR && !readings[i].moving; i--) n++
   return n
 }
 
@@ -92,8 +94,8 @@ export type WatchNote = 'alert' | 'moving' | 'resting' | 'counting' | 'normal'
 export function watchNote(w: Watch): WatchNote {
   const run = alertRun(w.readings)
   if (run >= ALERT_MIN) return 'alert'
-  if (w.hr > 120 && w.stillMin === 0) return 'moving'
-  if (w.stillMin > 0 && w.hr <= 120) return 'resting'
+  if (w.hr > ALERT_HR && w.stillMin === 0) return 'moving'
+  if (w.stillMin > 0 && w.hr <= ALERT_HR) return 'resting'
   return run > 0 ? 'counting' : 'normal'
 }
 

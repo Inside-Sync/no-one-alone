@@ -1,0 +1,489 @@
+{
+  "forecast": {
+    "wellbeing": {
+      "score": 72,
+      "delta": -5
+    },
+    "wellbeingNote": "满分100分得72分，比上周下降5分。拉低分数的有两件事：她的血压在慢慢升高，家里也太热了。",
+    "wellbeingAxes": [
+      {
+        "label": "❤️ 身体",
+        "now": 61,
+        "lastMonth": 74
+      },
+      {
+        "label": "💊 用药",
+        "now": 68,
+        "lastMonth": 90
+      },
+      {
+        "label": "🚶 活动",
+        "now": 74,
+        "lastMonth": 80
+      },
+      {
+        "label": "😴 睡眠",
+        "now": 70,
+        "lastMonth": 76
+      },
+      {
+        "label": "🤝 社交",
+        "now": 82,
+        "lastMonth": 84
+      },
+      {
+        "label": "🧠 记忆",
+        "now": 88,
+        "lastMonth": 90
+      },
+      {
+        "label": "🏠 居家",
+        "now": 58,
+        "lastMonth": 78
+      }
+    ],
+    "comingUp": {
+      "title": "🔮 接下来：有一件事需要处理",
+      "meta": "中风 · 90天",
+      "pill": {
+        "tone": "bad",
+        "text": "高于大多数同龄女性"
+      },
+      "headline": "妈妈的血压在逐渐升高，请在本周采取行动。",
+      "stats": [
+        {
+          "label": "90天中风风险",
+          "value": "高",
+          "note": "演示规则，并非概率",
+          "tone": "bad"
+        },
+        {
+          "label": "晨间收缩压（7天）",
+          "value": "146",
+          "note": "+14 mmHg / 6周",
+          "tone": "warn"
+        },
+        {
+          "label": "若服药恢复到100%",
+          "value": "131",
+          "note": "4周后收缩压",
+          "tone": "good"
+        }
+      ],
+      "reasons": [
+        {
+          "icon": "trend",
+          "text": "6周内晨间血压上升14 mmHg，每周都在稳步上升"
+        },
+        {
+          "icon": "pill",
+          "text": "本周她漏服了3次晚间降压药"
+        },
+        {
+          "icon": "tree",
+          "text": "她的父亲和哥哥都在70岁前中风过"
+        }
+      ],
+      "actions": [
+        {
+          "label": "请David准备药盒",
+          "kind": "toast",
+          "value": "已发给David · 他周六会准备好药盒",
+          "icon": "people",
+          "soft": false
+        },
+        {
+          "label": "把血压报告发给Dr Patel",
+          "kind": "toast",
+          "value": "血压报告已发给Dr Patel",
+          "soft": true
+        },
+        {
+          "label": "查看完整预测",
+          "kind": "go",
+          "value": "forecast",
+          "soft": true
+        }
+      ]
+    },
+    "weeklyPlan": [
+      {
+        "icon": "sun",
+        "iconColor": "var(--sun-ink)",
+        "title": "周四 11:00–15:00 · 额外的防暑问候",
+        "owner": "助手",
+        "note": "助手 · 每2小时提醒喝水 · 可接送到图书馆避暑室",
+        "status": {
+          "tone": "brand",
+          "text": "已安排"
+        }
+      },
+      {
+        "icon": "pill",
+        "title": "周六 10:00 · 每周整理药盒",
+        "owner": "David",
+        "note": "David · 减少晚间漏服",
+        "status": {
+          "tone": "warn",
+          "text": "待批准"
+        }
+      },
+      {
+        "icon": "clinic",
+        "title": "周一 · 家庭医生血压复查",
+        "owner": "Dr Patel",
+        "note": "Dr Patel · 报告已发送",
+        "status": {
+          "tone": "plain",
+          "text": "待预约"
+        }
+      },
+      {
+        "icon": "ear",
+        "title": "10月22日 · 听力检查",
+        "owner": "David",
+        "note": "Marrickville 听力中心 · David开车送",
+        "status": {
+          "tone": "good",
+          "text": "已预约"
+        }
+      }
+    ],
+    "weeklyPlanMeta": "4项任务 · 2位负责人",
+    "model": [
+      {
+        "emoji": "👀",
+        "label": "监测",
+        "value": "11项指标"
+      },
+      {
+        "emoji": "📚",
+        "label": "预测方式",
+        "value": "BigQuery AI.FORECAST"
+      },
+      {
+        "emoji": "🎯",
+        "label": "风险等级",
+        "value": "演示规则，并非诊断"
+      },
+      {
+        "emoji": "🩺",
+        "label": "依据",
+        "value": "医生指南"
+      },
+      {
+        "emoji": "🔄",
+        "label": "更新频率",
+        "value": "每小时"
+      },
+      {
+        "emoji": "🧑‍⚕️",
+        "label": "决定者",
+        "value": "她的医生，而不是应用"
+      }
+    ],
+    "modelMeta": "原型示例数据",
+    "risks": [
+      {
+        "name": "中风",
+        "level": "高",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "血压趋势"
+      },
+      {
+        "name": "跌倒受伤",
+        "level": "高",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "走路变慢"
+      },
+      {
+        "name": "住院",
+        "level": "中",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "血压 + 高温"
+      },
+      {
+        "name": "中暑相关疾病",
+        "level": "中",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "没有空调，29.5 °C"
+      },
+      {
+        "name": "听力下降",
+        "level": "中",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "“什么？”每周9次"
+      },
+      {
+        "name": "认知下降（MCI）",
+        "level": "观察",
+        "tone": "warn",
+        "trend": "→",
+        "reason": "找词困难 + 听力"
+      },
+      {
+        "name": "心衰发作",
+        "level": "低",
+        "tone": "good",
+        "trend": "→",
+        "reason": "体重稳定"
+      },
+      {
+        "name": "情绪低落 / 孤独",
+        "level": "低",
+        "tone": "good",
+        "trend": "↓",
+        "reason": "步行小组"
+      }
+    ],
+    "shap": [
+      {
+        "label": "血压趋势",
+        "value": 0.58
+      },
+      {
+        "label": "家族史",
+        "value": 0.31
+      },
+      {
+        "label": "漏服药物",
+        "value": 0.22
+      },
+      {
+        "label": "心律不齐提醒",
+        "value": 0.09
+      },
+      {
+        "label": "HRV偏低",
+        "value": 0.08
+      },
+      {
+        "label": "室内高温",
+        "value": 0.05
+      },
+      {
+        "label": "日常活动",
+        "value": -0.06
+      },
+      {
+        "label": "LDL已控制（2.4）",
+        "value": -0.07
+      }
+    ],
+    "shapNote": "条形表示每个因素对她风险等级的影响程度。权重为原型示例。",
+    "signs": [
+      {
+        "sign": "🩺 晨间血压",
+        "from": "上臂袖带",
+        "frequency": "每天早上",
+        "now": "146",
+        "usual": "132",
+        "comparison": "高很多",
+        "sigma": "+2.8",
+        "tone": "bad"
+      },
+      {
+        "sign": "❤️ 静息心率",
+        "from": "观察",
+        "frequency": "全天",
+        "now": "68",
+        "usual": "63",
+        "comparison": "差不多",
+        "sigma": "+0.4",
+        "tone": "good"
+      },
+      {
+        "sign": "🌿 平静分（HRV）",
+        "from": "观察",
+        "frequency": "每晚",
+        "now": "26",
+        "usual": "31",
+        "comparison": "较低",
+        "sigma": "−1.9",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚡ 心跳不齐提醒",
+        "from": "观察",
+        "frequency": "发生时",
+        "now": "本周2次",
+        "usual": "很少",
+        "comparison": "较高",
+        "sigma": "+2.4",
+        "tone": "warn"
+      },
+      {
+        "sign": "🚶 步速",
+        "from": "手机 + 家中",
+        "frequency": "每天",
+        "now": "0.82 m/s",
+        "usual": "0.89",
+        "comparison": "较慢",
+        "sigma": "−2.1",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌙 夜间起床",
+        "from": "家中传感器",
+        "frequency": "整夜",
+        "now": "41次",
+        "usual": "18",
+        "comparison": "高很多",
+        "sigma": "+2.3",
+        "tone": "warn"
+      },
+      {
+        "sign": "💊 服药情况",
+        "from": "药盒",
+        "frequency": "每次服药",
+        "now": "86%",
+        "usual": "95%",
+        "comparison": "较低",
+        "sigma": "−1.8",
+        "tone": "warn"
+      },
+      {
+        "sign": "⏸️ 说话停顿",
+        "from": "每日聊天",
+        "frequency": "每天",
+        "now": "较多",
+        "usual": "较少",
+        "comparison": "较高",
+        "sigma": "+1.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "👂 “什么？”",
+        "from": "每日聊天",
+        "frequency": "每天",
+        "now": "本周9次",
+        "usual": "3",
+        "comparison": "高很多",
+        "sigma": "+2.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌡️ 室内温度",
+        "from": "家中传感器",
+        "frequency": "全天",
+        "now": "29.5°",
+        "usual": "25.1°",
+        "comparison": "高很多",
+        "sigma": "+2.2",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚖️ 体重",
+        "from": "体重秤",
+        "frequency": "每天",
+        "now": "61.2 kg",
+        "usual": "61.0",
+        "comparison": "差不多",
+        "sigma": "+0.2",
+        "tone": "good"
+      }
+    ],
+    "bp": {
+      "observed": [
+        128,
+        131,
+        133,
+        137,
+        140,
+        146
+      ],
+      "projectedNothing": [
+        146,
+        148.5,
+        151,
+        153.5,
+        156
+      ],
+      "projectedAdherent": [
+        146,
+        140,
+        136,
+        133,
+        131
+      ],
+      "target": 135,
+      "weeks": 10,
+      "todayWeek": 6,
+      "lo": 120,
+      "hi": 166
+    },
+    "sim": {
+      "sliders": [
+        {
+          "id": "adherence",
+          "label": "💊 按时服药",
+          "min": 60,
+          "max": 100,
+          "step": 1,
+          "value": 86
+        },
+        {
+          "id": "steps",
+          "label": "👣 每日步数",
+          "min": 1500,
+          "max": 7000,
+          "step": 100,
+          "value": 3240
+        },
+        {
+          "id": "salt",
+          "label": "🧂 饮食中的盐",
+          "min": 0,
+          "max": 2,
+          "step": 1,
+          "value": 1
+        }
+      ],
+      "saltLabels": [
+        "低",
+        "中",
+        "高"
+      ],
+      "hearingLabel": "👂 每天戴助听器",
+      "hearingAids": false,
+      "base": {
+        "stroke": 2.1,
+        "fall": 21,
+        "admission": 14,
+        "mci": 3.1
+      },
+      "note": "相对效果来自已发表的效应量，并应用于她当前的风险。这只是与家庭医生沟通的话题，不是处方。"
+    },
+    "modes": [
+      {
+        "name": "Hearing",
+        "icon": "ear",
+        "title": "听力模式",
+        "description": "她没有语音回应时，显示字幕、闪屏和“是/否”卡片",
+        "on": true,
+        "tag": "开启 · 10月9日自动启用"
+      },
+      {
+        "name": "Vision",
+        "icon": "eye",
+        "title": "视力模式",
+        "description": "仅用语音，无需找按钮；摄像头会朗读药品标签",
+        "on": false,
+        "tag": "关闭"
+      },
+      {
+        "name": "Memory",
+        "icon": "brain",
+        "title": "记忆模式",
+        "description": "用熟悉的声音提示日常作息、帮助找到回家的路，前提是Margaret同意",
+        "on": false,
+        "tag": "关闭 · 观察中"
+      }
+    ]
+  }
+}

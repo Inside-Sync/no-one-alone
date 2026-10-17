@@ -1,0 +1,489 @@
+{
+  "forecast": {
+    "wellbeing": {
+      "score": 72,
+      "delta": -5
+    },
+    "wellbeingNote": "100점 중 72점으로, 지난주보다 5점 내려갔어요. 두 가지가 점수를 끌어내리고 있어요: 혈압이 조금씩 오르고 있고, 집이 너무 더워요.",
+    "wellbeingAxes": [
+      {
+        "label": "❤️ 몸",
+        "now": 61,
+        "lastMonth": 74
+      },
+      {
+        "label": "💊 약",
+        "now": 68,
+        "lastMonth": 90
+      },
+      {
+        "label": "🚶 움직임",
+        "now": 74,
+        "lastMonth": 80
+      },
+      {
+        "label": "😴 수면",
+        "now": 70,
+        "lastMonth": 76
+      },
+      {
+        "label": "🤝 사회 활동",
+        "now": 82,
+        "lastMonth": 84
+      },
+      {
+        "label": "🧠 기억력",
+        "now": 88,
+        "lastMonth": 90
+      },
+      {
+        "label": "🏠 집",
+        "now": 58,
+        "lastMonth": 78
+      }
+    ],
+    "comingUp": {
+      "title": "🔮 다가오는 일: 조치할 한 가지",
+      "meta": "뇌졸중 · 90일",
+      "pill": {
+        "tone": "bad",
+        "text": "같은 나이대 여성 대부분보다 높음"
+      },
+      "headline": "어머니의 혈압이 조금씩 오르고 있어요. 이번 주에 조치하세요.",
+      "stats": [
+        {
+          "label": "90일 뇌졸중 위험",
+          "value": "높음",
+          "note": "데모 규칙이며, 확률이 아님",
+          "tone": "bad"
+        },
+        {
+          "label": "아침 수축기 혈압, 7일",
+          "value": "146",
+          "note": "+14 mmHg / 6주",
+          "tone": "warn"
+        },
+        {
+          "label": "복용률이 100%로 돌아오면",
+          "value": "131",
+          "note": "4주 후 수축기 혈압",
+          "tone": "good"
+        }
+      ],
+      "reasons": [
+        {
+          "icon": "trend",
+          "text": "아침 혈압이 6주 동안 14 mmHg 올랐어요. 매주 꾸준히 오르고 있어요"
+        },
+        {
+          "icon": "pill",
+          "text": "이번 주에 저녁 혈압약을 3번 놓치셨어요"
+        },
+        {
+          "icon": "tree",
+          "text": "아버지와 남동생 모두 70세 전에 뇌졸중을 겪었어요"
+        }
+      ],
+      "actions": [
+        {
+          "label": "David에게 약통 정리 부탁하기",
+          "kind": "toast",
+          "value": "David에게 보냈어요 · 토요일에 약통을 정리해 줄 거예요",
+          "icon": "people",
+          "soft": false
+        },
+        {
+          "label": "Dr Patel에게 혈압 보고서 보내기",
+          "kind": "toast",
+          "value": "Dr Patel에게 혈압 보고서를 보냈어요",
+          "soft": true
+        },
+        {
+          "label": "전체 예측 보기",
+          "kind": "go",
+          "value": "forecast",
+          "soft": true
+        }
+      ]
+    },
+    "weeklyPlan": [
+      {
+        "icon": "sun",
+        "iconColor": "var(--sun-ink)",
+        "title": "목 11:00–15:00 · 폭염 안부 확인 추가",
+        "owner": "에이전트",
+        "note": "에이전트 · 2시간마다 수분 섭취 · 도서관 냉방실까지 차량 제공",
+        "status": {
+          "tone": "brand",
+          "text": "예정됨"
+        }
+      },
+      {
+        "icon": "pill",
+        "title": "토 10:00 · 주간 약통 정리",
+        "owner": "David",
+        "note": "David · 저녁 약 누락 줄이기",
+        "status": {
+          "tone": "warn",
+          "text": "승인 필요"
+        }
+      },
+      {
+        "icon": "clinic",
+        "title": "월 · GP 혈압 검토",
+        "owner": "Dr Patel",
+        "note": "Dr Patel · 보고서 이미 보냄",
+        "status": {
+          "tone": "plain",
+          "text": "예약 필요"
+        }
+      },
+      {
+        "icon": "ear",
+        "title": "10월 22일 · 청력 검사",
+        "owner": "David",
+        "note": "Marrickville 청각 클리닉 · David가 운전",
+        "status": {
+          "tone": "good",
+          "text": "예약됨"
+        }
+      }
+    ],
+    "weeklyPlanMeta": "할 일 4개 · 담당자 2명",
+    "model": [
+      {
+        "emoji": "👀",
+        "label": "살피는 것",
+        "value": "신호 11가지"
+      },
+      {
+        "emoji": "📚",
+        "label": "예측 방식",
+        "value": "BigQuery AI.FORECAST"
+      },
+      {
+        "emoji": "🎯",
+        "label": "위험 수준",
+        "value": "데모 규칙이며, 진단이 아님"
+      },
+      {
+        "emoji": "🩺",
+        "label": "따르는 기준",
+        "value": "의사 진료 지침"
+      },
+      {
+        "emoji": "🔄",
+        "label": "업데이트",
+        "value": "매시간"
+      },
+      {
+        "emoji": "🧑‍⚕️",
+        "label": "결정하는 사람",
+        "value": "앱이 아닌 주치의"
+      }
+    ],
+    "modelMeta": "프로토타입용 예시 수치",
+    "risks": [
+      {
+        "name": "뇌졸중",
+        "level": "높음",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "혈압 추세"
+      },
+      {
+        "name": "부상을 동반한 낙상",
+        "level": "높음",
+        "tone": "bad",
+        "trend": "↑",
+        "reason": "걸음이 느려짐"
+      },
+      {
+        "name": "입원",
+        "level": "보통",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "혈압 + 더위"
+      },
+      {
+        "name": "온열 질환",
+        "level": "보통",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "에어컨 없음, 29.5 °C"
+      },
+      {
+        "name": "청력 저하",
+        "level": "보통",
+        "tone": "warn",
+        "trend": "↑",
+        "reason": "\"뭐라고요?\" 주 9회"
+      },
+      {
+        "name": "인지 저하 (경도인지장애)",
+        "level": "관찰",
+        "tone": "warn",
+        "trend": "→",
+        "reason": "단어 찾기 + 청력"
+      },
+      {
+        "name": "심부전 악화",
+        "level": "낮음",
+        "tone": "good",
+        "trend": "→",
+        "reason": "체중 안정"
+      },
+      {
+        "name": "우울감 / 외로움",
+        "level": "낮음",
+        "tone": "good",
+        "trend": "↓",
+        "reason": "걷기 모임"
+      }
+    ],
+    "shap": [
+      {
+        "label": "혈압 추세",
+        "value": 0.58
+      },
+      {
+        "label": "가족력",
+        "value": 0.31
+      },
+      {
+        "label": "약 복용 누락",
+        "value": 0.22
+      },
+      {
+        "label": "불규칙 심박 알림",
+        "value": 0.09
+      },
+      {
+        "label": "낮은 HRV",
+        "value": 0.08
+      },
+      {
+        "label": "실내 더위",
+        "value": 0.05
+      },
+      {
+        "label": "일상 활동",
+        "value": -0.06
+      },
+      {
+        "label": "LDL 조절됨 (2.4)",
+        "value": -0.07
+      }
+    ],
+    "shapNote": "막대는 각 이유가 위험 수준을 얼마나 높이는지 보여 줘요. 프로토타입용 예시 가중치예요.",
+    "signs": [
+      {
+        "sign": "🩺 아침 혈압",
+        "from": "팔 커프",
+        "frequency": "매일 아침",
+        "now": "146",
+        "usual": "132",
+        "comparison": "훨씬 높음",
+        "sigma": "+2.8",
+        "tone": "bad"
+      },
+      {
+        "sign": "❤️ 안정 시 심박수",
+        "from": "관찰",
+        "frequency": "하루 종일",
+        "now": "68",
+        "usual": "63",
+        "comparison": "비슷함",
+        "sigma": "+0.4",
+        "tone": "good"
+      },
+      {
+        "sign": "🌿 안정 점수 (HRV)",
+        "from": "관찰",
+        "frequency": "매일 밤",
+        "now": "26",
+        "usual": "31",
+        "comparison": "낮음",
+        "sigma": "−1.9",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚡ 불규칙 심박 알림",
+        "from": "관찰",
+        "frequency": "발생할 때",
+        "now": "이번 주 2회",
+        "usual": "드물게",
+        "comparison": "높음",
+        "sigma": "+2.4",
+        "tone": "warn"
+      },
+      {
+        "sign": "🚶 걷는 속도",
+        "from": "휴대폰 + 집",
+        "frequency": "매일",
+        "now": "0.82 m/s",
+        "usual": "0.89",
+        "comparison": "느려짐",
+        "sigma": "−2.1",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌙 밤에 깨는 횟수",
+        "from": "집 센서",
+        "frequency": "밤새",
+        "now": "41회",
+        "usual": "18",
+        "comparison": "훨씬 높음",
+        "sigma": "+2.3",
+        "tone": "warn"
+      },
+      {
+        "sign": "💊 약 복용",
+        "from": "약통",
+        "frequency": "매 복용",
+        "now": "86%",
+        "usual": "95%",
+        "comparison": "낮음",
+        "sigma": "−1.8",
+        "tone": "warn"
+      },
+      {
+        "sign": "⏸️ 말할 때 멈춤",
+        "from": "매일 대화",
+        "frequency": "매일",
+        "now": "많아짐",
+        "usual": "적음",
+        "comparison": "높음",
+        "sigma": "+1.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "👂 \"뭐라고요?\"",
+        "from": "매일 대화",
+        "frequency": "매일",
+        "now": "이번 주 9회",
+        "usual": "3",
+        "comparison": "훨씬 높음",
+        "sigma": "+2.6",
+        "tone": "warn"
+      },
+      {
+        "sign": "🌡️ 집 온도",
+        "from": "집 센서",
+        "frequency": "하루 종일",
+        "now": "29.5°",
+        "usual": "25.1°",
+        "comparison": "훨씬 높음",
+        "sigma": "+2.2",
+        "tone": "warn"
+      },
+      {
+        "sign": "⚖️ 체중",
+        "from": "체중계",
+        "frequency": "매일",
+        "now": "61.2 kg",
+        "usual": "61.0",
+        "comparison": "비슷함",
+        "sigma": "+0.2",
+        "tone": "good"
+      }
+    ],
+    "bp": {
+      "observed": [
+        128,
+        131,
+        133,
+        137,
+        140,
+        146
+      ],
+      "projectedNothing": [
+        146,
+        148.5,
+        151,
+        153.5,
+        156
+      ],
+      "projectedAdherent": [
+        146,
+        140,
+        136,
+        133,
+        131
+      ],
+      "target": 135,
+      "weeks": 10,
+      "todayWeek": 6,
+      "lo": 120,
+      "hi": 166
+    },
+    "sim": {
+      "sliders": [
+        {
+          "id": "adherence",
+          "label": "💊 제시간에 약 복용",
+          "min": 60,
+          "max": 100,
+          "step": 1,
+          "value": 86
+        },
+        {
+          "id": "steps",
+          "label": "👣 하루 걸음 수",
+          "min": 1500,
+          "max": 7000,
+          "step": 100,
+          "value": 3240
+        },
+        {
+          "id": "salt",
+          "label": "🧂 음식 속 소금",
+          "min": 0,
+          "max": 2,
+          "step": 1,
+          "value": 1
+        }
+      ],
+      "saltLabels": [
+        "낮음",
+        "보통",
+        "높음"
+      ],
+      "hearingLabel": "👂 매일 보청기 착용",
+      "hearingAids": false,
+      "base": {
+        "stroke": 2.1,
+        "fall": 21,
+        "admission": 14,
+        "mci": 3.1
+      },
+      "note": "상대적 효과는 발표된 효과 크기를 바탕으로 현재 위험에 적용한 값이에요. 처방이 아니라 GP와 이야기를 시작하기 위한 자료예요."
+    },
+    "modes": [
+      {
+        "name": "Hearing",
+        "icon": "ear",
+        "title": "청각 모드",
+        "description": "음성으로 대답하지 않으시면 자막, 화면 깜박임, 예/아니요 카드를 보여 드려요",
+        "on": true,
+        "tag": "켜짐 · 10월 9일 자동 활성화"
+      },
+      {
+        "name": "Vision",
+        "icon": "eye",
+        "title": "시각 모드",
+        "description": "음성만 사용해 찾을 버튼이 없어요. 카메라가 약 라벨을 소리 내어 읽어 드려요",
+        "on": false,
+        "tag": "꺼짐"
+      },
+      {
+        "name": "Memory",
+        "icon": "brain",
+        "title": "기억 모드",
+        "description": "익숙한 목소리로 일과를 알려 드리고, 집에 가는 길 찾기를 도와드려요. Margaret이 동의하실 때만요",
+        "on": false,
+        "tag": "꺼짐 · 관찰 중"
+      }
+    ]
+  }
+}

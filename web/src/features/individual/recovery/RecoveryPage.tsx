@@ -2,17 +2,20 @@
 
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { intlLocale } from '@/i18n'
 import type { RecoveryDoc } from '@/data/contract'
 import { dayLabel, followUpCalls, handoffFacts } from '@/domain/recovery'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
+import { MOCK_RECOVERY } from './mockRecovery'
 import { RecoveryCard } from './RecoveryCard'
+import { SelfRecovery } from './SelfRecovery'
+
 
 /** `From Noa` (c12): what Noa told Margaret at hand-off, built from the approved plan. */
 function NoaHandoffCard({ recovery, who }: { recovery: RecoveryDoc; who: 'self' | 'family' }) {
   const { t, i18n } = useTranslation('me')
-  const lang = i18n.language.startsWith('vi') ? 'vi' : 'en-GB'
-  const list = (names: string[]) => new Intl.ListFormat(lang, { type: 'conjunction' }).format(names)
+  const list = (names: string[]) => new Intl.ListFormat(intlLocale(i18n.language), { type: 'conjunction' }).format(names)
   const f = handoffFacts(recovery)
   const meds = [
     f.newMeds.length ? t('recovery.noa.newMeds', { count: f.newMeds.length, names: list(f.newMeds) }) : '',
@@ -41,12 +44,13 @@ function NoaHandoffCard({ recovery, who }: { recovery: RecoveryDoc; who: 'self' 
   )
 }
 
-/** Individual view · My recovery / Recovery: the plan the hospital sent home, and the planned check-in calls. */
+/** Individual view · My recovery / Recovery: Margaret gets her own layouts; the family sees the plan, Noa's hand-off and the planned calls. */
 export function RecoveryPage() {
   const { who } = useAppState()
   const { t, i18n } = useTranslation('me')
   const { live, incident, people } = useLiveIncident()
-  const recovery = live ? incident?.recovery : undefined
+  // Dev only: a dummy plan stands in until a live incident has one, so the page can be checked.
+  const recovery = (live ? incident?.recovery : undefined) ?? (import.meta.env.DEV && import.meta.env.MODE !== 'test' ? MOCK_RECOVERY : undefined)
   if (!recovery) {
     return (
       <main className="grid" data-page="recovery">
@@ -55,6 +59,7 @@ export function RecoveryPage() {
     )
   }
   const tz = people.person?.timezone ?? 'Australia/Sydney'
+  if (who === 'self') return <SelfRecovery recovery={recovery} tz={tz} />
   return (
     <main className="grid" data-page="recovery">
       <RecoveryCard recovery={recovery} tz={tz} who={who} />

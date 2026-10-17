@@ -1,0 +1,397 @@
+{
+  "lineage": {
+    "heading": "四代人",
+    "meta": "来自 Family Connect · 11 人 · 9 人已同意",
+    "conditionKeys": {
+      "HTN": {
+        "name": "高血压",
+        "color": "#c88a05"
+      },
+      "STR": {
+        "name": "中风",
+        "color": "#d9443f"
+      },
+      "AF": {
+        "name": "心房颤动",
+        "color": "#c2417a"
+      },
+      "T2D": {
+        "name": "2 型糖尿病",
+        "color": "#e07a3f"
+      },
+      "GLA": {
+        "name": "青光眼",
+        "color": "#2f6fb0"
+      },
+      "DEM": {
+        "name": "痴呆",
+        "color": "#8f6fd0"
+      },
+      "HEAR": {
+        "name": "听力下降",
+        "color": "#1fb39c"
+      }
+    },
+    "legendNote": "数字 = 发病年龄",
+    "generations": [
+      {
+        "label": "祖父母辈",
+        "nodes": [
+          {
+            "name": "Arthur Hughes",
+            "sub": "†72 · Margaret 的父亲",
+            "conditions": [
+              [
+                "HTN",
+                55
+              ],
+              [
+                "STR",
+                68
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "Edith Hughes",
+            "sub": "†80 · Margaret 的母亲",
+            "conditions": [
+              [
+                "GLA",
+                60
+              ],
+              [
+                "HEAR",
+                74
+              ],
+              [
+                "DEM",
+                77
+              ]
+            ],
+            "kind": "dec"
+          }
+        ]
+      },
+      {
+        "label": "Margaret 这一辈",
+        "nodes": [
+          {
+            "name": "Margaret Collins",
+            "sub": "78 · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                61
+              ],
+              [
+                "HEAR",
+                72
+              ]
+            ],
+            "kind": "focus"
+          },
+          {
+            "name": "Robert Collins",
+            "sub": "†75 · 丈夫",
+            "conditions": [
+              [
+                "HTN",
+                60
+              ],
+              [
+                "T2D",
+                58
+              ],
+              [
+                "AF",
+                70
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "David Hughes",
+            "sub": "74 · 弟弟 · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                52
+              ],
+              [
+                "STR",
+                69
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "label": "子女辈",
+        "nodes": [
+          {
+            "name": "Sarah Collins",
+            "sub": "49 · London",
+            "conditions": []
+          },
+          {
+            "name": "James Collins",
+            "sub": "46 · 墨尔本 · 您",
+            "conditions": [
+              [
+                "HTN",
+                "138/86"
+              ]
+            ],
+            "kind": "you"
+          }
+        ]
+      },
+      {
+        "label": "孙辈",
+        "nodes": [
+          {
+            "name": "Lily Collins",
+            "sub": "19 · Melbourne",
+            "conditions": []
+          },
+          {
+            "name": "Noah Collins",
+            "sub": "16 · Melbourne",
+            "conditions": []
+          }
+        ]
+      }
+    ],
+    "strengthHeading": "James，您的家族模式强度",
+    "strength": [
+      {
+        "condition": "高血压",
+        "dots": 4,
+        "label": "强"
+      },
+      {
+        "condition": "2 型糖尿病",
+        "dots": 3,
+        "label": "中等+"
+      },
+      {
+        "condition": "中风",
+        "dots": 2,
+        "label": "中等"
+      },
+      {
+        "condition": "心房颤动",
+        "dots": 2,
+        "label": "中等"
+      },
+      {
+        "condition": "青光眼",
+        "dots": 2,
+        "label": "中等"
+      },
+      {
+        "condition": "痴呆",
+        "dots": 1,
+        "label": "弱"
+      },
+      {
+        "condition": "听力下降",
+        "dots": 1,
+        "label": "弱"
+      }
+    ],
+    "strengthNote": "强度反映有多少亲属患病、亲缘关系有多近以及发病年龄有多早。它用于指导筛查，并不预测基因。",
+    "screeningHeading": {
+      "title": "您的筛查计划",
+      "meta": "James Collins · 46"
+    },
+    "screening": [
+      {
+        "check": "血压检查",
+        "interval": "12 个月",
+        "due": "已逾期",
+        "tone": "bad",
+        "action": "预约家庭医生"
+      },
+      {
+        "check": "心脏健康检查（心血管绝对风险）",
+        "interval": "45 岁起每 2 年",
+        "due": "现在到期",
+        "tone": "warn",
+        "action": "预约"
+      },
+      {
+        "check": "糖尿病风险（AUSDRISK）+ HbA1c",
+        "interval": "3 年",
+        "due": "2027年1月",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "眼科检查（含眼压）",
+        "interval": "2 年",
+        "due": "2027年3月",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "血脂",
+        "interval": "5 年",
+        "due": "2025年8月已完成",
+        "tone": "good",
+        "action": ""
+      },
+      {
+        "check": "听力基线检查",
+        "interval": "50 岁时",
+        "due": "2030",
+        "tone": "plain",
+        "action": ""
+      }
+    ],
+    "screeningToast": "预约请求已发送给您在墨尔本的家庭医生",
+    "matrixColumns": [
+      "HTN",
+      "STR",
+      "AF",
+      "T2D",
+      "GLA",
+      "DEM",
+      "HEAR"
+    ],
+    "matrix": [
+      {
+        "person": "Arthur（外祖父）",
+        "onset": {
+          "HTN": 55,
+          "STR": 68
+        }
+      },
+      {
+        "person": "Edith（外祖母）",
+        "onset": {
+          "GLA": 60,
+          "DEM": 77,
+          "HEAR": 74
+        }
+      },
+      {
+        "person": "Robert（父亲）",
+        "onset": {
+          "HTN": 60,
+          "T2D": 58,
+          "AF": 70
+        }
+      },
+      {
+        "person": "Margaret（母亲）",
+        "onset": {
+          "HTN": 61,
+          "HEAR": 72
+        }
+      },
+      {
+        "person": "David（舅舅）",
+        "onset": {
+          "HTN": 52,
+          "STR": 69
+        }
+      },
+      {
+        "person": "Sarah（姐妹）",
+        "onset": {}
+      },
+      {
+        "person": "James（您）",
+        "onset": {
+          "HTN": "↑"
+        }
+      }
+    ],
+    "consent": {
+      "columns": [
+        "疾病",
+        "用药",
+        "生命体征",
+        "位置",
+        "基因"
+      ],
+      "rows": [
+        {
+          "person": "Margaret",
+          "shares": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ]
+        },
+        {
+          "person": "David",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Sarah",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "James（您）",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Robert（遗产管理）",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ],
+      "note": "按人和数据类型分别保存。更改在一分钟内生效，并写入审计日志。"
+    },
+    "context": {
+      "initials": "HL",
+      "color": "#8f6fd0",
+      "sub": "4 代人 · 11 人 · Family Connect",
+      "facts": [
+        {
+          "live": true,
+          "label": "已同意",
+          "value": "11 人中的 9 人"
+        },
+        {
+          "live": false,
+          "label": "疾病",
+          "value": "7"
+        },
+        {
+          "live": false,
+          "label": "您的计划",
+          "value": "2 项到期"
+        }
+      ]
+    }
+  }
+}

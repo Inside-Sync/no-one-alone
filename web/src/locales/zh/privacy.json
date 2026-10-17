@@ -1,0 +1,109 @@
+{
+  "title": "🔐 谁能看到什么",
+  "meta": "点击开关即可分享或停止分享 · 更改立即生效",
+  "quick": "快速选择：",
+  "presets": [
+    {
+      "kind": "family",
+      "label": "👨‍👩‍👧 家人能看到大部分，但不含我的心情"
+    },
+    {
+      "kind": "safety",
+      "label": "🚨 仅安全提醒"
+    },
+    {
+      "kind": "all",
+      "label": "🤝 全部分享给家人"
+    }
+  ],
+  "pause": "⏸️ 暂停分享到明天",
+  "resume": "▶️ 恢复分享",
+  "what": "内容",
+  "lockedTitle": "对紧急联系人始终开启",
+  "fine": "🚨 对您的紧急联系人，安全提醒无法关闭，这样在您需要帮助时，总会有人赶来。您可以更改紧急联系人。",
+  "preview": {
+    "title": "👁️ 预览",
+    "meta": "准确查看某人能看到的内容",
+    "toast": "正在预览 {{name}} 能看到的内容"
+  },
+  "emergency": {
+    "title": "🏥 紧急情况下",
+    "meta": "10月1日同意",
+    "text": "如果您需要救护车，医院会收到您的健康状况、用药和过敏信息，以便尽快救治。不会有其他信息，而且仅限那一次就诊。",
+    "agreement": [
+      "阅读同意书",
+      "您的紧急情况同意书已显示在手机上",
+      "已打开"
+    ],
+    "contacts": [
+      "紧急联系人",
+      "紧急联系人：David 和 James",
+      "已确认"
+    ],
+    "clinician": "只有患者同意与医院共享时，临床人员才能看到具名患者的信息。"
+  },
+  "audit": {
+    "title": "🧾 您做过的更改",
+    "meta": "最新的在前",
+    "empty": "还没有更改",
+    "label": "审计日志"
+  },
+  "categories": {
+    "safety": {
+      "name": "安全提醒",
+      "detail": "跌倒、紧急情况、高温预警"
+    },
+    "checkin": {
+      "name": "“我没事”报平安",
+      "detail": "她是否回应、是否安好"
+    },
+    "heart": {
+      "name": "心脏、血压、身体",
+      "detail": "心率、血压、体重"
+    },
+    "sleep": {
+      "name": "睡眠",
+      "detail": "时长和睡得好不好"
+    },
+    "activity": {
+      "name": "活动和步数",
+      "detail": "步数、走路、平衡"
+    },
+    "mood": {
+      "name": "心情和感受",
+      "detail": "她自己说的感受"
+    },
+    "meds": {
+      "name": "服药",
+      "detail": "已服或漏服"
+    },
+    "speech": {
+      "name": "听力和说话",
+      "detail": "来自她每天的聊天"
+    },
+    "home": {
+      "name": "家中传感器",
+      "detail": "温度、2 个房间的活动"
+    },
+    "records": {
+      "name": "健康档案",
+      "detail": "病情、检查、就诊"
+    },
+    "location": {
+      "name": "在家或外出",
+      "detail": "绝不显示地址或地图"
+    }
+  },
+  "switchLabel": "与 {{name}} 分享{{category}}",
+  "shareOn": "现在与 {{name}} 分享{{category}}",
+  "shareOff": "已停止与 {{name}} 分享{{category}}",
+  "paused": "分享已暂停到明天早上 9 点 · 安全提醒仍开启",
+  "resumed": "已恢复分享",
+  "presetDone": {
+    "safety": "家人现在只能看到安全提醒",
+    "all": "家人现在能看到全部内容",
+    "family": "家人能看到大部分内容，但不含您的心情"
+  },
+  "seeWhat": "查看 {{name}} 能看到什么",
+  "seeWhatCount": "查看 {{name}} 能看到什么 · {{total}} 项中的 {{n}} 项"
+}

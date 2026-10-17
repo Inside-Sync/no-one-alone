@@ -1,5 +1,5 @@
 import type { RecoveryDoc } from '@/data/contract'
-import i18n from '@/i18n'
+import i18n, { intlLocale } from '@/i18n'
 
 export type Reminder = RecoveryDoc['reminders'][number]
 
@@ -14,24 +14,25 @@ export function nextReminder(reminders: Reminder[], nowMs: number, tz: string): 
   return reminder ? { reminder, tomorrow: false } : { reminder: reminders[0], tomorrow: true }
 }
 
-/** Why each DEFAULT_PLAN item matters, keyed by a lowercased word in the medicine name or reminder text (display only). */
-export const WHY: Record<string, string> = {
-  apixaban: 'Stops clots forming because of the uneven heartbeat. Replaces aspirin.',
-  perindopril: 'Lowers blood pressure and protects the brain.',
-  atorvastatin: 'Lowers cholesterol. Dose raised from 20 mg.',
-  amlodipine: 'Blood pressure tablet, as before.',
-  'vitamin d': 'For bones, as before.',
-  aspirin: 'Stop taking this. Apixaban does its job now.',
-  walk: 'Gentle walking helps the brain heal and keeps blood pressure down.',
-  'blood pressure': 'Sit for 5 minutes first. Aim for under 130/80.',
-  speech: 'Practise the sounds from your speech therapist.',
-  water: 'Aim for 1.5 L today.',
-}
+/**
+ * Why each DEFAULT_PLAN item matters: a lowercased word in the medicine name or reminder text (core-api writes those,
+ * in the person's own language) and its `me:recovery.why` line, in the language in use (display only). First match wins.
+ */
+const WHY_MATCH = [
+  ['apixaban', 'apixaban'], ['perindopril', 'perindopril'], ['atorvastatin', 'atorvastatin'], ['amlodipine', 'amlodipine'],
+  ['vitamin d', 'vitaminD'], ['aspirin', 'aspirin'], ['walk', 'walk'], ['blood pressure', 'bloodPressure'], ['speech', 'speech'],
+  ['water', 'water'],
+] as const
+
+export type WhyKey = (typeof WHY_MATCH)[number][1]
+
+/** The `me:recovery.why` line for one item, in the language in use. */
+export const whyLine = (key: WhyKey): string => i18n.t(`me:recovery.why.${key}`)
 
 const whyOf = (text: string) => {
   const t = text.toLowerCase()
-  const key = Object.keys(WHY).find((k) => t.includes(k))
-  return key && WHY[key]
+  const hit = WHY_MATCH.find(([word]) => t.includes(word))
+  return hit && whyLine(hit[1])
 }
 
 export type Med = RecoveryDoc['meds'][number]
@@ -78,10 +79,10 @@ export function followUpCalls(createdAt: string, tz: string): { day: number; dat
   return CALL_DAYS.map((day) => ({ day, date: new Date(Date.UTC(y, m - 1, d + day)).toISOString().slice(0, 10) }))
 }
 
-/** A `YYYY-MM-DD` calendar date for people: `Fri 23 Oct` in English, `T6 23/10` in Vietnamese. */
+/** A `YYYY-MM-DD` calendar date for people: `Fri 23 Oct` in English, `T6 23/10` in Vietnamese, `10月23日(金)` in Japanese… */
 export function dayLabel(date: string, lang = i18n.language): string {
   const d = new Date(`${date}T00:00:00Z`)
-  if (!lang.startsWith('vi')) return new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(d)
+  if (!lang.startsWith('vi')) return new Intl.DateTimeFormat(intlLocale(lang), { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(d)
   const wd = d.getUTCDay()
   return `${wd === 0 ? 'CN' : `T${wd + 1}`} ${d.getUTCDate()}/${d.getUTCMonth() + 1}`
 }
@@ -100,4 +101,28 @@ export function deliverySteps(r: RecoveryDoc, circle: string[]): Step[] {
   if (circle.length) steps.push({ key: 'circle', vars: { names: circle.join(', ') } })
   steps.push({ key: 'delivered', vars: {} })
   return steps
+}
+
+/** A glanceable icon for a task: tablets, or the kind of activity named in the reminder (display only). */
+export function taskIcon(task: Pick<Task, 'kind' | 'title'>): string {
+  if (task.kind === 'MED') return '💊'
+  const t = task.title.toLowerCase()
+  if (t.includes('walk')) return '🚶'
+  if (t.includes('blood pressure')) return '🩺'
+  if (t.includes('speech')) return '🗣️'
+  if (t.includes('water')) return '💧'
+  return '✅'
+}
+
+const localDate = (ms: number, tz: string) => new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(ms)
+
+/** Days at home since the plan arrived, in the person's local dates: the plan day is 0, so day N lines up with the day-N call. */
+export function daysHome(createdAt: string, nowMs: number, tz: string): number {
+  return Math.round((Date.parse(localDate(nowMs, tz)) - Date.parse(localDate(Date.parse(createdAt), tz))) / 86_400_000)
+}
+
+/** `morning` before 12:00, `afternoon` before 18:00, else `evening`, by the person's local time. */
+export function partOfDay(nowMs: number, tz: string): 'morning' | 'afternoon' | 'evening' {
+  const h = hhmm(nowMs, tz)
+  return h < '12:00' ? 'morning' : h < '18:00' ? 'afternoon' : 'evening'
 }

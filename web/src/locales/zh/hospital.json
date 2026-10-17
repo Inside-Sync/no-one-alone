@@ -1,0 +1,268 @@
+{
+  "ed": {
+    "inbox": {
+      "title": "预到达收件箱",
+      "meta": "资料包先于救护车到达",
+      "newPill": "1 条新",
+      "newTag": "新"
+    },
+    "incoming": {
+      "title": "即将到达的救护车",
+      "meta": "未来 60 分钟",
+      "head": [
+        "预计到达",
+        "患者",
+        "主诉",
+        "分诊",
+        "资料包",
+        "床位"
+      ]
+    },
+    "packet": {
+      "title": "资料包",
+      "meta": "选择一位患者",
+      "demoMeta": "Margaret C.，78 岁",
+      "statusLabel": "状态",
+      "noteLabel": "备注"
+    },
+    "pathway": {
+      "title": "卒中路径",
+      "meta": "治疗时间窗",
+      "pending": "待定"
+    },
+    "page": {
+      "label": "呼叫卒中团队",
+      "toast": "已呼叫卒中团队 · CT 2 已预留"
+    },
+    "divert": {
+      "label": "分流",
+      "toast": "已向救护车建议分流"
+    },
+    "recovery": {
+      "title": "📝 出院与康复计划",
+      "meta": "编辑、批准后，助手会用通俗语言将计划发送到 Margaret 的门户",
+      "staff": "医生",
+      "diagnosis": "诊断",
+      "meds": "用药",
+      "medName": "药物 {{n}} 名称",
+      "medDose": "药物 {{n}} 剂量",
+      "activities": "医嘱",
+      "actText": "活动 {{n}}",
+      "actTimes": "活动 {{n}} 时间",
+      "followUps": "随访",
+      "fuText": "随访 {{n}}",
+      "fuDays": "随访 {{n}}（天后）",
+      "notes": "医生备注",
+      "hint": "时间格式为 HH:mm，用逗号分隔",
+      "sentAt": "已于 {{time}} 发送到家中",
+      "sent": "已发送到家中",
+      "failed": "无法发送计划",
+      "delivering": "⏳ 助手正在发送…",
+      "why": "原因：{{text}}",
+      "medHead": "药物",
+      "doseHead": "剂量",
+      "changeHead": "变更",
+      "slots": {
+        "morning": "早",
+        "midday": "中",
+        "evening": "晚",
+        "night": "睡前"
+      },
+      "medSlot": "药物 {{n}} {{slot}}",
+      "medChange": "药物 {{n}} 变更",
+      "change": {
+        "New": "新增",
+        "Increased": "加量",
+        "Continue": "继续",
+        "Stop": "停用"
+      },
+      "calls": "助手随访电话",
+      "callDay": "✓ 第 {{day}} 天",
+      "finalise": "✍️ 定稿计划",
+      "signed": "✍️ 由 {{name}} 定稿 · {{time}}",
+      "editAgain": "重新编辑",
+      "approve": "✅ 批准并交给 Noa",
+      "approveNote": "助手会把计划转成通俗语言、设置提醒，并按照 Margaret 自己的设置与她的照护圈分享。",
+      "toastFinal": "计划已定稿并签署。现在请批准，交给助手。",
+      "toastSent": "康复计划已发送到 Margaret 的门户",
+      "steps": {
+        "summary": "已用通俗语言写好摘要",
+        "summaryFallback": "以医生备注作为摘要",
+        "reminders": "已设置 {{n}} 个提醒，其中 {{voiced}} 个带语音提醒",
+        "calls": "问候电话日期已加入她的计划：第 {{days}} 天",
+        "appointments": "预约：{{list}}",
+        "circle": "{{names}} 可见",
+        "delivered": "计划已显示在 Margaret 的屏幕上"
+      }
+    },
+    "discharge": {
+      "title": "🩺 可以出院：Margaret Collins，78 岁",
+      "sub": "缺血性卒中，已溶栓 · 新发阵发性房颤 · 康复计划待批准",
+      "open": "📝 打开她的病历和康复计划"
+    }
+  },
+  "panel": {
+    "table": {
+      "title": "服务区内的老年患者",
+      "meta": "已加入 No One Alone · 按 30 天入院风险排序",
+      "head": [
+        "患者",
+        "区域",
+        "30 天入院",
+        "主要因素",
+        "上次急诊",
+        "全科医生",
+        "信号"
+      ],
+      "sex": {
+        "F": "女",
+        "M": "男"
+      }
+    },
+    "scatter": {
+      "title": "风险与年龄",
+      "ariaLabel": "30 天入院风险与年龄的散点图；风险随年龄上升；Margaret 78 岁，风险 22%",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "高"
+        },
+        {
+          "color": "#c88a05",
+          "label": "中"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "低"
+        }
+      ],
+      "axis": "年龄"
+    }
+  },
+  "demand": {
+    "forecast": {
+      "title": "75 岁以上就诊量，未来 14 天",
+      "tag": "预测",
+      "ariaLabel": "75 岁以上就诊量预测：周四 34 人次，周五 31 人次，高于 28 的舒适线",
+      "legend": [
+        {
+          "color": "#2f6fb0",
+          "label": "预测"
+        },
+        {
+          "color": "rgba(47,111,176,.15)",
+          "label": "80% 区间"
+        },
+        {
+          "color": "#56706e",
+          "label": "去年"
+        },
+        {
+          "color": "#d9443f",
+          "label": "高于舒适线"
+        }
+      ],
+      "heatwave": "热浪",
+      "secondSpell": "第二轮高温？"
+    },
+    "beds": {
+      "title": "当前床位",
+      "meta": "15:00"
+    },
+    "shap": {
+      "title": "周四高峰的驱动因素",
+      "meta": "对预测的贡献"
+    },
+    "actions": {
+      "title": "建议措施",
+      "meta": "根据预测生成",
+      "buttons": {
+        "Approve": "批准",
+        "Linked": "已关联",
+        "Review": "审阅",
+        "Auto": "自动"
+      },
+      "toastApproved": "{{title}} · 已批准",
+      "toastNoted": "{{title}} · 已记录"
+    }
+  },
+  "discharge": {
+    "board": {
+      "title": "30 天随访看板",
+      "meta": "助手用每位患者的语言致电 · 警示信号转给出院护士",
+      "head": [
+        "患者",
+        "出院日期",
+        "诊断",
+        "第 1 天",
+        "第 3 天",
+        "第 7 天",
+        "第 14 天",
+        "第 30 天",
+        "再入院风险"
+      ],
+      "legend": [
+        {
+          "color": "#1fb39c",
+          "label": "已完成，正常"
+        },
+        {
+          "color": "#c88a05",
+          "label": "已完成，有异常"
+        },
+        {
+          "color": "#d9443f",
+          "label": "已转护士"
+        },
+        {
+          "color": "var(--track)",
+          "label": "待进行"
+        }
+      ],
+      "new": "新"
+    }
+  },
+  "actions": {
+    "row": [
+      [
+        "打开完整病历",
+        "已在 EMR 中打开病历（演示）",
+        "已打开"
+      ],
+      [
+        "发消息给全科医生",
+        "已向全科医生发送加密消息",
+        "已发送"
+      ],
+      [
+        "分配给我",
+        "已分配给您",
+        "已分配"
+      ]
+    ],
+    "kpi": [
+      [
+        "加入关注列表",
+        "已加入您的关注列表",
+        "关注中"
+      ],
+      [
+        "导出 CSV",
+        "导出已排队",
+        "已导出"
+      ]
+    ],
+    "mini": [
+      [
+        "标记待审阅",
+        "已标记",
+        "已标记"
+      ],
+      [
+        "分配给我",
+        "已分配给您",
+        "已分配"
+      ]
+    ]
+  }
+}

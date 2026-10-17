@@ -1,0 +1,75 @@
+{
+  "you": "你",
+  "youParen": "（你）",
+  "youSuffix": " · 你",
+  "relation": {
+    "self": "本人",
+    "son": "仔",
+    "daughter": "女",
+    "brother": "兄弟",
+    "sister": "姊妹",
+    "father": "爸爸",
+    "mother": "媽媽",
+    "husband": "老公",
+    "wife": "老婆",
+    "neighbour": "鄰居",
+    "friend": "朋友",
+    "grandson": "孫仔",
+    "granddaughter": "孫女",
+    "nephew": "姪仔",
+    "niece": "姪女"
+  },
+  "person": {
+    "ageLabel": "年齡",
+    "genderLabel": "性別",
+    "restingHrLabel": "靜止心率",
+    "restingHrBase": "基線 {{n}}",
+    "female": "女",
+    "male": "男"
+  },
+  "circle": {
+    "noteNearby": "距離 {{place}} · {{order}}",
+    "firstToCall": "第一個打",
+    "nextToCall": "第二個打",
+    "noteCalls": "{{place}} · 有需要會打 {{num}}",
+    "noteUpdates": "{{place}} · 收到更新",
+    "onCall": "當值",
+    "backup": "後備",
+    "calls": "打 {{num}}",
+    "updates": "更新"
+  },
+  "forecast": {
+    "risk": {
+      "STROKE": "中風",
+      "FALL": "跌倒受傷"
+    },
+    "level": {
+      "HIGH": "高",
+      "MEDIUM": "中",
+      "LOW": "低"
+    },
+    "horizon": "{{n}} 日",
+    "sentTo": "已傳畀 {{name}}",
+    "shared": "已同照顧圈分享"
+  },
+  "lineage": {
+    "generation": {
+      "grandparents": "祖父母",
+      "parents": "父母",
+      "self": "{{name}} 嗰代",
+      "children": "子女",
+      "grandchildren": "孫",
+      "ancestors": "祖先",
+      "descendants": "後代"
+    },
+    "herself": "佢自己",
+    "selfRow": "本人",
+    "strength": {
+      "strong": "強",
+      "moderate": "中等",
+      "weak": "弱"
+    },
+    "dueNow": "而家到期",
+    "book": "預約"
+  }
+}

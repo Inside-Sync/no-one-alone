@@ -1,0 +1,1055 @@
+{
+  "surroundings": {
+    "homeMap": {
+      "kicker": "📍 Margaret の住まい",
+      "title": "Marrickville, Sydney",
+      "detail": "Inner West · CBDから南西へ5.8 km · −33.911, 151.155",
+      "lat": -33.911,
+      "lng": 151.155,
+      "address": "186 Marrickville Rd, Marrickville NSW 2204",
+      "legend": [
+        {
+          "color": "#14a08c",
+          "label": "Margaret の家"
+        },
+        {
+          "color": "#2f6fb0",
+          "label": "近くの家族"
+        },
+        {
+          "color": "#ffffff",
+          "label": "医療サービス",
+          "ring": true
+        },
+        {
+          "color": "#8f6fd0",
+          "label": "地域"
+        },
+        {
+          "color": "#9b7fd4",
+          "label": "ジャカランダが満開",
+          "round": true
+        }
+      ],
+      "chips": [
+        {
+          "icon": "people",
+          "text": "David · 450 m · 徒歩6分"
+        },
+        {
+          "icon": "clinic",
+          "text": "かかりつけ医 · 350 m"
+        },
+        {
+          "icon": "pill",
+          "text": "薬局 · 280 m"
+        },
+        {
+          "icon": "hospital",
+          "text": "脳卒中センター · 4.2 km · 11分"
+        },
+        {
+          "icon": "siren",
+          "text": "救急車の中央値 9.4分（2204）"
+        },
+        {
+          "icon": "sun",
+          "text": "木曜日 38 °C"
+        }
+      ],
+      "ariaLabel": "Marrickville にある Margaret の街並みの3Dモデル：Marrickville Road の自宅、西に450メートルの弟 David の家、近くのかかりつけ医と薬局、図書館の涼しい部屋、公園のウォーキンググループ、南を流れる Cooks River",
+      "pins": [
+        {
+          "name": "Margaret の家",
+          "sub": "自宅",
+          "color": "#14a08c",
+          "initials": "M",
+          "big": true,
+          "kind": "home",
+          "geo": {
+            "lat": -33.911,
+            "lng": 151.155
+          }
+        },
+        {
+          "name": "David（弟）",
+          "sub": "",
+          "detail": "450 m · 徒歩6分",
+          "color": "#2f6fb0",
+          "initials": "D",
+          "phase": 0.3,
+          "kind": "family",
+          "geo": {
+            "lat": -33.913964,
+            "lng": 151.151753
+          }
+        },
+        {
+          "name": "かかりつけ医",
+          "sub": "",
+          "detail": "Illawarra Rd Family Practice · Dr Patel · 350 m",
+          "color": "#ffffff",
+          "ink": "#0b7f71",
+          "initials": "+",
+          "phase": 0.5,
+          "at": {
+            "x": 162,
+            "y": 132,
+            "z": 12
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908548,
+            "lng": 151.153182
+          }
+        },
+        {
+          "name": "薬局",
+          "sub": "",
+          "detail": "280 m · 21:00まで営業",
+          "color": "#ffffff",
+          "ink": "#1fb39c",
+          "initials": "Rx",
+          "phase": 0.7,
+          "at": {
+            "x": 127,
+            "y": 133,
+            "z": 9
+          },
+          "kind": "health",
+          "geo": {
+            "lat": -33.908579,
+            "lng": 151.151856
+          }
+        },
+        {
+          "name": "図書館の涼しい部屋",
+          "sub": "",
+          "detail": "400 m · 定員120人",
+          "color": "#8f6fd0",
+          "initials": "L",
+          "phase": 0.1,
+          "at": {
+            "x": 305,
+            "y": 301,
+            "z": 21
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.913861,
+            "lng": 151.158598
+          }
+        },
+        {
+          "name": "ウォーキンググループ",
+          "sub": "",
+          "detail": "木 9:00 · Calvert Reserve",
+          "color": "#8f6fd0",
+          "initials": "W",
+          "phase": 0.6,
+          "at": {
+            "x": 329,
+            "y": 211,
+            "z": 2
+          },
+          "kind": "community",
+          "geo": {
+            "lat": -33.911031,
+            "lng": 151.159508
+          }
+        },
+        {
+          "name": "→ 脳卒中センター 4.2 km",
+          "sub": "",
+          "detail": "Camperdown Stroke Centre · 北東 · 救急車で11分",
+          "color": "#ef4e4a",
+          "initials": "",
+          "tag": true,
+          "at": {
+            "x": 398,
+            "y": 398,
+            "z": 2
+          }
+        }
+      ],
+      "walkRing": {
+        "label": "徒歩5分",
+        "radius": 118
+      },
+      "labels": [
+        {
+          "text": "Marrickville Rd",
+          "x": 345,
+          "y": 150,
+          "bold": true
+        },
+        {
+          "text": "Illawarra Rd",
+          "x": 110,
+          "y": 384,
+          "bold": true
+        },
+        {
+          "text": "Calvert St",
+          "x": 52,
+          "y": 270
+        },
+        {
+          "text": "Victoria Rd",
+          "x": 250,
+          "y": 305
+        },
+        {
+          "text": "Cooks River",
+          "x": 300,
+          "y": 12
+        },
+        {
+          "text": "Calvert Reserve",
+          "x": 329,
+          "y": 240
+        },
+        {
+          "text": "Marrickville 駅",
+          "x": 220,
+          "y": 345
+        }
+      ]
+    },
+    "watchMap": {
+      "kicker": "👀 ご近所の見守り",
+      "title": "Margaret の家の周り",
+      "detail": "一人暮らしで気をつけたいこと · 1 km以内に8件",
+      "ariaLabel": "ご近所のお知らせを表示した Margaret の街並みの3Dマップ：歩道工事、詐欺の通報、街灯の故障、急降下するカササギ、ヘビの目撃、暑さ対策の涼しい部屋",
+      "legend": [
+        {
+          "color": "#d9443f",
+          "label": "対応"
+        },
+        {
+          "color": "#c88a05",
+          "label": "注意"
+        },
+        {
+          "color": "#1fb39c",
+          "label": "お役立ち"
+        }
+      ],
+      "ring": {
+        "label": "見守りエリア",
+        "radius": 150
+      }
+    },
+    "pins": [
+      {
+        "name": "Margaret",
+        "sub": "",
+        "detail": "自宅",
+        "color": "#14a08c",
+        "initials": "M",
+        "big": true,
+        "kind": "home",
+        "geo": {
+          "lat": -33.911,
+          "lng": 151.155
+        }
+      },
+      {
+        "name": "歩道工事",
+        "sub": "",
+        "detail": "薬局前の Marrickville Rd · 10月24日まで路面が不安定",
+        "color": "#c88a05",
+        "initials": "!",
+        "phase": 0.2,
+        "at": {
+          "x": 225,
+          "y": 146,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.908988,
+          "lng": 151.155568
+        }
+      },
+      {
+        "name": "詐欺の通報",
+        "sub": "",
+        "detail": "訪問販売の「太陽光リベート」詐欺 · 月曜日以降、この通りで3件の通報",
+        "color": "#d9443f",
+        "initials": "!",
+        "phase": 0.4,
+        "at": {
+          "x": 70,
+          "y": 205,
+          "z": 8
+        },
+        "kind": "alert",
+        "tone": "act",
+        "geo": {
+          "lat": -33.910843,
+          "lng": 151.149697
+        }
+      },
+      {
+        "name": "街灯の故障",
+        "sub": "",
+        "detail": "日曜日から Calvert St · 市に通報済み #IW-48213",
+        "color": "#c88a05",
+        "initials": "☾",
+        "phase": 0.6,
+        "at": {
+          "x": 160,
+          "y": 270,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.912886,
+          "lng": 151.153106
+        }
+      },
+      {
+        "name": "急降下するカササギ",
+        "sub": "",
+        "detail": "Calvert Reserve の西側の小道 · 春の営巣期",
+        "color": "#c88a05",
+        "initials": "M",
+        "phase": 0.8,
+        "at": {
+          "x": 350,
+          "y": 235,
+          "z": 6
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.911786,
+          "lng": 151.160303
+        }
+      },
+      {
+        "name": "ヘビの目撃",
+        "sub": "",
+        "detail": "Cooks River の小道 · 舗装路を歩きましょう",
+        "color": "#c88a05",
+        "initials": "S",
+        "phase": 0.1,
+        "at": {
+          "x": 60,
+          "y": 36,
+          "z": 2
+        },
+        "kind": "alert",
+        "tone": "watch",
+        "geo": {
+          "lat": -33.905529,
+          "lng": 151.149318
+        }
+      },
+      {
+        "name": "涼しい部屋",
+        "sub": "",
+        "detail": "図書館 · 木曜は9時〜20時 · 残り74席",
+        "color": "#1fb39c",
+        "initials": "L",
+        "phase": 0.5,
+        "at": {
+          "x": 305,
+          "y": 301,
+          "z": 21
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.913861,
+          "lng": 151.158598
+        }
+      },
+      {
+        "name": "予防接種",
+        "sub": "",
+        "detail": "薬局 · インフルエンザと新型コロナ、木〜土は予約不要",
+        "color": "#1fb39c",
+        "initials": "+",
+        "phase": 0.7,
+        "at": {
+          "x": 127,
+          "y": 133,
+          "z": 9
+        },
+        "kind": "alert",
+        "tone": "info",
+        "geo": {
+          "lat": -33.908579,
+          "lng": 151.151856
+        }
+      }
+    ],
+    "weather": {
+      "heading": "🌤️ Marrickville の天気",
+      "meta": "現在 · 15:10",
+      "temp": "33°",
+      "summary": "晴れ、暑い北東の風",
+      "feelsLike": "体感 35° · 室内 29.5°",
+      "stats": [
+        {
+          "label": "日の出",
+          "value": "05:47",
+          "note": "日の入り 19:14"
+        },
+        {
+          "label": "湿度",
+          "value": "41%",
+          "note": "露点 18°"
+        },
+        {
+          "label": "気圧",
+          "value": "1009",
+          "note": "hPa · 下降中"
+        },
+        {
+          "label": "夜間の最低気温",
+          "value": "24°",
+          "note": "木 · 熱帯夜"
+        },
+        {
+          "label": "火災危険度",
+          "value": "高",
+          "note": "木〜金"
+        },
+        {
+          "label": "視程",
+          "value": "10 km",
+          "note": "良好"
+        }
+      ],
+      "note": "木曜日と金曜日は猛暑です。金曜日の夜に南風に変わり、最大瞬間風速60 km/hの見込みです。"
+    },
+    "week": [
+      {
+        "day": "水",
+        "icon": "sun",
+        "high": 33,
+        "low": 19,
+        "hot": false
+      },
+      {
+        "day": "木",
+        "icon": "sun",
+        "high": 38,
+        "low": 24,
+        "hot": true
+      },
+      {
+        "day": "金",
+        "icon": "wind",
+        "high": 36,
+        "low": 18,
+        "hot": true
+      },
+      {
+        "day": "土",
+        "icon": "cloud",
+        "high": 26,
+        "low": 16,
+        "hot": false
+      },
+      {
+        "day": "日",
+        "icon": "cloud",
+        "high": 24,
+        "low": 15,
+        "hot": false
+      },
+      {
+        "day": "月",
+        "icon": "drop",
+        "high": 23,
+        "low": 14,
+        "hot": false
+      },
+      {
+        "day": "火",
+        "icon": "sun",
+        "high": 25,
+        "low": 15,
+        "hot": false
+      }
+    ],
+    "kpis": [
+      {
+        "emoji": "🌡️",
+        "label": "気温",
+        "value": "33",
+        "unit": "°C",
+        "color": "#e07a3f",
+        "baseline": "今日の最高",
+        "delta": "平年より6°高い",
+        "tone": "warn",
+        "spark": [
+          22,
+          24,
+          27,
+          29,
+          31,
+          32,
+          33,
+          33,
+          33
+        ]
+      },
+      {
+        "emoji": "🥵",
+        "label": "体感温度",
+        "value": "35",
+        "unit": "°C",
+        "color": "#d9443f",
+        "baseline": "蒸し暑い",
+        "delta": "暑い",
+        "tone": "warn",
+        "spark": [
+          23,
+          25,
+          28,
+          31,
+          33,
+          34,
+          35,
+          35,
+          35
+        ]
+      },
+      {
+        "emoji": "💨",
+        "label": "風",
+        "value": "22",
+        "unit": "km/h",
+        "color": "#5a7fe0",
+        "baseline": "北東から",
+        "delta": "金曜に涼しく",
+        "tone": "good",
+        "spark": [
+          8,
+          10,
+          12,
+          15,
+          18,
+          20,
+          22,
+          22,
+          22
+        ]
+      },
+      {
+        "emoji": "🕶️",
+        "label": "紫外線",
+        "value": "11",
+        "unit": "UV",
+        "color": "#c2417a",
+        "baseline": "午前10時〜午後3時半",
+        "delta": "極端に強い：日陰に",
+        "tone": "bad",
+        "spark": [
+          1,
+          3,
+          6,
+          9,
+          11,
+          11,
+          10,
+          8,
+          6
+        ]
+      },
+      {
+        "emoji": "🌧️",
+        "label": "雨",
+        "value": "10",
+        "unit": "%（降水確率）",
+        "color": "#2f6fb0",
+        "baseline": "土曜日 60%",
+        "delta": "今日は雨なし",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          5,
+          5,
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "emoji": "🍃",
+        "label": "大気質",
+        "value": "良好",
+        "unit": "",
+        "color": "#1f8f5f",
+        "baseline": "今日はきれいな空気",
+        "delta": "土曜は煙",
+        "tone": "good",
+        "spark": [
+          28,
+          30,
+          31,
+          33,
+          32,
+          31,
+          32,
+          32,
+          32
+        ]
+      },
+      {
+        "emoji": "🌾",
+        "label": "花粉",
+        "value": "高",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "イネ科花粉",
+        "delta": "吸入器を手元に",
+        "tone": "warn",
+        "spark": [
+          3,
+          3,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "emoji": "✈️",
+        "label": "航空機の騒音",
+        "value": "68",
+        "unit": "dB",
+        "color": "#56706e",
+        "baseline": "飛行ルート",
+        "delta": "午後11時〜午前6時は静か",
+        "tone": "good",
+        "spark": [
+          50,
+          62,
+          66,
+          68,
+          67,
+          68,
+          66,
+          68,
+          68
+        ]
+      },
+      {
+        "emoji": "🔥",
+        "label": "暑さのリスク",
+        "value": "中",
+        "unit": "",
+        "color": "#d9443f",
+        "baseline": "木曜日は高",
+        "delta": "対策済み",
+        "tone": "warn",
+        "spark": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3
+        ]
+      },
+      {
+        "emoji": "🌅",
+        "label": "日照時間",
+        "value": "13時間",
+        "unit": "",
+        "color": "#e2a32c",
+        "baseline": "日の入り 午後7時14分",
+        "delta": "日が長くなっています",
+        "tone": "good",
+        "spark": [
+          12.8,
+          12.8,
+          12.9,
+          12.9,
+          12.9,
+          13,
+          13,
+          13,
+          13.03
+        ]
+      },
+      {
+        "emoji": "🌊",
+        "label": "海風",
+        "value": "なし",
+        "unit": "",
+        "color": "#2f6fb0",
+        "baseline": "金曜日まで",
+        "delta": "暖かい夜",
+        "tone": "warn",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "emoji": "🔌",
+        "label": "停電のリスク",
+        "value": "低",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "木曜日は中",
+        "delta": "冷蔵保存の薬は大丈夫",
+        "tone": "good",
+        "spark": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    ],
+    "alertsHeading": {
+      "title": "👀 一人暮らしで知っておきたいこと",
+      "meta": "一人暮らし · 緊急度順"
+    },
+    "alerts": [
+      {
+        "severity": "act",
+        "icon": "shield",
+        "title": "彼女の通りで詐欺の訪問",
+        "text": "「太陽光リベート」の訪問者、月曜日以降3件の通報。Noa が、予定のない訪問者にはドアを開けないよう声をかけました。不安なときはワンタップで David に電話できます。",
+        "source": "警察＋近所 · 2日"
+      },
+      {
+        "severity": "act",
+        "icon": "sun",
+        "title": "木曜日は猛暑、38°",
+        "text": "エアコンなしの室内は34°の予想。11:00に図書館の涼しい部屋への送迎を予約、12:00と15:00に追加の安否確認。",
+        "source": "気象局 · 今日"
+      },
+      {
+        "severity": "aware",
+        "icon": "people",
+        "title": "鍵の預かり人が10月18日〜25日不在",
+        "text": "Aisha が不在のため、鍵を持っているのは David だけです。救急隊員用のキーボックスの設置をおすすめします。",
+        "source": "サークル · 1日"
+      },
+      {
+        "severity": "aware",
+        "icon": "target",
+        "title": "薬局前の歩道工事",
+        "text": "10月24日まで路面が不安定です。散歩ルートは Calvert St 経由に変更しました。",
+        "source": "市 · 10月6日"
+      },
+      {
+        "severity": "aware",
+        "icon": "moon",
+        "title": "Calvert St の街灯が故障",
+        "text": "市に通報済み。暗い中を歩いて帰らないよう、夕方の安否確認を早めました。",
+        "source": "Noa · 日"
+      },
+      {
+        "severity": "aware",
+        "icon": "eye",
+        "title": "Calvert Reserve で急降下するカササギ",
+        "text": "ウォーキンググループは11月まで東側の小道に変更。",
+        "source": "住民 · 9月"
+      },
+      {
+        "severity": "help",
+        "icon": "plus",
+        "title": "インフルエンザと新型コロナの無料ワクチン",
+        "text": "木〜土、いつもの薬局で予約なしで接種できます。新型コロナの追加接種の時期です（前回は7か月前）。",
+        "source": "薬局 · 今日"
+      }
+    ],
+    "newsHeading": {
+      "title": "📰 彼女に関係のあるニュース",
+      "meta": "2204に一人で暮らす78歳向けに絞り込み"
+    },
+    "newsCategories": [
+      "All",
+      "Health",
+      "Safety",
+      "Weather",
+      "Community",
+      "Transport"
+    ],
+    "news": [
+      {
+        "category": "Health",
+        "source": "州保健局",
+        "age": "2時間",
+        "headline": "シドニーに暑さ健康警報、木曜日と金曜日",
+        "body": "心臓に持病のある高齢者は涼しく過ごし、水分をとり、1日2回家族と連絡を取りましょう。",
+        "shownBecause": "表示理由：心臓の持病、自宅にエアコンなし"
+      },
+      {
+        "category": "Safety",
+        "source": "地元警察",
+        "age": "5時間",
+        "headline": "太陽光リベートを持ちかける訪問詐欺が高齢住民を標的に",
+        "body": "リベートの「事前承認」と称して銀行口座の情報を求めます。警察はドアを開けないよう呼びかけています。",
+        "shownBecause": "表示理由：一人暮らし、彼女の通りで3件の通報"
+      },
+      {
+        "category": "Weather",
+        "source": "気象局",
+        "age": "6時間",
+        "headline": "金曜日の夜に南風へ変化、最大瞬間風速60 km/h",
+        "body": "1時間で気温が12°下がります。屋外の家具を固定しましょう。",
+        "shownBecause": "表示理由：庭の家具、寝室近くの木"
+      },
+      {
+        "category": "Community",
+        "source": "Inner West Council",
+        "age": "1日",
+        "headline": "シニアフェスティバル：Marrickville Town Hall で無料のモーニングティー、10月20日(火)",
+        "body": "生演奏、健康チェック、図書館からの送迎サービスあり。",
+        "shownBecause": "表示理由：人との交流がいつもより少ない"
+      },
+      {
+        "category": "Transport",
+        "source": "交通情報",
+        "age": "1日",
+        "headline": "今週末は Marrickville に電車は来ません。代行バスが運行します",
+        "body": "バスは Illawarra Rd から10分おきに出発します。",
+        "shownBecause": "表示理由：Sydenham の日曜礼拝"
+      },
+      {
+        "category": "Health",
+        "source": "薬局",
+        "age": "1日",
+        "headline": "インフルエンザと新型コロナのワクチンを予約なしで接種可能",
+        "body": "木曜日から土曜日、65歳以上は予約不要です。",
+        "shownBecause": "表示理由：新型コロナの追加接種の時期"
+      },
+      {
+        "category": "Safety",
+        "source": "市",
+        "age": "2日",
+        "headline": "土曜日、計画的野焼きによる煙の可能性",
+        "body": "窓を閉め、呼吸器の薬を手元に置きましょう。",
+        "shownBecause": "表示理由：ときどき喘息"
+      },
+      {
+        "category": "Community",
+        "source": "図書館",
+        "age": "2日",
+        "headline": "木曜日は涼しい部屋を9時〜20時に開放、75歳以上の席を確保",
+        "body": "無料の水、Wi-Fi、昼寝ができる静かな部屋。",
+        "shownBecause": "表示理由：猛暑対策"
+      }
+    ],
+    "thursday": {
+      "outdoor": [
+        22,
+        24,
+        27,
+        30,
+        33,
+        35,
+        37,
+        38,
+        38,
+        37,
+        36,
+        34,
+        32,
+        30,
+        28,
+        27,
+        26
+      ],
+      "indoor": [
+        26,
+        26.5,
+        27,
+        27.8,
+        28.8,
+        30,
+        31,
+        32,
+        33,
+        33.8,
+        34,
+        33.8,
+        33.2,
+        32.5,
+        31.5,
+        30.8,
+        30
+      ],
+      "coolRoom": {
+        "from": 5,
+        "to": 10,
+        "label": "図書館の涼しい部屋"
+      },
+      "plan": [
+        {
+          "at": 3,
+          "label": "水分補給"
+        },
+        {
+          "at": 6,
+          "label": "安否確認"
+        },
+        {
+          "at": 9,
+          "label": "安否確認"
+        },
+        {
+          "at": 12,
+          "label": "安否確認"
+        }
+      ],
+      "legend": [
+        {
+          "color": "#e07a3f",
+          "label": "屋外"
+        },
+        {
+          "color": "#d9443f",
+          "label": "自宅の室内（エアコンなし）"
+        },
+        {
+          "color": "rgba(143,111,208,.2)",
+          "label": "Noa の計画"
+        }
+      ]
+    },
+    "air": [
+      {
+        "day": "水",
+        "quality": "良好 · 32",
+        "pm25": "9",
+        "pollen": "高",
+        "smoke": "なし",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "木",
+        "quality": "普通 · 48",
+        "pm25": "14",
+        "pollen": "高",
+        "smoke": "なし",
+        "advice": "日中は屋内で",
+        "tone": "warn"
+      },
+      {
+        "day": "金",
+        "quality": "普通 · 51",
+        "pm25": "16",
+        "pollen": "極端",
+        "smoke": "なし",
+        "advice": "南風で喘息に注意",
+        "tone": "bad"
+      },
+      {
+        "day": "土",
+        "quality": "悪い · 88",
+        "pm25": "31",
+        "pollen": "中程度",
+        "smoke": "可能性大",
+        "advice": "窓を閉める",
+        "tone": "bad"
+      },
+      {
+        "day": "日",
+        "quality": "普通 · 45",
+        "pm25": "12",
+        "pollen": "中程度",
+        "smoke": "低",
+        "advice": "—",
+        "tone": "warn"
+      },
+      {
+        "day": "月",
+        "quality": "良好 · 28",
+        "pm25": "7",
+        "pollen": "低",
+        "smoke": "なし",
+        "advice": "—",
+        "tone": "good"
+      },
+      {
+        "day": "火",
+        "quality": "良好 · 30",
+        "pm25": "8",
+        "pollen": "中程度",
+        "smoke": "なし",
+        "advice": "—",
+        "tone": "good"
+      }
+    ],
+    "airNote": "春のイネ科花粉が多く、シドニー南部の計画的野焼きで土曜日は煙が来るかもしれません。その日は吸入器のリマインダーをオンにしています。",
+    "nearby": [
+      {
+        "initials": "W",
+        "color": "#8f6fd0",
+        "name": "ウォーキンググループ · Calvert Reserve",
+        "note": "木 9:00 · 直近4週のうち3週参加",
+        "pill": {
+          "tone": "good",
+          "text": "参加"
+        }
+      },
+      {
+        "initials": "A",
+        "color": "#c2611f",
+        "name": "Aisha · 2軒隣の隣人",
+        "note": "認証済みボランティア · 鍵の預かり人",
+        "pill": {
+          "tone": "brand",
+          "text": "予備"
+        }
+      },
+      {
+        "initials": "M",
+        "color": "#5a7fe0",
+        "name": "配食サービス",
+        "note": "火・金 · 次回は金 11:30",
+        "pill": {
+          "tone": "plain",
+          "text": "予約済み"
+        }
+      },
+      {
+        "initials": "L",
+        "color": "#22a593",
+        "name": "図書館のIT相談",
+        "note": "毎週月曜 10:00 · Sarah とのビデオ通話",
+        "pill": {
+          "tone": "plain",
+          "text": "任意"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,576 @@
+{
+  "careRecord": {
+    "kpis": [
+      {
+        "emoji": "📁",
+        "label": "건강 기록",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "6곳에서 수집",
+        "delta": "이번 주 새 기록 38건",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "emoji": "🏥",
+        "label": "2023년 이후 진료",
+        "value": "46",
+        "unit": "",
+        "color": "#1fb39c",
+        "baseline": "GP 18 · 검사 14",
+        "delta": "이번 달 2건",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "emoji": "💊",
+        "label": "약",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "상호작용 없음",
+        "delta": "변동 없음",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "emoji": "🧪",
+        "label": "검사 결과",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "최근 10월 12일",
+        "delta": "이번 달 9건",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "emoji": "✅",
+        "label": "기록 완성도",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "목표 90%",
+        "delta": "양호",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "emoji": "📅",
+        "label": "GP 방문 후 경과일",
+        "value": "32",
+        "unit": "일",
+        "color": "#2f6fb0",
+        "baseline": "최근 9월 12일",
+        "delta": "11월 7일까지",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "kpisTechnical": [
+      {
+        "label": "FHIR 리소스",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "출처 6곳",
+        "delta": "+38 주",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "label": "진료 기록",
+        "value": "46",
+        "unit": "2023년 이후",
+        "color": "#1fb39c",
+        "baseline": "GP 18 · 병리 14",
+        "delta": "+2 월",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "label": "복용 중인 약",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "상호작용 0건",
+        "delta": "안정",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "label": "병리 검사 결과",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "최근 10월 12일",
+        "delta": "+9 월",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "label": "기록 완성도",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "목표 90",
+        "delta": "+6점",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "label": "GP 방문 후 경과일",
+        "value": "32",
+        "unit": "일",
+        "color": "#2f6fb0",
+        "baseline": "9월 12일",
+        "delta": "11월 7일 예정",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "encounters": {
+      "meta": "출처 6곳의 진료 기록 46건",
+      "types": [
+        {
+          "type": "GP",
+          "color": "#1fb39c",
+          "count": 18,
+          "months": [
+            0.500035217963192,
+            3.5919200462213903,
+            5.900223949365526,
+            8.563925593219627,
+            11.39745256807418,
+            13.98531633823674,
+            15.711700772365276,
+            18.054891225234503,
+            20.55683382559273,
+            24.206118031596876,
+            25.725759348111,
+            28.837373673997234,
+            31.23934405715144,
+            33.155574496747526,
+            35.7405773571139,
+            38.88365086972122,
+            40.52017222765849,
+            43.034641837267806
+          ]
+        },
+        {
+          "type": "Specialist",
+          "color": "#5a7fe0",
+          "count": 6,
+          "months": [
+            3.2253704278034814,
+            10.8007900682751,
+            18.378686884537977,
+            25.59047720496587,
+            34.15039489269294,
+            41.68696422612943
+          ]
+        },
+        {
+          "type": "Pathology",
+          "color": "#c88a05",
+          "count": 14,
+          "months": [
+            1.664893864109082,
+            4.9426080702735185,
+            7.699556293617522,
+            11.942635330318133,
+            14.086282819589863,
+            17.083929102946005,
+            21.239300879872683,
+            23.787034035229155,
+            27.75246704276881,
+            29.999304596799707,
+            33.31236848008108,
+            37.69133973186029,
+            40.77544498399407,
+            43.046704329128104
+          ]
+        },
+        {
+          "type": "Emergency",
+          "color": "#ef4e4a",
+          "count": 2,
+          "months": [
+            14,
+            33
+          ]
+        },
+        {
+          "type": "Hearing",
+          "color": "#8f6fd0",
+          "count": 6,
+          "months": [
+            28,
+            31,
+            34,
+            37,
+            40,
+            43
+          ]
+        }
+      ],
+      "now": 45.5,
+      "markers": [
+        {
+          "month": 14,
+          "label": "낙상 · 손목"
+        },
+        {
+          "month": 33,
+          "label": "어지럼증"
+        }
+      ]
+    },
+    "medicines": [
+      {
+        "name": "Amlodipine 5 mg",
+        "timing": "저녁",
+        "adherence": 82,
+        "tone": "warn",
+        "last": "오늘 09:33 (늦음)"
+      },
+      {
+        "name": "Aspirin 100 mg",
+        "timing": "아침",
+        "adherence": 96,
+        "tone": "good",
+        "last": "오늘 08:31"
+      },
+      {
+        "name": "Atorvastatin 20 mg",
+        "timing": "밤",
+        "adherence": 88,
+        "tone": "warn",
+        "last": "어제 21:02"
+      },
+      {
+        "name": "Vitamin D 1000 IU",
+        "timing": "아침",
+        "adherence": 90,
+        "tone": "good",
+        "last": "오늘 08:31"
+      }
+    ],
+    "allergyNote": {
+      "allergen": "penicillin",
+      "detail": "발진, 1998",
+      "checked": "10월 14일 복용 중인 모든 약에 대해 상호작용 검사를 실행했습니다."
+    },
+    "medicinesPill": {
+      "tone": "good",
+      "text": "상호작용 없음"
+    },
+    "labs": [
+      {
+        "name": "eGFR",
+        "unit": "mL/min",
+        "values": [
+          64,
+          62,
+          60,
+          58
+        ],
+        "reference": [
+          60,
+          120
+        ],
+        "axis": [
+          55,
+          70
+        ],
+        "note": "60 미만 · 신장 검사"
+      },
+      {
+        "name": "HbA1c",
+        "unit": "%",
+        "values": [
+          5.6,
+          5.7,
+          5.8,
+          5.9
+        ],
+        "reference": [
+          4,
+          6
+        ],
+        "axis": [
+          5.4,
+          6.2
+        ],
+        "note": "상승 중 · 곧 당뇨 전단계 범위"
+      },
+      {
+        "name": "LDL 콜레스테롤",
+        "unit": "mmol/L",
+        "values": [
+          3.1,
+          2.6,
+          2.5,
+          2.4
+        ],
+        "reference": [
+          0,
+          2.6
+        ],
+        "axis": [
+          2,
+          3.4
+        ],
+        "note": "목표 달성"
+      },
+      {
+        "name": "나트륨",
+        "unit": "mmol/L",
+        "values": [
+          139,
+          138,
+          137,
+          136
+        ],
+        "reference": [
+          135,
+          145
+        ],
+        "axis": [
+          132,
+          142
+        ],
+        "note": "정상, 서서히 감소"
+      }
+    ],
+    "hospitals": [
+      {
+        "name": "Camperdown Stroke Centre",
+        "capability": "24시간 뇌졸중 센터 · 혈전 제거술",
+        "eta": "11분",
+        "load": "24/28",
+        "tone": "warn",
+        "recommended": true
+      },
+      {
+        "name": "Inner West General",
+        "capability": "응급실 · 뇌졸중 센터 없음",
+        "eta": "9분",
+        "load": "14/30",
+        "tone": "good",
+        "recommended": false
+      },
+      {
+        "name": "Kogarah Regional",
+        "capability": "24시간 뇌졸중 센터",
+        "eta": "17분",
+        "load": "31/28",
+        "tone": "bad",
+        "recommended": false
+      }
+    ],
+    "sources": [
+      {
+        "source": "손목 웨어러블",
+        "standard": "제조사 API → FHIR Observation",
+        "records": "18,402",
+        "lastSync": "2분 전",
+        "status": "실시간",
+        "tone": "good"
+      },
+      {
+        "source": "홈 허브 · 센서 6개",
+        "standard": "MQTT → Pub/Sub → FHIR",
+        "records": "52,110",
+        "lastSync": "1분 전",
+        "status": "실시간",
+        "tone": "good"
+      },
+      {
+        "source": "음성 안부 확인",
+        "standard": "Gemini → QuestionnaireResponse",
+        "records": "612",
+        "lastSync": "13:04",
+        "status": "실시간",
+        "tone": "good"
+      },
+      {
+        "source": "Illawarra Rd Family Practice",
+        "standard": "FHIR R4",
+        "records": "386",
+        "lastSync": "06:00",
+        "status": "매일",
+        "tone": "good"
+      },
+      {
+        "source": "병리 검사실",
+        "standard": "HL7 v2 → FHIR R4",
+        "records": "212",
+        "lastSync": "10월 12일",
+        "status": "결과 나올 때",
+        "tone": "good"
+      },
+      {
+        "source": "스캔한 편지와 보고서",
+        "standard": "Gemini OCR → FHIR DocumentReference",
+        "records": "74",
+        "lastSync": "9월 3일",
+        "status": "완료",
+        "tone": "plain"
+      },
+      {
+        "source": "My Health Record",
+        "standard": "FHIR (예정)",
+        "records": "—",
+        "lastSync": "—",
+        "status": "예정",
+        "tone": "plain"
+      }
+    ],
+    "sourcesTag": "FHIR R4",
+    "followUp": [
+      {
+        "day": "1일차",
+        "text": "음성 통화, 통증과 혼란 확인"
+      },
+      {
+        "day": "3일차",
+        "text": "새 약과 기존 약 대조"
+      },
+      {
+        "day": "7일차",
+        "text": "GP 방문 예약, 혈압 검토"
+      },
+      {
+        "day": "14일차",
+        "text": "거동 및 낙상 확인"
+      },
+      {
+        "day": "30일차",
+        "text": "재입원 위험 재평가"
+      }
+    ],
+    "followUpNote": "경고 신호는 가족뿐 아니라 퇴원 담당 간호사에게도 전달돼요."
+  }
+}

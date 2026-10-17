@@ -36,7 +36,7 @@ export function distanceM(a: LatLng, b: LatLng): number {
 export const distanceLabel = (m: number) => {
   if (m < 1000) return `${Math.round(m / 10) * 10} m`
   const km = (m / 1000).toFixed(1)
-  return `${currentLanguage() === 'vi' ? km.replace('.', ',') : km} km`
+  return `${currentLanguage() === 'vi' ? km.replace('.', ',') : km} km` // the other languages keep the dot
 }
 
 /** `Australia/Melbourne` → `Melbourne`. */

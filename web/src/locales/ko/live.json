@@ -1,0 +1,728 @@
+{
+  "idle": {
+    "title": "진행 중인 알림 없음",
+    "body": "알림이 오면 이 화면에서 대응 과정을 분 단위로 보여 줘요. 누가 오고 있는지, Margaret의 화면에 무엇이 보이는지, 병원이 언제 기록을 받았는지요. 이번 주 지역사회 알림 37건 중 29건은 아무도 깨우지 않고 오경보로 걸러졌어요.",
+    "run": "02:03 야간 알림 데모 실행"
+  },
+  "endDemo": "데모 종료",
+  "orbitLabel": "응급 상황의 돌봄 모임: Margaret에게 다가가는 도움",
+  "since": "알림 후",
+  "subtitle": "실시간 · {{time}} AEDT · 186 Marrickville Rd",
+  "actions": {
+    "call000": "000에 전화",
+    "callMum": {
+      "label": "어머니께 전화",
+      "toast": "어머니께 전화 중 · 자막 켜짐"
+    },
+    "callDavid": {
+      "label": "David에게 전화",
+      "toast": "David에게 전화 중"
+    }
+  },
+  "timeline": {
+    "title": "실시간 타임라인",
+    "meta": "돌봄 모임과 공유됨"
+  },
+  "player": {
+    "prev": "이전 단계",
+    "next": "다음 단계",
+    "pause": "일시 정지",
+    "play": "재생"
+  },
+  "phone": {
+    "title": "Margaret의 화면",
+    "meta": "같은 순간",
+    "note": "청력 모드가 켜져 있어서 모든 질문이 큰 글씨와 예/아니요 버튼으로도 표시돼요.",
+    "header": "{{time}} · 청력 모드",
+    "yes": "예",
+    "no": "아니요",
+    "answered": "Margaret: {{a}}"
+  },
+  "liveSubtitle": "실시간 · {{time}} · {{address}}",
+  "live": {
+    "starting": "시나리오 시작 중…",
+    "reset": "데모 초기화",
+    "resetDone": "데모 초기화됨 · 초기 데이터 다시 불러옴",
+    "close": "사건 종료",
+    "closed": "사건 종료됨",
+    "loading": "실시간 사건에 연결 중…",
+    "noLog": "첫 업데이트를 기다리는 중…",
+    "actionsTitle": "{{name}} 님의 버튼",
+    "noActions": "{{name}} 님은 아직 할 일이 없어요. 알림을 받은 사람으로 보기를 바꿔 보세요.",
+    "action": {
+      "ACCEPT": "지금 가고 있어요",
+      "DECLINE": "갈 수 없어요",
+      "ARRIVED": "옆에 있어요",
+      "CALLED_115": "{{num}}에 전화했어요",
+      "CALL_PERSON": "{{name}}에게 전화",
+      "CALL_NEARBY": "가까운 도우미에게 전화"
+    },
+    "actionDone": {
+      "ACCEPT": "내가 담당 · 모두가 볼 수 있어요",
+      "DECLINE": "거절함 · 다음 사람에게 요청 중",
+      "ARRIVED": "옆에 있음으로 표시함",
+      "CALLED_115": "타임라인에 기록함"
+    },
+    "calling": "{{who}}에게 전화 중",
+    "record": "눌러서 대답하기",
+    "recording": "녹음 중… 눌러서 보내기",
+    "sending": "보내는 중…",
+    "noMic": "여기서는 마이크를 쓸 수 없어요 · 버튼을 사용하세요",
+    "noReplyIn": "{{s}}초 안에 대답이 없으면 무응답으로 처리해요",
+    "answered": "Margaret: {{a}}",
+    "failed": "전송되지 않았어요 · 다시 시도해 주세요",
+    "busy": "이전 답변을 아직 처리 중이에요",
+    "scriptTitle": "{{num}} 신고 대본",
+    "scriptPending": "중증도 분류가 끝나면 Noa가 이 대본을 작성해요."
+  },
+  "sos": {
+    "title": "000 신고 대본",
+    "intro": "구급차를 요청하세요. 이 내용을 소리 내어 읽으세요.",
+    "rows": [
+      [
+        "주소",
+        "186 Marrickville Rd, Marrickville NSW 2204"
+      ],
+      [
+        "환자",
+        "Margaret Collins, 78세, 독거"
+      ],
+      [
+        "증상",
+        "02:04부터 말이 어눌함, 심박수 142"
+      ],
+      [
+        "마지막 정상",
+        "01:55"
+      ],
+      [
+        "약",
+        "암로디핀, 아스피린, 아토르바스타틴 · 페니실린 알레르기"
+      ],
+      [
+        "출입",
+        "남동생이 02:11에 열쇠를 가지고 도착 · 이웃 Aisha가 예비 열쇠 보관"
+      ]
+    ],
+    "call": "000에 전화",
+    "callToast": "000에 거는 중 · 구급차를 요청하세요",
+    "copy": "주소 복사",
+    "copied": "주소를 복사했어요",
+    "note": "Noa가 준비하고, 전화는 사람이 걸어요."
+  },
+  "liveSubtitleShort": "실시간 · {{time}}",
+  "phase": {
+    "verify": "확인",
+    "ask": "질문",
+    "triage": "분류",
+    "escalate": "단계 상향",
+    "handOff": "인계",
+    "agent": "Noa",
+    "close": "종료"
+  },
+  "level": {
+    "ok": "모두 괜찮음",
+    "monitor": "지켜보기",
+    "comeNow": "지금 와 주세요",
+    "emergency": "지금 응급",
+    "checking": "확인 중",
+    "helpArrived": "도움 도착",
+    "falseAlarm": "오경보",
+    "closed": "종료됨"
+  },
+  "units": {
+    "sec": "{{n}}초",
+    "min": "{{n}}분"
+  },
+  "sla": {
+    "verified": "알림 → 확인",
+    "escalated": "확인 → 단계 상향",
+    "accepted": "수락",
+    "atDoor": "현관 도착",
+    "edNotice": "도착 전 응급실 통보",
+    "edPacket": "응급실 정보 수신",
+    "minAhead": "{{n}}분 전",
+    "yes": "예"
+  },
+  "steps": [
+    {
+      "d": "심박수 142, 4분간 움직임 없음",
+      "s": "야간 기준치 61. 활동으로 설명되지 않음.",
+      "own": [
+        "David · 아직 알리지 않음",
+        "450m 거리 · 첫 번째 연락",
+        "—"
+      ],
+      "what": "심박수 142, 움직임 없음",
+      "sub": "아무도 깨우기 전에 Noa가 확인 중이에요",
+      "q": "Margaret…",
+      "small": "전화가 울리고 화면이 깜박여요",
+      "help": ""
+    },
+    {
+      "d": "Margaret에게 음성으로 전화해요. 천천히 대답해요",
+      "s": "화면에도 큰 글씨 질문이 떠요",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "천천히 대답함",
+      "sub": "Noa가 지금 이야기하고 있어요",
+      "q": "Margaret, 안부 확인 시간이에요. 제 말 들리세요?",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "따라 말하기 확인: 말이 어눌함",
+      "s": "발음 점수 0.41 (기준 0.94)",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "어눌한 말",
+      "sub": "뇌졸중 의심 징후",
+      "q": "따라 말해 주세요: \"시드니 하늘은 파래요.\"",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "단계: 지금 응급",
+      "s": "마지막 정상 확인 01:55",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "뇌졸중 의심 징후",
+      "sub": "마지막 정상 확인 01:55",
+      "q": "가만히 앉아 계세요. 일어나려고 하지 마세요.",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "David와 당신에게 알림",
+      "s": "런던의 Sarah는 소식을 받아요",
+      "own": [
+        "David · 알림 받음",
+        "수락을 기다리는 중",
+        "5:00"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "David에게 전화했어요.",
+      "small": "",
+      "help": ""
+    },
+    {
+      "d": "David: \"지금 가고 있어요\"",
+      "s": "David가 담당해요. 모두가 볼 수 있어요.",
+      "own": [
+        "David · 가는 중",
+        "담당",
+        "6′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "David가 오고 있어요.",
+      "small": "",
+      "help": "David · 6분 거리"
+    },
+    {
+      "d": "준비된 대본으로 000에 전화하세요",
+      "s": "주소, 나이, 증상, 약, 출입 방법",
+      "own": [
+        "",
+        "",
+        "5′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "James가 구급차를 부르고 있어요.",
+      "small": "",
+      "help": "David · 5분 거리"
+    },
+    {
+      "d": "Camperdown 뇌졸중 센터가 기록을 받았어요",
+      "s": "24시간 뇌졸중 진료로 선정 · 11분",
+      "own": [
+        "",
+        "",
+        "4′"
+      ],
+      "what": "",
+      "sub": "",
+      "q": "병원에 정보가 전달됐어요.",
+      "small": "",
+      "help": "David · 4분 거리"
+    },
+    {
+      "d": "David가 Margaret 곁에 있어요",
+      "s": "문 열림, 앉아 있고 의식 명료",
+      "own": [
+        "David · Margaret 곁에 있음",
+        "02:11부터 현장",
+        "✓"
+      ],
+      "what": "David가 곁에 있어요",
+      "sub": "구급차가 오는 중",
+      "q": "David가 왔어요.",
+      "small": "",
+      "help": "David가 곁에 있어요"
+    },
+    {
+      "d": "구급차 도착 · 뇌졸중팀 대기",
+      "s": "응급실이 도착 14분 전에 정보를 확인함",
+      "own": [
+        "",
+        "",
+        ""
+      ],
+      "what": "Camperdown으로 이동 중",
+      "sub": "퇴원 후 30일 회복 계획 시작",
+      "q": "구급차가 왔어요. 이제 안심하세요.",
+      "small": "",
+      "help": "David가 함께 가요"
+    }
+  ],
+  "script": {
+    "label": "대본",
+    "call": "{{num}}에 전화",
+    "dialling": "{{num}}에 거는 중 · 구급차를 요청하세요",
+    "copy": "대본 복사"
+  },
+  "actAs": "역할 선택",
+  "incident": {
+    "who": {
+      "console": "콘솔",
+      "system": "시스템",
+      "agent": "Noa",
+      "person": "사람",
+      "her": "본인",
+      "circle": "돌봄 모임",
+      "patient": "환자"
+    },
+    "alert": {
+      "hr": "심박수 {{hr}}",
+      "hrHigh": "높은 심박수",
+      "fall": "낙상 의심",
+      "fallStill": "낙상 의심, {{min}}분간 움직임 없음",
+      "whileActive": "활동 중 {{hr}}",
+      "notMoving": "{{hr}}, 움직임 없음"
+    },
+    "head": {
+      "falseAlarm": "오경보",
+      "verifying": "아무도 깨우기 전에 Noa가 확인 중이에요",
+      "slurred": "어눌한 말",
+      "slurredSub": "뇌졸중 의심 징후",
+      "noAnswer": "아직 응답 없음",
+      "noAnswerSub": "지금 화면에 큰 글씨와 예/아니요 표시",
+      "checking": "안부 확인 중",
+      "checkingSub": "Noa가 지금 이야기하고 있어요",
+      "withHer": "{{name}} 님이 곁에 있어요",
+      "hospital": "병원: {{name}}",
+      "helpWithHer": "도움이 곁에 있어요",
+      "lastWell": "마지막 정상 확인 {{time}}",
+      "ok": "괜찮으세요"
+    },
+    "owner": {
+      "withSelf": "{{name}} · {{self}} 곁에 있음",
+      "onSceneSince": "{{time}}부터 현장",
+      "onScene": "현장",
+      "onTheWay": "{{name}} · 가는 중",
+      "owns": "담당",
+      "alerted": "{{name}} · 알림 받음",
+      "waiting": "수락을 기다리는 중",
+      "calling": "지금 전화 중",
+      "noNearby": "가까이에서 올 수 있는 사람이 없어요",
+      "callNow": "지금 {{num}}에 전화하세요",
+      "autoCalled": "{{num}}에 자동으로 전화함",
+      "notYet": "{{name}} · 아직 알리지 않음",
+      "firstToCall": "첫 번째 연락"
+    },
+    "phone": {
+      "ringing": "전화가 울리고 화면이 깜박여요",
+      "listening": "듣는 중…",
+      "fine": "다 괜찮아요. 귀찮게 해서 미안해요.",
+      "glad": "고마워요. 괜찮으셔서 다행이에요.",
+      "withYou": "{{name}} 님이 곁에 있어요",
+      "away": "{{name}} · {{eta}} 거리",
+      "onTheWay": "도움이 오고 있어요.",
+      "status": {
+        "calling": "지금 {{name}} 님에게 전화하고 있어요. 앉아 계세요.",
+        "noAnswer": "{{prev}} 님이 받지 않아서 메시지를 남겼어요. 지금 {{name}} 님에게 전화하고 있어요.",
+        "onTheWay": "{{name}} 님이 오고 있어요. 도움이 오는 중이에요.",
+        "calling000": "지금 {{num}}에 구급차를 부르고 있어요. 그 자리에 계세요. 도움이 오고 있어요.",
+        "onTheWayCalling": "{{name}} 님이 열쇠를 가지고 오고 있어요. 지금 {{num}}에 전화하고 있어요.",
+        "ambulance": "도움이 오고 있어요, Margaret. 구급차가 12분 거리에 있어요. 앉아 계세요. 제가 바로 곁에 있어요."
+      }
+    },
+    "packet": {
+      "patient": "환자",
+      "status": "상태",
+      "lastWell": "마지막 정상",
+      "findings": "소견",
+      "history": "병력",
+      "medicines": "약",
+      "allergy": "알레르기",
+      "function": "기능",
+      "comms": "의사소통",
+      "onScene": "현장",
+      "contact": "연락처",
+      "packet": "정보",
+      "female": "여성",
+      "male": "남성",
+      "suspected": "{{what}} 의심",
+      "eta": "도착 예정 {{eta}}",
+      "unknown": "알 수 없음",
+      "familyHistory": "가족력",
+      "withheld": "비공개",
+      "noConsent": "유효한 동의 없음",
+      "notRecorded": "기록 없음",
+      "noneKnown": "알려진 것 없음",
+      "anonymous": "환자 (신원 비공개)",
+      "preArrival": "도착 전",
+      "enrolled": "{{who}} · 등록됨",
+      "lastWellAt": "마지막 정상 {{time}}",
+      "cat": {
+        "identity": "신원",
+        "conditions": "병력",
+        "medications": "약",
+        "allergies": "알레르기",
+        "familyHistory": "가족력",
+        "communication": "의사소통"
+      },
+      "comm": {
+        "HARD_OF_HEARING": "난청: 질문을 글로 써 주세요",
+        "COGNITIVE_IMPAIRMENT": "인지 장애: 질문을 간단히 해 주세요"
+      }
+    }
+  },
+  "sim": {
+    "title": "🎛️ 시뮬레이터",
+    "meta": "Noa를 안전하게 체험해 보세요",
+    "howto": [
+      "**심박수**를 120 이상으로 끌어 올리세요",
+      "**움직임 없음**을 10분으로 끌어 놓으세요",
+      "Noa가 스스로 나서서 Margaret과 이야기하고 무엇이 문제인지 알아내요",
+      "선택: 휴대폰에서 Margaret의 대답을 눌러 이야기를 바꿔 보세요"
+    ],
+    "preset": {
+      "night": "🌙 야간 응급",
+      "stairs": "🪜 계단 오름",
+      "asleep": "😴 깊은 잠"
+    },
+    "hr": "❤️ 심박수",
+    "hrAria": "심박수",
+    "bpm": "{{n}} bpm",
+    "still": "🛋️ 움직임 없음",
+    "stillAria": "움직임 없음",
+    "moving": "움직이는 중",
+    "min": "{{n}}분",
+    "minAlert": "{{n}}분 ⚠️",
+    "alertTick": "10분 · 알림",
+    "more": "더 보기: 누가 전화를 받을지",
+    "speech": "말",
+    "speechOpt": {
+      "slurred": "어눌함 (자동)",
+      "mic": "직접 대답 (마이크)"
+    },
+    "david": "David가 받음",
+    "yes": "예",
+    "no": "아니요",
+    "pause": "⏸️ 일시 정지",
+    "resume": "▶️ 다시 시작",
+    "runTitle": "모니터링이 실시간으로 진행돼요. 언제든 멈출 수 있어요.",
+    "faster": "⏩ 빠르게",
+    "normal": "🐢 보통 속도",
+    "reset": "↺ 초기화",
+    "readings": {
+      "title": "📈 실시간 측정값",
+      "meta": "시계와 집 센서에서 1분마다 측정",
+      "hr": "심박수",
+      "run": "연속 시간 계산",
+      "alert": "알림 기준 120",
+      "ago": "−40분 · 초록 = 움직임",
+      "now": "현재 {{time}}",
+      "movement": "움직임, 1칸에 1분: 최근 {{n}}분간 움직임 없음",
+      "rule": "움직이지 않는 상태에서 심박수 120 초과가 10분 지속",
+      "progress": "10분 중 {{n}}분 · 현재 {{hr}} bpm · {{state}}",
+      "moving": "움직이는 중",
+      "still": "움직임 없음",
+      "note": {
+        "alert": "🚨 Noa가 확인하고 있어요",
+        "moving": "심박수가 높지만 움직이는 중(계단, 정원 일): 알림 없음",
+        "resting": "움직임은 없지만 심박수 정상(수면, 휴식): 알림 없음",
+        "counting": "계산 중… 잠깐 오르는 것으로 아무도 깨우지 않도록 Noa가 10분 기다려요",
+        "normal": "모두 정상"
+      },
+      "movementLabel": "움직임",
+      "condHr": "심박수 120 초과",
+      "condHrSub": "현재 {{hr}} bpm",
+      "condStill": "움직임 없음",
+      "condStillSub": "{{n}}분간 움직임 없음",
+      "condMoving": "지금 움직이는 중",
+      "meter": "연속 분"
+    },
+    "locked": "🔒 알림 진행 중에는 잠김"
+  },
+  "call": {
+    "title": "000 전화 · 데모 통화",
+    "operator": "000 상담원",
+    "noa": "Noa",
+    "dialling": "000에 거는 중…",
+    "fine": "실제 서비스에서는 000 전화가 승인된 응급 중계를 거치고 항상 사람 상담원이 이어받아요. 대본은 정해져 있고 의료진이 검토한 것이며, AI가 지어낸 것이 아니에요."
+  },
+  "speech": {
+    "title": "Noa 말하기 확인",
+    "tag": "핵심 기술",
+    "meta": "평균이 아니라 {{name}} 님 본인의 목소리와 오늘 밤 목소리를 비교해요",
+    "state": {
+      "ready": "준비됨 · 아침 대화 41회로 만든 기준",
+      "listen": "🎙️ {{name}} 님의 목소리를 듣는 중…",
+      "analyse": "본인 목소리와 비교 분석 중…",
+      "clear": "✓ 명료함 · 평소 목소리와 일치",
+      "slurred": "⚠ 어눌한 말 감지 · 뇌졸중 의심"
+    },
+    "slurred": "⚠ 어눌한 말 감지 · 뇌졸중 의심",
+    "clear": "✓ 명료함 · 평소 목소리와 일치",
+    "normal": "평소",
+    "baseline": "기준 · 30일",
+    "tonight": "오늘 밤",
+    "repeating": "{{name}} 님이 “시드니 하늘은 파래요”를 따라 말하는 중",
+    "idle": "Noa가 확인이 필요할 때 실행돼요. {{name}} 님이 짧은 문장 하나를 따라 말해요.",
+    "measure": "측정 항목",
+    "normalCol": "평소",
+    "tonightCol": "오늘 밤",
+    "measures": [
+      "명료도 (발음)",
+      "말하는 속도",
+      "단어 사이 쉼",
+      "인식된 단어",
+      "목소리 안정성"
+    ],
+    "how": [
+      [
+        "목소리를 익혀요",
+        "2분 아침 대화로"
+      ],
+      [
+        "한 문장",
+        "이상해 보일 때"
+      ],
+      [
+        "5가지 측정",
+        "본인 평소와 비교, 2초 이내"
+      ],
+      [
+        "어눌함 = 빨강:",
+        "Noa가 질문을 건너뛰고 도움을 요청해요"
+      ]
+    ],
+    "fine": "보청기와 억양도 기준에 포함되어 오경보를 일으키지 않아요. 녹음은 저장하지 않고 점수만 남겨요. 데모의 수치는 예시예요."
+  },
+  "agent": {
+    "title": "Noa",
+    "sub": "No One Alone 도우미",
+    "ask": "💬 Noa에게 묻기",
+    "her": "본인",
+    "idle": "모두 정상이에요. 두 가지 경고 신호가 함께 나타날 때만 Noa가 나서요.",
+    "nowHr": "경고 신호: 움직이지 않는 상태에서 심박수 120 초과가 10분 지속(현재 {{hr}} bpm). 아무도 깨우기 전에 먼저 {{name}} 님을 확인해요.",
+    "nowFall": "경고 신호: 심한 낙상 후 움직임 없음. 아무도 깨우기 전에 먼저 {{name}} 님을 확인해요.",
+    "pending": {
+      "title": "다음 단계는 대답에 따라 달라져요",
+      "text": "🟢 괜찮음 → 안심시키고 다시 확인 · 🟡 몸이 안 좋지만 말은 또렷함 → 간호사 + 가족 · 🔴 어눌한 말, 무응답, 가슴 통증, 힘 빠짐, 낙상 → {{num}}"
+    },
+    "decision": {
+      "green": {
+        "title": {
+          "stroke": "🟢 초록: 괜찮아요",
+          "fall": "🟢 초록: 괜찮아요",
+          "other": "🟢 초록: 괜찮아요"
+        },
+        "text": "말이 또렷하고 경고 증상이 없으며 평소 목소리 같아요. 차분히 있고 아무도 깨우지 않아요."
+      },
+      "amber": {
+        "title": {
+          "stroke": "🟡 주황: 몸이 안 좋지만 말은 또렷함",
+          "fall": "🟡 주황: 몸이 안 좋지만 말은 또렷함",
+          "other": "🟡 주황: 몸이 안 좋지만 말은 또렷함"
+        },
+        "text": "오늘 밤 누군가 곁에 있어야 해요. Noa가 돌봄 모임에 차례로 전화해요."
+      },
+      "red": {
+        "title": {
+          "stroke": "🔴 빨강: 뇌졸중 의심",
+          "fall": "🔴 빨강: 심각한 낙상 의심",
+          "other": "🔴 빨강: 응급"
+        },
+        "text": "시간이 중요하니 Noa가 추가 질문을 건너뛰고 지금 도움을 요청해요."
+      }
+    },
+    "step": {
+      "detect": "경고 신호 감지",
+      "ask": "{{name}} 님 확인",
+      "speech": "말하기 검사",
+      "feel": "기분 묻기",
+      "decide": "판단: 초록, 주황, 빨강",
+      "alertAll": "돌봄 모임 전체에 알림",
+      "call": "{{name}}에게 전화 ({{detail}})",
+      "scan": "가장 가까운 사람 찾기",
+      "ooo": "대본으로 {{num}}에 전화",
+      "packet": "병원에 기록 보내기",
+      "company": "도움이 올 때까지 곁에 있기",
+      "paramedics": "곁에 있기 · 구급대원에게 인계",
+      "g1": "안심시키기: 물과 천천히 숨쉬기",
+      "g2": "10분 뒤 심박 다시 확인",
+      "g3": "가족에게 아침 메모"
+    },
+    "state": {
+      "done": "완료",
+      "cur": "현재",
+      "fail": "실패",
+      "skip": "건너뜀",
+      "noAnswer": "응답 없음"
+    },
+    "pill": {
+      "watching": "지켜보는 중",
+      "verifying": "알림 확인 중",
+      "deciding": "판단 중",
+      "falseAlarm": "오경보",
+      "allClear": "이상 없음",
+      "handedOver": "인계함",
+      "withHer": "도움이 곁에 있어요",
+      "detect": "알림 확인 중",
+      "ask": "안부 확인 중",
+      "speech": "말하기 검사",
+      "feel": "기분 묻는 중",
+      "decide": "판단 중",
+      "alertall": "돌봄 모임에 알리는 중",
+      "calling": "{{name}}에게 전화 중",
+      "scan": "도움 찾는 중",
+      "ooo": "{{num}}에 전화 중",
+      "packet": "병원에 알리는 중",
+      "company": "곁에 있는 중",
+      "g1": "안심시키는 중",
+      "g2": "다시 확인 중",
+      "g3": "마무리 중"
+    },
+    "calls": {
+      "title": "📞 전화 순서",
+      "meta": "우선순위 목록, 그다음 가까운 사람"
+    },
+    "alerts": {
+      "title": "🔔 돌봄 모임 알림",
+      "meta": "안전 알림을 켠 모든 사람",
+      "none": "보낸 알림 없음",
+      "noneSub": "알릴 내용 없음"
+    },
+    "call": {
+      "waiting": "대기",
+      "ringing": "벨 울리는 중…",
+      "answered": "받음",
+      "onTheWay": "받음 · 가는 중",
+      "withHer": "곁에 있음",
+      "declined": "올 수 없음",
+      "voicemail": "응답 없음 · 음성 메시지",
+      "text": "응답 없음 · 문자",
+      "notNeeded": "필요 없음",
+      "dialling": "거는 중…",
+      "connected": "연결됨 · 통화 중",
+      "dispatched": "구급차 출동"
+    },
+    "ambulance": "구급차",
+    "priority": "우선순위 {{n}}",
+    "nearest": "가장 가까움, {{d}}",
+    "m": "{{n}} m",
+    "km": "{{n}} km",
+    "sent": "{{time}} 보냄",
+    "relation": {
+      "son": "아들",
+      "daughter": "딸",
+      "brother": "남동생",
+      "sister": "여동생",
+      "neighbour": "이웃",
+      "neighbor": "이웃",
+      "wife": "아내",
+      "husband": "남편",
+      "friend": "친구"
+    },
+    "phone": {
+      "title": "📱 {{name}} 님의 휴대폰",
+      "spoken": "소리 내어 읽기 · 큰 글씨",
+      "goodnight": "안녕히 주무세요, {{name}} 님",
+      "sleep": "푹 주무세요. 필요하면 제가 여기 있어요 💙",
+      "ok": "괜찮아요",
+      "help": "도와주세요",
+      "okToast": "가족이 괜찮으신 걸 알게 됐어요"
+    },
+    "log": {
+      "title": "🗒️ Noa의 기록",
+      "meta": "모든 단계, 시간 기록",
+      "idle": "조용히 지켜보는 중. 알릴 내용 없음.",
+      "sla": "지금까지의 대응 시간"
+    },
+    "circle": {
+      "title": "🫂 {{name}} 님의 돌봄 모임",
+      "allNormal": "모두 정상",
+      "watching": "조용히 지켜보는 중",
+      "lkw": "마지막 정상 확인 —",
+      "inPlace": "모두 제자리에 있어요",
+      "inPlaceSub": "아무도 깨우지 않았어요",
+      "checking": "Noa가 {{name}} 님을 확인 중이에요",
+      "checkingSub": "아직 아무도 깨우지 않았어요",
+      "allClear": "이상 없음",
+      "allClearSub": "아무도 깨우지 않았어요",
+      "farAway": "{{names}} 멀리 있음",
+      "and": " 및 "
+    },
+    "light": {
+      "green": "🟢 초록",
+      "greenSub": "괜찮아요",
+      "amber": "🟡 주황",
+      "amberSub": "몸이 안 좋지만 말은 또렷함",
+      "red": "🔴 빨강",
+      "redSub": "지금 도움 요청"
+    }
+  },
+  "talk": {
+    "title": "🎙️ 실시간 대화",
+    "meta": "Noa가 한 모든 말과 대상",
+    "live": "실시간 · {{time}}",
+    "filter": "대화 필터",
+    "all": "전체",
+    "to": "Noa → {{name}}",
+    "none": "아직 한 말이 없어요. Noa가 조용히 지켜보고 있어요.",
+    "noReply": "(응답 없음)",
+    "operator": "상담원",
+    "hospital": "병원",
+    "strokeTeam": "뇌졸중팀",
+    "ACCEPTED": "“지금 가고 있어요.”",
+    "DECLINED": "“갈 수 없어요.”",
+    "ARRIVED": "“지금 곁에 있어요.”",
+    "onCall": "{{num}}와 통화 중"
+  },
+  "hand": {
+    "title": "📦 누가 무엇을 받았나요",
+    "meta": "각자 필요한 것만 받아요 · 눌러서 보기",
+    "none": "공유한 것 없음",
+    "noneSub": "Noa가 행동할 때만 정보가 전달돼요",
+    "safety": "안전 알림",
+    "push": "푸시 알림 + 문자",
+    "message": "메시지",
+    "distant": "전화 + 실시간 페이지",
+    "distantMissed": "음성 메시지 + 문자 + 실시간 페이지",
+    "nearby": "지금 출발 + 할 일 안내",
+    "nearbyMissed": "음성 메시지 + 문자",
+    "how": "방법",
+    "told": "전달 내용",
+    "eta": "오는 중",
+    "ambulance": "{{num}} 구급차",
+    "fullCall": "전체 응급 신고",
+    "script": "대본",
+    "packet": "도착 전 기록 (FHIR)",
+    "status": "상태",
+    "fine": "{{name}} 님 본인의 설정에 따라 공유돼요. 모든 전달은 기록되며 나중에 본인이 확인할 수 있어요."
+  }
+}

@@ -1,0 +1,855 @@
+{
+  "community": {
+    "context": {
+      "initials": "IW",
+      "color": "#6d4fc0",
+      "sub": "Inner West 지역사회 보건 · 15개 동네 · 고령 주민 1,846명 등록",
+      "facts": [
+        {
+          "live": true,
+          "label": "동기화됨",
+          "value": "15:00"
+        },
+        {
+          "live": false,
+          "label": "10명 미만 그룹",
+          "value": "비공개 처리"
+        },
+        {
+          "live": false,
+          "label": "폭염",
+          "value": "목요일"
+        },
+        {
+          "live": false,
+          "label": "오늘 활동 중인 자원봉사자",
+          "value": "23"
+        }
+      ]
+    },
+    "kpis": [
+      {
+        "label": "등록된 고령 주민",
+        "value": "1,846",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "15개 동네",
+        "delta": "+64 월",
+        "tone": "good",
+        "spark": [
+          1600,
+          1640,
+          1680,
+          1710,
+          1740,
+          1770,
+          1800,
+          1825,
+          1846
+        ]
+      },
+      {
+        "label": "혼자 사는 분",
+        "value": "38",
+        "unit": "%",
+        "color": "#2f6fb0",
+        "baseline": "703명",
+        "delta": "+1점",
+        "tone": "good",
+        "spark": [
+          36,
+          36,
+          37,
+          37,
+          37,
+          38,
+          38,
+          38,
+          38
+        ]
+      },
+      {
+        "label": "고위험",
+        "value": "212",
+        "unit": "명",
+        "color": "#d9443f",
+        "baseline": "등록자의 11.5%",
+        "delta": "+6 월",
+        "tone": "warn",
+        "spark": [
+          180,
+          186,
+          190,
+          195,
+          199,
+          204,
+          206,
+          209,
+          212
+        ]
+      },
+      {
+        "label": "안부 확인 응답",
+        "value": "92.7",
+        "unit": "% (오늘)",
+        "color": "#1fb39c",
+        "baseline": "1,846명 중 1,712명",
+        "delta": "−0.4점",
+        "tone": "good",
+        "spark": [
+          94,
+          93,
+          94,
+          93,
+          92,
+          93,
+          94,
+          93,
+          92.7
+        ]
+      },
+      {
+        "label": "알림부터 방문까지",
+        "value": "8.6",
+        "unit": "분 (중앙값)",
+        "color": "#0b7f71",
+        "baseline": "p90 14.2분",
+        "delta": "−0.9분",
+        "tone": "good",
+        "spark": [
+          10.2,
+          9.8,
+          9.6,
+          9.4,
+          9.1,
+          9,
+          8.9,
+          8.7,
+          8.6
+        ]
+      },
+      {
+        "label": "활동 중인 자원봉사자",
+        "value": "64",
+        "unit": "",
+        "color": "#8f6fd0",
+        "baseline": "1인당 주 2.3회 방문",
+        "delta": "+5 월",
+        "tone": "good",
+        "spark": [
+          48,
+          50,
+          53,
+          55,
+          57,
+          59,
+          61,
+          62,
+          64
+        ]
+      },
+      {
+        "label": "이번 주 알림",
+        "value": "37",
+        "unit": "",
+        "color": "#ef4e4a",
+        "baseline": "8건 상향 조치",
+        "delta": "−4 주",
+        "tone": "good",
+        "spark": [
+          44,
+          41,
+          39,
+          42,
+          40,
+          38,
+          41,
+          39,
+          37
+        ]
+      },
+      {
+        "label": "걸러낸 오경보",
+        "value": "78",
+        "unit": "%",
+        "color": "#1fb39c",
+        "baseline": "37건 중 29건",
+        "delta": "+3점",
+        "tone": "good",
+        "spark": [
+          70,
+          71,
+          73,
+          74,
+          75,
+          76,
+          77,
+          77,
+          78
+        ]
+      },
+      {
+        "label": "이번 주 부족한 방문",
+        "value": "180",
+        "unit": "회",
+        "color": "#d9443f",
+        "baseline": "Tempe, Sydenham, St Peters",
+        "delta": "+8 주",
+        "tone": "warn",
+        "spark": [
+          38,
+          42,
+          40,
+          45,
+          48,
+          50,
+          52,
+          55,
+          180
+        ]
+      },
+      {
+        "label": "음성 지원 언어",
+        "value": "7",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "+2 베타",
+        "delta": "+1 분기",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          5,
+          5,
+          5,
+          6,
+          6,
+          7,
+          7
+        ]
+      },
+      {
+        "label": "냉방실 자리",
+        "value": "260",
+        "unit": "목",
+        "color": "#e07a3f",
+        "baseline": "3곳 · 137석 여유",
+        "delta": "신규",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          0,
+          0,
+          120,
+          200,
+          200,
+          260,
+          260
+        ]
+      },
+      {
+        "label": "목요일 응급실 예측",
+        "value": "34",
+        "unit": "75세 이상",
+        "color": "#d9443f",
+        "baseline": "적정선 28",
+        "delta": "수요일 대비 +13",
+        "tone": "warn",
+        "spark": [
+          21,
+          22,
+          20,
+          23,
+          21,
+          22,
+          21,
+          25,
+          34
+        ]
+      }
+    ],
+    "suburbs": [
+      {
+        "name": "Marrickville",
+        "col": 2,
+        "row": 1,
+        "enrolled": 312,
+        "alonePct": 41,
+        "highRisk": 38,
+        "heat": 0.82,
+        "volunteers": 9,
+        "language": "그리스어"
+      },
+      {
+        "name": "Dulwich Hill",
+        "col": 1,
+        "row": 1,
+        "enrolled": 198,
+        "alonePct": 36,
+        "highRisk": 22,
+        "heat": 0.64,
+        "volunteers": 6,
+        "language": "그리스어"
+      },
+      {
+        "name": "Petersham",
+        "col": 2,
+        "row": 2,
+        "enrolled": 121,
+        "alonePct": 39,
+        "highRisk": 14,
+        "heat": 0.58,
+        "volunteers": 4,
+        "language": "포르투갈어"
+      },
+      {
+        "name": "Stanmore",
+        "col": 3,
+        "row": 2,
+        "enrolled": 96,
+        "alonePct": 33,
+        "highRisk": 9,
+        "heat": 0.44,
+        "volunteers": 5,
+        "language": "영어"
+      },
+      {
+        "name": "Enmore",
+        "col": 3,
+        "row": 1,
+        "enrolled": 84,
+        "alonePct": 44,
+        "highRisk": 12,
+        "heat": 0.72,
+        "volunteers": 3,
+        "language": "영어"
+      },
+      {
+        "name": "Newtown",
+        "col": 4,
+        "row": 1,
+        "enrolled": 143,
+        "alonePct": 47,
+        "highRisk": 17,
+        "heat": 0.69,
+        "volunteers": 7,
+        "language": "영어"
+      },
+      {
+        "name": "Lewisham",
+        "col": 1,
+        "row": 2,
+        "enrolled": 77,
+        "alonePct": 35,
+        "highRisk": 8,
+        "heat": 0.51,
+        "volunteers": 2,
+        "language": "아랍어"
+      },
+      {
+        "name": "Summer Hill",
+        "col": 0,
+        "row": 3,
+        "enrolled": 110,
+        "alonePct": 31,
+        "highRisk": 10,
+        "heat": 0.4,
+        "volunteers": 6,
+        "language": "이탈리아어"
+      },
+      {
+        "name": "Ashfield",
+        "col": 0,
+        "row": 2,
+        "enrolled": 264,
+        "alonePct": 37,
+        "highRisk": 31,
+        "heat": 0.77,
+        "volunteers": 8,
+        "language": "중국어(표준어)"
+      },
+      {
+        "name": "Leichhardt",
+        "col": 2,
+        "row": 3,
+        "enrolled": 156,
+        "alonePct": 34,
+        "highRisk": 13,
+        "heat": 0.38,
+        "volunteers": 7,
+        "language": "이탈리아어"
+      },
+      {
+        "name": "Annandale",
+        "col": 3,
+        "row": 3,
+        "enrolled": 72,
+        "alonePct": 30,
+        "highRisk": 6,
+        "heat": 0.33,
+        "volunteers": 4,
+        "language": "영어"
+      },
+      {
+        "name": "Tempe",
+        "col": 2,
+        "row": 0,
+        "enrolled": 58,
+        "alonePct": 42,
+        "highRisk": 9,
+        "heat": 0.86,
+        "volunteers": 1,
+        "language": "베트남어"
+      },
+      {
+        "name": "St Peters",
+        "col": 4,
+        "row": 0,
+        "enrolled": 49,
+        "alonePct": 39,
+        "highRisk": 7,
+        "heat": 0.79,
+        "volunteers": 1,
+        "language": "베트남어"
+      },
+      {
+        "name": "Sydenham",
+        "col": 3,
+        "row": 0,
+        "enrolled": 31,
+        "alonePct": 45,
+        "highRisk": 6,
+        "heat": 0.83,
+        "volunteers": 0,
+        "language": "포르투갈어"
+      },
+      {
+        "name": "Camperdown",
+        "col": 4,
+        "row": 2,
+        "enrolled": 75,
+        "alonePct": 40,
+        "highRisk": 10,
+        "heat": 0.55,
+        "volunteers": 1,
+        "language": "영어"
+      }
+    ],
+    "districtKicker": "Inner West · 15개 동네",
+    "heatwave": {
+      "pill": "목요일 38 °C",
+      "temps": [
+        {
+          "day": "수",
+          "value": 33
+        },
+        {
+          "day": "목",
+          "value": 38
+        },
+        {
+          "day": "금",
+          "value": 36
+        },
+        {
+          "day": "토",
+          "value": 26
+        },
+        {
+          "day": "일",
+          "value": 24
+        },
+        {
+          "day": "월",
+          "value": 23
+        },
+        {
+          "day": "화",
+          "value": 25
+        }
+      ],
+      "tempsThreshold": {
+        "value": 35,
+        "label": "폭염 35°",
+        "max": 40,
+        "unit": "°"
+      },
+      "stats": [
+        {
+          "label": "추가 안부 확인",
+          "value": "318",
+          "note": "목 11:00–15:00"
+        },
+        {
+          "label": "에어컨 없음",
+          "value": "127",
+          "note": "우선",
+          "tone": "bad"
+        },
+        {
+          "label": "차량 제공",
+          "value": "14",
+          "note": "자원봉사 운전자"
+        }
+      ],
+      "coolRooms": [
+        {
+          "name": "Marrickville 도서관 냉방실",
+          "detail": "120석 · 09:00–20:00",
+          "left": "74석 남음",
+          "tone": "good"
+        },
+        {
+          "name": "Ashfield 시민회관",
+          "detail": "80석 · 10:00–18:00",
+          "left": "22석 남음",
+          "tone": "warn"
+        },
+        {
+          "name": "Newtown 동네 센터",
+          "detail": "60석 · 10:00–17:00",
+          "left": "41석 남음",
+          "tone": "good"
+        }
+      ],
+      "scheduleToast": "목요일 추가 안부 확인 318건을 예약했어요"
+    },
+    "visits": [
+      {
+        "name": "Margaret C.",
+        "age": 78,
+        "suburb": "Marrickville",
+        "risk": "높음",
+        "tone": "bad",
+        "reason": "혈압 상승, 약 복용 누락",
+        "language": "영어",
+        "nearestHelp": "David · 450 m"
+      },
+      {
+        "name": "Eleni P.",
+        "age": 84,
+        "suburb": "Marrickville",
+        "risk": "높음",
+        "tone": "bad",
+        "reason": "심부전: 72시간 동안 +2.1 kg",
+        "language": "그리스어",
+        "nearestHelp": "자원봉사자 Tom · 1.2 km"
+      },
+      {
+        "name": "Nguyen Van T.",
+        "age": 81,
+        "suburb": "Tempe",
+        "risk": "높음",
+        "tone": "bad",
+        "reason": "더위: 에어컨 없음, 실내 33 °C",
+        "language": "베트남어",
+        "nearestHelp": "없음 · 공백"
+      },
+      {
+        "name": "Maria S.",
+        "age": 86,
+        "suburb": "Petersham",
+        "risk": "높음",
+        "tone": "bad",
+        "reason": "30일간 낙상 2회",
+        "language": "포르투갈어",
+        "nearestHelp": "딸 · 15분"
+      },
+      {
+        "name": "Fatima A.",
+        "age": 79,
+        "suburb": "Lewisham",
+        "risk": "보통",
+        "tone": "warn",
+        "reason": "청력 저하, 안부 확인 3회 무응답",
+        "language": "아랍어",
+        "nearestHelp": "자원봉사자 Aisha"
+      },
+      {
+        "name": "Giuseppe R.",
+        "age": 88,
+        "suburb": "Leichhardt",
+        "risk": "보통",
+        "tone": "warn",
+        "reason": "야간 배회 2회",
+        "language": "이탈리아어",
+        "nearestHelp": "아들 · 8분"
+      },
+      {
+        "name": "Wei L.",
+        "age": 77,
+        "suburb": "Ashfield",
+        "risk": "보통",
+        "tone": "warn",
+        "reason": "3주째 우울감",
+        "language": "중국어(표준어)",
+        "nearestHelp": "자원봉사자 Jun"
+      },
+      {
+        "name": "Peter H.",
+        "age": 80,
+        "suburb": "Newtown",
+        "risk": "관찰",
+        "tone": "plain",
+        "reason": "새 수면제",
+        "language": "영어",
+        "nearestHelp": "이웃 · 2분"
+      }
+    ],
+    "funnel": [
+      {
+        "label": "받은 알림",
+        "value": 37,
+        "color": "#5a7fe0"
+      },
+      {
+        "label": "에이전트가 확인",
+        "value": 37,
+        "color": "#2f6fb0"
+      },
+      {
+        "label": "걸러낸 오경보",
+        "value": 29,
+        "color": "#1fb39c"
+      },
+      {
+        "label": "사람에게 상향 조치",
+        "value": 8,
+        "color": "#c88a05"
+      },
+      {
+        "label": "누군가 방문",
+        "value": 8,
+        "color": "#e07a3f"
+      },
+      {
+        "label": "구급차 호출",
+        "value": 3,
+        "color": "#d9443f"
+      },
+      {
+        "label": "도착 전 정보 패킷",
+        "value": 3,
+        "color": "#8f6fd0"
+      }
+    ],
+    "funnelMinis": [
+      {
+        "label": "확인",
+        "value": "44초",
+        "note": "중앙값"
+      },
+      {
+        "label": "수락",
+        "value": "1:12",
+        "note": "중앙값"
+      },
+      {
+        "label": "방문 도착",
+        "value": "8.6′",
+        "note": "중앙값"
+      }
+    ],
+    "capacity": [
+      {
+        "name": "Marrickville",
+        "need": 76,
+        "capacity": 36
+      },
+      {
+        "name": "Ashfield",
+        "need": 62,
+        "capacity": 32
+      },
+      {
+        "name": "Dulwich Hill",
+        "need": 44,
+        "capacity": 24
+      },
+      {
+        "name": "Camperdown",
+        "need": 20,
+        "capacity": 4
+      },
+      {
+        "name": "Tempe",
+        "need": 18,
+        "capacity": 4
+      },
+      {
+        "name": "Petersham",
+        "need": 28,
+        "capacity": 16
+      },
+      {
+        "name": "Enmore",
+        "need": 24,
+        "capacity": 12
+      },
+      {
+        "name": "Sydenham",
+        "need": 12,
+        "capacity": 0
+      },
+      {
+        "name": "St Peters",
+        "need": 14,
+        "capacity": 4
+      }
+    ],
+    "edForecast": {
+      "meta": "Camperdown 응급실 75세 이상 내원",
+      "values": [
+        {
+          "day": "수",
+          "value": 21
+        },
+        {
+          "day": "목",
+          "value": 34
+        },
+        {
+          "day": "금",
+          "value": 31
+        },
+        {
+          "day": "토",
+          "value": 25
+        },
+        {
+          "day": "일",
+          "value": 22
+        },
+        {
+          "day": "월",
+          "value": 20
+        },
+        {
+          "day": "화",
+          "value": 21
+        }
+      ],
+      "threshold": {
+        "value": 29,
+        "label": "적정선 28",
+        "max": 36,
+        "unit": ""
+      },
+      "note": "열지수, 요일, 최근 90일 데이터로 예측했어요. 목요일은 적정선인 환자 28명을 6명 초과할 것으로 예상돼요."
+    },
+    "languages": [
+      {
+        "name": "영어",
+        "percent": 42,
+        "support": "Full"
+      },
+      {
+        "name": "그리스어",
+        "percent": 13,
+        "support": "Full"
+      },
+      {
+        "name": "베트남어",
+        "percent": 9,
+        "support": "Full"
+      },
+      {
+        "name": "중국어(표준어)",
+        "percent": 8,
+        "support": "Full"
+      },
+      {
+        "name": "이탈리아어",
+        "percent": 7,
+        "support": "Full"
+      },
+      {
+        "name": "포르투갈어",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "아랍어",
+        "percent": 6,
+        "support": "Beta"
+      },
+      {
+        "name": "기타",
+        "percent": 9,
+        "support": "Interpreter"
+      }
+    ],
+    "programs": [
+      {
+        "program": "걷기 모임 (공원 3곳)",
+        "regulars": 42,
+        "attendance": "78% (+18%)",
+        "outcome": "보행 속도 +0.04 m/s"
+      },
+      {
+        "program": "금요일 친목 점심",
+        "regulars": 65,
+        "attendance": "81%",
+        "outcome": "외로움 점수 −0.6 (UCLA-3)"
+      },
+      {
+        "program": "근력 및 균형 수업",
+        "regulars": 28,
+        "attendance": "72%",
+        "outcome": "부상 동반 낙상 −12%"
+      },
+      {
+        "program": "도서관 디지털 기기 도움",
+        "regulars": 31,
+        "attendance": "64%",
+        "outcome": "가족 영상 통화 주 2.1회"
+      },
+      {
+        "program": "Men's shed (남성 공방 모임)",
+        "regulars": 19,
+        "attendance": "70%",
+        "outcome": "우울감 신호 −30%"
+      },
+      {
+        "program": "냉방실 셔틀",
+        "regulars": 14,
+        "attendance": "운전자",
+        "outcome": "지난여름 더위 관련 응급실 방문 −9%"
+      }
+    ],
+    "watchSummary": [
+      {
+        "icon": "shield",
+        "tone": "bad",
+        "title": "방문형 \"태양광 환급\" 사기",
+        "detail": "Marrickville, Dulwich Hill · 신고 14건 · 주민 1,240명에게 음성으로 경고",
+        "pill": {
+          "tone": "bad",
+          "text": "진행 중"
+        }
+      },
+      {
+        "icon": "sun",
+        "tone": "warn",
+        "title": "목–금 폭염",
+        "detail": "추가 안부 확인 318건 · 에어컨 없는 분 127명",
+        "pill": {
+          "tone": "warn",
+          "text": "예정"
+        }
+      },
+      {
+        "icon": "target",
+        "tone": "warn",
+        "title": "보도 공사 · Marrickville Rd",
+        "detail": "그 길로 걷는 주민 46명에게 걸려 넘어질 위험",
+        "pill": {
+          "tone": "warn",
+          "text": "10월 24일까지"
+        }
+      }
+    ],
+    "footnote": "지역사회 보건 직원은 담당 지역에 등록된 사람의 이름을 볼 수 있어요. 시의회와 주정부 화면은 집계·비식별화되며 10명 미만 그룹은 비공개 처리돼요. 모든 인물과 수치는 가상입니다."
+  }
+}

@@ -55,14 +55,15 @@ export function HandoverCard({ incident, view, people, agent }: { incident: Inci
   return (
     <GlassCard span={5} id="handCard">
       <div className="ch"><h2>{t('hand.title')}</h2><span className="meta">{t('hand.meta')}</span></div>
-      <ul className="list">
+      <ul className="list hlist">
         {hands.length ? hands.map((h) => (
           <li key={h.id} className="clk" tabIndex={0} role="button"
             onClick={() => drawer.open(`${h.icon} ${h.to}`, <><p className="fine">{h.what} · {clockTime(h.at, tz)}</p><Kv rows={h.rows} /><p className="fine">{t('hand.fine', { name: first(people.person?.displayName ?? '') })}</p></>)}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (e.currentTarget as HTMLElement).click() } }}>
-            <span className="li" style={{ fontSize: 18 }} aria-hidden="true">{h.icon}</span>
+            <span className="h-ic" aria-hidden="true">{h.icon}</span>
             <span><b>{h.to}</b><small>{h.what}</small></span>
-            <span className="pill plain">{clockTime(h.at, tz)}</span>
+            <span className="h-tm">{clockTime(h.at, tz)}</span>
+            <span className="h-chev" aria-hidden="true">›</span>
           </li>
         )) : (
           <li><span className="li" aria-hidden="true">🔒</span><span><b>{t('hand.none')}</b><small>{t('hand.noneSub')}</small></span></li>

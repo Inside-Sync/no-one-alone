@@ -1,0 +1,135 @@
+{
+  "deviceFeed": {
+    "meta": "来自 6 台设备的 48 项读数 · 类似智能手表，再加上她的家和她的声音",
+    "sources": [
+      {
+        "device": "腕戴设备",
+        "metrics": "心率、HRV、心律、心电图、血氧、睡眠分期、步数、能量消耗、手腕温度、跌倒检测、噪音",
+        "frequency": "持续 · 每 5 分钟",
+        "status": "64% · 已佩戴",
+        "tone": "good",
+        "sharedWith": "家人、家庭医生"
+      },
+      {
+        "device": "手机",
+        "metrics": "步行速度、步长、稳定性、日照 · 位置已关闭（Margaret 只能开启“在家/外出”）",
+        "frequency": "被动采集",
+        "status": "充电中",
+        "tone": "good",
+        "sharedWith": "家人"
+      },
+      {
+        "device": "蓝牙血压计",
+        "metrics": "收缩压、舒张压、脉搏",
+        "frequency": "早上 + 晚上",
+        "status": "电池 70%",
+        "tone": "good",
+        "sharedWith": "家人、家庭医生"
+      },
+      {
+        "device": "智能体重秤",
+        "metrics": "体重、BMI",
+        "frequency": "每天",
+        "status": "正常",
+        "tone": "good",
+        "sharedWith": "家庭医生"
+      },
+      {
+        "device": "智能药盒",
+        "metrics": "是否服药、服药时间、漏服次数",
+        "frequency": "每次服药",
+        "status": "正常",
+        "tone": "good",
+        "sharedWith": "家人、家庭医生、药房"
+      },
+      {
+        "device": "家庭中枢 · 6 个传感器",
+        "metrics": "2 个房间的活动（无摄像头、无麦克风）、温度、湿度",
+        "frequency": "持续",
+        "status": "在线",
+        "tone": "good",
+        "sharedWith": "家人（仅紧急情况详情）"
+      },
+      {
+        "device": "语音问候",
+        "metrics": "心情、语速、停顿、构音、听力、饮食、饮水",
+        "frequency": "每天 2–3 次通话",
+        "status": "下一次 18:00",
+        "tone": "plain",
+        "sharedWith": "家人、家庭医生；仅紧急情况下给医院"
+      }
+    ],
+    "phone": {
+      "home": {
+        "date": "10月14日 周三",
+        "greeting": "您好，Margaret",
+        "medicine": {
+          "title": "降压药",
+          "sub": "18:00 · 氨氯地平 1 片",
+          "button": "我吃过了",
+          "toast": "已记录 · James 会看到"
+        },
+        "ok": {
+          "label": "我没事",
+          "toast": "家人已知道您没事"
+        },
+        "help": {
+          "label": "求助"
+        }
+      },
+      "heading": "为 Margaret 设计",
+      "meta": "无需培训，没有菜单",
+      "minis": [
+        {
+          "label": "字号",
+          "value": "28 pt",
+          "note": "最小"
+        },
+        {
+          "label": "触控区域",
+          "value": "92 px",
+          "note": "WCAG AAA"
+        },
+        {
+          "label": "语音",
+          "value": "澳式英语",
+          "note": "缓慢、温和"
+        },
+        {
+          "label": "每项任务步骤",
+          "value": "1",
+          "note": "始终"
+        },
+        {
+          "label": "适用于",
+          "value": "任何电话",
+          "note": "包括座机"
+        },
+        {
+          "label": "听力模式",
+          "value": "开启",
+          "note": "字幕 + 闪屏"
+        }
+      ],
+      "bullets": [
+        {
+          "icon": "check",
+          "text": "两个大按钮，一次只做一件事。无需任何导航。"
+        },
+        {
+          "icon": "ear",
+          "text": "听力模式：助手来电时显示大字幕并闪烁屏幕。"
+        },
+        {
+          "icon": "mic",
+          "text": "以语音为主，使用她对家人的称呼（“亲爱的”、“Davey”）。"
+        },
+        {
+          "icon": "phone",
+          "text": "对没有智能手机的人，同样的问候也能以普通电话的方式进行。"
+        }
+      ],
+      "note": "在她的屏幕上按“求助”，即可开始夜间警报演示。"
+    }
+  }
+}

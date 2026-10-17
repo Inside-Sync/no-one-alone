@@ -13,7 +13,6 @@ import { useRepo } from '@/features/shared/useRepo'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 import { MiniGrid } from '../home/parts'
-import s from '@/components/phone/phone.module.css'
 
 const MINI_ORBIT = ['david', 'nurse', 'james', 'sarah']
 
@@ -36,22 +35,22 @@ export function DevicePage() {
   return (
     <main className="grid" data-page="device">
       <GlassCard span={4}>
-        <div className={`device ${s.frame}`}>
-          <div className={`dev-screen ${s.screen}`} id="devHome">
-            <span className={`dev-h ${s.h}`}>{h.date}</span>
-            <span className={`dev-t ${s.t}`}>{h.greeting}</span>
-            <div className={`dev-med ${s.med}`}>
+        <div className="device">
+          <div className="dev-screen" id="devHome">
+            <span className="dev-h">{h.date}</span>
+            <span className="dev-t">{h.greeting}</span>
+            <div className="dev-med">
               <b>{h.medicine.title}</b>
               <small>{h.medicine.sub}</small>
-              <button type="button" className={`btn ${s.btn}`} onClick={() => toast(h.medicine.toast)}>{h.medicine.button}</button>
+              <button type="button" className="btn" onClick={() => toast(h.medicine.toast)}>{h.medicine.button}</button>
             </div>
             <div className="dev-btns">
-              <button type="button" className={`dev-b ok ${s.btn}`} onClick={() => toast(h.ok.toast)}>
+              <button type="button" className="dev-b ok" onClick={() => toast(h.ok.toast)}>
                 <span className="ic"><Icon name="check" /></span>{h.ok.label}
               </button>
               <button
                 type="button"
-                className={`dev-b help ${s.btn}`}
+                className="dev-b help"
                 disabled={busy}
                 onClick={() => {
                   // The demo always runs in the family view (prototype line 2016).

@@ -13,8 +13,9 @@ export function CallsCard({ agent }: { agent: AgentView }) {
     <GlassCard span={4} id="callsCard">
       <div className="ch"><h2>{t('agent.calls.title')}</h2><span className="meta">{t('agent.calls.meta')}</span></div>
       <div className="callcards">
-        {agent.calls.map((c) => (
-          <div key={c.id} className={`ccard ${c.cls}`.trim()}>
+        {agent.calls.map((c, i) => (
+          <div key={c.id} className={`ccard ${c.cls}${c.id === 'ooo' ? ' ooo' : ''}`.trim()}>
+            <span className="n" aria-hidden="true">{c.id === 'ooo' ? '🚑' : i + 1}</span>
             {c.id === 'ooo'
               ? <span className="av sm" style={{ '--c': c.color } as CSSProperties}>{c.initials}</span>
               : <Avatar name={c.name} className="av sm" style={{ '--c': c.color } as CSSProperties}>{c.initials}</Avatar>}
@@ -23,18 +24,22 @@ export function CallsCard({ agent }: { agent: AgentView }) {
           </div>
         ))}
       </div>
-      <div className="ch"><h2 style={small}>{t('agent.alerts.title')}</h2><span className="meta">{t('agent.alerts.meta')}</span></div>
-      <ul className="list">
-        {agent.alerts.length ? agent.alerts.map((a) => (
-          <li key={a.id}>
-            <Avatar name={a.name} className="av sm">{a.initials}</Avatar>
-            <span><b>{a.name}</b><small>{a.text}</small></span>
-            <span className="pill good">{a.sent}</span>
-          </li>
-        )) : (
+      <div className="ch subh"><h2 style={small}>{t('agent.alerts.title')}</h2><span className="meta">{t('agent.alerts.meta')}</span></div>
+      {agent.alerts.length ? (
+        <ul className="alist">
+          {agent.alerts.map((a) => (
+            <li key={a.id} title={a.text}>
+              <Avatar name={a.name} className="av sm">{a.initials}</Avatar>
+              <span>{a.name}</span>
+              <em>{a.sent}</em>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul className="list">
           <li><span className="li" aria-hidden="true">🔕</span><span><b>{t('agent.alerts.none')}</b><small>{t('agent.alerts.noneSub')}</small></span></li>
-        )}
-      </ul>
+        </ul>
+      )}
     </GlassCard>
   )
 }

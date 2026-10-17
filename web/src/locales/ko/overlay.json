@@ -1,0 +1,75 @@
+{
+  "you": "나",
+  "youParen": " (나)",
+  "youSuffix": " · 나",
+  "relation": {
+    "self": "본인",
+    "son": "아들",
+    "daughter": "딸",
+    "brother": "형제",
+    "sister": "자매",
+    "father": "아버지",
+    "mother": "어머니",
+    "husband": "남편",
+    "wife": "아내",
+    "neighbour": "이웃",
+    "friend": "친구",
+    "grandson": "손자",
+    "granddaughter": "손녀",
+    "nephew": "조카",
+    "niece": "조카딸"
+  },
+  "person": {
+    "ageLabel": "나이",
+    "genderLabel": "성별",
+    "restingHrLabel": "안정 시 심박수",
+    "restingHrBase": "기준 {{n}}",
+    "female": "여성",
+    "male": "남성"
+  },
+  "circle": {
+    "noteNearby": "{{place}} 거리 · {{order}}",
+    "firstToCall": "첫 번째 연락",
+    "nextToCall": "다음 연락",
+    "noteCalls": "{{place}} · 필요하면 {{num}}에 전화",
+    "noteUpdates": "{{place}} · 소식 받음",
+    "onCall": "당번",
+    "backup": "대기",
+    "calls": "{{num}} 전화",
+    "updates": "소식"
+  },
+  "forecast": {
+    "risk": {
+      "STROKE": "뇌졸중",
+      "FALL": "부상을 동반한 낙상"
+    },
+    "level": {
+      "HIGH": "높음",
+      "MEDIUM": "보통",
+      "LOW": "낮음"
+    },
+    "horizon": "{{n}}일",
+    "sentTo": "{{name}} 님에게 보냄",
+    "shared": "돌봄 모임과 공유함"
+  },
+  "lineage": {
+    "generation": {
+      "grandparents": "조부모",
+      "parents": "부모",
+      "self": "{{name}} 세대",
+      "children": "자녀",
+      "grandchildren": "손주",
+      "ancestors": "선조",
+      "descendants": "후손"
+    },
+    "herself": "본인",
+    "selfRow": "본인",
+    "strength": {
+      "strong": "강함",
+      "moderate": "보통",
+      "weak": "약함"
+    },
+    "dueNow": "지금 해야 함",
+    "book": "예약"
+  }
+}

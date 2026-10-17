@@ -1,0 +1,418 @@
+{
+  "explain": {
+    "心率變異": "又叫心率變異度（HRV）。高即係身體放鬆緊、恢復緊；低即係因為天氣熱、瞓得唔好或者病咗而承受多啲壓力。",
+    "hrv": "又叫心率變異度（HRV）。高即係身體放鬆緊、恢復緊；低即係因為天氣熱、瞓得唔好或者病咗而承受多啲壓力。",
+    "平靜": "又叫心率變異度（HRV）。高即係身體放鬆緊、恢復緊；低即係因為天氣熱、瞓得唔好或者病咗而承受多啲壓力。",
+    "放鬆": "又叫心率變異度（HRV）。高即係身體放鬆緊、恢復緊；低即係因為天氣熱、瞓得唔好或者病咗而承受多啲壓力。",
+    "鬆弛": "又叫心率變異度（HRV）。高即係身體放鬆緊、恢復緊；低即係因為天氣熱、瞓得唔好或者病咗而承受多啲壓力。",
+    "心率": "佢心臟每分鐘跳幾多下。佢而家比平時高少少，天氣熱嗰陣都會咁。",
+    "心跳": "佢心臟每分鐘跳幾多下。佢而家比平時高少少，天氣熱嗰陣都會咁。",
+    "血壓": "血液推向動脈壁嘅力度。上面嗰個數（上壓）連續 6 個星期慢慢升高，會增加佢中風嘅機會。每日記得食夜晚嗰粒藥係最簡單嘅解決方法。",
+    "睡眠": "真正瞓着嘅時間。佢瞓得比平時少，夜晚亦都醒多咗。",
+    "瞓": "真正瞓着嘅時間。佢瞓得比平時少，夜晚亦都醒多咗。",
+    "步速": "佢喺平地行路嘅速度。幾個星期內行得愈嚟愈慢，係跌倒風險增加最好嘅早期警號之一。",
+    "行路": "佢喺平地行路嘅速度。幾個星期內行得愈嚟愈慢，係跌倒風險增加最好嘅早期警號之一。",
+    "步行速度": "佢喺平地行路嘅速度。幾個星期內行得愈嚟愈慢，係跌倒風險增加最好嘅早期警號之一。",
+    "步數": "由佢隻手錶同電話計嘅步數。",
+    "行咗": "由佢隻手錶同電話計嘅步數。",
+    "接聽": "每日問候電話入面，佢接咗幾多個。",
+    "電話": "每日問候電話入面，佢接咗幾多個。",
+    "語速": "喺每日傾偈時量度。細微變化可能係疲倦、情緒低落或者記憶轉變嘅早期跡象。",
+    "講嘢": "喺每日傾偈時量度。細微變化可能係疲倦、情緒低落或者記憶轉變嘅早期跡象。",
+    "說話": "喺每日傾偈時量度。細微變化可能係疲倦、情緒低落或者記憶轉變嘅早期跡象。",
+    "同人": "同其他人通電話、探訪同出街嘅時間。",
+    "社交": "同其他人通電話、探訪同出街嘅時間。",
+    "見人": "同其他人通電話、探訪同出街嘅時間。",
+    "溫度": "嚟自佢客廳嘅感應器。超過 28° 身體要做多啲嘢，有心臟病嘅人尤其如此。",
+    "室溫": "嚟自佢客廳嘅感應器。超過 28° 身體要做多啲嘢，有心臟病嘅人尤其如此。",
+    "體重": "嚟自佢浴室嘅磅。3 日內突然重咗 2 kg 可能係身體積水。",
+    "花粉": "春天嘅草花粉。喺大風、雷暴嘅日子可能會引發哮喘，就算平時好少發作嘅人都會。",
+    "紫外線": "紫外線指數。11 屬極高：皮膚唔使 10 分鐘就可能曬傷。",
+    "uv": "紫外線指數。11 屬極高：皮膚唔使 10 分鐘就可能曬傷。",
+    "陽光": "紫外線指數。11 屬極高：皮膚唔使 10 分鐘就可能曬傷。",
+    "太陽": "紫外線指數。11 屬極高：皮膚唔使 10 分鐘就可能曬傷。",
+    "飛機": "Marrickville 喺機場航道下面。晚上 11 點至朝早 6 點冇航班，所以唔會影響佢瞓覺。",
+    "航機": "Marrickville 喺機場航道下面。晚上 11 點至朝早 6 點冇航班，所以唔會影響佢瞓覺。",
+    "預先通知包": "升級處理時推送到急症室嘅 FHIR R4 bundle（Patient、Condition、MedicationStatement、AllergyIntolerance、Observation），已有同意記錄。",
+    "到院前資料": "升級處理時推送到急症室嘅 FHIR R4 bundle（Patient、Condition、MedicationStatement、AllergyIntolerance、Observation），已有同意記錄。",
+    "ct": "懷疑中風病人由到達急症室至首次頭部 CT 嘅中位數分鐘，比較有預先通知包嘅個案同以往基線。",
+    "預先通知時間": "由收到預先通知包至救護車到達分流站之間嘅中位數時間。",
+    "提前通知": "由收到預先通知包至救護車到達分流站之間嘅中位數時間。",
+    "到院前通知": "由收到預先通知包至救護車到達分流站之間嘅中位數時間。",
+    "藥": "智能藥盒會記錄每次食藥嘅時間。",
+    "heart rate": "佢心臟每分鐘跳幾多下。佢而家比平時高少少，天氣熱嗰陣都會咁。",
+    "blood pressure": "血液推向動脈壁嘅力度。上面嗰個數（上壓）連續 6 個星期慢慢升高，會增加佢中風嘅機會。每日記得食夜晚嗰粒藥係最簡單嘅解決方法。",
+    "calm score": "又叫心率變異度（HRV）。高即係身體放鬆緊、恢復緊；低即係因為天氣熱、瞓得唔好或者病咗而承受多啲壓力。",
+    "sleep": "真正瞓着嘅時間。佢瞓得比平時少，夜晚亦都醒多咗。",
+    "steps": "由佢隻手錶同電話計嘅步數。",
+    "walking speed": "佢喺平地行路嘅速度。幾個星期內行得愈嚟愈慢，係跌倒風險增加最好嘅早期警號之一。",
+    "tablets": "智能藥盒會記錄每次食藥嘅時間。",
+    "calls answered": "每日問候電話入面，佢接咗幾多個。",
+    "speaking pace": "喺每日傾偈時量度。細微變化可能係疲倦、情緒低落或者記憶轉變嘅早期跡象。",
+    "time with people": "同其他人通電話、探訪同出街嘅時間。",
+    "home temperature": "嚟自佢客廳嘅感應器。超過 28° 身體要做多啲嘢，有心臟病嘅人尤其如此。",
+    "weight": "嚟自佢浴室嘅磅。3 日內突然重咗 2 kg 可能係身體積水。",
+    "pollen": "春天嘅草花粉。喺大風、雷暴嘅日子可能會引發哮喘，就算平時好少發作嘅人都會。",
+    "sun strength": "紫外線指數。11 屬極高：皮膚唔使 10 分鐘就可能曬傷。",
+    "plane noise": "Marrickville 喺機場航道下面。晚上 11 點至朝早 6 點冇航班，所以唔會影響佢瞓覺。",
+    "pre-arrival packets": "升級處理時推送到急症室嘅 FHIR R4 bundle（Patient、Condition、MedicationStatement、AllergyIntolerance、Observation），已有同意記錄。",
+    "door to ct": "懷疑中風病人由到達急症室至首次頭部 CT 嘅中位數分鐘，比較有預先通知包嘅個案同以往基線。",
+    "notice before arrival": "由收到預先通知包至救護車到達分流站之間嘅中位數時間。",
+    "預先通知": "由收到預先通知包至救護車到達分流站之間嘅中位數時間。"
+  },
+  "explainFallback": {
+    "hospital": "根據已登記病人數據及急症室資訊系統擷取資料計算嘅滾動指標；每 15 分鐘更新一次。",
+    "community": "按 Inner West 15 個區已登記居民綜合計算。少於 10 人嘅組別唔會顯示。",
+    "individual": "同 Margaret 自己過去 30 日嘅平時水平比較，所以反映嘅係佢本身嘅正常狀態。"
+  },
+  "chatIntro": "媽媽今日穩定。有一樣要跟進：佢嘅血壓連續 6 個星期慢慢升高，而星期四會有 38 °C。",
+  "chatQa": [
+    [
+      "佢今日聲音點呀？",
+      "13:02 嗰陣講嘢清楚又開心。語速每分鐘 132 字，比平時嘅 141 慢少少，仲講咗兩次「吓？」，所以字幕會繼續開住。"
+    ],
+    [
+      "點解中風風險咁高？",
+      "有四個因素：朝早血壓高咗 14 mmHg、漏食咗 3 次夜晚嘅藥、兩個親戚 70 歲前中過風，仲有呢個星期兩次心律不正提示。呢個係風險程度，唔係診斷。"
+    ],
+    [
+      "星期四咁熱點算？",
+      "我會加一個中午問候，每 2 個鐘提佢飲水，仲會問佢使唔使車佢去圖書館嘅冷氣室。隔籬嘅 Aisha 可以 15:00 過去睇下佢。"
+    ],
+    [
+      "呢個星期我要做啲乜？",
+      "批准 David 嘅藥盒任務，同埋幫佢約家庭醫生覆診。兩樣都係撳一下就得。我亦可以幫你草擬一個訊息畀 Sarah。"
+    ]
+  ],
+  "sosScript": {
+    "intro": "叫救護車。照讀以下內容。",
+    "address": "186 Marrickville Rd, Marrickville NSW 2204",
+    "rows": [
+      [
+        "地址",
+        "186 Marrickville Rd, Marrickville NSW 2204"
+      ],
+      [
+        "病人",
+        "Margaret Collins，78 歲，獨居"
+      ],
+      [
+        "症狀",
+        "02:04 起講嘢口齒不清，心跳 142"
+      ],
+      [
+        "最後正常時間",
+        "01:55"
+      ],
+      [
+        "藥物",
+        "Amlodipine、aspirin、atorvastatin · 對盤尼西林過敏"
+      ],
+      [
+        "入屋方法",
+        "細佬 02:11 帶鎖匙到 · 鄰居 Aisha 有後備鎖匙"
+      ]
+    ],
+    "note": "助手準備好內容，由真人打電話。"
+  },
+  "packetNote": "只會喺緊急情況下、並已有同意記錄時，以 FHIR bundle 形式傳送畀接收嘅急症室。",
+  "notifications": [
+    [
+      "⚠️",
+      "要你批准：David 準備嘅每週藥盒",
+      "琴日 21:40",
+      "warn"
+    ],
+    [
+      "🔥",
+      "星期四酷熱警告 · 計劃已準備好",
+      "2 個鐘前",
+      "warn"
+    ],
+    [
+      "🛡️",
+      "佢條街有人報告騙徒上門",
+      "5 個鐘前",
+      "bad"
+    ],
+    [
+      "✅",
+      "Dr Patel 已睇咗血壓報告",
+      "琴日 16:42",
+      "good"
+    ],
+    [
+      "😊",
+      "Margaret 13:02 傾咗一次好開心嘅偈",
+      "2 個鐘前",
+      "good"
+    ]
+  ],
+  "condActions": [
+    [
+      "🗣️ 問下佢",
+      "已加入佢下次傾偈",
+      "已加入"
+    ],
+    [
+      "🩺 同 Dr Patel 提",
+      "已加入睇家庭醫生嘅議程",
+      "已加入"
+    ]
+  ],
+  "onceLabels": {
+    "改道": "✓ 已發出改道通知",
+    "救護車改道": "✓ 已發出改道通知",
+    "批准": "✓ 已批准",
+    "叫 David 準備藥盒": "✓ 已叫 David",
+    "請 David 準備藥盒": "✓ 已叫 David",
+    "將血壓報告傳畀 Dr Patel": "✓ 已傳送",
+    "傳血壓報告畀 Dr Patel": "✓ 已傳送",
+    "打畀媽媽": "📞 撥緊…",
+    "致電媽媽": "📞 撥緊…",
+    "審閱": "✓ 已審閱",
+    "覆核": "✓ 已覆核",
+    "傳呼中風小組": "✓ 已傳呼",
+    "Approve": "✓ 已批准",
+    "Ask David to set up a pill box": "✓ 已叫 David",
+    "Send BP report to Dr Patel": "✓ 已傳送",
+    "Call Mum": "📞 撥緊…",
+    "Review": "✓ 已審閱",
+    "Page stroke team": "✓ 已傳呼",
+    "Divert": "✓ 已發出改道通知",
+    "叫David整藥盒": "✓ 已叫 David",
+    "將血壓報告畀Dr Patel": "✓ 已傳送",
+    "打畀媽咪": "📞 撥緊…"
+  },
+  "drawerActions": {
+    "row": [
+      [
+        "🗣️ 問下佢",
+        "已加入佢下次傾偈",
+        "已加入"
+      ],
+      [
+        "📤 同家人分享",
+        "已分享",
+        "已分享"
+      ]
+    ],
+    "alert": [
+      [
+        "🗣️ 用語音話畀 Margaret 知",
+        "Margaret 下次通話會聽到",
+        "會話畀佢知"
+      ],
+      [
+        "📤 分享畀 David",
+        "已傳畀 David",
+        "已傳送"
+      ],
+      [
+        "✅ 標記為已處理",
+        "已標記為已處理",
+        "已處理"
+      ]
+    ],
+    "news": [
+      [
+        "🗣️ 讀畀 Margaret 聽",
+        "佢 18:00 會聽到簡短版本",
+        "已排隊"
+      ],
+      [
+        "📤 同家人分享",
+        "已同照顧圈分享",
+        "已分享"
+      ]
+    ]
+  },
+  "pageError": {
+    "text": "暫時載入唔到呢一頁。",
+    "retry": "再試",
+    "toast": "暫時載入唔到 · 請再試一次"
+  },
+  "saveFailed": "儲存唔到呢個改動 · 已經還原",
+  "keptPrivate": {
+    "title": "🔒 保密",
+    "body": "Margaret 揀咗唔同 {{viewerName}} 分享呢樣嘢。呢個係佢嘅決定，佢隨時都可以改。",
+    "action": {
+      "label": "💬 客氣咁問下 Margaret",
+      "toast": "Margaret 會收到一個溫和嘅請求，佢可以答應或者拒絕",
+      "done": "已送出請求"
+    },
+    "bodyPaused": "Margaret 揀咗暫時唔同 {{viewerName}} 分享呢樣嘢。佢暫停咗分享，直至聽朝 9 點。安全警報仍然會傳到你度。"
+  },
+  "noa": "Noa",
+  "hearingMode": "聽力模式",
+  "you": "你",
+  "nav": {
+    "bellToast": "今日有 3 個更新：2 個例行，1 個要你批准",
+    "notifications": "通知",
+    "demo": "夜間警報示範",
+    "language": "語言",
+    "signedInAs": "已登入：{{name}}",
+    "sections": "版面",
+    "chooseView": "揀視圖",
+    "brandBy": "由 InsideSync 出品",
+    "whose": "邊個嘅視圖",
+    "whoSelf": "👵 Margaret（佢自己嘅 app）",
+    "whoFamily": "👨‍👩‍👧 家人同照顧者",
+    "search": {
+      "placeholder": "搵人、搵區…",
+      "label": "搜尋",
+      "results": "搜尋結果",
+      "person": "人物",
+      "suburb": "地區 · Inner West"
+    }
+  },
+  "views": {
+    "buttons": {
+      "individual": "個人",
+      "hospital": "醫院",
+      "community": "社區"
+    },
+    "banners": {
+      "individual": "個人視圖 · Margaret 同佢嘅家人",
+      "hospital": "醫院視圖 · Camperdown Stroke Centre",
+      "community": "社區視圖 · Inner West Community Health"
+    },
+    "users": {
+      "individual": {
+        "name": "James Collins",
+        "toast": "已登入：James Collins · 仔 · Melbourne"
+      },
+      "hospital": {
+        "name": "Dr Amelia Tran",
+        "toast": "已登入：Dr Amelia Tran · 急症室顧問醫生"
+      },
+      "community": {
+        "name": "Priya Sharma",
+        "toast": "已登入：Priya Sharma · 社康護士"
+      }
+    }
+  },
+  "tabs": {
+    "family": {
+      "home": "🏠 主頁",
+      "health": "❤️ 健康",
+      "around": "🌤️ 佢身邊",
+      "forecast": "🔮 未來",
+      "lineage": "🌳 家族健康",
+      "record": "📋 護理記錄",
+      "live": "🚨 緊急",
+      "recovery": "🌱 康復",
+      "device": "📱 佢部電話"
+    },
+    "self": {
+      "me": "🌞 我嘅一日",
+      "recovery": "🌱 我嘅康復",
+      "health": "❤️ 我嘅健康",
+      "live": "🚨 緊急",
+      "privacy": "🔐 邊個睇到乜",
+      "around": "🌤️ 我身邊",
+      "lineage": "🌳 我屋企人嘅健康",
+      "device": "📱 我部電話"
+    },
+    "hospital": {
+      "ed": "到院前",
+      "panel": "病人名單",
+      "demand": "需求同病床",
+      "discharge": "出院跟進"
+    },
+    "community": {
+      "community": "社區概覽",
+      "watch": "鄰里守望"
+    }
+  },
+  "pageTitles": {
+    "home": "Margaret Collins，78 歲",
+    "health": "健康 · Margaret Collins",
+    "around": "佢身邊 · Margaret Collins",
+    "forecast": "未來 · Margaret Collins",
+    "lineage": "家族健康 · Collins 同 Hughes 家族",
+    "record": "護理記錄 · Margaret Collins",
+    "live": "緊急 · Margaret Collins",
+    "device": "Margaret 部電話",
+    "me": "你好，Margaret",
+    "privacy": "邊個睇到乜",
+    "recovery": "康復計劃 · Margaret Collins",
+    "ed": "到院前 · Camperdown Stroke Centre",
+    "panel": "病人名單 · 長者病人",
+    "demand": "需求同病床 · 未來 14 日",
+    "discharge": "出院跟進 · 過去 30 日",
+    "community": "Inner West 社區",
+    "watch": "鄰里守望 · Inner West"
+  },
+  "ownContext": {
+    "me": {
+      "sub": "你自己嘅空間 · 呢頁只有你睇到",
+      "facts": [
+        [
+          "你同呢啲人分享緊",
+          "6 個人"
+        ],
+        [
+          "鏡頭",
+          "冇"
+        ],
+        [
+          "位置",
+          "閂咗"
+        ]
+      ]
+    },
+    "privacy": {
+      "sub": "每個人睇到乜由你決定，隨時都可以改。",
+      "facts": [
+        [
+          "安全警報",
+          "一定會通知 David 同 James"
+        ],
+        [
+          "位置",
+          "閂咗"
+        ]
+      ]
+    }
+  },
+  "context": {
+    "selfBanner": "Margaret 自己嘅視圖 · 佢自己控制佢嘅資料",
+    "familyBanner": "家人同照顧者視圖 · {{viewerName}} 只睇到 Margaret 分享嘅嘢",
+    "sees": "{{viewerName}} 睇到 Margaret 分享嘅 <b>{{total}} 樣入面嘅 {{seen}} 樣</b>",
+    "pausedBold": "Margaret 暫停咗分享，直至聽朝 9 點。",
+    "pausedRest": "你仍然會即刻收到安全警報。"
+  },
+  "lock": {
+    "paused": "Margaret 暫停咗分享，直至聽日",
+    "keeps": "Margaret 將佢嘅{{name}}保密",
+    "checking": "檢查緊 Margaret 分享咗乜"
+  },
+  "drawer": {
+    "close": "關閉",
+    "compared": "比較對象",
+    "change": "變化"
+  },
+  "notFound": {
+    "title": "搵唔到呢一頁",
+    "text": "呢一頁唔存在。",
+    "link": "返主頁"
+  },
+  "charts": {
+    "timeline": "時間線",
+    "table": "表格",
+    "heatmap": "日常作息熱圖，{{days}} 日 × {{hours}} 個鐘",
+    "heatmapUnusual": "；標示咗 {{count}} 個異常時段",
+    "notYet": "未有",
+    "cell": "{{day}} {{hour}}:00 · 高峰嘅 {{pct}}%",
+    "radarOverall": "整體 {{score}} 分（滿分 100）：",
+    "sparkline": "由 {{from}} 到 {{to}} 嘅趨勢",
+    "ringLabel": "{{label}}：{{value}} / {{max}}{{unit}}",
+    "ringOf": "/ {{max}}{{unit}}",
+    "lineSeries": "{{name}}，由 {{from}} 到 {{to}}",
+    "projected": "（虛線部分係預測）",
+    "threshold": "；門檻 {{label}}",
+    "district": "Inner West 15 個區嘅立體柱狀地圖",
+    "north": "北"
+  }
+}

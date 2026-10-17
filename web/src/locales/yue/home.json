@@ -1,0 +1,109 @@
+{
+  "today": {
+    "title": "🟢 Margaret 今日",
+    "soFar": "今日到而家",
+    "soFarMeta": "Margaret 同你分享嘅嘢",
+    "askAgent": "問 Noa"
+  },
+  "profile": {
+    "title": "👤 關於 Margaret",
+    "share": {
+      "label": "📤 分享資料",
+      "done": "已分享"
+    },
+    "conditionsTitle": "🩺 健康狀況",
+    "conditionsMeta": "撳一項睇詳情",
+    "born": "{{born}} 年出世 · 鍾意人叫佢「{{nickname}}」"
+  },
+  "wellbeing": {
+    "title": "🧭 整體狀態",
+    "meta": "同佢平時一個月比較",
+    "ariaLabel": "整體狀態 72 分（滿分 100）：身體 61、食藥 68、活動 74、睡眠 70、社交 82、記憶 88、家居 58",
+    "legend": [
+      "而家",
+      "上個月"
+    ]
+  },
+  "rhythm": {
+    "title": "🕰️ 日常作息",
+    "meta": "一個星期每個鐘佢幾時起身走動",
+    "legend": [
+      "少",
+      "多",
+      "對佢嚟講唔尋常"
+    ]
+  },
+  "plan": {
+    "title": "今個星期嘅計劃",
+    "approve": {
+      "label": "批准",
+      "toast": "已批准 · 已經通知咗 David",
+      "done": "已批准"
+    }
+  },
+  "circle": {
+    "title": "💞 佢嘅照顧圈",
+    "meta": "拖動嚟轉 · 撳一個人",
+    "ariaLabel": "Margaret 身邊嘅照顧圈：David 同社康護士喺附近，Sarah 同 James 喺遠方，中風中心喺護理圈上"
+  },
+  "chat": {
+    "title": "🗣️ 今日同佢傾偈"
+  },
+  "home": {
+    "title": "🏠 佢屋企今日"
+  },
+  "near": {
+    "title": "🤝 佢附近嘅人同地方",
+    "meta": "1 公里內"
+  },
+  "helper": {
+    "title": "🤖 Noa 今日做咗乜",
+    "meta": "每一步都有記錄，方便家人查閱",
+    "columns": [
+      "時間",
+      "做咗乜",
+      "點做",
+      "點解",
+      "結果"
+    ],
+    "approve": {
+      "label": "批准",
+      "toast": "已批准 · 已經通知咗 David"
+    }
+  },
+  "mapControls": {
+    "left": "向左轉",
+    "right": "向右轉",
+    "reset": "重設視圖"
+  },
+  "condition": {
+    "since": "開始於",
+    "rightNow": "而家"
+  },
+  "drawer": {
+    "mini": [
+      [
+        "🗣️ 問下佢",
+        "已加入佢 18:00 嘅傾偈",
+        "已加入"
+      ],
+      [
+        "📈 睇 30 日趨勢",
+        "完整版 app 會有趨勢視圖",
+        "收到"
+      ]
+    ],
+    "kpi": [
+      [
+        "🗣️ 問下佢",
+        "已加入佢 18:00 嘅傾偈",
+        "已加入"
+      ],
+      [
+        "📤 同家人分享",
+        "已同 David 同 Sarah 分享",
+        "已分享"
+      ]
+    ]
+  }
+}

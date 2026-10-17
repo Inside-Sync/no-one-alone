@@ -69,6 +69,8 @@ const METRICS: [normal: string, clear: string, slurred: string, n: number, c: nu
   ['steady', 'steady', 'shaky', 0.9, 0.88, 0.35],
 ]
 
+const HOW_ICONS = ['🎧', '💬', '📊', '🔴']
+
 /** Noa Speech Check (c12, prototype part 10): her own voice against tonight's sentence, five measures and the verdict. */
 export function SpeechCheckCard({ incident, name, timeZone }: { incident: IncidentDoc | null; name: string; timeZone: string }) {
   const { t } = useTranslation('live')
@@ -86,8 +88,10 @@ export function SpeechCheckCard({ incident, name, timeZone }: { incident: Incide
         <h2><NoaOrb size={22} /> {t('speech.title')}</h2>
         <span className="tag spk-tag">{t('speech.tag')}</span>
         <span className="meta">{t('speech.meta', { name })}</span>
-        <span className={`pill ${pill}`} id="spkVerdict">{t(`speech.state.${state}`, { name })}</span>
+        {/* Once there is a verdict it gets the banner below instead of the pill. */}
+        {!show && <span className={`pill ${pill}`} id="spkVerdict">{t(`speech.state.${state}`, { name })}</span>}
       </div>
+      {show && <div className={`spk-verdict ${state}`} role="status">{t(`speech.state.${state}`, { name })}</div>}
       <div className="spk-grid">
         <div className="spk-waves">
           <div className="spk-row">
@@ -118,7 +122,13 @@ export function SpeechCheckCard({ incident, name, timeZone }: { incident: Incide
                     <td>{labels[k]}</td>
                     <td className="n">{m[0]}</td>
                     <td className={`n ${show ? (slurred ? 'bad' : 'good') : ''}`}>
-                      {v}{show && <i className="spk-bar"><b style={{ width: `${Math.min(100, (f / Math.max(m[3], m[4], m[5])) * 100)}%` }}></b></i>}
+                      {v}
+                      {show && (
+                        <span className="spk-dual" aria-hidden="true">
+                          <i className="n" style={{ width: `${Math.min(100, (m[3] / Math.max(m[3], m[4], m[5])) * 100)}%` }}></i>
+                          <i className="t" style={{ width: `${Math.min(100, (f / Math.max(m[3], m[4], m[5])) * 100)}%` }}></i>
+                        </span>
+                      )}
                     </td>
                   </tr>
                 )
@@ -129,7 +139,7 @@ export function SpeechCheckCard({ incident, name, timeZone }: { incident: Incide
       </div>
       <ol className="spk-how">
         {(t('speech.how', { returnObjects: true }) as [string, string][]).map(([b, rest], k) => (
-          <li key={k}><b>{k + 1}</b><span><strong>{b}</strong> {rest}</span></li>
+          <li key={k} className={k === HOW_ICONS.length - 1 ? 'red' : undefined}><b aria-hidden="true">{HOW_ICONS[k]}</b><span><strong>{b}</strong> {rest}</span></li>
         ))}
       </ol>
       <p className="fine">{t('speech.fine')}</p>

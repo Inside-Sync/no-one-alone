@@ -1,0 +1,397 @@
+{
+  "lineage": {
+    "heading": "चार पीढ़ियाँ",
+    "meta": "Family Connect से · 11 लोग · 9 ने सहमति दी",
+    "conditionKeys": {
+      "HTN": {
+        "name": "उच्च रक्तचाप",
+        "color": "#c88a05"
+      },
+      "STR": {
+        "name": "स्ट्रोक",
+        "color": "#d9443f"
+      },
+      "AF": {
+        "name": "एट्रियल फ़िब्रिलेशन",
+        "color": "#c2417a"
+      },
+      "T2D": {
+        "name": "टाइप 2 डायबिटीज़",
+        "color": "#e07a3f"
+      },
+      "GLA": {
+        "name": "ग्लूकोमा",
+        "color": "#2f6fb0"
+      },
+      "DEM": {
+        "name": "डिमेंशिया",
+        "color": "#8f6fd0"
+      },
+      "HEAR": {
+        "name": "सुनने की कमी",
+        "color": "#1fb39c"
+      }
+    },
+    "legendNote": "संख्या = शुरुआत की उम्र",
+    "generations": [
+      {
+        "label": "दादा-दादी",
+        "nodes": [
+          {
+            "name": "Arthur Hughes",
+            "sub": "†72 · Margaret के पिता",
+            "conditions": [
+              [
+                "HTN",
+                55
+              ],
+              [
+                "STR",
+                68
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "Edith Hughes",
+            "sub": "†80 · Margaret की माँ",
+            "conditions": [
+              [
+                "GLA",
+                60
+              ],
+              [
+                "HEAR",
+                74
+              ],
+              [
+                "DEM",
+                77
+              ]
+            ],
+            "kind": "dec"
+          }
+        ]
+      },
+      {
+        "label": "Margaret की पीढ़ी",
+        "nodes": [
+          {
+            "name": "Margaret Collins",
+            "sub": "78 · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                61
+              ],
+              [
+                "HEAR",
+                72
+              ]
+            ],
+            "kind": "focus"
+          },
+          {
+            "name": "Robert Collins",
+            "sub": "†75 · पति",
+            "conditions": [
+              [
+                "HTN",
+                60
+              ],
+              [
+                "T2D",
+                58
+              ],
+              [
+                "AF",
+                70
+              ]
+            ],
+            "kind": "dec"
+          },
+          {
+            "name": "David Hughes",
+            "sub": "74 · भाई · Marrickville",
+            "conditions": [
+              [
+                "HTN",
+                52
+              ],
+              [
+                "STR",
+                69
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "label": "बच्चे",
+        "nodes": [
+          {
+            "name": "Sarah Collins",
+            "sub": "49 · London",
+            "conditions": []
+          },
+          {
+            "name": "James Collins",
+            "sub": "46 · Melbourne · आप",
+            "conditions": [
+              [
+                "HTN",
+                "138/86"
+              ]
+            ],
+            "kind": "you"
+          }
+        ]
+      },
+      {
+        "label": "पोते-पोतियाँ",
+        "nodes": [
+          {
+            "name": "Lily Collins",
+            "sub": "19 · Melbourne",
+            "conditions": []
+          },
+          {
+            "name": "Noah Collins",
+            "sub": "16 · Melbourne",
+            "conditions": []
+          }
+        ]
+      }
+    ],
+    "strengthHeading": "आपके लिए पारिवारिक पैटर्न की ताकत, James",
+    "strength": [
+      {
+        "condition": "उच्च रक्तचाप",
+        "dots": 4,
+        "label": "मज़बूत"
+      },
+      {
+        "condition": "टाइप 2 डायबिटीज़",
+        "dots": 3,
+        "label": "मध्यम+"
+      },
+      {
+        "condition": "स्ट्रोक",
+        "dots": 2,
+        "label": "मध्यम"
+      },
+      {
+        "condition": "एट्रियल फ़िब्रिलेशन",
+        "dots": 2,
+        "label": "मध्यम"
+      },
+      {
+        "condition": "ग्लूकोमा",
+        "dots": 2,
+        "label": "मध्यम"
+      },
+      {
+        "condition": "डिमेंशिया",
+        "dots": 1,
+        "label": "कमज़ोर"
+      },
+      {
+        "condition": "सुनने की कमी",
+        "dots": 1,
+        "label": "कमज़ोर"
+      }
+    ],
+    "strengthNote": "ताकत यह दिखाती है कि कितने रिश्तेदार प्रभावित हुए, वे कितने करीबी हैं और कितनी कम उम्र में। यह जाँच की दिशा तय करती है, जीन का अनुमान नहीं लगाती।",
+    "screeningHeading": {
+      "title": "आपकी जाँच योजना",
+      "meta": "James Collins · 46"
+    },
+    "screening": [
+      {
+        "check": "ब्लड प्रेशर जाँच",
+        "interval": "12 महीने",
+        "due": "बकाया",
+        "tone": "bad",
+        "action": "GP बुक करें"
+      },
+      {
+        "check": "दिल की सेहत जाँच (कुल CVD जोखिम)",
+        "interval": "45 की उम्र से हर 2 साल",
+        "due": "अभी देय",
+        "tone": "warn",
+        "action": "बुक करें"
+      },
+      {
+        "check": "डायबिटीज़ जोखिम (AUSDRISK) + HbA1c",
+        "interval": "3 साल",
+        "due": "जन 2027",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "आँखों की जाँच, आँख के दबाव सहित",
+        "interval": "2 साल",
+        "due": "मार्च 2027",
+        "tone": "plain",
+        "action": ""
+      },
+      {
+        "check": "लिपिड",
+        "interval": "5 साल",
+        "due": "अग 2025 में हुई",
+        "tone": "good",
+        "action": ""
+      },
+      {
+        "check": "सुनने की आधार जाँच",
+        "interval": "50 की उम्र में",
+        "due": "2030",
+        "tone": "plain",
+        "action": ""
+      }
+    ],
+    "screeningToast": "Melbourne में आपके GP को बुकिंग अनुरोध भेजा गया",
+    "matrixColumns": [
+      "HTN",
+      "STR",
+      "AF",
+      "T2D",
+      "GLA",
+      "DEM",
+      "HEAR"
+    ],
+    "matrix": [
+      {
+        "person": "Arthur (नाना)",
+        "onset": {
+          "HTN": 55,
+          "STR": 68
+        }
+      },
+      {
+        "person": "Edith (नानी)",
+        "onset": {
+          "GLA": 60,
+          "DEM": 77,
+          "HEAR": 74
+        }
+      },
+      {
+        "person": "Robert (पिता)",
+        "onset": {
+          "HTN": 60,
+          "T2D": 58,
+          "AF": 70
+        }
+      },
+      {
+        "person": "Margaret (माँ)",
+        "onset": {
+          "HTN": 61,
+          "HEAR": 72
+        }
+      },
+      {
+        "person": "David (मामा)",
+        "onset": {
+          "HTN": 52,
+          "STR": 69
+        }
+      },
+      {
+        "person": "Sarah (बहन)",
+        "onset": {}
+      },
+      {
+        "person": "James (आप)",
+        "onset": {
+          "HTN": "↑"
+        }
+      }
+    ],
+    "consent": {
+      "columns": [
+        "बीमारियाँ",
+        "दवाएँ",
+        "वाइटल्स",
+        "लोकेशन",
+        "आनुवंशिक"
+      ],
+      "rows": [
+        {
+          "person": "Margaret",
+          "shares": [
+            true,
+            true,
+            true,
+            true,
+            false
+          ]
+        },
+        {
+          "person": "David",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Sarah",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "James (आप)",
+          "shares": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "person": "Robert (संपत्ति की ओर से)",
+          "shares": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ],
+      "note": "हर व्यक्ति और हर डेटा प्रकार के लिए अलग से सहेजा गया। बदलाव एक मिनट के अंदर लागू होते हैं और ऑडिट लॉग में दर्ज होते हैं।"
+    },
+    "context": {
+      "initials": "HL",
+      "color": "#8f6fd0",
+      "sub": "4 पीढ़ियाँ · 11 लोग · Family Connect",
+      "facts": [
+        {
+          "live": true,
+          "label": "सहमति दी",
+          "value": "11 में से 9"
+        },
+        {
+          "live": false,
+          "label": "बीमारियाँ",
+          "value": "7"
+        },
+        {
+          "live": false,
+          "label": "आपकी योजना",
+          "value": "2 देय"
+        }
+      ]
+    }
+  }
+}

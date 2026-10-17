@@ -1,0 +1,109 @@
+{
+  "today": {
+    "title": "🟢 오늘의 Margaret",
+    "soFar": "오늘 지금까지",
+    "soFarMeta": "Margaret이 공유하는 내용",
+    "askAgent": "Noa에게 묻기"
+  },
+  "profile": {
+    "title": "👤 Margaret 소개",
+    "share": {
+      "label": "📤 프로필 공유",
+      "done": "공유함"
+    },
+    "conditionsTitle": "🩺 건강 상태",
+    "conditionsMeta": "눌러서 자세히 보기",
+    "born": "{{born}}년생 · \"{{nickname}}\"(이)라고 불리길 좋아해요"
+  },
+  "wellbeing": {
+    "title": "🧭 전반적인 안녕",
+    "meta": "평소 한 달과 비교",
+    "ariaLabel": "전반적인 안녕 100점 중 72점: 신체 61, 복약 68, 활동 74, 수면 70, 사회 82, 기억 88, 집 58",
+    "legend": [
+      "현재",
+      "지난달"
+    ]
+  },
+  "rhythm": {
+    "title": "🕰️ 하루 리듬",
+    "meta": "한 주의 시간대별 활동",
+    "legend": [
+      "적음",
+      "많음",
+      "평소와 다름"
+    ]
+  },
+  "plan": {
+    "title": "이번 주 계획",
+    "approve": {
+      "label": "승인",
+      "toast": "승인됨 · David에게 요청했어요",
+      "done": "승인됨"
+    }
+  },
+  "circle": {
+    "title": "💞 돌봄 모임",
+    "meta": "끌어서 돌리기 · 사람을 누르세요",
+    "ariaLabel": "Margaret을 둘러싼 돌봄 모임: 가까이 David와 방문 간호사, 멀리 Sarah와 James, 돌봄 고리에 뇌졸중 센터"
+  },
+  "chat": {
+    "title": "🗣️ 오늘 나눈 대화"
+  },
+  "home": {
+    "title": "🏠 오늘의 집"
+  },
+  "near": {
+    "title": "🤝 가까운 사람과 장소",
+    "meta": "1km 이내"
+  },
+  "helper": {
+    "title": "🤖 오늘 Noa가 한 일",
+    "meta": "가족이 확인할 수 있도록 모든 단계를 기록해요",
+    "columns": [
+      "시간",
+      "한 일",
+      "방법",
+      "이유",
+      "결과"
+    ],
+    "approve": {
+      "label": "승인",
+      "toast": "승인됨 · David에게 요청했어요"
+    }
+  },
+  "mapControls": {
+    "left": "왼쪽으로 회전",
+    "right": "오른쪽으로 회전",
+    "reset": "보기 초기화"
+  },
+  "condition": {
+    "since": "시작",
+    "rightNow": "현재"
+  },
+  "drawer": {
+    "mini": [
+      [
+        "🗣️ 직접 여쭤보기",
+        "18:00 다음 대화에 추가했어요",
+        "추가함"
+      ],
+      [
+        "📈 30일 추이 보기",
+        "추이 보기는 정식 앱에서 제공돼요",
+        "확인함"
+      ]
+    ],
+    "kpi": [
+      [
+        "🗣️ 직접 여쭤보기",
+        "18:00 다음 대화에 추가했어요",
+        "추가함"
+      ],
+      [
+        "📤 가족과 공유",
+        "David와 Sarah에게 공유했어요",
+        "공유함"
+      ]
+    ]
+  }
+}

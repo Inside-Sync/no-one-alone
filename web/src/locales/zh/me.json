@@ -1,0 +1,305 @@
+{
+  "hello": "下午好，Maggie 🌞",
+  "sub": "您今天状态很好。这是专属于您的一天。",
+  "tiles": [
+    {
+      "emoji": "❤️",
+      "title": "心脏",
+      "note": "68 · 平稳",
+      "warn": false
+    },
+    {
+      "emoji": "👣",
+      "title": "3,240 步",
+      "note": "快到 3,500 了！",
+      "warn": false
+    },
+    {
+      "emoji": "😴",
+      "title": "睡了 6 小时",
+      "note": "稍微少了点",
+      "warn": true
+    },
+    {
+      "emoji": "💧",
+      "title": "喝水",
+      "note": "现在喝一杯吧",
+      "warn": true
+    },
+    {
+      "emoji": "💊",
+      "title": "下一次服药",
+      "note": "下午 6 点，氨氯地平",
+      "warn": false
+    },
+    {
+      "emoji": "📞",
+      "title": "James 来电",
+      "note": "今晚 8 点",
+      "warn": false
+    }
+  ],
+  "people": {
+    "title": "💞 您的亲友",
+    "meta": "每个人能看到什么由您决定",
+    "change": "🔐 更改谁能看到什么",
+    "paused": "已暂停",
+    "sees": "可看到 {{total}} 项中的 {{seen}} 项"
+  },
+  "ideasTitle": "💡 给您的建议",
+  "ideasMeta": "只在您需要时",
+  "ideas": [
+    {
+      "emoji": "🔥",
+      "title": "周四会达到 38°。要不要有人送您去图书馆的避暑室？",
+      "note": "志愿者 Tom 可以在 11 点来接您。",
+      "yes": [
+        "好的，谢谢",
+        "已预约周四 11:00 接送",
+        "已预约"
+      ],
+      "no": [
+        "不用了，谢谢",
+        "没问题，我们改为打电话问候您",
+        "暂时不要"
+      ]
+    },
+    {
+      "emoji": "💊",
+      "title": "用一个每周药盒来帮您记住晚上的药，好吗？",
+      "note": "David 说周六可以来帮您整理好。",
+      "yes": [
+        "好的，谢谢",
+        "David 周六 10:00 会过来",
+        "好的"
+      ],
+      "no": [
+        "不用了，谢谢",
+        "好的，我们只保留提醒",
+        "暂时不要"
+      ]
+    },
+    {
+      "emoji": "🦻",
+      "title": "今天下午聊天时戴上助听器好吗？",
+      "note": "这样通话会更轻松。",
+      "yes": [
+        "戴好了",
+        "太好了",
+        "戴好了"
+      ],
+      "no": [
+        "等会儿",
+        "没关系",
+        "等会儿"
+      ]
+    }
+  ],
+  "promise": {
+    "title": "🔐 我们对您隐私的承诺",
+    "meta": "是健康支持，不是监视",
+    "items": [
+      {
+        "emoji": "✋",
+        "bold": "由您做主。",
+        "text": "谁能看到什么由您决定，您随时可以更改。"
+      },
+      {
+        "emoji": "📷",
+        "bold": "永远不用摄像头。",
+        "text": "家中传感器只感知活动和温度。"
+      },
+      {
+        "emoji": "🎙️",
+        "bold": "不会偷听。",
+        "text": "只有在您接听电话时，麦克风才会打开。"
+      },
+      {
+        "emoji": "📍",
+        "bold": "不追踪位置。",
+        "text": "位置功能是关闭的。如果您打开，别人也只会看到“在家”或“外出”。"
+      },
+      {
+        "emoji": "🚨",
+        "bold": "仅限紧急情况：",
+        "text": "David 和 James 始终会收到安全提醒，这样就能有人来帮忙。"
+      }
+    ],
+    "settings": "查看所有设置"
+  },
+  "access": {
+    "title": "👀 谁查看过您的信息",
+    "meta": "让一切都不在背后发生",
+    "head": [
+      "时间",
+      "谁",
+      "查看了什么",
+      "原因"
+    ],
+    "rows": [
+      [
+        "今天 09:12",
+        "James",
+        "您的心脏和血压摘要",
+        "每周查看"
+      ],
+      [
+        "今天 08:40",
+        "David",
+        "“我没事”报平安",
+        "早间问候"
+      ],
+      [
+        "昨天 16:42",
+        "Dr Patel",
+        "血压报告",
+        "您同意发送的"
+      ],
+      [
+        "昨天 11:05",
+        "Priya",
+        "本周的服药情况",
+        "安排护士上门"
+      ],
+      [
+        "周一 19:30",
+        "Sarah",
+        "睡眠和步数",
+        "之后给您打了电话"
+      ]
+    ]
+  },
+  "recovery": {
+    "title": "您的康复计划",
+    "title_family": "Margaret 的康复计划",
+    "home": "您已经回家了",
+    "play": "播放",
+    "next": "下一项：{{time}} {{text}}",
+    "nextTomorrow": "下一项（明天）：{{time}} {{text}}",
+    "done": "我已完成",
+    "today": "今天",
+    "followUps": "即将到来",
+    "followUp": "{{text}} · {{date}}",
+    "notes": "医生的说明",
+    "why": {
+      "apixaban": "防止因心跳不齐形成血栓，替代阿司匹林。",
+      "perindopril": "降低血压，保护大脑。",
+      "atorvastatin": "降低胆固醇。剂量从 20 mg 调高。",
+      "amlodipine": "降压药，照常服用。",
+      "vitaminD": "保护骨骼，照常服用。",
+      "aspirin": "请停用此药，现在由阿哌沙班代替。",
+      "walk": "轻松散步有助大脑恢复，也能让血压保持平稳。",
+      "bloodPressure": "先坐下休息 5 分钟。目标低于 130/80。",
+      "speech": "练习言语治疗师教您的发音。",
+      "water": "今天目标喝 1.5 升水。"
+    },
+    "taken": "已服用",
+    "tick": "完成",
+    "idle": "您的康复计划会显示在这里",
+    "idle_family": "Margaret 的康复计划会显示在这里",
+    "stop": "⛔ 停用：{{name}}",
+    "meds": "您的药物说明",
+    "meds_family": "她的药物说明",
+    "slots": {
+      "morning": "早上",
+      "midday": "中午",
+      "evening": "傍晚",
+      "night": "睡前"
+    },
+    "change": {
+      "New": "新增",
+      "Increased": "加量",
+      "Continue": "继续",
+      "Stop": "停用"
+    },
+    "noa": {
+      "title": "💬 来自 Noa",
+      "title_family": "💬 Noa 对 Margaret 说了什么",
+      "meta": "在医院批准计划之后",
+      "noa": "Noa",
+      "margaret": "👵 Margaret",
+      "welcome": "欢迎回家，Margaret。我是 Noa 💙 医院已经发来了您的康复计划，我已经用通俗易懂的话把它放进了您的应用里。",
+      "newMeds_one": "您有 1 种新药：{{names}}。",
+      "newMeds_other": "您有 {{count}} 种新药：{{names}}。",
+      "stopMeds": "请停止服用 {{names}}。",
+      "pharmacy": "我已经通知了药房，也更新了您的药盒。",
+      "thanks": "谢谢你，亲爱的。要记的东西可真多。",
+      "next": "别担心，每次我都会提醒您，既会说出来，也会显示在屏幕上。下一次是在 {{time}}：{{items}}。",
+      "also": "我还会在 10:00 提醒您散步，在 14:00 提醒您量血压和做说话练习。",
+      "followUp": "您的{{text}}在{{date}}。David 可以开车送您。",
+      "call": "明天 17:00 我会打电话问问您恢复得怎么样。如果您的脸歪了、一只手臂没力气，或者说话变得不对劲，请按“求助”，我会拨打 000。",
+      "bye": "太好了。谢谢你，亲爱的。"
+    },
+    "calls": {
+      "title": "您的问候电话",
+      "title_family": "她的问候电话",
+      "meta": "回家后的前 30 天",
+      "when": "第 {{day}} 天 · {{date}}",
+      "planned": "已安排",
+      "topics": {
+        "1": "您感觉怎么样，有没有头痛？",
+        "3": "新药吃得还顺利吗？",
+        "7": "看家庭医生并复查血压",
+        "14": "走路情况和跌倒检查",
+        "30": "这个月过得怎么样？"
+      }
+    },
+    "self": {
+      "layout": {
+        "label": "版式",
+        "detailed": "📋 详细",
+        "simple": "🔆 简洁"
+      },
+      "happened": "🌱 发生了什么",
+      "happenedMeta": "用通俗的话说",
+      "dayOf": "第 {{day}} 天 / 共 30 天",
+      "doneToday": "今天已完成 {{done}} / {{total}}",
+      "nextTitle": "⏰ 下一个提醒",
+      "allDone": "🎉 今天的都完成了",
+      "tasksTitle": "💊 今天的药和任务",
+      "tasksMeta": "完成后点一下",
+      "appts": "🗓️ 预约",
+      "callsMeta": "简短聊聊，看看您怎么样",
+      "callToday": "今天",
+      "logged": "做得好 👍 已记录。",
+      "fast": {
+        "title": "🚨 出现以下情况请立即拨打 000……",
+        "face": "脸",
+        "faceText": "一侧下垂",
+        "arm": "手臂",
+        "armText": "或腿无力、发麻",
+        "speech": "说话",
+        "speechText": "含糊不清或语无伦次",
+        "time": "时间",
+        "timeText": "就是关键。不要等。",
+        "call": "📞 拨打 000",
+        "calling": "正在拨打 000 · 请求派救护车"
+      },
+      "simple": {
+        "hello_morning": "早上好，Margaret",
+        "hello_afternoon": "下午好，Margaret",
+        "hello_evening": "晚上好，Margaret",
+        "sub": "回家第 {{day}} 天 / 共 30 天 · Noa 陪着您",
+        "now": "现在",
+        "tookThem": "✓ 我吃过了",
+        "didIt": "✓ 我做完了",
+        "snooze": "⏰ 10 分钟后再提醒我",
+        "snoozed": "好的，10 分钟后我再提醒您",
+        "later": "今天稍后",
+        "laterMeta": "到时会提醒您",
+        "nothingLater": "今天没有别的事了。",
+        "tabs": {
+          "meds": "💊 药物",
+          "appts": "🗓️ 就诊",
+          "calls": "📞 电话",
+          "help": "🚨 警示信号"
+        },
+        "tablets": "您的药",
+        "visits": "就诊和检查",
+        "noaCalls": "Noa 会给您打电话",
+        "noaCallsMeta": "每次简短聊几句",
+        "happened": "发生了什么"
+      }
+    }
+  }
+}

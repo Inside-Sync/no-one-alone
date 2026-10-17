@@ -1,0 +1,576 @@
+{
+  "careRecord": {
+    "kpis": [
+      {
+        "emoji": "📁",
+        "label": "健康记录",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "来自6个来源",
+        "delta": "本周新增38条",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "emoji": "🏥",
+        "label": "2023年以来就诊",
+        "value": "46",
+        "unit": "",
+        "color": "#1fb39c",
+        "baseline": "家庭医生18次 · 检查14次",
+        "delta": "本月2次",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "emoji": "💊",
+        "label": "药物",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "未发现冲突",
+        "delta": "无变化",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "emoji": "🧪",
+        "label": "检查结果",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "最近 10月12日",
+        "delta": "本月9项",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "emoji": "✅",
+        "label": "记录完整度",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "目标90%",
+        "delta": "良好",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "emoji": "📅",
+        "label": "距上次看家庭医生",
+        "value": "32",
+        "unit": "天",
+        "color": "#2f6fb0",
+        "baseline": "上次 9月12日",
+        "delta": "11月7日前复诊",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "kpisTechnical": [
+      {
+        "label": "FHIR 资源",
+        "value": "1,284",
+        "unit": "",
+        "color": "#0b7f71",
+        "baseline": "6个来源",
+        "delta": "本周+38",
+        "tone": "good",
+        "spark": [
+          1100,
+          1130,
+          1160,
+          1190,
+          1210,
+          1230,
+          1250,
+          1270,
+          1284
+        ]
+      },
+      {
+        "label": "就诊记录",
+        "value": "46",
+        "unit": "2023年以来",
+        "color": "#1fb39c",
+        "baseline": "家庭医生18 · 化验14",
+        "delta": "本月+2",
+        "tone": "good",
+        "spark": [
+          30,
+          32,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          46
+        ]
+      },
+      {
+        "label": "在用药物",
+        "value": "4",
+        "unit": "",
+        "color": "#c88a05",
+        "baseline": "0项相互作用",
+        "delta": "稳定",
+        "tone": "good",
+        "spark": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "label": "化验结果",
+        "value": "212",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "最近 10月12日",
+        "delta": "本月+9",
+        "tone": "good",
+        "spark": [
+          150,
+          160,
+          170,
+          180,
+          190,
+          198,
+          204,
+          210,
+          212
+        ]
+      },
+      {
+        "label": "记录完整度",
+        "value": "94",
+        "unit": "%",
+        "color": "#8f6fd0",
+        "baseline": "目标90",
+        "delta": "+6分",
+        "tone": "good",
+        "spark": [
+          80,
+          82,
+          85,
+          87,
+          89,
+          90,
+          92,
+          93,
+          94
+        ]
+      },
+      {
+        "label": "距上次家庭医生就诊天数",
+        "value": "32",
+        "unit": "天",
+        "color": "#2f6fb0",
+        "baseline": "9月12日",
+        "delta": "11月7日到期",
+        "tone": "warn",
+        "spark": [
+          2,
+          10,
+          18,
+          25,
+          1,
+          8,
+          15,
+          24,
+          32
+        ]
+      }
+    ],
+    "encounters": {
+      "meta": "来自6个来源的46条就诊记录",
+      "types": [
+        {
+          "type": "GP",
+          "color": "#1fb39c",
+          "count": 18,
+          "months": [
+            0.500035217963192,
+            3.5919200462213903,
+            5.900223949365526,
+            8.563925593219627,
+            11.39745256807418,
+            13.98531633823674,
+            15.711700772365276,
+            18.054891225234503,
+            20.55683382559273,
+            24.206118031596876,
+            25.725759348111,
+            28.837373673997234,
+            31.23934405715144,
+            33.155574496747526,
+            35.7405773571139,
+            38.88365086972122,
+            40.52017222765849,
+            43.034641837267806
+          ]
+        },
+        {
+          "type": "Specialist",
+          "color": "#5a7fe0",
+          "count": 6,
+          "months": [
+            3.2253704278034814,
+            10.8007900682751,
+            18.378686884537977,
+            25.59047720496587,
+            34.15039489269294,
+            41.68696422612943
+          ]
+        },
+        {
+          "type": "Pathology",
+          "color": "#c88a05",
+          "count": 14,
+          "months": [
+            1.664893864109082,
+            4.9426080702735185,
+            7.699556293617522,
+            11.942635330318133,
+            14.086282819589863,
+            17.083929102946005,
+            21.239300879872683,
+            23.787034035229155,
+            27.75246704276881,
+            29.999304596799707,
+            33.31236848008108,
+            37.69133973186029,
+            40.77544498399407,
+            43.046704329128104
+          ]
+        },
+        {
+          "type": "Emergency",
+          "color": "#ef4e4a",
+          "count": 2,
+          "months": [
+            14,
+            33
+          ]
+        },
+        {
+          "type": "Hearing",
+          "color": "#8f6fd0",
+          "count": 6,
+          "months": [
+            28,
+            31,
+            34,
+            37,
+            40,
+            43
+          ]
+        }
+      ],
+      "now": 45.5,
+      "markers": [
+        {
+          "month": 14,
+          "label": "跌倒 · 手腕"
+        },
+        {
+          "month": 33,
+          "label": "头晕"
+        }
+      ]
+    },
+    "medicines": [
+      {
+        "name": "Amlodipine 5 mg",
+        "timing": "晚上",
+        "adherence": 82,
+        "tone": "warn",
+        "last": "今天 09:33（较晚）"
+      },
+      {
+        "name": "Aspirin 100 mg",
+        "timing": "早上",
+        "adherence": 96,
+        "tone": "good",
+        "last": "今天 08:31"
+      },
+      {
+        "name": "Atorvastatin 20 mg",
+        "timing": "夜间",
+        "adherence": 88,
+        "tone": "warn",
+        "last": "昨天 21:02"
+      },
+      {
+        "name": "Vitamin D 1000 IU",
+        "timing": "早上",
+        "adherence": 90,
+        "tone": "good",
+        "last": "今天 08:31"
+      }
+    ],
+    "allergyNote": {
+      "allergen": "penicillin",
+      "detail": "皮疹，1998年",
+      "checked": "10月14日已对所有在用药物进行相互作用检查。"
+    },
+    "medicinesPill": {
+      "tone": "good",
+      "text": "无相互作用"
+    },
+    "labs": [
+      {
+        "name": "eGFR",
+        "unit": "mL/min",
+        "values": [
+          64,
+          62,
+          60,
+          58
+        ],
+        "reference": [
+          60,
+          120
+        ],
+        "axis": [
+          55,
+          70
+        ],
+        "note": "低于60 · 需查肾功能"
+      },
+      {
+        "name": "HbA1c",
+        "unit": "%",
+        "values": [
+          5.6,
+          5.7,
+          5.8,
+          5.9
+        ],
+        "reference": [
+          4,
+          6
+        ],
+        "axis": [
+          5.4,
+          6.2
+        ],
+        "note": "上升中 · 即将进入糖尿病前期范围"
+      },
+      {
+        "name": "LDL 胆固醇",
+        "unit": "mmol/L",
+        "values": [
+          3.1,
+          2.6,
+          2.5,
+          2.4
+        ],
+        "reference": [
+          0,
+          2.6
+        ],
+        "axis": [
+          2,
+          3.4
+        ],
+        "note": "已达标"
+      },
+      {
+        "name": "钠",
+        "unit": "mmol/L",
+        "values": [
+          139,
+          138,
+          137,
+          136
+        ],
+        "reference": [
+          135,
+          145
+        ],
+        "axis": [
+          132,
+          142
+        ],
+        "note": "正常，略有下降"
+      }
+    ],
+    "hospitals": [
+      {
+        "name": "Camperdown Stroke Centre",
+        "capability": "24小时卒中单元 · 取栓",
+        "eta": "11分钟",
+        "load": "24/28",
+        "tone": "warn",
+        "recommended": true
+      },
+      {
+        "name": "Inner West General",
+        "capability": "急诊 · 无卒中单元",
+        "eta": "9分钟",
+        "load": "14/30",
+        "tone": "good",
+        "recommended": false
+      },
+      {
+        "name": "Kogarah Regional",
+        "capability": "24小时卒中单元",
+        "eta": "17分钟",
+        "load": "31/28",
+        "tone": "bad",
+        "recommended": false
+      }
+    ],
+    "sources": [
+      {
+        "source": "腕戴设备",
+        "standard": "厂商 API → FHIR Observation",
+        "records": "18,402",
+        "lastSync": "2分钟前",
+        "status": "实时",
+        "tone": "good"
+      },
+      {
+        "source": "家庭中枢 · 6个传感器",
+        "standard": "MQTT → Pub/Sub → FHIR",
+        "records": "52,110",
+        "lastSync": "1分钟前",
+        "status": "实时",
+        "tone": "good"
+      },
+      {
+        "source": "语音问候",
+        "standard": "Gemini → QuestionnaireResponse",
+        "records": "612",
+        "lastSync": "13:04",
+        "status": "实时",
+        "tone": "good"
+      },
+      {
+        "source": "Illawarra Rd Family Practice",
+        "standard": "FHIR R4",
+        "records": "386",
+        "lastSync": "06:00",
+        "status": "每天",
+        "tone": "good"
+      },
+      {
+        "source": "化验室",
+        "standard": "HL7 v2 → FHIR R4",
+        "records": "212",
+        "lastSync": "10月12日",
+        "status": "出结果时",
+        "tone": "good"
+      },
+      {
+        "source": "扫描的信件和报告",
+        "standard": "Gemini OCR → FHIR DocumentReference",
+        "records": "74",
+        "lastSync": "9月3日",
+        "status": "已完成",
+        "tone": "plain"
+      },
+      {
+        "source": "My Health Record",
+        "standard": "FHIR（计划中）",
+        "records": "—",
+        "lastSync": "—",
+        "status": "计划中",
+        "tone": "plain"
+      }
+    ],
+    "sourcesTag": "FHIR R4",
+    "followUp": [
+      {
+        "day": "第1天",
+        "text": "语音通话，检查疼痛和意识混乱"
+      },
+      {
+        "day": "第3天",
+        "text": "新药与原有药物核对"
+      },
+      {
+        "day": "第7天",
+        "text": "已预约家庭医生，复查血压"
+      },
+      {
+        "day": "第14天",
+        "text": "活动能力与跌倒评估"
+      },
+      {
+        "day": "第30天",
+        "text": "重新评估再入院风险"
+      }
+    ],
+    "followUpNote": "预警信号会同时发送给出院护士和家人。"
+  }
+}

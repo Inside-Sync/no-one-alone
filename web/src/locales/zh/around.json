@@ -1,0 +1,48 @@
+{
+  "mapChip": "点击图钉查看详情",
+  "thursday": {
+    "title": "🔥 周四逐小时天气",
+    "meta": "室外温度与她家里会有多热",
+    "ariaLabel": "周四室外温度在 13:00 达到最高 38 度；不开空调室内会达到 34 度；助手安排 Margaret 11:00 到 16:00 去图书馆避暑室"
+  },
+  "air": {
+    "title": "🍃 空气、花粉和烟雾",
+    "meta": "未来 7 天",
+    "columns": [
+      "日期",
+      "空气质量",
+      "PM2.5",
+      "花粉",
+      "烟雾",
+      "建议"
+    ]
+  },
+  "newsFilterLabel": "新闻筛选",
+  "severity": {
+    "act": {
+      "color": "#d9443f",
+      "label": "需行动"
+    },
+    "aware": {
+      "color": "#c88a05",
+      "label": "需留意"
+    },
+    "help": {
+      "color": "#1fb39c",
+      "label": "有帮助"
+    },
+    "done": {
+      "color": "#56706e",
+      "label": "已解决"
+    }
+  },
+  "newsCategory": {
+    "All": "全部",
+    "Health": "健康",
+    "Safety": "安全",
+    "Weather": "天气",
+    "Community": "社区",
+    "Transport": "交通"
+  },
+  "newsAge": "{{age}}前"
+}

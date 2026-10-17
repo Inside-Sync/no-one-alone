@@ -1,0 +1,111 @@
+{
+  "modelTitle": "ℹ️ 这个预测是怎么算的",
+  "risks": {
+    "title": "📊 风险随时间的变化",
+    "meta": "等级由演示规则设定，并非概率",
+    "columns": [
+      "可能发生什么",
+      "等级",
+      "趋势",
+      "主要原因"
+    ]
+  },
+  "sim": {
+    "title": "🎛️ 试一试：如果……",
+    "meta": "拖动滑块",
+    "hearingSwitchLabel": "每天戴助听器",
+    "adherenceValue": "{{n}}%",
+    "cells": [
+      {
+        "key": "stroke",
+        "label": "中风 · 90 天"
+      },
+      {
+        "key": "fall",
+        "label": "跌倒 · 90 天"
+      },
+      {
+        "key": "admission",
+        "label": "住院 · 90 天"
+      },
+      {
+        "key": "mci",
+        "label": "轻度认知障碍 · 90 天"
+      }
+    ],
+    "delta": {
+      "none": "无变化",
+      "lower": "降低",
+      "higher": "升高"
+    }
+  },
+  "bp": {
+    "title": "早上收缩压",
+    "meta": "已观察 6 周 · 预测 4 周 · mmHg",
+    "yLabel": "早上收缩压",
+    "ariaLabel": "早上收缩压在六周内从 128 升至 146，如不做改变，预计将达到 156",
+    "today": "今天",
+    "weekLabel": "第{{n}}周",
+    "legend": [
+      {
+        "color": "#c88a05",
+        "label": "实际观察"
+      },
+      {
+        "color": "rgba(217,68,63,.5)",
+        "label": "不做改变的预测"
+      },
+      {
+        "color": "rgba(31,179,156,.6)",
+        "label": "100% 按时服药的预测"
+      },
+      {
+        "color": "#8f6fd0",
+        "label": "您的假设情景"
+      },
+      {
+        "color": "rgba(31,179,156,.15)",
+        "label": "目标低于 135"
+      }
+    ],
+    "series": {
+      "observed": "实际观察",
+      "nothing": "不做改变的预测",
+      "adherent": "100% 按时服药的预测",
+      "whatIf": "您的假设情景"
+    }
+  },
+  "shap": {
+    "title": "⚖️ 哪些因素推高或降低她的中风风险",
+    "meta": "红色推高 · 绿色降低"
+  },
+  "signs": {
+    "title": "👀 我们关注的迹象",
+    "meta": "今天与她平时相比",
+    "columns": [
+      "迹象",
+      "来源",
+      "频率",
+      "现在",
+      "平时",
+      "与平时相比",
+      "状态"
+    ],
+    "status": {
+      "good": "正常",
+      "warn": "留意",
+      "bad": "需行动"
+    }
+  },
+  "modes": {
+    "on": "开",
+    "off": "关",
+    "toastOn": "{{name}}模式已开启",
+    "toastOff": "{{name}}模式已关闭",
+    "names": {
+      "Hearing": "听力",
+      "Vision": "视力",
+      "Memory": "记忆"
+    }
+  }
+}
