@@ -1,0 +1,30 @@
+{
+  "fab": "Hỏi Noa",
+  "label": "Trò chuyện với Noa",
+  "name": "Noa",
+  "close": "Đóng trò chuyện",
+  "placeholder": "Hỏi về Margaret…",
+  "input": "Câu hỏi của bạn",
+  "send": "Gửi",
+  "typing": "Noa đang trả lời",
+  "offline": "Noa không hoạt động trong bản xem trước này.",
+  "failed": "Noa chưa thể trả lời lúc này.",
+  "sub": {
+    "hosp": "Chế độ lâm sàng · có ghi nhật ký",
+    "self": "Noa · chỉ riêng bạn",
+    "fam": "Trực tiếp · góc nhìn của {{name}} · theo lựa chọn chia sẻ của Margaret"
+  },
+  "greet": {
+    "hosp": "Noa, chế độ lâm sàng, cho <b>COLLINS, Margaret</b> (MRN 0048213). Truy cập theo đồng ý lâm sàng và mọi câu hỏi đều được ghi lại.",
+    "self": "Chào Margaret 💙 Noa đây. Bà cứ hỏi: thuốc, kế hoạch, hay ai được xem gì.",
+    "fam": "Chào {{name}} 👋 Mình là Noa, người bạn No One Alone của Margaret. Mình chăm bà cả ngày lẫn đêm. Bạn cứ hỏi về bà. Mình chỉ chia sẻ những gì bà đã chọn chia sẻ với bạn."
+  },
+  "mum": "Mẹ",
+  "she": "Bà",
+  "recoveryChip": "Kế hoạch hồi phục",
+  "chips": {
+    "hosp": ["Tóm tắt bệnh nhân", "Hồ sơ trước khi đến", "Thuốc khi xuất viện", "Trạng thái kế hoạch", "Nguy cơ tái nhập viện"],
+    "self": ["Tôi thế nào rồi?", "Lời nhắc tiếp theo", "Thuốc của tôi", "Ai xem được dữ liệu của tôi?", "Nhắc tôi đi bộ", "Gọi David"],
+    "fam": ["{{who}} thế nào rồi?", "Nhịp tim", "Thuốc", "Đã gọi những ai?", "Khi khẩn cấp thì sao?", "Tôi xem được gì?"]
+  }
+}

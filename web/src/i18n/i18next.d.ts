@@ -1,5 +1,6 @@
 import 'i18next'
 import type around from '../locales/en/around.json'
+import type chat from '../locales/en/chat.json'
 import type common from '../locales/en/common.json'
 import type community from '../locales/en/community.json'
 import type forecast from '../locales/en/forecast.json'
@@ -31,6 +32,7 @@ declare module 'i18next' {
       hospital: typeof hospital
       community: typeof community
       overlay: typeof overlay
+      chat: typeof chat
     }
   }
 }
