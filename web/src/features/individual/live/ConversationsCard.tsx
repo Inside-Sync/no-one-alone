@@ -39,7 +39,7 @@ function conversation(inc: IncidentDoc, people: LivePeople, call: CallLine[], t:
     if (e.kind === 'HANDOFF_RECEIVED') out.push({ at: ms(e.at), ch: 'hosp', agent: false, who: t('talk.strokeTeam'), text: quote(e.text) })
     if (e.kind === 'FAMILY_UPDATE') {
       for (const a of inc.assignments ?? []) {
-        if (people.members[a.memberId]) out.push({ at: ms(e.at), ch: a.memberId, agent: true, who: first(memberName(people, a.memberId)), text: quote(e.text) })
+        if (people.members[a.memberId] && a.memberId !== inc.ownerId) out.push({ at: ms(e.at), ch: a.memberId, agent: true, who: first(memberName(people, a.memberId)), text: quote(e.text) })
       }
     }
   }

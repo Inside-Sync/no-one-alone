@@ -29,12 +29,13 @@ const incident = {
   demo: { timerSeconds: 30, noReplySeconds: 15, clockOffsetMs: 0 },
 } as unknown as IncidentDoc
 
-test('shows the spoken hand-off line, not the packet, and the family update on each family channel', () => {
+test('shows the spoken hand-off line, not the packet, and the family update to everyone but the one on the way', () => {
   render(<ConversationsCard incident={incident} people={people} call={[]} dialling={false} />)
 
   expect(screen.getByText(`“${NOTICE}”`)).toBeInTheDocument()
   expect(screen.queryByText(/PRE-ARRIVAL/)).toBeNull()
-  expect(screen.getAllByText(`“${UPDATE}”`)).toHaveLength(3)
+  expect(screen.getAllByText(`“${UPDATE}”`)).toHaveLength(2)
+  expect(screen.queryByText(/Noa → David/)).toBeNull()
 
   fireEvent.click(screen.getByRole('button', { name: /James/ }))
   expect(screen.getByText(`“${UPDATE}”`)).toBeInTheDocument()
