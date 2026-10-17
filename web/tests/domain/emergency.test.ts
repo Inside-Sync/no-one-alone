@@ -67,7 +67,7 @@ test('own fields carry forward when a step omits them (null keeps the old value)
 })
 
 test('what, sub and help carry forward', () => {
-  expect(resolveStepView(STEPS, 0)).toMatchObject({ what: 'Heart rate 142, not moving', sub: 'The agent is checking before waking anyone', help: null })
+  expect(resolveStepView(STEPS, 0)).toMatchObject({ what: 'Heart rate 142, not moving', sub: 'Noa is checking before waking anyone', help: null })
   expect(resolveStepView(STEPS, 3)).toMatchObject({ what: 'Suspected stroke signs', sub: 'Last known well 01:55' })
   expect(resolveStepView(STEPS, 4)).toMatchObject({ what: 'Suspected stroke signs' })
   expect(resolveStepView(STEPS, 5).help).toBe('David · 6 min away')

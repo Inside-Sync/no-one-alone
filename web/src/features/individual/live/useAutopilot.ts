@@ -4,15 +4,6 @@ import { apiErrorCode } from '@/data/repo'
 import type { LiveView } from '@/domain/incident'
 import { clipFor, type SimSettings } from '@/domain/simulator'
 
-/** What each clip in public/sim says (Chirp en-AU-Chirp3-HD-Gacrux, a different voice from the agent). */
-export const CLIP_TEXTS: Record<string, string> = {
-  '/sim/clear-0.mp3': 'Yes, I can hear you.',
-  '/sim/clear-1.mp3': 'The weather is nice today.',
-  '/sim/clear-2.mp3': "No, I don't think so.",
-  '/sim/clear-3.mp3': 'Yes, I can move them.',
-  '/sim/slurred-1.mp3': 'Thuh... wezzuh... ish... nysh... tuh-dey.',
-}
-
 export interface AutopilotOptions {
   enabled: boolean
   settings: SimSettings

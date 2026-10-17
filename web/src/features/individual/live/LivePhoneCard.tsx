@@ -7,7 +7,7 @@ import { GlassCard } from '@/components/ui/GlassCard'
 import { useToast } from '@/components/ui/Toast'
 import { apiErrorCode, audioUrl } from '@/data/repo'
 import type { CheckinInput } from '@/data/contract'
-import type { LivePhone } from '@/domain/incident'
+import type { HelperStatus, LivePhone } from '@/domain/incident'
 import { playRing } from './ring'
 import { useRecorder } from './useRecorder'
 
@@ -15,11 +15,13 @@ import { useRecorder } from './useRecorder'
  * `Margaret's screen` for a live incident: the pending question, Yes / No or a voice reply posted to
  * `/api/incidents/{id}/checkin`, and `noReply` after `demo.noReplySeconds` without an answer (contract 3).
  */
-export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken }: {
+export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, statusOverride }: {
   phone: LivePhone
   helpInitials: string
   checkin: (i: CheckinInput) => Promise<void>
   onSpoken?: (questionKey: string) => void
+  /** Said instead of `phone.status` (the ambulance line once the 000 call ends). */
+  statusOverride?: HelperStatus | null
 }) {
   const toast = useToast()
   const { t } = useTranslation('live')
@@ -91,10 +93,11 @@ export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken }: {
     return () => { stopped = true; audio?.pause(); done() }
   }, [phone.audioPath])
 
-  // What the helper is doing (calling, on the way, 000): each status clip plays once, after the current audio.
-  const statusKey = phone.status?.key
-  const statusClip = phone.status?.clip ?? null
-  const statusText = phone.status?.text ?? null
+  // What Noa is doing (calling, on the way, 000): each status clip plays once, after the current audio.
+  const status = statusOverride ?? phone.status
+  const statusKey = status?.key
+  const statusClip = status?.clip ?? null
+  const statusText = status?.text ?? null
   // Shown when its clip starts, so the bubble never runs ahead of what Margaret has heard.
   const [statusShown, setStatusShown] = useState<string | null>(null)
   if (!statusKey && statusShown !== null) setStatusShown(null)
