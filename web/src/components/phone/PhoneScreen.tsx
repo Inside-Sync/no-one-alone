@@ -52,7 +52,7 @@ export function PhoneScreen({ time, q, small, flash, listen, help, yn, disabled,
             <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="currentColor" opacity=".4" /><rect x="2" y="2" width="16" height="8" rx="1.5" /><path d="M23 4v4a2 2 0 0 0 0-4Z" opacity=".4" /></svg>
           </span>
         </div>
-        <span className={`dev-h ${s.h}`}>{t('phone.header', { time })}</span>
+        <span className={`dev-h ${s.h}`}>{tc('hearingMode')}</span>
         {flash && caller && (
           <Avatar name={caller} className={`av ${s.caller}`} style={callerStyle}>{caller[0]}</Avatar>
         )}

@@ -69,7 +69,8 @@ test('starting shows the three cards, body.night and the first step', async () =
   expect(screen.getByRole('button', { name: 'Pause' })).toBeInTheDocument()
   expect(document.querySelectorAll('#sla > div')).toHaveLength(5)
   expect(within(document.getElementById('devLive')!).getByText('Margaret…')).toBeInTheDocument()
-  expect(within(document.getElementById('devLive')!).getByText('02:03 · Hearing mode')).toBeInTheDocument()
+  expect(within(document.getElementById('devLive')!).getByText('Hearing mode')).toBeInTheDocument()
+  expect(within(document.getElementById('devLive')!).getByText('02:03')).toBeInTheDocument()
 })
 
 test('Next shows step 2 "Calls Margaret by voice" and pauses; keyboard-operable buttons', async () => {
