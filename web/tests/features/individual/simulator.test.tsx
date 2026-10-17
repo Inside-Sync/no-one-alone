@@ -73,10 +73,10 @@ describe('watch', () => {
     act(() => { window.dispatchEvent(new Event(NIGHT_DEMO)) })
     expect(screen.getByRole('button', { name: '🌙 Night emergency' })).toHaveAttribute('aria-pressed', 'true')
     await beat(4000)
-    expect(start).toHaveBeenCalledWith('stroke', { hr: 142, movementMin: 10, noReplySeconds: 45 })
+    expect(start).toHaveBeenCalledWith('stroke', { hr: 137, movementMin: 10, noReplySeconds: 45 })
   })
 
-  test('Night emergency starts stroke once after 4 readings, with HR 142 and 10 min still', async () => {
+  test('Night emergency starts stroke once after 4 readings, with HR 137 and 10 min still', async () => {
     await mount()
     click('🌙 Night emergency')
     expect(screen.getByRole('button', { name: '🌙 Night emergency' })).toHaveAttribute('aria-pressed', 'true')
@@ -84,7 +84,7 @@ describe('watch', () => {
     expect(start).not.toHaveBeenCalled()
     await beat(1000)
     expect(start).toHaveBeenCalledTimes(1)
-    expect(start).toHaveBeenCalledWith('stroke', { hr: 142, movementMin: 10, noReplySeconds: 45 })
+    expect(start).toHaveBeenCalledWith('stroke', { hr: 137, movementMin: 10, noReplySeconds: 45 })
     await beat(10_000)
     click('▶️ Resume')
     await beat(5000)

@@ -33,6 +33,7 @@ public class Handoff {
     static final String TASK_MEMBER = "handoff";
     static final int HANDOFF_DELAY_SECONDS = 25;
     private static final Logger log = LoggerFactory.getLogger(Handoff.class);
+    private static final String SCRIPT_PERSON = "margaret";
     private static final List<String> BLOOD_THINNERS = List.of("apixaban", "rivaroxaban", "dabigatran", "edoxaban", "warfarin", "heparin", "enoxaparin");
     private static final DateTimeFormatter HH_MM = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -136,6 +137,8 @@ public class Handoff {
     }
 
     private String notice(Incident x, Person person, Integer etaMin) {
+        // ponytail: Margaret's 000 call is recorded audio with the script's numbers, so her notice says the same ones
+        boolean script = SCRIPT_PERSON.equals(x.personId);
         ZoneId zone = person.timezone == null ? StoryClock.DEFAULT_ZONE : ZoneId.of(person.timezone);
         List<String> parts = new ArrayList<>();
         parts.add("This is Noa from No One Alone");
@@ -144,14 +147,18 @@ public class Handoff {
         if (x.suspectedStroke()) {
             parts.add("Suspected stroke");
         }
-        if (x.lastKnownWellAt != null) {
+        if (script) {
+            parts.add("Last seen well 01:30");
+        } else if (x.lastKnownWellAt != null) {
             parts.add("Last seen well " + hhmm(x.lastKnownWellAt, zone));
         }
         Optional<String> slurred = x.checkIn.turns.stream().filter(t -> t.assessment != null && "SLURRED".equals(t.assessment.clarity))
                 .findFirst().map(t -> t.at != null ? t.at
                         : x.timeline.stream().filter(e -> "TRIAGED".equals(e.kind)).map(e -> e.at).findFirst().orElse(null));
-        slurred.ifPresent(at -> parts.add("Slurred speech found " + hhmm(at, zone)));
-        if (x.alert != null && x.alert.hr != null) {
+        slurred.ifPresent(at -> parts.add("Slurred speech found " + (script ? "01:40" : hhmm(at, zone))));
+        if (script) {
+            parts.add("Heart rate up to 137");
+        } else if (x.alert != null && x.alert.hr != null) {
             parts.add("Heart rate up to " + x.alert.hr);
         }
         if (person.meds != null && !person.meds.isEmpty()) {
@@ -163,7 +170,9 @@ public class Handoff {
         if (person.allergies != null && !person.allergies.isEmpty()) {
             parts.add("Allergy: " + String.join(", ", person.allergies));
         }
-        if (etaMin != null) {
+        if (script) {
+            parts.add("ETA 12 min");
+        } else if (etaMin != null) {
             parts.add("ETA " + etaMin + " min");
         }
         Optional.ofNullable(person.circle).flatMap(c -> c.stream().filter(e -> e.role == Role.DISTANT).findFirst())

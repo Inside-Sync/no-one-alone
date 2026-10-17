@@ -45,7 +45,7 @@ const STAIRS_RISE = [124, 128, 132]
 export const PRESETS: Record<PresetId, () => Watch> = {
   night: () => ({
     readings: history((i) => NIGHT_RISE[i - (SIZE - NIGHT_RISE.length)] ?? 60 + wobble(i), (i) => i < SIZE - 8),
-    clock: START_CLOCK, hr: 142, stillMin: 8,
+    clock: START_CLOCK, hr: 137, stillMin: 8,
   }),
   stairs: () => ({
     readings: history((i) => STAIRS_RISE[i - (SIZE - STAIRS_RISE.length)] ?? 74 + wobble(i), () => true),
