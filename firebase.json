@@ -5,6 +5,9 @@
     "rewrites": [
       { "source": "/api/**", "run": { "serviceId": "core-api", "region": "asia-southeast1" } },
       { "source": "**", "destination": "/index.html" }
+    ],
+    "headers": [
+      { "source": "**", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
     ]
   },
   "firestore": { "rules": "firestore.rules" },
