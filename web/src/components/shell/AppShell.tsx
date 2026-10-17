@@ -1,16 +1,18 @@
 'use client'
 
 import type { ReactNode } from 'react'
+import { ChatPanel } from '@/features/chat/ChatPanel'
 import { ContextBar } from './ContextBar'
 import { TopNav } from './TopNav'
 
-/** Header, context bar and the page below them (`.wrap` is a grid, so each is a row). */
+/** Header, context bar and the page below them (`.wrap` is a grid, so each is a row), plus the fixed Ask Noa chat. */
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <>
       <TopNav />
       <ContextBar />
       {children}
+      <ChatPanel />
     </>
   )
 }

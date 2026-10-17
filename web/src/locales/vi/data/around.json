@@ -742,7 +742,7 @@
         "severity": "act",
         "icon": "shield",
         "title": "Lừa đảo gõ cửa trên phố của bà",
-        "text": "Người tự xưng \"hoàn tiền điện mặt trời\", 3 báo cáo từ Thứ Hai. Trợ lý đã nhắc bà không mở cửa cho khách lạ. Bà có thể gọi David chỉ với một chạm nếu thấy lo.",
+        "text": "Người tự xưng \"hoàn tiền điện mặt trời\", 3 báo cáo từ Thứ Hai. Noa đã nhắc bà không mở cửa cho khách lạ. Bà có thể gọi David chỉ với một chạm nếu thấy lo.",
         "source": "Cảnh sát + hàng xóm · 2 ngày"
       },
       {
@@ -771,7 +771,7 @@
         "icon": "moon",
         "title": "Đèn đường hỏng trên Calvert St",
         "text": "Đã báo hội đồng khu vực. Lần hỏi thăm buổi tối được dời sớm hơn để bà không phải đi bộ về nhà trong bóng tối.",
-        "source": "Trợ lý · CN"
+        "source": "Noa · CN"
       },
       {
         "severity": "aware",
@@ -939,7 +939,7 @@
         },
         {
           "color": "rgba(143,111,208,.2)",
-          "label": "Kế hoạch của trợ lý"
+          "label": "Kế hoạch của Noa"
         }
       ]
     },

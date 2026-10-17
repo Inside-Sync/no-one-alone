@@ -50,7 +50,7 @@ function renderApp(ui: React.ReactElement, viewer = 'james') {
 
 const drBody = () => document.getElementById('drBody')!.textContent ?? ''
 const isOpen = () => document.getElementById('drawer')!.classList.contains('on')
-const ready = () => screen.findByText('🤖 What the helper did today')
+const ready = () => screen.findByText('🤖 What Noa did today')
 
 test('closed BP drawer: pausing sharing drops its value from the DOM at once', async () => {
   renderApp(<HomePage />)

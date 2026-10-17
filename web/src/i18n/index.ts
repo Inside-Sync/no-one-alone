@@ -14,6 +14,7 @@ import enRecord from '../locales/en/record.json' with { type: 'json' }
 import enHospital from '../locales/en/hospital.json' with { type: 'json' }
 import enCommunity from '../locales/en/community.json' with { type: 'json' }
 import enOverlay from '../locales/en/overlay.json' with { type: 'json' }
+import enChat from '../locales/en/chat.json' with { type: 'json' }
 import viCommon from '../locales/vi/common.json' with { type: 'json' }
 import viHome from '../locales/vi/home.json' with { type: 'json' }
 import viHealth from '../locales/vi/health.json' with { type: 'json' }
@@ -27,6 +28,7 @@ import viRecord from '../locales/vi/record.json' with { type: 'json' }
 import viHospital from '../locales/vi/hospital.json' with { type: 'json' }
 import viCommunity from '../locales/vi/community.json' with { type: 'json' }
 import viOverlay from '../locales/vi/overlay.json' with { type: 'json' }
+import viChat from '../locales/vi/chat.json' with { type: 'json' }
 
 /**
  * i18next with one JSON file per namespace and language: `src/locales/{lng}/{ns}.json`. The mock's data lives next to
@@ -39,13 +41,13 @@ export const LANGUAGES = ['en', 'vi'] as const
 export type Language = (typeof LANGUAGES)[number]
 
 export const NAMESPACES = [
-  'common', 'home', 'health', 'around', 'forecast', 'live', 'me', 'privacy', 'lineage', 'record', 'hospital', 'community', 'overlay',
+  'common', 'home', 'health', 'around', 'forecast', 'live', 'me', 'privacy', 'lineage', 'record', 'hospital', 'community', 'overlay', 'chat',
 ] as const
 
 // Explicit imports (not import.meta.glob) so this module also loads outside Vite, e.g. in Playwright's e2e helpers.
 const resources = {
-  en: { common: enCommon, home: enHome, health: enHealth, around: enAround, forecast: enForecast, live: enLive, me: enMe, privacy: enPrivacy, lineage: enLineage, record: enRecord, hospital: enHospital, community: enCommunity, overlay: enOverlay },
-  vi: { common: viCommon, home: viHome, health: viHealth, around: viAround, forecast: viForecast, live: viLive, me: viMe, privacy: viPrivacy, lineage: viLineage, record: viRecord, hospital: viHospital, community: viCommunity, overlay: viOverlay },
+  en: { common: enCommon, home: enHome, health: enHealth, around: enAround, forecast: enForecast, live: enLive, me: enMe, privacy: enPrivacy, lineage: enLineage, record: enRecord, hospital: enHospital, community: enCommunity, overlay: enOverlay, chat: enChat },
+  vi: { common: viCommon, home: viHome, health: viHealth, around: viAround, forecast: viForecast, live: viLive, me: viMe, privacy: viPrivacy, lineage: viLineage, record: viRecord, hospital: viHospital, community: viCommunity, overlay: viOverlay, chat: viChat },
 }
 
 void i18n

@@ -742,7 +742,7 @@
         "severity": "act",
         "icon": "shield",
         "title": "Scam door-knocks on her street",
-        "text": "\"Solar rebate\" callers, 3 reports since Monday. The helper reminded her not to open the door to unexpected visitors. She can call David with one tap if anyone worries her.",
+        "text": "\"Solar rebate\" callers, 3 reports since Monday. Noa reminded her not to open the door to unexpected visitors. She can call David with one tap if anyone worries her.",
         "source": "Police + neighbours · 2 d"
       },
       {
@@ -771,7 +771,7 @@
         "icon": "moon",
         "title": "Street light out on Calvert St",
         "text": "Reported to council. Evening check-in moved earlier so she isn't walking home in the dark.",
-        "source": "Agent · Sun"
+        "source": "Noa · Sun"
       },
       {
         "severity": "aware",
@@ -939,7 +939,7 @@
         },
         {
           "color": "rgba(143,111,208,.2)",
-          "label": "Helper's plan"
+          "label": "Noa's plan"
         }
       ]
     },
