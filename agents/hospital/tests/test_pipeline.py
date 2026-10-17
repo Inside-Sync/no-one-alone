@@ -188,7 +188,9 @@ def test_margaret_packet_is_english_in_sydney_time(request_body):
     assert "Status: suspected stroke" in text
     assert text.endswith("SYNTHETIC DEMO DATA")
     assert not any(ch in text for ch in "ạảấầậếềệịọốồộờớợụủứừựỳ")
-    assert "atrial fibrillation (provisional)" in out["conditions"]
+    assert "atrial fibrillation (provisional)" not in out["conditions"]
+    assert "186 Marrickville Road, Marrickville NSW 2204" in next(
+        r for r in resources if r["resourceType"] == "Patient")["address"][0]["text"]
     assert out["baseline"] == "Lives alone, independent, walking stick outdoors"
 
 
