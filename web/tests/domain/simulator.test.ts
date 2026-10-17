@@ -3,8 +3,8 @@ import { PRESETS, SIM_DEFAULTS, alertRun, blankWatch, clipFor, clockText, setHr,
 const ticks = (w: Watch, n: number) => Array.from({ length: n }).reduce<Watch>((x) => tick(x), w)
 
 test('clipFor: red-0, red-1, then none; the mic option sends nothing', () => {
-  expect([0, 1, 2].map((i) => clipFor(SIM_DEFAULTS, i))).toEqual(['/sim/red-0.mp3', '/sim/red-1.mp3', null])
-  expect(clipFor({ ...SIM_DEFAULTS, speech: 'mic' }, 0)).toBeNull()
+  expect([0, 1, 2].map((i) => clipFor({ ...SIM_DEFAULTS, speech: 'slurred' }, i))).toEqual(['/sim/red-0.mp3', '/sim/red-1.mp3', null])
+  expect(clipFor(SIM_DEFAULTS, 0)).toBeNull()
 })
 
 test('tick: one more reading, 40 kept, clock + 1; still minutes grow while still and stay 0 while moving', () => {

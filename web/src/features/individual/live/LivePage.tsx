@@ -103,10 +103,13 @@ function LiveIncidentPage() {
   // Kept here, not in the cards, so the settings survive the incident they started.
   const [sim, setSim] = useState(SIM_DEFAULTS)
   const [busy, setBusy] = useState(false)
+  // The incident she answered by hand on: no autopilot voice for it.
+  const [manual, setManual] = useState<string | null>(null)
   const open = Boolean(view?.open)
   const onAlert = (w: Watch) => {
     setBusy(true)
     setSpoken(null)
+    setManual(null)
     toast(t('live.starting'))
     start(scenarioFor(), { hr: w.hr, movementMin: alertRun(w.readings), noReplySeconds: NO_REPLY_SECONDS })
       .then(() => setAuto(true))
@@ -116,10 +119,10 @@ function LiveIncidentPage() {
   const watch = useWatch({ locked: open, onAlert })
   const onReset = () => {
     if (busy) return
-    setAuto(false); setSpoken(null); watch.reset()
+    setAuto(false); setSpoken(null); setManual(null); watch.reset()
     reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed')))
   }
-  useAutopilot({ enabled: auto && open, settings: sim, incident, view, spokenKey: spoken, checkin, act })
+  useAutopilot({ enabled: auto && open, voice: manual !== view?.id, settings: sim, incident, view, spokenKey: spoken, checkin, act })
   const simCards = (
     <>
       <SimulatorCard watch={watch} settings={sim} onChange={setSim} locked={open || busy} onReset={onReset} />
@@ -140,6 +143,7 @@ function LiveIncidentPage() {
       <LiveAlertCard view={view} incident={incident} people={people} scene={scene} viewer={viewer} act={act} onReset={onReset} />
       <LiveTimelineCard view={view} />
       <LivePhoneCard phone={view.phone} helpInitials={view.owner.initials} checkin={checkin} onSpoken={setSpoken} speechRef={speech}
+        onManual={() => setManual(view.id)}
         statusOverride={ambulance} />
       <SpeechCheckCard turns={incident.checkIn?.turns ?? []} />
       {call && calls.initial && (

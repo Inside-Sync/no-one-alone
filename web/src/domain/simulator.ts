@@ -7,7 +7,7 @@ export interface Reading { minute: number; hr: number; moving: boolean }
 /** `clock` is minutes after midnight of the newest reading. */
 export interface Watch { readings: Reading[]; clock: number; hr: number; stillMin: number }
 
-export const SIM_DEFAULTS: SimSettings = { speech: 'slurred', davidPicksUp: true }
+export const SIM_DEFAULTS: SimSettings = { speech: 'mic', davidPicksUp: true }
 
 export const scenarioFor = (): DemoScenario => 'stroke'
 

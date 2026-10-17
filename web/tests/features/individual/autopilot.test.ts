@@ -6,17 +6,19 @@ import { SIM_DEFAULTS, type SimSettings } from '@/domain/simulator'
 import { useAutopilot, type AutopilotOptions } from '@/features/individual/live/useAutopilot'
 
 const play = vi.fn(() => Promise.resolve())
+const pause = vi.fn()
 let ended: (() => void) | null = null
 const fetchMock = vi.fn(() => Promise.resolve({ blob: () => Promise.resolve(new Blob(['mp3'])) }))
 
 beforeEach(() => {
   vi.useFakeTimers()
   play.mockClear()
+  pause.mockClear()
   fetchMock.mockClear()
   vi.stubGlobal('fetch', fetchMock)
   ended = null
   vi.stubGlobal('Audio', vi.fn(function Audio() {
-    return { play, addEventListener: (ev: string, f: () => void) => { if (ev === 'ended') ended = f } }
+    return { play, pause, addEventListener: (ev: string, f: () => void) => { if (ev === 'ended') ended = f } }
   }))
 })
 afterEach(() => {
@@ -33,12 +35,12 @@ const david = (state: AssignmentDoc['state']) => ({ memberId: 'david', state }) 
 function setup(settings: SimSettings, incident: IncidentDoc, view: LiveView) {
   const checkin = vi.fn(() => Promise.resolve())
   const act = vi.fn(() => Promise.resolve())
-  const props: AutopilotOptions = { enabled: true, settings, incident, view, spokenKey: null, checkin, act }
+  const props: AutopilotOptions = { enabled: true, voice: true, settings, incident, view, spokenKey: null, checkin, act }
   const hook = renderHook((p: AutopilotOptions) => useAutopilot(p), { initialProps: props })
   return { checkin, act, rerender: (o: Partial<AutopilotOptions>) => hook.rerender({ ...props, ...o }) }
 }
 
-const clear: SimSettings = SIM_DEFAULTS
+const clear: SimSettings = { ...SIM_DEFAULTS, speech: 'slurred' }
 
 test('waits for the question to finish, pauses, lets Margaret finish, then sends once per key', async () => {
   const key = '1:0:Can you hear me?'
@@ -87,4 +89,39 @@ test('accepts for David 1.5 s after he is notified, only when he picks up', asyn
     await flush(() => vi.advanceTimersByTimeAsync(200))
     expect(act.mock.calls).toEqual(davidPicksUp ? [['david', 'ACCEPT']] : [])
   }
+})
+
+test('voice off from the start: nothing plays and nothing is posted', async () => {
+  const key = '1:0:Can you hear me?'
+  const { checkin, rerender } = setup(clear, incidentWith(1), viewWith(key))
+  rerender({ voice: false })
+  await flush(() => vi.advanceTimersByTimeAsync(20000))
+  rerender({ voice: false, spokenKey: key })
+  await flush(() => vi.advanceTimersByTimeAsync(20000))
+  expect(play).not.toHaveBeenCalled()
+  expect(fetchMock).not.toHaveBeenCalled()
+  expect(checkin).not.toHaveBeenCalled()
+})
+
+test('voice turned off mid-clip pauses it and never posts it', async () => {
+  let reject: (e: unknown) => void = () => {}
+  play.mockImplementationOnce(() => new Promise((_, r) => { reject = r }))
+  pause.mockImplementationOnce(() => reject(new DOMException('aborted', 'AbortError')))
+  const key = '1:0:Can you hear me?'
+  const { checkin, rerender } = setup(clear, incidentWith(1), viewWith(key))
+  rerender({ spokenKey: key })
+  await flush(() => vi.advanceTimersByTimeAsync(2600))
+  expect(play).toHaveBeenCalledTimes(1)
+  rerender({ spokenKey: key, voice: false })
+  await flush(async () => { ended?.() })
+  expect(pause).toHaveBeenCalledTimes(1)
+  expect(fetchMock).not.toHaveBeenCalled()
+  expect(checkin).not.toHaveBeenCalled()
+})
+
+test('David still accepts with voice off', async () => {
+  const { act, rerender } = setup(clear, incidentWith(0, [david('QUEUED')]), viewWith(null))
+  rerender({ voice: false, incident: incidentWith(0, [david('NOTIFIED')]) })
+  await flush(() => vi.advanceTimersByTimeAsync(1600))
+  expect(act.mock.calls).toEqual([['david', 'ACCEPT']])
 })

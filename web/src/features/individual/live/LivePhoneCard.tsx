@@ -15,11 +15,13 @@ import { useRecorder } from './useRecorder'
  * `Margaret's screen` for a live incident: the pending question, Yes / No or a voice reply posted to
  * `/api/incidents/{id}/checkin`, and `noReply` after `demo.noReplySeconds` without an answer (contract 3).
  */
-export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, statusOverride, speechRef }: {
+export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, onManual, statusOverride, speechRef }: {
   phone: LivePhone
   helpInitials: string
   checkin: (i: CheckinInput) => Promise<void>
   onSpoken?: (questionKey: string) => void
+  /** She answered by hand (record or Yes / No), so the autopilot stays quiet. */
+  onManual?: () => void
   /** Said instead of `phone.status` (the ambulance line once the 000 call ends). */
   statusOverride?: HelperStatus | null
   /** Mirrors the speech queue so other cards can wait for it. */
@@ -127,6 +129,7 @@ export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, statusOv
 
   const disabled = phone.busy || sending
   const onRecord = () => {
+    onManual?.()
     if (rec.recording) { rec.stop(); return }
     rec.start().then((ok) => { if (!ok) toast(t('live.noMic')) }, () => toast(t('live.noMic')))
   }
@@ -147,7 +150,7 @@ export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, statusOv
         yn={phone.yn}
         disabled={disabled}
         // PhoneScreen passes the button's label (`live:phone.yes` / `live:phone.no`) in the current language.
-        onAnswer={(a) => send({ yesNo: a === t('phone.yes') ? 'YES' : 'NO' }, a)}
+        onAnswer={(a) => { onManual?.(); send({ yesNo: a === t('phone.yes') ? 'YES' : 'NO' }, a) }}
         record={phone.voice ? { label: rec.recording ? t('live.recording') : t('live.record'), recording: rec.recording, disabled: disabled && !rec.recording, onClick: onRecord } : undefined}
       />
       <p className="fine">{waiting ? t('live.noReplyIn', { s: phone.noReplySeconds }) : t('phone.note')}</p>
