@@ -83,3 +83,32 @@ def test_answered_no_is_come_now():
 
 def test_null_text_does_not_crash():
     assert rules.triage({"alert": alert(), "turns": [{"by": "PERSON", "text": None}]})["level"] == "MONITOR"
+
+
+def agent(text):
+    return {"by": "AGENT", "text": text}
+
+
+def test_no_to_the_limbs_question_is_emergency_weakness():
+    turns = [agent("Margaret Collins, it's your No One Alone helper. James asked me to check on you. Can you hear me?"),
+             person("No. Hello. Who?"),
+             agent("I hear you saying no and hello. Please say after me: the weather is nice today."),
+             person("The weather is nice. Nice."),
+             agent("That's good to hear. Do you have chest pain or dizziness, or did you fall?"), person("Hey."),
+             agent("I hear you. Can you move your arms and legs?"), person("No.")]
+    r = rules.triage({"alert": alert(hr=142), "turns": turns})
+    assert r["level"] == "EMERGENCY" and "weakness" in r["reasons"]
+
+
+def test_khong_to_the_vietnamese_limbs_question_is_emergency():
+    turns = [agent("Mạ có cử động tay chân được không?"), person("Không.")]
+    assert rules.triage({"alert": alert(), "turns": turns})["level"] == "EMERGENCY"
+
+
+def test_yes_to_the_limbs_question_does_not_raise():
+    turns = [agent("Can you move your arms and legs?"), person("Yes, I can.")]
+    assert rules.triage({"alert": alert(), "turns": turns})["level"] == "MONITOR"
+
+
+def test_answered_no_ignores_punctuation_and_case():
+    assert rules.triage({"alert": alert(), "turns": [person("no.")]})["level"] == "COME_NOW"

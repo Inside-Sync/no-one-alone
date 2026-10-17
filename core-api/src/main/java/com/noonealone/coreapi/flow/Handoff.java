@@ -34,7 +34,7 @@ public class Handoff {
     public void start(String incidentId) {
         Incident inc = store.get(incidentId);
         Person person = store.person(inc.personId);
-        boolean stroke = inc.hasSlurredTurn();
+        boolean stroke = inc.suspectedStroke();
         List<Hospital> candidates = store.hospitals().stream().filter(h -> !stroke || h.strokeReady).toList();
         if (candidates.isEmpty()) {
             return;
