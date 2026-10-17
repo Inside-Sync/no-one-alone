@@ -1,6 +1,7 @@
 package com.noonealone.coreapi.store;
 
 import java.time.Clock;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,13 @@ public class IncidentStore {
             tx.set(ref, Docs.toMap(incident));
             return new Mutation(incident, true);
         }));
+    }
+
+    public Optional<Incident> latest(String personId) {
+        // ponytail: scans the person's incidents in memory, avoids a composite index; fine for a demo
+        return call(db.collection("incidents").whereEqualTo("personId", personId).get()).getDocuments().stream()
+                .map(IncidentStore::read)
+                .max(Comparator.comparing((Incident i) -> i.createdAt == null ? "" : i.createdAt));
     }
 
     public void delete(String id) {
