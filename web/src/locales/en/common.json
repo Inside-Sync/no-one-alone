@@ -242,10 +242,12 @@
       "lineage": "🌳 Health Lineage",
       "record": "📋 Care record",
       "live": "🚨 Emergency",
+      "recovery": "🌱 Recovery",
       "device": "📱 Her phone"
     },
     "self": {
       "me": "🌞 My day",
+      "recovery": "🌱 My recovery",
       "health": "❤️ My health",
       "privacy": "🔐 Who sees what",
       "around": "🌤️ Around me",
@@ -274,6 +276,7 @@
     "device": "Margaret's phone",
     "me": "Hello, Margaret",
     "privacy": "Who sees what",
+    "recovery": "Recovery plan · Margaret Collins",
     "ed": "Pre-arrivals · Camperdown Stroke Centre",
     "panel": "Patient panel · older patients",
     "demand": "Demand and beds · next 14 days",

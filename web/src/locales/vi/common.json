@@ -281,10 +281,12 @@
       "lineage": "🌳 Gia phả sức khỏe",
       "record": "📋 Hồ sơ chăm sóc",
       "live": "🚨 Khẩn cấp",
+      "recovery": "🌱 Hồi phục",
       "device": "📱 Điện thoại của bà"
     },
     "self": {
       "me": "🌞 Ngày của tôi",
+      "recovery": "🌱 Hồi phục của tôi",
       "health": "❤️ Sức khỏe của tôi",
       "privacy": "🔐 Ai xem được gì",
       "around": "🌤️ Quanh tôi",
@@ -313,6 +315,7 @@
     "device": "Điện thoại của bà Margaret",
     "me": "Xin chào, bà Margaret",
     "privacy": "Ai xem được gì",
+    "recovery": "Kế hoạch hồi phục · Margaret Collins",
     "ed": "Báo trước khi đến · Trung tâm đột quỵ Camperdown",
     "panel": "Danh sách bệnh nhân · người cao tuổi",
     "demand": "Nhu cầu và giường · 14 ngày tới",

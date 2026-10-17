@@ -6,9 +6,18 @@ import { DischargePage } from '@/features/hospital/discharge/DischargePage'
 import { EdPage } from '@/features/hospital/ed/EdPage'
 import { PanelPage } from '@/features/hospital/panel/PanelPage'
 import { PAGE_REGISTRY } from '@/features/registry'
+import type { IncidentDoc } from '@/data/contract'
+import type { LiveIncidentValue } from '@/state/LiveIncident'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/hospital/ed/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
+
+const idle = async () => {}
+const liveValue: LiveIncidentValue = {
+  live: false, loading: false, error: null, incident: null, people: { person: null, members: {} }, view: null,
+  start: idle, reset: idle, checkin: idle, act: idle, recover: idle,
+}
+vi.mock('@/state/LiveIncident', () => ({ useLiveIncident: () => liveValue }))
 
 const opts = { who: 'family' as const }
 const goto = (r: { app: () => { dispatchEmergency: (a: { type: 'start' } | { type: 'goto'; step: number } | { type: 'tick' }) => void } }, step: number) =>
@@ -195,5 +204,25 @@ describe('discharge', () => {
     expect(rows[3].querySelectorAll('td.st i')[2]).toHaveTextContent('↑')
     expect(rows[2].querySelectorAll('td.st i')[1]).toHaveTextContent('!')
     expect(document.querySelectorAll('.tw ~ .legend span')).toHaveLength(4)
+  })
+
+  test('board leads with Margaret only once the live incident has a recovery plan', async () => {
+    const { unmount } = renderWithProviders(<DischargePage />, opts)
+    await screen.findByText('30-day follow-up board')
+    expect(screen.queryByText('Margaret C., 78')).toBeNull()
+    unmount()
+    liveValue.incident = { recovery: { createdAt: '2026-10-16T22:00:00Z', diagnosis: 'Ischaemic stroke' } } as unknown as IncidentDoc
+    try {
+      renderWithProviders(<DischargePage />, opts)
+      await screen.findByText('30-day follow-up board')
+      const rows = document.querySelectorAll('#board tr')
+      expect(rows).toHaveLength(9)
+      expect(rows[0]).toHaveTextContent('Margaret C., 78')
+      expect(rows[0]).toHaveTextContent('17 Oct')
+      expect(rows[0]).toHaveTextContent('Ischaemic stroke')
+      expect(rows[0]).toHaveTextContent('New')
+    } finally {
+      liveValue.incident = null
+    }
   })
 })

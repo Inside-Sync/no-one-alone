@@ -56,10 +56,20 @@
       "notes": "Dặn dò của bác sĩ",
       "hint": "Giờ dạng HH:mm, cách nhau bằng dấu phẩy",
       "send": "Cho về nhà với kế hoạch này",
-      "sending": "Đang gửi…",
       "sentAt": "Đã cho về nhà lúc {{time}}",
       "sent": "Đã cho về nhà",
-      "failed": "Không gửi được kế hoạch"
+      "failed": "Không gửi được kế hoạch",
+      "delivering": "Trợ lý đang gửi kế hoạch…",
+      "why": "Vì sao: {{text}}",
+      "steps": {
+        "summary": "Đã viết tóm tắt bằng lời dễ hiểu",
+        "summaryFallback": "Dùng lời dặn của bác sĩ làm tóm tắt",
+        "reminders": "Đã đặt {{n}} lời nhắc, {{voiced}} lời nhắc có giọng nói",
+        "calls": "Đã thêm ngày gọi hỏi thăm vào kế hoạch: Ngày {{days}}",
+        "appointments": "Lịch hẹn: {{list}}",
+        "circle": "{{names}} cũng xem được",
+        "delivered": "Kế hoạch đã hiện trên màn hình của Margaret"
+      }
     }
   },
   "panel": {
@@ -179,7 +189,8 @@
           "color": "var(--track)",
           "label": "Sắp tới"
         }
-      ]
+      ],
+      "new": "Mới"
     }
   },
   "actions": {

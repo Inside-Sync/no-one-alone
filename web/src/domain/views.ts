@@ -43,9 +43,9 @@ const tab = (group: TabGroup, id: string, icon?: string): Tab => ({
   get label() { return i18n.t(`common:tabs.${group}.${id}` as 'common:tabs.family.home') },
 })
 
-export const TABS_FAM: Tab[] = ['home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'device'].map((id) => tab('family', id))
+export const TABS_FAM: Tab[] = ['home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'recovery', 'device'].map((id) => tab('family', id))
 
-export const TABS_SELF: Tab[] = ['me', 'health', 'privacy', 'around', 'lineage', 'device'].map((id) => tab('self', id))
+export const TABS_SELF: Tab[] = ['me', 'recovery', 'health', 'privacy', 'around', 'lineage', 'device'].map((id) => tab('self', id))
 
 const TABS_HOSPITAL: Tab[] = [
   tab('hospital', 'ed', 'siren'),
@@ -106,7 +106,7 @@ export function parsePath(pathname: string | null): { view: ViewId; page: string
 }
 
 const PAGE_IDS = [
-  'home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'device', 'me', 'privacy',
+  'home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'device', 'me', 'privacy', 'recovery',
   'ed', 'panel', 'demand', 'discharge', 'community', 'watch',
 ] as const
 

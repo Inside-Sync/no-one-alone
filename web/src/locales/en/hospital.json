@@ -56,10 +56,20 @@
       "notes": "Doctor's notes",
       "hint": "Times as HH:mm, separated by commas",
       "send": "Send home with this plan",
-      "sending": "Sending…",
       "sentAt": "Sent home at {{time}}",
       "sent": "Sent home",
-      "failed": "Could not send the plan"
+      "failed": "Could not send the plan",
+      "delivering": "Agent is delivering…",
+      "why": "Why: {{text}}",
+      "steps": {
+        "summary": "Summary written in plain words",
+        "summaryFallback": "Doctor's notes used as the summary",
+        "reminders": "{{n}} reminders set, {{voiced}} with a spoken reminder",
+        "calls": "Check-in call dates added to her plan: Day {{days}}",
+        "appointments": "Appointments: {{list}}",
+        "circle": "Visible to {{names}}",
+        "delivered": "Plan is on Margaret's screen"
+      }
     }
   },
   "panel": {
@@ -179,7 +189,8 @@
           "color": "var(--track)",
           "label": "Upcoming"
         }
-      ]
+      ],
+      "new": "New"
     }
   },
   "actions": {

@@ -17,6 +17,7 @@ import { LivePage } from './individual/live/LivePage'
 import { MePage } from './individual/me/MePage'
 import { PrivacyPage } from './individual/privacy/PrivacyPage'
 import { RecordPage } from './individual/record/RecordPage'
+import { RecoveryPage } from './individual/recovery/RecoveryPage'
 
 /** Page registry: `${view}/${page}` -> component, one entry for every route in `allRoutes()`. */
 export const PAGE_REGISTRY: Record<string, ComponentType> = {
@@ -29,6 +30,7 @@ export const PAGE_REGISTRY: Record<string, ComponentType> = {
   'individual/live': LivePage,
   'individual/me': MePage,
   'individual/privacy': PrivacyPage,
+  'individual/recovery': RecoveryPage,
   'individual/device': DevicePage,
   'hospital/ed': EdPage,
   'hospital/panel': PanelPage,
