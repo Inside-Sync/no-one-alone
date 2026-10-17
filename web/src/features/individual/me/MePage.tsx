@@ -9,8 +9,6 @@ import { OnceButton } from '@/components/ui/OnceButton'
 import { useToast } from '@/components/ui/Toast'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
 import { useAppState } from '@/state/AppState'
-import { useLiveIncident } from '@/state/LiveIncident'
-import { RecoveryCard } from './RecoveryCard'
 import { PauseButton } from '../privacy/PauseButton'
 import { TableScroll } from '@/components/ui/TableScroll'
 
@@ -20,11 +18,9 @@ export function MePage() {
   const router = useRouter()
   const toast = useToast()
   const { t } = useTranslation('me')
-  const { live, incident, people: livePeople } = useLiveIncident()
   const goPrivacy = () => router.push('/individual/privacy')
   return (
     <main className="grid" data-page="me">
-      {live && incident?.recovery && <RecoveryCard recovery={incident.recovery} tz={livePeople.person?.timezone ?? 'Australia/Sydney'} />}
       <GlassCard span={8} className="me-hero">
         <span className="hello">{t('hello')}</span>
         <p className="me-sub">{t('sub')}</p>

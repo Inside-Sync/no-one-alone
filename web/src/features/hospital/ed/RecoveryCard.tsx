@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { useToast } from '@/components/ui/Toast'
 import type { RecoveryRequest } from '@/data/contract'
+import { deliverySteps, todayTasks } from '@/domain/recovery'
 import { Head } from '../../individual/home/parts'
 import { useLiveIncident } from '@/state/LiveIncident'
 
@@ -16,7 +17,9 @@ const DEFAULT_PLAN: RecoveryRequest = {
   ],
   activities: [
     { text: 'Walk for 15 minutes with your stick', times: ['10:00', '16:00'] },
-    { text: 'Speech exercises from your sheet', times: ['11:00'] },
+    { text: 'Check your blood pressure', times: ['08:15', '18:15'] },
+    { text: 'Speech exercises from your sheet', times: ['14:00'] },
+    { text: 'Drink a glass of water', times: ['11:00', '16:00'] },
   ],
   followUps: [
     { text: 'GP check with Dr Patel', inDays: 7 },
@@ -65,6 +68,14 @@ export function RecoveryCard() {
   const [busy, setBusy] = useState(false)
   const [sent, setSent] = useState(false)
   const recovery = incident?.recovery
+  const [shown, setShown] = useState(0)
+  const steps = recovery ? deliverySteps(recovery, Object.values(people.members).map((p) => p.displayName.split(' ')[0])) : []
+  const visible = sent ? shown : steps.length
+  useEffect(() => {
+    if (!recovery || !sent || shown >= steps.length) return
+    const id = setTimeout(() => setShown(shown + 1), 550)
+    return () => clearTimeout(id)
+  }, [recovery, sent, shown, steps.length])
   const tz = people.person?.timezone ?? 'Australia/Sydney'
 
   const set = <K extends keyof Form>(k: K, v: Form[K]) => setForm((f) => ({ ...f, [k]: v }))
@@ -88,11 +99,16 @@ export function RecoveryCard() {
     return (
       <GlassCard span={12}>
         <Head title={t('ed.recovery.title')} meta={at ? t('ed.recovery.sentAt', { time: at }) : t('ed.recovery.sent')} />
-        <ul className="list">
-          {recovery?.reminders.map((r) => (
-            <li key={r.time + r.text}><b>{r.time}</b><span>{r.text}</span></li>
-          ))}
-        </ul>
+        <ol className="list steps">
+          {steps.slice(0, visible).map((s, i) => <li key={s.key}><b>{i + 1}</b><span>{t(`ed.recovery.steps.${s.key}`, s.vars)}</span></li>)}
+        </ol>
+        {recovery && visible >= steps.length && (
+          <ul className="list">
+            {todayTasks(recovery).map((x) => (
+              <li key={x.id}><b>{x.time}</b><span>{x.title}{x.why && <small className="meta" style={{ display: 'block' }}>{t('ed.recovery.why', { text: x.why })}</small>}</span></li>
+            ))}
+          </ul>
+        )}
       </GlassCard>
     )
   }
@@ -130,7 +146,7 @@ export function RecoveryCard() {
       ))}
       {text(t('ed.recovery.notes'), form.notes, (v) => set('notes', v))}
       <p className="meta">{t('ed.recovery.hint')}</p>
-      <button type="button" className="btn" disabled={busy} onClick={send}>{busy ? t('ed.recovery.sending') : t('ed.recovery.send')}</button>
+      <button type="button" className="btn" disabled={busy} onClick={send}>{busy ? t('ed.recovery.delivering') : t('ed.recovery.send')}</button>
     </GlassCard>
   )
 }

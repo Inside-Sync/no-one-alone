@@ -171,6 +171,7 @@
   },
   "recovery": {
     "title": "Kế hoạch hồi phục của mạ",
+    "title_family": "Kế hoạch hồi phục của bà Margaret",
     "home": "Mạ đã về nhà",
     "play": "Nghe",
     "next": "Tiếp theo: {{time}} {{text}}",
@@ -179,6 +180,24 @@
     "today": "Hôm nay",
     "followUps": "Sắp tới",
     "followUp": "{{text}} · {{date}}",
-    "notes": "Dặn dò của bác sĩ"
+    "notes": "Dặn dò của bác sĩ",
+    "taken": "Đã uống",
+    "tick": "Xong",
+    "idle": "Kế hoạch hồi phục của mạ sẽ hiện ở đây",
+    "idle_family": "Kế hoạch hồi phục của bà Margaret sẽ hiện ở đây",
+    "calls": {
+      "title": "Các cuộc gọi hỏi thăm mạ",
+      "title_family": "Các cuộc gọi hỏi thăm bà",
+      "meta": "30 ngày đầu ở nhà",
+      "when": "Ngày {{day}} · {{date}}",
+      "planned": "Đã lên lịch",
+      "topics": {
+        "1": "Mạ thấy trong người thế nào, có đau đầu không?",
+        "3": "Thuốc mới uống có ổn không?",
+        "7": "Khám bác sĩ gia đình và xem lại huyết áp",
+        "14": "Kiểm tra đi lại và nguy cơ té ngã",
+        "30": "Một tháng qua thế nào rồi?"
+      }
+    }
   }
 }

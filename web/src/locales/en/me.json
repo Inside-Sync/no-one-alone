@@ -171,6 +171,7 @@
   },
   "recovery": {
     "title": "Your recovery plan",
+    "title_family": "Margaret's recovery plan",
     "home": "You are home",
     "play": "Play",
     "next": "Next: {{time}} {{text}}",
@@ -179,6 +180,24 @@
     "today": "Today",
     "followUps": "Coming up",
     "followUp": "{{text}} · {{date}}",
-    "notes": "Doctor's notes"
+    "notes": "Doctor's notes",
+    "taken": "Taken",
+    "tick": "Done",
+    "idle": "Your recovery plan will appear here",
+    "idle_family": "Margaret's recovery plan will appear here",
+    "calls": {
+      "title": "Your check-in calls",
+      "title_family": "Her check-in calls",
+      "meta": "First 30 days at home",
+      "when": "Day {{day}} · {{date}}",
+      "planned": "Planned",
+      "topics": {
+        "1": "How are you feeling, any headaches?",
+        "3": "Are the new medicines going OK?",
+        "7": "GP visit and blood pressure review",
+        "14": "Walking and falls check",
+        "30": "How is the month going?"
+      }
+    }
   }
 }

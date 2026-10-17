@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, screen, waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
 import type { IncidentDoc, RecoveryDoc, RecoveryRequest } from '@/data/contract'
 import { EdPage } from '@/features/hospital/ed/EdPage'
@@ -62,4 +62,39 @@ test('shows the sent plan read-only once recovery exists', async () => {
   expect(screen.getByText(/Sent home at/)).toBeInTheDocument()
   expect(screen.getByText('Time for your aspirin, 100 mg.')).toBeInTheDocument()
   expect(screen.queryByRole('button', { name: 'Send home with this plan' })).toBeNull()
+  expect(screen.getByText("Plan is on Margaret's screen")).toBeInTheDocument()
+})
+
+test('after a send the delivery steps reveal one by one from the stored doc', async () => {
+  const recovery = {
+    createdAt: '2026-10-16T05:10:00Z', staffName: 'Dr Nguyen', diagnosis: 'd', notes: 'n', meds: [], activities: [],
+    followUps: [{ text: 'GP check', inDays: 7, date: '2026-10-23' }], summary: 's', fallback: false,
+    reminders: [
+      { time: '08:00', kind: 'MED', text: 'Time for your aspirin, 100 mg.', audioPath: 'a.mp3' },
+      { time: '10:00', kind: 'ACTIVITY', text: 'Time to walk for 15 minutes with your stick.', audioPath: 'b.mp3' },
+    ],
+  } as RecoveryDoc
+  liveValue.incident = incident({})
+  recover.mockImplementation(async () => { liveValue.incident = incident({ recovery }) })
+  renderWithProviders(<EdPage />, { who: 'family' })
+  await ready()
+  vi.useFakeTimers()
+  try {
+    fireEvent.click(screen.getByRole('button', { name: 'Send home with this plan' }))
+    await act(async () => {})
+    const items = () => [...document.querySelectorAll('ol.steps li')].map((li) => li.querySelector('span')!.textContent)
+    expect(items()).toEqual([])
+    act(() => { vi.advanceTimersByTime(550) })
+    expect(items()).toEqual(['Summary written in plain words'])
+    for (let i = 0; i < 4; i++) act(() => { vi.advanceTimersByTime(550) })
+    expect(items()).toEqual([
+      'Summary written in plain words',
+      '2 reminders set, 2 with a spoken reminder',
+      'Check-in call dates added to her plan: Day 1, 3, 7, 14, 30',
+      'Appointments: GP check (2026-10-23)',
+      "Plan is on Margaret's screen",
+    ])
+  } finally {
+    vi.useRealTimers()
+  }
 })
