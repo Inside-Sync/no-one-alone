@@ -15,7 +15,12 @@ import { useRecorder } from './useRecorder'
  * `Margaret's screen` for a live incident: the pending question, Yes / No or a voice reply posted to
  * `/api/incidents/{id}/checkin`, and `noReply` after `demo.noReplySeconds` without an answer (contract 3).
  */
-export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePhone; helpInitials: string; checkin: (i: CheckinInput) => Promise<void> }) {
+export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken }: {
+  phone: LivePhone
+  helpInitials: string
+  checkin: (i: CheckinInput) => Promise<void>
+  onSpoken?: (questionKey: string) => void
+}) {
   const toast = useToast()
   const { t } = useTranslation('live')
   const [sending, setSending] = useState(false)
@@ -63,10 +68,15 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
   const played = useRef<string | null>(null)
   // Resolves when the question or instruction audio ends, so the status clip never talks over it.
   const speaking = useRef<Promise<void>>(Promise.resolve())
+  const spokenCb = useRef(onSpoken)
+  const questionKey = useRef(phone.questionKey)
+  useEffect(() => { spokenCb.current = onSpoken; questionKey.current = phone.questionKey })
   useEffect(() => {
     const path = phone.audioPath
     if (!path || played.current === path) return
     played.current = path
+    const key = questionKey.current
+    const finished = () => { if (key) spokenCb.current?.(key) }
     let audio: HTMLAudioElement | null = null
     let stopped = false
     let done = () => {}
@@ -74,33 +84,39 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
     ;(ring.current ?? Promise.resolve()).then(() => (stopped ? undefined : audioUrl(path))).then((url) => {
       if (!url) { done(); return }
       audio = new Audio(url)
-      audio.addEventListener('ended', done)
-      audio.addEventListener('error', done)
+      audio.addEventListener('ended', () => { done(); finished() })
+      audio.addEventListener('error', () => { done(); finished() })
       return audio.play()
-    }).catch(done)
+    }).catch(() => { done(); finished() })
     return () => { stopped = true; audio?.pause(); done() }
   }, [phone.audioPath])
 
   // What the helper is doing (calling, on the way, 000): each status clip plays once, after the current audio.
   const statusKey = phone.status?.key
   const statusClip = phone.status?.clip ?? null
+  const statusText = phone.status?.text ?? null
+  // Shown when its clip starts, so the bubble never runs ahead of what Margaret has heard.
+  const [statusShown, setStatusShown] = useState<string | null>(null)
+  if (!statusKey && statusShown !== null) setStatusShown(null)
   const said = useRef<string | null>(null)
   const statusAudio = useRef<HTMLAudioElement | null>(null)
   const mounted = useRef(true)
   useEffect(() => () => { mounted.current = false; statusAudio.current?.pause() }, [])
   useEffect(() => {
-    if (!statusKey || !statusClip || said.current === statusKey) return
+    if (!statusKey || said.current === statusKey) return
     said.current = statusKey
-    // Queued, not cancelled: escalation updates arrive every 3 s and each one must be heard.
+    // Queued, not cancelled: escalation updates arrive seconds apart and each one must be heard.
     speaking.current = speaking.current.then(() => new Promise<void>((done) => {
       if (!mounted.current) { done(); return }
+      setStatusShown(statusText)
+      if (!statusClip) { done(); return }
       const a = new Audio(statusClip)
       statusAudio.current = a
       a.addEventListener('ended', () => done())
       a.addEventListener('error', () => done())
       a.play().catch(() => done())
     }))
-  }, [statusKey, statusClip])
+  }, [statusKey, statusClip, statusText])
 
   const disabled = phone.busy || sending
   const onRecord = () => {
@@ -114,7 +130,7 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
       <PhoneScreen
         time={phone.time}
         q={phone.q}
-        small={sending ? t('live.sending') : phone.small ?? phone.status?.text}
+        small={sending ? t('live.sending') : phone.small ?? (statusKey ? statusShown : null) ?? undefined}
         flash={phone.flash}
         listen={rec.recording || phone.busy}
         help={phone.help}

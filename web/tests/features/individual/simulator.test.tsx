@@ -42,7 +42,7 @@ test('Start with Night emergency starts stroke with the overrides', async () => 
   click('Sound asleep')
   click('Night emergency')
   click('Start')
-  expect(start).toHaveBeenCalledWith('stroke', { hr: 142, movementMin: 4, noReplySeconds: 15 })
+  expect(start).toHaveBeenCalledWith('stroke', { hr: 142, movementMin: 4, noReplySeconds: 25 })
 })
 
 test('Moving disables the not-moving slider', async () => {

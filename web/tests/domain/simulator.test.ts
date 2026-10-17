@@ -19,8 +19,8 @@ test('overridesFor: moving sends movementMin 0, still sends stillMin', () => {
   expect(overridesFor(asleep)).toEqual({ hr: 57, movementMin: 45 })
 })
 
-test('noReplySecondsFor: 15 with clips, 10 for no answer', () => {
-  expect(noReplySecondsFor(night)).toBe(15)
+test('noReplySecondsFor: 25 with clips, 10 for no answer', () => {
+  expect(noReplySecondsFor(night)).toBe(25)
   expect(noReplySecondsFor({ ...night, speech: 'none' })).toBe(10)
 })
 
