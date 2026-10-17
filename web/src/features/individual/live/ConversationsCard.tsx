@@ -35,10 +35,13 @@ function conversation(inc: IncidentDoc, people: LivePeople, call: CallLine[], t:
     if ((e.kind === 'ACCEPTED' || e.kind === 'DECLINED' || e.kind === 'ARRIVED') && people.members[e.actor]) {
       out.push({ at: ms(e.at), ch: e.actor, agent: false, who: first(memberName(people, e.actor)), text: t(`talk.${e.kind}`) })
     }
-    if (e.kind === 'HANDOFF_SENT') {
-      out.push({ at: ms(e.at), ch: 'hosp', agent: true, who: t('talk.hospital'), text: inc.handoff?.packet?.text?.trim() || e.text })
-    }
+    if (e.kind === 'HANDOFF_SENT') out.push({ at: ms(e.at), ch: 'hosp', agent: true, who: t('talk.hospital'), text: quote(e.text) })
     if (e.kind === 'HANDOFF_RECEIVED') out.push({ at: ms(e.at), ch: 'hosp', agent: false, who: t('talk.strokeTeam'), text: quote(e.text) })
+    if (e.kind === 'FAMILY_UPDATE') {
+      for (const a of inc.assignments ?? []) {
+        if (people.members[a.memberId]) out.push({ at: ms(e.at), ch: a.memberId, agent: true, who: first(memberName(people, a.memberId)), text: quote(e.text) })
+      }
+    }
   }
   const called = inc.timeline.find((e) => e.kind === 'CALLED_115')
   if (called) {

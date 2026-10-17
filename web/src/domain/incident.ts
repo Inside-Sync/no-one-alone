@@ -113,7 +113,7 @@ const PHASE: Record<TimelineKind, EmPhase> = {
   TRIAGED: 'triage',
   ALERTED: 'escalate', NOTIFIED: 'escalate', ACCEPTED: 'escalate', DECLINED: 'escalate', EXPIRED: 'escalate', NO_NEARBY: 'escalate',
   ARRIVED: 'escalate', CALLED_115: 'escalate',
-  HANDOFF_SENT: 'handOff', HANDOFF_RECEIVED: 'handOff', HANDOFF_FAILED: 'handOff',
+  HANDOFF_SENT: 'handOff', HANDOFF_RECEIVED: 'handOff', HANDOFF_FAILED: 'handOff', FAMILY_UPDATE: 'handOff',
   AGENT_FALLBACK: 'agent', CLOSED: 'close', DISCHARGED: 'close',
 }
 
