@@ -44,7 +44,7 @@ async function call<T>(path: string, body?: BodyInit | object): Promise<T> {
 }
 
 /** Starts a scenario for `personId`; `409 INVALID_STATE` while another incident is open. */
-export function startDemo(scenario: DemoScenario, personId: string, timerSeconds = 30, noReplySeconds = 15) {
+export function startDemo(scenario: DemoScenario, personId: string, timerSeconds = 3, noReplySeconds = 10) {
   return call<{ incidentId: string }>(`/demo/${scenario}`, { timerSeconds, noReplySeconds, personId })
 }
 

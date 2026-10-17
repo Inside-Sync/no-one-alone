@@ -52,7 +52,8 @@ public class Actions {
             }
             Assignment a = x.assignment(memberId).orElseThrow();
             a.state = AssignmentState.EXPIRED;
-            x.log(now, "SYSTEM", "EXPIRED", EscalationRules.name(people, memberId) + " did not answer");
+            x.log(now, "SYSTEM", "EXPIRED", EscalationRules.name(people, memberId)
+                    + " did not answer in " + x.demo.timerSeconds + " s");
             notifyNextOrGiveUp(x, now, nextTask, people);
             return true;
         });
@@ -172,7 +173,7 @@ public class Actions {
         if (next.isPresent() && nextTask != null) {
             EscalationRules.notify(x, next.get(), now, nextTask, people);
         } else {
-            EscalationRules.noNearby(x, now);
+            EscalationRules.noNearby(x, now, people);
         }
     }
 

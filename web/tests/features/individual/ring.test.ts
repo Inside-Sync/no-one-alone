@@ -1,4 +1,4 @@
-import { ringPattern } from '@/features/individual/live/ring'
+import { callKeys, ringPattern } from '@/features/individual/live/ring'
 
 const total = (p: { ms: number }[]) => p.reduce((a, x) => a + x.ms, 0)
 
@@ -12,4 +12,14 @@ test('the last segment is cut at totalMs', () => {
   const p = ringPattern(3500)
   expect(total(p)).toBe(3500)
   expect(p[p.length - 1]).toEqual({ on: false, ms: 100 })
+})
+
+test('callKeys: one key per call to a nearby member, other events ignored', () => {
+  const tl = [
+    { at: 'a', kind: 'NOTIFIED', text: 'Calling David: Margaret may be having a stroke.' },
+    { at: 'a', kind: 'NOTIFIED', text: 'James notified' },
+    { at: 'b', kind: 'EXPIRED', text: 'David did not answer in 3 s' },
+    { at: 'b', kind: 'NOTIFIED', text: 'Calling Aisha: Margaret may be having a stroke.' },
+  ]
+  expect(callKeys(tl)).toEqual(['a Calling David: Margaret may be having a stroke.', 'b Calling Aisha: Margaret may be having a stroke.'])
 })

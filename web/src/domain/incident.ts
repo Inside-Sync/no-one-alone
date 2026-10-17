@@ -196,7 +196,7 @@ function ownerView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
     const eta = !Number.isFinite(left) ? '—' : secs < 60 ? `${secs}″` : duration(left)
     return { name, initials: initials(name), title: o('alerted', { name }), subtitle: o('waiting'), eta }
   }
-  if (firstEntry(inc.timeline, 'NO_NEARBY')) return { name: '', initials: '!', title: o('noNearby'), subtitle: o('callNow', { num: people.person?.emergencyNumber ?? '000' }), eta: '—' }
+  if (firstEntry(inc.timeline, 'NO_NEARBY')) return { name: '', initials: '!', title: o('noNearby'), subtitle: o(firstEntry(inc.timeline, 'CALLED_115') ? 'autoCalled' : 'callNow', { num: people.person?.emergencyNumber ?? '000' }), eta: '—' }
   const firstUp = [...(people.person?.circle ?? [])].sort((a, b) => a.priority - b.priority).find((c) => c.role === 'NEARBY')
   const name = firstUp ? first(memberName(people, firstUp.memberId)) : tl('incident.who.circle')
   return { name, initials: initials(name), title: o('notYet', { name }), subtitle: o('firstToCall'), eta: '—' }

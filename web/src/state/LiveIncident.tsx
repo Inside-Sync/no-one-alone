@@ -4,6 +4,7 @@ import * as repo from '@/data/repo'
 import type { CheckinInput, DemoScenario, IncidentDoc, RecoveryRequest, ServerAction } from '@/data/contract'
 import { liveView, type LivePeople, type LiveView } from '@/domain/incident'
 import { storyNow } from '@/lib/clock'
+import { resetsOnLoad } from './reloadReset'
 
 /**
  * The real emergency flow (VITE_DATA_SOURCE=firebase): follows `demo/current` → `incidents/{id}` and posts every
@@ -35,11 +36,20 @@ const INERT: LiveIncidentValue = {
 
 const Ctx = createContext<LiveIncidentValue>(INERT)
 
+let reloadHandled = false
+
 export function LiveIncidentProvider({ children }: { children: ReactNode }) {
   const [snap, setSnap] = useState<repo.LiveSnapshot | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [people, setPeople] = useState<LivePeople>(NO_PEOPLE)
   const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    if (!repo.LIVE || reloadHandled) return
+    reloadHandled = true
+    const nav = performance.getEntriesByType?.('navigation')[0] as PerformanceNavigationTiming | undefined
+    if (resetsOnLoad(nav?.type, window.location.pathname)) repo.resetDemo().catch(() => {})
+  }, [])
 
   useEffect(() => {
     if (!repo.LIVE) return

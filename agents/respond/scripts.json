@@ -7,7 +7,7 @@
       "Mạ có cử động tay chân được không?"
     ],
     "repeat_phrase": "hôm nay trời đẹp",
-    "yes_no": "Mạ có nghe con không? Mạ bấm CÓ hoặc KHÔNG.",
+    "yes_no": "Mạ có nghe con không? Mạ bấm có hoặc không.",
     "caller_default": "Gia đình",
     "safety": {
       "SIT_STILL": "Mạ ngồi yên, đừng cố đứng dậy.",
@@ -47,7 +47,7 @@
       "Can you move your arms and legs?"
     ],
     "repeat_phrase": "the weather is nice today",
-    "yes_no": "Can you hear me? Press YES or NO.",
+    "yes_no": "Can you hear me? Press yes or no.",
     "caller_default": "Your family",
     "safety": {
       "SIT_STILL": "Please sit still, don't try to get up.",

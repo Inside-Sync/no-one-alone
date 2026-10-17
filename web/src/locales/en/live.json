@@ -355,6 +355,7 @@
       "waiting": "Waiting for them to accept",
       "noNearby": "No one nearby can come",
       "callNow": "Call {{num}} now",
+      "autoCalled": "{{num}} called automatically",
       "notYet": "{{name}} · not yet alerted",
       "firstToCall": "First to call"
     },

@@ -92,6 +92,8 @@ class EscalationTest extends FirestoreTestBase {
         assertThat(inc.callScript).isEqualTo("Địa chỉ 12 Kiệt 4");
         assertThat(inc.personInstruction.text).isEqualTo("Mạ ngồi yên.");
         verify(tasks).schedule("e-1", "ong-hung", 1, 30);
+        assertThat(inc.timeline).filteredOn(t -> "NOTIFIED".equals(t.kind)).extracting(t -> t.text)
+                .anyMatch(s -> s.startsWith("Calling ") && s.endsWith(": Chị Mai có thể đang bị đột quỵ."));
     }
 
     @Test
@@ -131,8 +133,8 @@ class EscalationTest extends FirestoreTestBase {
         runToTriage(data, "e-2");
 
         Incident inc = store.get("e-2");
-        assertThat(inc.timeline).extracting(t -> t.kind).contains("NO_NEARBY");
-        assertThat(inc.assignment("lan").orElseThrow().actions).containsExactly("CALL_NEARBY", "CALLED_115");
+        assertThat(inc.timeline).extracting(t -> t.kind).containsSubsequence("NO_NEARBY", "CALLED_115");
+        assertThat(inc.assignment("lan").orElseThrow().actions).containsExactly("CALL_NEARBY");
         verify(tasks, times(0)).schedule(anyString(), anyString(), anyInt(), anyInt());
     }
 

@@ -161,6 +161,9 @@ class ActionsTest extends FirestoreTestBase {
         assertThat(inc.assignment("tuan").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
         assertThat(inc.escalationTaskName).isEqualTo("task-tuan");
         verify(tasks).schedule(ID, "tuan", 1, 30);
+        assertThat(inc.timeline).extracting(t -> t.text)
+                .anyMatch(s -> s.endsWith("did not answer in 30 s"))
+                .anyMatch(s -> s.startsWith("Calling "));
     }
 
     @Test
@@ -169,8 +172,10 @@ class ActionsTest extends FirestoreTestBase {
         actions.timeout(ID, "tuan", 1);
 
         Incident inc = store.get(ID);
-        assertThat(inc.timeline).extracting(t -> t.kind).contains("NO_NEARBY");
-        assertThat(inc.assignment("lan").orElseThrow().actions).containsExactly("CALL_NEARBY", "CALLED_115");
+        assertThat(inc.timeline).extracting(t -> t.kind).containsSubsequence("NO_NEARBY", "CALLED_115");
+        assertThat(inc.timeline).filteredOn(t -> "CALLED_115".equals(t.kind)).singleElement()
+                .satisfies(t -> assertThat(t.actor).isEqualTo("SYSTEM"));
+        assertThat(inc.assignment("lan").orElseThrow().actions).containsExactly("CALL_NEARBY");
     }
 
     @Test
