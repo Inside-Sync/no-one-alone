@@ -46,14 +46,14 @@ public class ChatService {
         if (r.question() == null || r.question().isBlank() || r.question().length() > 500) {
             throw ApiException.badRequest("question must be 1..500 characters");
         }
-        if (!Set.of("hosp", "self", "fam").contains(r.mode())) {
+        if (r.mode() == null || !Set.of("hosp", "self", "fam").contains(r.mode())) {
             throw ApiException.badRequest("mode must be hosp, self or fam");
         }
         if (r.viewer() != null && r.viewer().length() > 100) {
             throw ApiException.badRequest("viewer is too long");
         }
         if (r.history() != null && (r.history().size() > 10 || r.history().stream().anyMatch(l -> l == null
-                || !Set.of("me", "noa").contains(l.by()) || l.text() == null || l.text().length() > 2000))) {
+                || l.by() == null || !Set.of("me", "noa").contains(l.by()) || l.text() == null || l.text().length() > 2000))) {
             throw ApiException.badRequest("history must be at most 10 lines by me or noa");
         }
     }

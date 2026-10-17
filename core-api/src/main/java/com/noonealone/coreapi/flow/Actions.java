@@ -79,7 +79,8 @@ public class Actions {
             a.respondedAt = now;
             x.ownerId = memberId;
             x.log(now, memberId, "ACCEPTED", EscalationRules.name(people, memberId) + " accepted");
-            if (x.level == Level.EMERGENCY) {
+            if (x.level == Level.EMERGENCY && x.timeline.stream()
+                    .noneMatch(t -> "SYSTEM".equals(t.actor) && "CALLED_115".equals(t.kind))) {
                 EscalationRules.autoCall(x, now, people);
             }
             return true;

@@ -100,6 +100,11 @@ class ChatTest extends FirestoreTestBase {
                 .andExpect(status().isBadRequest());
         mvc.perform(post("/api/chat").contentType(MediaType.APPLICATION_JSON).content("{\"question\":\"Hi\",\"mode\":\"boss\"}"))
                 .andExpect(status().isBadRequest());
+        mvc.perform(post("/api/chat").contentType(MediaType.APPLICATION_JSON).content("{\"question\":\"Hi\"}"))
+                .andExpect(status().isBadRequest());
+        mvc.perform(post("/api/chat").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"question\":\"Hi\",\"mode\":\"fam\",\"history\":[{\"text\":\"Hi\"}]}"))
+                .andExpect(status().isBadRequest());
 
         verify(agent, never()).chat(any());
     }

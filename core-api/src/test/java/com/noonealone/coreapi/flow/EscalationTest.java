@@ -191,6 +191,18 @@ class EscalationTest extends FirestoreTestBase {
     }
 
     @Test
+    void lateAcceptAfterNoNearbyDoesNotCall000Twice() {
+        runMargaretEmergency("m-e3");
+
+        actions.timeout("m-e3", "james", 1);
+        actions.timeout("m-e3", "david", 1);
+        actions.apply("m-e3", "david", "ACCEPT");
+
+        assertThat(store.get("m-e3").timeline)
+                .filteredOn(t -> "CALLED_115".equals(t.kind) && "SYSTEM".equals(t.actor)).hasSize(1);
+    }
+
+    @Test
     void noNearbyMemberMeansDistantGetsCallNearbyAnd115() {
         when(agent.plan(any())).thenReturn(plan());
         SeedData data = seed.data();

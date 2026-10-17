@@ -45,12 +45,12 @@ public class ApiController {
 
     public ApiController(DemoService demo, IncidentFlow flow, Actions actions, Recovery recovery, Executor executor,
             ChatService chat) {
-        this.chat = chat;
         this.demo = demo;
         this.flow = flow;
         this.actions = actions;
         this.recovery = recovery;
         this.executor = executor;
+        this.chat = chat;
     }
 
     @PostMapping("/demo/{scenario}")
