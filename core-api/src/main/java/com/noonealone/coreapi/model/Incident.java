@@ -48,6 +48,10 @@ public class Incident {
         return checkIn.turns.stream().anyMatch(t -> t.assessment != null && "SLURRED".equals(t.assessment.clarity));
     }
 
+    public boolean suspectedStroke() {
+        return hasSlurredTurn() || (triage != null && triage.reasons != null && triage.reasons.contains("weakness"));
+    }
+
     public long agentTurnCount() {
         return checkIn.turns.stream().filter(t -> "AGENT".equals(t.by)).count();
     }

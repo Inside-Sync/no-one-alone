@@ -93,6 +93,22 @@ class HandoffTest extends FirestoreTestBase {
     }
 
     @Test
+    void limbWeaknessWithClearSpeechIsAlsoSuspectedStroke() {
+        Assessment clear = new Assessment();
+        clear.clarity = "CLEAR";
+        when(agent.checkinTurn(any()))
+                .thenReturn(new TurnResult(null, null, new TurnResult.Next("Can you move your arms and legs?", "VOICE", null, null), false, false))
+                .thenReturn(new TurnResult("No.", clear, null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.EMERGENCY, List.of("weakness"), false));
+        when(agent.handoff(any())).thenReturn(new HandoffResult("RECEIVED", Map.of("text", "PRE-ARRIVAL"), false));
+
+        runStroke("h-w");
+
+        assertThat(store.get("h-w").handoff.hospitalId).isEqualTo("stroke-center-a");
+        verify(agent).handoff(argThat(b -> "STROKE".equals(b.get("suspected"))));
+    }
+
+    @Test
     void margaretGoesToSydneyStrokeCenterNotTheCloserClinic() {
         when(agent.handoff(any())).thenReturn(new HandoffResult("RECEIVED", Map.of("text", "PRE-ARRIVAL"), false));
 
