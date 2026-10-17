@@ -61,19 +61,46 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
 
   // Autoplay when the question or the instruction audio changes (contract 2.6). Browsers may block it: then silent.
   const played = useRef<string | null>(null)
+  // Resolves when the question or instruction audio ends, so the status clip never talks over it.
+  const speaking = useRef<Promise<void>>(Promise.resolve())
   useEffect(() => {
     const path = phone.audioPath
     if (!path || played.current === path) return
     played.current = path
     let audio: HTMLAudioElement | null = null
     let stopped = false
+    let done = () => {}
+    speaking.current = new Promise<void>((r) => { done = r })
     ;(ring.current ?? Promise.resolve()).then(() => (stopped ? undefined : audioUrl(path))).then((url) => {
-      if (!url) return
+      if (!url) { done(); return }
       audio = new Audio(url)
+      audio.addEventListener('ended', done)
+      audio.addEventListener('error', done)
       return audio.play()
-    }).catch(() => {})
-    return () => { stopped = true; audio?.pause() }
+    }).catch(done)
+    return () => { stopped = true; audio?.pause(); done() }
   }, [phone.audioPath])
+
+  // What the helper is doing (calling, on the way, 000): each status clip plays once, after the current audio.
+  const statusKey = phone.status?.key
+  const statusClip = phone.status?.clip ?? null
+  const said = useRef<string | null>(null)
+  const statusAudio = useRef<HTMLAudioElement | null>(null)
+  const mounted = useRef(true)
+  useEffect(() => () => { mounted.current = false; statusAudio.current?.pause() }, [])
+  useEffect(() => {
+    if (!statusKey || !statusClip || said.current === statusKey) return
+    said.current = statusKey
+    // Queued, not cancelled: escalation updates arrive every 3 s and each one must be heard.
+    speaking.current = speaking.current.then(() => new Promise<void>((done) => {
+      if (!mounted.current) { done(); return }
+      const a = new Audio(statusClip)
+      statusAudio.current = a
+      a.addEventListener('ended', () => done())
+      a.addEventListener('error', () => done())
+      a.play().catch(() => done())
+    }))
+  }, [statusKey, statusClip])
 
   const disabled = phone.busy || sending
   const onRecord = () => {
@@ -87,7 +114,7 @@ export function LivePhoneCard({ phone, helpInitials, checkin }: { phone: LivePho
       <PhoneScreen
         time={phone.time}
         q={phone.q}
-        small={sending ? t('live.sending') : phone.small}
+        small={sending ? t('live.sending') : phone.small ?? phone.status?.text}
         flash={phone.flash}
         listen={rec.recording || phone.busy}
         help={phone.help}

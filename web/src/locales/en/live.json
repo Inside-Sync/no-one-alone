@@ -40,30 +40,11 @@
   },
   "liveSubtitle": "Live · {{time}} · {{address}}",
   "live": {
-    "idleBody": "Start a scenario and the agents run it for real: core-api verifies the alert, checks in with Margaret by voice, triages, alerts her circle and sends the hospital her packet. Every screen follows the same incident.",
-    "scenarios": [
-      {
-        "id": "stroke",
-        "label": "Stroke at night",
-        "icon": "bolt"
-      },
-      {
-        "id": "fall",
-        "label": "Fall",
-        "icon": "people"
-      },
-      {
-        "id": "false-alarm",
-        "label": "False alarm",
-        "icon": "check"
-      }
-    ],
     "starting": "Starting the scenario…",
     "reset": "Reset demo",
     "resetDone": "Demo reset · seed reloaded",
     "close": "Close incident",
     "closed": "Incident closed",
-    "closedTitle": "Incident closed",
     "loading": "Connecting to the live incident…",
     "noLog": "Waiting for the first update…",
     "actionsTitle": "{{name}}'s buttons",
@@ -366,7 +347,13 @@
       "glad": "Thank you. Glad you are OK.",
       "withYou": "{{name}} is with you",
       "away": "{{name}} · {{eta}} away",
-      "onTheWay": "Help is on the way."
+      "onTheWay": "Help is on the way.",
+      "status": {
+        "calling": "I'm calling {{name}} now. Please stay where you are.",
+        "noAnswer": "{{prev}} didn't answer. I'm calling {{name}} now.",
+        "onTheWay": "{{name}} is on the way. Help is coming.",
+        "calling000": "No one nearby can come, so I'm calling {{num}} for an ambulance now. Stay where you are. Help is coming."
+      }
     },
     "packet": {
       "patient": "Patient",
@@ -407,6 +394,47 @@
         "HARD_OF_HEARING": "Hard of hearing: write questions down",
         "COGNITIVE_IMPAIRMENT": "Cognitive impairment: keep questions simple"
       }
+    }
+  },
+  "sim": {
+    "title": "Simulator",
+    "meta": "Pick a scenario, then Start",
+    "presets": "Scenario",
+    "preset": {
+      "night": "Night emergency",
+      "stairs": "Climbed stairs",
+      "asleep": "Sound asleep"
+    },
+    "hr": "Heart rate",
+    "bpm": "{{n}} bpm",
+    "movement": "Movement",
+    "moving": "Moving",
+    "notMoving": "Not moving",
+    "stillFor": "Not moving for",
+    "min": "{{n}} min",
+    "speech": "Speech",
+    "speechOpt": {
+      "clear": "Clear",
+      "slurred": "Slurred",
+      "none": "No answer"
+    },
+    "david": "David picks up",
+    "yes": "Yes",
+    "no": "No",
+    "start": "Start",
+    "readings": {
+      "title": "Simulated readings",
+      "meta": "Last 40 minutes",
+      "hr": "Heart rate",
+      "alert": "Alert line",
+      "ago": "40 min ago",
+      "now": "Now",
+      "movement": "Movement, one cell per minute: still for the last {{n}} min",
+      "checks": "Verify rule",
+      "still": "Not moving for 2 min or more",
+      "hrCheck": "Heart rate at least {{threshold}} (30 above her baseline)",
+      "met": "Met",
+      "notMet": "Not met"
     }
   }
 }

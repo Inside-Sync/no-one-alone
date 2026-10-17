@@ -8,10 +8,11 @@ interface Props {
   onChange: (value: number) => void
   label: ReactNode
   valueText: string
+  disabled?: boolean
 }
 
 /** Prototype `#sAdh` pattern: label row with visible value, then the range input. */
-export function Slider({ min, max, step, value, onChange, label, valueText }: Props) {
+export function Slider({ min, max, step, value, onChange, label, valueText, disabled }: Props) {
   const id = useId()
   return (
     <label htmlFor={id}>
@@ -24,6 +25,7 @@ export function Slider({ min, max, step, value, onChange, label, valueText }: Pr
         step={step}
         value={value}
         aria-valuetext={valueText}
+        disabled={disabled}
         onChange={(e) => onChange(Number(e.target.value))}
       />
     </label>
