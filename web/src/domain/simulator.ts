@@ -19,7 +19,7 @@ export const scenarioFor = (s: SimSettings): DemoScenario => (s.preset === 'stai
 export const overridesFor = (s: SimSettings) => ({ hr: s.hr, movementMin: s.moving ? 0 : s.stillMin })
 
 /** Clips need longer than the server's default 10 s no-reply window. */
-export const noReplySecondsFor = (s: SimSettings) => (s.speech === 'none' ? 10 : 15)
+export const noReplySecondsFor = (s: SimSettings) => (s.speech === 'none' ? 10 : 25)
 
 export function clipFor(s: SimSettings, questionIndex: number): string | null {
   if (s.speech === 'clear') return questionIndex >= 0 && questionIndex <= 3 ? `/sim/clear-${questionIndex}.mp3` : null

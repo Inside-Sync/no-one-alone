@@ -77,12 +77,14 @@ function LiveIncidentPage() {
   const { t } = useTranslation('live')
   // Autopilot answers only for an incident this tab started from the Simulator.
   const [auto, setAuto] = useState(false)
-  const onReset = () => { setAuto(false); reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed'))) }
+  // questionKey is not incident-scoped, so a new run must forget the last one.
+  const [spoken, setSpoken] = useState<string | null>(null)
+  const onReset = () => { setAuto(false); setSpoken(null); reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed'))) }
   // Kept here, not in the cards, so the settings survive the incident they started.
   const [sim, setSim] = useState(() => presetSettings('night'))
   const open = Boolean(view?.open)
-  const simStart: typeof start = async (s, o) => { await start(s, o); setAuto(true) }
-  useAutopilot({ enabled: auto && open, settings: sim, incident, view, checkin, act })
+  const simStart: typeof start = async (s, o) => { setSpoken(null); await start(s, o); setAuto(true) }
+  useAutopilot({ enabled: auto && open, settings: sim, incident, view, spokenKey: spoken, checkin, act })
   const simCards = (
     <>
       <SimulatorCard settings={sim} onChange={setSim} locked={open} start={simStart} onReset={onReset} />
@@ -100,7 +102,7 @@ function LiveIncidentPage() {
       {!open && simCards}
       <LiveAlertCard view={view} incident={incident} people={people} scene={scene} viewer={viewer} act={act} onReset={onReset} />
       <LiveTimelineCard view={view} />
-      <LivePhoneCard phone={view.phone} helpInitials={view.owner.initials} checkin={checkin} />
+      <LivePhoneCard phone={view.phone} helpInitials={view.owner.initials} checkin={checkin} onSpoken={setSpoken} />
       {open && simCards}
     </main>
   )

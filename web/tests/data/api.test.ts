@@ -11,10 +11,10 @@ const sentBody = () => JSON.parse((fetchMock.mock.calls[0] as unknown as [string
 
 test('startDemo without overrides sends the default timers only', async () => {
   await startDemo('stroke', 'margaret')
-  expect(sentBody()).toEqual({ timerSeconds: 3, noReplySeconds: 10, personId: 'margaret' })
+  expect(sentBody()).toEqual({ timerSeconds: 5, noReplySeconds: 10, personId: 'margaret' })
 })
 
 test('startDemo sends hr, movementMin and noReplySeconds when given', async () => {
   await startDemo('stroke', 'margaret', { hr: 142, movementMin: 4, noReplySeconds: 15 })
-  expect(sentBody()).toEqual({ timerSeconds: 3, noReplySeconds: 15, personId: 'margaret', hr: 142, movementMin: 4 })
+  expect(sentBody()).toEqual({ timerSeconds: 5, noReplySeconds: 15, personId: 'margaret', hr: 142, movementMin: 4 })
 })

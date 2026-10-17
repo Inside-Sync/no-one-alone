@@ -18,12 +18,15 @@ export interface AutopilotOptions {
   settings: SimSettings
   incident: IncidentDoc | null
   view: LiveView | null
+  /** questionKey whose audio Margaret's screen has finished playing. */
+  spokenKey: string | null
   checkin: (i: CheckinInput) => Promise<void>
   act: (memberId: string, a: ServerAction) => Promise<void>
 }
 
-const FIRST_MS = 8000
-const LATER_MS = 5000
+const GAP_MS = 2500
+// Answers anyway when the question audio never reports its end (autoplay blocked).
+const FALLBACK_MS = 14000
 const DAVID_MS = 1500
 
 const ignoreInvalidState = (e: unknown) => {
@@ -41,6 +44,7 @@ export function useAutopilot(opts: AutopilotOptions): void {
   const key = view?.phone.voice ? view.phone.questionKey : null
   const davidNotified = !!incident?.assignments?.some((a) => a.memberId === 'david' && a.state === 'NOTIFIED')
   const davidPicksUp = opts.settings.davidPicksUp
+  const spoken = !!key && opts.spokenKey === key
 
   useEffect(() => {
     if (!enabled || !id || !key) return
@@ -50,14 +54,25 @@ export function useAutopilot(opts: AutopilotOptions): void {
       const url = clipFor(latest.current.settings, index)
       if (!url || sent.current.has(sentKey)) return
       sent.current.add(sentKey)
-      void Promise.resolve().then(() => new Audio(url).play()).catch(() => {})
-      void fetch(url)
-        .then((r) => r.blob())
-        .then((audio) => latest.current.checkin({ audio }))
-        .catch(ignoreInvalidState)
-    }, index <= 0 ? FIRST_MS : LATER_MS)
+      // Posts once Margaret's clip has finished, so the next question never cuts it off.
+      let posted = false
+      const post = () => {
+        if (posted) return
+        posted = true
+        void fetch(url)
+          .then((r) => r.blob())
+          .then((audio) => latest.current.checkin({ audio }))
+          .catch(ignoreInvalidState)
+      }
+      try {
+        const clip = new Audio(url)
+        clip.addEventListener('ended', post)
+        clip.addEventListener('error', post)
+        clip.play().catch(post)
+      } catch { post() }
+    }, spoken ? GAP_MS : FALLBACK_MS)
     return () => clearTimeout(timer)
-  }, [enabled, id, key])
+  }, [enabled, id, key, spoken])
 
   useEffect(() => {
     if (!enabled || !id || !davidNotified || !davidPicksUp) return

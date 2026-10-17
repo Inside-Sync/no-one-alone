@@ -49,7 +49,7 @@ export interface DemoOverrides { hr?: number; movementMin?: number; noReplySecon
 /** Starts a scenario for `personId`; `409 INVALID_STATE` while another incident is open. */
 export function startDemo(scenario: DemoScenario, personId: string, overrides: DemoOverrides = {}) {
   const { hr, movementMin, noReplySeconds = 10 } = overrides
-  return call<{ incidentId: string }>(`/demo/${scenario}`, { timerSeconds: 3, noReplySeconds, personId, hr, movementMin })
+  return call<{ incidentId: string }>(`/demo/${scenario}`, { timerSeconds: 5, noReplySeconds, personId, hr, movementMin })
 }
 
 /** Deletes the current incident, re-seeds `people` and `hospitals`, clears `demo/current`. */
