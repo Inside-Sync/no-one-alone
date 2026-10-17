@@ -134,15 +134,6 @@ test('the Speech toggle sits in More options, defaults to the mic and still flip
   expect(speech.getByRole('button', { name: 'Slurred (auto)' })).toHaveAttribute('aria-pressed', 'true')
 })
 
-test("idle page: the Simulator strip holds the sliders and controls, then Margaret's circle", async () => {
-  await render()
-  expect(screen.getByRole('heading', { name: "🫂 Margaret's circle" })).toBeInTheDocument()
-  const strip = document.querySelector('#simCard .simgrid') as HTMLElement
-  expect(strip.querySelectorAll(':scope > .simcol')).toHaveLength(4)
-  expect(within(strip).getByRole('slider', { name: 'Heart rate' })).toBeInTheDocument()
-  expect(within(strip).getByRole('button', { name: '⏸️ Pause' })).toBeInTheDocument()
-})
-
 const T0 = Date.parse('2026-10-14T14:30:00Z')
 const at = (sec: number) => new Date(T0 + sec * 1000).toISOString()
 const people: LivePeople = { person: null, members: {} }

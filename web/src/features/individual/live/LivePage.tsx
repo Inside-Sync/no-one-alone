@@ -20,7 +20,6 @@ import { LiveReadingsCard } from './LiveReadingsCard'
 import { LiveTimelineCard } from './LiveTimelineCard'
 import { callKeys, freshCallSound, playDial000, playRing } from './ring'
 import { PhoneCard } from './PhoneCard'
-import { SimCircleCard } from './SimCircleCard'
 import { SimulatorCard } from './SimulatorCard'
 import { SpeechCheckCard } from './SpeechCheckCard'
 import { useAutopilot } from './useAutopilot'
@@ -127,8 +126,6 @@ function LiveIncidentPage() {
   const simCards = (
     <>
       <SimulatorCard watch={watch} settings={sim} onChange={setSim} locked={open || busy} onReset={onReset} />
-      {/* "All normal" would contradict an open alert. */}
-      {!open && <SimCircleCard scene={scene ?? null} />}
       <LiveReadingsCard watch={watch.watch} />
     </>
   )

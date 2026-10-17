@@ -435,14 +435,6 @@
     "faster": "⏩ Faster",
     "normal": "🐢 Normal speed",
     "reset": "↺ Reset",
-    "circle": {
-      "title": "🫂 Margaret's circle",
-      "pill": "All normal",
-      "aria": "Margaret's care circle, all quiet",
-      "state": "All normal",
-      "what": "Watching quietly",
-      "sub": "Last known well —"
-    },
     "readings": {
       "title": "📈 Live readings",
       "meta": "One reading per minute from her watch and home sensors",

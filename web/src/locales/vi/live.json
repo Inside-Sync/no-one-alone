@@ -435,14 +435,6 @@
     "faster": "⏩ Nhanh hơn",
     "normal": "🐢 Tốc độ thường",
     "reset": "↺ Đặt lại",
-    "circle": {
-      "title": "🫂 Vòng chăm sóc của bà Margaret",
-      "pill": "Bình thường",
-      "aria": "Vòng chăm sóc của bà Margaret, mọi thứ yên ổn",
-      "state": "Bình thường",
-      "what": "Đang theo dõi lặng lẽ",
-      "sub": "Lần cuối khỏe mạnh —"
-    },
     "readings": {
       "title": "📈 Số đo trực tiếp",
       "meta": "Mỗi phút một số đo từ đồng hồ và cảm biến trong nhà",
