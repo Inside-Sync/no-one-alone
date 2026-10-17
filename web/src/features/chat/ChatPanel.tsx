@@ -9,9 +9,12 @@ import { useLiveIncident } from '@/state/LiveIncident'
 import './chat.css'
 
 const HISTORY = 10
+const MAX_QUESTION = 500
 const CALLS_HER_MUM = new Set(['james', 'sarah'])
 
-interface Log { key: string; msgs: ChatTurn[]; waiting: boolean }
+// `local` marks offline and failure bubbles, which are never sent as history.
+interface Msg extends ChatTurn { local?: boolean }
+interface Log { key: string; msgs: Msg[]; waiting: boolean }
 
 /** "Ask Noa" button and the chat panel (UI spec 1.1 to 1.7); answers come from `POST /api/chat`. */
 export function ChatPanel() {
@@ -22,6 +25,7 @@ export function ChatPanel() {
   const mode: ChatMode = view === 'hospital' ? 'hosp' : view === 'individual' && who === 'self' ? 'self' : 'fam'
   const key = mode === 'fam' ? `fam:${viewer}` : mode
   const name = people.find((p) => p.id === viewer)?.name ?? ''
+  const greetName = name || t('there')
 
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
@@ -36,7 +40,7 @@ export function ChatPanel() {
     if (!open) return
     input.current?.focus()
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return
+      if (e.key !== 'Escape' || e.defaultPrevented) return
       setOpen(false)
       fab.current?.focus()
     }
@@ -51,25 +55,26 @@ export function ChatPanel() {
   }
 
   async function ask(q: string) {
-    const question = q.trim()
+    const question = q.trim().slice(0, MAX_QUESTION)
     if (!question || cur.waiting) return
-    const history = cur.msgs.slice(-HISTORY)
+    const history = cur.msgs.filter((m) => !m.local).slice(-HISTORY).map(({ by, text }) => ({ by, text }))
     setLog({ key, msgs: [...cur.msgs, { by: 'me', text: question }], waiting: true })
-    let answer = t('offline')
+    let reply: Msg = { by: 'noa', text: t('offline'), local: true }
     if (live) {
       try {
-        answer = (await (await import('@/data/api')).chat({ question, mode, viewer: mode === 'fam' ? viewer : undefined, history })).answer
+        reply = { by: 'noa', text: (await (await import('@/data/api')).chat({ question, mode, viewer: mode === 'fam' ? viewer : undefined, history })).answer }
       } catch {
-        answer = t('failed')
+        reply = { by: 'noa', text: t('failed'), local: true }
       }
     }
-    setLog((l) => (l.key === key ? { key, msgs: [...l.msgs, { by: 'noa', text: answer }], waiting: false } : l))
+    setLog((l) => (l.key === key ? { key, msgs: [...l.msgs, reply], waiting: false } : l))
   }
 
   const submit = (e: FormEvent) => {
     e.preventDefault()
-    void ask(text)
+    if (!text.trim() || cur.waiting) return
     setText('')
+    void ask(text)
   }
 
   const chips = [...t(`chips.${mode}`, { returnObjects: true, who: CALLS_HER_MUM.has(viewer) ? t('mum') : t('she') }) as string[]]
@@ -88,7 +93,7 @@ export function ChatPanel() {
         <div className="chat-msgs" aria-live="polite">
           {cav}
           <div className="cm">
-            {mode === 'hosp' ? <Trans t={t} i18nKey="greet.hosp" components={{ b: <b /> }} /> : t(`greet.${mode}`, { name })}
+            {mode === 'hosp' ? <Trans t={t} i18nKey="greet.hosp" components={{ b: <b /> }} /> : t(`greet.${mode}`, { name: greetName })}
           </div>
           {cur.msgs.map((m, i) => (
             <div key={i} className="chat-turn">
@@ -100,14 +105,14 @@ export function ChatPanel() {
           <div ref={end} />
         </div>
         <div className="chat-chips">
-          {chips.map((c) => <button key={c} type="button" className="chip" onClick={() => void ask(c)}>{c}</button>)}
+          {chips.map((c) => <button key={c} type="button" className="chip" disabled={cur.waiting} onClick={() => void ask(c)}>{c}</button>)}
         </div>
         <form className="chat-f" autoComplete="off" onSubmit={submit}>
-          <input ref={input} value={text} onChange={(e) => setText(e.target.value)} placeholder={t('placeholder')} aria-label={t('input')} maxLength={500} />
-          <button className="btn sm" type="submit">{t('send')}</button>
+          <input ref={input} value={text} onChange={(e) => setText(e.target.value)} placeholder={t('placeholder')} aria-label={t('input')} maxLength={MAX_QUESTION} />
+          <button className="btn sm" type="submit" disabled={cur.waiting}>{t('send')}</button>
         </form>
       </aside>
-      <button ref={fab} type="button" className={open ? 'chat-fab hide' : 'chat-fab'} aria-expanded={open} aria-label={t('fab')} onClick={() => setOpen(true)}>
+      <button ref={fab} type="button" className={open ? 'chat-fab hide' : 'chat-fab'} aria-expanded={open} tabIndex={open ? -1 : undefined} aria-label={t('fab')} onClick={() => setOpen(true)}>
         <NoaOrb size={32} /><span>{t('fab')}</span><i className="live" />
       </button>
     </>

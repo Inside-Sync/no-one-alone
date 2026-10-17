@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor, within } from '@testing-library/react'
+import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { vi } from 'vitest'
 import { ChatPanel } from '@/features/chat/ChatPanel'
 import type { LiveIncidentValue } from '@/state/LiveIncident'
@@ -67,6 +67,7 @@ test('chips and greeting follow the mode', async () => {
   path = '/hospital/ed'
   const r = renderWithProviders(<ChatPanel />)
   openChat()
+  expect(within(panel()).getByText('COLLINS, Margaret')).toBeInTheDocument()
   expect(within(panel()).getByRole('button', { name: 'Patient summary' })).toBeInTheDocument()
   expect(within(panel()).queryByRole('button', { name: 'My tablets' })).toBeNull()
   r.unmount()
@@ -75,6 +76,7 @@ test('chips and greeting follow the mode', async () => {
   renderWithProviders(<ChatPanel />, { who: 'self' })
   openChat()
   await within(panel()).findByRole('button', { name: 'My tablets' })
+  expect(within(panel()).getByText(/^Hello Margaret/)).toBeInTheDocument()
   expect(within(panel()).queryByRole('button', { name: 'Patient summary' })).toBeNull()
 })
 
@@ -93,4 +95,64 @@ test('opening focuses the input and Escape closes', () => {
   expect(within(panel()).getByRole('textbox', { name: 'Your question' })).toHaveFocus()
   fireEvent.keyDown(document, { key: 'Escape' })
   expect(panel()).not.toHaveClass('on')
+})
+
+test('the hidden FAB leaves the tab order while the panel is open', () => {
+  renderWithProviders(<ChatPanel />)
+  const fab = screen.getByRole('button', { name: 'Ask Noa' })
+  fireEvent.click(fab)
+  expect(fab).toHaveAttribute('tabindex', '-1')
+})
+
+test('submitting while a reply is pending keeps the text and posts once', async () => {
+  let reply!: (v: { answer: string }) => void
+  chat.mockImplementation(() => new Promise((r) => { reply = r }))
+  renderWithProviders(<ChatPanel />)
+  openChat()
+  ask('first')
+  const box = within(panel()).getByRole('textbox', { name: 'Your question' })
+  expect(within(panel()).getByRole('button', { name: 'Send' })).toBeDisabled()
+  fireEvent.change(box, { target: { value: 'second' } })
+  fireEvent.submit(box.closest('form')!)
+  expect(box).toHaveValue('second')
+  await waitFor(() => expect(chat).toHaveBeenCalled())
+  reply({ answer: 'done' })
+  await within(panel()).findByText('done')
+  expect(chat).toHaveBeenCalledTimes(1)
+})
+
+test('offline and failure bubbles are not sent as history', async () => {
+  chat.mockRejectedValueOnce(new Error('502')).mockResolvedValue({ answer: 'ok' })
+  renderWithProviders(<ChatPanel />)
+  openChat()
+  ask('q1')
+  await within(panel()).findByText("Noa can't answer right now.")
+  ask('q2')
+  await within(panel()).findByText('ok')
+  expect((chat.mock.calls[1][0] as { history: unknown }).history).toEqual([{ by: 'me', text: 'q1' }])
+})
+
+test('the fam greeting says "there" when the viewer has no name', async () => {
+  renderWithProviders(<ChatPanel />, { who: 'family', viewer: 'nobody' })
+  openChat()
+  expect(within(panel()).getByText(/^Hi there 👋/)).toBeInTheDocument()
+})
+
+test('an Escape another handler already used does not close the chat', () => {
+  renderWithProviders(<ChatPanel />)
+  openChat()
+  const e = new KeyboardEvent('keydown', { key: 'Escape', cancelable: true })
+  e.preventDefault()
+  act(() => { document.dispatchEvent(e) })
+  expect(panel()).toHaveClass('on')
+})
+
+test('a question is cut to 500 characters', async () => {
+  chat.mockResolvedValue({ answer: 'ok' })
+  renderWithProviders(<ChatPanel />)
+  openChat()
+  expect(within(panel()).getByRole('textbox', { name: 'Your question' })).toHaveAttribute('maxlength', '500')
+  ask('x'.repeat(600))
+  await within(panel()).findByText('ok')
+  expect((chat.mock.calls[0][0] as { question: string }).question).toHaveLength(500)
 })

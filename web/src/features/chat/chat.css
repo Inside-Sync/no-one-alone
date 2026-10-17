@@ -24,6 +24,7 @@
 .chat-fab .om{box-shadow:0 0 0 1.5px rgba(255,255,255,.75),0 0 8px rgba(127,255,212,.5)}
 .chat-fab>.live{width:9px;height:9px;border-radius:50%;background:#7fffd4;animation:live7 1.8s infinite}
 @keyframes live7{0%{box-shadow:0 0 0 0 rgba(127,255,212,.6)}70%{box-shadow:0 0 0 9px rgba(127,255,212,0)}100%{box-shadow:0 0 0 0 rgba(127,255,212,0)}}
-.chat-fab.hide{opacity:0;pointer-events:none}
+.chat-fab.hide{opacity:0;pointer-events:none;visibility:hidden}
+.chat-chips .chip:disabled,.chat-f button:disabled{opacity:.55;cursor:default}
 @media (max-width:600px){.chat-fab{padding:8px}.chat-fab>span,.chat-fab>.live{display:none}}
 @media (prefers-reduced-motion:reduce){.chat-fab .live,.cm.typing i{animation:none!important}.chat,.chat.on{transition:none}}

@@ -3,7 +3,7 @@
     "title": "🟢 Bà Margaret hôm nay",
     "soFar": "Hôm nay đến giờ",
     "soFarMeta": "Những gì bà Margaret chia sẻ với bạn",
-    "askAgent": "Hỏi trợ lý"
+    "askAgent": "Hỏi Noa"
   },
   "profile": {
     "title": "👤 Về bà Margaret",
@@ -57,7 +57,7 @@
     "meta": "Trong bán kính 1 km"
   },
   "helper": {
-    "title": "🤖 Trợ lý đã làm gì hôm nay",
+    "title": "🤖 Noa đã làm gì hôm nay",
     "meta": "Mọi bước đều được ghi lại để gia đình kiểm tra",
     "columns": [
       "Thời gian",
