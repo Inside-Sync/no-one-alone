@@ -1,6 +1,7 @@
 package com.noonealone.coreapi.web;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
@@ -44,7 +45,7 @@ class ApiControllerTest {
 
     @Test
     void triggerReturns202WithIncidentId() throws Exception {
-        when(demo.trigger(Scenario.STROKE, "ba-mai", 30, 15)).thenReturn("alert-1-stroke");
+        when(demo.trigger(Scenario.STROKE, "ba-mai", 30, 15, null, null)).thenReturn("alert-1-stroke");
 
         mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isAccepted())
@@ -53,7 +54,7 @@ class ApiControllerTest {
 
     @Test
     void triggerPassesPersonIdThrough() throws Exception {
-        when(demo.trigger(Scenario.FALL, "margaret", 30, 15)).thenReturn("alert-2-fall");
+        when(demo.trigger(Scenario.FALL, "margaret", 30, 15, null, null)).thenReturn("alert-2-fall");
 
         mvc.perform(post("/api/demo/fall").contentType(MediaType.APPLICATION_JSON).content("{\"personId\":\"margaret\"}"))
                 .andExpect(status().isAccepted())
@@ -62,7 +63,7 @@ class ApiControllerTest {
 
     @Test
     void timersWithoutPersonIdDefaultToBaMai() throws Exception {
-        when(demo.trigger(Scenario.STROKE, "ba-mai", 10, 5)).thenReturn("alert-3-stroke");
+        when(demo.trigger(Scenario.STROKE, "ba-mai", 10, 5, null, null)).thenReturn("alert-3-stroke");
 
         mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"timerSeconds\":10,\"noReplySeconds\":5}"))
@@ -72,11 +73,32 @@ class ApiControllerTest {
 
     @Test
     void triggerWithNoBodyDefaultsToBaMai() throws Exception {
-        when(demo.trigger(Scenario.STROKE, "ba-mai", 30, 15)).thenReturn("alert-4-stroke");
+        when(demo.trigger(Scenario.STROKE, "ba-mai", 30, 15, null, null)).thenReturn("alert-4-stroke");
 
         mvc.perform(post("/api/demo/stroke"))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.incidentId").value("alert-4-stroke"));
+    }
+
+    @Test
+    void outOfRangeHrIs400AndStartsNothing() throws Exception {
+        mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"personId\":\"margaret\",\"hr\":500}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error.code").value("INVALID_REQUEST"));
+
+        verify(demo, never()).trigger(any(), any(), anyInt(), anyInt(), any(), any());
+        verify(demo, never()).trigger(any(), any(), anyInt(), anyInt());
+    }
+
+    @Test
+    void alertOverridesArePassedThrough() throws Exception {
+        when(demo.trigger(Scenario.STROKE, "margaret", 30, 15, 120, 10)).thenReturn("alert-5-stroke");
+
+        mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"personId\":\"margaret\",\"hr\":120,\"movementMin\":10}"))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.incidentId").value("alert-5-stroke"));
     }
 
     @Test

@@ -26,7 +26,8 @@ import com.noonealone.coreapi.model.Scenario;
 @RequestMapping("/api")
 public class ApiController {
 
-    public record DemoRequest(Integer timerSeconds, Integer noReplySeconds, String personId) {}
+    public record DemoRequest(Integer timerSeconds, Integer noReplySeconds, String personId, Integer hr,
+            Integer movementMin) {}
 
     public record CheckInRequest(String yesNo, Boolean noReply) {}
 
@@ -54,7 +55,15 @@ public class ApiController {
         int timer = body != null && body.timerSeconds() != null ? body.timerSeconds() : 30;
         int noReply = body != null && body.noReplySeconds() != null ? body.noReplySeconds() : 15;
         String personId = body != null && body.personId() != null ? body.personId() : "ba-mai";
-        return Map.of("incidentId", demo.trigger(s, personId, timer, noReply));
+        Integer hr = body == null ? null : body.hr();
+        Integer movementMin = body == null ? null : body.movementMin();
+        if (hr != null && (hr < 30 || hr > 220)) {
+            throw ApiException.badRequest("hr must be 30..220");
+        }
+        if (movementMin != null && (movementMin < 0 || movementMin > 120)) {
+            throw ApiException.badRequest("movementMin must be 0..120");
+        }
+        return Map.of("incidentId", demo.trigger(s, personId, timer, noReply, hr, movementMin));
     }
 
     @PostMapping("/demo/reset")

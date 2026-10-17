@@ -23,3 +23,12 @@ test('callKeys: one key per call to a nearby member, other events ignored', () =
   ]
   expect(callKeys(tl)).toEqual(['a Calling David: Margaret may be having a stroke.', 'b Calling Aisha: Margaret may be having a stroke.'])
 })
+
+test('callKeys: the automatic 000 call rings like the family calls', () => {
+  const tl = [{ at: 'c', kind: 'NO_NEARBY', text: 'No one nearby accepted' }, { at: 'c', kind: 'CALLED_115', text: 'Calling 000 automatically with the call script (demo call)' }]
+  expect(callKeys(tl)).toEqual(['c Calling 000 automatically with the call script (demo call)'])
+})
+
+test('callKeys: a member pressing "called 000" does not ring', () => {
+  expect(callKeys([{ at: 'd', kind: 'CALLED_115', text: 'David called 000' }])).toEqual([])
+})

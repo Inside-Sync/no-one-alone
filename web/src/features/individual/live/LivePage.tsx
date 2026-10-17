@@ -1,22 +1,25 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { getOrbitScene } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
 import { useRepo } from '@/features/shared/useRepo'
 import { STEPS } from '@/domain/emergency'
+import { presetSettings } from '@/domain/simulator'
 import { useToast } from '@/components/ui/Toast'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 import { AlertCard } from './AlertCard'
 import { IdleCard } from './IdleCard'
 import { LiveAlertCard } from './LiveAlertCard'
-import { LiveIdleCard } from './LiveIdleCard'
 import { LivePhoneCard } from './LivePhoneCard'
+import { LiveReadingsCard } from './LiveReadingsCard'
 import { LiveTimelineCard } from './LiveTimelineCard'
 import { callKeys, playRing } from './ring'
 import { PhoneCard } from './PhoneCard'
+import { SimulatorCard } from './SimulatorCard'
+import { useAutopilot } from './useAutopilot'
 import { TimelineCard } from './TimelineCard'
 
 const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -72,19 +75,33 @@ function LiveIncidentPage() {
   useFlash(Boolean(view?.phone.flash))
   useCallRing(incident?.timeline)
   const { t } = useTranslation('live')
-  const onReset = () => { reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed'))) }
+  // Autopilot answers only for an incident this tab started from the Simulator.
+  const [auto, setAuto] = useState(false)
+  const onReset = () => { setAuto(false); reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed'))) }
+  // Kept here, not in the cards, so the settings survive the incident they started.
+  const [sim, setSim] = useState(() => presetSettings('night'))
+  const open = Boolean(view?.open)
+  const simStart: typeof start = async (s, o) => { await start(s, o); setAuto(true) }
+  useAutopilot({ enabled: auto && open, settings: sim, incident, view, checkin, act })
+  const simCards = (
+    <>
+      <SimulatorCard settings={sim} onChange={setSim} locked={open} start={simStart} onReset={onReset} />
+      <LiveReadingsCard settings={sim} baseline={people.person?.baseline?.nightHr ?? 57} />
+    </>
+  )
 
   if (error) return <PageError page="live" onRetry={() => location.reload()} />
   if (loading) return <main className="grid" data-page="live"><p className="fine c12">{t('live.loading')}</p></main>
   if (!incident || !view) {
-    return <main className="grid" data-page="live"><LiveIdleCard title={t('idle.title')} start={start} onReset={onReset} /></main>
+    return <main className="grid" data-page="live">{simCards}</main>
   }
   return (
     <main className="grid" data-page="live">
-      {!view.open && <LiveIdleCard title={t('live.closedTitle')} start={start} onReset={onReset} />}
+      {!open && simCards}
       <LiveAlertCard view={view} incident={incident} people={people} scene={scene} viewer={viewer} act={act} onReset={onReset} />
       <LiveTimelineCard view={view} />
       <LivePhoneCard phone={view.phone} helpInitials={view.owner.initials} checkin={checkin} />
+      {open && simCards}
     </main>
   )
 }

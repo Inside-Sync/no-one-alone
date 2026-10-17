@@ -49,7 +49,11 @@ export interface LivePhone {
   questionKey: string | null
   /** Audio to autoplay: the pending question or the instruction (contract 2.6). */
   audioPath: string | null
+  /** What the helper is doing after the plan, spoken once per `key`; null until the instruction exists. */
+  status: HelperStatus | null
 }
+
+export interface HelperStatus { text: string; clip: string | null; key: string }
 
 export interface MemberButtons {
   memberId: string
@@ -229,7 +233,7 @@ function phoneView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
   const ci = inc.checkIn
   const base: LivePhone = {
     time: clockTime(now, tz), q: '', flash: false, yn: false, voice: false, busy: false, help: null, helperName: null, callerName: null,
-    noReplySeconds: inc.demo.noReplySeconds, questionKey: null, audioPath: null,
+    noReplySeconds: inc.demo.noReplySeconds, questionKey: null, audioPath: null, status: null,
   }
   if (inc.status === 'VERIFYING') return { ...base, q: `${name}…`, small: ph('ringing'), flash: true, callerName: callerOf(people) }
   if (inc.status === 'CHECKING_IN') {
@@ -255,7 +259,43 @@ function phoneView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
     help = inc.status === 'ON_SCENE' ? ph('withYou', { name: helper }) : ph('away', { name: helper, eta: left !== null ? min(left) : arrived ? '✓' : '—' })
   }
   const instr = inc.personInstruction
-  return { ...base, q: instr?.text ?? ph('onTheWay'), help, helperName, audioPath: instr?.audioPath ?? null, questionKey: instr ? 'instruction' : null }
+  return {
+    ...base, q: instr?.text ?? ph('onTheWay'), help, helperName, audioPath: instr?.audioPath ?? null, questionKey: instr ? 'instruction' : null,
+    status: instr ? helperStatus(inc, people) : null,
+  }
+}
+
+const CLIPS = new Set(['calling-david', 'calling-aisha', 'no-answer-david-calling-aisha', 'on-the-way-david', 'on-the-way-aisha', 'calling-000'])
+const clip = (name: string) => (CLIPS.has(name) ? `/noa/${name}.mp3` : null)
+
+/** Margaret's status line from the latest escalation event. */
+export function helperStatus(inc: IncidentDoc, people: LivePeople): HelperStatus | null {
+  const s = (k: string, o?: Record<string, unknown>) => tl(`incident.phone.status.${k}`, o)
+  // SYSTEM events name the member by display name in the text; member events by `actor`.
+  const idByName = (name: string) => Object.keys(people.members).find((id) => people.members[id].displayName === name) ?? name
+  const memberOf = (e: TimelineDoc) =>
+    e.kind === 'NOTIFIED' ? idByName(e.text.slice('Calling '.length).split(':')[0])
+      : e.kind === 'EXPIRED' ? idByName(e.text.split(' did not answer')[0]) : e.actor
+  const firstOf = (id: string) => first(memberName(people, id))
+  const events = inc.timeline.filter((e) => (e.kind === 'NOTIFIED' && e.text.startsWith('Calling ')) || e.kind === 'EXPIRED'
+    || e.kind === 'DECLINED' || e.kind === 'ACCEPTED' || e.kind === 'ARRIVED' || (e.kind === 'CALLED_115' && e.actor === 'SYSTEM'))
+  const last = events[events.length - 1]
+  if (!last) return null
+  const id = memberOf(last)
+  const key = `${last.at} ${last.kind} ${id}`
+  if (last.kind === 'CALLED_115') {
+    const num = people.person?.emergencyNumber ?? '115'
+    return { text: s('calling000', { num }), clip: num === '000' ? clip('calling-000') : null, key }
+  }
+  const x = firstOf(id)
+  if (last.kind === 'ACCEPTED') return { text: s('onTheWay', { name: x }), clip: clip(`on-the-way-${x.toLowerCase()}`), key }
+  if (last.kind !== 'NOTIFIED') return null
+  const prev = events[events.length - 2]
+  if (prev && (prev.kind === 'EXPIRED' || prev.kind === 'DECLINED')) {
+    const p = firstOf(memberOf(prev))
+    return { text: s('noAnswer', { prev: p, name: x }), clip: clip(`no-answer-${p.toLowerCase()}-calling-${x.toLowerCase()}`), key }
+  }
+  return { text: s('calling', { name: x }), clip: clip(`calling-${x.toLowerCase()}`), key }
 }
 
 function orbitView(inc: IncidentDoc, now: number): EmOrbitTargets {

@@ -43,9 +43,13 @@ async function call<T>(path: string, body?: BodyInit | object): Promise<T> {
   return json as T
 }
 
+/** Optional alert values and no-reply window for a demo start (the Simulator); unset keys are left out of the body. */
+export interface DemoOverrides { hr?: number; movementMin?: number; noReplySeconds?: number }
+
 /** Starts a scenario for `personId`; `409 INVALID_STATE` while another incident is open. */
-export function startDemo(scenario: DemoScenario, personId: string, timerSeconds = 3, noReplySeconds = 10) {
-  return call<{ incidentId: string }>(`/demo/${scenario}`, { timerSeconds, noReplySeconds, personId })
+export function startDemo(scenario: DemoScenario, personId: string, overrides: DemoOverrides = {}) {
+  const { hr, movementMin, noReplySeconds = 10 } = overrides
+  return call<{ incidentId: string }>(`/demo/${scenario}`, { timerSeconds: 3, noReplySeconds, personId, hr, movementMin })
 }
 
 /** Deletes the current incident, re-seeds `people` and `hospitals`, clears `demo/current`. */

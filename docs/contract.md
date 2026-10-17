@@ -317,6 +317,8 @@ The anonymous token only proves the call comes from our web app. The demo has no
 
 `personId` is optional and defaults to `ba-mai`. A `personId` that is not an older person in the seed returns `400 INVALID_REQUEST`.
 
+`hr` (30..220) and `movementMin` (0..120) are optional overrides of the scenario alert's heart rate and minutes without movement, for example `{ "personId": "margaret", "hr": 57, "movementMin": 45 }`. A missing field keeps the scenario value. A value out of range or not a number returns `400 INVALID_REQUEST` and starts nothing.
+
 Response `202`:
 ```json
 { "incidentId": "alert-1760555000000-stroke" }

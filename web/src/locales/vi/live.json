@@ -40,30 +40,11 @@
   },
   "liveSubtitle": "Trực tiếp · {{time}} · {{address}}",
   "live": {
-    "idleBody": "Bắt đầu một tình huống và các trợ lý sẽ xử lý thật: core-api xác minh cảnh báo, hỏi thăm bà Margaret bằng giọng nói, phân loại, báo cho vòng chăm sóc và gửi hồ sơ báo trước của bà tới bệnh viện. Mọi màn hình đều theo cùng một sự cố.",
-    "scenarios": [
-      {
-        "id": "stroke",
-        "label": "Đột quỵ ban đêm",
-        "icon": "bolt"
-      },
-      {
-        "id": "fall",
-        "label": "Té ngã",
-        "icon": "people"
-      },
-      {
-        "id": "false-alarm",
-        "label": "Báo động nhầm",
-        "icon": "check"
-      }
-    ],
     "starting": "Đang bắt đầu tình huống…",
     "reset": "Đặt lại demo",
     "resetDone": "Đã đặt lại demo · đã nạp lại dữ liệu mẫu",
     "close": "Đóng sự cố",
     "closed": "Đã đóng sự cố",
-    "closedTitle": "Sự cố đã đóng",
     "loading": "Đang kết nối tới sự cố trực tiếp…",
     "noLog": "Đang chờ cập nhật đầu tiên…",
     "actionsTitle": "Các nút của {{name}}",
@@ -366,7 +347,13 @@
       "glad": "Cảm ơn bà. Thật mừng là bà vẫn ổn.",
       "withYou": "{{name}} đang ở cạnh bà",
       "away": "{{name}} · còn {{eta}}",
-      "onTheWay": "Đang có người đến giúp bà."
+      "onTheWay": "Đang có người đến giúp bà.",
+      "status": {
+        "calling": "Tôi đang gọi {{name}}. Bà cứ ở yên chỗ đó nhé.",
+        "noAnswer": "{{prev}} không bắt máy. Tôi đang gọi {{name}}.",
+        "onTheWay": "{{name}} đang đến. Sắp có người giúp bà.",
+        "calling000": "Không có ai ở gần đến được, nên tôi đang gọi {{num}} để xin xe cấp cứu. Bà cứ ở yên chỗ đó. Sắp có người giúp bà."
+      }
     },
     "packet": {
       "patient": "Bệnh nhân",
@@ -407,6 +394,47 @@
         "HARD_OF_HEARING": "Khiếm thính: hãy viết câu hỏi ra giấy",
         "COGNITIVE_IMPAIRMENT": "Suy giảm nhận thức: hỏi thật đơn giản"
       }
+    }
+  },
+  "sim": {
+    "title": "Mô phỏng",
+    "meta": "Chọn tình huống rồi bấm Bắt đầu",
+    "presets": "Tình huống",
+    "preset": {
+      "night": "Cấp cứu ban đêm",
+      "stairs": "Vừa leo cầu thang",
+      "asleep": "Ngủ say"
+    },
+    "hr": "Nhịp tim",
+    "bpm": "{{n}} nhịp/phút",
+    "movement": "Vận động",
+    "moving": "Đang cử động",
+    "notMoving": "Không cử động",
+    "stillFor": "Không cử động trong",
+    "min": "{{n}} phút",
+    "speech": "Giọng nói",
+    "speechOpt": {
+      "clear": "Rõ ràng",
+      "slurred": "Nói líu lưỡi",
+      "none": "Không trả lời"
+    },
+    "david": "David nghe máy",
+    "yes": "Có",
+    "no": "Không",
+    "start": "Bắt đầu",
+    "readings": {
+      "title": "Số đo mô phỏng",
+      "meta": "40 phút gần nhất",
+      "hr": "Nhịp tim",
+      "alert": "Ngưỡng cảnh báo",
+      "ago": "40 phút trước",
+      "now": "Bây giờ",
+      "movement": "Vận động, mỗi ô một phút: nằm yên {{n}} phút gần nhất",
+      "checks": "Quy tắc xác minh",
+      "still": "Không cử động từ 2 phút trở lên",
+      "hrCheck": "Nhịp tim từ {{threshold}} trở lên (cao hơn mức nền của bà 30)",
+      "met": "Đạt",
+      "notMet": "Chưa đạt"
     }
   }
 }

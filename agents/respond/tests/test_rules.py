@@ -112,3 +112,9 @@ def test_yes_to_the_limbs_question_does_not_raise():
 
 def test_answered_no_ignores_punctuation_and_case():
     assert rules.triage({"alert": alert(), "turns": [person("no.")]})["level"] == "COME_NOW"
+
+
+def test_still_near_baseline_is_resting_not_active():
+    body = {"person": {"baseline": {"nightHr": 58}}, "alert": {"kind": "HR_HIGH_NO_MOVEMENT", "hr": 57, "movementMin": 45}}
+    r = rules.verify(body)
+    assert not r["isReal"] and r["reason"] == "HR 57 near her baseline 58, resting: not an emergency"
