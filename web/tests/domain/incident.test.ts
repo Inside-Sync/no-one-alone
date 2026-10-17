@@ -1,5 +1,5 @@
 import type { IncidentDoc, PacketDoc } from '@/data/contract'
-import { liveView, packetRows, type LivePeople } from '@/domain/incident'
+import { helperStatus, liveView, packetRows, type LivePeople } from '@/domain/incident'
 import i18n from '@/i18n'
 
 const T0 = Date.parse('2026-10-14T19:03:00Z')
@@ -133,4 +133,62 @@ test('liveView: after no one nearby accepted, the owner card says 000 was called
   } as unknown as IncidentDoc
   const v = liveView('inc1', inc, people, T0 + 120_000)
   expect(v.owner).toMatchObject({ title: 'No one nearby can come', subtitle: '000 called automatically' })
+})
+
+describe('helperStatus: what NOA tells Margaret after the plan', () => {
+  const circle = {
+    person: { displayName: 'Margaret Collins', emergencyNumber: '000' },
+    members: { david: { displayName: 'David Collins' }, aisha: { displayName: 'Aisha Rahman' }, lan: { displayName: 'Lan Tran' } },
+  } as unknown as LivePeople
+  const ev = (s: number, actor: string, kind: string, text: string) => ({ at: at(s), actor, kind, text })
+  const callDavid = ev(80, 'SYSTEM', 'NOTIFIED', 'Calling David Collins: Margaret may be having a stroke.')
+  const withTl = (...timeline: object[]) => ({ ...incident, timeline: [...incident.timeline.slice(0, 2), ...timeline] }) as unknown as IncidentDoc
+
+  test('first call: calling David, with his clip', () => {
+    expect(helperStatus(withTl(callDavid, ev(80, 'SYSTEM', 'NOTIFIED', 'James Collins notified')), circle)).toEqual({
+      text: "I'm calling David now. Please stay where you are.", clip: '/noa/calling-david.mp3', key: `${at(80)} NOTIFIED david`,
+    })
+  })
+
+  test('after David did not answer: says so and who is next', () => {
+    const s = helperStatus(withTl(callDavid, ev(83, 'SYSTEM', 'EXPIRED', 'David Collins did not answer in 3 s'),
+      ev(83, 'SYSTEM', 'NOTIFIED', 'Calling Aisha Rahman: Margaret may be having a stroke.')), circle)
+    expect(s).toEqual({ text: "David didn't answer. I'm calling Aisha now.", clip: '/noa/no-answer-david-calling-aisha.mp3', key: `${at(83)} NOTIFIED aisha` })
+  })
+
+  test('accepted: the helper is on the way', () => {
+    const s = helperStatus(withTl(callDavid, ev(84, 'aisha', 'ACCEPTED', 'Aisha Rahman is on the way')), circle)
+    expect(s).toEqual({ text: 'Aisha is on the way. Help is coming.', clip: '/noa/on-the-way-aisha.mp3', key: `${at(84)} ACCEPTED aisha` })
+  })
+
+  test('no one nearby: calling 000, with the clip only for 000', () => {
+    const tl = [callDavid, ev(90, 'SYSTEM', 'NO_NEARBY', 'No one nearby accepted'), ev(90, 'SYSTEM', 'CALLED_115', 'Calling 000 automatically with the call script (demo call)')]
+    expect(helperStatus(withTl(...tl), circle)).toEqual({
+      text: "No one nearby can come, so I'm calling 000 for an ambulance now. Stay where you are. Help is coming.", clip: '/noa/calling-000.mp3', key: `${at(90)} CALLED_115 SYSTEM`,
+    })
+    const mai = { ...circle, person: { displayName: 'Mai', emergencyNumber: '115' } } as unknown as LivePeople
+    expect(helperStatus(withTl(...tl), mai)?.clip).toBeNull()
+  })
+
+  test('a member outside the clip list: text only', () => {
+    const s = helperStatus(withTl(ev(80, 'SYSTEM', 'NOTIFIED', 'Calling Lan Tran: Bà Mai may be having a stroke.')), circle)
+    expect(s).toMatchObject({ text: "I'm calling Lan now. Please stay where you are.", clip: null })
+  })
+
+  test('nothing to say before the plan calls anyone, and after the helper arrived', () => {
+    expect(helperStatus(withTl(), circle)).toBeNull()
+    expect(helperStatus(withTl(callDavid, ev(84, 'david', 'ACCEPTED', 'x'), ev(99, 'david', 'ARRIVED', 'x')), circle)).toBeNull()
+  })
+
+  test('Vietnamese text, same clip rule', async () => {
+    await i18n.changeLanguage('vi')
+    expect(helperStatus(withTl(ev(84, 'david', 'ACCEPTED', 'x')), circle)?.text).toBe('David đang đến. Sắp có người giúp bà.')
+  })
+
+  test('phoneView: status only once the instruction exists', () => {
+    const inc = { ...withTl(ev(84, 'david', 'ACCEPTED', 'x')), personInstruction: undefined } as unknown as IncidentDoc
+    expect(liveView('inc1', inc, circle, T0 + 120_000).phone.status).toBeNull()
+    const withInstr = { ...inc, personInstruction: { scriptIds: [], text: 'Sit down.' } } as unknown as IncidentDoc
+    expect(liveView('inc1', withInstr, circle, T0 + 120_000).phone.status?.clip).toBe('/noa/on-the-way-david.mp3')
+  })
 })

@@ -23,8 +23,12 @@ def verify(body: dict) -> dict:
     baseline = base.get("nightHr") or base.get("restingHr") or 60
     hr, still = alert["hr"], alert.get("movementMin", 0)
     real = (hr >= baseline + 30 and still >= 2) or "FALL" in alert.get("kind", "")
-    reason = (f"HR {hr} at rest, baseline {baseline}, no movement for {still} min" if real
-              else f"HR {hr} with movement: active, not an emergency")
+    if real:
+        reason = f"HR {hr} at rest, baseline {baseline}, no movement for {still} min"
+    elif still >= 2:
+        reason = f"HR {hr} near her baseline {baseline}, resting: not an emergency"
+    else:
+        reason = f"HR {hr} with movement: active, not an emergency"
     out = {"isReal": real, "reason": reason, "fallback": False}
     if window:
         well = [w for w in window if w.get("moving") and w["hr"] <= baseline + 20]

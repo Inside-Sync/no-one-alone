@@ -1,3 +1,4 @@
+import type { DemoOverrides } from './api'
 import type { CheckinInput, DemoCurrentDoc, DemoScenario, IncidentDoc, RecoveryRequest, ServerAction } from './contract'
 import { mockSource } from './sources/mock'
 import type { Seed } from './sources/overlay'
@@ -110,7 +111,7 @@ export async function audioUrl(path: string): Promise<string> {
 
 const api = () => import('./api')
 
-export const startDemo = async (scenario: DemoScenario) => (await api()).startDemo(scenario, SUBJECT_ID)
+export const startDemo = async (scenario: DemoScenario, overrides?: DemoOverrides) => (await api()).startDemo(scenario, SUBJECT_ID, overrides)
 export const checkin = async (incidentId: string, input: CheckinInput) => (await api()).checkin(incidentId, input)
 export const act = async (incidentId: string, memberId: string, action: ServerAction) => (await api()).act(incidentId, memberId, action)
 export const recovery = async (incidentId: string, body: RecoveryRequest) => (await api()).recovery(incidentId, body)

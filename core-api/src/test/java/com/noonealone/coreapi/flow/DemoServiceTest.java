@@ -127,6 +127,18 @@ class DemoServiceTest extends FirestoreTestBase {
     }
 
     @Test
+    void alertOverridesReplaceFixtureReadings() {
+        demo.reset();
+        when(agent.verify(any())).thenReturn(new VerifyResult(false, "resting", null, false));
+
+        String id = demo.trigger(Scenario.STROKE, "margaret", 30, 15, 57, 45);
+
+        Incident inc = store.get(id);
+        assertThat(inc.alert.hr).isEqualTo(57);
+        assertThat(inc.alert.movementMin).isEqualTo(45);
+    }
+
+    @Test
     void unknownOrMemberPersonIsRejectedBeforeAnythingIsWritten() {
         demo.reset();
 

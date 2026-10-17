@@ -1,6 +1,6 @@
-/** One key per call to a nearby member (`NOTIFIED` "Calling ..."), so each call rings once. */
+/** One key per call to a nearby member (`NOTIFIED` "Calling ...") or to the emergency number, so each call rings once. */
 export function callKeys(timeline: readonly { at: string; kind: string; text: string }[]): string[] {
-  return timeline.filter((e) => e.kind === 'NOTIFIED' && e.text.startsWith('Calling ')).map((e) => `${e.at} ${e.text}`)
+  return timeline.filter((e) => (e.kind === 'NOTIFIED' || e.kind === 'CALLED_115') && e.text.startsWith('Calling ')).map((e) => `${e.at} ${e.text}`)
 }
 
 export interface RingSegment { on: boolean; ms: number }

@@ -43,6 +43,11 @@ public class DemoService {
     }
 
     public String trigger(Scenario scenario, String personId, int timerSeconds, int noReplySeconds) {
+        return trigger(scenario, personId, timerSeconds, noReplySeconds, null, null);
+    }
+
+    public String trigger(Scenario scenario, String personId, int timerSeconds, int noReplySeconds,
+            Integer hr, Integer movementMin) {
         Person person = store.people().get(personId);
         if (person == null || person.circle == null || person.circle.isEmpty()) {
             throw ApiException.badRequest("Unknown person");
@@ -67,8 +72,9 @@ public class DemoService {
         current.startedAt = StoryClock.storyStart(scenario, zone).toString();
         store.setCurrent(current);
 
-        publisher.publish(new AlertMessage(id, personId, scenario, f.alert().kind(), f.alert().hr(),
-                f.alert().movementMin(), settings));
+        publisher.publish(new AlertMessage(id, personId, scenario, f.alert().kind(),
+                hr != null ? hr : f.alert().hr(),
+                movementMin != null ? movementMin : f.alert().movementMin(), settings));
         return id;
     }
 
