@@ -3,15 +3,22 @@ import re
 
 ORDER = ["OK", "MONITOR", "COME_NOW", "EMERGENCY"]
 EMERGENCY_SIGNS = ("weakness", "chest pain", "fall")
-# ponytail: word match without negation, so "no chest pain" over-triages; fine for one scripted case
-SIGN_WORDS = {"weakness": {"arm", "face", "weak", "weakness", "heavy", "numb", "tay", "yếu", "tê"},
+# ponytail: word match with a 2-word negation window; Gemini symptoms cover the rest
+SIGN_WORDS = {"weakness": {"arm", "face", "weak", "weakness", "heavy", "numb", "yếu", "tê"},
               "chest pain": {"chest", "ngực"},
               "fall": {"fall", "fell", "fallen", "té", "ngã"},
               "dizziness": {"dizzy", "dizziness", "chóng"}}
+NEGATIONS = {"no", "not", "never", "không", "chưa"}
 
 
 def _words(text: str | None) -> list[str]:
     return re.sub(r"[^\w\s]", " ", (text or "").lower()).split()
+
+
+def _signs(text: str | None) -> list[str]:
+    w = _words((text or "").lower().replace("n't", " not").replace("n’t", " not"))
+    return [s for s, words in SIGN_WORDS.items()
+            if any(x in words and not NEGATIONS & set(w[max(0, i - 2):i]) for i, x in enumerate(w))]
 
 
 def verify(body: dict) -> dict:
@@ -50,7 +57,7 @@ def triage(body: dict) -> dict:
     if any(a.get("clarity") == "SLURRED" for a in assessments):
         raise_to("EMERGENCY", "slurred speech")
     symptoms = [s for a in assessments for s in a.get("symptoms") or []]
-    symptoms += [s for p in people for s, words in SIGN_WORDS.items() if words & set(_words(p.get("text")))]
+    symptoms += [s for p in people for s in _signs(p.get("text"))]
     for s in dict.fromkeys(symptoms):
         raise_to("EMERGENCY" if s in EMERGENCY_SIGNS else "COME_NOW", s)
     if body.get("noReplyCount", 0) >= 2:

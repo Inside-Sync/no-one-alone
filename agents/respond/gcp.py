@@ -69,7 +69,7 @@ class GeminiAssessor:
         try:
             from google.genai import types
             prompt = (f"Transcribe this audio in locale {ctx.get('locale')}. Judge clarity as CLEAR, SLURRED "
-                      "or NO_SPEECH, whether the speech is coherent, any symptoms the speaker mentions from "
+                      "or NO_SPEECH, whether the speech is coherent, any symptoms the speaker says she has now, from "
                       f"this list only: {', '.join(SYMPTOMS)}, and your confidence from 0 to 1.")
             if ctx.get("expected"):
                 prompt += f' The speaker was asked to repeat "{ctx["expected"]}"; use SLURRED if the repetition is garbled.'

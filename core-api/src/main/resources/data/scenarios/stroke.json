@@ -7,61 +7,61 @@
   "window": [
     {
       "minutesBefore": 15,
-      "hr": 58,
-      "steps": 0,
-      "moving": false
-    },
-    {
-      "minutesBefore": 14,
-      "hr": 59,
-      "steps": 0,
-      "moving": false
-    },
-    {
-      "minutesBefore": 13,
-      "hr": 61,
-      "steps": 0,
-      "moving": false
-    },
-    {
-      "minutesBefore": 12,
       "hr": 66,
       "steps": 8,
       "moving": true
     },
     {
-      "minutesBefore": 11,
+      "minutesBefore": 14,
       "hr": 70,
       "steps": 22,
       "moving": true
     },
     {
-      "minutesBefore": 10,
+      "minutesBefore": 13,
       "hr": 72,
       "steps": 18,
       "moving": true
     },
     {
-      "minutesBefore": 9,
+      "minutesBefore": 12,
       "hr": 71,
       "steps": 15,
       "moving": true
     },
     {
-      "minutesBefore": 8,
+      "minutesBefore": 11,
       "hr": 74,
       "steps": 6,
       "moving": true
     },
     {
-      "minutesBefore": 7,
+      "minutesBefore": 10,
       "hr": 96,
       "steps": 0,
       "moving": false
     },
     {
+      "minutesBefore": 9,
+      "hr": 112,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 8,
+      "hr": 121,
+      "steps": 0,
+      "moving": false
+    },
+    {
+      "minutesBefore": 7,
+      "hr": 126,
+      "steps": 0,
+      "moving": false
+    },
+    {
       "minutesBefore": 6,
-      "hr": 118,
+      "hr": 129,
       "steps": 0,
       "moving": false
     },
@@ -73,25 +73,25 @@
     },
     {
       "minutesBefore": 4,
-      "hr": 138,
+      "hr": 133,
       "steps": 0,
       "moving": false
     },
     {
       "minutesBefore": 3,
-      "hr": 140,
+      "hr": 135,
       "steps": 0,
       "moving": false
     },
     {
       "minutesBefore": 2,
-      "hr": 141,
+      "hr": 136,
       "steps": 0,
       "moving": false
     },
     {
       "minutesBefore": 1,
-      "hr": 142,
+      "hr": 137,
       "steps": 0,
       "moving": false
     }

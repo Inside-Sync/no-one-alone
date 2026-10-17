@@ -29,7 +29,7 @@ def test_stroke_and_fall_are_real_false_alarm_is_not():
 
 def test_last_known_well_is_last_moving_near_baseline_point():
     body = fixture("stroke")
-    assert rules.verify(body)["lastKnownWellAt"] == "2026-10-15T18:55:00Z"
+    assert rules.verify(body)["lastKnownWellAt"] == "2026-10-15T18:52:00Z"
 
 
 def test_empty_window_has_no_last_known_well():
@@ -76,10 +76,15 @@ def test_clear_yes_answer_is_monitor():
     ("I fell over in the kitchen", "EMERGENCY", "fall"),
     ("Tay mạ yếu lắm", "EMERGENCY", "weakness"),
     ("No pain. But I feel dizzy and my heart is fluttering.", "COME_NOW", "dizziness"),
+    ("No, none of that. I had a bad dream and got up for a cup of tea.", "MONITOR", None),
+    ("No chest pain", "MONITOR", None),
+    ("I don't have chest pain", "MONITOR", None),
+    ("Mạ không đau ngực", "MONITOR", None),
+    ("Mạ giơ tay lên được", "MONITOR", None),
 ])
 def test_how_she_feels_answer_sets_level(text, level, reason):
     r = rules.triage({"alert": alert(), "turns": [person(text)]})
-    assert r["level"] == level and reason in r["reasons"]
+    assert r["level"] == level and (reason is None or reason in r["reasons"])
 
 
 def test_gemini_symptoms_count_too():
