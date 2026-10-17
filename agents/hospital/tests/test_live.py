@@ -39,8 +39,6 @@ def strip_meta(resources):
     return sorted(({k: v for k, v in r.items() if k != "meta"} for r in resources), key=lambda r: (r["resourceType"], r["id"]))
 
 
-# --- golden and equivalence ---------------------------------------------------------------------------------
-
 @pytest.mark.parametrize("pid", PEOPLE)
 def test_live_packet_matches_the_golden_packet(pid):
     status, out = handle(pid, reader(store_with(*PEOPLE)))
@@ -93,8 +91,6 @@ def test_resources_for_another_patient_are_dropped():
     assert other["id"] not in {r["id"] for r in got} and len(got) == 8
 
 
-# --- pagination -----------------------------------------------------------------------------------------------
-
 def test_every_page_is_followed():
     store = store_with("margaret", page_size=1)
     got = asyncio.run(reader(store).read("margaret"))
@@ -119,15 +115,13 @@ def test_endless_paging_stops_at_the_page_cap():
         asyncio.run(reader(store).read("ba-mai"))
 
 
-# --- failures: all or nothing, never the fixtures --------------------------------------------------------------
-
 class NoFixtures(FixtureReader):
     async def read(self, person_id):
         raise AssertionError("live mode read the bundled fixtures")
 
 
 @pytest.mark.parametrize("where", ["Patient", *[k for k, _ in live.SEARCHES]])
-@pytest.mark.parametrize("failure", [401, 403, 429, 500, 503, "json", httpx.ConnectError("down"), httpx.ReadTimeout("slow")])
+@pytest.mark.parametrize("failure", [401, 403, 429, 500, 503, "json", "shape", httpx.ConnectError("down"), httpx.ReadTimeout("slow")])
 def test_any_failed_call_gives_record_unavailable_with_no_record_data(where, failure, monkeypatch, caplog):
     monkeypatch.setattr(fhir, "FixtureReader", NoFixtures)
     store = store_with(*PEOPLE)
@@ -196,8 +190,6 @@ def test_log_line_names_the_error_without_patient_data(caplog):
     assert "ba-mai" not in caplog.text and TOKEN not in caplog.text
 
 
-# --- consent and missing data from the live store ---------------------------------------------------------------
-
 def test_live_without_consent_is_blocked():
     store = FakeStore([r for r in bundle_resources("ba-mai") if r["resourceType"] != "Consent"])
     _, out = handle("ba-mai", reader(store))
@@ -227,8 +219,6 @@ def test_ids_that_are_not_kebab_case_make_no_call(pid):
     store = store_with("ba-mai")
     assert asyncio.run(reader(store).read(pid)) == [] and store.calls == []
 
-
-# --- configuration ------------------------------------------------------------------------------------------------
 
 def test_default_source_is_fixture(monkeypatch):
     monkeypatch.delenv("FHIR_SOURCE", raising=False)

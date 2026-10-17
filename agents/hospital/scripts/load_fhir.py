@@ -101,7 +101,9 @@ def write(http: httpx.Client, base: str, steps: list[tuple[str, dict]]) -> int:
         return 0
     store = base.removesuffix("/fhir")
     config = http.get(store)
-    if config.status_code != 200 or config.json().get("enableUpdateCreate") is not True:
+    if config.status_code != 200:
+        raise LoadAborted(f"reading the store config returned HTTP {config.status_code}; nothing was written")
+    if config.json().get("enableUpdateCreate") is not True:
         raise LoadAborted("the store does not allow PUT with client ids (enableUpdateCreate is off); nothing was written")
     r = http.post(base, json={"resourceType": "Bundle", "type": "transaction", "entry": entries},
                   headers={"Content-Type": "application/fhir+json"})
@@ -180,6 +182,8 @@ def main(argv=None, *, token_provider=None, transport=None, async_transport=None
         print(f"aborted: {e}", file=sys.stderr)
         return 1
     bad = asyncio.run(verify(reader, people))
+    if bad:
+        bad.append("search can lag a fresh write: rerun --verify in a few seconds")
     print("\n".join(bad) or f"VERIFIED live equals fixture for {', '.join(people)}")
     return 1 if bad else 0
 

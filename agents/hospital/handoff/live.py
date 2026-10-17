@@ -80,9 +80,9 @@ class HealthcareReader:
             reason = str(e)
         except TimeoutError:
             reason = "live: timeout"
-        except httpx.HTTPError as e:
+        except Exception as e:  # noqa: BLE001 - a malformed store reply must still give PARTIAL, not 502
             reason = f"live: {type(e).__name__}"
-        # Reason holds an HTTP status or an exception type only, never record content or the token.
+        # status or exception type only, never record content or the token
         log.warning(json.dumps({"stage": "fhir", "source": "live", "error": reason}))
         raise RecordUnavailable(reason) from None
 

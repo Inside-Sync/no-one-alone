@@ -55,6 +55,8 @@ class FakeStore:
             raise failure
         if failure == "json":
             return httpx.Response(200, content=b"<html>not json</html>")
+        if failure == "shape":
+            return httpx.Response(200, json={"resourceType": "Bundle", "type": "searchset", "entry": ["not a dict"]})
         if isinstance(failure, int):
             return httpx.Response(failure, json={"resourceType": "OperationOutcome"})
         if len(parts) == 2:

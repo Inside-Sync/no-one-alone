@@ -19,7 +19,6 @@ _log.setLevel(logging.INFO)
 if not _log.handlers:
     _log.addHandler(logging.StreamHandler(sys.stdout))
 
-# FHIR_SOURCE and FHIR_STORE are checked at import: a bad setting stops the revision from starting.
 pipeline.configure()
 
 _public = urlsplit(os.environ.get("A2A_PUBLIC_URL", f"http://localhost:{os.environ.get('PORT', '8080')}"))
