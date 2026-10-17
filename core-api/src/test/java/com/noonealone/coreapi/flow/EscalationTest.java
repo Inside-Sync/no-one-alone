@@ -155,6 +155,14 @@ class EscalationTest extends FirestoreTestBase {
     }
 
     @Test
+    void margaretPlanUsesTheScriptLastSeenWellTime() {
+        runMargaretEmergency("m-lkw");
+
+        verify(agent).plan(argThat(b -> java.time.Instant.parse(String.valueOf(((Map<?, ?>) b.get("context")).get("lastKnownWellAt")))
+                .atZone(java.time.ZoneId.of("Australia/Sydney")).toLocalTime().equals(java.time.LocalTime.of(1, 30))));
+    }
+
+    @Test
     void margaretEmergencyCallsJamesThenDavidAndDavidAcceptCalls000() {
         runMargaretEmergency("m-e1");
 

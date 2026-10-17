@@ -180,7 +180,9 @@ public class Escalation {
             return m;
         }).toList();
         Map<String, Object> context = new HashMap<>();
-        context.put("lastKnownWellAt", inc.lastKnownWellAt);
+        // Margaret's 000 audio says 01:30, so her call script does too.
+        context.put("lastKnownWellAt", Handoff.SCRIPT_PERSON.equals(inc.personId) && inc.lastKnownWellAt != null
+                ? Handoff.scriptLastWell(inc.lastKnownWellAt, person) : inc.lastKnownWellAt);
         context.put("findings", inc.triage == null ? List.of() : inc.triage.reasons);
         context.put("meds", person.meds != null ? person.meds : f.meds());
         context.put("allergies", person.allergies != null ? person.allergies : f.allergies());

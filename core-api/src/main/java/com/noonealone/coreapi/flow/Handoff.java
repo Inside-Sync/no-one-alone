@@ -33,7 +33,7 @@ public class Handoff {
     static final String TASK_MEMBER = "handoff";
     static final int HANDOFF_DELAY_SECONDS = 25;
     private static final Logger log = LoggerFactory.getLogger(Handoff.class);
-    private static final String SCRIPT_PERSON = "margaret";
+    static final String SCRIPT_PERSON = "margaret";
     private static final int SCRIPT_ETA_MIN = 12;
     private static final List<String> BLOOD_THINNERS = List.of("apixaban", "rivaroxaban", "dabigatran", "edoxaban", "warfarin", "heparin", "enoxaparin");
     private static final DateTimeFormatter HH_MM = DateTimeFormatter.ofPattern("HH:mm");
@@ -196,7 +196,7 @@ public class Handoff {
     }
 
     // Same story day as the live value, at the script's 01:30.
-    private static String scriptLastWell(String iso, Person person) {
+    static String scriptLastWell(String iso, Person person) {
         ZoneId zone = person.timezone == null ? StoryClock.DEFAULT_ZONE : ZoneId.of(person.timezone);
         return Instant.parse(iso).atZone(zone).withHour(1).withMinute(30).withSecond(0).withNano(0).toInstant().toString();
     }
