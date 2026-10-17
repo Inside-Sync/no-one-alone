@@ -66,6 +66,15 @@ public class Handoff {
         }
     }
 
+    // A Cloud Tasks retry loop is worse than a missing hand-off, so the timer path never throws.
+    public void startQuietly(String incidentId) {
+        try {
+            start(incidentId);
+        } catch (RuntimeException e) {
+            log.warn("Handoff failed for incident {}: {}", incidentId, e.getClass().getSimpleName());
+        }
+    }
+
     public void start(String incidentId) {
         Incident inc = store.get(incidentId);
         Person person = store.person(inc.personId);

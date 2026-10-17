@@ -44,7 +44,7 @@ public class Actions {
         Optional<Incident> found = store.find(incidentId);
         if (Handoff.TASK_MEMBER.equals(memberId)) {
             if (found.isPresent() && found.get().status != Status.CLOSED) {
-                handoff.start(incidentId);
+                handoff.startQuietly(incidentId);
             }
             return;
         }
