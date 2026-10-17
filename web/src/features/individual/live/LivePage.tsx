@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { getOrbitScene } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
@@ -15,6 +15,7 @@ import { LiveAlertCard } from './LiveAlertCard'
 import { LiveIdleCard } from './LiveIdleCard'
 import { LivePhoneCard } from './LivePhoneCard'
 import { LiveTimelineCard } from './LiveTimelineCard'
+import { callKeys, playRing } from './ring'
 import { PhoneCard } from './PhoneCard'
 import { TimelineCard } from './TimelineCard'
 
@@ -39,6 +40,18 @@ function useFlash(on: boolean) {
   }, [on])
 }
 
+/** Rings once for each new call to a nearby member; calls already on the timeline at load stay silent. */
+function useCallRing(timeline: readonly { at: string; kind: string; text: string }[] | undefined) {
+  const seen = useRef<Set<string> | null>(null)
+  useEffect(() => {
+    const keys = callKeys(timeline ?? [])
+    if (seen.current === null) { seen.current = new Set(keys); return }
+    const fresh = keys.filter((k) => !seen.current!.has(k))
+    fresh.forEach((k) => seen.current!.add(k))
+    if (fresh.length) void playRing(3000)
+  }, [timeline])
+}
+
 /**
  * Individual view · Emergency (`<main data-page="live">`). Safety is the one category that is
  * never locked, so nothing here is wrapped in `<Locked>`: the demo runs while sharing is paused.
@@ -57,6 +70,7 @@ function LiveIncidentPage() {
   const { loading, error, incident, people, view, start, reset, checkin, act } = useLiveIncident()
   const scene = useRepo(getOrbitScene).data
   useFlash(Boolean(view?.phone.flash))
+  useCallRing(incident?.timeline)
   const { t } = useTranslation('live')
   const onReset = () => { reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed'))) }
 

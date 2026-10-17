@@ -26,14 +26,16 @@ final class EscalationRules {
         a.notifiedAt = now;
         a.deadlineAt = StoryClock.plusSeconds(now, inc.demo.timerSeconds);
         inc.escalationTaskName = taskName;
-        inc.log(now, "SYSTEM", "NOTIFIED", name(people, a.memberId) + " notified");
+        inc.log(now, "SYSTEM", "NOTIFIED", "Calling " + name(people, a.memberId) + (a.message == null ? "" : ": " + a.message));
     }
 
-    static void noNearby(Incident inc, String now) {
+    static void noNearby(Incident inc, String now, Map<String, Person> people) {
         inc.escalationTaskName = null;
         inc.log(now, "SYSTEM", "NO_NEARBY", "No one nearby accepted");
-        inc.assignments.stream().filter(a -> a.role == Role.DISTANT)
-                .forEach(a -> a.actions = List.of("CALL_NEARBY", "CALLED_115"));
+        Person p = people.get(inc.personId);
+        String number = p != null && p.emergencyNumber != null ? p.emergencyNumber : "115";
+        inc.log(now, "SYSTEM", "CALLED_115", "Calling " + number + " automatically with the call script (demo call)");
+        inc.assignments.stream().filter(a -> a.role == Role.DISTANT).forEach(a -> a.actions = List.of("CALL_NEARBY"));
     }
 
     static String name(Map<String, Person> people, String memberId) {

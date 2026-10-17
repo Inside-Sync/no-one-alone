@@ -1,3 +1,8 @@
+/** One key per call to a nearby member (`NOTIFIED` "Calling ..."), so each call rings once. */
+export function callKeys(timeline: readonly { at: string; kind: string; text: string }[]): string[] {
+  return timeline.filter((e) => e.kind === 'NOTIFIED' && e.text.startsWith('Calling ')).map((e) => `${e.at} ${e.text}`)
+}
+
 export interface RingSegment { on: boolean; ms: number }
 
 /** Australian ring: 400 ms on, 200 off, 400 on, 2000 off, repeated and cut at `totalMs`. */

@@ -123,3 +123,14 @@ test('liveView: no packet for the hospital while the handoff is PENDING', () => 
   const noPacket = { ...incident, handoff: { ...rest, status: 'PENDING' } } as unknown as IncidentDoc
   expect(liveView('inc1', noPacket, people, T0).packet).toBeNull()
 })
+
+test('liveView: after no one nearby accepted, the owner card says 000 was called automatically', () => {
+  const inc = {
+    ...incident, ownerId: undefined, assignments: [{ memberId: 'david', role: 'NEARBY', actions: [], state: 'EXPIRED' }],
+    timeline: [...incident.timeline.slice(0, 2),
+      { at: at(80), actor: 'SYSTEM', kind: 'NO_NEARBY', text: 'No one nearby accepted' },
+      { at: at(80), actor: 'SYSTEM', kind: 'CALLED_115', text: 'Calling 000 automatically with the call script (demo call)' }],
+  } as unknown as IncidentDoc
+  const v = liveView('inc1', inc, people, T0 + 120_000)
+  expect(v.owner).toMatchObject({ title: 'No one nearby can come', subtitle: '000 called automatically' })
+})

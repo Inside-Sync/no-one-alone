@@ -56,7 +56,7 @@ def test_assess_failure_falls_back_and_keeps_asking():
 def test_no_reply_switches_to_yes_no():
     out = checkin.turn(body(turns=agent(1), no_reply=1, input={"noReply": True}), fake(None))
     assert out["next"]["kind"] == "YES_NO"
-    assert out["next"]["text"] == "Mạ có nghe con không? Mạ bấm CÓ hoặc KHÔNG."
+    assert out["next"]["text"] == "Mạ có nghe con không? Mạ bấm có hoặc không."
 
 
 def test_yes_no_input_is_done():
@@ -81,3 +81,10 @@ def test_ack_comes_before_the_next_question():
     out = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(res))
     assert out["next"]["text"] == "I'm sorry your head hurts. Please say after me: the weather is nice today."
     assert "ack" not in out["assessment"]
+
+
+def test_yes_no_prompts_are_lowercase_so_tts_does_not_spell_them():
+    from lang import load_scripts
+    for lang in ("en", "vi"):
+        prompt = load_scripts()[lang]["yes_no"]
+        assert "YES" not in prompt and "NO" not in prompt and "CÓ" not in prompt and "KHÔNG" not in prompt

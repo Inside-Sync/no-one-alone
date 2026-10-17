@@ -355,6 +355,7 @@
       "waiting": "Đang chờ người được báo nhận",
       "noNearby": "Không có ai ở gần đến được",
       "callNow": "Gọi {{num}} ngay",
+      "autoCalled": "Đã tự động gọi {{num}}",
       "notYet": "{{name}} · chưa được báo",
       "firstToCall": "Người được gọi đầu tiên"
     },

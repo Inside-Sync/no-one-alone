@@ -140,7 +140,7 @@ public class Escalation {
             if (next.isPresent()) {
                 EscalationRules.notify(x, next.get(), now, timerName, people);
             } else {
-                EscalationRules.noNearby(x, now);
+                EscalationRules.noNearby(x, now, people);
             }
             x.assignments.stream().filter(a -> a.role == Role.DISTANT).forEach(a ->
                     x.log(now, "SYSTEM", "NOTIFIED", EscalationRules.name(people, a.memberId) + " notified"));

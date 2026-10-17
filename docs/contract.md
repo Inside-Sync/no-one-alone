@@ -262,7 +262,8 @@ any status except CLOSED --CLOSE from console--> CLOSED
 6. Escalation order is deterministic, not chosen by the LLM:
    - All `DISTANT` members with `criticalAlerts` are notified at once, without a timer.
    - `NEARBY` members are notified one at a time by `priority`. Each gets `deadlineAt = notifiedAt + timerSeconds` and a Cloud Task. All NEARBY assignments are written at once in priority order; the ones not yet notified are `QUEUED`.
-   - When the last `NEARBY` member expires or declines: timeline `NO_NEARBY`, and every `DISTANT` assignment gets `actions: ["CALL_NEARBY", "CALLED_115"]`.
+   - Timeline `NOTIFIED` text is `Calling {member}: {message}` for a NEARBY member. An expiry logs `EXPIRED` with `{member} did not answer in {timerSeconds} s`.
+   - When the last `NEARBY` member expires or declines: timeline `NO_NEARBY`, then a `SYSTEM` `CALLED_115` entry (`Calling {emergencyNumber} automatically with the call script (demo call)`; no real call is placed), and every `DISTANT` assignment gets `actions: ["CALL_NEARBY"]`.
 7. `EMERGENCY` only: write `handoff.status: PENDING`, then call `/handoff` right after `/plan`, in parallel with escalation. Pick the nearest hospital with `strokeReady: true` when stroke is suspected (any `SLURRED` turn, or triage reason `weakness`: a no to the arms and legs question), the nearest hospital otherwise. ETA from Maps Routes. Hospitals more than about 500 km from the person are ranked by straight-line distance and get no Routes ETA call. `etaMin` is omitted when the chosen hospital has no Routes ETA, in the handoff, the `/handoff` body and the packet. On success write the packet and `RECEIVED`; on `AGENT_FAILED` write `FAILED` and timeline `HANDOFF_FAILED`.
 8. `ARRIVED` from the owner moves status to `ON_SCENE`. The demo console closes the incident.
 
