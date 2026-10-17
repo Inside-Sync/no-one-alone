@@ -33,6 +33,7 @@ public class Handoff {
     static final String TASK_MEMBER = "handoff";
     static final int HANDOFF_DELAY_SECONDS = 25;
     private static final Logger log = LoggerFactory.getLogger(Handoff.class);
+    private static final List<String> BLOOD_THINNERS = List.of("apixaban", "rivaroxaban", "dabigatran", "edoxaban", "warfarin", "heparin", "enoxaparin");
     private static final DateTimeFormatter HH_MM = DateTimeFormatter.ofPattern("HH:mm");
 
     private final IncidentStore store;
@@ -146,7 +147,9 @@ public class Handoff {
         }
         if (person.meds != null && !person.meds.isEmpty()) {
             // ponytail: drug name is the first word of each seed entry ("aspirin 100 mg each morning")
-            parts.add("On " + String.join(", ", person.meds.stream().map(m -> m.split(" ")[0]).toList()));
+            List<String> names = person.meds.stream().map(m -> m.split(" ")[0]).toList();
+            boolean thinner = names.stream().anyMatch(n -> BLOOD_THINNERS.contains(n.toLowerCase()));
+            parts.add("On " + String.join(", ", names) + (thinner ? "" : ", not on blood thinners"));
         }
         if (person.allergies != null && !person.allergies.isEmpty()) {
             parts.add("Allergy: " + String.join(", ", person.allergies));
