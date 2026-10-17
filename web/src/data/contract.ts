@@ -54,7 +54,7 @@ export type ServerAction = 'ACCEPT' | 'DECLINE' | 'ARRIVED' | 'CALLED_115' | 'CL
 export type TimelineKind =
   | 'ALERT' | 'ALERTED' | 'VERIFIED' | 'FALSE_ALARM' | 'ASKED' | 'ANSWERED' | 'NO_REPLY' | 'TRIAGED' | 'NOTIFIED' | 'ACCEPTED'
   | 'DECLINED' | 'EXPIRED' | 'NO_NEARBY' | 'ARRIVED' | 'CALLED_115' | 'HANDOFF_SENT' | 'HANDOFF_RECEIVED'
-  | 'HANDOFF_FAILED' | 'AGENT_FALLBACK' | 'CLOSED' | 'DISCHARGED'
+  | 'HANDOFF_FAILED' | 'FAMILY_UPDATE' | 'AGENT_FALLBACK' | 'CLOSED' | 'DISCHARGED'
 
 export interface Assessment {
   clarity: 'CLEAR' | 'SLURRED' | 'NO_SPEECH'

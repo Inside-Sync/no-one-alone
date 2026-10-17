@@ -47,6 +47,7 @@ class HandoffTest extends FirestoreTestBase {
     @Autowired IncidentStore store;
     @Autowired Seed seed;
     @Autowired Handoff handoff;
+    @Autowired Actions actions;
     @MockBean RespondAgentClient agent;
     @MockBean EscalationTimers tasks;
     @MockBean RoutesClient routes;
@@ -75,6 +76,7 @@ class HandoffTest extends FirestoreTestBase {
         CheckInInput answer = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
         flow.acceptCheckIn(id, answer);
         flow.processCheckIn(id, answer);
+        actions.apply(id, "ong-hung", "ACCEPT");
     }
 
     @Test
@@ -117,12 +119,16 @@ class HandoffTest extends FirestoreTestBase {
         CheckInInput answer = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
         flow.acceptCheckIn("h-m", answer);
         flow.processCheckIn("h-m", answer);
+        actions.timeout("h-m", "james", 1);
+        actions.timeout("h-m", "david", 1);
 
         Incident inc = store.get("h-m");
         assertThat(inc.handoff.hospitalId).isEqualTo("sydney-stroke-center");
         assertThat(inc.timeline).filteredOn(t -> t.kind.startsWith("HANDOFF_")).extracting(t -> t.text).containsExactly(
-                "Pre-arrival packet sent to Camperdown Stroke Centre",
-                "Camperdown Stroke Centre received the packet: stroke call activated, CT scanner on standby");
+                "This is Noa from No One Alone. Margaret Collins, 78, female. Suspected stroke. Last seen well 05:55. "
+                        + "Slurred speech found 06:03. Heart rate up to 142. On amlodipine, aspirin, atorvastatin, not on blood thinners. "
+                        + "Allergy: penicillin. Next of kin: James (son).",
+                "Received. Stroke call activated, CT scanner on standby.");
         verify(routes, never()).etaMinutes(any(), argThat(to -> to.lat > 0));
     }
 

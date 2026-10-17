@@ -21,10 +21,12 @@ public class Actions {
 
     private final IncidentStore store;
     private final EscalationTimers tasks;
+    private final Handoff handoff;
 
-    public Actions(IncidentStore store, EscalationTimers tasks) {
+    public Actions(IncidentStore store, EscalationTimers tasks, Handoff handoff) {
         this.store = store;
         this.tasks = tasks;
+        this.handoff = handoff;
     }
 
     public long apply(String incidentId, String memberId, String action) {
@@ -40,6 +42,12 @@ public class Actions {
 
     public void timeout(String incidentId, String memberId, int attempt) {
         Optional<Incident> found = store.find(incidentId);
+        if (Handoff.TASK_MEMBER.equals(memberId)) {
+            if (found.isPresent() && found.get().status != Status.CLOSED) {
+                handoff.startQuietly(incidentId);
+            }
+            return;
+        }
         if (found.isEmpty() || !timedOut(found.get(), memberId)) {
             return;
         }
@@ -58,6 +66,7 @@ public class Actions {
             notifyNextOrGiveUp(x, now, nextTask, people);
             return true;
         });
+        handoff.afterCall(incidentId);
     }
 
     private long accept(String incidentId, String memberId) {
@@ -87,6 +96,7 @@ public class Actions {
         });
         if (m.changed()) {
             tasks.deleteQuietly(m.incident().escalationTaskName);
+            handoff.afterCall(incidentId);
         }
         return m.incident().version;
     }
@@ -115,6 +125,7 @@ public class Actions {
             return true;
         });
         tasks.deleteQuietly(tasks.taskName(incidentId, memberId, 1));
+        handoff.afterCall(incidentId);
         return m.incident().version;
     }
 
@@ -159,6 +170,7 @@ public class Actions {
             return true;
         });
         tasks.deleteQuietly(m.incident().escalationTaskName);
+        tasks.deleteQuietly(tasks.taskName(incidentId, Handoff.TASK_MEMBER, 1));
         return m.incident().version;
     }
 

@@ -9,7 +9,7 @@ const STEP_MS = 1500
 const ICON: Record<TimelineKind, string> = {
   ALERT: '🔎', VERIFIED: '✅', FALSE_ALARM: '💚', ASKED: '💬', ANSWERED: '👂', NO_REPLY: '🔇', TRIAGED: '🧭', ALERTED: '🔔',
   NOTIFIED: '📞', ACCEPTED: '✅', DECLINED: '🚫', EXPIRED: '📵', NO_NEARBY: '📍', ARRIVED: '🏠', CALLED_115: '🚑',
-  HANDOFF_SENT: '🏥', HANDOFF_RECEIVED: '🏥', HANDOFF_FAILED: '⚠️', AGENT_FALLBACK: '⚙️', CLOSED: '✔️', DISCHARGED: '🌱',
+  HANDOFF_SENT: '🏥', HANDOFF_RECEIVED: '🏥', HANDOFF_FAILED: '⚠️', FAMILY_UPDATE: '👪', AGENT_FALLBACK: '⚙️', CLOSED: '✔️', DISCHARGED: '🌱',
 }
 const TONE: Partial<Record<TimelineKind, 'bad' | 'good'>> = {
   ALERT: 'bad', ALERTED: 'bad', CALLED_115: 'bad', NO_NEARBY: 'bad', HANDOFF_FAILED: 'bad',

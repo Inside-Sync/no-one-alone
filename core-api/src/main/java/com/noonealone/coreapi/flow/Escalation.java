@@ -23,7 +23,6 @@ import com.noonealone.coreapi.model.Assignment;
 import com.noonealone.coreapi.model.AssignmentState;
 import com.noonealone.coreapi.model.CircleEntry;
 import com.noonealone.coreapi.model.Incident;
-import com.noonealone.coreapi.model.Level;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.PersonInstruction;
 import com.noonealone.coreapi.model.Role;
@@ -148,12 +147,8 @@ public class Escalation {
             }
             return true;
         });
-        if (m.changed() && inc.level == Level.EMERGENCY) {
-            try {
-                handoff.start(incidentId);
-            } catch (RuntimeException e) {
-                log.warn("Handoff not started for incident {}: {}", incidentId, e.getClass().getSimpleName());
-            }
+        if (m.changed()) {
+            handoff.afterCall(incidentId);
         }
     }
 
