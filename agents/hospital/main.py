@@ -19,6 +19,8 @@ _log.setLevel(logging.INFO)
 if not _log.handlers:
     _log.addHandler(logging.StreamHandler(sys.stdout))
 
+pipeline.configure()
+
 _public = urlsplit(os.environ.get("A2A_PUBLIC_URL", f"http://localhost:{os.environ.get('PORT', '8080')}"))
 app = to_a2a(
     root_agent,

@@ -482,7 +482,7 @@ Summary: Gemini writes at most 3 short sentences addressed to the person (by `di
 
 ### 4.4 hospital-agent (private, A2A)
 
-respond-agent sends one A2A message whose single part is a data part (or JSON text) equal to the `/handoff` body. hospital-agent reads Patient, Condition, MedicationStatement, AllergyIntolerance and FamilyMemberHistory for Patient `personId` from the FHIR store, and replies with this JSON as text. respond-agent parses it.
+respond-agent sends one A2A message whose single part is a data part (or JSON text) equal to the `/handoff` body. hospital-agent reads Patient, Condition, MedicationStatement, AllergyIntolerance, FamilyMemberHistory and Consent for Patient `personId` from the FHIR store (`FHIR_SOURCE=fixture`, the default, reads the bundles in `agents/hospital/data/fhir`; `live` reads Cloud Healthcare API), and replies with this JSON as text. respond-agent parses it.
 
 ```json
 {

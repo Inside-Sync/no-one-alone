@@ -11,7 +11,7 @@ Content comes from docs/contract.md: 4.4 (conditions, medications, allergy, comm
   `https://noonealone.insidesync.ai/fhir/StructureDefinition/synthetic-stated-age`.
 - `Consent/ba-mai-hospital-sharing` is a synthetic consent that permits all six hospital-sharing
   categories. See docs/contract.md section 4.4 for the policy.
-- Every entry is a `PUT` with a fixed id, so loading it twice changes nothing. The loader (`load.py`) is
-  part of S3 and not written yet.
+- Every entry is a `PUT` with a fixed id. `scripts/load_fhir.py` loads the bundles into the store and
+  skips resources that are already there with the same content, so loading twice changes nothing.
 
 hospital-agent reads these files directly in fixture mode (`FHIR_SOURCE=fixture`), one file per `personId`. They sit inside `agents/hospital` so the Cloud Run image contains them.

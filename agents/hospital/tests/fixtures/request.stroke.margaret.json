@@ -1,0 +1,20 @@
+{
+  "incidentId": "alert-123",
+  "personId": "margaret",
+  "level": "EMERGENCY",
+  "suspected": "STROKE",
+  "lastKnownWellAt": "2026-10-15T14:55:00Z",
+  "findings": [
+    "slurred speech 02:04",
+    "HR 142"
+  ],
+  "onScene": {
+    "name": "David",
+    "relation": "son"
+  },
+  "hospital": {
+    "id": "sydney-stroke-center",
+    "name": "Sydney Stroke Center (demo)",
+    "etaMin": 9
+  }
+}
