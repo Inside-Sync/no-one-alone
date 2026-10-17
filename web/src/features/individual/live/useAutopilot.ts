@@ -6,6 +6,8 @@ import { clipFor, type SimSettings } from '@/domain/simulator'
 
 export interface AutopilotOptions {
   enabled: boolean
+  /** False once Margaret answered by hand on this incident: no clip plays or posts. */
+  voice: boolean
   settings: SimSettings
   incident: IncidentDoc | null
   view: LiveView | null
@@ -29,8 +31,9 @@ export function useAutopilot(opts: AutopilotOptions): void {
   const latest = useRef(opts)
   useEffect(() => { latest.current = opts })
   const sent = useRef(new Set<string>())
+  const playing = useRef<(() => void) | null>(null)
 
-  const { enabled, view, incident } = opts
+  const { enabled, voice, view, incident } = opts
   const id = view?.id ?? null
   const key = view?.phone.voice ? view.phone.questionKey : null
   const davidNotified = !!incident?.assignments?.some((a) => a.memberId === 'david' && a.state === 'NOTIFIED')
@@ -38,7 +41,7 @@ export function useAutopilot(opts: AutopilotOptions): void {
   const spoken = !!key && opts.spokenKey === key
 
   useEffect(() => {
-    if (!enabled || !id || !key) return
+    if (!enabled || !voice || !id || !key) return
     const sentKey = `${id}|${key}`
     const index = (latest.current.incident?.checkIn?.turns ?? []).filter((t) => t.by === 'AGENT').length - 1
     const timer = setTimeout(() => {
@@ -50,20 +53,29 @@ export function useAutopilot(opts: AutopilotOptions): void {
       const post = () => {
         if (posted) return
         posted = true
+        playing.current = null
         void fetch(url)
           .then((r) => r.blob())
-          .then((audio) => latest.current.checkin({ audio }))
+          .then((audio) => { if (latest.current.voice) return latest.current.checkin({ audio }) })
           .catch(ignoreInvalidState)
       }
       try {
         const clip = new Audio(url)
+        // posted first: pause() rejects play() with AbortError, which would post.
+        playing.current = () => { posted = true; clip.pause() }
         clip.addEventListener('ended', post)
         clip.addEventListener('error', post)
         clip.play().catch(post)
       } catch { post() }
     }, spoken ? GAP_MS : FALLBACK_MS)
     return () => clearTimeout(timer)
-  }, [enabled, id, key, spoken])
+  }, [enabled, voice, id, key, spoken])
+
+  // Stops a playing clip, unposted, when she answers by hand or the question moves on.
+  useEffect(() => () => {
+    playing.current?.()
+    playing.current = null
+  }, [voice, id, key])
 
   useEffect(() => {
     if (!enabled || !id || !davidNotified || !davidPicksUp) return

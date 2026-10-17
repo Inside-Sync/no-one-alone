@@ -1,4 +1,4 @@
-import { act, screen } from '@testing-library/react'
+import { act, fireEvent, screen } from '@testing-library/react'
 import { useState } from 'react'
 import { vi } from 'vitest'
 import type { LivePhone, LiveView } from '@/domain/incident'
@@ -53,4 +53,12 @@ test('the helper status shows only once the instruction audio has finished', asy
   await act(async () => { ended['/noa/instr.mp3']?.() })
   expect(screen.getByText("I'm calling James now.")).toBeInTheDocument()
   expect(onSpoken).toHaveBeenCalledWith('instruction')
+})
+
+test('pressing record calls onManual once', async () => {
+  const onManual = vi.fn()
+  const ask = { ...phone, voice: true, status: null, audioPath: null, questionKey: '1:0:Can you hear me?' }
+  renderWithProviders(<LivePhoneCard phone={ask} name="Margaret" helpInitials="DM" checkin={() => Promise.resolve()} onManual={onManual} />)
+  await act(async () => { fireEvent.click(screen.getByRole('button', { name: /Tap to answer/ })) })
+  expect(onManual).toHaveBeenCalledTimes(1)
 })

@@ -7,7 +7,7 @@ export interface Reading { minute: number; hr: number; moving: boolean }
 /** `clock` is minutes after midnight of the newest reading. */
 export interface Watch { readings: Reading[]; clock: number; hr: number; stillMin: number }
 
-export const SIM_DEFAULTS: SimSettings = { speech: 'slurred', davidPicksUp: true }
+export const SIM_DEFAULTS: SimSettings = { speech: 'mic', davidPicksUp: true }
 
 export const scenarioFor = (): DemoScenario => 'stroke'
 
@@ -28,6 +28,8 @@ const SIZE = 40
 const START_CLOCK = 90
 const WOBBLE = [0, 2, -1, 1, -2, 1, 0, -1]
 const wobble = (n: number) => WOBBLE[((n % WOBBLE.length) + WOBBLE.length) % WOBBLE.length]
+// Above the rule the wobble never dips a reading to 120.
+const hiHr = (hr: number, n: number) => Math.max(121, hr + wobble(n))
 
 const history = (hrAt: (i: number) => number, movingAt: (i: number) => boolean): Reading[] =>
   Array.from({ length: SIZE }, (_, i) => ({ minute: START_CLOCK - SIZE + 1 + i, hr: hrAt(i), moving: movingAt(i) }))
@@ -55,18 +57,29 @@ export const PRESETS: Record<PresetId, () => Watch> = {
 export function tick(w: Watch): Watch {
   const minute = w.readings[w.readings.length - 1].minute + 1
   return {
-    readings: [...w.readings, { minute, hr: w.hr + wobble(minute), moving: w.stillMin === 0 }].slice(-SIZE),
+    readings: [...w.readings, { minute, hr: w.hr > 120 && w.stillMin > 0 ? hiHr(w.hr, minute) : w.hr + wobble(minute), moving: w.stillMin === 0 }].slice(-SIZE),
     clock: w.clock + 1,
     hr: w.hr,
     stillMin: w.stillMin > 0 ? Math.min(w.stillMin + 1, STILL_MAX) : 0,
   }
 }
 
+/** Like the artifact's `stillSet`: with HR above 120 the newly still readings take that HR, so the rule can fire at once. */
 export function setStill(w: Watch, n: number): Watch {
-  return { ...w, stillMin: n, readings: w.readings.map((r, i) => ({ ...r, moving: i < w.readings.length - n })) }
+  const from = w.readings.length - n
+  return {
+    ...w,
+    stillMin: n,
+    readings: w.readings.map((r, i) => ({ ...r, moving: i < from, hr: i >= from && w.hr > 120 ? hiHr(w.hr, r.minute) : r.hr })),
+  }
 }
 
-export const setHr = (w: Watch, hr: number): Watch => ({ ...w, hr })
+/** Like the artifact's `hrS` handler: above 120 the still readings at or below the line take the new HR. */
+export function setHr(w: Watch, hr: number): Watch {
+  if (w.stillMin === 0 || hr <= 120) return { ...w, hr }
+  const from = w.readings.length - w.stillMin
+  return { ...w, hr, readings: w.readings.map((r, i) => (i >= from && r.hr <= 120 ? { ...r, hr: hiHr(hr, r.minute) } : r)) }
+}
 
 /** The verify rule respond-agent applies: the trailing run of readings above 120 while not moving. */
 export function alertRun(readings: Reading[]): number {

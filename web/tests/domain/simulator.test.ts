@@ -3,8 +3,8 @@ import { PRESETS, SIM_DEFAULTS, alertRun, blankWatch, clipFor, clockText, setHr,
 const ticks = (w: Watch, n: number) => Array.from({ length: n }).reduce<Watch>((x) => tick(x), w)
 
 test('clipFor: red-0, red-1, then none; the mic option sends nothing', () => {
-  expect([0, 1, 2].map((i) => clipFor(SIM_DEFAULTS, i))).toEqual(['/sim/red-0.mp3', '/sim/red-1.mp3', null])
-  expect(clipFor({ ...SIM_DEFAULTS, speech: 'mic' }, 0)).toBeNull()
+  expect([0, 1, 2].map((i) => clipFor({ ...SIM_DEFAULTS, speech: 'slurred' }, i))).toEqual(['/sim/red-0.mp3', '/sim/red-1.mp3', null])
+  expect(clipFor(SIM_DEFAULTS, 0)).toBeNull()
 })
 
 test('tick: one more reading, 40 kept, clock + 1; still minutes grow while still and stay 0 while moving', () => {
@@ -26,6 +26,17 @@ test('setStill marks exactly the last n readings still and leaves their heart ra
   expect(w.stillMin).toBe(10)
   expect(w.readings.map((r) => r.moving)).toEqual(Array.from({ length: 40 }, (_, i) => i < 30))
   expect(w.readings.map((r) => r.hr)).toEqual(blankWatch().readings.map((r) => r.hr))
+})
+
+test('dragging past the rule rewrites the still readings, in either order, so the run is complete at once', () => {
+  expect(alertRun(setStill(setHr(blankWatch(), 140), 10).readings)).toBe(10)
+  expect(alertRun(setHr(setStill(blankWatch(), 10), 140).readings)).toBe(10)
+})
+
+test('a still watch at 121 never reads 120 or below', () => {
+  const w = setStill(setHr(blankWatch(), 121), 5)
+  const hrs = Array.from({ length: 8 }, (_, k) => ticks(w, k + 1).readings[39].hr)
+  expect(hrs.filter((hr) => hr <= 120)).toEqual([])
 })
 
 test('alertRun counts only the trailing high and still readings; the night preset goes 6 to 10 in 4 ticks', () => {

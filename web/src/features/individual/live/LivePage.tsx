@@ -111,10 +111,13 @@ function LiveIncidentPage() {
   // Kept here, not in the cards, so the settings survive the incident they started.
   const [sim, setSim] = useState(SIM_DEFAULTS)
   const [busy, setBusy] = useState(false)
+  // The incident she answered by hand on: no autopilot voice for it.
+  const [manual, setManual] = useState<string | null>(null)
   const open = Boolean(view?.open)
   const begin = (hr: number, movementMin: number) => {
     setBusy(true)
     setSpoken(null)
+    setManual(null)
     toast(t('live.starting'))
     start(scenarioFor(), { hr, movementMin, noReplySeconds: NO_REPLY_SECONDS })
       .then(() => setAuto(true))
@@ -125,10 +128,10 @@ function LiveIncidentPage() {
   const watch = useWatch({ locked: open, onAlert })
   const onReset = () => {
     if (busy) return
-    setAuto(false); setSpoken(null); watch.reset(); holdNight(false)
+    setAuto(false); setSpoken(null); setManual(null); watch.reset(); holdNight(false)
     reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed')))
   }
-  useAutopilot({ enabled: auto && open, settings: sim, incident, view, spokenKey: spoken, checkin, act })
+  useAutopilot({ enabled: auto && open, voice: manual !== view?.id, settings: sim, incident, view, spokenKey: spoken, checkin, act })
   // The top bar's Night alert demo, like the prototype's startEm: Night emergency selected and the watch running. An open
   // incident is reset first so the demo starts over.
   const pathname = usePathname()
@@ -138,7 +141,7 @@ function LiveIncidentPage() {
     nightDemo.current = () => {
       if (!open) { watch.loadPreset('night'); return }
       if (busy) return
-      setAuto(false); setSpoken(null)
+      setAuto(false); setSpoken(null); setManual(null)
       reset().then(() => watch.loadPreset('night'), () => { holdNight(false); toast(t('live.failed')) })
     }
   })
@@ -178,7 +181,7 @@ function LiveIncidentPage() {
       <CallsCard agent={agent} />
       {shown ? (
         <LivePhoneCard phone={shown.view.phone} name={name} helpInitials={shown.view.owner.initials} checkin={checkin} onSpoken={setSpoken} speechRef={speech}
-          statusOverride={ambulance} />
+          onManual={() => setManual(shown.view.id)} statusOverride={ambulance} />
       ) : (
         <IdlePhoneCard name={name} time={clockText(watch.watch.clock)} disabled={busy} onHelp={() => begin(watch.watch.hr > 120 ? watch.watch.hr : 142, ALERT_MIN)} />
       )}
