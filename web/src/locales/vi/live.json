@@ -400,16 +400,18 @@
     }
   },
   "sim": {
-    "title": "Mô phỏng",
+    "title": "🎛️ Mô phỏng",
     "meta": "Thử Noa an toàn",
     "howto": [
-      "Kéo nhịp tim lên trên 120",
-      "Kéo thời gian không cử động lên 10 phút",
+      "Kéo **nhịp tim** lên trên 120",
+      "Kéo **thời gian không cử động** lên 10 phút",
       "Noa tự vào cuộc, nói chuyện với Margaret và tìm ra chuyện gì đang xảy ra",
       "Tuỳ chọn: chạm vào câu trả lời của Margaret trên điện thoại để đổi diễn biến"
     ],
     "preset": {
-      "night": "🌙 Cấp cứu ban đêm"
+      "night": "🌙 Cấp cứu ban đêm",
+      "stairs": "🪜 Vừa leo cầu thang",
+      "asleep": "😴 Đang ngủ say"
     },
     "hr": "❤️ Nhịp tim",
     "hrAria": "Nhịp tim",
@@ -466,8 +468,243 @@
   },
   "speech": {
     "title": "Kiểm tra giọng nói của Noa",
-    "slurred": "⚠ Phát hiện nói ngọng · có thể đột quỵ",
-    "clear": "✓ Rõ ràng · giống giọng bình thường của bà",
-    "sentence": "Câu cần nói: “{{s}}”"
+    "tag": "CÔNG NGHỆ CỐT LÕI",
+    "meta": "So giọng tối nay với chính giọng của {{name}}, không phải giọng trung bình",
+    "state": {
+      "ready": "Sẵn sàng · mẫu giọng từ 41 cuộc trò chuyện buổi sáng",
+      "listen": "🎙️ Đang nghe {{name}}…",
+      "analyse": "Đang so với giọng của chính bà…",
+      "clear": "✓ Rõ ràng · giống giọng thường ngày",
+      "slurred": "⚠ Phát hiện nói ngọng · nghi đột quỵ"
+    },
+    "slurred": "⚠ Phát hiện nói ngọng · nghi đột quỵ",
+    "clear": "✓ Rõ ràng · giống giọng thường ngày",
+    "normal": "Bình thường",
+    "baseline": "mẫu · 30 ngày",
+    "tonight": "Tối nay",
+    "repeating": "{{name}} đang nhắc lại “The sky is blue in Sydney”",
+    "idle": "Chạy khi Noa cần hỏi thăm bà. {{name}} nhắc lại một câu ngắn.",
+    "measure": "Chỉ số",
+    "normalCol": "Bình thường",
+    "tonightCol": "Tối nay",
+    "measures": [
+      "Độ rõ (phát âm)",
+      "Tốc độ nói",
+      "Ngắt giữa các từ",
+      "Số từ nhận ra",
+      "Độ ổn định giọng"
+    ],
+    "how": [
+      [
+        "Học giọng của bà",
+        "từ các cuộc trò chuyện 2 phút buổi sáng"
+      ],
+      [
+        "Một câu",
+        "khi có gì đó bất thường"
+      ],
+      [
+        "5 chỉ số",
+        "so với chính bà, trong chưa đầy 2 giây"
+      ],
+      [
+        "Ngọng = Đỏ:",
+        "Noa bỏ qua câu hỏi và gọi trợ giúp"
+      ]
+    ],
+    "fine": "Máy trợ thính và giọng địa phương đã nằm trong mẫu giọng của bà, nên không gây báo nhầm. Chỉ lưu điểm số, không lưu bản ghi âm. Trong bản demo các con số chỉ để minh hoạ."
+  },
+  "agent": {
+    "title": "Noa",
+    "sub": "trợ lý No One Alone",
+    "ask": "💬 Hỏi Noa",
+    "her": "bà",
+    "idle": "Mọi thứ bình thường. Noa chỉ vào cuộc khi cả hai dấu hiệu cảnh báo cùng xảy ra.",
+    "nowHr": "Dấu hiệu cảnh báo: nhịp tim trên 120 suốt 10 phút trong khi bà không cử động (hiện {{hr}} nhịp/phút). Noa hỏi thăm {{name}} trước, chưa đánh thức ai.",
+    "nowFall": "Dấu hiệu cảnh báo: ngã mạnh và không cử động từ đó. Noa hỏi thăm {{name}} trước, chưa đánh thức ai.",
+    "pending": {
+      "title": "Bước tiếp theo tuỳ vào câu trả lời của bà",
+      "text": "🟢 ổn → trấn an và kiểm tra lại · 🟡 mệt nhưng nói rõ → điều dưỡng + gia đình · 🔴 nói ngọng, không trả lời, đau ngực, yếu tay chân hoặc ngã → {{num}}"
+    },
+    "decision": {
+      "green": {
+        "title": {
+          "stroke": "🟢 Xanh: bà ổn",
+          "fall": "🟢 Xanh: bà ổn",
+          "other": "🟢 Xanh: bà ổn"
+        },
+        "text": "Nói rõ, không có triệu chứng đáng lo và giọng như thường ngày. Giữ bình tĩnh, không đánh thức ai."
+      },
+      "amber": {
+        "title": {
+          "stroke": "🟡 Vàng: mệt nhưng nói rõ",
+          "fall": "🟡 Vàng: mệt nhưng nói rõ",
+          "other": "🟡 Vàng: mệt nhưng nói rõ"
+        },
+        "text": "Bà cần có người ở cạnh tối nay. Noa gọi người thân theo thứ tự."
+      },
+      "red": {
+        "title": {
+          "stroke": "🔴 Đỏ: nghi đột quỵ",
+          "fall": "🔴 Đỏ: nghi ngã nghiêm trọng",
+          "other": "🔴 Đỏ: khẩn cấp"
+        },
+        "text": "Thời gian rất quan trọng, nên Noa bỏ qua các câu hỏi còn lại và gọi trợ giúp ngay."
+      }
+    },
+    "step": {
+      "detect": "Nhận ra dấu hiệu cảnh báo",
+      "ask": "Hỏi thăm {{name}}",
+      "speech": "Kiểm tra giọng nói",
+      "feel": "Hỏi bà thấy thế nào",
+      "decide": "Quyết định: xanh, vàng hay đỏ",
+      "alertAll": "Báo cho cả nhóm người thân",
+      "call": "Gọi {{name}} ({{detail}})",
+      "scan": "Tìm người ở gần nhất",
+      "ooo": "Gọi {{num}} theo kịch bản",
+      "packet": "Gửi hồ sơ cho bệnh viện",
+      "company": "Ở cạnh bà đến khi có người tới",
+      "paramedics": "Ở cạnh bà · bàn giao cho nhân viên cấp cứu",
+      "g1": "Trấn an: uống nước, thở chậm",
+      "g2": "Kiểm tra lại nhịp tim sau 10 phút",
+      "g3": "Ghi chú buổi sáng cho gia đình"
+    },
+    "state": {
+      "done": "Xong",
+      "cur": "Đang làm",
+      "fail": "Không đạt",
+      "skip": "Bỏ qua",
+      "noAnswer": "Không nghe máy"
+    },
+    "pill": {
+      "watching": "Đang theo dõi",
+      "verifying": "Đang xác minh",
+      "deciding": "Đang quyết định",
+      "falseAlarm": "Báo nhầm",
+      "allClear": "Đã ổn",
+      "handedOver": "Đã bàn giao",
+      "withHer": "Đã có người bên bà",
+      "detect": "Đang xác minh",
+      "ask": "Đang hỏi thăm bà",
+      "speech": "Kiểm tra giọng nói",
+      "feel": "Hỏi bà thấy thế nào",
+      "decide": "Đang quyết định",
+      "alertall": "Đang báo người thân",
+      "calling": "Đang gọi {{name}}",
+      "scan": "Đang tìm người giúp",
+      "ooo": "Đang gọi {{num}}",
+      "packet": "Đang báo bệnh viện",
+      "company": "Đang ở cạnh bà",
+      "g1": "Đang trấn an",
+      "g2": "Đang kiểm tra lại",
+      "g3": "Đang hoàn tất"
+    },
+    "calls": {
+      "title": "📞 Thứ tự gọi",
+      "meta": "Theo danh sách ưu tiên, rồi người gần nhất"
+    },
+    "alerts": {
+      "title": "🔔 Cảnh báo tới người thân",
+      "meta": "Những ai bật cảnh báo an toàn",
+      "none": "Chưa gửi cảnh báo",
+      "noneSub": "Không có gì cần báo"
+    },
+    "call": {
+      "waiting": "Đang chờ",
+      "ringing": "Đang đổ chuông…",
+      "answered": "Đã nghe máy",
+      "onTheWay": "Đã nghe · đang tới",
+      "withHer": "Đang ở cạnh bà",
+      "declined": "Không tới được",
+      "voicemail": "Không nghe · hộp thư thoại",
+      "text": "Không nghe · đã nhắn tin",
+      "notNeeded": "Chưa cần",
+      "dialling": "Đang quay số…",
+      "connected": "Đã kết nối · đang nói",
+      "dispatched": "Xe cấp cứu đã xuất phát"
+    },
+    "ambulance": "Cấp cứu",
+    "priority": "ưu tiên {{n}}",
+    "nearest": "gần nhất, {{d}}",
+    "m": "{{n}} m",
+    "km": "{{n}} km",
+    "sent": "Gửi {{time}}",
+    "relation": {
+      "son": "Con trai",
+      "daughter": "Con gái",
+      "brother": "Em trai",
+      "sister": "Em gái",
+      "neighbour": "Hàng xóm",
+      "neighbor": "Hàng xóm",
+      "wife": "Vợ",
+      "husband": "Chồng",
+      "friend": "Bạn"
+    },
+    "phone": {
+      "title": "📱 Điện thoại của {{name}}",
+      "spoken": "Đọc to · chữ lớn",
+      "goodnight": "Chúc ngủ ngon, {{name}}",
+      "sleep": "Ngủ ngon nhé. Noa luôn ở đây nếu bà cần 💙",
+      "ok": "Tôi ổn",
+      "help": "Giúp tôi",
+      "okToast": "Gia đình đã biết bà ổn"
+    },
+    "log": {
+      "title": "🗒️ Nhật ký của Noa",
+      "meta": "Từng bước, có giờ",
+      "idle": "Đang lặng lẽ theo dõi. Không có gì cần báo."
+    },
+    "circle": {
+      "title": "🫂 Người thân của {{name}}",
+      "allNormal": "Bình thường",
+      "watching": "Đang lặng lẽ theo dõi",
+      "lkw": "Lần cuối khoẻ —",
+      "inPlace": "Mọi người đều ở chỗ của mình",
+      "inPlaceSub": "Chưa đánh thức ai",
+      "checking": "Noa đang hỏi thăm {{name}}",
+      "checkingSub": "Chưa đánh thức ai",
+      "allClear": "Đã ổn",
+      "allClearSub": "Không ai bị đánh thức",
+      "farAway": "{{names}} ở xa",
+      "and": " và "
+    }
+  },
+  "talk": {
+    "title": "🎙️ Hội thoại trực tiếp",
+    "meta": "Mọi điều Noa nói, và nói với ai",
+    "live": "Trực tiếp · {{time}}",
+    "filter": "Lọc hội thoại",
+    "all": "Tất cả",
+    "to": "Noa → {{name}}",
+    "none": "Chưa có ai nói gì. Noa đang lặng lẽ theo dõi.",
+    "noReply": "(không trả lời)",
+    "operator": "Tổng đài",
+    "hospital": "Bệnh viện",
+    "strokeTeam": "Đội đột quỵ",
+    "ACCEPTED": "“Tôi đang tới.”",
+    "DECLINED": "“Tôi không tới được.”",
+    "ARRIVED": "“Tôi đang ở cạnh bà.”"
+  },
+  "hand": {
+    "title": "📦 Ai nhận được gì",
+    "meta": "Mỗi người chỉ nhận điều họ cần · chạm để xem",
+    "none": "Chưa chia sẻ gì",
+    "noneSub": "Thông tin chỉ được chuyển khi Noa hành động",
+    "safety": "Cảnh báo an toàn",
+    "push": "Thông báo đẩy + tin nhắn",
+    "message": "Nội dung",
+    "distant": "Cuộc gọi + trang trực tiếp",
+    "distantMissed": "Hộp thư thoại + tin nhắn + trang trực tiếp",
+    "nearby": "Tới ngay + việc cần làm",
+    "nearbyMissed": "Hộp thư thoại + tin nhắn",
+    "how": "Cách gửi",
+    "told": "Đã báo",
+    "eta": "Đang tới",
+    "ambulance": "Cấp cứu {{num}}",
+    "fullCall": "Cuộc gọi cấp cứu đầy đủ",
+    "script": "Kịch bản",
+    "packet": "Hồ sơ trước khi tới (FHIR)",
+    "status": "Trạng thái",
+    "fine": "Chia sẻ theo cài đặt riêng của {{name}}. Mọi lần chuyển giao đều được ghi lại và bà có thể xem sau."
   }
 }

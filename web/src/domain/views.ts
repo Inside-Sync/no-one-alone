@@ -45,7 +45,7 @@ const tab = (group: TabGroup, id: string, icon?: string): Tab => ({
 
 export const TABS_FAM: Tab[] = ['home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'recovery', 'device'].map((id) => tab('family', id))
 
-export const TABS_SELF: Tab[] = ['me', 'recovery', 'health', 'privacy', 'around', 'lineage', 'device'].map((id) => tab('self', id))
+export const TABS_SELF: Tab[] = ['me', 'recovery', 'health', 'live', 'privacy', 'around', 'lineage', 'device'].map((id) => tab('self', id))
 
 const TABS_HOSPITAL: Tab[] = [
   tab('hospital', 'ed', 'siren'),

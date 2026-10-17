@@ -1,9 +1,4 @@
-'use client'
-
 import { useEffect, useRef, useState, type RefObject } from 'react'
-import { useTranslation } from 'react-i18next'
-import { GlassCard } from '@/components/ui/GlassCard'
-import { Head } from '../home/parts'
 
 interface Line { by: 'operator' | 'noa'; clip: string; text: string }
 
@@ -36,18 +31,28 @@ function playClip(src: string, track: (a: HTMLAudioElement) => void): Promise<vo
   })
 }
 
-/** Noa's 000 call: when `live`, the lines play after the dial and the phone's speech; else (reload) the transcript only. */
-export function EmergencyCallCard({ davidAccepted, live, dialDone, speechRef, onDone }: {
-  davidAccepted: boolean; live: boolean; dialDone: Promise<void> | null; speechRef?: RefObject<Promise<void>>; onDone: (silent: boolean) => void
-}) {
-  const { t } = useTranslation('live')
-  const lines = callLines(davidAccepted)
-  const [shown, setShown] = useState(live ? 0 : lines.length)
+export type CallLine = Line
+
+/**
+ * Noa's 000 call: when `live`, the lines play after the dial and the phone's speech; else (reload) the transcript only.
+ * `callKey` names the call: a new one starts over. Returns the lines said so far and whether it is still dialling.
+ */
+export function useCallDialogue({ callKey, davidAccepted, live, dialDone, speechRef, onDone }: {
+  callKey: string | null; davidAccepted: boolean; live: boolean; dialDone: Promise<void> | null
+  speechRef?: RefObject<Promise<void>>; onDone: (silent: boolean) => void
+}): { lines: Line[]; dialling: boolean } {
+  const [state, setState] = useState<{ key: string | null; accepted: boolean; shown: number }>(
+    { key: callKey, accepted: davidAccepted, shown: live ? 0 : 8 })
+  // A late David accept does not change the call already under way.
+  if (state.key !== callKey) setState({ key: callKey, accepted: davidAccepted, shown: live ? 0 : 8 })
+  const accepted = state.key === callKey ? state.accepted : davidAccepted
   const done = useRef(onDone)
   useEffect(() => { done.current = onDone })
-  const accepted = useRef(davidAccepted)
+  const acceptedRef = useRef(accepted)
+  useEffect(() => { acceptedRef.current = accepted })
 
   useEffect(() => {
+    if (callKey === null) return
     if (!live) { done.current(true); return }
     if (!dialDone) return
     let stopped = false
@@ -55,25 +60,17 @@ export function EmergencyCallCard({ davidAccepted, live, dialDone, speechRef, on
     void (async () => {
       await dialDone
       await speechRef?.current
-      const all = callLines(accepted.current)
+      const all = callLines(acceptedRef.current)
       for (let i = 0; i < all.length && !stopped; i++) {
-        setShown(i + 1)
+        setState((s) => (s.key === callKey ? { ...s, shown: i + 1 } : s))
         await playClip(all[i].clip, (a) => { audio = a })
       }
       if (!stopped) done.current(false)
     })()
     return () => { stopped = true; audio?.pause() }
-  }, [live, dialDone, speechRef])
+  }, [callKey, live, dialDone, speechRef])
 
-  return (
-    <GlassCard span={7} id="call000">
-      <Head title={t('call.title')} meta={shown === 0 ? t('call.dialling') : undefined} />
-      <ol className="tx" aria-live="polite" style={{ listStyle: 'none', display: 'grid', gap: 8 }}>
-        {lines.slice(0, shown).map((l) => (
-          <li key={l.clip}><b>{l.by === 'operator' ? t('call.operator') : t('call.noa')}</b>: {l.text}</li>
-        ))}
-      </ol>
-      <p className="fine">{t('call.fine')}</p>
-    </GlassCard>
-  )
+  if (callKey === null) return { lines: [], dialling: false }
+  const shown = state.key === callKey ? state.shown : live ? 0 : 8
+  return { lines: callLines(accepted).slice(0, shown), dialling: live && shown === 0 }
 }

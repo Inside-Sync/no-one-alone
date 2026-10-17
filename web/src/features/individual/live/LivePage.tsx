@@ -2,29 +2,37 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { usePathname, useRouter } from '@/app/navigation'
 import { apiErrorCode, getOrbitScene } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
 import { useRepo } from '@/features/shared/useRepo'
 import { STEPS } from '@/domain/emergency'
 import { ambulanceStatus } from '@/domain/incident'
-import { NO_REPLY_SECONDS, SIM_DEFAULTS, alertRun, scenarioFor, type Watch } from '@/domain/simulator'
+import { agentView } from '@/domain/agent'
+import { ALERT_MIN, NO_REPLY_SECONDS, SIM_DEFAULTS, alertRun, clockText, scenarioFor, type Watch } from '@/domain/simulator'
 import { useToast } from '@/components/ui/Toast'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
+import { AgentCard } from './AgentCard'
 import { AlertCard } from './AlertCard'
-import { EmergencyCallCard } from './EmergencyCallCard'
+import { CallsCard } from './CallsCard'
+import { ConversationsCard } from './ConversationsCard'
+import { HandoverCard } from './HandoverCard'
 import { IdleCard } from './IdleCard'
 import { LiveAlertCard } from './LiveAlertCard'
-import { LivePhoneCard } from './LivePhoneCard'
+import { IdlePhoneCard, LivePhoneCard } from './LivePhoneCard'
 import { LiveReadingsCard } from './LiveReadingsCard'
-import { LiveTimelineCard } from './LiveTimelineCard'
+import { NoaLogCard } from './NoaLogCard'
 import { callKeys, freshCallSound, playDial000, playRing } from './ring'
 import { PhoneCard } from './PhoneCard'
 import { SimulatorCard } from './SimulatorCard'
 import { SpeechCheckCard } from './SpeechCheckCard'
 import { useAutopilot } from './useAutopilot'
+import { NIGHT_DEMO } from './nightDemo'
+import { useCallDialogue } from './useCallDialogue'
 import { useWatch } from './useWatch'
 import { TimelineCard } from './TimelineCard'
+import './live.css'
 
 const reducedMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -86,7 +94,7 @@ export function LivePage() {
  */
 function LiveIncidentPage() {
   const toast = useToast()
-  const { viewer } = useAppState()
+  const { viewer, holdNight } = useAppState()
   const { loading, settled = true, error, incident, people, view, start, reset, checkin, act } = useLiveIncident()
   const scene = useRepo(getOrbitScene).data
   useFlash(Boolean(view?.phone.flash))
@@ -106,53 +114,81 @@ function LiveIncidentPage() {
   // The incident she answered by hand on: no autopilot voice for it.
   const [manual, setManual] = useState<string | null>(null)
   const open = Boolean(view?.open)
-  const onAlert = (w: Watch) => {
+  const begin = (hr: number, movementMin: number) => {
     setBusy(true)
     setSpoken(null)
     setManual(null)
     toast(t('live.starting'))
-    start(scenarioFor(), { hr: w.hr, movementMin: alertRun(w.readings), noReplySeconds: NO_REPLY_SECONDS })
+    start(scenarioFor(), { hr, movementMin, noReplySeconds: NO_REPLY_SECONDS })
       .then(() => setAuto(true))
-      .catch((e: unknown) => toast(apiErrorCode(e) === 'INVALID_STATE' ? t('live.busy') : t('live.failed')))
+      .catch((e: unknown) => { holdNight(false); toast(apiErrorCode(e) === 'INVALID_STATE' ? t('live.busy') : t('live.failed')) })
       .finally(() => setBusy(false))
   }
+  const onAlert = (w: Watch) => begin(w.hr, alertRun(w.readings))
   const watch = useWatch({ locked: open, onAlert })
   const onReset = () => {
     if (busy) return
-    setAuto(false); setSpoken(null); setManual(null); watch.reset()
+    setAuto(false); setSpoken(null); setManual(null); watch.reset(); holdNight(false)
     reset().then(() => toast(t('live.resetDone')), () => toast(t('live.failed')))
   }
   useAutopilot({ enabled: auto && open, voice: manual !== view?.id, settings: sim, incident, view, spokenKey: spoken, checkin, act })
-  const simCards = (
-    <>
-      <SimulatorCard watch={watch} settings={sim} onChange={setSim} locked={open || busy} onReset={onReset} />
-      <LiveReadingsCard watch={watch.watch} />
-    </>
-  )
+  // The top bar's Night alert demo, like the prototype's startEm: Night emergency selected and the watch running. An open
+  // incident is reset first so the demo starts over.
+  const pathname = usePathname()
+  const router = useRouter()
+  const nightDemo = useRef(() => {})
+  useEffect(() => {
+    nightDemo.current = () => {
+      if (!open) { watch.loadPreset('night'); return }
+      if (busy) return
+      setAuto(false); setSpoken(null); setManual(null)
+      reset().then(() => watch.loadPreset('night'), () => { holdNight(false); toast(t('live.failed')) })
+    }
+  })
+  useEffect(() => {
+    const run = () => nightDemo.current()
+    window.addEventListener(NIGHT_DEMO, run)
+    return () => window.removeEventListener(NIGHT_DEMO, run)
+  }, [])
+  useEffect(() => {
+    if (loading || new URLSearchParams(window.location.search).get('demo') !== 'night') return
+    nightDemo.current()
+    router.replace(pathname)
+  }, [loading]) // eslint-disable-line react-hooks/exhaustive-deps
+  const call = incident && view ? autoCall(incident.timeline) : undefined
+  const dialogue = useCallDialogue({
+    callKey: call && calls.initial ? call.at : null,
+    live: Boolean(call && calls.initial && !calls.initial.has(callKeys([call])[0])),
+    davidAccepted: Boolean(incident?.timeline.some((e) => e.kind === 'ACCEPTED')),
+    dialDone: call && calls.dial?.at === call.at ? calls.dial.done : null, speechRef: speech,
+    onDone: (silent) => { if (view) setDialogueDone({ id: view.id, silent }) },
+  })
 
   if (error) return <PageError page="live" onRetry={() => location.reload()} />
   if (loading) return <main className="grid" data-page="live"><p className="fine c12">{t('live.loading')}</p></main>
-  if (!incident || !view) {
-    return <main className="grid" data-page="live">{simCards}</main>
-  }
-  const call = autoCall(incident.timeline)
-  const ambulance = dialogueDone?.id === view.id ? { ...ambulanceStatus(view.id), ...(dialogueDone.silent ? { clip: null } : {}) } : null
+  const shown = incident && view ? { incident, view } : null
+  const agent = agentView(shown?.incident ?? null, people)
+  const name = (people.person?.displayName ?? view?.personName ?? '').split(' ')[0]
+  const num = people.person?.emergencyNumber ?? view?.emergencyNumber ?? '000'
+  const ambulance = shown && dialogueDone?.id === shown.view.id ? { ...ambulanceStatus(shown.view.id), ...(dialogueDone.silent ? { clip: null } : {}) } : null
+  // The prototype's sim page: controls, circle and readings, Noa / calls / her phone, then the conversation and the log.
   return (
     <main className="grid" data-page="live">
-      {!open && simCards}
-      <LiveAlertCard view={view} incident={incident} people={people} scene={scene} viewer={viewer} act={act} onReset={onReset} />
-      <LiveTimelineCard view={view} />
-      <LivePhoneCard phone={view.phone} helpInitials={view.owner.initials} checkin={checkin} onSpoken={setSpoken} speechRef={speech}
-        onManual={() => setManual(view.id)}
-        statusOverride={ambulance} />
-      <SpeechCheckCard turns={incident.checkIn?.turns ?? []} />
-      {call && calls.initial && (
-        <EmergencyCallCard key={call.at} live={!calls.initial.has(callKeys([call])[0])}
-          davidAccepted={incident.timeline.some((e) => e.kind === 'ACCEPTED')}
-          dialDone={calls.dial?.at === call.at ? calls.dial.done : null} speechRef={speech}
-          onDone={(silent) => setDialogueDone({ id: view.id, silent })} />
+      <SimulatorCard watch={watch} settings={sim} onChange={setSim} locked={open || busy} onReset={onReset} />
+      <LiveAlertCard view={shown?.view ?? null} incident={shown?.incident ?? null} people={people} scene={scene} viewer={viewer} act={act} manual={!auto} />
+      <LiveReadingsCard watch={watch.watch} />
+      <AgentCard agent={agent} num={num} />
+      <CallsCard agent={agent} />
+      {shown ? (
+        <LivePhoneCard phone={shown.view.phone} name={name} helpInitials={shown.view.owner.initials} checkin={checkin} onSpoken={setSpoken} speechRef={speech}
+          onManual={() => setManual(shown.view.id)} statusOverride={ambulance} />
+      ) : (
+        <IdlePhoneCard name={name} time={clockText(watch.watch.clock)} disabled={busy} onHelp={() => begin(watch.watch.hr > 120 ? watch.watch.hr : 142, ALERT_MIN)} />
       )}
-      {open && simCards}
+      <SpeechCheckCard incident={shown?.incident ?? null} name={name} timeZone={people.person?.timezone ?? 'Asia/Ho_Chi_Minh'} />
+      <ConversationsCard incident={shown?.incident ?? null} people={people} call={dialogue.lines} dialling={dialogue.dialling} />
+      <HandoverCard incident={shown?.incident ?? null} view={shown?.view ?? null} people={people} agent={agent} />
+      <NoaLogCard view={shown?.view ?? null} time={clockText(watch.watch.clock)} />
     </main>
   )
 }

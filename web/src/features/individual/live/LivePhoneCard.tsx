@@ -15,8 +15,10 @@ import { useRecorder } from './useRecorder'
  * `Margaret's screen` for a live incident: the pending question, Yes / No or a voice reply posted to
  * `/api/incidents/{id}/checkin`, and `noReply` after `demo.noReplySeconds` without an answer (contract 3).
  */
-export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, onManual, statusOverride, speechRef }: {
+export function LivePhoneCard({ phone, name, helpInitials, checkin, onSpoken, onManual, statusOverride, speechRef }: {
   phone: LivePhone
+  /** The person's first name for the card title. */
+  name: string
   helpInitials: string
   checkin: (i: CheckinInput) => Promise<void>
   onSpoken?: (questionKey: string) => void
@@ -135,14 +137,15 @@ export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, onManual
   }
 
   return (
-    <GlassCard id="liveC" className="c3">
-      <div className="ch"><h2>{t('phone.title')}</h2><span className="meta">{t('phone.meta')}</span></div>
+    <GlassCard id="liveC" className="c4">
+      <div className="ch"><h2>{t('agent.phone.title', { name })}</h2></div>
       <PhoneScreen
+        proto
         time={phone.time}
         q={phone.q}
-        small={sending ? t('live.sending') : phone.small ?? (statusKey ? statusShown : null) ?? undefined}
+        small={sending ? t('live.sending') : phone.small ?? (statusKey ? statusShown : null) ?? (phone.q ? t('agent.phone.spoken') : undefined)}
         flash={phone.flash}
-        listen={rec.recording || phone.busy}
+        listen={rec.recording || phone.busy || (waiting && phone.voice)}
         help={phone.help}
         helpInitials={helpInitials}
         helpName={phone.helperName}
@@ -153,7 +156,21 @@ export function LivePhoneCard({ phone, helpInitials, checkin, onSpoken, onManual
         onAnswer={(a) => { onManual?.(); send({ yesNo: a === t('phone.yes') ? 'YES' : 'NO' }, a) }}
         record={phone.voice ? { label: rec.recording ? t('live.recording') : t('live.record'), recording: rec.recording, disabled: disabled && !rec.recording, onClick: onRecord } : undefined}
       />
-      <p className="fine">{waiting ? t('live.noReplyIn', { s: phone.noReplySeconds }) : t('phone.note')}</p>
+      {waiting && <p className="fine">{t('live.noReplyIn', { s: phone.noReplySeconds })}</p>}
+    </GlassCard>
+  )
+}
+
+/** The same card before any alert: Margaret's bedtime screen; Help me starts the emergency like the watch would. */
+export function IdlePhoneCard({ name, time, onHelp, disabled }: { name: string; time: string; onHelp: () => void; disabled?: boolean }) {
+  const toast = useToast()
+  const { t } = useTranslation('live')
+  return (
+    <GlassCard id="liveC" className="c4">
+      <div className="ch"><h2>{t('agent.phone.title', { name })}</h2></div>
+      <PhoneScreen proto time={time} q={t('agent.phone.sleep')} onAnswer={() => {}}
+        idle={{ title: t('agent.phone.goodnight', { name }), ok: t('agent.phone.ok'), help: t('agent.phone.help'), disabled,
+          onOk: () => toast(t('agent.phone.okToast')), onHelp }} />
     </GlassCard>
   )
 }

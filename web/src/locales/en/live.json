@@ -400,16 +400,18 @@
     }
   },
   "sim": {
-    "title": "Simulator",
+    "title": "🎛️ Simulator",
     "meta": "Try Noa safely",
     "howto": [
-      "Drag heart rate above 120",
-      "Drag not moving to 10 minutes",
+      "Drag **heart rate** above 120",
+      "Drag **not moving** to 10 minutes",
       "Noa steps in by itself, talks to Margaret and works out what is wrong",
       "Optional: tap Margaret's replies on her phone to change the story"
     ],
     "preset": {
-      "night": "🌙 Night emergency"
+      "night": "🌙 Night emergency",
+      "stairs": "🪜 Climbed stairs",
+      "asleep": "😴 Sound asleep"
     },
     "hr": "❤️ Heart rate",
     "hrAria": "Heart rate",
@@ -466,8 +468,243 @@
   },
   "speech": {
     "title": "Noa Speech Check",
+    "tag": "OUR CORE TECHNOLOGY",
+    "meta": "Compares tonight's voice with {{name}}'s own voice, not an average",
+    "state": {
+      "ready": "Ready · baseline from 41 morning chats",
+      "listen": "🎙️ Listening to {{name}}…",
+      "analyse": "Analysing against her own voice…",
+      "clear": "✓ Clear · matches her normal voice",
+      "slurred": "⚠ Slurred speech detected · possible stroke"
+    },
     "slurred": "⚠ Slurred speech detected · possible stroke",
     "clear": "✓ Clear · matches her normal voice",
-    "sentence": "Sentence: “{{s}}”"
+    "normal": "Her normal",
+    "baseline": "baseline · 30 days",
+    "tonight": "Tonight",
+    "repeating": "{{name}} is repeating “The sky is blue in Sydney”",
+    "idle": "Runs when Noa needs to check on her. {{name}} repeats one short sentence.",
+    "measure": "Measure",
+    "normalCol": "Her normal",
+    "tonightCol": "Tonight",
+    "measures": [
+      "Clarity (articulation)",
+      "Speaking speed",
+      "Pause between words",
+      "Words recognised",
+      "Voice steadiness"
+    ],
+    "how": [
+      [
+        "Learns her voice",
+        "from 2-minute morning chats"
+      ],
+      [
+        "One sentence",
+        "when something looks wrong"
+      ],
+      [
+        "5 measures",
+        "compared with her own normal, in under 2 seconds"
+      ],
+      [
+        "Slurred = Red:",
+        "Noa skips questions and calls for help"
+      ]
+    ],
+    "fine": "Hearing aids and accent are part of her baseline, so they do not cause false alarms. Only the scores are kept, not the recordings. In the demo the numbers are illustrative."
+  },
+  "agent": {
+    "title": "Noa",
+    "sub": "your No One Alone agent",
+    "ask": "💬 Ask Noa",
+    "her": "her",
+    "idle": "Everything looks normal. Noa only steps in if both warning signs happen together.",
+    "nowHr": "Warning sign: heart rate above 120 for 10 minutes while she isn't moving (now {{hr}} bpm). Checking on {{name}} first, before waking anyone.",
+    "nowFall": "Warning sign: a hard fall and no movement since. Checking on {{name}} first, before waking anyone.",
+    "pending": {
+      "title": "Next steps depend on her answers",
+      "text": "🟢 fine → calm her and re-check · 🟡 unwell but clear → nurse + family · 🔴 slurred, no answer, chest pain, weakness or a fall → {{num}}"
+    },
+    "decision": {
+      "green": {
+        "title": {
+          "stroke": "🟢 Green: she's fine",
+          "fall": "🟢 Green: she's fine",
+          "other": "🟢 Green: she's fine"
+        },
+        "text": "Speech is clear, no warning symptoms and she sounds like herself. Stay calm and don't wake anyone."
+      },
+      "amber": {
+        "title": {
+          "stroke": "🟡 Amber: unwell, but talking clearly",
+          "fall": "🟡 Amber: unwell, but talking clearly",
+          "other": "🟡 Amber: unwell, but talking clearly"
+        },
+        "text": "She needs someone with her tonight. Noa calls her circle in order."
+      },
+      "red": {
+        "title": {
+          "stroke": "🔴 Red: possible stroke",
+          "fall": "🔴 Red: possible serious fall",
+          "other": "🔴 Red: emergency"
+        },
+        "text": "Time matters, so Noa skips further questions and calls for help now."
+      }
+    },
+    "step": {
+      "detect": "Notice the warning sign",
+      "ask": "Check on {{name}}",
+      "speech": "Speech test",
+      "feel": "Ask how she feels",
+      "decide": "Decide: green, amber or red",
+      "alertAll": "Alert her whole circle",
+      "call": "Call {{name}} ({{detail}})",
+      "scan": "Find the nearest person",
+      "ooo": "Call {{num}} with the script",
+      "packet": "Send her record to hospital",
+      "company": "Stay with her until help arrives",
+      "paramedics": "Stay with her · hand over to paramedics",
+      "g1": "Calm her: water and slow breaths",
+      "g2": "Re-check her heart in 10 minutes",
+      "g3": "Morning note for the family"
+    },
+    "state": {
+      "done": "Done",
+      "cur": "Now",
+      "fail": "Failed",
+      "skip": "Skipped",
+      "noAnswer": "No answer"
+    },
+    "pill": {
+      "watching": "Watching",
+      "verifying": "Checking the alert",
+      "deciding": "Deciding",
+      "falseAlarm": "False alarm",
+      "allClear": "All clear",
+      "handedOver": "Handed over",
+      "withHer": "Help is with her",
+      "detect": "Checking the alert",
+      "ask": "Checking on her",
+      "speech": "Speech test",
+      "feel": "Asking how she feels",
+      "decide": "Deciding",
+      "alertall": "Alerting her circle",
+      "calling": "Calling {{name}}",
+      "scan": "Finding help",
+      "ooo": "Calling {{num}}",
+      "packet": "Alerting the hospital",
+      "company": "Staying with her",
+      "g1": "Calming her",
+      "g2": "Re-checking",
+      "g3": "Wrapping up"
+    },
+    "calls": {
+      "title": "📞 Calls in order",
+      "meta": "Priority list, then nearest person"
+    },
+    "alerts": {
+      "title": "🔔 Alerts to her circle",
+      "meta": "Everyone with safety alerts on",
+      "none": "No alerts sent",
+      "noneSub": "Nothing to report"
+    },
+    "call": {
+      "waiting": "Waiting",
+      "ringing": "Ringing…",
+      "answered": "Answered",
+      "onTheWay": "Answered · on the way",
+      "withHer": "With her",
+      "declined": "Can't come",
+      "voicemail": "No answer · voicemail",
+      "text": "No answer · text",
+      "notNeeded": "Not needed",
+      "dialling": "Dialling…",
+      "connected": "Connected · speaking",
+      "dispatched": "Ambulance dispatched"
+    },
+    "ambulance": "Ambulance",
+    "priority": "priority {{n}}",
+    "nearest": "nearest, {{d}}",
+    "m": "{{n}} m",
+    "km": "{{n}} km",
+    "sent": "Sent {{time}}",
+    "relation": {
+      "son": "Son",
+      "daughter": "Daughter",
+      "brother": "Brother",
+      "sister": "Sister",
+      "neighbour": "Neighbour",
+      "neighbor": "Neighbour",
+      "wife": "Wife",
+      "husband": "Husband",
+      "friend": "Friend"
+    },
+    "phone": {
+      "title": "📱 {{name}}'s phone",
+      "spoken": "Spoken aloud · large text",
+      "goodnight": "Goodnight, {{name}}",
+      "sleep": "Sleep well. I'm here if you need anything 💙",
+      "ok": "I'm OK",
+      "help": "Help me",
+      "okToast": "The family knows you're OK"
+    },
+    "log": {
+      "title": "🗒️ Noa's log",
+      "meta": "Every step, time-stamped",
+      "idle": "Watching quietly. Nothing to report."
+    },
+    "circle": {
+      "title": "🫂 {{name}}'s circle",
+      "allNormal": "All normal",
+      "watching": "Watching quietly",
+      "lkw": "Last known well —",
+      "inPlace": "Everyone is in place",
+      "inPlaceSub": "Nobody has been woken",
+      "checking": "Noa is checking on {{name}}",
+      "checkingSub": "Nobody woken yet",
+      "allClear": "All clear",
+      "allClearSub": "Nobody was woken",
+      "farAway": "{{names}} far away",
+      "and": " and "
+    }
+  },
+  "talk": {
+    "title": "🎙️ Live conversations",
+    "meta": "Everything Noa says, and to whom",
+    "live": "Live · {{time}}",
+    "filter": "Filter conversations",
+    "all": "All",
+    "to": "Noa → {{name}}",
+    "none": "Nothing said yet. Noa is watching quietly.",
+    "noReply": "(no reply)",
+    "operator": "Operator",
+    "hospital": "Hospital",
+    "strokeTeam": "Stroke team",
+    "ACCEPTED": "“I'm on my way.”",
+    "DECLINED": "“I can't come.”",
+    "ARRIVED": "“I'm with her now.”"
+  },
+  "hand": {
+    "title": "📦 Who got what",
+    "meta": "Each person gets only what they need · tap to see",
+    "none": "Nothing shared",
+    "noneSub": "Information is only handed over when Noa acts",
+    "safety": "Safety alert",
+    "push": "Push alert + text",
+    "message": "Message",
+    "distant": "Phone call + live page",
+    "distantMissed": "Voicemail + text + live page",
+    "nearby": "Go now + what to do",
+    "nearbyMissed": "Voicemail + text",
+    "how": "How",
+    "told": "Told",
+    "eta": "On the way",
+    "ambulance": "{{num}} Ambulance",
+    "fullCall": "Full emergency call",
+    "script": "Script",
+    "packet": "Pre-arrival record (FHIR)",
+    "status": "Status",
+    "fine": "Shared under {{name}}'s own settings. Every hand-over is logged and she can see it later."
   }
 }

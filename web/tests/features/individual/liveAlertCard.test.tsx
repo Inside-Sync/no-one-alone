@@ -23,7 +23,7 @@ test("after David did not answer, James's call button names David, not the nearb
     ],
   } as unknown as IncidentDoc
   renderWithProviders(<LiveAlertCard view={liveView('i1', incident, people, Date.parse(at))} incident={incident} people={people}
-    scene={null} viewer="james" act={async () => {}} onReset={() => {}} />)
+    scene={null} viewer="james" act={async () => {}} />)
   expect(screen.getByRole('button', { name: 'Call David' })).toBeInTheDocument()
   expect(screen.queryByRole('button', { name: 'Call the nearby helper' })).toBeNull()
 })

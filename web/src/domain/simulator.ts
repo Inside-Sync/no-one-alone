@@ -38,13 +38,20 @@ export function blankWatch(): Watch {
   return { readings: history((i) => 64 + wobble(i), () => true), clock: START_CLOCK, hr: 64, stillMin: 0 }
 }
 
-export type PresetId = 'night'
+export type PresetId = 'night' | 'stairs' | 'asleep'
 const NIGHT_RISE = [124, 128, 132, 134, 138, 141]
+const STAIRS_RISE = [124, 128, 132]
+/** The prototype's three scenarios: a real night emergency, a high heart rate while moving, and a still, calm sleep. */
 export const PRESETS: Record<PresetId, () => Watch> = {
   night: () => ({
     readings: history((i) => NIGHT_RISE[i - (SIZE - NIGHT_RISE.length)] ?? 60 + wobble(i), (i) => i < SIZE - 8),
     clock: START_CLOCK, hr: 142, stillMin: 8,
   }),
+  stairs: () => ({
+    readings: history((i) => STAIRS_RISE[i - (SIZE - STAIRS_RISE.length)] ?? 74 + wobble(i), () => true),
+    clock: START_CLOCK, hr: 132, stillMin: 0,
+  }),
+  asleep: () => ({ readings: history((i) => 57 + wobble(i), () => false), clock: START_CLOCK, hr: 57, stillMin: STILL_MAX }),
 }
 
 export function tick(w: Watch): Watch {

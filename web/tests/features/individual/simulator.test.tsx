@@ -4,6 +4,7 @@ import { vi } from 'vitest'
 import type { IncidentDoc } from '@/data/contract'
 import { liveView, type LivePeople } from '@/domain/incident'
 import { LivePage } from '@/features/individual/live/LivePage'
+import { NIGHT_DEMO } from '@/features/individual/live/nightDemo'
 import type { LiveIncidentValue } from '@/state/LiveIncident'
 import { mockCanvas, mockLayout, mockRaf } from '../../canvas/fakeCtx'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
@@ -49,7 +50,7 @@ afterEach(() => { vi.unstubAllGlobals() })
 
 const render = async () => {
   renderWithProviders(<LivePage />)
-  await screen.findByRole('heading', { name: 'Simulator' })
+  await screen.findByRole('heading', { name: '🎛️ Simulator' })
 }
 const click = (name: string) => fireEvent.click(screen.getByRole('button', { name }))
 
@@ -63,8 +64,17 @@ describe('watch', () => {
   const mount = async () => {
     renderWithProviders(<LivePage />)
     await act(async () => { await vi.advanceTimersByTimeAsync(0) })
-    expect(screen.getByRole('heading', { name: 'Simulator' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '🎛️ Simulator' })).toBeInTheDocument()
   }
+
+  test('the top bar Night alert demo selects Night emergency and starts it', async () => {
+    await mount()
+    expect(screen.getByRole('button', { name: '🌙 Night emergency' })).toHaveAttribute('aria-pressed', 'false')
+    act(() => { window.dispatchEvent(new Event(NIGHT_DEMO)) })
+    expect(screen.getByRole('button', { name: '🌙 Night emergency' })).toHaveAttribute('aria-pressed', 'true')
+    await beat(4000)
+    expect(start).toHaveBeenCalledWith('stroke', { hr: 142, movementMin: 10, noReplySeconds: 45 })
+  })
 
   test('Night emergency starts stroke once after 4 readings, with HR 142 and 10 min still', async () => {
     await mount()
@@ -165,8 +175,7 @@ function mountLive() {
 test('000 call already on the timeline at load: transcript only, no dial and no audio', async () => {
   liveValue = incidentAt(0, true)
   mountLive()
-  expect(await screen.findByText('000 call · demo call')).toBeInTheDocument()
-  expect(screen.getByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
+  expect(await screen.findByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
   expect(playDial000).not.toHaveBeenCalled()
   expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual([])
 })
