@@ -1,4 +1,5 @@
 import type { RecoveryDoc } from '@/data/contract'
+import i18n from '@/i18n'
 
 export type Reminder = RecoveryDoc['reminders'][number]
 
@@ -77,6 +78,14 @@ export function followUpCalls(createdAt: string, tz: string): { day: number; dat
   return CALL_DAYS.map((day) => ({ day, date: new Date(Date.UTC(y, m - 1, d + day)).toISOString().slice(0, 10) }))
 }
 
+/** A `YYYY-MM-DD` calendar date for people: `Fri 23 Oct` in English, `T6 23/10` in Vietnamese. */
+export function dayLabel(date: string, lang = i18n.language): string {
+  const d = new Date(`${date}T00:00:00Z`)
+  if (!lang.startsWith('vi')) return new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(d)
+  const wd = d.getUTCDay()
+  return `${wd === 0 ? 'CN' : `T${wd + 1}`} ${d.getUTCDate()}/${d.getUTCMonth() + 1}`
+}
+
 /** i18n key under hospital:ed.recovery.steps with its values. */
 export type Step = { key: 'summary' | 'summaryFallback' | 'reminders' | 'calls' | 'appointments' | 'circle' | 'delivered'; vars: Record<string, string | number> }
 
@@ -87,7 +96,7 @@ export function deliverySteps(r: RecoveryDoc, circle: string[]): Step[] {
     { key: 'reminders', vars: { n: r.reminders.length, voiced: r.reminders.filter((x) => x.audioPath).length } },
     { key: 'calls', vars: { days: CALL_DAYS.join(', ') } },
   ]
-  if (r.followUps.length) steps.push({ key: 'appointments', vars: { list: r.followUps.map((f) => `${f.text} (${f.date})`).join('; ') } })
+  if (r.followUps.length) steps.push({ key: 'appointments', vars: { list: r.followUps.map((f) => `${f.text} (${dayLabel(f.date)})`).join('; ') } })
   if (circle.length) steps.push({ key: 'circle', vars: { names: circle.join(', ') } })
   steps.push({ key: 'delivered', vars: {} })
   return steps

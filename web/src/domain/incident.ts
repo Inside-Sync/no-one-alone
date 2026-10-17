@@ -11,7 +11,7 @@ import i18n from '@/i18n'
 import type {
   AssignmentAction, AssignmentDoc, IncidentDoc, PacketDoc, PersonDoc, ServerAction, TimelineDoc, TimelineKind,
 } from '@/data/contract'
-import type { LabelValue } from '@/data/types'
+import type { LabelValue, OrbitScene } from '@/data/types'
 import type { EmLevel, EmOrbitTargets, EmPhase } from './emergency'
 
 /** Seed people the view names members from (the subject plus their circle). */
@@ -170,7 +170,12 @@ function headline(inc: IncidentDoc, people: LivePeople, tz: string): { what: str
   return { what: alertText(inc), sub: lkw }
 }
 
-const nearby = (inc: IncidentDoc) => (inc.assignments ?? []).filter((a) => a.role === 'NEARBY')
+/** core-api's call queue: critical-alert members by priority, DISTANT ones only if ranked before the first NEARBY. */
+function callQueue(people: LivePeople) {
+  const circle = [...(people.person?.circle ?? [])].filter((c) => c.criticalAlerts).sort((a, b) => a.priority - b.priority)
+  const firstNearby = Math.min(...circle.filter((c) => c.role === 'NEARBY').map((c) => c.priority))
+  return circle.filter((c) => c.role === 'NEARBY' || c.priority < firstNearby)
+}
 
 /** Minutes left for the owner on the way, or null when unknown. */
 function ownerEtaMin(inc: IncidentDoc, now: number): number | null {
@@ -192,16 +197,17 @@ function ownerView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
     const left = ownerEtaMin(inc, now)
     return { name, initials: initials(name), title: o('onTheWay', { name }), subtitle: o('owns'), eta: left === null ? '—' : `${left}′` }
   }
-  const waiting = nearby(inc).find((a) => a.state === 'NOTIFIED')
+  // The member being rung now: a NEARBY one, or a queued DISTANT one (only those get a deadline).
+  const waiting = (inc.assignments ?? []).find((a) => a.state === 'NOTIFIED' && (a.role === 'NEARBY' || a.deadlineAt))
   if (waiting) {
     const name = first(memberName(people, waiting.memberId))
     const left = ms(waiting.deadlineAt) - now
     const secs = Math.max(0, Math.round(left / 1000))
     const eta = !Number.isFinite(left) ? '—' : secs < 60 ? `${secs}″` : duration(left)
-    return { name, initials: initials(name), title: o('alerted', { name }), subtitle: o('waiting'), eta }
+    return { name, initials: initials(name), title: o('alerted', { name }), subtitle: o(waiting.role === 'NEARBY' ? 'waiting' : 'calling'), eta }
   }
   if (firstEntry(inc.timeline, 'NO_NEARBY')) return { name: '', initials: '!', title: o('noNearby'), subtitle: o(firstEntry(inc.timeline, 'CALLED_115') ? 'autoCalled' : 'callNow', { num: people.person?.emergencyNumber ?? '000' }), eta: '—' }
-  const firstUp = [...(people.person?.circle ?? [])].sort((a, b) => a.priority - b.priority).find((c) => c.role === 'NEARBY')
+  const firstUp = callQueue(people)[0]
   const name = firstUp ? first(memberName(people, firstUp.memberId)) : tl('incident.who.circle')
   return { name, initials: initials(name), title: o('notYet', { name }), subtitle: o('firstToCall'), eta: '—' }
 }
@@ -368,6 +374,12 @@ export function memberButtons(inc: IncidentDoc, people: LivePeople, memberId: st
   else if (a.state === 'ACCEPTED' && inc.ownerId === memberId) actions = ['ARRIVED']
   else if (inc.ownerId) actions = actions.filter((x) => x !== 'ACCEPT' && x !== 'DECLINE')
   return { memberId, name: memberName(people, memberId), assignment: a, actions }
+}
+
+/** The orbit's hospital ball named after the hospital the handoff picked, once there is one. */
+export function orbitWithHospital(scene: OrbitScene, hospitalName: string | undefined): OrbitScene {
+  const name = hospitalName?.replace(/\s*\(demo\)$/, '')
+  return name ? { ...scene, nodes: scene.nodes.map((n) => (n.id === 'hosp' ? { ...n, name } : n)) } : scene
 }
 
 /** Buttons that post to core-api; `CALL_PERSON` and `CALL_NEARBY` are client-only. */

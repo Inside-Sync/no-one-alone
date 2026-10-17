@@ -20,20 +20,21 @@ const DEFAULT_PLAN: RecoveryRequest = {
     { name: 'Aspirin', dose: '100 mg', times: [], change: 'Stop' },
   ],
   activities: [
-    { text: 'Walk 20 minutes daily', times: ['10:00'] },
-    { text: 'Check blood pressure morning and evening, target under 130/80', times: ['08:15', '18:15'] },
-    { text: 'Speech exercises 15 minutes', times: ['14:00'] },
-    { text: 'Drink 1.5 L of water a day', times: ['11:00', '16:00'] },
+    { text: 'Walk 20 minutes daily', times: ['10:00'], reminder: 'Time for your 20-minute walk.' },
+    { text: 'Check blood pressure morning and evening, target under 130/80', times: ['08:15', '18:15'], reminder: 'Time to check your blood pressure. Aim for under 130/80.' },
+    { text: 'Speech exercises 15 minutes', times: ['14:00'], reminder: 'Time for your speech exercises, 15 minutes.' },
+    { text: 'Drink 1.5 L of water a day', times: ['11:00', '16:00'], reminder: 'Time for a glass of water.' },
     { text: 'Low-salt food, under 5 g a day', times: [] },
     { text: 'No driving for 1 month', times: [] },
     { text: 'Call 000 straight away if face drooping, arm weakness or speech trouble', times: [] },
   ],
   followUps: [
-    { text: 'GP review with Dr Patel at 10:30', inDays: 6 },
-    { text: 'Physio home visit', inDays: 3 },
-    { text: 'Speech pathology, weekly for 6 weeks', inDays: 5 },
-    { text: 'Stroke clinic, Camperdown at 09:00', inDays: 44 },
-    { text: 'Blood test (kidneys, on apixaban)', inDays: 6 },
+    // Counted from the story's discharge night, 16 Oct: GP Fri 23 Oct, physio Tue 20 Oct.
+    { text: 'GP review with Dr Patel at 10:30', inDays: 7 },
+    { text: 'Physio home visit', inDays: 4 },
+    { text: 'Speech pathology, weekly for 6 weeks', inDays: 6 },
+    { text: 'Stroke clinic, Camperdown at 09:00', inDays: 45 },
+    { text: 'Blood test (kidneys, on apixaban)', inDays: 7 },
   ],
   notes: 'You had a small stroke on 15 October. The hospital treated it quickly and you are recovering well. They also found your heartbeat is sometimes uneven, so there is a new tablet to stop clots.',
 }
@@ -48,7 +49,7 @@ interface Form {
   diagnosis: string
   notes: string
   meds: { name: string; dose: string; times: string[]; change: MedChange }[]
-  activities: { text: string; times: string }[]
+  activities: { text: string; times: string; reminder?: string }[]
   followUps: { text: string; inDays: string }[]
 }
 
@@ -66,7 +67,7 @@ const toRequest = (f: Form): RecoveryRequest => ({
   diagnosis: f.diagnosis.trim(),
   notes: f.notes.trim(),
   meds: f.meds.map((m) => ({ name: m.name.trim(), dose: m.dose.trim(), times: m.change === 'Stop' ? [] : [...m.times].sort(), change: m.change })),
-  activities: f.activities.map((a) => ({ text: a.text.trim(), times: split(a.times) })),
+  activities: f.activities.map((a) => ({ text: a.text.trim(), times: split(a.times), ...(a.reminder ? { reminder: a.reminder } : {}) })),
   followUps: f.followUps.map((u) => ({ text: u.text.trim(), inDays: Number(u.inDays) })),
 })
 
@@ -184,7 +185,7 @@ export function RecoveryCard() {
         <h3>{t('ed.recovery.activities')}</h3>
         {form.activities.map((a, i) => (
           <div className="row" key={i}>
-            {text(t('ed.recovery.actText', n(i)), a.text, (v) => row('activities', i, { text: v }))}
+            {text(t('ed.recovery.actText', n(i)), a.text, (v) => row('activities', i, { text: v, reminder: undefined }))}
             {text(t('ed.recovery.actTimes', n(i)), a.times, (v) => row('activities', i, { times: v }))}
           </div>
         ))}

@@ -334,6 +334,7 @@
       "owns": "Owns the case",
       "alerted": "{{name}} · alerted",
       "waiting": "Waiting for them to accept",
+      "calling": "Calling now",
       "noNearby": "No one nearby can come",
       "callNow": "Call {{num}} now",
       "autoCalled": "{{num}} called automatically",

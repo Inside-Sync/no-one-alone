@@ -40,6 +40,13 @@ def test_templates_follow_locale():
     assert vi[1]["text"] == "Mạ ơi, tới giờ walk for 15 minutes rồi."
 
 
+def test_activity_reminder_wording_is_used_as_is():
+    plan = {**PLAN, "activities": [{"text": "Walk 20 minutes daily", "times": ["10:00"],
+                                    "reminder": "Time for your 20-minute walk."}]}
+    assert recovery.reminders(EN, plan)[1]["text"] == "Time for your 20-minute walk."
+    assert recovery.reminders(VI, plan)[1]["text"] == "Time for your 20-minute walk."
+
+
 def test_summary_rejects_unlisted_medicine():
     assert recovery.summary(EN, PLAN, lambda p: "You take warfarin now.") == (PLAN["notes"], True)
     assert recovery.summary(EN, PLAN, lambda p: "Keep taking aspirin.") == ("Keep taking aspirin.", False)

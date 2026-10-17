@@ -5,7 +5,12 @@ import java.util.List;
 public class RecoveryInfo {
     public record Med(String name, String dose, List<String> times, String change) {}
 
-    public record Activity(String text, List<String> times) {}
+    /** `reminder`: optional wording for the timed reminder, used as is instead of the template. */
+    public record Activity(String text, List<String> times, String reminder) {
+        public Activity(String text, List<String> times) {
+            this(text, times, null);
+        }
+    }
 
     public record FollowUp(String text, Integer inDays, String date) {}
 

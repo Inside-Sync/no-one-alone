@@ -3,7 +3,7 @@
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import type { RecoveryDoc } from '@/data/contract'
-import { followUpCalls, handoffFacts } from '@/domain/recovery'
+import { dayLabel, followUpCalls, handoffFacts } from '@/domain/recovery'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 import { RecoveryCard } from './RecoveryCard'
@@ -19,7 +19,7 @@ function NoaHandoffCard({ recovery, who }: { recovery: RecoveryDoc; who: 'self' 
     f.stopMeds.length ? t('recovery.noa.stopMeds', { names: list(f.stopMeds) }) : '',
     f.newMeds.length || f.stopMeds.length ? t('recovery.noa.pharmacy') : '',
   ]
-  const date = f.followUp && new Intl.DateTimeFormat(lang, { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(Date.parse(f.followUp.date))
+  const date = f.followUp && dayLabel(f.followUp.date, i18n.language)
   const lines: [noa: boolean, text: string][] = [
     [true, t('recovery.noa.welcome')],
     [true, meds.filter(Boolean).join(' ')],
@@ -44,7 +44,7 @@ function NoaHandoffCard({ recovery, who }: { recovery: RecoveryDoc; who: 'self' 
 /** Individual view · My recovery / Recovery: the plan the hospital sent home, and the planned check-in calls. */
 export function RecoveryPage() {
   const { who } = useAppState()
-  const { t } = useTranslation('me')
+  const { t, i18n } = useTranslation('me')
   const { live, incident, people } = useLiveIncident()
   const recovery = live ? incident?.recovery : undefined
   if (!recovery) {
@@ -66,7 +66,7 @@ export function RecoveryPage() {
             <li key={c.day}>
               <b>{c.day}</b>
               <span>
-                <small style={{ display: 'block' }}>{t('recovery.calls.when', { day: c.day, date: c.date })}</small>
+                <small style={{ display: 'block' }}>{t('recovery.calls.when', { day: c.day, date: dayLabel(c.date, i18n.language) })}</small>
                 {t(`recovery.calls.topics.${c.day}` as 'recovery.calls.topics.1')}
               </span>
               <span className="pill plain">{t('recovery.calls.planned')}</span>

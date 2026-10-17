@@ -149,6 +149,17 @@ class RecoveryTest extends FirestoreTestBase {
     }
 
     @Test
+    void fallbackUsesTheActivityReminderWordingAsIs() {
+        incident(ID, "margaret", true);
+        when(agent.recovery(any())).thenThrow(new AgentException("down", null));
+
+        recovery.discharge(ID, plan(List.of(),
+                List.of(new Activity("Walk 20 minutes daily", List.of("10:00"), "Time for your 20-minute walk."))));
+
+        assertThat(store.get(ID).recovery.reminders).extracting(r -> r.text()).containsExactly("Time for your 20-minute walk.");
+    }
+
+    @Test
     void vietnameseFallbackUsesMaVoice() {
         incident(ID, "ba-mai", true);
         when(agent.recovery(any())).thenThrow(new AgentException("down", null));

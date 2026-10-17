@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type CSSProperties } from 'react'
+import { useMemo, useState, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Orbit } from '@/components/canvas/Orbit'
 import { Avatar } from '@/components/ui/Avatar'
@@ -10,7 +10,7 @@ import { useToast } from '@/components/ui/Toast'
 import { apiErrorCode } from '@/data/repo'
 import type { AssignmentAction, IncidentDoc, ServerAction } from '@/data/contract'
 import type { OrbitScene } from '@/data/types'
-import { isServerAction, memberButtons, memberName, type LivePeople, type LiveView } from '@/domain/incident'
+import { isServerAction, memberButtons, memberName, orbitWithHospital, type LivePeople, type LiveView } from '@/domain/incident'
 import { LiveScriptBody } from './LiveScriptBody'
 
 const gap16: CSSProperties = { display: 'grid', gap: 16, alignContent: 'start' }
@@ -48,10 +48,13 @@ export function LiveAlertCard({ view, incident, people, scene, viewer, act, onRe
   const buttons = actor ? memberButtons(incident, people, actor) : null
   const personFirst = view.personName.split(' ')[0]
   const nearbyName = (incident.assignments ?? []).find((a) => a.role === 'NEARBY' && a.state !== 'QUEUED')?.memberId
+  const hospital = incident.handoff?.hospitalName
+  const orbitScene = useMemo(() => (scene ? orbitWithHospital(scene, hospital) : null), [scene, hospital])
 
   const label = (a: AssignmentAction) => {
     if (a === 'CALLED_115') return t('live.action.CALLED_115', { num: view.emergencyNumber })
     if (a === 'CALL_PERSON') return t('live.action.CALL_PERSON', { name: personFirst })
+    if (a === 'CALL_NEARBY' && nearbyName) return t('live.action.CALL_PERSON', { name: memberName(people, nearbyName).split(' ')[0] })
     return t(`live.action.${a}`)
   }
 
@@ -84,8 +87,8 @@ export function LiveAlertCard({ view, incident, people, scene, viewer, act, onRe
             <button type="button" className="chip" id="endDemo" onClick={onReset}>{t('live.reset')}</button>
           </span>
         </div>
-        {scene ? (
-          <Orbit scene={scene} ariaLabel={t('orbitLabel')} mode={view.orbit.mode} state={view.orbit} labels night tilt={0.62} zoom={1.05} style={orbitStyle} />
+        {orbitScene ? (
+          <Orbit scene={orbitScene} ariaLabel={t('orbitLabel')} mode={view.orbit.mode} state={view.orbit} labels night tilt={0.62} zoom={1.05} style={orbitStyle} />
         ) : (
           <div className="c3d" style={orbitStyle}></div>
         )}

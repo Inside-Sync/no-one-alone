@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import type { RecoveryDoc } from '@/data/contract'
 import { audioUrl } from '@/data/repo'
-import { SLOTS, isStopped, medsExplained, nextReminder, todayTasks, type Reminder } from '@/domain/recovery'
+import { SLOTS, dayLabel, isStopped, medsExplained, nextReminder, todayTasks, type Reminder } from '@/domain/recovery'
 
 /** Plays a saved audio file; a blocked or missing file stays silent. */
 function Play({ path }: { path?: string }) {
@@ -17,7 +17,7 @@ const keyOf = (r: Reminder) => r.time + r.text
 
 /** `Your recovery plan` (c12): the plan the hospital sent, with the next reminder by the person's local time. */
 export function RecoveryCard({ recovery, tz, who = 'self' }: { recovery: RecoveryDoc; tz: string; who?: 'self' | 'family' }) {
-  const { t } = useTranslation('me')
+  const { t, i18n } = useTranslation('me')
   const [now, setNow] = useState(() => Date.now()) // layering-allow: the real wall clock, per the brief
   const [done, setDone] = useState<Set<string>>(new Set())
   useEffect(() => {
@@ -86,7 +86,7 @@ export function RecoveryCard({ recovery, tz, who = 'self' }: { recovery: Recover
         <>
           <h3>{t('recovery.followUps')}</h3>
           <ul className="list">
-            {recovery.followUps.map((f) => <li key={f.text}><span>{t('recovery.followUp', { text: f.text, date: f.date })}</span></li>)}
+            {recovery.followUps.map((f) => <li key={f.text}><span>{t('recovery.followUp', { text: f.text, date: dayLabel(f.date, i18n.language) })}</span></li>)}
           </ul>
         </>
       )}

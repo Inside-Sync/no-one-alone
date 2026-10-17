@@ -355,7 +355,7 @@ Response `202`, or `409 INVALID_STATE` while `checkIn.busy`. The result appears 
   ],
   "activities": [
     { "text": "Walk for 15 minutes with your stick", "times": ["10:00", "16:00"] },
-    { "text": "Speech exercises from your sheet", "times": ["11:00"] }
+    { "text": "Speech exercises from your sheet", "times": ["11:00"], "reminder": "Time for your speech exercises." }
   ],
   "followUps": [
     { "text": "GP check with Dr Patel", "inDays": 7 },
@@ -478,6 +478,7 @@ Body: `{ "person": { "displayName", "locale", "timezone" }, "plan": <the 4.1 bod
 Reply: `{ "summary": "...", "summaryAudioBase64"?: "...", "reminders": [ { "time", "kind", "text", "audioBase64"? } ], "fallback": bool }`, `mimeType` is always `audio/mpeg`.
 
 Reminder text templates in `scripts.json` (`recovery` key per language):
+- An activity's optional `reminder` is used as is; otherwise its ACTIVITY template applies.
 - en: MED `"Time for your {name}, {dose}."`, ACTIVITY `"Time to {text_lower}."` (first letter lowercased).
 - vi: MED `"Mạ ơi, tới giờ uống {name} {dose} rồi."`, ACTIVITY `"Mạ ơi, tới giờ {text_lower} rồi."`.
 
