@@ -92,16 +92,16 @@ export function ChatPanel() {
         </header>
         <div className="chat-msgs" aria-live="polite">
           {cav}
-          <div className="cm">
+          <div className="chat-msg">
             {mode === 'hosp' ? <Trans t={t} i18nKey="greet.hosp" components={{ b: <b /> }} /> : t(`greet.${mode}`, { name: greetName })}
           </div>
           {cur.msgs.map((m, i) => (
             <div key={i} className="chat-turn">
               {m.by === 'noa' && cav}
-              <div className={m.by === 'me' ? 'cm me' : 'cm'}>{m.text}</div>
+              <div className={m.by === 'me' ? 'chat-msg me' : 'chat-msg'}>{m.text}</div>
             </div>
           ))}
-          {cur.waiting && <div className="cm typing" role="status" aria-label={t('typing')}><i /><i /><i /></div>}
+          {cur.waiting && <div className="chat-msg typing" role="status" aria-label={t('typing')}><i /><i /><i /></div>}
           <div ref={end} />
         </div>
         <div className="chat-chips">
