@@ -53,7 +53,7 @@
         "gender": "female",
         "address": [
           {
-            "text": "14 Wilga Street, Marrickville NSW 2204 (fictional)",
+            "text": "186 Marrickville Road, Marrickville NSW 2204 (fictional)",
             "city": "Sydney",
             "country": "AU"
           }
@@ -306,55 +306,6 @@
       }
     },
     {
-      "fullUrl": "Condition/margaret-af",
-      "request": {
-        "method": "PUT",
-        "url": "Condition/margaret-af"
-      },
-      "resource": {
-        "resourceType": "Condition",
-        "id": "margaret-af",
-        "meta": {
-          "tag": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
-              "code": "HTEST",
-              "display": "test health data"
-            }
-          ]
-        },
-        "clinicalStatus": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-              "code": "active"
-            }
-          ]
-        },
-        "verificationStatus": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-              "code": "provisional"
-            }
-          ]
-        },
-        "code": {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "49436004",
-              "display": "Atrial fibrillation"
-            }
-          ],
-          "text": "atrial fibrillation"
-        },
-        "subject": {
-          "reference": "Patient/margaret"
-        }
-      }
-    },
-    {
       "fullUrl": "MedicationStatement/margaret-amlodipine",
       "request": {
         "method": "PUT",
@@ -394,6 +345,84 @@
       }
     },
     {
+      "fullUrl": "MedicationStatement/margaret-aspirin",
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/margaret-aspirin"
+      },
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "margaret-aspirin",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1191",
+              "display": "aspirin"
+            }
+          ],
+          "text": "aspirin"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        },
+        "dosage": [
+          {
+            "text": "100 mg each morning"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "MedicationStatement/margaret-atorvastatin",
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/margaret-atorvastatin"
+      },
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "margaret-atorvastatin",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "83367",
+              "display": "atorvastatin"
+            }
+          ],
+          "text": "atorvastatin"
+        },
+        "subject": {
+          "reference": "Patient/margaret"
+        },
+        "dosage": [
+          {
+            "text": "20 mg each night"
+          }
+        ]
+      }
+    },
+    {
       "fullUrl": "MedicationStatement/margaret-vitamin-d",
       "request": {
         "method": "PUT",
@@ -428,45 +457,6 @@
         "dosage": [
           {
             "text": "1000 IU daily"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "MedicationStatement/margaret-paracetamol",
-      "request": {
-        "method": "PUT",
-        "url": "MedicationStatement/margaret-paracetamol"
-      },
-      "resource": {
-        "resourceType": "MedicationStatement",
-        "id": "margaret-paracetamol",
-        "meta": {
-          "tag": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
-              "code": "HTEST",
-              "display": "test health data"
-            }
-          ]
-        },
-        "status": "active",
-        "medicationCodeableConcept": {
-          "coding": [
-            {
-              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "code": "161",
-              "display": "paracetamol (acetaminophen)"
-            }
-          ],
-          "text": "paracetamol"
-        },
-        "subject": {
-          "reference": "Patient/margaret"
-        },
-        "dosage": [
-          {
-            "text": "500 mg as needed"
           }
         ]
       }

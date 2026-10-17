@@ -11,7 +11,6 @@
     "HR 142"
   ],
   "conditions": [
-    "atrial fibrillation (provisional)",
     "chronic kidney disease stage 3a",
     "hearing loss",
     "hypertension",
@@ -24,8 +23,12 @@
       "dose": "5 mg each evening"
     },
     {
-      "name": "paracetamol",
-      "dose": "500 mg as needed"
+      "name": "aspirin",
+      "dose": "100 mg each morning"
+    },
+    {
+      "name": "atorvastatin",
+      "dose": "20 mg each night"
     },
     {
       "name": "vitamin D3",
@@ -45,7 +48,7 @@
     "onScene": true
   },
   "etaMin": 9,
-  "text": "PRE-ARRIVAL · ETA 9 min\nMargaret Collins, 78, F\nStatus: suspected stroke\nLast well: 01:55 16/10 (AEDT)\nFindings: slurred speech 02:04 · HR 142\nHistory: atrial fibrillation (provisional), chronic kidney disease stage 3a, hearing loss, hypertension, osteoarthritis of both knees, prediabetes · family: father: stroke at 74, type 2 diabetes; mother: dementia\nMedicines: amlodipine 5 mg each evening, paracetamol 500 mg as needed, vitamin D3 1000 IU daily\nAllergy: penicillin\nFunction: Lives alone, independent, walking stick outdoors\nComms: hard of hearing\nContact: David (son)\nSYNTHETIC DEMO DATA",
+  "text": "PRE-ARRIVAL · ETA 9 min\nMargaret Collins, 78, F\nStatus: suspected stroke\nLast well: 01:55 16/10 (AEDT)\nFindings: slurred speech 02:04 · HR 142\nHistory: chronic kidney disease stage 3a, hearing loss, hypertension, osteoarthritis of both knees, prediabetes · family: father: stroke at 74, type 2 diabetes; mother: dementia\nMedicines: amlodipine 5 mg each evening, aspirin 100 mg each morning, atorvastatin 20 mg each night, vitamin D3 1000 IU daily\nAllergy: penicillin\nFunction: Lives alone, independent, walking stick outdoors\nComms: hard of hearing\nContact: David (son)\nSYNTHETIC DEMO DATA",
   "status": "COMPLETED",
   "familyHistory": [
     "father: stroke at 74, type 2 diabetes",
@@ -55,7 +58,6 @@
   "warnings": [],
   "sources": [
     "AllergyIntolerance/margaret-penicillin",
-    "Condition/margaret-af",
     "Condition/margaret-ckd",
     "Condition/margaret-hearing-loss",
     "Condition/margaret-hypertension",
@@ -65,7 +67,8 @@
     "FamilyMemberHistory/margaret-father",
     "FamilyMemberHistory/margaret-mother",
     "MedicationStatement/margaret-amlodipine",
-    "MedicationStatement/margaret-paracetamol",
+    "MedicationStatement/margaret-aspirin",
+    "MedicationStatement/margaret-atorvastatin",
     "MedicationStatement/margaret-vitamin-d",
     "Patient/margaret"
   ]
