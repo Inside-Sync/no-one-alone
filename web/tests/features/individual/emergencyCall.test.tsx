@@ -1,8 +1,8 @@
 import { act, render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
-import type { TurnDoc } from '@/data/contract'
-import { EmergencyCallCard } from '@/features/individual/live/EmergencyCallCard'
+import type { IncidentDoc, TurnDoc } from '@/data/contract'
 import { SpeechCheckCard } from '@/features/individual/live/SpeechCheckCard'
+import { useCallDialogue } from '@/features/individual/live/useCallDialogue'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/live/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
@@ -21,6 +21,16 @@ beforeEach(() => {
 })
 afterEach(() => { vi.unstubAllGlobals() })
 
+function EmergencyCallCard(props: Omit<Parameters<typeof useCallDialogue>[0], 'callKey'>) {
+  const { lines, dialling } = useCallDialogue({ callKey: 'call-1', ...props })
+  return (
+    <>
+      {dialling && <p>Dialling 000…</p>}
+      <ol>{lines.map((l) => <li key={l.clip}><b>{l.by === 'operator' ? '000 operator' : 'Noa'}</b>: {l.text}</li>)}</ol>
+    </>
+  )
+}
+
 const flush = () => act(async () => { await Promise.resolve() })
 
 test('000 call: waits for the dial, then plays the 8 clips in order with the David line, then reports done', async () => {
@@ -28,7 +38,6 @@ test('000 call: waits for the dial, then plays the 8 clips in order with the Dav
   const dialDone = new Promise<void>((r) => { dialed = r })
   const onDone = vi.fn()
   renderWithProviders(<EmergencyCallCard live davidAccepted dialDone={dialDone} onDone={onDone} />)
-  expect(screen.getByText('000 call · demo call')).toBeInTheDocument()
   expect(screen.getByText('Dialling 000…')).toBeInTheDocument()
   await flush()
   expect(played).toEqual([])
@@ -42,7 +51,6 @@ test('000 call: waits for the dial, then plays the 8 clips in order with the Dav
   expect(screen.getAllByText('000 operator')).toHaveLength(4)
   expect(screen.getAllByText('Noa')).toHaveLength(4)
   expect(screen.getByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
-  expect(screen.getByText(/approved emergency relay/)).toBeInTheDocument()
   expect(onDone).toHaveBeenCalledTimes(1)
   expect(onDone).toHaveBeenCalledWith(false)
 })
@@ -86,18 +94,22 @@ const turn = (by: TurnDoc['by'], text: string, clarity?: 'CLEAR' | 'SLURRED'): T
 const q1 = turn('AGENT', "Hello Margaret, it's Noa. Are you all right?")
 const q2 = turn('AGENT', 'Thank you, Margaret. Please say after me: The sky is blue in Sydney.')
 
-test('speech check: hidden until Q2 is answered, then the slurred verdict and the sentence', () => {
-  const { rerender } = renderWithProviders(<SpeechCheckCard turns={[q1, turn('PERSON', 'yes', 'SLURRED'), q2]} />)
-  expect(screen.queryByText('Noa Speech Check')).toBeNull()
-  rerender(<SpeechCheckCard turns={[q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', 'the sky iz', 'SLURRED')]} />)
+const card = (turns: TurnDoc[], busy = false) =>
+  <SpeechCheckCard incident={{ checkIn: { turns, busy } } as unknown as IncidentDoc} name="Margaret" timeZone="UTC" />
+
+test('speech check: ready, then listening to Q2, then the slurred verdict and five measures', () => {
+  const { rerender } = renderWithProviders(card([q1]))
+  expect(screen.getByText('Ready · baseline from 41 morning chats')).toBeInTheDocument()
+  rerender(card([q1, turn('PERSON', 'yes', 'SLURRED'), q2]))
+  expect(screen.getByText('🎙️ Listening to Margaret…')).toBeInTheDocument()
+  rerender(card([q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', 'the sky iz', 'SLURRED')]))
   expect(screen.getByText('⚠ Slurred speech detected · possible stroke')).toBeInTheDocument()
-  expect(screen.getByText('Sentence: “The sky is blue in Sydney.”')).toBeInTheDocument()
+  expect(screen.getByText('0.41')).toBeInTheDocument()
   expect(screen.queryByText('✓ Clear · matches her normal voice')).toBeNull()
 })
 
 test('speech check: a re-asked speech question still shows the latest verdict', () => {
   const again = turn('AGENT', 'Say after me again, the sky is blue in Sydney.')
-  renderWithProviders(<SpeechCheckCard turns={[q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', '', 'CLEAR'), again, turn('PERSON', 'iz', 'SLURRED')]} />)
+  renderWithProviders(card([q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', '', 'CLEAR'), again, turn('PERSON', 'iz', 'SLURRED')]))
   expect(screen.getByText('⚠ Slurred speech detected · possible stroke')).toBeInTheDocument()
-  expect(screen.getByText('Sentence: “Say after me again, the sky is blue in Sydney.”')).toBeInTheDocument()
 })

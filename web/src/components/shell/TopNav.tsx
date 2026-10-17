@@ -12,6 +12,7 @@ import { Avatar } from '@/components/ui/Avatar'
 import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import { firstPage, parsePath, tabsFor, VIEW_USERS, type ViewId } from '@/domain/views'
+import { NIGHT_DEMO_PATH, startNightDemo } from '@/features/individual/live/nightDemo'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 
@@ -26,7 +27,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
   const router = useRouter()
   const { view, page } = parsePath(usePathname())
   const toastMsg = useToast()
-  const { who, setWho, viewer, people, alertActive, packetNew, dispatchEmergency } = useAppState()
+  const { who, setWho, viewer, people, alertActive, packetNew, dispatchEmergency, holdNight } = useAppState()
   const { live } = useLiveIncident()
 
   useEffect(() => {
@@ -72,7 +73,15 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
           id="runDemo"
           aria-label={t('nav.demo')}
           // Live mode: the Live page starts a real scenario through core-api; the mock plays the scripted demo.
-          onClick={() => { setWho('family'); if (!live) dispatchEmergency({ type: 'start' }); router.push('/individual/live') }}
+          // Live mode follows the prototype's startEm: Margaret's own view, the night preset running.
+          onClick={() => {
+            setWho(live ? 'self' : 'family')
+            if (!live) dispatchEmergency({ type: 'start' })
+            else holdNight(true)
+            // Already on the Emergency page: the URL does not remount it, so the event starts the demo there.
+            if (live && view === 'individual' && page === 'live') startNightDemo()
+            else router.push(live ? NIGHT_DEMO_PATH : '/individual/live')
+          }}
         >
           <span className="ic"><Icon name="bolt" /></span>
           <span className="t">{t('nav.demo')}</span>

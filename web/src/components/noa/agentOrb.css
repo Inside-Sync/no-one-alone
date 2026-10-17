@@ -1,0 +1,13 @@
+/* Prototype `orb()` (st8). */
+.orbw{position:relative;display:inline-grid;place-items:center;width:var(--s);height:var(--s);flex:none;vertical-align:middle}
+.orbw svg{position:relative;z-index:1;overflow:visible;filter:drop-shadow(0 4px 8px rgba(8,90,80,.35));animation:orbFloat 5s ease-in-out infinite}
+.orbw svg .halo{animation:orbHalo 4s ease-in-out infinite;transform-origin:24px 24px}
+.orbw .rip{position:absolute;inset:14%;border-radius:50%;border:1.5px solid rgba(31,179,156,.55);opacity:0}
+.orbw.talk .rip{animation:orbRip 1.6s ease-out infinite}.orbw.talk .rip.r2{animation-delay:.8s}
+.orbw.talk svg .halo{animation-duration:1.2s}
+.orbw.alert svg{filter:hue-rotate(185deg) saturate(1.6) drop-shadow(0 4px 10px rgba(220,60,50,.45))}
+.orbw.alert .rip{border-color:rgba(239,78,74,.6)}
+@keyframes orbFloat{50%{transform:translateY(-2px)}}
+@keyframes orbHalo{50%{transform:scale(1.08);opacity:.7}}
+@keyframes orbRip{0%{transform:scale(.8);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+@media (prefers-reduced-motion:reduce){.orbw svg,.orbw svg .halo,.orbw .rip{animation:none!important}}

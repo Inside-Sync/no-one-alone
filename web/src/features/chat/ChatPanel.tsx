@@ -6,6 +6,7 @@ import type { ChatMode, ChatTurn } from '@/data/api'
 import { parsePath } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
+import { OPEN_CHAT } from './events'
 import './chat.css'
 
 const HISTORY = 10
@@ -47,6 +48,11 @@ export function ChatPanel() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [open])
+  useEffect(() => {
+    const onOpen = () => setOpen(true)
+    window.addEventListener(OPEN_CHAT, onOpen)
+    return () => window.removeEventListener(OPEN_CHAT, onOpen)
+  }, [])
   useEffect(() => { end.current?.scrollIntoView?.({ block: 'end' }) }, [cur.msgs.length, cur.waiting])
 
   function close() {

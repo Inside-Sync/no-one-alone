@@ -21,6 +21,7 @@ export interface LivePeople {
 }
 
 export interface LiveTimelineRow {
+  kind: TimelineKind
   t: string
   ph: string
   d: string
@@ -406,7 +407,7 @@ export function liveView(id: string, inc: IncidentDoc, people: LivePeople, now: 
     what,
     sub,
     owner,
-    timeline: inc.timeline.map((e) => ({ t: clockTime(e.at, tz), ph: tl(`phase.${PHASE[e.kind]}`), d: e.text, s: actorLabel(people, e.actor) })),
+    timeline: inc.timeline.map((e) => ({ kind: e.kind, t: clockTime(e.at, tz), ph: tl(`phase.${PHASE[e.kind]}`), d: e.text, s: actorLabel(people, e.actor) })),
     sla: slaRows(inc),
     phone: phoneView(inc, people, now, tz),
     orbit: orbitView(inc, now),

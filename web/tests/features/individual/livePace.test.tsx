@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { vi } from 'vitest'
 import type { LivePhone, LiveView } from '@/domain/incident'
 import { LivePhoneCard } from '@/features/individual/live/LivePhoneCard'
-import { LiveTimelineCard } from '@/features/individual/live/LiveTimelineCard'
+import { NoaLogCard } from '@/features/individual/live/NoaLogCard'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/live/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
@@ -17,7 +17,7 @@ beforeEach(() => {
 })
 afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals() })
 
-const row = (d: string) => ({ t: '02:03', ph: 'Escalate', d, s: 'System' })
+const row = (d: string) => ({ kind: 'NOTIFIED', t: '02:03', ph: 'Escalate', d, s: 'System' })
 const view = (n: number) => ({ timeline: Array.from({ length: n }, (_, k) => row(`entry ${k}`)), sla: [] }) as unknown as LiveView
 
 test('timeline entries that arrive after mount appear one every 1.5 s', () => {
@@ -26,7 +26,7 @@ test('timeline entries that arrive after mount appear one every 1.5 s', () => {
   function Harness() {
     const [n, setN] = useState(1)
     grow = () => setN(3)
-    return <LiveTimelineCard view={view(n)} />
+    return <NoaLogCard view={view(n)} time="02:03" />
   }
   renderWithProviders(<Harness />)
   act(() => grow())
@@ -46,7 +46,7 @@ const phone: LivePhone = {
 
 test('the helper status shows only once the instruction audio has finished', async () => {
   const onSpoken = vi.fn()
-  renderWithProviders(<LivePhoneCard phone={phone} helpInitials="DM" checkin={() => Promise.resolve()} onSpoken={onSpoken} />)
+  renderWithProviders(<LivePhoneCard phone={phone} name="Margaret" helpInitials="DM" checkin={() => Promise.resolve()} onSpoken={onSpoken} />)
   await act(async () => {})
   expect(screen.queryByText("I'm calling James now.")).toBeNull()
   expect(onSpoken).not.toHaveBeenCalled()

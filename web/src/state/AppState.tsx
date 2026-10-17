@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from 'react'
 import * as repo from '@/data/repo'
 import i18n from '@/i18n'
 import type { AuditEntry, PersonId, SharePerson, ShareMatrix } from '@/data/types'
@@ -89,6 +89,11 @@ export interface AppStateValue {
   packetNew: boolean
   /** An alert is running: the scripted demo, or an open live incident. Drives night mode and the nav badges. */
   alertActive: boolean
+  /**
+   * Keep night mode on from the Night alert demo click until its incident opens (or the start fails), so a reset of the
+   * previous incident and the few seconds before Noa steps in do not flash the day sky.
+   */
+  holdNight: (on: boolean) => void
   hydrated: boolean
 }
 
@@ -151,10 +156,24 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const liveIncident = useLiveIncident()
   const alertActive = liveIncident.live ? Boolean(liveIncident.view?.open) : active
   const packetNew = liveIncident.live ? Boolean(liveIncident.view?.packet) : packetArrived(s.emergency)
+  // `since`: the incident open at the click, so only a new one ends the hold.
+  const [nightHold, setNightHold] = useState<{ since: string | null } | null>(null)
+  const liveId = liveIncident.view?.open ? liveIncident.view.id : null
+  if (nightHold && liveId && liveId !== nightHold.since) setNightHold(null)
+  const idRef = useRef(liveId)
+  useEffect(() => { idRef.current = liveId })
+  const holdNight = useCallback((on: boolean) => setNightHold(on ? { since: idRef.current } : null), [])
   useEffect(() => {
-    document.body.classList.toggle('night', alertActive)
+    if (!nightHold) return
+    // Never stuck at night: the demo starts within seconds, or it did not start at all.
+    const t = setTimeout(() => setNightHold(null), 30_000)
+    return () => clearTimeout(t)
+  }, [nightHold])
+  const night = alertActive || Boolean(nightHold)
+  useEffect(() => {
+    document.body.classList.toggle('night', night)
     return () => document.body.classList.remove('night')
-  }, [alertActive])
+  }, [night])
   useEffect(() => {
     if (!active || !playing) return
     const timer = setInterval(() => commit({ type: 'emergency', action: { type: 'tick' } }), TICK_MS)
@@ -231,9 +250,10 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const value = useMemo<AppStateValue>(
     () => ({
       who: s.who, setWho, viewer: s.viewer, setViewer, paused: s.paused, togglePause, toggleShare, applyPreset,
-      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew, alertActive, hydrated: s.hydrated,
+      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew, alertActive, holdNight,
+      hydrated: s.hydrated,
     }),
-    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency, packetNew, alertActive],
+    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency, packetNew, alertActive, holdNight],
   )
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
