@@ -16,7 +16,7 @@ import { LiveAlertCard } from './LiveAlertCard'
 import { LivePhoneCard } from './LivePhoneCard'
 import { LiveReadingsCard } from './LiveReadingsCard'
 import { LiveTimelineCard } from './LiveTimelineCard'
-import { callKeys, playRing } from './ring'
+import { callKeys, freshCallSound, playDial000, playRing } from './ring'
 import { PhoneCard } from './PhoneCard'
 import { SimulatorCard } from './SimulatorCard'
 import { useAutopilot } from './useAutopilot'
@@ -43,15 +43,15 @@ function useFlash(on: boolean) {
   }, [on])
 }
 
-/** Rings once for each new call to a nearby member; calls already on the timeline at load stay silent. */
+/** Rings once for each new call, and dials before ringing for the automatic 000 call; calls already on the timeline at load stay silent. */
 function useCallRing(timeline: readonly { at: string; kind: string; text: string }[] | undefined) {
   const seen = useRef<Set<string> | null>(null)
   useEffect(() => {
-    const keys = callKeys(timeline ?? [])
-    if (seen.current === null) { seen.current = new Set(keys); return }
-    const fresh = keys.filter((k) => !seen.current!.has(k))
-    fresh.forEach((k) => seen.current!.add(k))
-    if (fresh.length) void playRing(3000)
+    if (!timeline) return
+    if (seen.current === null) { seen.current = new Set(callKeys(timeline)); return }
+    const sound = freshCallSound(timeline, seen.current)
+    if (sound === 'dial') void playDial000()
+    else if (sound === 'ring') void playRing(3000)
   }, [timeline])
 }
 
@@ -73,7 +73,7 @@ function LiveIncidentPage() {
   const { loading, error, incident, people, view, start, reset, checkin, act } = useLiveIncident()
   const scene = useRepo(getOrbitScene).data
   useFlash(Boolean(view?.phone.flash))
-  useCallRing(incident?.timeline)
+  useCallRing(loading ? undefined : incident?.timeline ?? [])
   const { t } = useTranslation('live')
   // Autopilot answers only for an incident this tab started from the Simulator.
   const [auto, setAuto] = useState(false)

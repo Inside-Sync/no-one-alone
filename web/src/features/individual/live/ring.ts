@@ -1,7 +1,10 @@
 /** One key per call to a nearby member (`NOTIFIED` "Calling ...") or to the emergency number, so each call rings once. */
 export function callKeys(timeline: readonly { at: string; kind: string; text: string }[]): string[] {
-  return timeline.filter((e) => (e.kind === 'NOTIFIED' || e.kind === 'CALLED_115') && e.text.startsWith('Calling ')).map((e) => `${e.at} ${e.text}`)
+  return timeline.filter(isCall).map(callKey)
 }
+
+const isCall = (e: { kind: string; text: string }) => (e.kind === 'NOTIFIED' || e.kind === 'CALLED_115') && e.text.startsWith('Calling ')
+const callKey = (e: { at: string; text: string }) => `${e.at} ${e.text}`
 
 export interface RingSegment { on: boolean; ms: number }
 
@@ -18,30 +21,60 @@ export function ringPattern(totalMs: number): RingSegment[] {
   return out
 }
 
-/** Plays the ring with Web Audio (400 Hz + 450 Hz); resolves when done, or at once when audio is unavailable. */
-export function playRing(totalMs = 4000): Promise<void> {
+/** A tone of one or more frequencies; no frequencies is silence. */
+export interface Tone { freqs: number[]; ms: number }
+
+const RING_HZ = [400, 450]
+const ZERO_HZ = [941, 1336]
+const ringTones = (totalMs: number): Tone[] => ringPattern(totalMs).map((s) => ({ freqs: s.on ? RING_HZ : [], ms: s.ms }))
+
+/** Dialling 000 by keypad (DTMF "0" three times), a short pause, then the ring for `ringMs`. */
+export function dialSequence(ringMs: number): Tone[] {
+  const zero = { freqs: ZERO_HZ, ms: 180 }
+  const gap = { freqs: [], ms: 120 }
+  return [zero, gap, zero, gap, zero, { freqs: [], ms: 700 }, ...ringTones(ringMs)]
+}
+
+/** Plays tones with Web Audio; resolves when done, or at once when audio is unavailable. */
+function playTones(tones: Tone[]): Promise<void> {
   try {
     const ctx = new AudioContext()
-    const gain = ctx.createGain()
-    gain.gain.value = 0
-    gain.connect(ctx.destination)
-    for (const f of [400, 450]) {
-      const osc = ctx.createOscillator()
-      osc.frequency.value = f
-      osc.connect(gain)
-      osc.start()
-      osc.stop(ctx.currentTime + totalMs / 1000)
-    }
     let t = ctx.currentTime
-    for (const seg of ringPattern(totalMs)) {
-      if (seg.on) {
+    for (const tone of tones) {
+      const end = t + tone.ms / 1000
+      if (tone.freqs.length) {
+        const gain = ctx.createGain()
+        gain.gain.value = 0
         gain.gain.setTargetAtTime(0.15, t, 0.01)
-        gain.gain.setTargetAtTime(0, t + seg.ms / 1000 - 0.03, 0.01)
+        gain.gain.setTargetAtTime(0, end - 0.03, 0.01)
+        gain.connect(ctx.destination)
+        for (const f of tone.freqs) {
+          const osc = ctx.createOscillator()
+          osc.frequency.value = f
+          osc.connect(gain)
+          osc.start(t)
+          osc.stop(end + 0.05)
+        }
       }
-      t += seg.ms / 1000
+      t = end
     }
+    const totalMs = tones.reduce((a, x) => a + x.ms, 0)
     return new Promise((resolve) => setTimeout(() => { void ctx.close().catch(() => {}); resolve() }, totalMs))
   } catch {
     return Promise.resolve()
   }
+}
+
+/** Plays the Australian ring (400 Hz + 450 Hz). */
+export const playRing = (totalMs = 4000) => playTones(ringTones(totalMs))
+
+/** Plays the keypad dialling 000, then the ring. */
+export const playDial000 = () => playTones(dialSequence(6000))
+
+/** Which sound the newest calls need: `dial` when one of them is the automatic emergency call. Adds them to `seen`. */
+export function freshCallSound(timeline: readonly { at: string; kind: string; text: string }[], seen: Set<string>): 'dial' | 'ring' | null {
+  const fresh = timeline.filter((e) => isCall(e) && !seen.has(callKey(e)))
+  fresh.forEach((e) => seen.add(callKey(e)))
+  if (!fresh.length) return null
+  return fresh.some((e) => e.kind === 'CALLED_115') ? 'dial' : 'ring'
 }
