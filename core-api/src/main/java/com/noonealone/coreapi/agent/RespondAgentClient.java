@@ -12,6 +12,8 @@ import com.noonealone.coreapi.config.NoaProperties;
 @Component
 public class RespondAgentClient {
 
+    public record ChatResult(String answer) {}
+
     private final RestClient http;
 
     public RespondAgentClient(NoaProperties props, RestClient.Builder builder) {
@@ -44,6 +46,14 @@ public class RespondAgentClient {
 
     public RecoveryResult recovery(Map<String, Object> body) {
         return post("/recovery", body, RecoveryResult.class);
+    }
+
+    public ChatResult chat(Map<String, Object> body) {
+        ChatResult r = post("/chat", body, ChatResult.class);
+        if (r.answer() == null || r.answer().isBlank()) {
+            throw new AgentException("Empty answer from respond-agent /chat", null);
+        }
+        return r;
     }
 
     private <T> T post(String path, Map<String, Object> body, Class<T> type) {

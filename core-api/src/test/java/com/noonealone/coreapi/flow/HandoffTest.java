@@ -118,7 +118,11 @@ class HandoffTest extends FirestoreTestBase {
         flow.acceptCheckIn("h-m", answer);
         flow.processCheckIn("h-m", answer);
 
-        assertThat(store.get("h-m").handoff.hospitalId).isEqualTo("sydney-stroke-center");
+        Incident inc = store.get("h-m");
+        assertThat(inc.handoff.hospitalId).isEqualTo("sydney-stroke-center");
+        assertThat(inc.timeline).filteredOn(t -> t.kind.startsWith("HANDOFF_")).extracting(t -> t.text).containsExactly(
+                "Pre-arrival packet sent to Camperdown Stroke Centre",
+                "Camperdown Stroke Centre received the packet: stroke call activated, CT scanner on standby");
         verify(routes, never()).etaMinutes(any(), argThat(to -> to.lat > 0));
     }
 

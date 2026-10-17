@@ -9,6 +9,7 @@ import com.noonealone.coreapi.gcp.EscalationTimers;
 import com.noonealone.coreapi.model.Assignment;
 import com.noonealone.coreapi.model.AssignmentState;
 import com.noonealone.coreapi.model.Incident;
+import com.noonealone.coreapi.model.Level;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.Role;
 import com.noonealone.coreapi.model.Status;
@@ -53,7 +54,7 @@ public class Actions {
             Assignment a = x.assignment(memberId).orElseThrow();
             a.state = AssignmentState.EXPIRED;
             x.log(now, "SYSTEM", "EXPIRED", EscalationRules.name(people, memberId)
-                    + " did not answer in " + x.demo.timerSeconds + " s");
+                    + " did not answer in " + x.demo.timerSeconds + " s" + (a.role == Role.DISTANT ? " · voicemail and text sent" : ""));
             notifyNextOrGiveUp(x, now, nextTask, people);
             return true;
         });
@@ -77,7 +78,10 @@ public class Actions {
             a.state = AssignmentState.ACCEPTED;
             a.respondedAt = now;
             x.ownerId = memberId;
-            x.log(now, memberId, "ACCEPTED", EscalationRules.name(people, memberId) + " is on the way");
+            x.log(now, memberId, "ACCEPTED", EscalationRules.name(people, memberId) + " accepted");
+            if (x.level == Level.EMERGENCY) {
+                EscalationRules.autoCall(x, now, people);
+            }
             return true;
         });
         if (m.changed()) {
@@ -164,7 +168,7 @@ public class Actions {
 
     private static Optional<Assignment> nextAfter(Incident inc, String memberId) {
         return inc.assignments.stream()
-                .filter(a -> a.role == Role.NEARBY && a.state == AssignmentState.QUEUED && !a.memberId.equals(memberId))
+                .filter(a -> a.state == AssignmentState.QUEUED && !a.memberId.equals(memberId))
                 .findFirst();
     }
 

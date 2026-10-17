@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.noonealone.coreapi.flow.Actions;
 import com.noonealone.coreapi.flow.AlertIntake;
+import com.noonealone.coreapi.flow.ChatService;
 import com.noonealone.coreapi.flow.DemoService;
 import com.noonealone.coreapi.flow.IncidentFlow;
 import com.noonealone.coreapi.flow.Recovery;
@@ -42,6 +43,7 @@ class ApiControllerTest {
     @MockBean Actions actions;
     @MockBean AlertIntake intake;
     @MockBean Recovery recovery;
+    @MockBean ChatService chat;
 
     @Test
     void triggerReturns202WithIncidentId() throws Exception {

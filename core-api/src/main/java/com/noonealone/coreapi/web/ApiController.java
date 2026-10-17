@@ -6,6 +6,7 @@ import java.util.concurrent.Executor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.noonealone.coreapi.agent.AgentException;
 import com.noonealone.coreapi.flow.Actions;
+import com.noonealone.coreapi.flow.ChatService;
 import com.noonealone.coreapi.flow.CheckInInput;
 import com.noonealone.coreapi.flow.DemoService;
 import com.noonealone.coreapi.flow.IncidentFlow;
@@ -38,8 +41,11 @@ public class ApiController {
     private final Actions actions;
     private final Recovery recovery;
     private final Executor executor;
+    private final ChatService chat;
 
-    public ApiController(DemoService demo, IncidentFlow flow, Actions actions, Recovery recovery, Executor executor) {
+    public ApiController(DemoService demo, IncidentFlow flow, Actions actions, Recovery recovery, Executor executor,
+            ChatService chat) {
+        this.chat = chat;
         this.demo = demo;
         this.flow = flow;
         this.actions = actions;
@@ -96,6 +102,15 @@ public class ApiController {
     @PostMapping("/incidents/{id}/recovery")
     public Map<String, Long> recovery(@PathVariable String id, @RequestBody Recovery.Plan body) {
         return Map.of("version", recovery.discharge(id, body));
+    }
+
+    @PostMapping("/chat")
+    public ResponseEntity<Map<String, String>> chat(@RequestBody ChatService.Request body) {
+        try {
+            return ResponseEntity.ok(Map.of("answer", chat.answer(body)));
+        } catch (AgentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(Map.of("error", "CHAT_UNAVAILABLE"));
+        }
     }
 
     private void checkIn(String id, CheckInInput input) {

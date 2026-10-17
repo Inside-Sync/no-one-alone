@@ -90,11 +90,13 @@ public class Escalation {
             }
         }
 
-        Optional<CircleEntry> firstNearby = circle.stream().filter(c -> c.role == Role.NEARBY).findFirst();
+        // Call queue: DISTANT members ranked before the first NEARBY, then every NEARBY.
+        int firstNearby = circle.stream().filter(c -> c.role == Role.NEARBY).mapToInt(c -> c.priority).min().orElse(Integer.MIN_VALUE);
+        List<CircleEntry> queue = circle.stream().filter(c -> c.role == Role.NEARBY || c.priority < firstNearby).toList();
         String firstTask = null;
-        if (firstNearby.isPresent()) {
+        if (!queue.isEmpty()) {
             try {
-                firstTask = tasks.schedule(incidentId, firstNearby.get().memberId, 1, inc.demo.timerSeconds);
+                firstTask = tasks.schedule(incidentId, queue.get(0).memberId, 1, inc.demo.timerSeconds);
             } catch (RuntimeException e) {
                 log.warn("Escalation timer not scheduled for incident {}: {}", incidentId, e.getClass().getSimpleName());
             }
@@ -119,15 +121,17 @@ public class Escalation {
             if (usedFallback) {
                 x.log(now, "AGENT", "AGENT_FALLBACK", "Plan used fallback");
             }
+            x.log(now, "SYSTEM", "ALERTED", alertText(x, person, circle, people));
             for (CircleEntry c : circle) {
                 Assignment a = new Assignment();
                 a.memberId = c.memberId;
                 a.role = c.role;
                 a.message = messages.get(c.memberId);
                 if (c.role == Role.DISTANT) {
-                    a.state = AssignmentState.NOTIFIED;
-                    a.notifiedAt = now;
+                    a.state = queue.contains(c) ? AssignmentState.QUEUED : AssignmentState.NOTIFIED;
+                    a.notifiedAt = a.state == AssignmentState.NOTIFIED ? now : null;
                     a.actions = List.of("CALL_PERSON", "CALLED_115");
+                    a.attempt = queue.contains(c) ? 1 : null;
                 } else {
                     a.state = AssignmentState.QUEUED;
                     a.actions = List.of("ACCEPT", "DECLINE");
@@ -142,8 +146,6 @@ public class Escalation {
             } else {
                 EscalationRules.noNearby(x, now, people);
             }
-            x.assignments.stream().filter(a -> a.role == Role.DISTANT).forEach(a ->
-                    x.log(now, "SYSTEM", "NOTIFIED", EscalationRules.name(people, a.memberId) + " notified"));
             return true;
         });
         if (m.changed() && inc.level == Level.EMERGENCY) {
@@ -153,6 +155,17 @@ public class Escalation {
                 log.warn("Handoff not started for incident {}: {}", incidentId, e.getClass().getSimpleName());
             }
         }
+    }
+
+    private static String alertText(Incident x, Person person, List<CircleEntry> circle, Map<String, Person> people) {
+        List<String> names = circle.stream().sorted(Comparator.comparing((CircleEntry c) -> c.role != Role.DISTANT))
+                .map(c -> EscalationRules.name(people, c.memberId)).toList();
+        String list = names.size() < 2 ? String.join("", names)
+                : String.join(", ", names.subList(0, names.size() - 1)) + " and " + names.get(names.size() - 1);
+        // Vietnamese display names start with a title (Bà Mai), so keep them whole.
+        String who = person.locale != null && person.locale.startsWith("vi") ? person.displayName : person.displayName.split(" ")[0];
+        String what = x.suspectedStroke() ? " may be having a stroke" : " needs help";
+        return "Alert sent to " + list + ": " + who + what + ". Noa is calling for help now.";
     }
 
     private Map<String, Object> planBody(Incident inc, Person person, List<CircleEntry> circle,
