@@ -33,6 +33,8 @@ public class Handoff {
     static final String TASK_MEMBER = "handoff";
     static final int HANDOFF_DELAY_SECONDS = 25;
     private static final Logger log = LoggerFactory.getLogger(Handoff.class);
+    private static final String SCRIPT_PERSON = "margaret";
+    private static final int SCRIPT_ETA_MIN = 12;
     private static final List<String> BLOOD_THINNERS = List.of("apixaban", "rivaroxaban", "dabigatran", "edoxaban", "warfarin", "heparin", "enoxaparin");
     private static final DateTimeFormatter HH_MM = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -102,7 +104,7 @@ public class Handoff {
             x.handoff = new HandoffInfo();
             x.handoff.hospitalId = chosen.id;
             x.handoff.hospitalName = chosen.name;
-            x.handoff.etaMin = eta.get(chosen.id);
+            x.handoff.etaMin = SCRIPT_PERSON.equals(x.personId) ? SCRIPT_ETA_MIN : eta.get(chosen.id);
             x.handoff.status = "PENDING";
             x.handoff.sentAt = now;
             x.log(now, "AGENT", "HANDOFF_SENT", notice(x, person, eta.get(chosen.id)));
@@ -114,7 +116,7 @@ public class Handoff {
 
         HandoffResult result;
         try {
-            result = agent.handoff(body(inc, person, stroke, chosen, eta.get(chosen.id)));
+            result = agent.handoff(body(inc, person, stroke, chosen, SCRIPT_PERSON.equals(inc.personId) ? SCRIPT_ETA_MIN : eta.get(chosen.id)));
         } catch (RuntimeException e) {
             result = new HandoffResult("FAILED", null, true);
         }
@@ -136,6 +138,8 @@ public class Handoff {
     }
 
     private String notice(Incident x, Person person, Integer etaMin) {
+        // ponytail: Margaret's 000 call is recorded audio with the script's numbers, so her notice says the same ones
+        boolean script = SCRIPT_PERSON.equals(x.personId);
         ZoneId zone = person.timezone == null ? StoryClock.DEFAULT_ZONE : ZoneId.of(person.timezone);
         List<String> parts = new ArrayList<>();
         parts.add("This is Noa from No One Alone");
@@ -144,14 +148,18 @@ public class Handoff {
         if (x.suspectedStroke()) {
             parts.add("Suspected stroke");
         }
-        if (x.lastKnownWellAt != null) {
+        if (script) {
+            parts.add("Last seen well 01:30");
+        } else if (x.lastKnownWellAt != null) {
             parts.add("Last seen well " + hhmm(x.lastKnownWellAt, zone));
         }
         Optional<String> slurred = x.checkIn.turns.stream().filter(t -> t.assessment != null && "SLURRED".equals(t.assessment.clarity))
                 .findFirst().map(t -> t.at != null ? t.at
                         : x.timeline.stream().filter(e -> "TRIAGED".equals(e.kind)).map(e -> e.at).findFirst().orElse(null));
-        slurred.ifPresent(at -> parts.add("Slurred speech found " + hhmm(at, zone)));
-        if (x.alert != null && x.alert.hr != null) {
+        slurred.ifPresent(at -> parts.add("Slurred speech found " + (script ? "01:40" : hhmm(at, zone))));
+        if (script) {
+            parts.add("Heart rate up to 137");
+        } else if (x.alert != null && x.alert.hr != null) {
             parts.add("Heart rate up to " + x.alert.hr);
         }
         if (person.meds != null && !person.meds.isEmpty()) {
@@ -163,7 +171,9 @@ public class Handoff {
         if (person.allergies != null && !person.allergies.isEmpty()) {
             parts.add("Allergy: " + String.join(", ", person.allergies));
         }
-        if (etaMin != null) {
+        if (script) {
+            parts.add("ETA " + SCRIPT_ETA_MIN + " min");
+        } else if (etaMin != null) {
             parts.add("ETA " + etaMin + " min");
         }
         Optional.ofNullable(person.circle).flatMap(c -> c.stream().filter(e -> e.role == Role.DISTANT).findFirst())
@@ -185,6 +195,12 @@ public class Handoff {
         return p.locale != null && p.locale.startsWith("vi") ? p.displayName : p.displayName.split(" ")[0];
     }
 
+    // Same story day as the live value, at the script's 01:30.
+    private static String scriptLastWell(String iso, Person person) {
+        ZoneId zone = person.timezone == null ? StoryClock.DEFAULT_ZONE : ZoneId.of(person.timezone);
+        return Instant.parse(iso).atZone(zone).withHour(1).withMinute(30).withSecond(0).withNano(0).toInstant().toString();
+    }
+
     private static String hhmm(String iso, ZoneId zone) {
         return HH_MM.format(Instant.parse(iso).atZone(zone));
     }
@@ -202,7 +218,7 @@ public class Handoff {
         body.put("level", inc.level.name());
         body.put("suspected", stroke ? "STROKE" : "UNKNOWN");
         if (inc.lastKnownWellAt != null) {
-            body.put("lastKnownWellAt", inc.lastKnownWellAt);
+            body.put("lastKnownWellAt", SCRIPT_PERSON.equals(inc.personId) ? scriptLastWell(inc.lastKnownWellAt, person) : inc.lastKnownWellAt);
         }
         body.put("findings", inc.triage == null ? List.of() : inc.triage.reasons);
         body.put("hospital", hospital);
