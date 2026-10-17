@@ -30,3 +30,11 @@ test('answers report Yes / No', () => {
   fireEvent.click(screen.getByRole('button', { name: 'No' }))
   expect(onAnswer).toHaveBeenCalledWith('No')
 })
+
+test('iPhone frame: status bar shows the time and a Noa label sits above the question', () => {
+  const { container } = render(<PhoneScreen time="02:04" q="Can you hear me?" onAnswer={() => {}} />)
+  expect(container.querySelector('.device [data-testid="statusbar"]')).toHaveTextContent('02:04')
+  const label = screen.getByText('Noa')
+  expect(label.closest('[data-testid="noa-label"]')!.querySelector('.om')).not.toBeNull()
+  expect(label.compareDocumentPosition(screen.getByText('Can you hear me?')) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+})

@@ -4,7 +4,7 @@
  * they are raised here; every other value (colours, radii, gradients) is the prototype's.
  * The doubled selector (.screen .x) outranks the single-class globals regardless of load order.
  */
-.screen { padding: 40px 12px 12px; gap: 8px; }
+.frame .screen { padding: 46px 12px 24px; gap: 8px; }
 .screen .h,
 .screen .q,
 .screen .small,
@@ -21,8 +21,15 @@
 .screen .help { padding: 10px; }
 .screen .btn { min-height: 92px; font-weight: 600; }
 .screen .btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-/* Taller than the prototype's 300/600 frame so 28 pt text and a 92 px button fit without clipping. */
-.frame:global(.device) { aspect-ratio: 300 / 780; }
+/* iPhone frame: 10 px titanium bezel with a thin edge; the screen grows past 9/19.5 when 28 pt content needs it. */
+.frame:global(.device) { aspect-ratio: 9 / 19.5; border-radius: 52px; padding: 10px; background: #1c1f22; box-shadow: 0 0 0 1.5px #5b6266, 0 24px 50px rgba(0, 20, 18, 0.4); }
+.frame .screen { border-radius: 42px; }
+.frame .screen::before { top: 10px; width: 96px; height: 28px; border-radius: 14px; background: #000; z-index: 2; }
+.status { position: absolute; top: 10px; left: 0; right: 0; height: 28px; padding: 0 18px 0 24px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; z-index: 1; }
+.glyphs { display: flex; align-items: center; gap: 5px; }
+.glyphs svg { fill: currentColor; }
+.home { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 120px; height: 5px; border-radius: 3px; background: currentColor; opacity: 0.85; }
+.noa { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; opacity: 0.85; }
 .screen .help { align-items: flex-start; }
 /* A long live question would push the reply button below a fixed-height screen; let the screen grow instead. */
 .frame .screen { height: auto; min-height: 100%; }
