@@ -948,363 +948,408 @@
     "groups": [
       {
         "icon": "heart",
-        "emoji": "❤️",
         "title": "心脏",
         "category": "heart",
         "metrics": [
           {
-            "label": "💓 静息时",
+            "label": "静息时",
             "value": "68 bpm",
             "note": "平时 63",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "heart-pulse"
           },
           {
-            "label": "🚶 步行时",
+            "label": "步行时",
             "value": "92 bpm",
-            "note": "正常"
+            "note": "正常",
+            "icon": "footprints"
           },
           {
-            "label": "🌿 放松指数",
+            "label": "放松指数",
             "value": "26",
             "note": "比平时低",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "leaf"
           },
           {
-            "label": "⏱️ 步行后恢复",
+            "label": "步行后恢复",
             "value": "18 次",
-            "note": "1 分钟内"
+            "note": "1 分钟内",
+            "icon": "timer"
           },
           {
-            "label": "📈 今日范围",
+            "label": "今日范围",
             "value": "58–112",
-            "note": "bpm"
+            "note": "bpm",
+            "icon": "trend"
           },
           {
-            "label": "🏃 体能水平",
+            "label": "体能水平",
             "value": "中等",
-            "note": "同龄人中"
+            "note": "同龄人中",
+            "icon": "activity"
           }
         ]
       },
       {
         "icon": "lungs",
-        "emoji": "🫁",
         "title": "心跳与呼吸",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚡ 心跳不齐",
+            "label": "心跳不齐",
             "value": "2 次提醒",
             "note": "本周",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "bolt"
           },
           {
-            "label": "🌙 夜间心跳不齐",
+            "label": "夜间心跳不齐",
             "value": "~3%",
             "note": "夜间时长",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "📄 心电图（ECG）",
+            "label": "心电图（ECG）",
             "value": "正常",
             "note": "10月12日",
-            "tone": "good"
+            "tone": "good",
+            "icon": "file"
           },
           {
-            "label": "🩸 血氧",
+            "label": "血氧",
             "value": "95%",
-            "note": "正常"
+            "note": "正常",
+            "icon": "drop"
           },
           {
-            "label": "🌬️ 每分钟呼吸",
+            "label": "每分钟呼吸",
             "value": "15",
-            "note": "睡眠时 · 正常"
+            "note": "睡眠时 · 正常",
+            "icon": "wind"
           },
           {
-            "label": "🌡️ 皮肤温度",
+            "label": "皮肤温度",
             "value": "正常",
-            "note": "+0.3°"
+            "note": "+0.3°",
+            "icon": "thermometer"
           }
         ]
       },
       {
-        "icon": "trend",
-        "emoji": "🔥",
+        "icon": "flame",
         "title": "活动与能量",
         "category": "activity",
         "metrics": [
           {
-            "label": "👣 步数",
+            "label": "步数",
             "value": "3,240",
-            "note": "目标 3,500"
+            "note": "目标 3,500",
+            "icon": "footprints"
           },
           {
-            "label": "📏 距离",
+            "label": "距离",
             "value": "2.1 公里",
-            "note": "步行"
+            "note": "步行",
+            "icon": "ruler"
           },
           {
-            "label": "🪜 楼梯",
+            "label": "楼梯",
             "value": "2 层",
-            "note": "已爬"
+            "note": "已爬",
+            "icon": "door-stairwell"
           },
           {
-            "label": "🔥 活动消耗",
+            "label": "活动消耗",
             "value": "212",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "flame"
           },
           {
-            "label": "🛋️ 静息消耗",
+            "label": "静息消耗",
             "value": "1,428",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "sofa"
           },
           {
-            "label": "🏋️ 锻炼",
+            "label": "锻炼",
             "value": "18 分钟",
             "note": "目标 30",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "dumbbell"
           }
         ]
       },
       {
-        "icon": "people",
-        "emoji": "🚶",
+        "icon": "footprints",
         "title": "步行与平衡",
         "category": "activity",
         "metrics": [
           {
-            "label": "🐢 步速",
+            "label": "步速",
             "value": "偏慢",
             "note": "0.82 米/秒",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "turtle"
           },
           {
-            "label": "👟 步长",
+            "label": "步长",
             "value": "51 cm",
-            "note": "平时 54"
+            "note": "平时 54",
+            "icon": "footprints"
           },
           {
-            "label": "🦶 双脚着地",
+            "label": "双脚着地",
             "value": "34%",
             "note": "不太稳",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "footprints"
           },
           {
-            "label": "⚖️ 步伐均匀",
+            "label": "步伐均匀",
             "value": "是",
-            "note": "相差 6%"
+            "note": "相差 6%",
+            "icon": "scale"
           },
           {
-            "label": "🧍 稳定性",
+            "label": "稳定性",
             "value": "低",
             "note": "跌倒风险较高",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "person-standing"
           },
           {
-            "label": "🕕 6 分钟步行",
+            "label": "6 分钟步行",
             "value": "310 m",
-            "note": "平时 340"
+            "note": "平时 340",
+            "icon": "timer"
           }
         ]
       },
       {
-        "icon": "moon",
-        "emoji": "😴",
+        "icon": "bed",
         "title": "睡眠",
         "category": "sleep",
         "metrics": [
           {
-            "label": "🛌 睡眠时长",
+            "label": "睡眠时长",
             "value": "6小时12分",
             "note": "平时 7 小时",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "bed"
           },
           {
-            "label": "✨ 睡眠质量",
+            "label": "睡眠质量",
             "value": "81%",
-            "note": "卧床时间占比"
+            "note": "卧床时间占比",
+            "icon": "sparkles"
           },
           {
-            "label": "🌑 深睡",
+            "label": "深睡",
             "value": "52 分钟",
-            "note": "有助恢复"
+            "note": "有助恢复",
+            "icon": "moon"
           },
           {
-            "label": "💭 做梦睡眠",
+            "label": "做梦睡眠",
             "value": "52 分钟",
-            "note": "正常"
+            "note": "正常",
+            "icon": "cloud-moon"
           },
           {
-            "label": "👀 醒来",
+            "label": "醒来",
             "value": "6 次",
             "note": "清醒 38 分钟",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "eye"
           },
           {
-            "label": "🕙 就寝时间",
+            "label": "就寝时间",
             "value": "晚上 10:41",
-            "note": "比较规律"
+            "note": "比较规律",
+            "icon": "clock"
           }
         ]
       },
       {
         "icon": "smile",
-        "emoji": "😊",
         "title": "情绪与陪伴",
         "category": "mood",
         "metrics": [
           {
-            "label": "😊 今日情绪",
+            "label": "今日情绪",
             "value": "开朗",
             "note": "根据她的声音",
-            "tone": "good"
+            "tone": "good",
+            "icon": "smile"
           },
           {
-            "label": "🙂 本周",
+            "label": "本周",
             "value": "大多不错",
-            "note": "平稳"
+            "note": "平稳",
+            "icon": "smile"
           },
           {
-            "label": "🫂 孤独感",
+            "label": "孤独感",
             "value": "有一点",
-            "note": "9 分中 4 分"
+            "note": "9 分中 4 分",
+            "icon": "heart-handshake"
           },
           {
-            "label": "📞 电话",
+            "label": "电话",
             "value": "5",
-            "note": "本周"
+            "note": "本周",
+            "icon": "phone"
           },
           {
-            "label": "🏡 探访",
+            "label": "探访",
             "value": "2",
-            "note": "本周"
+            "note": "本周",
+            "icon": "home"
           },
           {
-            "label": "🧘 放松呼吸",
+            "label": "放松呼吸",
             "value": "10 分钟",
-            "note": "今天"
+            "note": "今天",
+            "icon": "wind"
           }
         ]
       },
       {
         "icon": "drop",
-        "emoji": "💧",
         "title": "身体与饮食",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚖️ 体重",
+            "label": "体重",
             "value": "61.2 公斤",
-            "note": "平稳"
+            "note": "平稳",
+            "icon": "scale"
           },
           {
-            "label": "📐 体型（BMI）",
+            "label": "体型（BMI）",
             "value": "健康",
-            "note": "23.4"
+            "note": "23.4",
+            "icon": "ruler"
           },
           {
-            "label": "💧 饮水",
+            "label": "饮水",
             "value": "1.1 / 1.5 升",
             "note": "多喝水",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "drop"
           },
           {
-            "label": "🍽️ 用餐",
+            "label": "用餐",
             "value": "3",
-            "note": "语音告诉我们"
+            "note": "语音告诉我们",
+            "icon": "utensils"
           },
           {
-            "label": "🫖 喝茶杯数",
+            "label": "喝茶杯数",
             "value": "2",
-            "note": "今天"
+            "note": "今天",
+            "icon": "coffee"
           },
           {
-            "label": "🌡️ 体温",
+            "label": "体温",
             "value": "36.7°",
-            "note": "正常"
+            "note": "正常",
+            "icon": "thermometer"
           }
         ]
       },
       {
         "icon": "ear",
-        "emoji": "👂",
         "title": "听力与感官",
         "category": "speech",
         "metrics": [
           {
-            "label": "🔊 周围噪音",
+            "label": "周围噪音",
             "value": "62 dB",
-            "note": "正常"
+            "note": "正常",
+            "icon": "volume-2"
           },
           {
-            "label": "📺 电视音量",
+            "label": "电视音量",
             "value": "偏大",
             "note": "74 dB",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "tv"
           },
           {
-            "label": "❓ “什么？”",
+            "label": "“什么？”",
             "value": "9 次",
             "note": "本周",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-help"
           },
           {
-            "label": "🦻 助听器",
+            "label": "助听器",
             "value": "未佩戴",
             "note": "今天",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "ear"
           },
           {
-            "label": "☀️ 户外时间",
+            "label": "户外时间",
             "value": "38 分钟",
-            "note": "目标 60"
+            "note": "目标 60",
+            "icon": "sun"
           },
           {
-            "label": "🔠 屏幕字体",
+            "label": "屏幕字体",
             "value": "特大",
-            "note": "28 pt"
+            "note": "28 pt",
+            "icon": "type"
           }
         ]
       },
       {
         "icon": "pill",
-        "emoji": "💊",
         "title": "服药与血压",
         "category": "meds",
         "metrics": [
           {
-            "label": "✅ 按时服药",
+            "label": "按时服药",
             "value": "86%",
             "note": "有漏服",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-check"
           },
           {
-            "label": "🌅 早间血压",
+            "label": "早间血压",
             "value": "146/88",
             "note": "偏高",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "sunrise"
           },
           {
-            "label": "🌙 晚间血压",
+            "label": "晚间血压",
             "value": "139/84",
             "note": "略高",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "💊 今天",
+            "label": "今天",
             "value": "3 次中 2 次",
-            "note": "下次晚上 6 点"
+            "note": "下次晚上 6 点",
+            "icon": "pill"
           },
           {
-            "label": "❌ 漏服",
+            "label": "漏服",
             "value": "3",
             "note": "本周",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-x"
           },
           {
-            "label": "📦 剩余药量",
+            "label": "剩余药量",
             "value": "12 天",
-            "note": "请尽快续药"
+            "note": "请尽快续药",
+            "icon": "package"
           }
         ]
       }
@@ -2434,38 +2479,44 @@
       ],
       "stats": [
         {
-          "label": "🗣️ 语速",
+          "label": "语速",
           "value": "132",
-          "note": "字/分钟 · 平时 141"
+          "note": "字/分钟 · 平时 141",
+          "icon": "speech"
         },
         {
-          "label": "⏸️ 停顿",
+          "label": "停顿",
           "value": "稍多",
           "note": "比平时",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "pause"
         },
         {
-          "label": "✅ 口齿清晰",
+          "label": "口齿清晰",
           "value": "是",
           "note": "无含糊",
-          "tone": "good"
+          "tone": "good",
+          "icon": "circle-check"
         },
         {
-          "label": "🔤 想不起词",
+          "label": "想不起词",
           "value": "3 次",
-          "note": "平时一两次"
+          "note": "平时一两次",
+          "icon": "type"
         },
         {
-          "label": "👂 “什么？”",
+          "label": "“什么？”",
           "value": "2 次",
           "note": "听力",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "ear"
         },
         {
-          "label": "😊 情绪",
+          "label": "情绪",
           "value": "开朗",
           "note": "状态不错",
-          "tone": "good"
+          "tone": "good",
+          "icon": "smile"
         }
       ]
     },
@@ -2476,37 +2527,43 @@
       },
       "stats": [
         {
-          "label": "🌡️ 室内",
+          "label": "室内",
           "value": "29.5°",
           "note": "太热",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "thermometer"
         },
         {
-          "label": "☀️ 室外",
+          "label": "室外",
           "value": "33°",
-          "note": "体感 35°"
+          "note": "体感 35°",
+          "icon": "sun"
         },
         {
-          "label": "💦 湿度",
+          "label": "湿度",
           "value": "58%",
-          "note": "室内"
+          "note": "室内",
+          "icon": "droplets"
         },
         {
-          "label": "🍃 空气",
+          "label": "空气",
           "value": "良好",
           "note": "今天空气清新",
-          "tone": "good"
+          "tone": "good",
+          "icon": "wind"
         },
         {
-          "label": "🕶️ 紫外线强度",
+          "label": "紫外线强度",
           "value": "极强",
           "note": "请待在阴凉处",
-          "tone": "bad"
+          "tone": "bad",
+          "icon": "glasses"
         },
         {
-          "label": "💧 喝水提醒",
+          "label": "喝水提醒",
           "value": "8 次中 6 次",
-          "note": "已回应"
+          "note": "已回应",
+          "icon": "drop"
         }
       ],
       "note": "周四预报 38 °C。助手会增加一次午间问候，并提供接送去图书馆避暑室（120 个座位，400 米）。"

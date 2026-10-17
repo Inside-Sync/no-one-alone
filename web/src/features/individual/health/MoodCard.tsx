@@ -37,13 +37,13 @@ function MoodChart({ mood }: { mood: HealthData['mood14'] }) {
   )
 }
 
-/** `😊 Mood, last 2 weeks` (c6, mood category). */
+/** `Mood, last 2 weeks` (c6, mood category). */
 export function MoodCard({ mood }: { mood: HealthData['mood14'] }) {
   const { t } = useTranslation('health')
   return (
     <Locked cat="mood" span={6}>
       <GlassCard span={6} className="chart">
-        <Head title={t('mood.title')} meta={t('mood.meta')} />
+        <Head icon="smile" title={t('mood.title')} meta={t('mood.meta')} />
         <div id="mood"><MoodChart mood={mood} /></div>
         <div className="tags" style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {mood.tags.map((t) => <Pill key={t.text} tone={t.tone}>{t.text}</Pill>)}

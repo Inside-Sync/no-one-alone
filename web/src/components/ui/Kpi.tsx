@@ -1,5 +1,6 @@
 import type { KeyboardEvent, ReactNode } from 'react'
 import { toneVar } from '@/lib/tone'
+import { Icon, type IconName } from './Icon'
 
 export type KpiTone = 'good' | 'warn' | 'bad'
 
@@ -16,14 +17,14 @@ interface Props {
   sub?: ReactNode
   delta?: ReactNode
   tone?: KpiTone
-  /** Plain-language tile: an emoji replaces the colour dot and the footer uses the body font (`kpiE`). */
-  emoji?: ReactNode
+  /** Plain-language tile: an icon replaces the colour dot and the footer uses the body font (`kpiE`). */
+  icon?: IconName
   /** Makes the tile a keyboard-reachable button (the prototype's `markClickable`). */
   onOpen?: () => void
 }
 
 /** Prototype `kpiHTML`: `.glass.kpi` with `.k`, `.v`, spark, `.d`. */
-export function Kpi({ label, value, unit, color, children, sub, delta, tone = 'good', emoji, onOpen }: Props) {
+export function Kpi({ label, value, unit, color, children, sub, delta, tone = 'good', icon, onOpen }: Props) {
   const open = onOpen
     ? {
         role: 'button',
@@ -38,15 +39,15 @@ export function Kpi({ label, value, unit, color, children, sub, delta, tone = 'g
       }
     : {}
   return (
-    <div className="glass kpi" data-plain={emoji != null ? '1' : undefined} {...open}>
+    <div className="glass kpi" data-plain={icon != null ? '1' : undefined} {...open}>
       <span className="k">
-        {emoji != null ? <span className="emo">{emoji}</span> : color && <i style={{ background: color }}></i>}
+        {icon != null ? <span className="ic emo"><Icon name={icon} tint /></span> : color && <i style={{ background: color }}></i>}
         {label}
       </span>
       <b className="v">{value}{unit != null && unit !== '' && <small>{unit}</small>}</b>
       {children}
       {(sub != null || delta != null) && (
-        <span className="d" style={emoji != null ? { fontFamily: 'var(--font)' } : undefined}>
+        <span className="d" style={icon != null ? { fontFamily: 'var(--font)' } : undefined}>
           <span>{sub}</span>
           <b style={{ color: toneVar(tone) }}>{delta}</b>
         </span>

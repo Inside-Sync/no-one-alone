@@ -1,9 +1,21 @@
-import type { IconName } from '@/data/types'
+import {
+  Accessibility, Activity, Ambulance, Ban, Bean, Bed, BellOff, BicepsFlexed, Bone, BookOpen, Bot, Cake, Calendar,
+  Camera, Candy, ChartColumn, CigaretteOff, CircleCheck, CircleHelp, CircleX, ClipboardList, Clock, CloudMoon,
+  CloudRain, CloudSun, Coffee, Compass, CookingPot, DoorStairwell, Droplets, Dumbbell, FastForward, Flame,
+  FlaskConical, Folder, Footprints, Glasses, Hand, Handshake, Headphones, HeartCrack, HeartHandshake, HeartPulse, Info,
+  Leaf, Lightbulb, Lock, MapPin, Meh, MessageCircle, NotebookPen, NotebookText, OctagonX, Package, PartyPopper,
+  PenLine, PersonStanding, PhoneOff, Plane, PlugZap, Receipt, RefreshCw, Ruler, Scale, Settings, Share,
+  SlidersHorizontal, Smartphone, Sofa, Sparkles, Speech, Sprout, Stethoscope, SunDim, Sunrise, Syringe, Telescope,
+  Thermometer, ThermometerSun, ThumbsUp, Timer, TriangleAlert, Turtle, Tv, Type, UserRound, Users, Utensils, Volume2,
+  VolumeX, Waves, Wheat, Wine,
+  type LucideIcon,
+} from 'lucide-react'
+import type { DotIconName, DrawnIconName, IconName, LucideIconName } from '@/data/types'
 
 export type { IconName }
 
 /** ICONS (prototype line 1125) plus EXTRA ICONS (line 1593): inner SVG markup, verbatim. */
-const ICONS: Partial<Record<IconName, string>> = {
+const ICONS: Partial<Record<DrawnIconName, string>> = {
   home: "<path d=\"M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z\"/>",
   spark: "<path d=\"M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18\"/>",
   tree: "<circle cx=\"12\" cy=\"5\" r=\"2.2\"/><circle cx=\"6\" cy=\"18\" r=\"2.2\"/><circle cx=\"18\" cy=\"18\" r=\"2.2\"/><path d=\"M12 7.2V12M6 15.8V12h12v3.8\"/>",
@@ -45,12 +57,73 @@ const ICONS: Partial<Record<IconName, string>> = {
   lungs: "<path d=\"M12 4v8M12 12c-1.5-1-3 0-3 0V7c-2 0-5 4-5 9 0 2 1 3 2.5 3S9 17 9 15M12 12c1.5-1 3 0 3 0V7c2 0 5 4 5 9 0 2-1 3-2.5 3S15 17 15 15\"/>",
 }
 
+/** The emoji the prototype used, drawn with lucide at the same weight as ICONS. */
+const LUCIDE: Record<LucideIconName, LucideIcon> = {
+  accessibility: Accessibility, activity: Activity, ambulance: Ambulance, ban: Ban, bean: Bean, bed: Bed,
+  'bell-off': BellOff, 'biceps-flexed': BicepsFlexed, bone: Bone, 'book-open': BookOpen, bot: Bot, cake: Cake,
+  calendar: Calendar, camera: Camera, candy: Candy, 'chart-column': ChartColumn, 'cigarette-off': CigaretteOff,
+  'circle-check': CircleCheck, 'circle-help': CircleHelp, 'circle-x': CircleX, 'clipboard-list': ClipboardList,
+  clock: Clock, 'cloud-moon': CloudMoon, 'cloud-rain': CloudRain, 'cloud-sun': CloudSun, coffee: Coffee,
+  compass: Compass, 'cooking-pot': CookingPot, 'door-stairwell': DoorStairwell, droplets: Droplets,
+  dumbbell: Dumbbell, 'fast-forward': FastForward, flame: Flame, 'flask-conical': FlaskConical, folder: Folder,
+  footprints: Footprints, glasses: Glasses, hand: Hand, handshake: Handshake, headphones: Headphones,
+  'heart-crack': HeartCrack, 'heart-handshake': HeartHandshake, 'heart-pulse': HeartPulse, info: Info, leaf: Leaf,
+  lightbulb: Lightbulb, lock: Lock, 'map-pin': MapPin, meh: Meh, 'message-circle': MessageCircle,
+  'notebook-pen': NotebookPen, 'notebook-text': NotebookText, 'octagon-x': OctagonX, package: Package,
+  'party-popper': PartyPopper, 'pen-line': PenLine, 'person-standing': PersonStanding, 'phone-off': PhoneOff,
+  plane: Plane, 'plug-zap': PlugZap, receipt: Receipt, 'refresh-cw': RefreshCw, ruler: Ruler, scale: Scale,
+  settings: Settings, share: Share, 'sliders-horizontal': SlidersHorizontal, smartphone: Smartphone, sofa: Sofa,
+  sparkles: Sparkles, speech: Speech, sprout: Sprout, stethoscope: Stethoscope, 'sun-dim': SunDim, sunrise: Sunrise,
+  syringe: Syringe, telescope: Telescope, thermometer: Thermometer, 'thermometer-sun': ThermometerSun,
+  'thumbs-up': ThumbsUp, timer: Timer, 'triangle-alert': TriangleAlert, turtle: Turtle, tv: Tv, type: Type,
+  'user-round': UserRound, users: Users, utensils: Utensils, 'volume-2': Volume2, 'volume-x': VolumeX, waves: Waves,
+  wheat: Wheat, wine: Wine,
+}
+
+const DOT: Record<DotIconName, string> = { 'dot-green': 'var(--good)', 'dot-amber': 'var(--warn)', 'dot-red': 'var(--bad)' }
+
+type Hue = 'red' | 'rose' | 'orange' | 'amber' | 'green' | 'blue' | 'indigo' | 'purple' | 'slate'
+
+const HUES: Record<Hue, readonly IconName[]> = {
+  red: ['heart', 'heart-pulse', 'heart-crack', 'siren', 'ambulance', 'hospital', 'clinic', 'octagon-x', 'ban', 'circle-x', 'map-pin', 'target'],
+  rose: ['heart-handshake', 'wine', 'cake'],
+  orange: ['flame', 'thermometer', 'thermometer-sun', 'activity', 'dumbbell', 'biceps-flexed', 'utensils', 'cooking-pot', 'coffee'],
+  amber: ['sun', 'sunrise', 'sun-dim', 'cloud-sun', 'lightbulb', 'triangle-alert', 'bolt', 'sparkles', 'spark', 'party-popper', 'bell', 'candy', 'wheat', 'plug-zap', 'thumbs-up'],
+  green: ['leaf', 'sprout', 'tree', 'circle-check', 'check', 'footprints', 'person-standing', 'turtle', 'accessibility', 'shield', 'smile', 'door-stairwell'],
+  blue: ['drop', 'droplets', 'waves', 'cloud', 'cloud-rain', 'wind', 'lungs', 'phone', 'smartphone', 'message-circle', 'speech', 'mic', 'headphones', 'ear', 'volume-2', 'plane', 'info'],
+  indigo: ['moon', 'bed', 'cloud-moon', 'sofa', 'timer', 'clock', 'calendar', 'fast-forward', 'pause', 'play'],
+  purple: ['pill', 'brain', 'syringe', 'flask-conical', 'stethoscope', 'telescope', 'bean', 'bone', 'eye'],
+  slate: ['lock', 'settings', 'user-round', 'users', 'people', 'hand', 'clipboard-list', 'file', 'folder', 'receipt', 'notebook-pen', 'notebook-text', 'pen-line',
+    'ruler', 'scale', 'type', 'tv', 'glasses', 'package', 'book-open', 'news', 'camera', 'volume-x', 'bell-off', 'phone-off', 'meh', 'cigarette-off', 'refresh-cw',
+    'sliders-horizontal', 'circle-help', 'share'],
+}
+const HUE = new Map(Object.entries(HUES).flatMap(([hue, names]) => names.map((n) => [n, hue] as const)))
+
+/** The colour an icon takes when it stands for something (heart red, water blue); unlisted icons use the brand teal. */
+export const hueOf = (name: IconName): string => `var(--hue-${HUE.get(name) ?? 'teal'})`
+
+const isLucide = (name: IconName): name is LucideIconName => name in LUCIDE
+const isDot = (name: IconName): name is DotIconName => name in DOT
+
 /**
  * Same svg as the prototype's `paint()`. Wrap it in `<span className="ic">` where
  * the prototype used `<span class="ic" data-ic>`. Names without a path (the
- * prototype's `watch`) render nothing, as the prototype does.
+ * prototype's `watch`) render nothing, as the prototype does. `tint` colours it by meaning
+ * (where an emoji stood); without it the icon takes the text colour, as nav and buttons need.
  */
-export function Icon({ name }: { name: IconName }) {
+export function Icon({ name, tint }: { name: IconName; tint?: boolean }) {
+  const style = tint ? { color: hueOf(name) } : undefined
+  if (isLucide(name)) {
+    const Lucide = LUCIDE[name]
+    return <Lucide strokeWidth={1.8} aria-hidden="true" style={style} />
+  }
+  if (isDot(name)) {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="6" fill={DOT[name]} />
+      </svg>
+    )
+  }
   const inner = ICONS[name]
   if (!inner) return null
   return (
@@ -62,7 +135,13 @@ export function Icon({ name }: { name: IconName }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
+      style={style}
       dangerouslySetInnerHTML={{ __html: inner }}
     />
   )
+}
+
+/** An icon set inline before text, where the prototype put an emoji: `<Glyph name="pill" />Tablets`. Coloured by meaning. */
+export function Glyph({ name }: { name: IconName }) {
+  return <span className="ic gl"><Icon name={name} tint /></span>
 }

@@ -948,363 +948,408 @@
     "groups": [
       {
         "icon": "heart",
-        "emoji": "❤️",
         "title": "心臟",
         "category": "heart",
         "metrics": [
           {
-            "label": "💓 休息時",
+            "label": "休息時",
             "value": "68 bpm",
             "note": "平時 63",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "heart-pulse"
           },
           {
-            "label": "🚶 行路時",
+            "label": "行路時",
             "value": "92 bpm",
-            "note": "正常"
+            "note": "正常",
+            "icon": "footprints"
           },
           {
-            "label": "🌿 放鬆指數",
+            "label": "放鬆指數",
             "value": "26",
             "note": "低過平時",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "leaf"
           },
           {
-            "label": "⏱️ 行路後回復",
+            "label": "行路後回復",
             "value": "18 下",
-            "note": "1 分鐘內"
+            "note": "1 分鐘內",
+            "icon": "timer"
           },
           {
-            "label": "📈 今日範圍",
+            "label": "今日範圍",
             "value": "58–112",
-            "note": "bpm"
+            "note": "bpm",
+            "icon": "trend"
           },
           {
-            "label": "🏃 體能水平",
+            "label": "體能水平",
             "value": "一般",
-            "note": "以佢年紀嚟講"
+            "note": "以佢年紀嚟講",
+            "icon": "activity"
           }
         ]
       },
       {
         "icon": "lungs",
-        "emoji": "🫁",
         "title": "心跳同呼吸",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚡ 心跳唔規律",
+            "label": "心跳唔規律",
             "value": "2 次警示",
             "note": "今個星期",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "bolt"
           },
           {
-            "label": "🌙 夜晚心跳唔規律",
+            "label": "夜晚心跳唔規律",
             "value": "~3%",
             "note": "嘅夜晚時間",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "📄 心電圖（ECG）",
+            "label": "心電圖（ECG）",
             "value": "正常",
             "note": "10月12日",
-            "tone": "good"
+            "tone": "good",
+            "icon": "file"
           },
           {
-            "label": "🩸 血含氧量",
+            "label": "血含氧量",
             "value": "95%",
-            "note": "正常"
+            "note": "正常",
+            "icon": "drop"
           },
           {
-            "label": "🌬️ 每分鐘呼吸",
+            "label": "每分鐘呼吸",
             "value": "15",
-            "note": "瞓緊 · 正常"
+            "note": "瞓緊 · 正常",
+            "icon": "wind"
           },
           {
-            "label": "🌡️ 皮膚溫度",
+            "label": "皮膚溫度",
             "value": "正常",
-            "note": "+0.3°"
+            "note": "+0.3°",
+            "icon": "thermometer"
           }
         ]
       },
       {
-        "icon": "trend",
-        "emoji": "🔥",
+        "icon": "flame",
         "title": "活動同體力",
         "category": "activity",
         "metrics": [
           {
-            "label": "👣 步數",
+            "label": "步數",
             "value": "3,240",
-            "note": "目標 3,500"
+            "note": "目標 3,500",
+            "icon": "footprints"
           },
           {
-            "label": "📏 距離",
+            "label": "距離",
             "value": "2.1 公里",
-            "note": "已行"
+            "note": "已行",
+            "icon": "ruler"
           },
           {
-            "label": "🪜 樓梯",
+            "label": "樓梯",
             "value": "2 層",
-            "note": "已行上"
+            "note": "已行上",
+            "icon": "door-stairwell"
           },
           {
-            "label": "🔥 活動卡路里",
+            "label": "活動卡路里",
             "value": "212",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "flame"
           },
           {
-            "label": "🛋️ 靜止卡路里",
+            "label": "靜止卡路里",
             "value": "1,428",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "sofa"
           },
           {
-            "label": "🏋️ 運動",
+            "label": "運動",
             "value": "18 分鐘",
             "note": "目標 30",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "dumbbell"
           }
         ]
       },
       {
-        "icon": "people",
-        "emoji": "🚶",
+        "icon": "footprints",
         "title": "行路同平衡",
         "category": "activity",
         "metrics": [
           {
-            "label": "🐢 行路速度",
+            "label": "行路速度",
             "value": "慢咗",
             "note": "0.82 米/秒",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "turtle"
           },
           {
-            "label": "👟 步幅",
+            "label": "步幅",
             "value": "51 cm",
-            "note": "平時 54"
+            "note": "平時 54",
+            "icon": "footprints"
           },
           {
-            "label": "🦶 雙腳着地",
+            "label": "雙腳着地",
             "value": "34%",
             "note": "冇咁穩",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "footprints"
           },
           {
-            "label": "⚖️ 步伐平均",
+            "label": "步伐平均",
             "value": "係",
-            "note": "相差 6%"
+            "note": "相差 6%",
+            "icon": "scale"
           },
           {
-            "label": "🧍 穩定度",
+            "label": "穩定度",
             "value": "低",
             "note": "較易跌倒",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "person-standing"
           },
           {
-            "label": "🕕 6 分鐘步行",
+            "label": "6 分鐘步行",
             "value": "310 m",
-            "note": "平時 340"
+            "note": "平時 340",
+            "icon": "timer"
           }
         ]
       },
       {
-        "icon": "moon",
-        "emoji": "😴",
+        "icon": "bed",
         "title": "睡眠",
         "category": "sleep",
         "metrics": [
           {
-            "label": "🛌 瞓咗",
+            "label": "瞓咗",
             "value": "6 小時 12 分",
             "note": "平時 7 小時",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "bed"
           },
           {
-            "label": "✨ 瞓得好",
+            "label": "瞓得好",
             "value": "81%",
-            "note": "喺床上嘅時間"
+            "note": "喺床上嘅時間",
+            "icon": "sparkles"
           },
           {
-            "label": "🌑 深層睡眠",
+            "label": "深層睡眠",
             "value": "52 分鐘",
-            "note": "幫身體回復"
+            "note": "幫身體回復",
+            "icon": "moon"
           },
           {
-            "label": "💭 發夢睡眠",
+            "label": "發夢睡眠",
             "value": "52 分鐘",
-            "note": "正常"
+            "note": "正常",
+            "icon": "cloud-moon"
           },
           {
-            "label": "👀 醒咗",
+            "label": "醒咗",
             "value": "6 次",
             "note": "醒咗 38 分鐘",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "eye"
           },
           {
-            "label": "🕙 上床時間",
+            "label": "上床時間",
             "value": "晚上 10:41",
-            "note": "幾有規律"
+            "note": "幾有規律",
+            "icon": "clock"
           }
         ]
       },
       {
         "icon": "smile",
-        "emoji": "😊",
         "title": "心情同陪伴",
         "category": "mood",
         "metrics": [
           {
-            "label": "😊 今日心情",
+            "label": "今日心情",
             "value": "開心",
             "note": "聽佢把聲判斷",
-            "tone": "good"
+            "tone": "good",
+            "icon": "smile"
           },
           {
-            "label": "🙂 今個星期",
+            "label": "今個星期",
             "value": "大致唔錯",
-            "note": "穩定"
+            "note": "穩定",
+            "icon": "smile"
           },
           {
-            "label": "🫂 覺得孤單",
+            "label": "覺得孤單",
             "value": "有少少",
-            "note": "9 分中 4 分"
+            "note": "9 分中 4 分",
+            "icon": "heart-handshake"
           },
           {
-            "label": "📞 電話",
+            "label": "電話",
             "value": "5",
-            "note": "今個星期"
+            "note": "今個星期",
+            "icon": "phone"
           },
           {
-            "label": "🏡 探訪",
+            "label": "探訪",
             "value": "2",
-            "note": "今個星期"
+            "note": "今個星期",
+            "icon": "home"
           },
           {
-            "label": "🧘 放鬆呼吸",
+            "label": "放鬆呼吸",
             "value": "10 分鐘",
-            "note": "今日"
+            "note": "今日",
+            "icon": "wind"
           }
         ]
       },
       {
         "icon": "drop",
-        "emoji": "💧",
         "title": "身體同飲食",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚖️ 體重",
+            "label": "體重",
             "value": "61.2 kg",
-            "note": "穩定"
+            "note": "穩定",
+            "icon": "scale"
           },
           {
-            "label": "📐 體重指數（BMI）",
+            "label": "體重指數（BMI）",
             "value": "健康",
-            "note": "23.4"
+            "note": "23.4",
+            "icon": "ruler"
           },
           {
-            "label": "💧 飲水",
+            "label": "飲水",
             "value": "1.1 / 1.5 公升",
             "note": "要飲多啲",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "drop"
           },
           {
-            "label": "🍽️ 餐數",
+            "label": "餐數",
             "value": "3",
-            "note": "佢用把聲話我哋知"
+            "note": "佢用把聲話我哋知",
+            "icon": "utensils"
           },
           {
-            "label": "🫖 茶",
+            "label": "茶",
             "value": "2",
-            "note": "今日"
+            "note": "今日",
+            "icon": "coffee"
           },
           {
-            "label": "🌡️ 體溫",
+            "label": "體溫",
             "value": "36.7°",
-            "note": "正常"
+            "note": "正常",
+            "icon": "thermometer"
           }
         ]
       },
       {
         "icon": "ear",
-        "emoji": "👂",
         "title": "聽覺同感官",
         "category": "speech",
         "metrics": [
           {
-            "label": "🔊 周圍噪音",
+            "label": "周圍噪音",
             "value": "62 dB",
-            "note": "正常"
+            "note": "正常",
+            "icon": "volume-2"
           },
           {
-            "label": "📺 電視音量",
+            "label": "電視音量",
             "value": "大聲",
             "note": "74 dB",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "tv"
           },
           {
-            "label": "❓「吓？」",
+            "label": "「吓？」",
             "value": "9 次",
             "note": "今個星期",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-help"
           },
           {
-            "label": "🦻 助聽器",
+            "label": "助聽器",
             "value": "冇戴",
             "note": "今日",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "ear"
           },
           {
-            "label": "☀️ 戶外時間",
+            "label": "戶外時間",
             "value": "38 分鐘",
-            "note": "目標 60"
+            "note": "目標 60",
+            "icon": "sun"
           },
           {
-            "label": "🔠 螢幕字體",
+            "label": "螢幕字體",
             "value": "特大",
-            "note": "28 pt"
+            "note": "28 pt",
+            "icon": "type"
           }
         ]
       },
       {
         "icon": "pill",
-        "emoji": "💊",
         "title": "藥同血壓",
         "category": "meds",
         "metrics": [
           {
-            "label": "✅ 準時食藥",
+            "label": "準時食藥",
             "value": "86%",
             "note": "有啲漏咗",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-check"
           },
           {
-            "label": "🌅 朝早血壓",
+            "label": "朝早血壓",
             "value": "146/88",
             "note": "偏高",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "sunrise"
           },
           {
-            "label": "🌙 夜晚血壓",
+            "label": "夜晚血壓",
             "value": "139/84",
             "note": "有啲高",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "💊 今日",
+            "label": "今日",
             "value": "3 次食咗 2 次",
-            "note": "下次 6 點"
+            "note": "下次 6 點",
+            "icon": "pill"
           },
           {
-            "label": "❌ 漏咗",
+            "label": "漏咗",
             "value": "3",
             "note": "今個星期",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-x"
           },
           {
-            "label": "📦 剩低嘅藥",
+            "label": "剩低嘅藥",
             "value": "12 日",
-            "note": "就快要補藥"
+            "note": "就快要補藥",
+            "icon": "package"
           }
         ]
       }
@@ -2434,38 +2479,44 @@
       ],
       "stats": [
         {
-          "label": "🗣️ 講嘢速度",
+          "label": "講嘢速度",
           "value": "132",
-          "note": "每分鐘字數 · 平時 141"
+          "note": "每分鐘字數 · 平時 141",
+          "icon": "speech"
         },
         {
-          "label": "⏸️ 停頓",
+          "label": "停頓",
           "value": "多咗少少",
           "note": "比平時",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "pause"
         },
         {
-          "label": "✅ 講嘢清楚",
+          "label": "講嘢清楚",
           "value": "係",
           "note": "冇口齒不清",
-          "tone": "good"
+          "tone": "good",
+          "icon": "circle-check"
         },
         {
-          "label": "🔤 諗唔到個字",
+          "label": "諗唔到個字",
           "value": "3 次",
-          "note": "平時一兩次"
+          "note": "平時一兩次",
+          "icon": "type"
         },
         {
-          "label": "👂「吓？」",
+          "label": "「吓？」",
           "value": "2 次",
           "note": "聽覺",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "ear"
         },
         {
-          "label": "😊 心情",
+          "label": "心情",
           "value": "開心",
           "note": "好日子",
-          "tone": "good"
+          "tone": "good",
+          "icon": "smile"
         }
       ]
     },
@@ -2476,37 +2527,43 @@
       },
       "stats": [
         {
-          "label": "🌡️ 屋企入面",
+          "label": "屋企入面",
           "value": "29.5°",
           "note": "太熱",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "thermometer"
         },
         {
-          "label": "☀️ 出面",
+          "label": "出面",
           "value": "33°",
-          "note": "體感 35°"
+          "note": "體感 35°",
+          "icon": "sun"
         },
         {
-          "label": "💦 濕度",
+          "label": "濕度",
           "value": "58%",
-          "note": "屋企入面"
+          "note": "屋企入面",
+          "icon": "droplets"
         },
         {
-          "label": "🍃 空氣",
+          "label": "空氣",
           "value": "好",
           "note": "今日空氣清新",
-          "tone": "good"
+          "tone": "good",
+          "icon": "wind"
         },
         {
-          "label": "🕶️ 紫外線",
+          "label": "紫外線",
           "value": "極高",
           "note": "留喺陰涼地方",
-          "tone": "bad"
+          "tone": "bad",
+          "icon": "glasses"
         },
         {
-          "label": "💧 飲水提醒",
+          "label": "飲水提醒",
           "value": "8 次中 6 次",
-          "note": "有回應"
+          "note": "有回應",
+          "icon": "drop"
         }
       ],
       "note": "星期四預測 38 °C。助手會喺中午加一次報平安，仲會提出車佢去圖書館嘅避暑室（120 個位，400 米）。"

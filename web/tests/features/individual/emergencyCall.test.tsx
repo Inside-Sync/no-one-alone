@@ -101,9 +101,9 @@ test('speech check: ready, then listening to Q2, then the slurred verdict and fi
   const { rerender } = renderWithProviders(card([q1]))
   expect(screen.getByText('Ready · baseline from 41 morning chats')).toBeInTheDocument()
   rerender(card([q1, turn('PERSON', 'yes', 'SLURRED'), q2]))
-  expect(screen.getByText('🎙️ Listening to Margaret…')).toBeInTheDocument()
+  expect(screen.getByText('Listening to Margaret…')).toBeInTheDocument()
   rerender(card([q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', 'the sky iz', 'SLURRED')]))
-  expect(screen.getByText('⚠ Slurred speech detected · possible stroke')).toBeInTheDocument()
+  expect(screen.getByText('Slurred speech detected · possible stroke')).toBeInTheDocument()
   expect(screen.getByText('0.41')).toBeInTheDocument()
   expect(screen.queryByText('✓ Clear · matches her normal voice')).toBeNull()
 })
@@ -111,5 +111,5 @@ test('speech check: ready, then listening to Q2, then the slurred verdict and fi
 test('speech check: a re-asked speech question still shows the latest verdict', () => {
   const again = turn('AGENT', 'Say after me again, the sky is blue in Sydney.')
   renderWithProviders(card([q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', '', 'CLEAR'), again, turn('PERSON', 'iz', 'SLURRED')]))
-  expect(screen.getByText('⚠ Slurred speech detected · possible stroke')).toBeInTheDocument()
+  expect(screen.getByText('Slurred speech detected · possible stroke')).toBeInTheDocument()
 })

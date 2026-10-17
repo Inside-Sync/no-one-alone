@@ -1,33 +1,33 @@
 {
-  "title": "🔐 Who sees what",
+  "title": "Who sees what",
   "meta": "Tap a switch to share or stop sharing · changes apply straight away",
   "quick": "Quick choices:",
   "presets": [
     {
       "kind": "family",
-      "label": "👨‍👩‍👧 Family sees most, not my mood"
+      "label": "Family sees most, not my mood"
     },
     {
       "kind": "safety",
-      "label": "🚨 Safety alerts only"
+      "label": "Safety alerts only"
     },
     {
       "kind": "all",
-      "label": "🤝 Share everything with family"
+      "label": "Share everything with family"
     }
   ],
-  "pause": "⏸️ Pause sharing until tomorrow",
-  "resume": "▶️ Resume sharing",
+  "pause": "Pause sharing until tomorrow",
+  "resume": "Resume sharing",
   "what": "What",
   "lockedTitle": "Always on for emergency contacts",
-  "fine": "🚨 Safety alerts can't be turned off for your emergency contacts, so someone can always come if you need help. You can change who your emergency contacts are.",
+  "fine": "Safety alerts can't be turned off for your emergency contacts, so someone can always come if you need help. You can change who your emergency contacts are.",
   "preview": {
-    "title": "👁️ Preview",
+    "title": "Preview",
     "meta": "See exactly what someone sees",
     "toast": "Previewing what {{name}} sees"
   },
   "emergency": {
-    "title": "🏥 In an emergency",
+    "title": "In an emergency",
     "meta": "Agreed 1 October",
     "text": "If you need an ambulance, the hospital receives your conditions, tablets and allergy, so they can help quickly. Nothing else, and only for that visit.",
     "agreement": [
@@ -43,7 +43,7 @@
     "clinician": "Clinicians see named patients only where the patient consented to hospital sharing."
   },
   "audit": {
-    "title": "🧾 Changes you made",
+    "title": "Changes you made",
     "meta": "Newest first",
     "empty": "No changes yet",
     "label": "Audit log"

@@ -1,33 +1,33 @@
 {
-  "title": "🔐 Ai xem được gì",
+  "title": "Ai xem được gì",
   "meta": "Chạm vào công tắc để chia sẻ hoặc ngừng chia sẻ · thay đổi có hiệu lực ngay",
   "quick": "Chọn nhanh:",
   "presets": [
     {
       "kind": "family",
-      "label": "👨‍👩‍👧 Gia đình xem gần hết, trừ tâm trạng của tôi"
+      "label": "Gia đình xem gần hết, trừ tâm trạng của tôi"
     },
     {
       "kind": "safety",
-      "label": "🚨 Chỉ cảnh báo an toàn"
+      "label": "Chỉ cảnh báo an toàn"
     },
     {
       "kind": "all",
-      "label": "🤝 Chia sẻ mọi thứ với gia đình"
+      "label": "Chia sẻ mọi thứ với gia đình"
     }
   ],
-  "pause": "⏸️ Tạm dừng chia sẻ đến ngày mai",
-  "resume": "▶️ Tiếp tục chia sẻ",
+  "pause": "Tạm dừng chia sẻ đến ngày mai",
+  "resume": "Tiếp tục chia sẻ",
   "what": "Mục",
   "lockedTitle": "Luôn bật cho người liên hệ khẩn cấp",
-  "fine": "🚨 Không thể tắt cảnh báo an toàn cho người liên hệ khẩn cấp của bà, để luôn có người đến khi bà cần giúp. Bà có thể thay đổi người liên hệ khẩn cấp.",
+  "fine": "Không thể tắt cảnh báo an toàn cho người liên hệ khẩn cấp của bà, để luôn có người đến khi bà cần giúp. Bà có thể thay đổi người liên hệ khẩn cấp.",
   "preview": {
-    "title": "👁️ Xem trước",
+    "title": "Xem trước",
     "meta": "Xem chính xác những gì một người thấy",
     "toast": "Đang xem trước những gì {{name}} thấy"
   },
   "emergency": {
-    "title": "🏥 Khi khẩn cấp",
+    "title": "Khi khẩn cấp",
     "meta": "Đã đồng ý ngày 1/10",
     "text": "Nếu bà cần xe cứu thương, bệnh viện sẽ nhận thông tin bệnh lý, thuốc và dị ứng của bà để giúp bà nhanh chóng. Không có gì khác, và chỉ cho lần khám đó.",
     "agreement": [
@@ -43,7 +43,7 @@
     "clinician": "Nhân viên y tế chỉ thấy bệnh nhân có tên khi bệnh nhân đã đồng ý chia sẻ với bệnh viện."
   },
   "audit": {
-    "title": "🧾 Những thay đổi bà đã làm",
+    "title": "Những thay đổi bà đã làm",
     "meta": "Mới nhất trước",
     "empty": "Chưa có thay đổi nào",
     "label": "Nhật ký thay đổi"

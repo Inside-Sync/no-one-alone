@@ -6,7 +6,7 @@ import { renderWithProviders } from '../../helpers/renderWithProviders'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/health/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
-const ready = () => screen.findByText('📲 Where this comes from')
+const ready = () => screen.findByText('Where this comes from')
 const svgByLabel = (re: RegExp) => screen.getByRole('img', { name: re })
 
 test('is registered for individual/health', () => {
@@ -18,10 +18,10 @@ test('shows every section heading in prototype order', async () => {
   await ready()
   const heads = Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)
   expect(heads).toEqual([
-    "🎯 Today's goals", '❤️ Heartbeat over the last day',
+    "Today's goals", 'Heartbeat over the last day',
     'Heart', 'Heartbeat and breathing', 'Moving and energy', 'Walking and balance', 'Sleep', 'Mood and company',
     'Body and food', 'Hearing and senses', 'Tablets and blood pressure',
-    "😴 Last night's sleep", '😊 Mood, last 2 weeks', '👣 Steps, last 2 weeks', '🩺 Blood pressure, last 2 weeks', '📲 Where this comes from',
+    "Last night's sleep", 'Mood, last 2 weeks', 'Steps, last 2 weeks', 'Blood pressure, last 2 weeks', 'Where this comes from',
   ])
   expect(screen.getByText('22:41 – 05:58 · 6 h 12 min asleep')).toBeInTheDocument()
   expect(screen.getByText('Goal 3,500')).toBeInTheDocument()
@@ -58,24 +58,25 @@ test('devices table lists all seven sources and a row opens its drawer', async (
   const drawer = document.getElementById('drawer')!
   expect(within(drawer).getByRole('heading', { name: 'Bluetooth BP cuff' })).toBeInTheDocument()
   expect(within(drawer).getByText('Morning + evening')).toBeInTheDocument()
-  fireEvent.click(within(drawer).getByRole('button', { name: '📤 Share with family' }))
+  fireEvent.click(within(drawer).getByRole('button', { name: 'Share with family' }))
   expect(document.getElementById('toast')!.textContent).toBe('Shared')
 })
 
 test('a metric tile opens its info drawer', async () => {
   renderWithProviders(<HealthPage />, { who: 'self' })
   await ready()
-  fireEvent.click(screen.getByRole('button', { name: /🐢 Walking speed/ }))
+  fireEvent.click(screen.getByRole('button', { name: /Walking speed/ }))
   const drawer = document.getElementById('drawer')!
   expect(within(drawer).getByText(/one of the best early signs of a higher chance of falling/)).toBeInTheDocument()
 })
 
-const HEART = ['Heart rate over 24 hours', 'Morning systolic rose', '💓 At rest', '⚡ Uneven heartbeat', '⚖️ Weight']
-const SLEEP = ['Sleep stages: 6 wakes', '🛌 Asleep']
-const ACTIVITY = ['Steps over 14 days', '👣 Steps', '🐢 Walking speed']
-const MOOD = ['Mood over 14 days', '😊 Mood today', 'Better on walking-group days']
-const MEDS = ['✅ Taken on time', '🌅 Morning BP']
-const SPEECH = ['🔊 Noise around her', '🦻 Hearing aids']
+const HEART = ['Heart rate over 24 hours', 'Morning systolic rose', '>At rest<', '>Uneven heartbeat<', '>Weight<']
+const SLEEP = ['Sleep stages: 6 wakes', '>Asleep<']
+const ACTIVITY = ['Steps over 14 days', '>Steps<', '>Walking speed<']
+const MOOD = ['Mood over 14 days', '>Mood today<', 'Better on walking-group days']
+const MEDS = ['>Taken on time<', '>Morning BP<']
+const SPEECH = ['>Noise around her<', '>Hearing aids<']
+/** Group labels are matched as whole text nodes (`>Weight<`): a bare word also turns up in longer copy. */
 const html = () => document.body.innerHTML
 const absent = (list: string[]) => list.forEach((t) => expect(html()).not.toContain(t))
 const present = (list: string[]) => list.forEach((t) => expect(html()).toContain(t))
@@ -99,17 +100,17 @@ test('heart off removes the heartbeat, blood pressure and both heart group cards
   await ready()
   present(HEART)
   act(() => r.app().toggleShare('sarah', 'heart'))
-  await waitFor(() => expect(screen.queryByText('❤️ Heartbeat over the last day')).toBeNull())
+  await waitFor(() => expect(screen.queryByText('Heartbeat over the last day')).toBeNull())
   absent(HEART)
   present([...SLEEP, ...ACTIVITY]) // other categories stay
-  expect(screen.getByText("🎯 Today's goals")).toBeInTheDocument() // untagged card stays
+  expect(screen.getByText("Today's goals")).toBeInTheDocument() // untagged card stays
 })
 
 test('sleep off removes the sleep chart and the sleep group', async () => {
   const r = renderWithProviders(<HealthPage />, { who: 'family', viewer: 'sarah' })
   await ready()
   act(() => r.app().toggleShare('sarah', 'sleep'))
-  await waitFor(() => expect(screen.queryByText("😴 Last night's sleep")).toBeNull())
+  await waitFor(() => expect(screen.queryByText("Last night's sleep")).toBeNull())
   absent([...SLEEP, '22:41 – 05:58'])
 })
 
@@ -117,7 +118,7 @@ test('activity off removes the steps chart and both activity groups', async () =
   const r = renderWithProviders(<HealthPage />, { who: 'family', viewer: 'sarah' })
   await ready()
   act(() => r.app().toggleShare('sarah', 'activity'))
-  await waitFor(() => expect(screen.queryByText('👣 Steps, last 2 weeks')).toBeNull())
+  await waitFor(() => expect(screen.queryByText('Steps, last 2 weeks')).toBeNull())
   absent(ACTIVITY)
 })
 
@@ -126,9 +127,9 @@ test('pausing sharing removes every category card but keeps the untagged ones', 
   await ready()
   present([...HEART, ...SLEEP])
   act(() => r.app().togglePause())
-  await waitFor(() => expect(screen.queryByText('❤️ Heartbeat over the last day')).toBeNull())
+  await waitFor(() => expect(screen.queryByText('Heartbeat over the last day')).toBeNull())
   absent([...HEART, ...SLEEP, ...ACTIVITY, ...MOOD, ...MEDS, ...SPEECH])
   expect(screen.getAllByText('Margaret paused sharing until tomorrow').length).toBe(9 + 5)
-  expect(screen.getByText("🎯 Today's goals")).toBeInTheDocument()
-  expect(screen.getByText('📲 Where this comes from')).toBeInTheDocument()
+  expect(screen.getByText("Today's goals")).toBeInTheDocument()
+  expect(screen.getByText('Where this comes from')).toBeInTheDocument()
 })

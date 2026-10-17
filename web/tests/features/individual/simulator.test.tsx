@@ -50,7 +50,7 @@ afterEach(() => { vi.unstubAllGlobals() })
 
 const render = async () => {
   renderWithProviders(<LivePage />)
-  await screen.findByRole('heading', { name: '🎛️ Simulator' })
+  await screen.findByRole('heading', { name: 'Simulator' })
 }
 const click = (name: string) => fireEvent.click(screen.getByRole('button', { name }))
 
@@ -64,29 +64,29 @@ describe('watch', () => {
   const mount = async () => {
     renderWithProviders(<LivePage />)
     await act(async () => { await vi.advanceTimersByTimeAsync(0) })
-    expect(screen.getByRole('heading', { name: '🎛️ Simulator' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Simulator' })).toBeInTheDocument()
   }
 
   test('the top bar Night alert demo selects Night emergency and starts it', async () => {
     await mount()
-    expect(screen.getByRole('button', { name: '🌙 Night emergency' })).toHaveAttribute('aria-pressed', 'false')
+    expect(screen.getByRole('button', { name: 'Night emergency' })).toHaveAttribute('aria-pressed', 'false')
     act(() => { window.dispatchEvent(new Event(NIGHT_DEMO)) })
-    expect(screen.getByRole('button', { name: '🌙 Night emergency' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'Night emergency' })).toHaveAttribute('aria-pressed', 'true')
     await beat(4000)
     expect(start).toHaveBeenCalledWith('stroke', { hr: 137, movementMin: 10, noReplySeconds: 45 })
   })
 
   test('Night emergency starts stroke once after 4 readings, with HR 137 and 10 min still', async () => {
     await mount()
-    click('🌙 Night emergency')
-    expect(screen.getByRole('button', { name: '🌙 Night emergency' })).toHaveAttribute('aria-pressed', 'true')
+    click('Night emergency')
+    expect(screen.getByRole('button', { name: 'Night emergency' })).toHaveAttribute('aria-pressed', 'true')
     await beat(3000)
     expect(start).not.toHaveBeenCalled()
     await beat(1000)
     expect(start).toHaveBeenCalledTimes(1)
     expect(start).toHaveBeenCalledWith('stroke', { hr: 137, movementMin: 10, noReplySeconds: 45 })
     await beat(10_000)
-    click('▶️ Resume')
+    click('Resume')
     await beat(5000)
     expect(start).toHaveBeenCalledTimes(1)
   })
@@ -97,7 +97,7 @@ describe('watch', () => {
     expect(start).not.toHaveBeenCalled()
     slide('Not moving for', 10)
     expect(screen.getByText('140 bpm')).toBeInTheDocument()
-    expect(screen.getByText('10 min ⚠️')).toBeInTheDocument()
+    expect(screen.getByText('10 min')).toBeInTheDocument()
     expect(start).toHaveBeenCalledTimes(1)
     expect(start).toHaveBeenCalledWith('stroke', { hr: 140, movementMin: 10, noReplySeconds: 45 })
   })
@@ -113,9 +113,9 @@ describe('watch', () => {
 
   test('Faster: the night preset fires after 4 readings of 250 ms', async () => {
     await mount()
-    click('⏩ Faster')
-    expect(screen.getByRole('button', { name: '🐢 Normal speed' })).toBeInTheDocument()
-    click('🌙 Night emergency')
+    click('Faster')
+    expect(screen.getByRole('button', { name: 'Normal speed' })).toBeInTheDocument()
+    click('Night emergency')
     await beat(750)
     expect(start).not.toHaveBeenCalled()
     await beat(250)
@@ -127,7 +127,7 @@ describe('watch', () => {
     await mount()
     expect(screen.getByRole('slider', { name: 'Heart rate' })).toBeDisabled()
     expect(screen.getByRole('slider', { name: 'Not moving for' })).toBeDisabled()
-    click('🌙 Night emergency')
+    click('Night emergency')
     await beat(30_000)
     expect(start).not.toHaveBeenCalled()
     expect(screen.getByText('01:30')).toBeInTheDocument()

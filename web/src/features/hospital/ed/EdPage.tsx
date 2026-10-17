@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from '@/app/navigation'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph } from '@/components/ui/Icon'
 import type { LabelValue } from '@/data/types'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
@@ -52,7 +53,7 @@ export function EdPage() {
       {live && incident?.handoff && !incident.recovery && (
         <GlassCard span={12}>
           <div className="row" style={{ borderLeft: '4px solid var(--brand)', paddingLeft: 14, justifyContent: 'space-between' }}>
-            <span><b>{t('ed.discharge.title')}</b><small className="meta" style={{ display: 'block' }}>{t('ed.discharge.sub')}</small></span>
+            <span><b><Glyph name="stethoscope" />{t('ed.discharge.title')}</b><small className="meta" style={{ display: 'block' }}>{t('ed.discharge.sub')}</small></span>
             <button type="button" className="btn" onClick={() => router.push('/hospital/discharge')}>{t('ed.discharge.open')}</button>
           </div>
         </GlassCard>

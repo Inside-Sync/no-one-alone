@@ -2,7 +2,7 @@
   "careRecord": {
     "kpis": [
       {
-        "emoji": "📁",
+        "icon": "folder",
         "label": "Hồ sơ sức khỏe",
         "value": "1,284",
         "unit": "",
@@ -23,7 +23,7 @@
         ]
       },
       {
-        "emoji": "🏥",
+        "icon": "hospital",
         "label": "Lượt khám từ 2023",
         "value": "46",
         "unit": "",
@@ -44,7 +44,7 @@
         ]
       },
       {
-        "emoji": "💊",
+        "icon": "pill",
         "label": "Thuốc",
         "value": "4",
         "unit": "",
@@ -65,7 +65,7 @@
         ]
       },
       {
-        "emoji": "🧪",
+        "icon": "flask-conical",
         "label": "Kết quả xét nghiệm",
         "value": "212",
         "unit": "",
@@ -86,7 +86,7 @@
         ]
       },
       {
-        "emoji": "✅",
+        "icon": "circle-check",
         "label": "Hồ sơ đầy đủ",
         "value": "94",
         "unit": "%",
@@ -107,7 +107,7 @@
         ]
       },
       {
-        "emoji": "📅",
+        "icon": "calendar",
         "label": "Ngày từ lần khám bác sĩ",
         "value": "32",
         "unit": "ngày",

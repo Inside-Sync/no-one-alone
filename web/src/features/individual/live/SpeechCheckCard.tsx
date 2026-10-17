@@ -3,6 +3,7 @@
 import { useTranslation } from 'react-i18next'
 import { NoaOrb } from '@/components/noa/NoaOrb'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import type { IncidentDoc, TurnDoc } from '@/data/contract'
 import { clockTime } from '@/domain/incident'
 import { rng } from '@/lib/rng'
@@ -69,7 +70,9 @@ const METRICS: [normal: string, clear: string, slurred: string, n: number, c: nu
   ['steady', 'steady', 'shaky', 0.9, 0.88, 0.35],
 ]
 
-const HOW_ICONS = ['🎧', '💬', '📊', '🔴']
+const HOW_ICONS: IconName[] = ['headphones', 'message-circle', 'chart-column', 'dot-red']
+/** The verdict states whose text had an icon before it. */
+const STATE_ICON: Partial<Record<State, IconName>> = { listen: 'mic', slurred: 'triangle-alert' }
 
 /** Noa Speech Check (c12, prototype part 10): her own voice against tonight's sentence, five measures and the verdict. */
 export function SpeechCheckCard({ incident, name, timeZone }: { incident: IncidentDoc | null; name: string; timeZone: string }) {
@@ -89,9 +92,9 @@ export function SpeechCheckCard({ incident, name, timeZone }: { incident: Incide
         <span className="tag spk-tag">{t('speech.tag')}</span>
         <span className="meta">{t('speech.meta', { name })}</span>
         {/* Once there is a verdict it gets the banner below instead of the pill. */}
-        {!show && <span className={`pill ${pill}`} id="spkVerdict">{t(`speech.state.${state}`, { name })}</span>}
+        {!show && <span className={`pill ${pill}`} id="spkVerdict">{STATE_ICON[state] && <Glyph name={STATE_ICON[state]} />}{t(`speech.state.${state}`, { name })}</span>}
       </div>
-      {show && <div className={`spk-verdict ${state}`} role="status">{t(`speech.state.${state}`, { name })}</div>}
+      {show && <div className={`spk-verdict ${state}`} role="status">{STATE_ICON[state] && <Glyph name={STATE_ICON[state]} />}{t(`speech.state.${state}`, { name })}</div>}
       <div className="spk-grid">
         <div className="spk-waves">
           <div className="spk-row">
@@ -139,7 +142,7 @@ export function SpeechCheckCard({ incident, name, timeZone }: { incident: Incide
       </div>
       <ol className="spk-how">
         {(t('speech.how', { returnObjects: true }) as [string, string][]).map(([b, rest], k) => (
-          <li key={k} className={k === HOW_ICONS.length - 1 ? 'red' : undefined}><b aria-hidden="true">{HOW_ICONS[k]}</b><span><strong>{b}</strong> {rest}</span></li>
+          <li key={k} className={k === HOW_ICONS.length - 1 ? 'red' : undefined}><b><span className="ic"><Icon name={HOW_ICONS[k]} tint /></span></b><span><strong>{b}</strong> {rest}</span></li>
         ))}
       </ol>
       <p className="fine">{t('speech.fine')}</p>

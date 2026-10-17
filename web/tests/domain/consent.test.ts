@@ -25,7 +25,7 @@ test('countSees', () => {
 import { CATEGORIES } from '@/domain/consent'
 test('CATEGORIES verbatim, in CATEGORY_IDS order', () => {
   expect(CATEGORIES.map((c) => c.id)).toEqual([...CATEGORY_IDS])
-  expect(CATEGORIES[6]).toEqual({ id: 'meds', emoji: '💊', name: 'Tablets', detail: 'Taken or missed' })
+  expect(CATEGORIES[6]).toEqual({ id: 'meds', icon: 'pill', name: 'Tablets', detail: 'Taken or missed' })
   expect(CATEGORIES[1].name).toBe('"I\'m OK" check-ins')
   expect(CATEGORIES[10].detail).toBe('Never an address or a map')
 })

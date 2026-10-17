@@ -39,7 +39,7 @@
       "toast": "Đã đề nghị xe cứu thương chuyển hướng"
     },
     "recovery": {
-      "title": "📝 Kế hoạch xuất viện và hồi phục",
+      "title": "Kế hoạch xuất viện và hồi phục",
       "meta": "Sửa, duyệt, rồi trợ lý gửi tới cổng của Margaret bằng lời dễ hiểu",
       "staff": "Bác sĩ",
       "diagnosis": "Chẩn đoán",
@@ -57,7 +57,7 @@
       "sentAt": "Đã cho về nhà lúc {{time}}",
       "sent": "Đã cho về nhà",
       "failed": "Không gửi được kế hoạch",
-      "delivering": "⏳ Trợ lý đang gửi…",
+      "delivering": "Trợ lý đang gửi…",
       "why": "Vì sao: {{text}}",
       "medHead": "Thuốc",
       "doseHead": "Liều",
@@ -78,10 +78,10 @@
       },
       "calls": "Cuộc gọi hỏi thăm của trợ lý",
       "callDay": "✓ Ngày {{day}}",
-      "finalise": "✍️ Chốt kế hoạch",
-      "signed": "✍️ {{name}} đã chốt · {{time}}",
+      "finalise": "Chốt kế hoạch",
+      "signed": "{{name}} đã chốt · {{time}}",
       "editAgain": "Sửa lại",
-      "approve": "✅ Duyệt và giao cho Noa",
+      "approve": "Duyệt và giao cho Noa",
       "approveNote": "Trợ lý chuyển kế hoạch sang lời dễ hiểu, đặt lời nhắc và chia sẻ với người thân theo cài đặt của Margaret.",
       "toastFinal": "Đã chốt và ký kế hoạch. Giờ hãy duyệt để giao cho trợ lý.",
       "toastSent": "Kế hoạch hồi phục đã tới cổng của Margaret",
@@ -96,9 +96,9 @@
       }
     },
     "discharge": {
-      "title": "🩺 Sẵn sàng xuất viện: Margaret Collins, 78",
+      "title": "Sẵn sàng xuất viện: Margaret Collins, 78",
       "sub": "Đột quỵ thiếu máu, đã tiêu sợi huyết · rung nhĩ kịch phát mới · kế hoạch hồi phục chờ duyệt",
-      "open": "📝 Mở hồ sơ và kế hoạch hồi phục"
+      "open": "Mở hồ sơ và kế hoạch hồi phục"
     }
   },
   "panel": {

@@ -1,11 +1,11 @@
 {
   "goals": {
-    "title": "🎯 Today's goals",
+    "title": "Today's goals",
     "meta": "Set with her GP",
     "of": "of {{goal}} {{unit}}"
   },
   "hr": {
-    "title": "❤️ Heartbeat over the last day",
+    "title": "Heartbeat over the last day",
     "meta": "Beats per minute",
     "ariaLabel": "Heart rate over 24 hours: 55 to 62 asleep with two irregular rhythm alerts at 02:14 and 03:40, peak 112 on the morning walk",
     "asleep": "asleep",
@@ -31,11 +31,11 @@
     ]
   },
   "hypno": {
-    "title": "😴 Last night's sleep",
+    "title": "Last night's sleep",
     "ariaLabel": "Sleep stages: 6 wakes, 52 minutes deep sleep, 52 minutes REM"
   },
   "mood": {
-    "title": "😊 Mood, last 2 weeks",
+    "title": "Mood, last 2 weeks",
     "meta": "From her own taps and how she sounds",
     "ariaLabel": "Mood over 14 days, mostly pleasant, dips on two hot days, highest on walking group days",
     "top": "Pleasant",
@@ -44,13 +44,13 @@
     "walk": "walk"
   },
   "steps": {
-    "title": "👣 Steps, last 2 weeks",
+    "title": "Steps, last 2 weeks",
     "meta": "Goal 3,500",
     "ariaLabel": "Steps over 14 days, goal met on 7 days",
     "goal": "goal 3,500"
   },
   "bp": {
-    "title": "🩺 Blood pressure, last 2 weeks",
+    "title": "Blood pressure, last 2 weeks",
     "meta": "Morning and evening readings",
     "ariaLabel": "Morning systolic rose from 134 to 146 and evening from 128 to 139 over 14 days",
     "legend": [
@@ -69,7 +69,7 @@
     ]
   },
   "devices": {
-    "title": "📲 Where this comes from",
+    "title": "Where this comes from",
     "columns": [
       "Device",
       "Metrics",

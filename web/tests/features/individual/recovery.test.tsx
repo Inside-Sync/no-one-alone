@@ -102,7 +102,7 @@ test('a stopped medicine gets no reminder row, a stop chip, and stays out of the
   render(<RecoveryCard recovery={{ ...recovery, ...plan } as RecoveryDoc} tz="UTC" />)
   expect(screen.queryByText('Time for your clopidogrel, 75 mg.')).toBeNull()
   expect(screen.getByText('Time for your ramipril, 5 mg.')).toBeInTheDocument()
-  expect(screen.getByText('⛔ Stop: Clopidogrel')).toBeInTheDocument()
+  expect(screen.getByText('Stop: Clopidogrel')).toBeInTheDocument()
   expect(screen.getByText('No driving for 1 month')).toBeInTheDocument()
   const list = screen.getByRole('heading', { name: 'Your medicines, explained' }).nextElementSibling as HTMLElement
   expect([...list.querySelectorAll('li strong')].map((b) => b.textContent)).toEqual(['Warfarin 3 mg', 'Ramipril 5 mg', 'Atorvastatin 40 mg', 'Vitamin D 1000 IU'])
@@ -113,7 +113,7 @@ test('a stopped medicine gets no reminder row, a stop chip, and stays out of the
 test("Noa's hand-off lines name the plan's new and stopped medicines, first slot and GP date", () => {
   liveValue.incident = { recovery: { ...recovery, ...plan } } as unknown as IncidentDoc
   renderWithProviders(<RecoveryPage />, { who: 'family' })
-  const card = screen.getByRole('heading', { name: '💬 What Noa told Margaret' }).closest('article')!
+  const card = screen.getByRole('heading', { name: 'What Noa told Margaret' }).closest('article')!
   expect(within(card).getByText("You have 2 new tablets: warfarin and ramipril. Please stop taking clopidogrel. I've told the pharmacy and updated your pill box.")).toBeInTheDocument()
   expect(within(card).getByText(/Your next one is at 08:00: Ramipril 5 mg \+ Vitamin D 1000 IU\.$/)).toBeInTheDocument()
   expect(within(card).getByText(/Your GP review with Dr Patel at 10:30 is Fri 23 Oct\. David can drive you\.$/)).toBeInTheDocument()

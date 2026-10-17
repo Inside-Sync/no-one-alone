@@ -50,7 +50,7 @@ function renderApp(ui: React.ReactElement, viewer = 'james') {
 
 const drBody = () => document.getElementById('drBody')!.textContent ?? ''
 const isOpen = () => document.getElementById('drawer')!.classList.contains('on')
-const ready = () => screen.findByText('🤖 What Noa did today')
+const ready = () => screen.findByText('What Noa did today')
 
 test('closed BP drawer: pausing sharing drops its value from the DOM at once', async () => {
   renderApp(<HomePage />)
@@ -170,12 +170,12 @@ test('each opening starts fresh: "Ask her about it" is not already "Added" in th
   }
   renderApp(<Openers />)
   fireEvent.click(screen.getByText('openA'))
-  const ask = screen.getByText('🗣️ Ask her about it').closest('button')!
+  const ask = screen.getByText('Ask her about it').closest('button')!
   fireEvent.click(ask)
   expect(document.querySelector<HTMLButtonElement>('#drBody .btn')!.disabled).toBe(true)
   fireEvent.click(screen.getByText('shut'))
   fireEvent.click(screen.getByText('openB'))
   const first = document.querySelector<HTMLButtonElement>('#drBody .btn')!
-  expect(first.textContent).toBe('🗣️ Ask her about it')
+  expect(first.textContent).toBe('Ask her about it')
   expect(first.disabled).toBe(false)
 })

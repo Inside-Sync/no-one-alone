@@ -7,7 +7,7 @@ import i18n from '@/i18n'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/forecast/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
-const ready = () => screen.findByText('ℹ️ How this forecast works')
+const ready = () => screen.findByText('How this forecast works')
 const strokeCell = () => screen.getByText('Stroke · 90 d').closest('div')!
 
 test('is registered for individual/forecast', () => {
@@ -18,8 +18,8 @@ test('sections appear in prototype order with the disclaimer card', async () => 
   renderWithProviders(<ForecastPage />, { who: 'self' })
   await ready()
   expect(Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)).toEqual([
-    'ℹ️ How this forecast works', '📊 Chances over time', '🎛️ Try it: what if…', 'Morning systolic blood pressure',
-    '⚖️ What pushes her stroke risk up or down', '👀 What we keep an eye on',
+    'How this forecast works', 'Chances over time', 'Try it: what if…', 'Morning systolic blood pressure',
+    'What pushes her stroke risk up or down', 'What we keep an eye on',
   ])
   expect(screen.getByText('Example figures for a prototype')).toBeInTheDocument()
   expect(screen.getByText('Her doctor, not the app')).toBeInTheDocument()
@@ -94,7 +94,7 @@ test('forecast cards are not consent-tagged: nothing is locked when sharing is p
   await ready()
   act(() => r.app().togglePause())
   await waitFor(() => expect(r.app().paused).toBe(true))
-  expect(screen.getByText('📊 Chances over time')).toBeInTheDocument()
+  expect(screen.getByText('Chances over time')).toBeInTheDocument()
   expect(document.querySelectorAll('.locked')).toHaveLength(0)
 })
 
@@ -102,7 +102,7 @@ test('in Vietnamese the mode toast names the mode in Vietnamese', async () => {
   await act(() => i18n.changeLanguage('vi'))
   try {
     renderWithProviders(<ForecastPage />, { who: 'self' })
-    await screen.findByText('ℹ️ Dự báo này hoạt động thế nào')
+    await screen.findByText('Dự báo này hoạt động thế nào')
     fireEvent.click(screen.getByRole('button', { name: /Chế độ khiếm thính/ }))
     expect(document.getElementById('toast')!.textContent).toBe('Đã tắt chế độ khiếm thính')
   } finally {

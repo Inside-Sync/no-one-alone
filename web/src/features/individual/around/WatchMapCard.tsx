@@ -6,7 +6,7 @@ import type { Canvas3DHandle } from '@/components/canvas/useCanvas3D'
 import { LocationMap, pinsToMarkers } from '@/components/maps/LocationMap'
 import { DEFAULT_HEADING, DEFAULT_TILT, HEADING_STEP, MAP_CENTER, mapsEnabled } from '@/components/maps/mapsConfig'
 import { Chip } from '@/components/ui/Chip'
-import { Icon } from '@/components/ui/Icon'
+import { Glyph, Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import { useTranslation } from 'react-i18next'
 import type { CityGeometry, Surroundings } from '@/data/types'
@@ -28,7 +28,7 @@ export function WatchMapCard({ s, geometry }: { s: Surroundings; geometry: CityG
   return (
     <article className="glass map-card c8">
       <div className="map-top">
-        <div className="loc"><span className="k">{map.kicker}</span><b>{map.title}</b><small>{map.detail}</small></div>
+        <div className="loc"><span className="k"><Glyph name={map.icon} />{map.kicker}</span><b>{map.title}</b><small>{map.detail}</small></div>
         <div className="map-ctrl">
           <button type="button" className="rb" aria-label={t('home:mapControls.left')} onClick={() => turn(-1)}><span className="ic"><Icon name="left" /></span></button>
           <button type="button" className="rb" aria-label={t('home:mapControls.right')} onClick={() => turn(1)}><span className="ic"><Icon name="right" /></span></button>

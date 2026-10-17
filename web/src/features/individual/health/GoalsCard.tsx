@@ -25,12 +25,12 @@ function Gauge({ g }: { g: GoalGauge }) {
   )
 }
 
-/** `🎯 Today's goals` (c4): three gauges and the day's totals. Not tagged with a consent category. */
+/** `Today's goals` (c4): three gauges and the day's totals. Not tagged with a consent category. */
 export function GoalsCard({ health }: { health: HealthData }) {
   const { t } = useTranslation('health')
   return (
     <GlassCard span={4}>
-      <Head title={t('goals.title')} meta={t('goals.meta')} />
+      <Head icon="target" title={t('goals.title')} meta={t('goals.meta')} />
       <div className="gauges">{health.goals.map((g) => <Gauge key={g.label} g={g} />)}</div>
       <MiniGrid stats={health.goalTotals} />
     </GlassCard>

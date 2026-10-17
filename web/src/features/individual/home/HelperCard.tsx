@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph } from '@/components/ui/Icon'
 import { OnceButton } from '@/components/ui/OnceButton'
 import { useDrawer } from '@/components/ui/Drawer'
 import { Pill } from '@/components/ui/Pill'
@@ -33,14 +34,14 @@ function RowDrawerBody({ entry }: { entry: HelperLogEntry }) {
   )
 }
 
-/** `🤖 What the helper did today` (c12): the audit table; rows needing approval carry an Approve button. */
+/** `What the helper did today` (c12): the audit table; rows needing approval carry an Approve button. */
 export function HelperCard({ log }: { log: HelperLogEntry[] }) {
   const { t } = useTranslation(['home', 'common'])
   const drawer = useDrawer()
   return (
     <GlassCard span={12}>
       <div className="ch">
-        <h2>{t('helper.title')}</h2>
+        <h2><Glyph name="bot" />{t('helper.title')}</h2>
         <span className="meta">{t('helper.meta')}</span>
       </div>
       <TableScroll>

@@ -1,7 +1,7 @@
 {
-  "modelTitle": "ℹ️ How this forecast works",
+  "modelTitle": "How this forecast works",
   "risks": {
-    "title": "📊 Chances over time",
+    "title": "Chances over time",
     "meta": "Levels set by demo rules, not probabilities",
     "columns": [
       "What could happen",
@@ -11,7 +11,7 @@
     ]
   },
   "sim": {
-    "title": "🎛️ Try it: what if…",
+    "title": "Try it: what if…",
     "meta": "Move the sliders",
     "hearingSwitchLabel": "Wears hearing aids daily",
     "adherenceValue": "{{n}}%",
@@ -76,11 +76,11 @@
     }
   },
   "shap": {
-    "title": "⚖️ What pushes her stroke risk up or down",
+    "title": "What pushes her stroke risk up or down",
     "meta": "Red pushes up · green pulls down"
   },
   "signs": {
-    "title": "👀 What we keep an eye on",
+    "title": "What we keep an eye on",
     "meta": "Today compared with her usual",
     "columns": [
       "Sign",

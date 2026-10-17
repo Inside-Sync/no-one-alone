@@ -257,14 +257,14 @@ describe('verbatim spot checks', () => {
   })
   test('individual KPI tiles are the plain-language set', async () => {
     const p = await getPerson('margaret')
-    expect(p.kpis[1]).toMatchObject({ emoji: '🩺', label: 'Blood pressure', value: '146', unit: '/88', tone: 'warn' })
+    expect(p.kpis[1]).toMatchObject({ icon: 'stethoscope', label: 'Blood pressure', value: '146', unit: '/88', tone: 'warn' })
     expect(p.kpisTechnical[1]).toMatchObject({ label: 'Blood pressure (7 d)', delta: '+2.8σ' })
     expect(p.kpis.every((k) => k.spark.length === 9)).toBe(true)
   })
   test('the forecast disclaimer card text is present', async () => {
     const f = await getForecast('margaret')
     expect(f.modelMeta).toBe('Example figures for a prototype')
-    expect(f.model.at(-1)).toEqual({ emoji: '🧑‍⚕️', label: 'Decides', value: 'Her doctor, not the app' })
+    expect(f.model.at(-1)).toEqual({ icon: 'stethoscope', label: 'Decides', value: 'Her doctor, not the app' })
   })
   test('pre-arrival pathway demo steps', async () => {
     const h = await getHospital()

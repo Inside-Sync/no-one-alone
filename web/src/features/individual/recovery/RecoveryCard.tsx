@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph, Icon } from '@/components/ui/Icon'
 import type { RecoveryDoc } from '@/data/contract'
 import { audioUrl } from '@/data/repo'
 import { SLOTS, dayLabel, isStopped, medsExplained, nextReminder, todayTasks, type Reminder } from '@/domain/recovery'
@@ -10,7 +11,7 @@ export function Play({ path }: { path?: string }) {
   const { t } = useTranslation('me')
   if (!path) return null
   const play = () => { audioUrl(path).then((url) => new Audio(url).play()).catch(() => {}) }
-  return <button type="button" className="btn soft sm" onClick={play}>{`▶ ${t('recovery.play')}`}</button>
+  return <button type="button" className="btn soft sm" onClick={play}><Glyph name="play" />{t('recovery.play')}</button>
 }
 
 const keyOf = (r: Reminder) => r.time + r.text
@@ -39,7 +40,7 @@ export function RecoveryCard({ recovery, tz, who = 'self' }: { recovery: Recover
       <p style={{ fontSize: 16 }}>{recovery.summary}</p>
       <Play path={recovery.summaryAudioPath} />
       <div className="row" style={{ margin: '10px 0' }}>
-        {recovery.meds.filter(isStopped).map((m, i) => <span key={i} className="pill bad">{t('recovery.stop', { name: m.name })}</span>)}
+        {recovery.meds.filter(isStopped).map((m, i) => <span key={i} className="pill bad"><Glyph name="octagon-x" />{t('recovery.stop', { name: m.name })}</span>)}
         {recovery.activities.filter((a) => !a.times.length).map((a) => <span key={a.text} className="chip" style={{ whiteSpace: 'normal' }}>{a.text}</span>)}
       </div>
       {next && (
@@ -73,7 +74,7 @@ export function RecoveryCard({ recovery, tz, who = 'self' }: { recovery: Recover
       <ul className="list">
         {meds.map((m, i) => (
           <li key={i}>
-            <b aria-hidden="true">💊</b>
+            <span className="ic"><Icon name="pill" tint /></span>
             <span>
               <strong>{m.name} {m.dose}</strong>{m.times.length > 0 && ` · ${m.times.map((x) => (x in SLOTS ? t(`recovery.slots.${SLOTS[x as keyof typeof SLOTS]}`) : x)).join(', ')}`}
               {m.why && <small style={{ display: 'block' }}>{m.why}</small>}

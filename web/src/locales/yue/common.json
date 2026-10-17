@@ -118,31 +118,31 @@
   "packetNote": "只會喺緊急情況下、並已有同意記錄時，以 FHIR bundle 形式傳送畀接收嘅急症室。",
   "notifications": [
     [
-      "⚠️",
+      "triangle-alert",
       "要你批准：David 準備嘅每週藥盒",
       "琴日 21:40",
       "warn"
     ],
     [
-      "🔥",
+      "flame",
       "星期四酷熱警告 · 計劃已準備好",
       "2 個鐘前",
       "warn"
     ],
     [
-      "🛡️",
+      "shield",
       "佢條街有人報告騙徒上門",
       "5 個鐘前",
       "bad"
     ],
     [
-      "✅",
+      "circle-check",
       "Dr Patel 已睇咗血壓報告",
       "琴日 16:42",
       "good"
     ],
     [
-      "😊",
+      "smile",
       "Margaret 13:02 傾咗一次好開心嘅偈",
       "2 個鐘前",
       "good"
@@ -150,12 +150,12 @@
   ],
   "condActions": [
     [
-      "🗣️ 問下佢",
+      "問下佢",
       "已加入佢下次傾偈",
       "已加入"
     ],
     [
-      "🩺 同 Dr Patel 提",
+      "同 Dr Patel 提",
       "已加入睇家庭醫生嘅議程",
       "已加入"
     ]
@@ -168,60 +168,60 @@
     "請 David 準備藥盒": "✓ 已叫 David",
     "將血壓報告傳畀 Dr Patel": "✓ 已傳送",
     "傳血壓報告畀 Dr Patel": "✓ 已傳送",
-    "打畀媽媽": "📞 撥緊…",
-    "致電媽媽": "📞 撥緊…",
+    "打畀媽媽": "撥緊…",
+    "致電媽媽": "撥緊…",
     "審閱": "✓ 已審閱",
     "覆核": "✓ 已覆核",
     "傳呼中風小組": "✓ 已傳呼",
     "Approve": "✓ 已批准",
     "Ask David to set up a pill box": "✓ 已叫 David",
     "Send BP report to Dr Patel": "✓ 已傳送",
-    "Call Mum": "📞 撥緊…",
+    "Call Mum": "撥緊…",
     "Review": "✓ 已審閱",
     "Page stroke team": "✓ 已傳呼",
     "Divert": "✓ 已發出改道通知",
     "叫David整藥盒": "✓ 已叫 David",
     "將血壓報告畀Dr Patel": "✓ 已傳送",
-    "打畀媽咪": "📞 撥緊…"
+    "打畀媽咪": "撥緊…"
   },
   "drawerActions": {
     "row": [
       [
-        "🗣️ 問下佢",
+        "問下佢",
         "已加入佢下次傾偈",
         "已加入"
       ],
       [
-        "📤 同家人分享",
+        "同家人分享",
         "已分享",
         "已分享"
       ]
     ],
     "alert": [
       [
-        "🗣️ 用語音話畀 Margaret 知",
+        "用語音話畀 Margaret 知",
         "Margaret 下次通話會聽到",
         "會話畀佢知"
       ],
       [
-        "📤 分享畀 David",
+        "分享畀 David",
         "已傳畀 David",
         "已傳送"
       ],
       [
-        "✅ 標記為已處理",
+        "標記為已處理",
         "已標記為已處理",
         "已處理"
       ]
     ],
     "news": [
       [
-        "🗣️ 讀畀 Margaret 聽",
+        "讀畀 Margaret 聽",
         "佢 18:00 會聽到簡短版本",
         "已排隊"
       ],
       [
-        "📤 同家人分享",
+        "同家人分享",
         "已同照顧圈分享",
         "已分享"
       ]
@@ -234,10 +234,10 @@
   },
   "saveFailed": "儲存唔到呢個改動 · 已經還原",
   "keptPrivate": {
-    "title": "🔒 保密",
+    "title": "保密",
     "body": "Margaret 揀咗唔同 {{viewerName}} 分享呢樣嘢。呢個係佢嘅決定，佢隨時都可以改。",
     "action": {
-      "label": "💬 客氣咁問下 Margaret",
+      "label": "客氣咁問下 Margaret",
       "toast": "Margaret 會收到一個溫和嘅請求，佢可以答應或者拒絕",
       "done": "已送出請求"
     },
@@ -256,8 +256,8 @@
     "chooseView": "揀視圖",
     "brandBy": "由 InsideSync 出品",
     "whose": "邊個嘅視圖",
-    "whoSelf": "👵 Margaret（佢自己嘅 app）",
-    "whoFamily": "👨‍👩‍👧 家人同照顧者",
+    "whoSelf": "Margaret（佢自己嘅 app）",
+    "whoFamily": "家人同照顧者",
     "search": {
       "placeholder": "搵人、搵區…",
       "label": "搜尋",
@@ -294,25 +294,25 @@
   },
   "tabs": {
     "family": {
-      "home": "🏠 主頁",
-      "health": "❤️ 健康",
-      "around": "🌤️ 佢身邊",
-      "forecast": "🔮 未來",
-      "lineage": "🌳 家族健康",
-      "record": "📋 護理記錄",
-      "live": "🚨 緊急",
-      "recovery": "🌱 康復",
-      "device": "📱 佢部電話"
+      "home": "主頁",
+      "health": "健康",
+      "around": "佢身邊",
+      "forecast": "未來",
+      "lineage": "家族健康",
+      "record": "護理記錄",
+      "live": "緊急",
+      "recovery": "康復",
+      "device": "佢部電話"
     },
     "self": {
-      "me": "🌞 我嘅一日",
-      "recovery": "🌱 我嘅康復",
-      "health": "❤️ 我嘅健康",
-      "live": "🚨 緊急",
-      "privacy": "🔐 邊個睇到乜",
-      "around": "🌤️ 我身邊",
-      "lineage": "🌳 我屋企人嘅健康",
-      "device": "📱 我部電話"
+      "me": "我嘅一日",
+      "recovery": "我嘅康復",
+      "health": "我嘅健康",
+      "live": "緊急",
+      "privacy": "邊個睇到乜",
+      "around": "我身邊",
+      "lineage": "我屋企人嘅健康",
+      "device": "我部電話"
     },
     "hospital": {
       "ed": "到院前",

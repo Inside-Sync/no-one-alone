@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import type { RecoveryDoc } from '@/data/contract'
 import {
@@ -50,7 +51,7 @@ function ChangePill({ change }: { change?: Med['change'] }) {
   return <span className={`pill ${change === 'Continue' ? 'plain' : 'warn'}`}>{t(`recovery.change.${change}`)}</span>
 }
 
-const FAST = [['😐', 'face'], ['💪', 'arm'], ['🗣️', 'speech'], ['⏱️', 'time']] as const
+const FAST = [['meh', 'face'], ['biceps-flexed', 'arm'], ['speech', 'speech'], ['timer', 'time']] as const satisfies readonly (readonly [IconName, string])[]
 
 function CallButton({ big }: { big?: boolean }) {
   const { t } = useTranslation('me')
@@ -81,7 +82,7 @@ function CallList({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; da
     <ul className="list">
       {followUpCalls(recovery.createdAt, tz).map((c) => (
         <li key={c.day}>
-          <span className="li">💬</span>
+          <span className="li"><span className="ic"><Icon name="message-circle" tint /></span></span>
           <span>
             <b>{t('recovery.calls.when', { day: c.day, date: dayLabel(c.date, i18n.language) })}</b>
             <small>{t(`recovery.calls.topics.${c.day}` as 'recovery.calls.topics.1')}</small>
@@ -100,7 +101,7 @@ function ApptList({ recovery }: { recovery: RecoveryDoc }) {
   return (
     <ul className="list">
       {recovery.followUps.map((f) => (
-        <li key={f.text}><span className="li">📅</span><span><b>{f.text}</b><small>{dayLabel(f.date, i18n.language)}</small></span></li>
+        <li key={f.text}><span className="li"><span className="ic"><Icon name="calendar" tint /></span></span><span><b>{f.text}</b><small>{dayLabel(f.date, i18n.language)}</small></span></li>
       ))}
     </ul>
   )
@@ -112,7 +113,7 @@ function MedList({ recovery }: { recovery: RecoveryDoc }) {
     <ul className="list">
       {medsExplained(recovery).map((m) => (
         <li key={m.name}>
-          <span className="li">💊</span>
+          <span className="li"><span className="ic"><Icon name="pill" tint /></span></span>
           <span><b>{m.name} {m.dose}{m.times.length > 0 && ` · ${medLine(m)}`}</b>{m.why && <small>{m.why}</small>}</span>
           <ChangePill change={m.change} />
         </li>
@@ -130,7 +131,7 @@ function Detailed({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; da
   return (
     <>
       <GlassCard span={8}>
-        <div className="ch"><h2>{t('recovery.self.happened')}</h2><span className="meta">{t('recovery.self.happenedMeta')}</span></div>
+        <div className="ch"><h2><Glyph name="sprout" />{t('recovery.self.happened')}</h2><span className="meta">{t('recovery.self.happenedMeta')}</span></div>
         <p className="rec-sum">{recovery.summary}</p>
         <div className="row"><Play path={recovery.summaryAudioPath} /></div>
         <div className="rec-prog">
@@ -139,33 +140,33 @@ function Detailed({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; da
           <span>{t('recovery.self.doneToday', { done: done.size, total: tasks.length })}</span>
         </div>
         <div className="row">
-          {stopped.map((m) => <span key={m.name} className="chip rec-stop">{t('recovery.stop', { name: m.name })}</span>)}
+          {stopped.map((m) => <span key={m.name} className="chip rec-stop"><Glyph name="octagon-x" />{t('recovery.stop', { name: m.name })}</span>)}
           {recovery.activities.filter((a) => !a.times.length).map((a) => <span key={a.text} className="chip rec-wrap">{a.text}</span>)}
         </div>
       </GlassCard>
       <GlassCard span={4}>
-        <div className="ch"><h2>{t('recovery.self.nextTitle')}</h2></div>
+        <div className="ch"><h2><Glyph name="clock" />{t('recovery.self.nextTitle')}</h2></div>
         {next ? (
           <>
             <div className="rec-next-time">{next.time}</div>
-            <div className="rec-next-text">{taskIcon(next)} {next.title}</div>
+            <div className="rec-next-text"><Glyph name={taskIcon(next)} />{next.title}</div>
             {next.why && <p className="fine">{next.why}</p>}
             <div className="row"><TaskButton task={next} day={day} /><Play path={next.audioPath} /></div>
           </>
         ) : (
           <>
-            <div className="rec-next-text">{t('recovery.self.allDone')}</div>
+            <div className="rec-next-text"><Glyph name="party-popper" />{t('recovery.self.allDone')}</div>
             {tasks[0] && <p className="fine">{t('recovery.nextTomorrow', { time: tasks[0].time, text: tasks[0].title })}</p>}
           </>
         )}
       </GlassCard>
       <GlassCard span={6}>
-        <div className="ch"><h2>{t('recovery.self.tasksTitle')}</h2><span className="meta">{t('recovery.self.tasksMeta')}</span></div>
+        <div className="ch"><h2><Glyph name="pill" />{t('recovery.self.tasksTitle')}</h2><span className="meta">{t('recovery.self.tasksMeta')}</span></div>
         <ul className="rec-today">
           {tasks.map((task) => (
             <li key={task.id} className={done.has(task.id) ? 'done' : next?.id === task.id ? 'now' : undefined}>
               <span className="rec-tm">{task.time}</span>
-              <span aria-hidden="true">{taskIcon(task)}</span>
+              <span className="ic"><Icon name={taskIcon(task)} tint /></span>
               <span><b>{task.title}</b>{task.why && <small>{task.why}</small>}</span>
               {done.has(task.id) ? <span className="pill good">✓</span> : <TaskButton task={task} day={day} />}
             </li>
@@ -177,13 +178,13 @@ function Detailed({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; da
         {meds.length > 0 && <MedList recovery={recovery} />}
       </GlassCard>
       <GlassCard span={4}>
-        <div className="ch"><h2>{t('recovery.self.appts')}</h2></div>
+        <div className="ch"><h2><Glyph name="calendar" />{t('recovery.self.appts')}</h2></div>
         <ApptList recovery={recovery} />
       </GlassCard>
       <GlassCard span={4} className="rec-fast">
-        <div className="ch"><h2>{t('recovery.self.fast.title')}</h2></div>
+        <div className="ch"><h2><Glyph name="siren" />{t('recovery.self.fast.title')}</h2></div>
         <ul className="why">
-          {FAST.map(([ic, k]) => <li key={k}><span>{ic}</span><span><b>{t(`recovery.self.fast.${k}`)}</b> {t(`recovery.self.fast.${k}Text`)}</span></li>)}
+          {FAST.map(([ic, k]) => <li key={k}><span className="ic"><Icon name={ic} tint /></span><span><b>{t(`recovery.self.fast.${k}`)}</b> {t(`recovery.self.fast.${k}Text`)}</span></li>)}
         </ul>
         <div className="row"><CallButton /></div>
       </GlassCard>
@@ -203,6 +204,7 @@ function Detailed({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; da
 
 type Pane = 'meds' | 'appts' | 'calls' | 'help'
 const PANES: Pane[] = ['meds', 'appts', 'calls', 'help']
+const TAB_ICON: Record<Pane, IconName> = { meds: 'pill', appts: 'calendar', calls: 'phone', help: 'siren' }
 
 /** Simple layout: one task at a time in large type with two big buttons; everything else sits behind four tabs. */
 function Simple({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; day: Day }) {
@@ -229,7 +231,7 @@ function Simple({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; day:
           <>
             <span className="vbanner">{t('recovery.self.simple.now')}</span>
             <div className="rec-now-time">{next.time}</div>
-            <div className="rec-now-text">{taskIcon(next)} {next.title}</div>
+            <div className="rec-now-text"><Glyph name={taskIcon(next)} />{next.title}</div>
             {next.why && <p>{next.why}</p>}
             <div className="rec-big">
               <TaskButton task={next} day={day} label={t(next.kind === 'MED' ? 'recovery.self.simple.tookThem' : 'recovery.self.simple.didIt')} />
@@ -239,7 +241,7 @@ function Simple({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; day:
           </>
         ) : (
           <>
-            <div className="rec-now-text">{t('recovery.self.allDone')}</div>
+            <div className="rec-now-text"><Glyph name="party-popper" />{t('recovery.self.allDone')}</div>
             {tasks[0] && <p>{t('recovery.nextTomorrow', { time: tasks[0].time, text: tasks[0].title })}</p>}
           </>
         )}
@@ -249,7 +251,7 @@ function Simple({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; day:
         <GlassCard>
           <div className="ch"><h2>{t('recovery.self.simple.later')}</h2><span className="meta">{t('recovery.self.simple.laterMeta')}</span></div>
           {later.length
-            ? <div className="rec-strip">{later.map((x) => <div key={x.id}><span className="rec-tm">{x.time}</span><b>{taskIcon(x)} {x.title}</b></div>)}</div>
+            ? <div className="rec-strip">{later.map((x) => <div key={x.id}><span className="rec-tm">{x.time}</span><b><Glyph name={taskIcon(x)} />{x.title}</b></div>)}</div>
             : <p className="me-sub">{t('recovery.self.simple.nothingLater')}</p>}
         </GlassCard>
       )}
@@ -257,7 +259,7 @@ function Simple({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; day:
       <div className="glass rec-tabs" role="tablist">
         {PANES.map((p) => (
           <button key={p} type="button" role="tab" id={`rec-tab-${p}`} aria-selected={pane === p} aria-controls="rec-pane" onClick={() => setPane(p)}>
-            {t(`recovery.self.simple.tabs.${p}`)}
+            <Glyph name={TAB_ICON[p]} />{t(`recovery.self.simple.tabs.${p}`)}
           </button>
         ))}
       </div>
@@ -266,7 +268,7 @@ function Simple({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; day:
           <>
             <div className="ch">
               <h2>{t('recovery.self.simple.tablets')}</h2>
-              {stopped.map((m) => <span key={m.name} className="pill bad">{t('recovery.stop', { name: m.name })}</span>)}
+              {stopped.map((m) => <span key={m.name} className="pill bad"><Glyph name="octagon-x" />{t('recovery.stop', { name: m.name })}</span>)}
             </div>
             <MedList recovery={recovery} />
           </>
@@ -280,9 +282,9 @@ function Simple({ recovery, tz, day }: { recovery: RecoveryDoc; tz: string; day:
         )}
         {pane === 'help' && (
           <>
-            <div className="ch"><h2>{t('recovery.self.fast.title')}</h2></div>
+            <div className="ch"><h2><Glyph name="siren" />{t('recovery.self.fast.title')}</h2></div>
             <div className="rec-fastbig">
-              {FAST.map(([ic, k]) => <div key={k}><b>{ic} {t(`recovery.self.fast.${k}`)}</b>{t(`recovery.self.fast.${k}Text`)}</div>)}
+              {FAST.map(([ic, k]) => <div key={k}><b><Glyph name={ic} />{t(`recovery.self.fast.${k}`)}</b>{t(`recovery.self.fast.${k}Text`)}</div>)}
             </div>
             <div className="rec-big"><CallButton big /></div>
             <h3>{t('recovery.self.simple.happened')}</h3>
@@ -309,7 +311,7 @@ export function SelfRecovery({ recovery, tz }: { recovery: RecoveryDoc; tz: stri
       <div className="c12 rec-layout">
         <div className="views" role="group" aria-label={t('recovery.self.layout.label')}>
           {(['detailed', 'simple'] as const).map((l) => (
-            <button key={l} type="button" aria-pressed={layout === l} onClick={() => choose(l)}>{t(`recovery.self.layout.${l}`)}</button>
+            <button key={l} type="button" aria-pressed={layout === l} onClick={() => choose(l)}><Glyph name={l === 'detailed' ? 'clipboard-list' : 'sun-dim'} />{t(`recovery.self.layout.${l}`)}</button>
           ))}
         </div>
       </div>

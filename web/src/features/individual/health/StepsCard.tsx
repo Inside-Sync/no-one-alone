@@ -28,13 +28,13 @@ function StepsChart({ steps, goal }: { steps: number[]; goal: number }) {
   )
 }
 
-/** `👣 Steps, last 2 weeks` (c6, activity category). */
+/** `Steps, last 2 weeks` (c6, activity category). */
 export function StepsCard({ steps, goal }: { steps: number[]; goal: number }) {
   const { t } = useTranslation('health')
   return (
     <Locked cat="activity" span={6}>
       <GlassCard span={6} className="chart">
-        <Head title={t('steps.title')} meta={t('steps.meta')} />
+        <Head icon="footprints" title={t('steps.title')} meta={t('steps.meta')} />
         <div id="steps14"><StepsChart steps={steps} goal={goal} /></div>
       </GlassCard>
     </Locked>

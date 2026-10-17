@@ -6,19 +6,20 @@ import { Locked } from '@/components/ui/Locked'
 import { OnceButton } from '@/components/ui/OnceButton'
 import { useDrawer } from '@/components/ui/Drawer'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph } from '@/components/ui/Icon'
 import type { Person } from '@/data/types'
 import { ConditionDrawerBody } from './drawers'
 import { Head } from './parts'
 import { textTone } from '@/lib/tone'
 
-/** `👤 About Margaret` (c12): ID, profile grid, tappable conditions (records category) and lifestyle chips. */
+/** `About Margaret` (c12): ID, profile grid, tappable conditions (records category) and lifestyle chips. */
 export function ProfileCard({ person }: { person: Person }) {
   const { t } = useTranslation('home')
   const drawer = useDrawer()
   const { profile } = person
   return (
     <GlassCard span={12} id="profile">
-      <Head title={t('profile.title')} meta={profile.checkedBy}>
+      <Head icon="user-round" title={t('profile.title')} meta={profile.checkedBy}>
         <OnceButton className="soft sm" toast={profile.shareToast} done={`✓ ${t('profile.share.done')}`}>{t('profile.share.label')}</OnceButton>
       </Head>
       <div className="prof">
@@ -27,11 +28,11 @@ export function ProfileCard({ person }: { person: Person }) {
           <div><b>{person.name}</b><small>{t('profile.born', { born: person.born, nickname: person.nickname })}</small></div>
         </div>
         <div className="pf-grid">
-          {profile.rows.map((r) => <div key={r.label}><small>{`${r.emoji} ${r.label}`}</small><b>{r.value}</b></div>)}
+          {profile.rows.map((r) => <div key={r.label}><small><Glyph name={r.icon} />{r.label}</small><b>{r.value}</b></div>)}
         </div>
       </div>
       <div className="ch" style={{ marginTop: 2 }}>
-        <h2 style={{ fontSize: 14 }}>{t('profile.conditionsTitle')}</h2>
+        <h2 style={{ fontSize: 14 }}><Glyph name="stethoscope" />{t('profile.conditionsTitle')}</h2>
         <span className="meta">{t('profile.conditionsMeta')}</span>
       </div>
       <Locked cat="records" span={12}>
@@ -42,16 +43,16 @@ export function ProfileCard({ person }: { person: Person }) {
               type="button"
               className="cond"
               style={{ '--c': cond.color, '--c-text': textTone(cond.color) } as React.CSSProperties}
-              onClick={() => drawer.open(`${cond.emoji} ${cond.title}`, <ConditionDrawerBody condition={cond} />)}
+              onClick={() => drawer.open(cond.title, <ConditionDrawerBody condition={cond} />)}
             >
-              <b>{`${cond.emoji} ${cond.title}`}</b><small>{cond.since}</small><em>{cond.now}</em>
+              <b><Glyph name={cond.icon} />{cond.title}</b><small>{cond.since}</small><em>{cond.now}</em>
             </button>
           ))}
         </div>
       </Locked>
       <div className="row">
         {profile.chips.map((chip) => (
-          <span key={chip.text} className="chip" style={chip.danger ? { color: 'var(--bad-text)' } : undefined}>{chip.text}</span>
+          <span key={chip.text} className="chip" style={chip.danger ? { color: 'var(--bad-text)' } : undefined}><Glyph name={chip.icon} />{chip.text}</span>
         ))}
       </div>
     </GlassCard>

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useDrawer } from '@/components/ui/Drawer'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph } from '@/components/ui/Icon'
 import { useTranslation } from 'react-i18next'
 import type { NewsItem, Surroundings } from '@/data/types'
 import { Actions, keyActivate } from '../home/parts'
@@ -21,7 +22,7 @@ function NewsDrawerBody({ n }: { n: NewsItem }) {
   )
 }
 
-/** `📰 News that matters to her` (c6): category filter plus the items filtered for her profile. */
+/** `News that matters to her` (c6): category filter plus the items filtered for her profile. */
 export function NewsCard({ s }: { s: Surroundings }) {
   const drawer = useDrawer()
   const { t } = useTranslation('around')
@@ -30,7 +31,7 @@ export function NewsCard({ s }: { s: Surroundings }) {
   return (
     <GlassCard span={6}>
       <div className="ch">
-        <h2>{s.newsHeading.title}</h2>
+        <h2><Glyph name={s.newsHeading.icon} />{s.newsHeading.title}</h2>
         <span className="meta">{s.newsHeading.meta}</span>
       </div>
       <div className="seg" role="group" aria-label={t('newsFilterLabel')}>

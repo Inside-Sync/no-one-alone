@@ -37,13 +37,13 @@ function BpChart({ bp }: { bp: HealthData['bp14'] }) {
   )
 }
 
-/** `🩺 Blood pressure, last 2 weeks` (c6, heart category). */
+/** `Blood pressure, last 2 weeks` (c6, heart category). */
 export function BpCard({ bp }: { bp: HealthData['bp14'] }) {
   const { t } = useTranslation('health')
   return (
     <Locked cat="heart" span={6}>
       <GlassCard span={6} className="chart">
-        <Head title={t('bp.title')} meta={t('bp.meta')} />
+        <Head icon="stethoscope" title={t('bp.title')} meta={t('bp.meta')} />
         <div id="bp14"><BpChart bp={bp} /></div>
         <Legend items={t('bp.legend', { returnObjects: true })} />
       </GlassCard>

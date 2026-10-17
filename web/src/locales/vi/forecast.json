@@ -1,7 +1,7 @@
 {
-  "modelTitle": "ℹ️ Dự báo này hoạt động thế nào",
+  "modelTitle": "Dự báo này hoạt động thế nào",
   "risks": {
-    "title": "📊 Nguy cơ theo thời gian",
+    "title": "Nguy cơ theo thời gian",
     "meta": "Mức do quy tắc demo đặt, không phải xác suất",
     "columns": [
       "Điều có thể xảy ra",
@@ -11,7 +11,7 @@
     ]
   },
   "sim": {
-    "title": "🎛️ Thử xem: nếu như…",
+    "title": "Thử xem: nếu như…",
     "meta": "Kéo các thanh trượt",
     "hearingSwitchLabel": "Đeo máy trợ thính hằng ngày",
     "adherenceValue": "{{n}}%",
@@ -76,11 +76,11 @@
     }
   },
   "shap": {
-    "title": "⚖️ Điều gì làm tăng hoặc giảm nguy cơ đột quỵ của bà",
+    "title": "Điều gì làm tăng hoặc giảm nguy cơ đột quỵ của bà",
     "meta": "Đỏ làm tăng · xanh làm giảm"
   },
   "signs": {
-    "title": "👀 Những gì chúng tôi theo dõi",
+    "title": "Những gì chúng tôi theo dõi",
     "meta": "Hôm nay so với mức thường ngày của bà",
     "columns": [
       "Dấu hiệu",

@@ -39,7 +39,7 @@
       "toast": "救急車に転送を提案しました"
     },
     "recovery": {
-      "title": "📝 退院・回復プラン",
+      "title": "退院・回復プラン",
       "meta": "編集して承認すると、エージェントがわかりやすい言葉にしてMargaretさんのポータルに届けます",
       "staff": "医師",
       "diagnosis": "診断",
@@ -57,7 +57,7 @@
       "sentAt": "{{time}}に自宅へ送信",
       "sent": "自宅へ送信済み",
       "failed": "プランを送信できませんでした",
-      "delivering": "⏳ エージェントが送信中…",
+      "delivering": "エージェントが送信中…",
       "why": "理由：{{text}}",
       "medHead": "薬",
       "doseHead": "用量",
@@ -78,10 +78,10 @@
       },
       "calls": "エージェントのフォローアップ電話",
       "callDay": "✓ {{day}}日目",
-      "finalise": "✍️ プランを確定",
-      "signed": "✍️ {{name}}が確定 · {{time}}",
+      "finalise": "プランを確定",
+      "signed": "{{name}}が確定 · {{time}}",
       "editAgain": "再編集",
-      "approve": "✅ 承認してNoaに引き継ぐ",
+      "approve": "承認してNoaに引き継ぐ",
       "approveNote": "エージェントがプランをわかりやすい言葉に置き換え、リマインダーを設定し、Margaretさん自身の設定に従って見守りの輪と共有します。",
       "toastFinal": "プランを確定し署名しました。次に承認してエージェントに引き継いでください。",
       "toastSent": "回復プランをMargaretさんのポータルに届けました",
@@ -96,9 +96,9 @@
       }
     },
     "discharge": {
-      "title": "🩺 退院準備完了：Margaret Collins、78歳",
+      "title": "退院準備完了：Margaret Collins、78歳",
       "sub": "虚血性脳卒中、血栓溶解療法施行 · 新規発作性心房細動 · 回復プラン承認待ち",
-      "open": "📝 カルテと回復プランを開く"
+      "open": "カルテと回復プランを開く"
     }
   },
   "panel": {

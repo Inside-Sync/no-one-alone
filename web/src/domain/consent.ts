@@ -1,4 +1,4 @@
-import type { CategoryId, PersonId, ShareMatrix } from '@/data/types'
+import type { CategoryId, IconName, PersonId, ShareMatrix } from '@/data/types'
 import i18n from '@/i18n'
 
 export type { CategoryId }
@@ -10,20 +10,20 @@ export const CATEGORY_IDS: readonly CategoryId[] = [
 
 export interface Category {
   readonly id: CategoryId
-  readonly emoji: string
+  readonly icon: IconName
   readonly name: string
   readonly detail: string
 }
 
-const EMOJI: Record<CategoryId, string> = {
-  safety: '🚨', checkin: '✅', heart: '❤️', sleep: '😴', activity: '🚶', mood: '😊', meds: '💊', speech: '🗣️', home: '🏠',
-  records: '📋', location: '📍',
+const ICON: Record<CategoryId, IconName> = {
+  safety: 'siren', checkin: 'circle-check', heart: 'heart', sleep: 'bed', activity: 'footprints', mood: 'smile',
+  meds: 'pill', speech: 'speech', home: 'home', records: 'clipboard-list', location: 'map-pin',
 }
 
 /** Prototype `CATS` (line 1890), in CATEGORY_IDS order; `name` and `detail` come from `privacy:categories` when read. */
 export const CATEGORIES: readonly Category[] = CATEGORY_IDS.map((id) => ({
   id,
-  emoji: EMOJI[id],
+  icon: ICON[id],
   get name() { return i18n.t(`privacy:categories.${id}.name`) },
   get detail() { return i18n.t(`privacy:categories.${id}.detail`) },
 }))

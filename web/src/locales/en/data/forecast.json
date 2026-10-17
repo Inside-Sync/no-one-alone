@@ -7,43 +7,50 @@
     "wellbeingNote": "72 out of 100, down 5 since last week. Two things are pulling it down: her blood pressure is creeping up, and her home is too warm.",
     "wellbeingAxes": [
       {
-        "label": "❤️ Body",
+        "label": "Body",
         "now": 61,
-        "lastMonth": 74
+        "lastMonth": 74,
+        "icon": "heart"
       },
       {
-        "label": "💊 Medicines",
+        "label": "Medicines",
         "now": 68,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "pill"
       },
       {
-        "label": "🚶 Moving",
+        "label": "Moving",
         "now": 74,
-        "lastMonth": 80
+        "lastMonth": 80,
+        "icon": "footprints"
       },
       {
-        "label": "😴 Sleep",
+        "label": "Sleep",
         "now": 70,
-        "lastMonth": 76
+        "lastMonth": 76,
+        "icon": "bed"
       },
       {
-        "label": "🤝 Social",
+        "label": "Social",
         "now": 82,
-        "lastMonth": 84
+        "lastMonth": 84,
+        "icon": "handshake"
       },
       {
-        "label": "🧠 Memory",
+        "label": "Memory",
         "now": 88,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "brain"
       },
       {
-        "label": "🏠 Home",
+        "label": "Home",
         "now": 58,
-        "lastMonth": 78
+        "lastMonth": 78,
+        "icon": "home"
       }
     ],
     "comingUp": {
-      "title": "🔮 Coming up: one thing to act on",
+      "title": "Coming up: one thing to act on",
       "meta": "Stroke · 90 days",
       "pill": {
         "tone": "bad",
@@ -104,7 +111,8 @@
           "value": "forecast",
           "soft": true
         }
-      ]
+      ],
+      "icon": "telescope"
     },
     "weeklyPlan": [
       {
@@ -152,32 +160,32 @@
     "weeklyPlanMeta": "4 tasks · 2 owners",
     "model": [
       {
-        "emoji": "👀",
+        "icon": "eye",
         "label": "Watches",
         "value": "11 signs"
       },
       {
-        "emoji": "📚",
+        "icon": "book-open",
         "label": "Forecast by",
         "value": "BigQuery AI.FORECAST"
       },
       {
-        "emoji": "🎯",
+        "icon": "target",
         "label": "Risk level",
         "value": "Demo rules, not a diagnosis"
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "Follows",
         "value": "Doctors' guidelines"
       },
       {
-        "emoji": "🔄",
+        "icon": "refresh-cw",
         "label": "Updated",
         "value": "Every hour"
       },
       {
-        "emoji": "🧑‍⚕️",
+        "icon": "stethoscope",
         "label": "Decides",
         "value": "Her doctor, not the app"
       }
@@ -278,114 +286,125 @@
     "shapNote": "Bars show how strongly each reason pushes her risk level. Example weights for a prototype.",
     "signs": [
       {
-        "sign": "🩺 Morning blood pressure",
+        "sign": "Morning blood pressure",
         "from": "Arm cuff",
         "frequency": "Every morning",
         "now": "146",
         "usual": "132",
         "comparison": "Much higher",
         "sigma": "+2.8",
-        "tone": "bad"
+        "tone": "bad",
+        "icon": "stethoscope"
       },
       {
-        "sign": "❤️ Resting heart rate",
+        "sign": "Resting heart rate",
         "from": "Watch",
         "frequency": "All day",
         "now": "68",
         "usual": "63",
         "comparison": "About the same",
         "sigma": "+0.4",
-        "tone": "good"
+        "tone": "good",
+        "icon": "heart"
       },
       {
-        "sign": "🌿 Calm score (HRV)",
+        "sign": "Calm score (HRV)",
         "from": "Watch",
         "frequency": "Every night",
         "now": "26",
         "usual": "31",
         "comparison": "Lower",
         "sigma": "−1.9",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "leaf"
       },
       {
-        "sign": "⚡ Uneven heartbeat alerts",
+        "sign": "Uneven heartbeat alerts",
         "from": "Watch",
         "frequency": "When it happens",
         "now": "2 this week",
         "usual": "rarely",
         "comparison": "Higher",
         "sigma": "+2.4",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "bolt"
       },
       {
-        "sign": "🚶 Walking speed",
+        "sign": "Walking speed",
         "from": "Phone + home",
         "frequency": "Every day",
         "now": "0.82 m/s",
         "usual": "0.89",
         "comparison": "Slower",
         "sigma": "−2.1",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "footprints"
       },
       {
-        "sign": "🌙 Up at night",
+        "sign": "Up at night",
         "from": "Home sensors",
         "frequency": "All night",
         "now": "41 times",
         "usual": "18",
         "comparison": "Much higher",
         "sigma": "+2.3",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "moon"
       },
       {
-        "sign": "💊 Tablets taken",
+        "sign": "Tablets taken",
         "from": "Pill box",
         "frequency": "Every dose",
         "now": "86%",
         "usual": "95%",
         "comparison": "Lower",
         "sigma": "−1.8",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pill"
       },
       {
-        "sign": "⏸️ Pauses when talking",
+        "sign": "Pauses when talking",
         "from": "Daily chat",
         "frequency": "Every day",
         "now": "More",
         "usual": "fewer",
         "comparison": "Higher",
         "sigma": "+1.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pause"
       },
       {
-        "sign": "👂 \"Pardon?\"",
+        "sign": "\"Pardon?\"",
         "from": "Daily chat",
         "frequency": "Every day",
         "now": "9 this week",
         "usual": "3",
         "comparison": "Much higher",
         "sigma": "+2.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "ear"
       },
       {
-        "sign": "🌡️ Home temperature",
+        "sign": "Home temperature",
         "from": "Home sensors",
         "frequency": "All day",
         "now": "29.5°",
         "usual": "25.1°",
         "comparison": "Much higher",
         "sigma": "+2.2",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "thermometer"
       },
       {
-        "sign": "⚖️ Weight",
+        "sign": "Weight",
         "from": "Scale",
         "frequency": "Every day",
         "now": "61.2 kg",
         "usual": "61.0",
         "comparison": "About the same",
         "sigma": "+0.2",
-        "tone": "good"
+        "tone": "good",
+        "icon": "scale"
       }
     ],
     "bp": {
@@ -421,27 +440,30 @@
       "sliders": [
         {
           "id": "adherence",
-          "label": "💊 Tablets taken on time",
+          "label": "Tablets taken on time",
           "min": 60,
           "max": 100,
           "step": 1,
-          "value": 86
+          "value": 86,
+          "icon": "pill"
         },
         {
           "id": "steps",
-          "label": "👣 Steps a day",
+          "label": "Steps a day",
           "min": 1500,
           "max": 7000,
           "step": 100,
-          "value": 3240
+          "value": 3240,
+          "icon": "footprints"
         },
         {
           "id": "salt",
-          "label": "🧂 Salt in food",
+          "label": "Salt in food",
           "min": 0,
           "max": 2,
           "step": 1,
-          "value": 1
+          "value": 1,
+          "icon": "cooking-pot"
         }
       ],
       "saltLabels": [
@@ -449,7 +471,7 @@
         "Medium",
         "High"
       ],
-      "hearingLabel": "👂 Wears hearing aids every day",
+      "hearingLabel": "Wears hearing aids every day",
       "hearingAids": false,
       "base": {
         "stroke": 2.1,
@@ -457,7 +479,8 @@
         "admission": 14,
         "mci": 3.1
       },
-      "note": "Relative effects come from published effect sizes and are applied to her current risk. A conversation starter for her GP, not a prescription."
+      "note": "Relative effects come from published effect sizes and are applied to her current risk. A conversation starter for her GP, not a prescription.",
+      "hearingIcon": "ear"
     },
     "modes": [
       {

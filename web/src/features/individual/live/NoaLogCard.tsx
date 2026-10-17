@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import type { TimelineKind } from '@/data/contract'
 import type { LiveView } from '@/domain/incident'
 
 const STEP_MS = 1500
 
-const ICON: Record<TimelineKind, string> = {
-  ALERT: '🔎', VERIFIED: '✅', FALSE_ALARM: '💚', ASKED: '💬', ANSWERED: '👂', NO_REPLY: '🔇', TRIAGED: '🧭', ALERTED: '🔔',
-  NOTIFIED: '📞', ACCEPTED: '✅', DECLINED: '🚫', EXPIRED: '📵', NO_NEARBY: '📍', ARRIVED: '🏠', CALLED_115: '🚑',
-  HANDOFF_SENT: '🏥', HANDOFF_RECEIVED: '🏥', HANDOFF_FAILED: '⚠️', FAMILY_UPDATE: '👪', AGENT_FALLBACK: '⚙️', CLOSED: '✔️', DISCHARGED: '🌱',
+const ICON: Record<TimelineKind, IconName> = {
+  ALERT: 'search', VERIFIED: 'circle-check', FALSE_ALARM: 'heart', ASKED: 'message-circle', ANSWERED: 'ear', NO_REPLY: 'volume-x',
+  TRIAGED: 'compass', ALERTED: 'bell', NOTIFIED: 'phone', ACCEPTED: 'circle-check', DECLINED: 'ban', EXPIRED: 'phone-off',
+  NO_NEARBY: 'map-pin', ARRIVED: 'home', CALLED_115: 'ambulance', HANDOFF_SENT: 'hospital', HANDOFF_RECEIVED: 'hospital',
+  HANDOFF_FAILED: 'triangle-alert', FAMILY_UPDATE: 'users', AGENT_FALLBACK: 'settings', CLOSED: 'check', DISCHARGED: 'sprout',
 }
 const TONE: Partial<Record<TimelineKind, 'bad' | 'good'>> = {
   ALERT: 'bad', ALERTED: 'bad', CALLED_115: 'bad', NO_NEARBY: 'bad', HANDOFF_FAILED: 'bad',
@@ -37,14 +39,14 @@ export function NoaLogCard({ view, time }: { view: LiveView | null; time: string
   const rows = all.slice(0, shown).reverse()
   return (
     <GlassCard span={12} id="liveB">
-      <div className="ch"><h2>{t('agent.log.title')}</h2><span className="meta">{t('agent.log.meta')}</span></div>
+      <div className="ch"><h2><Glyph name="notebook-text" />{t('agent.log.title')}</h2><span className="meta">{t('agent.log.meta')}</span></div>
       <div className="loggrid">
         <ol className="alog" id="tl" aria-live="polite">
           {rows.length === 0 ? (
-            <li><span className="t">{time}</span><span aria-hidden="true">👀</span><span>{t('agent.log.idle')}</span></li>
+            <li><span className="t">{time}</span><span className="ic"><Icon name="eye" /></span><span>{t('agent.log.idle')}</span></li>
           ) : rows.map((x, k) => (
             <li key={all.length - k} className={TONE[x.kind] ?? ''}>
-              <span className="t">{x.t}</span><span aria-hidden="true">{ICON[x.kind]}</span>
+              <span className="t">{x.t}</span><span className="ic"><Icon name={ICON[x.kind]} /></span>
               <span>{x.d} <small>· {x.s}</small></span>
             </li>
           ))}

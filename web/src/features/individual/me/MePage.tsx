@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useRouter } from '@/app/navigation'
 import { Avatar } from '@/components/ui/Avatar'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import { OnceButton } from '@/components/ui/OnceButton'
 import { useToast } from '@/components/ui/Toast'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
@@ -27,13 +28,13 @@ export function MePage() {
         <div className="big-tiles">
           {t('tiles', { returnObjects: true }).map((tile) => (
             <button key={tile.title} type="button" className={tile.warn ? 'bt warn' : 'bt'} onClick={() => toast(`${tile.title} · ${tile.note}`)}>
-              <span>{tile.emoji}</span><b>{tile.title}</b><small>{tile.note}</small>
+              <span className="ic"><Icon name={tile.icon as IconName} tint /></span><b>{tile.title}</b><small>{tile.note}</small>
             </button>
           ))}
         </div>
       </GlassCard>
       <GlassCard span={4}>
-        <div className="ch"><h2>{t('people.title')}</h2><span className="meta">{t('people.meta')}</span></div>
+        <div className="ch"><h2><Glyph name="heart-handshake" />{t('people.title')}</h2><span className="meta">{t('people.meta')}</span></div>
         <ul className="list">
           {people.map((p) => (
             <li key={p.id}>
@@ -50,11 +51,11 @@ export function MePage() {
         <button type="button" className="btn" onClick={goPrivacy}>{t('people.change')}</button>
       </GlassCard>
       <GlassCard span={6}>
-        <div className="ch"><h2>{t('ideasTitle')}</h2><span className="meta">{t('ideasMeta')}</span></div>
+        <div className="ch"><h2><Glyph name="lightbulb" />{t('ideasTitle')}</h2><span className="meta">{t('ideasMeta')}</span></div>
         <ul className="list">
           {t('ideas', { returnObjects: true }).map((i) => (
             <li key={i.title}>
-              <span className="li" style={{ fontSize: 16 }}>{i.emoji}</span>
+              <span className="li"><span className="ic"><Icon name={i.icon as IconName} tint /></span></span>
               <span><b>{i.title}</b><small>{i.note}</small></span>
               <span className="row">
                 <OnceButton className="sm" toast={i.yes[1]} done={`✓ ${i.yes[2]}`}>{i.yes[0]}</OnceButton>
@@ -65,10 +66,10 @@ export function MePage() {
         </ul>
       </GlassCard>
       <GlassCard span={6}>
-        <div className="ch"><h2>{t('promise.title')}</h2><span className="meta">{t('promise.meta')}</span></div>
+        <div className="ch"><h2><Glyph name="lock" />{t('promise.title')}</h2><span className="meta">{t('promise.meta')}</span></div>
         <ul className="why promise">
           {t('promise.items', { returnObjects: true }).map((i) => (
-            <li key={i.bold}><span>{i.emoji}</span><span><b>{i.bold}</b> {i.text}</span></li>
+            <li key={i.bold}><span className="ic"><Icon name={i.icon as IconName} tint /></span><span><b>{i.bold}</b> {i.text}</span></li>
           ))}
         </ul>
         <div className="row">
@@ -77,7 +78,7 @@ export function MePage() {
         </div>
       </GlassCard>
       <GlassCard span={12}>
-        <div className="ch"><h2>{t('access.title')}</h2><span className="meta">{t('access.meta')}</span></div>
+        <div className="ch"><h2><Glyph name="eye" />{t('access.title')}</h2><span className="meta">{t('access.meta')}</span></div>
         <TableScroll>
           <table>
             <thead><tr>{t('access.head', { returnObjects: true }).map((h) => <th key={h}>{h}</th>)}</tr></thead>

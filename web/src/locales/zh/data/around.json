@@ -1,7 +1,7 @@
 {
   "surroundings": {
     "homeMap": {
-      "kicker": "📍 Margaret 住在哪里",
+      "kicker": "Margaret 住在哪里",
       "title": "Marrickville, Sydney",
       "detail": "Inner West · 市中心西南5.8 km · −33.911, 151.155",
       "lat": -33.911,
@@ -214,10 +214,11 @@
           "x": 220,
           "y": 345
         }
-      ]
+      ],
+      "icon": "map-pin"
     },
     "watchMap": {
-      "kicker": "👀 邻里守望",
+      "kicker": "邻里守望",
       "title": "Margaret 家周边",
       "detail": "独居需要留意的事 · 1公里内8项",
       "ariaLabel": "Margaret 街区的3D地图及邻里提醒：人行道施工、已报告的诈骗、路灯损坏、俯冲的喜鹊、蛇出没和避暑室",
@@ -238,7 +239,8 @@
       "ring": {
         "label": "关注区域",
         "radius": 150
-      }
+      },
+      "icon": "eye"
     },
     "pins": [
       {
@@ -389,7 +391,7 @@
       }
     ],
     "weather": {
-      "heading": "🌤️ Marrickville 天气",
+      "heading": "Marrickville 天气",
       "meta": "现在 · 15:10",
       "temp": "33°",
       "summary": "晴，炎热东北风",
@@ -426,7 +428,8 @@
           "note": "良好"
         }
       ],
-      "note": "周四和周五出现热浪。预计周五傍晚转南风，阵风可达60 km/h。"
+      "note": "周四和周五出现热浪。预计周五傍晚转南风，阵风可达60 km/h。",
+      "icon": "cloud-sun"
     },
     "week": [
       {
@@ -481,7 +484,7 @@
     ],
     "kpis": [
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "气温",
         "value": "33",
         "unit": "°C",
@@ -502,7 +505,7 @@
         ]
       },
       {
-        "emoji": "🥵",
+        "icon": "thermometer-sun",
         "label": "体感温度",
         "value": "35",
         "unit": "°C",
@@ -523,7 +526,7 @@
         ]
       },
       {
-        "emoji": "💨",
+        "icon": "wind",
         "label": "风",
         "value": "22",
         "unit": "km/h",
@@ -544,7 +547,7 @@
         ]
       },
       {
-        "emoji": "🕶️",
+        "icon": "glasses",
         "label": "紫外线强度",
         "value": "11",
         "unit": "UV",
@@ -565,7 +568,7 @@
         ]
       },
       {
-        "emoji": "🌧️",
+        "icon": "cloud-rain",
         "label": "降雨",
         "value": "10",
         "unit": "%概率",
@@ -586,7 +589,7 @@
         ]
       },
       {
-        "emoji": "🍃",
+        "icon": "wind",
         "label": "空气质量",
         "value": "良",
         "unit": "",
@@ -607,7 +610,7 @@
         ]
       },
       {
-        "emoji": "🌾",
+        "icon": "wheat",
         "label": "花粉",
         "value": "高",
         "unit": "",
@@ -628,7 +631,7 @@
         ]
       },
       {
-        "emoji": "✈️",
+        "icon": "plane",
         "label": "飞机噪音",
         "value": "68",
         "unit": "dB",
@@ -649,7 +652,7 @@
         ]
       },
       {
-        "emoji": "🔥",
+        "icon": "flame",
         "label": "高温风险",
         "value": "中",
         "unit": "",
@@ -670,7 +673,7 @@
         ]
       },
       {
-        "emoji": "🌅",
+        "icon": "sunrise",
         "label": "日照时长",
         "value": "13小时",
         "unit": "",
@@ -691,7 +694,7 @@
         ]
       },
       {
-        "emoji": "🌊",
+        "icon": "waves",
         "label": "海风",
         "value": "无",
         "unit": "",
@@ -712,7 +715,7 @@
         ]
       },
       {
-        "emoji": "🔌",
+        "icon": "plug-zap",
         "label": "停电风险",
         "value": "低",
         "unit": "",
@@ -734,8 +737,9 @@
       }
     ],
     "alertsHeading": {
-      "title": "👀 独居值得知道的事",
-      "meta": "独居 · 按紧急程度排序"
+      "title": "独居值得知道的事",
+      "meta": "独居 · 按紧急程度排序",
+      "icon": "eye"
     },
     "alerts": [
       {
@@ -789,8 +793,9 @@
       }
     ],
     "newsHeading": {
-      "title": "📰 与她相关的新闻",
-      "meta": "为住在2204、独居的78岁老人筛选"
+      "title": "与她相关的新闻",
+      "meta": "为住在2204、独居的78岁老人筛选",
+      "icon": "news"
     },
     "newsCategories": [
       "All",

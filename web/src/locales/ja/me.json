@@ -3,54 +3,54 @@
   "sub": "今日も順調ですね。あなただけの今日の予定です。",
   "tiles": [
     {
-      "emoji": "❤️",
+      "icon": "heart",
       "title": "心臓",
       "note": "68 · 安定",
       "warn": false
     },
     {
-      "emoji": "👣",
+      "icon": "footprints",
       "title": "3,240歩",
       "note": "3,500まであと少し！",
       "warn": false
     },
     {
-      "emoji": "😴",
+      "icon": "bed",
       "title": "睡眠6時間",
       "note": "少し短め",
       "warn": true
     },
     {
-      "emoji": "💧",
+      "icon": "drop",
       "title": "水分",
       "note": "今コップ1杯どうぞ",
       "warn": true
     },
     {
-      "emoji": "💊",
+      "icon": "pill",
       "title": "次のお薬",
       "note": "午後6時、アムロジピン",
       "warn": false
     },
     {
-      "emoji": "📞",
+      "icon": "phone",
       "title": "Jamesから電話",
       "note": "今夜8時",
       "warn": false
     }
   ],
   "people": {
-    "title": "💞 あなたの大切な人たち",
+    "title": "あなたの大切な人たち",
     "meta": "誰に何を見せるかはあなたが決めます",
-    "change": "🔐 誰が何を見るかを変更",
+    "change": "誰が何を見るかを変更",
     "paused": "一時停止中",
     "sees": "{{total}}件中{{seen}}件を表示"
   },
-  "ideasTitle": "💡 あなたへのご提案",
+  "ideasTitle": "あなたへのご提案",
   "ideasMeta": "ご希望の場合だけ",
   "ideas": [
     {
-      "emoji": "🔥",
+      "icon": "flame",
       "title": "木曜日は38°になります。図書館のクールルームまで送迎しましょうか？",
       "note": "ボランティアのTomさんが11時にお迎えに行けます。",
       "yes": [
@@ -65,7 +65,7 @@
       ]
     },
     {
-      "emoji": "💊",
+      "icon": "pill",
       "title": "夜のお薬に、1週間分のピルケースがあると便利ですか？",
       "note": "Davidさんが土曜日に準備すると言ってくれています。",
       "yes": [
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "emoji": "🦻",
+      "icon": "ear",
       "title": "午後のおしゃべりのために補聴器をつけませんか？",
       "note": "電話が聞き取りやすくなります。",
       "yes": [
@@ -96,31 +96,31 @@
     }
   ],
   "promise": {
-    "title": "🔐 プライバシーのお約束",
+    "title": "プライバシーのお約束",
     "meta": "健康のサポートであり、監視ではありません",
     "items": [
       {
-        "emoji": "✋",
+        "icon": "hand",
         "bold": "決めるのはあなたです。",
         "text": "誰に何を見せるかはあなたが決め、いつでも変更できます。"
       },
       {
-        "emoji": "📷",
+        "icon": "camera",
         "bold": "カメラは一切使いません。",
         "text": "自宅のセンサーが感知するのは動きと温度だけです。"
       },
       {
-        "emoji": "🎙️",
+        "icon": "mic",
         "bold": "盗み聞きはしません。",
         "text": "マイクがオンになるのは、あなたが出た電話の間だけです。"
       },
       {
-        "emoji": "📍",
+        "icon": "map-pin",
         "bold": "追跡はしません。",
         "text": "位置情報はオフです。オンにしても、表示されるのは「在宅」か「外出中」だけです。"
       },
       {
-        "emoji": "🚨",
+        "icon": "siren",
         "bold": "緊急時のみ：",
         "text": "助けが来られるよう、DavidさんとJamesさんには安全アラートが必ず届きます。"
       }
@@ -128,7 +128,7 @@
     "settings": "すべての設定を見る"
   },
   "access": {
-    "title": "👀 あなたの情報を見た人",
+    "title": "あなたの情報を見た人",
     "meta": "知らないところで何かが起きないように",
     "head": [
       "日時",
@@ -197,7 +197,7 @@
     "tick": "完了",
     "idle": "回復プランはここに表示されます",
     "idle_family": "Margaretさんの回復プランはここに表示されます",
-    "stop": "⛔ 中止：{{name}}",
+    "stop": "中止：{{name}}",
     "meds": "お薬の説明",
     "meds_family": "Margaretさんのお薬の説明",
     "slots": {
@@ -213,11 +213,11 @@
       "Stop": "中止"
     },
     "noa": {
-      "title": "💬 Noaから",
-      "title_family": "💬 NoaがMargaretさんに伝えたこと",
+      "title": "Noaから",
+      "title_family": "NoaがMargaretさんに伝えたこと",
       "meta": "病院がプランを承認した後",
       "noa": "Noa",
-      "margaret": "👵 Margaret",
+      "margaret": "Margaret",
       "welcome": "おかえりなさい、Margaretさん。Noaです 💙 病院から回復プランが届いたので、わかりやすい言葉にしてアプリに入れておきました。",
       "newMeds_one": "新しいお薬が1種類あります：{{names}}。",
       "newMeds_other": "新しいお薬が{{count}}種類あります：{{names}}。",
@@ -247,23 +247,23 @@
     "self": {
       "layout": {
         "label": "表示",
-        "detailed": "📋 詳細",
-        "simple": "🔆 シンプル"
+        "detailed": "詳細",
+        "simple": "シンプル"
       },
-      "happened": "🌱 何があったか",
+      "happened": "何があったか",
       "happenedMeta": "わかりやすい言葉で",
       "dayOf": "30日中{{day}}日目",
       "doneToday": "今日は{{total}}件中{{done}}件完了",
-      "nextTitle": "⏰ 次のリマインダー",
-      "allDone": "🎉 今日の分はすべて完了",
-      "tasksTitle": "💊 今日のお薬とやること",
+      "nextTitle": "次のリマインダー",
+      "allDone": "今日の分はすべて完了",
+      "tasksTitle": "今日のお薬とやること",
       "tasksMeta": "済んだらタップ",
-      "appts": "🗓️ 予約",
+      "appts": "予約",
       "callsMeta": "様子を伺う短いおしゃべり",
       "callToday": "今日",
-      "logged": "よくできました 👍 記録しました。",
+      "logged": "よくできました！記録しました。",
       "fast": {
-        "title": "🚨 こんなときはすぐ000に電話を…",
+        "title": "こんなときはすぐ000に電話を…",
         "face": "顔",
         "faceText": "片側が垂れ下がる",
         "arm": "腕",
@@ -272,7 +272,7 @@
         "speechText": "ろれつが回らない・混乱する",
         "time": "時間",
         "timeText": "が大切。待たないで。",
-        "call": "📞 000に電話",
+        "call": "000に電話",
         "calling": "000に発信中 · 救急車を頼んでください"
       },
       "simple": {
@@ -283,16 +283,16 @@
         "now": "今",
         "tookThem": "✓ 飲みました",
         "didIt": "✓ やりました",
-        "snooze": "⏰ 10分後にもう一度",
+        "snooze": "10分後にもう一度",
         "snoozed": "わかりました。10分後にもう一度お知らせします",
         "later": "今日このあと",
         "laterMeta": "リマインダーでお知らせします",
         "nothingLater": "今日はもうありません。",
         "tabs": {
-          "meds": "💊 お薬",
-          "appts": "🗓️ 受診",
-          "calls": "📞 電話",
-          "help": "🚨 危険サイン"
+          "meds": "お薬",
+          "appts": "受診",
+          "calls": "電話",
+          "help": "危険サイン"
         },
         "tablets": "あなたのお薬",
         "visits": "受診と検査",

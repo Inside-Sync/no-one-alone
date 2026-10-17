@@ -37,17 +37,39 @@ export type PillTone = 'good' | 'warn' | 'bad' | 'plain' | 'brand'
 export type StatusLevel = 'good' | 'watch' | 'alert'
 
 /** Icon keys from the prototype's ICONS table (dot-ic attribute values). */
-export type IconName =
+export type DrawnIconName =
   | 'home' | 'spark' | 'tree' | 'file' | 'bell' | 'bolt' | 'mic' | 'heart' | 'right' | 'left'
   | 'trend' | 'pill' | 'people' | 'ear' | 'eye' | 'brain' | 'plus' | 'clinic' | 'hospital'
   | 'phone' | 'pause' | 'play' | 'check' | 'x' | 'grid' | 'sun' | 'search' | 'target'
   | 'siren' | 'shield' | 'radar' | 'moon' | 'cpu' | 'smile' | 'news' | 'wind' | 'drop'
   | 'cloud' | 'lungs' | 'watch'
 
+/** lucide-react icons, by their lucide name; they stand in for the prototype's emoji. */
+export type LucideIconName =
+  | 'accessibility' | 'activity' | 'ambulance' | 'ban' | 'bean' | 'bed' | 'bell-off' | 'biceps-flexed'
+  | 'bone' | 'book-open' | 'bot' | 'cake' | 'calendar' | 'camera' | 'candy' | 'chart-column'
+  | 'cigarette-off' | 'circle-check' | 'circle-help' | 'circle-x' | 'clipboard-list' | 'clock'
+  | 'cloud-moon' | 'cloud-rain' | 'cloud-sun' | 'coffee' | 'compass' | 'cooking-pot' | 'door-stairwell'
+  | 'droplets' | 'dumbbell' | 'fast-forward' | 'flame' | 'flask-conical' | 'folder' | 'footprints'
+  | 'glasses' | 'hand' | 'handshake' | 'headphones' | 'heart-crack' | 'heart-handshake' | 'heart-pulse'
+  | 'info'
+  | 'leaf' | 'lightbulb' | 'lock' | 'map-pin' | 'meh' | 'message-circle' | 'notebook-pen' | 'notebook-text'
+  | 'octagon-x' | 'package' | 'party-popper' | 'pen-line' | 'person-standing' | 'phone-off' | 'plane'
+  | 'plug-zap' | 'receipt' | 'refresh-cw' | 'ruler' | 'scale' | 'settings' | 'share' | 'sliders-horizontal'
+  | 'smartphone' | 'sofa' | 'sparkles' | 'speech' | 'sprout' | 'stethoscope' | 'sun-dim' | 'sunrise'
+  | 'syringe' | 'telescope' | 'thermometer' | 'thermometer-sun' | 'thumbs-up' | 'timer' | 'triangle-alert'
+  | 'turtle' | 'tv' | 'type' | 'user-round' | 'users' | 'utensils' | 'volume-2' | 'volume-x' | 'waves'
+  | 'wheat' | 'wine'
+
+/** A traffic-light dot (green / amber / red status). */
+export type DotIconName = 'dot-green' | 'dot-amber' | 'dot-red'
+
+export type IconName = DrawnIconName | LucideIconName | DotIconName
+
 /** A KPI tile (`.kpi`): label, big value + unit, sparkline, baseline and delta. */
 export interface Kpi {
-  /** Emoji prefix; only the plain-language individual tiles have one. */
-  emoji?: string
+  /** Icon before the label; only the plain-language individual tiles have one. */
+  icon?: IconName
   label: string
   value: string
   unit: string
@@ -62,6 +84,8 @@ export interface Kpi {
 
 /** A `.mini > div` cell: small label, bold value, one-line note. */
 export interface MiniStat {
+  /** Icon before the label, where the prototype had an emoji. */
+  icon?: IconName
   label: string
   value: string
   note: string
@@ -90,7 +114,7 @@ export type LabelValue = [label: string, value: string]
 /* ---------- Person (margaret.ts) ---------- */
 
 export interface Condition {
-  emoji: string
+  icon: IconName
   title: string
   since: string
   /** "Right now" status line. */
@@ -100,14 +124,15 @@ export interface Condition {
 }
 
 export interface ProfileRow {
-  /** Emoji shown before the label, e.g. '👩'. */
-  emoji: string
+  /** Icon shown before the label. */
+  icon: IconName
   label: string
   value: string
 }
 
 export interface DayLineEntry {
   time: string
+  icon?: IconName
   text: string
   /** 'w' = warning dot, 'n' = next (upcoming); undefined = normal. */
   flag?: 'w' | 'n'
@@ -122,14 +147,14 @@ export interface TodayCard {
 }
 
 export interface OwnTile {
-  emoji: string
+  icon: IconName
   title: string
   note: string
   warn?: boolean
 }
 
 export interface OwnIdea {
-  emoji: string
+  icon: IconName
   title: string
   note: string
   yes: { label: string; toast: string; done: string }
@@ -149,11 +174,12 @@ export interface OwnView {
   sub: string
   tiles: OwnTile[]
   ideas: OwnIdea[]
-  promise: { emoji: string; lead: string; text: string }[]
+  promise: { icon: IconName; lead: string; text: string }[]
   accessLog: AccessLogEntry[]
   privacy: {
-    presets: { id: 'family' | 'safety' | 'all'; label: string }[]
+    presets: { id: 'family' | 'safety' | 'all'; icon: IconName; label: string }[]
     safetyNote: string
+    safetyIcon: IconName
     emergency: { agreed: string; text: string; buttons: { label: string; toast: string; done: string }[] }
   }
 }
@@ -206,7 +232,7 @@ export interface Person {
     shareToast: string
     rows: ProfileRow[]
     /** The five lifestyle / allergy chips under the conditions. */
-    chips: { text: string; danger?: boolean }[]
+    chips: { icon: IconName; text: string; danger?: boolean }[]
   }
   today: TodayCard
   dayline: DayLineEntry[]
@@ -235,8 +261,6 @@ export interface GoalGauge {
 
 export interface HealthGroup {
   icon: IconName
-  /** Emoji used by the plain-language individual view. */
-  emoji: string
   title: string
   metrics: MiniStat[]
   /** Consent category the card is tagged with (`data-scat`). */
@@ -368,6 +392,8 @@ export interface AirDay {
 export interface Surroundings {
   /** Home page map card. */
   homeMap: {
+    /** Icon before the kicker. */
+    icon: IconName
     kicker: string
     title: string
     detail: string
@@ -383,6 +409,8 @@ export interface Surroundings {
   }
   /** Surroundings page map card. */
   watchMap: {
+    /** Icon before the kicker. */
+    icon: IconName
     kicker: string
     title: string
     detail: string
@@ -392,6 +420,7 @@ export interface Surroundings {
   }
   pins: MapPin[]
   weather: {
+    icon: IconName
     heading: string
     meta: string
     temp: string
@@ -402,9 +431,9 @@ export interface Surroundings {
   }
   week: WeatherDay[]
   kpis: Kpi[]
-  alertsHeading: { title: string; meta: string }
+  alertsHeading: { icon: IconName; title: string; meta: string }
   alerts: WatchAlert[]
-  newsHeading: { title: string; meta: string }
+  newsHeading: { icon: IconName; title: string; meta: string }
   newsCategories: ('All' | NewsCategory)[]
   news: NewsItem[]
   thursday: {
@@ -424,7 +453,7 @@ export interface Surroundings {
 /* ---------- Forecast (forecast.ts) ---------- */
 
 export interface ForecastModelFact {
-  emoji: string
+  icon: IconName
   label: string
   value: string
 }
@@ -443,6 +472,7 @@ export interface ShapDriver {
 }
 
 export interface SignRow {
+  icon: IconName
   sign: string
   from: string
   frequency: string
@@ -478,6 +508,7 @@ export interface ModeCard {
 
 export interface SimSlider {
   id: 'adherence' | 'steps' | 'salt'
+  icon: IconName
   label: string
   min: number
   max: number
@@ -489,8 +520,9 @@ export interface Forecast {
   wellbeing: { score: number; delta: number }
   wellbeingNote: string
   /** `#radar` axes: now vs last month. */
-  wellbeingAxes: { label: string; now: number; lastMonth: number }[]
+  wellbeingAxes: { icon: IconName; label: string; now: number; lastMonth: number }[]
   comingUp: {
+    icon: IconName
     title: string
     meta: string
     pill: { tone: PillTone; text: string }
@@ -523,6 +555,7 @@ export interface Forecast {
     sliders: SimSlider[]
     saltLabels: [string, string, string]
     hearingLabel: string
+    hearingIcon: IconName
     hearingAids: boolean
     base: { stroke: number; fall: number; admission: number; mci: number }
     note: string
@@ -707,8 +740,9 @@ export interface CircleMember {
   id: 'david' | 'james' | 'sarah' | 'priya' | 'aisha'
   initials: string
   color: string
-  /** Name line with the plain-language emoji, e.g. '👨 David · her brother'. */
+  /** Plain-language name line, e.g. 'David · her brother'. */
   name: string
+  icon: IconName
   note: string
   role: { tone: PillTone; text: string }
   /** Technical (pre-plain-language) name and note, kept for reference. */

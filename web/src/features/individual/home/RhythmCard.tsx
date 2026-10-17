@@ -8,14 +8,14 @@ import { Locked } from '@/components/ui/Locked'
 import type { HealthData } from '@/data/types'
 import { Head } from './parts'
 
-/** `🕰️ Daily rhythm` (c7): hour-by-hour heatmap of the week plus two plain-language notes (home sensors category). */
+/** `Daily rhythm` (c7): hour-by-hour heatmap of the week plus two plain-language notes (home sensors category). */
 export function RhythmCard({ rhythm }: { rhythm: HealthData['rhythm'] }) {
   const { t } = useTranslation('home')
   const legend = t('rhythm.legend', { returnObjects: true })
   return (
     <Locked cat="home" span={7}>
       <GlassCard span={7}>
-        <Head title={t('rhythm.title')} meta={t('rhythm.meta')} />
+        <Head icon="clock" title={t('rhythm.title')} meta={t('rhythm.meta')} />
         <Heatmap
           rows={rhythm.days.map((d) => d.cells.map((x) => x.value))}
           rowLabels={rhythm.days.map((d) => d.label)}

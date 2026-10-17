@@ -128,7 +128,7 @@ test('Heatmap renders 168 cells', () => {
 })
 
 test('Radar reproduces the prototype polygons and keeps its aria-label', () => {
-  const axes = [['❤️ Body', 61, 74], ['💊 Medicines', 68, 90], ['🚶 Moving', 74, 80], ['😴 Sleep', 70, 76], ['🤝 Social', 82, 84], ['🧠 Memory', 88, 90], ['🏠 Home', 58, 78]] as const
+  const axes = [['Body', 61, 74], ['Medicines', 68, 90], ['Moving', 74, 80], ['Sleep', 70, 76], ['Social', 82, 84], ['Memory', 88, 90], ['Home', 58, 78]] as const
   const label = 'Overall wellbeing 72 out of 100: body 61, medicines 68, moving 74, sleep 70, social 82, memory 88, home 58'
   const { container } = render(
     <Radar axes={axes.map(([l, v, u]) => ({ label: l, value: v, usual: u }))} score={72} ariaLabel={label} />,

@@ -19,8 +19,8 @@ vi.mock('@/state/LiveIncident', () => ({ useLiveIncident: () => liveValue }))
 const handoff = { hospitalId: 'h1', hospitalName: 'Camperdown', status: 'RECEIVED' } as const
 const incident = (extra: Partial<IncidentDoc>) => ({ handoff, ...extra }) as unknown as IncidentDoc
 const ready = () => screen.findByText('30-day follow-up board')
-const finalise = () => fireEvent.click(screen.getByRole('button', { name: '✍️ Finalise the plan' }))
-const approve = () => screen.getByRole('button', { name: '✅ Approve and hand off to Noa' })
+const finalise = () => fireEvent.click(screen.getByRole('button', { name: 'Finalise the plan' }))
+const approve = () => screen.getByRole('button', { name: 'Approve and hand off to Noa' })
 const sentDoc = (extra: Partial<RecoveryDoc> = {}) => ({
   createdAt: '2026-10-16T05:10:00Z', staffName: 'Dr Ross', diagnosis: 'd', notes: 'n', meds: [], activities: [], followUps: [],
   summary: 's', fallback: false, reminders: [{ time: '08:00', kind: 'MED', text: 'Time for your apixaban, 5 mg.' }], ...extra,
@@ -37,7 +37,7 @@ test('Approve is disabled until the plan is finalised, and Edit again unlocks it
   finalise()
   expect(approve()).toBeEnabled()
   expect(screen.getByLabelText('Medicine 1 name')).toBeDisabled()
-  expect(screen.getByText(/^✍️ Finalised by Dr Amelia Ross, stroke registrar · \d\d:\d\d$/)).toBeInTheDocument()
+  expect(screen.getByText(/^Finalised by Dr Amelia Ross, stroke registrar · \d\d:\d\d$/)).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: 'Edit again' }))
   expect(approve()).toBeDisabled()
   expect(screen.getByLabelText('Medicine 1 name')).toBeEnabled()
@@ -77,7 +77,7 @@ test('is hidden when there is no handoff', async () => {
   liveValue.incident = { timeline: [] } as unknown as IncidentDoc
   renderWithProviders(<DischargePage />, { who: 'family' })
   await ready()
-  expect(screen.queryByText('📝 Discharge and recovery plan')).toBeNull()
+  expect(screen.queryByText('Discharge and recovery plan')).toBeNull()
 })
 
 test('a failed send toasts the message and keeps the form', async () => {
@@ -97,7 +97,7 @@ test('shows the sent plan read-only once recovery exists', async () => {
   await ready()
   expect(screen.getByText(/Sent home at/)).toBeInTheDocument()
   expect(screen.getByText('Time for your apixaban, 5 mg.')).toBeInTheDocument()
-  expect(screen.queryByRole('button', { name: '✅ Approve and hand off to Noa' })).toBeNull()
+  expect(screen.queryByRole('button', { name: 'Approve and hand off to Noa' })).toBeNull()
   expect(screen.getByText("Plan is on Margaret's screen")).toBeInTheDocument()
 })
 
@@ -139,12 +139,12 @@ test('the ED page shows the discharge banner while a handed-off case has no plan
   liveValue.incident = incident({})
   const { unmount } = renderWithProviders(<EdPage />, { who: 'family' })
   await screen.findByText('Pre-arrival inbox')
-  expect(screen.getByText('🩺 Ready for discharge: Margaret Collins, 78')).toBeInTheDocument()
-  fireEvent.click(screen.getByRole('button', { name: '📝 Open her record and recovery plan' }))
+  expect(screen.getByText('Ready for discharge: Margaret Collins, 78')).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Open her record and recovery plan' }))
   expect(push).toHaveBeenCalledWith('/hospital/discharge')
   unmount()
   liveValue.incident = incident({ recovery: sentDoc() })
   renderWithProviders(<EdPage />, { who: 'family' })
   await screen.findByText('Pre-arrival inbox')
-  expect(screen.queryByText('🩺 Ready for discharge: Margaret Collins, 78')).toBeNull()
+  expect(screen.queryByText('Ready for discharge: Margaret Collins, 78')).toBeNull()
 })

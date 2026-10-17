@@ -7,43 +7,50 @@
     "wellbeingNote": "100 में से 72, पिछले हफ़्ते से 5 कम। दो चीज़ें इसे नीचे खींच रही हैं: उनका ब्लड प्रेशर धीरे-धीरे बढ़ रहा है, और उनका घर बहुत गर्म है।",
     "wellbeingAxes": [
       {
-        "label": "❤️ शरीर",
+        "label": "शरीर",
         "now": 61,
-        "lastMonth": 74
+        "lastMonth": 74,
+        "icon": "heart"
       },
       {
-        "label": "💊 दवाइयाँ",
+        "label": "दवाइयाँ",
         "now": 68,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "pill"
       },
       {
-        "label": "🚶 चलना-फिरना",
+        "label": "चलना-फिरना",
         "now": 74,
-        "lastMonth": 80
+        "lastMonth": 80,
+        "icon": "footprints"
       },
       {
-        "label": "😴 नींद",
+        "label": "नींद",
         "now": 70,
-        "lastMonth": 76
+        "lastMonth": 76,
+        "icon": "bed"
       },
       {
-        "label": "🤝 मेल-जोल",
+        "label": "मेल-जोल",
         "now": 82,
-        "lastMonth": 84
+        "lastMonth": 84,
+        "icon": "handshake"
       },
       {
-        "label": "🧠 याददाश्त",
+        "label": "याददाश्त",
         "now": 88,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "brain"
       },
       {
-        "label": "🏠 घर",
+        "label": "घर",
         "now": 58,
-        "lastMonth": 78
+        "lastMonth": 78,
+        "icon": "home"
       }
     ],
     "comingUp": {
-      "title": "🔮 आगे क्या: एक बात पर कदम उठाना है",
+      "title": "आगे क्या: एक बात पर कदम उठाना है",
       "meta": "स्ट्रोक · 90 दिन",
       "pill": {
         "tone": "bad",
@@ -104,7 +111,8 @@
           "value": "forecast",
           "soft": true
         }
-      ]
+      ],
+      "icon": "telescope"
     },
     "weeklyPlan": [
       {
@@ -152,32 +160,32 @@
     "weeklyPlanMeta": "4 काम · 2 ज़िम्मेदार",
     "model": [
       {
-        "emoji": "👀",
+        "icon": "eye",
         "label": "क्या देखता है",
         "value": "11 संकेत"
       },
       {
-        "emoji": "📚",
+        "icon": "book-open",
         "label": "पूर्वानुमान का आधार",
         "value": "BigQuery AI.FORECAST"
       },
       {
-        "emoji": "🎯",
+        "icon": "target",
         "label": "जोखिम स्तर",
         "value": "डेमो नियम, निदान नहीं"
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "किसका पालन",
         "value": "डॉक्टरों के दिशानिर्देश"
       },
       {
-        "emoji": "🔄",
+        "icon": "refresh-cw",
         "label": "अपडेट",
         "value": "हर घंटे"
       },
       {
-        "emoji": "🧑‍⚕️",
+        "icon": "stethoscope",
         "label": "फ़ैसला कौन करता है",
         "value": "उनके डॉक्टर, ऐप नहीं"
       }
@@ -278,114 +286,125 @@
     "shapNote": "बार दिखाते हैं कि हर कारण उनके जोखिम को कितना बढ़ाता है। प्रोटोटाइप के लिए उदाहरण भार।",
     "signs": [
       {
-        "sign": "🩺 सुबह का ब्लड प्रेशर",
+        "sign": "सुबह का ब्लड प्रेशर",
         "from": "बाँह का कफ़",
         "frequency": "हर सुबह",
         "now": "146",
         "usual": "132",
         "comparison": "काफ़ी ज़्यादा",
         "sigma": "+2.8",
-        "tone": "bad"
+        "tone": "bad",
+        "icon": "stethoscope"
       },
       {
-        "sign": "❤️ आराम की धड़कन",
+        "sign": "आराम की धड़कन",
         "from": "घड़ी",
         "frequency": "पूरे दिन",
         "now": "68",
         "usual": "63",
         "comparison": "लगभग उतना ही",
         "sigma": "+0.4",
-        "tone": "good"
+        "tone": "good",
+        "icon": "heart"
       },
       {
-        "sign": "🌿 सुकून स्कोर (HRV)",
+        "sign": "सुकून स्कोर (HRV)",
         "from": "घड़ी",
         "frequency": "हर रात",
         "now": "26",
         "usual": "31",
         "comparison": "कम",
         "sigma": "−1.9",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "leaf"
       },
       {
-        "sign": "⚡ अनियमित धड़कन के अलर्ट",
+        "sign": "अनियमित धड़कन के अलर्ट",
         "from": "घड़ी",
         "frequency": "जब भी हो",
         "now": "इस हफ़्ते 2",
         "usual": "शायद ही कभी",
         "comparison": "ज़्यादा",
         "sigma": "+2.4",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "bolt"
       },
       {
-        "sign": "🚶 चलने की रफ़्तार",
+        "sign": "चलने की रफ़्तार",
         "from": "फ़ोन + घर",
         "frequency": "हर दिन",
         "now": "0.82 m/s",
         "usual": "0.89",
         "comparison": "धीमी",
         "sigma": "−2.1",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "footprints"
       },
       {
-        "sign": "🌙 रात में उठना",
+        "sign": "रात में उठना",
         "from": "घर के सेंसर",
         "frequency": "पूरी रात",
         "now": "41 बार",
         "usual": "18",
         "comparison": "काफ़ी ज़्यादा",
         "sigma": "+2.3",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "moon"
       },
       {
-        "sign": "💊 ली गई गोलियाँ",
+        "sign": "ली गई गोलियाँ",
         "from": "पिल बॉक्स",
         "frequency": "हर खुराक",
         "now": "86%",
         "usual": "95%",
         "comparison": "कम",
         "sigma": "−1.8",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pill"
       },
       {
-        "sign": "⏸️ बात करते समय रुकना",
+        "sign": "बात करते समय रुकना",
         "from": "रोज़ की बातचीत",
         "frequency": "हर दिन",
         "now": "ज़्यादा",
         "usual": "कम",
         "comparison": "ज़्यादा",
         "sigma": "+1.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pause"
       },
       {
-        "sign": "👂 \"क्या कहा?\"",
+        "sign": "\"क्या कहा?\"",
         "from": "रोज़ की बातचीत",
         "frequency": "हर दिन",
         "now": "इस हफ़्ते 9",
         "usual": "3",
         "comparison": "काफ़ी ज़्यादा",
         "sigma": "+2.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "ear"
       },
       {
-        "sign": "🌡️ घर का तापमान",
+        "sign": "घर का तापमान",
         "from": "घर के सेंसर",
         "frequency": "पूरे दिन",
         "now": "29.5°",
         "usual": "25.1°",
         "comparison": "काफ़ी ज़्यादा",
         "sigma": "+2.2",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "thermometer"
       },
       {
-        "sign": "⚖️ वज़न",
+        "sign": "वज़न",
         "from": "वज़न मशीन",
         "frequency": "हर दिन",
         "now": "61.2 kg",
         "usual": "61.0",
         "comparison": "लगभग उतना ही",
         "sigma": "+0.2",
-        "tone": "good"
+        "tone": "good",
+        "icon": "scale"
       }
     ],
     "bp": {
@@ -421,27 +440,30 @@
       "sliders": [
         {
           "id": "adherence",
-          "label": "💊 समय पर ली गई गोलियाँ",
+          "label": "समय पर ली गई गोलियाँ",
           "min": 60,
           "max": 100,
           "step": 1,
-          "value": 86
+          "value": 86,
+          "icon": "pill"
         },
         {
           "id": "steps",
-          "label": "👣 रोज़ के कदम",
+          "label": "रोज़ के कदम",
           "min": 1500,
           "max": 7000,
           "step": 100,
-          "value": 3240
+          "value": 3240,
+          "icon": "footprints"
         },
         {
           "id": "salt",
-          "label": "🧂 खाने में नमक",
+          "label": "खाने में नमक",
           "min": 0,
           "max": 2,
           "step": 1,
-          "value": 1
+          "value": 1,
+          "icon": "cooking-pot"
         }
       ],
       "saltLabels": [
@@ -449,7 +471,7 @@
         "मध्यम",
         "ज़्यादा"
       ],
-      "hearingLabel": "👂 रोज़ सुनने की मशीन पहनें",
+      "hearingLabel": "रोज़ सुनने की मशीन पहनें",
       "hearingAids": false,
       "base": {
         "stroke": 2.1,
@@ -457,7 +479,8 @@
         "admission": 14,
         "mci": 3.1
       },
-      "note": "असर के अनुमान प्रकाशित शोध से लिए गए हैं और उनके मौजूदा जोखिम पर लागू किए गए हैं। यह उनके डॉक्टर (GP) से बात शुरू करने के लिए है, नुस्खा नहीं।"
+      "note": "असर के अनुमान प्रकाशित शोध से लिए गए हैं और उनके मौजूदा जोखिम पर लागू किए गए हैं। यह उनके डॉक्टर (GP) से बात शुरू करने के लिए है, नुस्खा नहीं।",
+      "hearingIcon": "ear"
     },
     "modes": [
       {

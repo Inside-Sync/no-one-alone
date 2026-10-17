@@ -7,6 +7,9 @@
   --ink:#0d2a2a; --ink2:#2f4c4b; --muted:#56706e; --line:rgba(13,42,42,.10); --track:rgba(13,42,42,.08);
   --brand:#0b7f71; --brand-2:#1fb39c; --jac:#8f6fd0; --sun-ink:#b8571a; --sos:#ef4e4a;
   --good:#1f8f5f; --warn:#b97f04; --bad:#d9443f;
+  /* Icon hues: an icon is coloured by what it means (heart red, water blue, sleep indigo). */
+  --hue-red:#dc3f45; --hue-rose:#d24d7c; --hue-orange:#d6631c; --hue-amber:#c48606; --hue-green:#2e9358;
+  --hue-teal:#0b7f71; --hue-blue:#2c78c9; --hue-indigo:#5559cf; --hue-purple:#8a62cc; --hue-slate:#56707c;
   --glass:linear-gradient(155deg,rgba(255,255,255,.78) 0%,rgba(255,255,255,.56) 55%,rgba(255,255,255,.48) 100%);
   --glass-2:rgba(255,255,255,.52);
   --glass-edge:inset 0 0 0 1px rgba(255,255,255,.62),inset 0 1px 0 rgba(255,255,255,.95);
@@ -24,5 +27,7 @@ body.night{
   --glass-2:rgba(255,255,255,.09);
   --glass-edge:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.22);
   --glass-drop:0 14px 34px rgba(0,0,0,.35);
+  --hue-red:#ff7b7f; --hue-rose:#f28db2; --hue-orange:#ff9d5e; --hue-amber:#f3c04f; --hue-green:#72d29c;
+  --hue-teal:#55d0be; --hue-blue:#7db5f4; --hue-indigo:#a3a6ff; --hue-purple:#bfa2f2; --hue-slate:#b3c4cd;
   color-scheme:dark;
 }

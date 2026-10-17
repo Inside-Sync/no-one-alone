@@ -948,363 +948,408 @@
     "groups": [
       {
         "icon": "heart",
-        "emoji": "❤️",
         "title": "दिल",
         "category": "heart",
         "metrics": [
           {
-            "label": "💓 आराम में",
+            "label": "आराम में",
             "value": "68 bpm",
             "note": "सामान्यतः 63",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "heart-pulse"
           },
           {
-            "label": "🚶 चलते समय",
+            "label": "चलते समय",
             "value": "92 bpm",
-            "note": "सामान्य"
+            "note": "सामान्य",
+            "icon": "footprints"
           },
           {
-            "label": "🌿 शांति स्कोर",
+            "label": "शांति स्कोर",
             "value": "26",
             "note": "सामान्य से कम",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "leaf"
           },
           {
-            "label": "⏱️ चलने के बाद सामान्य होना",
+            "label": "चलने के बाद सामान्य होना",
             "value": "18 धड़कन",
-            "note": "1 मिनट में"
+            "note": "1 मिनट में",
+            "icon": "timer"
           },
           {
-            "label": "📈 आज का दायरा",
+            "label": "आज का दायरा",
             "value": "58–112",
-            "note": "bpm"
+            "note": "bpm",
+            "icon": "trend"
           },
           {
-            "label": "🏃 फ़िटनेस स्तर",
+            "label": "फ़िटनेस स्तर",
             "value": "औसत",
-            "note": "उनकी उम्र के हिसाब से"
+            "note": "उनकी उम्र के हिसाब से",
+            "icon": "activity"
           }
         ]
       },
       {
         "icon": "lungs",
-        "emoji": "🫁",
         "title": "धड़कन और साँस",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚡ अनियमित धड़कन",
+            "label": "अनियमित धड़कन",
             "value": "2 अलर्ट",
             "note": "इस हफ़्ते",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "bolt"
           },
           {
-            "label": "🌙 रात में अनियमित",
+            "label": "रात में अनियमित",
             "value": "~3%",
             "note": "रात का",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "📄 दिल की जाँच (ECG)",
+            "label": "दिल की जाँच (ECG)",
             "value": "सामान्य",
             "note": "12 अक्टू",
-            "tone": "good"
+            "tone": "good",
+            "icon": "file"
           },
           {
-            "label": "🩸 खून में ऑक्सीजन",
+            "label": "खून में ऑक्सीजन",
             "value": "95%",
-            "note": "सामान्य"
+            "note": "सामान्य",
+            "icon": "drop"
           },
           {
-            "label": "🌬️ प्रति मिनट साँसें",
+            "label": "प्रति मिनट साँसें",
             "value": "15",
-            "note": "सोते समय · सामान्य"
+            "note": "सोते समय · सामान्य",
+            "icon": "wind"
           },
           {
-            "label": "🌡️ त्वचा का तापमान",
+            "label": "त्वचा का तापमान",
             "value": "सामान्य",
-            "note": "+0.3°"
+            "note": "+0.3°",
+            "icon": "thermometer"
           }
         ]
       },
       {
-        "icon": "trend",
-        "emoji": "🔥",
+        "icon": "flame",
         "title": "चलना-फिरना और ऊर्जा",
         "category": "activity",
         "metrics": [
           {
-            "label": "👣 कदम",
+            "label": "कदम",
             "value": "3,240",
-            "note": "लक्ष्य 3,500"
+            "note": "लक्ष्य 3,500",
+            "icon": "footprints"
           },
           {
-            "label": "📏 दूरी",
+            "label": "दूरी",
             "value": "2.1 किमी",
-            "note": "चलीं"
+            "note": "चलीं",
+            "icon": "ruler"
           },
           {
-            "label": "🪜 सीढ़ियाँ",
+            "label": "सीढ़ियाँ",
             "value": "2 मंज़िल",
-            "note": "चढ़ीं"
+            "note": "चढ़ीं",
+            "icon": "door-stairwell"
           },
           {
-            "label": "🔥 चलने में कैलोरी",
+            "label": "चलने में कैलोरी",
             "value": "212",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "flame"
           },
           {
-            "label": "🛋️ आराम में कैलोरी",
+            "label": "आराम में कैलोरी",
             "value": "1,428",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "sofa"
           },
           {
-            "label": "🏋️ व्यायाम",
+            "label": "व्यायाम",
             "value": "18 मिनट",
             "note": "लक्ष्य 30",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "dumbbell"
           }
         ]
       },
       {
-        "icon": "people",
-        "emoji": "🚶",
+        "icon": "footprints",
         "title": "चाल और संतुलन",
         "category": "activity",
         "metrics": [
           {
-            "label": "🐢 चलने की गति",
+            "label": "चलने की गति",
             "value": "धीमी",
             "note": "0.82 मी/से",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "turtle"
           },
           {
-            "label": "👟 कदम की लंबाई",
+            "label": "कदम की लंबाई",
             "value": "51 cm",
-            "note": "सामान्यतः 54"
+            "note": "सामान्यतः 54",
+            "icon": "footprints"
           },
           {
-            "label": "🦶 दोनों पैर ज़मीन पर",
+            "label": "दोनों पैर ज़मीन पर",
             "value": "34%",
             "note": "कम स्थिर",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "footprints"
           },
           {
-            "label": "⚖️ बराबर कदम",
+            "label": "बराबर कदम",
             "value": "हाँ",
-            "note": "6% अंतर"
+            "note": "6% अंतर",
+            "icon": "scale"
           },
           {
-            "label": "🧍 स्थिरता",
+            "label": "स्थिरता",
             "value": "कम",
             "note": "गिरने का ज़्यादा ख़तरा",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "person-standing"
           },
           {
-            "label": "🕕 6 मिनट की सैर",
+            "label": "6 मिनट की सैर",
             "value": "310 m",
-            "note": "सामान्यतः 340"
+            "note": "सामान्यतः 340",
+            "icon": "timer"
           }
         ]
       },
       {
-        "icon": "moon",
-        "emoji": "😴",
+        "icon": "bed",
         "title": "नींद",
         "category": "sleep",
         "metrics": [
           {
-            "label": "🛌 सोईं",
+            "label": "सोईं",
             "value": "6 घं 12 मि",
             "note": "सामान्यतः 7 घं",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "bed"
           },
           {
-            "label": "✨ अच्छी नींद",
+            "label": "अच्छी नींद",
             "value": "81%",
-            "note": "बिस्तर पर बिताए समय का"
+            "note": "बिस्तर पर बिताए समय का",
+            "icon": "sparkles"
           },
           {
-            "label": "🌑 गहरी नींद",
+            "label": "गहरी नींद",
             "value": "52 मिनट",
-            "note": "ताज़गी देने वाली"
+            "note": "ताज़गी देने वाली",
+            "icon": "moon"
           },
           {
-            "label": "💭 सपनों वाली नींद",
+            "label": "सपनों वाली नींद",
             "value": "52 मिनट",
-            "note": "सामान्य"
+            "note": "सामान्य",
+            "icon": "cloud-moon"
           },
           {
-            "label": "👀 जागीं",
+            "label": "जागीं",
             "value": "6 बार",
             "note": "38 मिनट जागीं",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "eye"
           },
           {
-            "label": "🕙 सोने का समय",
+            "label": "सोने का समय",
             "value": "रात 10:41",
-            "note": "काफ़ी नियमित"
+            "note": "काफ़ी नियमित",
+            "icon": "clock"
           }
         ]
       },
       {
         "icon": "smile",
-        "emoji": "😊",
         "title": "मूड और साथ",
         "category": "mood",
         "metrics": [
           {
-            "label": "😊 आज का मूड",
+            "label": "आज का मूड",
             "value": "खुश",
             "note": "उनकी आवाज़ से",
-            "tone": "good"
+            "tone": "good",
+            "icon": "smile"
           },
           {
-            "label": "🙂 इस हफ़्ते",
+            "label": "इस हफ़्ते",
             "value": "ज़्यादातर अच्छा",
-            "note": "स्थिर"
+            "note": "स्थिर",
+            "icon": "smile"
           },
           {
-            "label": "🫂 अकेलापन",
+            "label": "अकेलापन",
             "value": "थोड़ा",
-            "note": "9 में से 4"
+            "note": "9 में से 4",
+            "icon": "heart-handshake"
           },
           {
-            "label": "📞 फ़ोन कॉल",
+            "label": "फ़ोन कॉल",
             "value": "5",
-            "note": "इस हफ़्ते"
+            "note": "इस हफ़्ते",
+            "icon": "phone"
           },
           {
-            "label": "🏡 मुलाक़ातें",
+            "label": "मुलाक़ातें",
             "value": "2",
-            "note": "इस हफ़्ते"
+            "note": "इस हफ़्ते",
+            "icon": "home"
           },
           {
-            "label": "🧘 शांत साँस",
+            "label": "शांत साँस",
             "value": "10 मिनट",
-            "note": "आज"
+            "note": "आज",
+            "icon": "wind"
           }
         ]
       },
       {
         "icon": "drop",
-        "emoji": "💧",
         "title": "शरीर और भोजन",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚖️ वज़न",
+            "label": "वज़न",
             "value": "61.2 किग्रा",
-            "note": "स्थिर"
+            "note": "स्थिर",
+            "icon": "scale"
           },
           {
-            "label": "📐 शरीर का माप (BMI)",
+            "label": "शरीर का माप (BMI)",
             "value": "स्वस्थ",
-            "note": "23.4"
+            "note": "23.4",
+            "icon": "ruler"
           },
           {
-            "label": "💧 पानी",
+            "label": "पानी",
             "value": "1.5 में से 1.1 लीटर",
             "note": "और पिएँ",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "drop"
           },
           {
-            "label": "🍽️ भोजन",
+            "label": "भोजन",
             "value": "3",
-            "note": "आवाज़ से बताया"
+            "note": "आवाज़ से बताया",
+            "icon": "utensils"
           },
           {
-            "label": "🫖 चाय के कप",
+            "label": "चाय के कप",
             "value": "2",
-            "note": "आज"
+            "note": "आज",
+            "icon": "coffee"
           },
           {
-            "label": "🌡️ तापमान",
+            "label": "तापमान",
             "value": "36.7°",
-            "note": "सामान्य"
+            "note": "सामान्य",
+            "icon": "thermometer"
           }
         ]
       },
       {
         "icon": "ear",
-        "emoji": "👂",
         "title": "सुनना और इंद्रियाँ",
         "category": "speech",
         "metrics": [
           {
-            "label": "🔊 आसपास का शोर",
+            "label": "आसपास का शोर",
             "value": "62 dB",
-            "note": "सामान्य"
+            "note": "सामान्य",
+            "icon": "volume-2"
           },
           {
-            "label": "📺 TV की आवाज़",
+            "label": "TV की आवाज़",
             "value": "तेज़",
             "note": "74 dB",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "tv"
           },
           {
-            "label": "❓ \"क्या कहा?\"",
+            "label": "\"क्या कहा?\"",
             "value": "9 बार",
             "note": "इस हफ़्ते",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-help"
           },
           {
-            "label": "🦻 सुनने की मशीन",
+            "label": "सुनने की मशीन",
             "value": "नहीं पहनी",
             "note": "आज",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "ear"
           },
           {
-            "label": "☀️ बाहर बिताया समय",
+            "label": "बाहर बिताया समय",
             "value": "38 मिनट",
-            "note": "लक्ष्य 60"
+            "note": "लक्ष्य 60",
+            "icon": "sun"
           },
           {
-            "label": "🔠 स्क्रीन का टेक्स्ट",
+            "label": "स्क्रीन का टेक्स्ट",
             "value": "बहुत बड़ा",
-            "note": "28 pt"
+            "note": "28 pt",
+            "icon": "type"
           }
         ]
       },
       {
         "icon": "pill",
-        "emoji": "💊",
         "title": "गोलियाँ और ब्लड प्रेशर",
         "category": "meds",
         "metrics": [
           {
-            "label": "✅ समय पर लीं",
+            "label": "समय पर लीं",
             "value": "86%",
             "note": "कुछ छूटीं",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-check"
           },
           {
-            "label": "🌅 सुबह का BP",
+            "label": "सुबह का BP",
             "value": "146/88",
             "note": "ज़्यादा",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "sunrise"
           },
           {
-            "label": "🌙 शाम का BP",
+            "label": "शाम का BP",
             "value": "139/84",
             "note": "थोड़ा ज़्यादा",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "💊 आज",
+            "label": "आज",
             "value": "3 में से 2",
-            "note": "अगली शाम 6 बजे"
+            "note": "अगली शाम 6 बजे",
+            "icon": "pill"
           },
           {
-            "label": "❌ छूटीं",
+            "label": "छूटीं",
             "value": "3",
             "note": "इस हफ़्ते",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-x"
           },
           {
-            "label": "📦 बची गोलियाँ",
+            "label": "बची गोलियाँ",
             "value": "12 दिन",
-            "note": "जल्द दोबारा लें"
+            "note": "जल्द दोबारा लें",
+            "icon": "package"
           }
         ]
       }
@@ -2434,38 +2479,44 @@
       ],
       "stats": [
         {
-          "label": "🗣️ बोलने की गति",
+          "label": "बोलने की गति",
           "value": "132",
-          "note": "शब्द प्रति मिनट · सामान्यतः 141"
+          "note": "शब्द प्रति मिनट · सामान्यतः 141",
+          "icon": "speech"
         },
         {
-          "label": "⏸️ रुकावटें",
+          "label": "रुकावटें",
           "value": "थोड़ी ज़्यादा",
           "note": "सामान्य से",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "pause"
         },
         {
-          "label": "✅ साफ़ बोली",
+          "label": "साफ़ बोली",
           "value": "हाँ",
           "note": "ज़ुबान नहीं लड़खड़ाई",
-          "tone": "good"
+          "tone": "good",
+          "icon": "circle-check"
         },
         {
-          "label": "🔤 शब्द भूलना",
+          "label": "शब्द भूलना",
           "value": "3 बार",
-          "note": "आमतौर पर एक-दो बार"
+          "note": "आमतौर पर एक-दो बार",
+          "icon": "type"
         },
         {
-          "label": "👂 \"क्या कहा?\"",
+          "label": "\"क्या कहा?\"",
           "value": "2 बार",
           "note": "सुनना",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "ear"
         },
         {
-          "label": "😊 मूड",
+          "label": "मूड",
           "value": "खुश",
           "note": "अच्छा दिन",
-          "tone": "good"
+          "tone": "good",
+          "icon": "smile"
         }
       ]
     },
@@ -2476,37 +2527,43 @@
       },
       "stats": [
         {
-          "label": "🌡️ अंदर",
+          "label": "अंदर",
           "value": "29.5°",
           "note": "ज़्यादा गर्म",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "thermometer"
         },
         {
-          "label": "☀️ बाहर",
+          "label": "बाहर",
           "value": "33°",
-          "note": "महसूस 35° जैसा"
+          "note": "महसूस 35° जैसा",
+          "icon": "sun"
         },
         {
-          "label": "💦 नमी",
+          "label": "नमी",
           "value": "58%",
-          "note": "अंदर"
+          "note": "अंदर",
+          "icon": "droplets"
         },
         {
-          "label": "🍃 हवा",
+          "label": "हवा",
           "value": "अच्छी",
           "note": "आज साफ़",
-          "tone": "good"
+          "tone": "good",
+          "icon": "wind"
         },
         {
-          "label": "🕶️ धूप की तेज़ी",
+          "label": "धूप की तेज़ी",
           "value": "बहुत ज़्यादा",
           "note": "छाँव में रहें",
-          "tone": "bad"
+          "tone": "bad",
+          "icon": "glasses"
         },
         {
-          "label": "💧 पानी पीने के रिमाइंडर",
+          "label": "पानी पीने के रिमाइंडर",
           "value": "8 में से 6",
-          "note": "जवाब दिया"
+          "note": "जवाब दिया",
+          "icon": "drop"
         }
       ],
       "note": "गुरुवार का पूर्वानुमान 38 °C। एजेंट दोपहर में एक अतिरिक्त चेक-इन करेगा और लाइब्रेरी के कूल रूम (120 जगह, 400 मी) तक ले जाने की पेशकश करेगा।"

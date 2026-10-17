@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NoaOrb } from '@/components/noa/NoaOrb'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import type { IncidentDoc } from '@/data/contract'
 import { clockTime, memberName, type LivePeople } from '@/domain/incident'
 import type { CallLine } from './useCallDialogue'
@@ -11,7 +12,7 @@ import type { CallLine } from './useCallDialogue'
 /** One thing said: by Noa (`agent`) to a channel, or by the person on that channel. */
 interface Said { at: number; ch: string; agent: boolean; who: string; text: string }
 
-const RELATION_ICON: Record<string, string> = { son: '👨', daughter: '👩', brother: '👴', sister: '👵', neighbour: '🏠', neighbor: '🏠' }
+const RELATION_ICON: Record<string, IconName> = { neighbour: 'home', neighbor: 'home' }
 const first = (s: string) => s.split(' ')[0]
 const quote = (s: string) => (/^["“(]/.test(s) ? s : `“${s}”`)
 
@@ -59,12 +60,12 @@ export function ConversationsCard({ incident, people, call, dialling }: {
   const tz = people.person?.timezone ?? 'Asia/Ho_Chi_Minh'
   const num = people.person?.emergencyNumber ?? '000'
   const all = incident ? conversation(incident, people, call, t as unknown as (k: string, o?: object) => string) : []
-  const channel = (ch: string): [icon: string, name: string] => {
-    if (ch === 'mg') return ['👵', first(people.person?.displayName ?? t('agent.her'))]
-    if (ch === 'ooo') return ['🚑', num]
-    if (ch === 'hosp') return ['🏥', t('talk.hospital')]
+  const channel = (ch: string): [icon: IconName, name: string] => {
+    if (ch === 'mg') return ['user-round', first(people.person?.displayName ?? t('agent.her'))]
+    if (ch === 'ooo') return ['ambulance', num]
+    if (ch === 'hosp') return ['hospital', t('talk.hospital')]
     const rel = people.person?.circle?.find((c) => c.memberId === ch)?.relation.toLowerCase() ?? ''
-    return [RELATION_ICON[rel] ?? '👤', first(memberName(people, ch))]
+    return [RELATION_ICON[rel] ?? 'user-round', first(memberName(people, ch))]
   }
   const chans = ['all', ...['mg', ...Object.keys(people.members), 'ooo', 'hosp'].filter((c) => all.some((s) => s.ch === c))]
   const pick = chans.includes(filter) ? filter : 'all'
@@ -75,15 +76,15 @@ export function ConversationsCard({ incident, people, call, dialling }: {
   return (
     <GlassCard span={7} id="call000">
       <div className="ch">
-        <h2>{t('talk.title')}</h2>
+        <h2><Glyph name="mic" />{t('talk.title')}</h2>
         <span className="meta">{dialling ? t('call.dialling', { num }) : last && incident?.status !== 'CLOSED' ? t('talk.live', { time: last }) : t('talk.meta')}</span>
       </div>
       {all.length > 0 && (
         <div className="txf" role="group" aria-label={t('talk.filter')}>
           {chans.map((c) => {
-            const [icon, name] = c === 'all' ? ['', t('talk.all')] : channel(c)
+            const name = c === 'all' ? t('talk.all') : channel(c)[1]
             const n = c === 'all' ? all.length : all.filter((x) => x.ch === c).length
-            return <button key={c} type="button" className="chip" aria-pressed={pick === c} onClick={() => setFilter(c)}>{icon ? `${icon} ${name}` : name}<em>{n}</em></button>
+            return <button key={c} type="button" className="chip" aria-pressed={pick === c} onClick={() => setFilter(c)}>{name}<em>{n}</em></button>
           })}
         </div>
       )}
@@ -95,7 +96,7 @@ export function ConversationsCard({ incident, people, call, dialling }: {
             ? [<li key={`div-${s.at}`} className="tx-div">{t('talk.onCall', { num })}</li>] : []
           return [...divider, (
             <li key={`${s.at}-${k}`} className={s.agent ? 'ag' : 'ot'}>
-              {s.agent ? <NoaOrb size={26} /> : <span className="tx-av" aria-hidden="true">{icon}</span>}
+              {s.agent ? <NoaOrb size={26} /> : <span className="tx-av"><span className="ic"><Icon name={icon} tint /></span></span>}
               <span className="tx-body">
                 <span className="who">
                   {clockTime(s.at, tz)} · {s.agent ? t('talk.to', { name }) : s.who}
@@ -105,7 +106,7 @@ export function ConversationsCard({ incident, people, call, dialling }: {
             </li>
           )]
         }) : <li className="sys">{t('talk.none')}</li>}
-        {dialling && <li className="ot"><span className="tx-av" aria-hidden="true">🚑</span><span className="typing" aria-label={t('call.dialling', { num })}><i></i><i></i><i></i></span></li>}
+        {dialling && <li className="ot"><span className="tx-av"><span className="ic"><Icon name="ambulance" tint /></span></span><span className="typing" aria-label={t('call.dialling', { num })}><i></i><i></i><i></i></span></li>}
       </ol>
       <p className="fine">{t('call.fine', { num })}</p>
     </GlassCard>

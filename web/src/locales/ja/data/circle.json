@@ -4,66 +4,71 @@
       "id": "david",
       "initials": "D",
       "color": "#2f6fb0",
-      "name": "👨 David · 弟",
+      "name": "David · 弟",
       "note": "450 m先 · 最初の連絡先",
       "role": {
         "tone": "good",
         "text": "待機中"
       },
       "technicalName": "David · 弟",
-      "technicalNote": "450 m · 最初の連絡先"
+      "technicalNote": "450 m · 最初の連絡先",
+      "icon": "user-round"
     },
     {
       "id": "james",
       "initials": "J",
       "color": "#e07a3f",
-      "name": "🙋 James · あなた",
+      "name": "James · あなた",
       "note": "メルボルン · 必要時に000へ通報",
       "role": {
         "tone": "brand",
         "text": "2番目"
       },
       "technicalName": "James · あなた",
-      "technicalNote": "メルボルン · 000通報担当"
+      "technicalNote": "メルボルン · 000通報担当",
+      "icon": "user-round"
     },
     {
       "id": "sarah",
       "initials": "S",
       "color": "#c2417a",
-      "name": "👩 Sarah · 娘",
+      "name": "Sarah · 娘",
       "note": "ロンドン · 近況を受け取る",
       "role": {
         "tone": "plain",
         "text": "近況"
       },
       "technicalName": "Sarah · 娘",
-      "technicalNote": "ロンドン · 近況のみ"
+      "technicalNote": "ロンドン · 近況のみ",
+      "icon": "user-round"
     },
     {
       "id": "priya",
       "initials": "P",
       "color": "#8a6bd1",
-      "name": "🩺 Priya · 訪問看護師",
+      "name": "Priya · 訪問看護師",
       "note": "平日",
       "role": {
         "tone": "plain",
         "text": "予備"
       },
       "technicalName": "Priya Sharma",
-      "technicalNote": "訪問看護師 · 平日"
+      "technicalNote": "訪問看護師 · 平日",
+      "icon": "stethoscope"
     },
     {
       "id": "aisha",
       "initials": "A",
       "color": "#c2611f",
-      "name": "🏡 Aisha · 隣人",
+      "name": "Aisha · 隣人",
       "note": "2軒隣 · 合鍵あり",
       "role": {
         "tone": "plain",
         "text": "予備"
       },
       "technicalName": "Aisha · 隣人",
-      "technicalNote": "2軒隣 · 合鍵保管"
+      "technicalNote": "2軒隣 · 合鍵保管",
+      "icon": "home"
     }
   ],
   "circleOrbit": [

@@ -4,13 +4,14 @@
  * the `live` namespace at call time; text written by the backend (timeline entries, alert messages) is shown as is.
  */
 import i18n from '@/i18n'
+import type { IconName } from '@/data/types'
 import type { AssignmentDoc, CircleEntryDoc, IncidentDoc, LatLng, TimelineDoc, TimelineKind } from '@/data/contract'
 import { clockTime, memberName, type LivePeople } from './incident'
 
 export type StepState = '' | 'done' | 'cur' | 'fail' | 'skip'
 export type Tone = 'green' | 'amber' | 'red'
 
-export interface AgentStep { key: string; icon: string; label: string; state: StepState; note: string }
+export interface AgentStep { key: string; icon: IconName; label: string; state: StepState; note: string }
 export interface CallRow { id: string; name: string; initials: string; color: string; sub: string; status: string; cls: '' | 'ring' | 'miss' | 'ok' }
 export interface AlertRow { id: string; name: string; initials: string; text: string; sent: string }
 
@@ -104,32 +105,32 @@ function escalationSteps(inc: IncidentDoc, people: LivePeople, tone: Tone): Agen
   const queue = callQueue(people)
   const num = people.person?.emergencyNumber ?? '000'
   const closed = inc.status === 'CLOSED' || inc.status === 'ON_SCENE'
-  const steps: Omit<AgentStep, 'note'>[] = [{ key: 'alertall', icon: '🔔', label: tl('step.alertAll'), state: has(inc, 'ALERTED') ? 'done' : 'cur' }]
+  const steps: Omit<AgentStep, 'note'>[] = [{ key: 'alertall', icon: 'bell', label: tl('step.alertAll'), state: has(inc, 'ALERTED') ? 'done' : 'cur' }]
   queue.forEach((c, k) => {
     const a = (inc.assignments ?? []).find((x) => x.memberId === c.memberId)
     const prev = queue[k - 1]
     if (c.role === 'NEARBY' && prev?.role === 'DISTANT') {
       const scanned = Boolean(a && a.state !== 'QUEUED')
       const prevDone = stepOf((inc.assignments ?? []).find((x) => x.memberId === prev.memberId)) === 'fail'
-      steps.push({ key: 'scan', icon: '📍', label: tl('step.scan'), state: scanned ? 'done' : prevDone ? 'cur' : closed ? 'skip' : '' })
+      steps.push({ key: 'scan', icon: 'map-pin', label: tl('step.scan'), state: scanned ? 'done' : prevDone ? 'cur' : closed ? 'skip' : '' })
     }
     const s = stepOf(a)
-    steps.push({ key: `call-${c.memberId}`, icon: '📞', label: tl('step.call', { name: first(memberName(people, c.memberId)), detail: who(people, queue, c, k).detail }), state: s || (closed ? 'skip' : '') })
+    steps.push({ key: `call-${c.memberId}`, icon: 'phone', label: tl('step.call', { name: first(memberName(people, c.memberId)), detail: who(people, queue, c, k).detail }), state: s || (closed ? 'skip' : '') })
   })
   const called = has(inc, 'CALLED_115')
   const ooo: StepState = called ? 'done' : has(inc, 'NO_NEARBY') ? 'cur' : closed ? 'skip' : ''
-  if (tone === 'red' || called) steps.push({ key: 'ooo', icon: '🚑', label: tl('step.ooo', { num }), state: ooo })
+  if (tone === 'red' || called) steps.push({ key: 'ooo', icon: 'ambulance', label: tl('step.ooo', { num }), state: ooo })
   const h = inc.handoff?.status
-  steps.push({ key: 'packet', icon: '🏥', label: tl('step.packet'), state: h === 'RECEIVED' ? 'done' : h === 'FAILED' ? 'fail' : h === 'PENDING' || has(inc, 'HANDOFF_SENT') ? 'cur' : '' })
+  steps.push({ key: 'packet', icon: 'hospital', label: tl('step.packet'), state: h === 'RECEIVED' ? 'done' : h === 'FAILED' ? 'fail' : h === 'PENDING' || has(inc, 'HANDOFF_SENT') ? 'cur' : '' })
   const helping = Boolean(inc.ownerId) || called
-  steps.push({ key: 'company', icon: '🤝', label: tl(called ? 'step.paramedics' : 'step.company'), state: closed ? 'done' : helping && h !== 'PENDING' ? 'cur' : '' })
+  steps.push({ key: 'company', icon: 'handshake', label: tl(called ? 'step.paramedics' : 'step.company'), state: closed ? 'done' : helping && h !== 'PENDING' ? 'cur' : '' })
   return steps.map((s) => ({ ...s, note: '' }))
 }
 
 function greenSteps(inc: IncidentDoc): Omit<AgentStep, 'note'>[] {
   const done = inc.status === 'CLOSED'
   return (['g1', 'g2', 'g3'] as const).map((k, i) => ({
-    key: k, icon: ['🫖', '⏱️', '📝'][i], label: tl(`step.${k}`), state: done ? 'done' : i === 0 ? 'cur' : '',
+    key: k, icon: (['coffee', 'timer', 'notebook-pen'] as const)[i], label: tl(`step.${k}`), state: done ? 'done' : i === 0 ? 'cur' : '',
   }))
 }
 
@@ -157,11 +158,11 @@ export function agentView(inc: IncidentDoc | null, people: LivePeople): AgentVie
   const queue = callQueue(people)
   const num = people.person?.emergencyNumber ?? '000'
   const base: Omit<AgentStep, 'note'>[] = [
-    { key: 'detect', icon: '🔎', label: tl('step.detect'), state: '' },
-    { key: 'ask', icon: '💬', label: tl('step.ask', { name }), state: '' },
-    { key: 'speech', icon: '🗣️', label: tl('step.speech'), state: '' },
-    { key: 'feel', icon: '🩺', label: tl('step.feel'), state: '' },
-    { key: 'decide', icon: '🧭', label: tl('step.decide'), state: '' },
+    { key: 'detect', icon: 'search', label: tl('step.detect'), state: '' },
+    { key: 'ask', icon: 'message-circle', label: tl('step.ask', { name }), state: '' },
+    { key: 'speech', icon: 'speech', label: tl('step.speech'), state: '' },
+    { key: 'feel', icon: 'stethoscope', label: tl('step.feel'), state: '' },
+    { key: 'decide', icon: 'compass', label: tl('step.decide'), state: '' },
   ]
   const calls: CallRow[] = queue.map((c, k) => {
     const n = memberName(people, c.memberId)

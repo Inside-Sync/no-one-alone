@@ -1,4 +1,5 @@
 import type { RecoveryDoc } from '@/data/contract'
+import type { IconName } from '@/data/types'
 import i18n, { intlLocale } from '@/i18n'
 
 export type Reminder = RecoveryDoc['reminders'][number]
@@ -104,14 +105,14 @@ export function deliverySteps(r: RecoveryDoc, circle: string[]): Step[] {
 }
 
 /** A glanceable icon for a task: tablets, or the kind of activity named in the reminder (display only). */
-export function taskIcon(task: Pick<Task, 'kind' | 'title'>): string {
-  if (task.kind === 'MED') return '💊'
+export function taskIcon(task: Pick<Task, 'kind' | 'title'>): IconName {
+  if (task.kind === 'MED') return 'pill'
   const t = task.title.toLowerCase()
-  if (t.includes('walk')) return '🚶'
-  if (t.includes('blood pressure')) return '🩺'
-  if (t.includes('speech')) return '🗣️'
-  if (t.includes('water')) return '💧'
-  return '✅'
+  if (t.includes('walk')) return 'footprints'
+  if (t.includes('blood pressure')) return 'stethoscope'
+  if (t.includes('speech')) return 'speech'
+  if (t.includes('water')) return 'drop'
+  return 'circle-check'
 }
 
 const localDate = (ms: number, tz: string) => new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(ms)

@@ -53,7 +53,7 @@ export function KpiDrawerBody({ kpi }: { kpi: KpiData }) {
   return (
     <SharedKpiDrawerBody
       kpi={kpi}
-      explainLabel={`${kpi.emoji ?? ''}${kpi.label}`}
+      explainLabel={kpi.label}
       fallback="individual"
       actions={t('drawer.kpi', { returnObjects: true })}
     />

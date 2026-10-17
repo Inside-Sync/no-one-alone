@@ -7,43 +7,50 @@
     "wellbeingNote": "满分100分得72分，比上周下降5分。拉低分数的有两件事：她的血压在慢慢升高，家里也太热了。",
     "wellbeingAxes": [
       {
-        "label": "❤️ 身体",
+        "label": "身体",
         "now": 61,
-        "lastMonth": 74
+        "lastMonth": 74,
+        "icon": "heart"
       },
       {
-        "label": "💊 用药",
+        "label": "用药",
         "now": 68,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "pill"
       },
       {
-        "label": "🚶 活动",
+        "label": "活动",
         "now": 74,
-        "lastMonth": 80
+        "lastMonth": 80,
+        "icon": "footprints"
       },
       {
-        "label": "😴 睡眠",
+        "label": "睡眠",
         "now": 70,
-        "lastMonth": 76
+        "lastMonth": 76,
+        "icon": "bed"
       },
       {
-        "label": "🤝 社交",
+        "label": "社交",
         "now": 82,
-        "lastMonth": 84
+        "lastMonth": 84,
+        "icon": "handshake"
       },
       {
-        "label": "🧠 记忆",
+        "label": "记忆",
         "now": 88,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "brain"
       },
       {
-        "label": "🏠 居家",
+        "label": "居家",
         "now": 58,
-        "lastMonth": 78
+        "lastMonth": 78,
+        "icon": "home"
       }
     ],
     "comingUp": {
-      "title": "🔮 接下来：有一件事需要处理",
+      "title": "接下来：有一件事需要处理",
       "meta": "中风 · 90天",
       "pill": {
         "tone": "bad",
@@ -104,7 +111,8 @@
           "value": "forecast",
           "soft": true
         }
-      ]
+      ],
+      "icon": "telescope"
     },
     "weeklyPlan": [
       {
@@ -152,32 +160,32 @@
     "weeklyPlanMeta": "4项任务 · 2位负责人",
     "model": [
       {
-        "emoji": "👀",
+        "icon": "eye",
         "label": "监测",
         "value": "11项指标"
       },
       {
-        "emoji": "📚",
+        "icon": "book-open",
         "label": "预测方式",
         "value": "BigQuery AI.FORECAST"
       },
       {
-        "emoji": "🎯",
+        "icon": "target",
         "label": "风险等级",
         "value": "演示规则，并非诊断"
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "依据",
         "value": "医生指南"
       },
       {
-        "emoji": "🔄",
+        "icon": "refresh-cw",
         "label": "更新频率",
         "value": "每小时"
       },
       {
-        "emoji": "🧑‍⚕️",
+        "icon": "stethoscope",
         "label": "决定者",
         "value": "她的医生，而不是应用"
       }
@@ -278,114 +286,125 @@
     "shapNote": "条形表示每个因素对她风险等级的影响程度。权重为原型示例。",
     "signs": [
       {
-        "sign": "🩺 晨间血压",
+        "sign": "晨间血压",
         "from": "上臂袖带",
         "frequency": "每天早上",
         "now": "146",
         "usual": "132",
         "comparison": "高很多",
         "sigma": "+2.8",
-        "tone": "bad"
+        "tone": "bad",
+        "icon": "stethoscope"
       },
       {
-        "sign": "❤️ 静息心率",
+        "sign": "静息心率",
         "from": "观察",
         "frequency": "全天",
         "now": "68",
         "usual": "63",
         "comparison": "差不多",
         "sigma": "+0.4",
-        "tone": "good"
+        "tone": "good",
+        "icon": "heart"
       },
       {
-        "sign": "🌿 平静分（HRV）",
+        "sign": "平静分（HRV）",
         "from": "观察",
         "frequency": "每晚",
         "now": "26",
         "usual": "31",
         "comparison": "较低",
         "sigma": "−1.9",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "leaf"
       },
       {
-        "sign": "⚡ 心跳不齐提醒",
+        "sign": "心跳不齐提醒",
         "from": "观察",
         "frequency": "发生时",
         "now": "本周2次",
         "usual": "很少",
         "comparison": "较高",
         "sigma": "+2.4",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "bolt"
       },
       {
-        "sign": "🚶 步速",
+        "sign": "步速",
         "from": "手机 + 家中",
         "frequency": "每天",
         "now": "0.82 m/s",
         "usual": "0.89",
         "comparison": "较慢",
         "sigma": "−2.1",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "footprints"
       },
       {
-        "sign": "🌙 夜间起床",
+        "sign": "夜间起床",
         "from": "家中传感器",
         "frequency": "整夜",
         "now": "41次",
         "usual": "18",
         "comparison": "高很多",
         "sigma": "+2.3",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "moon"
       },
       {
-        "sign": "💊 服药情况",
+        "sign": "服药情况",
         "from": "药盒",
         "frequency": "每次服药",
         "now": "86%",
         "usual": "95%",
         "comparison": "较低",
         "sigma": "−1.8",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pill"
       },
       {
-        "sign": "⏸️ 说话停顿",
+        "sign": "说话停顿",
         "from": "每日聊天",
         "frequency": "每天",
         "now": "较多",
         "usual": "较少",
         "comparison": "较高",
         "sigma": "+1.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pause"
       },
       {
-        "sign": "👂 “什么？”",
+        "sign": "“什么？”",
         "from": "每日聊天",
         "frequency": "每天",
         "now": "本周9次",
         "usual": "3",
         "comparison": "高很多",
         "sigma": "+2.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "ear"
       },
       {
-        "sign": "🌡️ 室内温度",
+        "sign": "室内温度",
         "from": "家中传感器",
         "frequency": "全天",
         "now": "29.5°",
         "usual": "25.1°",
         "comparison": "高很多",
         "sigma": "+2.2",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "thermometer"
       },
       {
-        "sign": "⚖️ 体重",
+        "sign": "体重",
         "from": "体重秤",
         "frequency": "每天",
         "now": "61.2 kg",
         "usual": "61.0",
         "comparison": "差不多",
         "sigma": "+0.2",
-        "tone": "good"
+        "tone": "good",
+        "icon": "scale"
       }
     ],
     "bp": {
@@ -421,27 +440,30 @@
       "sliders": [
         {
           "id": "adherence",
-          "label": "💊 按时服药",
+          "label": "按时服药",
           "min": 60,
           "max": 100,
           "step": 1,
-          "value": 86
+          "value": 86,
+          "icon": "pill"
         },
         {
           "id": "steps",
-          "label": "👣 每日步数",
+          "label": "每日步数",
           "min": 1500,
           "max": 7000,
           "step": 100,
-          "value": 3240
+          "value": 3240,
+          "icon": "footprints"
         },
         {
           "id": "salt",
-          "label": "🧂 饮食中的盐",
+          "label": "饮食中的盐",
           "min": 0,
           "max": 2,
           "step": 1,
-          "value": 1
+          "value": 1,
+          "icon": "cooking-pot"
         }
       ],
       "saltLabels": [
@@ -449,7 +471,7 @@
         "中",
         "高"
       ],
-      "hearingLabel": "👂 每天戴助听器",
+      "hearingLabel": "每天戴助听器",
       "hearingAids": false,
       "base": {
         "stroke": 2.1,
@@ -457,7 +479,8 @@
         "admission": 14,
         "mci": 3.1
       },
-      "note": "相对效果来自已发表的效应量，并应用于她当前的风险。这只是与家庭医生沟通的话题，不是处方。"
+      "note": "相对效果来自已发表的效应量，并应用于她当前的风险。这只是与家庭医生沟通的话题，不是处方。",
+      "hearingIcon": "ear"
     },
     "modes": [
       {

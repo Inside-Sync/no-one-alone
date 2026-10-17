@@ -23,7 +23,7 @@
     "medicineCount": 4,
     "conditions": [
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "title": "Huyết áp cao",
         "since": "Từ năm 61 tuổi (2009)",
         "now": "Gần đây chưa kiểm soát tốt",
@@ -31,7 +31,7 @@
         "detail": "Huyết áp của bà tăng dần trong 6 tuần qua. Bà uống amlodipine mỗi tối; tuần này quên 3 liều. Mục tiêu: dưới 135 vào buổi sáng."
       },
       {
-        "emoji": "🦻",
+        "icon": "ear",
         "title": "Suy giảm thính lực",
         "since": "Cả hai tai · từ 72 tuổi (2020)",
         "now": "Hôm nay chưa đeo máy trợ thính",
@@ -39,7 +39,7 @@
         "detail": "Suy giảm thính lực do tuổi tác. Máy trợ thính giúp nghe rõ hơn, và đeo đều đặn còn giảm nguy cơ suy giảm trí nhớ về sau. Đã hẹn đo thính lực ngày 22/10."
       },
       {
-        "emoji": "🫘",
+        "icon": "bean",
         "title": "Thận hoạt động hơi chậm",
         "since": "Giai đoạn 3a · phát hiện 2025",
         "now": "Ổn định, kiểm tra hằng năm",
@@ -47,7 +47,7 @@
         "detail": "Chức năng thận (eGFR) là 58; bình thường từ 60 trở lên. Thường gặp ở tuổi của bà. Bác sĩ gia đình kiểm tra hằng năm và tránh các thuốc gây hại thận."
       },
       {
-        "emoji": "🍬",
+        "icon": "candy",
         "title": "Đường huyết ở mức cao",
         "since": "HbA1c 5,9% · 2026",
         "now": "Theo dõi",
@@ -55,7 +55,7 @@
         "detail": "Chưa phải tiểu đường, nhưng sát ngưỡng (6,0%). Bố bà từng bị tiểu đường type 2. Đi bộ và bớt đồ uống ngọt sẽ có ích."
       },
       {
-        "emoji": "🦴",
+        "icon": "bone",
         "title": "Viêm khớp hai đầu gối",
         "since": "Từ 2015",
         "now": "Đau nhẹ, dùng gậy",
@@ -63,7 +63,7 @@
         "detail": "Viêm khớp do thoái hóa. Đi bộ nhẹ nhàng và lớp tập sức mạnh giúp ích. Uống paracetamol khi cần."
       },
       {
-        "emoji": "💔",
+        "icon": "heart-crack",
         "title": "Nhịp tim không đều (có thể)",
         "since": "Đang kiểm tra · 10/2026",
         "now": "2 cảnh báo tuần này",
@@ -71,7 +71,7 @@
         "detail": "Đồng hồ đeo tay của bà hai lần ghi nhận nhịp không đều vào ban đêm. Điện tâm đồ ngày 12/10 bình thường. Bác sĩ gia đình có thể cho đeo máy theo dõi tim 2 tuần."
       },
       {
-        "emoji": "🧠",
+        "icon": "brain",
         "title": "Trí nhớ",
         "since": "Chưa có chẩn đoán",
         "now": "Theo dõi nhẹ nhàng",
@@ -79,7 +79,7 @@
         "detail": "Không có bệnh về trí nhớ. Mẹ bà từng bị sa sút trí tuệ, nên cuộc trò chuyện hằng ngày để ý những thay đổi chậm trong lời nói. Đến nay mọi thứ bình thường."
       },
       {
-        "emoji": "🦴",
+        "icon": "bone",
         "title": "Độ chắc của xương",
         "since": "Thiếu xương · 2022",
         "now": "Vitamin D hằng ngày",
@@ -98,82 +98,87 @@
       "shareToast": "Đã chia sẻ hồ sơ với vòng chăm sóc",
       "rows": [
         {
-          "emoji": "👩",
+          "icon": "user-round",
           "label": "Giới tính",
           "value": "Nữ"
         },
         {
-          "emoji": "🎂",
+          "icon": "cake",
           "label": "Tuổi",
           "value": "78"
         },
         {
-          "emoji": "📏",
+          "icon": "ruler",
           "label": "Chiều cao",
           "value": "162 cm"
         },
         {
-          "emoji": "⚖️",
+          "icon": "scale",
           "label": "Cân nặng",
           "value": "61,2 kg"
         },
         {
-          "emoji": "📐",
+          "icon": "ruler",
           "label": "BMI",
           "value": "23,4 · bình thường"
         },
         {
-          "emoji": "🩸",
+          "icon": "drop",
           "label": "Nhóm máu",
           "value": "O dương"
         },
         {
-          "emoji": "🏠",
+          "icon": "home",
           "label": "Sống",
           "value": "Một mình · nhà phố 2 tầng"
         },
         {
-          "emoji": "🗣️",
+          "icon": "speech",
           "label": "Ngôn ngữ",
           "value": "Tiếng Anh"
         },
         {
-          "emoji": "🦯",
+          "icon": "accessibility",
           "label": "Dụng cụ hỗ trợ",
           "value": "Gậy khi ra ngoài"
         },
         {
-          "emoji": "👓",
+          "icon": "glasses",
           "label": "Thị lực",
           "value": "Kính đọc sách"
         },
         {
-          "emoji": "🦻",
+          "icon": "ear",
           "label": "Thính lực",
           "value": "Máy trợ thính, cả hai tai"
         },
         {
-          "emoji": "📝",
+          "icon": "notebook-pen",
           "label": "Mong muốn chăm sóc",
           "value": "Đã có kế hoạch chăm sóc trước"
         }
       ],
       "chips": [
         {
-          "text": "⚠️ Dị ứng: penicillin (phát ban)",
-          "danger": true
+          "text": "Dị ứng: penicillin (phát ban)",
+          "danger": true,
+          "icon": "triangle-alert"
         },
         {
-          "text": "💊 4 loại thuốc thường xuyên"
+          "text": "4 loại thuốc thường xuyên",
+          "icon": "pill"
         },
         {
-          "text": "🚬 Chưa từng hút thuốc"
+          "text": "Chưa từng hút thuốc",
+          "icon": "cigarette-off"
         },
         {
-          "text": "🍷 1–2 ly mỗi tuần"
+          "text": "1–2 ly mỗi tuần",
+          "icon": "wine"
         },
         {
-          "text": "💉 Tiêm cúm 4/2026 · sắp đến hạn COVID"
+          "text": "Tiêm cúm 4/2026 · sắp đến hạn COVID",
+          "icon": "syringe"
         }
       ]
     },
@@ -210,38 +215,46 @@
     "dayline": [
       {
         "time": "Sáng",
-        "text": "🌅 Đã dậy và đi lại · đã chào buổi sáng"
+        "text": "Đã dậy và đi lại · đã chào buổi sáng",
+        "icon": "sunrise"
       },
       {
         "time": "08:12",
-        "text": "💬 Trò chuyện buổi sáng · mọi thứ ổn"
+        "text": "Trò chuyện buổi sáng · mọi thứ ổn",
+        "icon": "message-circle"
       },
       {
         "time": "08:31",
-        "text": "💊 Đã uống thuốc buổi sáng"
+        "text": "Đã uống thuốc buổi sáng",
+        "icon": "pill"
       },
       {
         "time": "09:31",
-        "text": "💊 Đã uống thuốc tối qua sau khi được nhắc",
-        "flag": "w"
+        "text": "Đã uống thuốc tối qua sau khi được nhắc",
+        "flag": "w",
+        "icon": "pill"
       },
       {
         "time": "Cuối buổi sáng",
-        "text": "🚶 Ra ngoài đi bộ"
+        "text": "Ra ngoài đi bộ",
+        "icon": "footprints"
       },
       {
         "time": "13:02",
-        "text": "🍽️ Trò chuyện bữa trưa · vui vẻ"
+        "text": "Trò chuyện bữa trưa · vui vẻ",
+        "icon": "utensils"
       },
       {
         "time": "Buổi chiều",
-        "text": "😴 Đang nghỉ ngơi · hôm nay trời nóng",
-        "flag": "w"
+        "text": "Đang nghỉ ngơi · hôm nay trời nóng",
+        "flag": "w",
+        "icon": "bed"
       },
       {
         "time": "18:00",
-        "text": "💬 Cuộc trò chuyện tiếp theo",
-        "flag": "n"
+        "text": "Cuộc trò chuyện tiếp theo",
+        "flag": "n",
+        "icon": "message-circle"
       }
     ],
     "context": {
@@ -283,7 +296,7 @@
     },
     "kpis": [
       {
-        "emoji": "❤️",
+        "icon": "heart",
         "label": "Nhịp tim",
         "value": "68",
         "unit": "bpm",
@@ -304,7 +317,7 @@
         ]
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "Huyết áp",
         "value": "146",
         "unit": "/88",
@@ -325,7 +338,7 @@
         ]
       },
       {
-        "emoji": "🌿",
+        "icon": "leaf",
         "label": "Điểm thư thái (HRV)",
         "value": "26",
         "unit": "",
@@ -346,7 +359,7 @@
         ]
       },
       {
-        "emoji": "😴",
+        "icon": "bed",
         "label": "Giấc ngủ",
         "value": "6 giờ 12 phút",
         "unit": "",
@@ -367,7 +380,7 @@
         ]
       },
       {
-        "emoji": "👣",
+        "icon": "footprints",
         "label": "Số bước",
         "value": "3.240",
         "unit": "hôm nay",
@@ -388,7 +401,7 @@
         ]
       },
       {
-        "emoji": "🚶",
+        "icon": "footprints",
         "label": "Tốc độ đi bộ",
         "value": "0,82",
         "unit": "m/s",
@@ -409,7 +422,7 @@
         ]
       },
       {
-        "emoji": "💊",
+        "icon": "pill",
         "label": "Thuốc đã uống",
         "value": "86",
         "unit": "%",
@@ -430,7 +443,7 @@
         ]
       },
       {
-        "emoji": "📞",
+        "icon": "phone",
         "label": "Cuộc gọi đã nghe",
         "value": "97",
         "unit": "%",
@@ -451,7 +464,7 @@
         ]
       },
       {
-        "emoji": "🗣️",
+        "icon": "speech",
         "label": "Nhịp nói",
         "value": "132",
         "unit": "từ/phút",
@@ -472,7 +485,7 @@
         ]
       },
       {
-        "emoji": "🤝",
+        "icon": "handshake",
         "label": "Thời gian bên mọi người",
         "value": "5",
         "unit": "tuần này",
@@ -493,7 +506,7 @@
         ]
       },
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "Nhiệt độ trong nhà",
         "value": "29,5",
         "unit": "°C",
@@ -514,7 +527,7 @@
         ]
       },
       {
-        "emoji": "⚖️",
+        "icon": "scale",
         "label": "Cân nặng",
         "value": "61,2",
         "unit": "kg",
@@ -930,41 +943,41 @@
       "sub": "Hôm nay bà khỏe lắm. Đây là ngày của bà, dành riêng cho bà.",
       "tiles": [
         {
-          "emoji": "❤️",
+          "icon": "heart",
           "title": "Tim",
           "note": "68 · ổn định"
         },
         {
-          "emoji": "👣",
+          "icon": "footprints",
           "title": "3.240 bước",
           "note": "sắp đến 3.500 rồi!"
         },
         {
-          "emoji": "😴",
+          "icon": "bed",
           "title": "Ngủ 6 giờ",
           "note": "hơi ít",
           "warn": true
         },
         {
-          "emoji": "💧",
+          "icon": "drop",
           "title": "Nước",
           "note": "bà uống một cốc nhé",
           "warn": true
         },
         {
-          "emoji": "💊",
+          "icon": "pill",
           "title": "Liều thuốc tới",
           "note": "18:00, amlodipine"
         },
         {
-          "emoji": "📞",
+          "icon": "phone",
           "title": "James gọi",
           "note": "tối nay lúc 20:00"
         }
       ],
       "ideas": [
         {
-          "emoji": "🔥",
+          "icon": "flame",
           "title": "Thứ Năm trời sẽ 38°. Bà có muốn được đưa đến phòng mát ở thư viện không?",
           "note": "Tom, một tình nguyện viên, có thể đón bà lúc 11 giờ.",
           "yes": {
@@ -979,7 +992,7 @@
           }
         },
         {
-          "emoji": "💊",
+          "icon": "pill",
           "title": "Hộp chia thuốc theo tuần có giúp bà nhớ liều buổi tối không?",
           "note": "David ngỏ ý chuẩn bị giúp vào thứ Bảy.",
           "yes": {
@@ -994,7 +1007,7 @@
           }
         },
         {
-          "emoji": "🦻",
+          "icon": "ear",
           "title": "Bà đeo máy trợ thính cho cuộc trò chuyện chiều nay nhé?",
           "note": "Như vậy nghe điện thoại dễ hơn.",
           "yes": {
@@ -1011,27 +1024,27 @@
       ],
       "promise": [
         {
-          "emoji": "✋",
+          "icon": "hand",
           "lead": "Bà là người quyết định.",
           "text": "Bà chọn ai được xem gì, và có thể đổi bất cứ lúc nào."
         },
         {
-          "emoji": "📷",
+          "icon": "camera",
           "lead": "Không bao giờ có camera.",
           "text": "Cảm biến trong nhà chỉ nhận biết chuyển động và nhiệt độ."
         },
         {
-          "emoji": "🎙️",
+          "icon": "mic",
           "lead": "Không nghe lén.",
           "text": "Micro chỉ bật trong những cuộc gọi bà nhận."
         },
         {
-          "emoji": "📍",
+          "icon": "map-pin",
           "lead": "Không theo dõi vị trí.",
           "text": "Định vị đang tắt. Nếu bà bật, mọi người chỉ thấy \"ở nhà\" hoặc \"ra ngoài\"."
         },
         {
-          "emoji": "🚨",
+          "icon": "siren",
           "lead": "Chỉ khi khẩn cấp:",
           "text": "David và James luôn nhận cảnh báo an toàn để có thể đến giúp."
         }
@@ -1072,18 +1085,21 @@
         "presets": [
           {
             "id": "family",
-            "label": "👨‍👩‍👧 Gia đình xem gần hết, trừ tâm trạng của tôi"
+            "label": "Gia đình xem gần hết, trừ tâm trạng của tôi",
+            "icon": "users"
           },
           {
             "id": "safety",
-            "label": "🚨 Chỉ cảnh báo an toàn"
+            "label": "Chỉ cảnh báo an toàn",
+            "icon": "siren"
           },
           {
             "id": "all",
-            "label": "🤝 Chia sẻ mọi thứ với gia đình"
+            "label": "Chia sẻ mọi thứ với gia đình",
+            "icon": "handshake"
           }
         ],
-        "safetyNote": "🚨 Không thể tắt cảnh báo an toàn với người liên hệ khẩn cấp, để luôn có người đến khi bà cần giúp. Bà có thể đổi người liên hệ khẩn cấp.",
+        "safetyNote": "Không thể tắt cảnh báo an toàn với người liên hệ khẩn cấp, để luôn có người đến khi bà cần giúp. Bà có thể đổi người liên hệ khẩn cấp.",
         "emergency": {
           "agreed": "Đã đồng ý ngày 1/10",
           "text": "Nếu bà cần xe cấp cứu, bệnh viện sẽ nhận thông tin bệnh, thuốc và dị ứng của bà để giúp nhanh hơn. Không gì khác, và chỉ cho lần đó.",
@@ -1099,7 +1115,8 @@
               "done": "Đã xem"
             }
           ]
-        }
+        },
+        "safetyIcon": "siren"
       }
     }
   }

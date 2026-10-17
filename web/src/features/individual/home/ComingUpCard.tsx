@@ -11,7 +11,7 @@ import { useToast } from '@/components/ui/Toast'
 import type { Forecast } from '@/data/types'
 import { Head, MiniGrid } from './parts'
 
-/** `🔮 Coming up` (c7): the one thing to act on, then "This week's plan" with an Approve button on tasks that need it. */
+/** `Coming up` (c7): the one thing to act on, then "This week's plan" with an Approve button on tasks that need it. */
 export function ComingUpCard({ forecast }: { forecast: Forecast }) {
   const { t } = useTranslation(['home', 'common'])
   const router = useRouter()
@@ -21,7 +21,7 @@ export function ComingUpCard({ forecast }: { forecast: Forecast }) {
   const { comingUp: up } = forecast
   return (
     <GlassCard span={7}>
-      <Head title={up.title} meta={up.meta}><Pill tone={up.pill.tone}>{up.pill.text}</Pill></Head>
+      <Head icon={up.icon} title={up.title} meta={up.meta}><Pill tone={up.pill.tone}>{up.pill.text}</Pill></Head>
       <p className="ah-t">{up.headline}</p>
       <MiniGrid stats={up.stats} />
       <ul className="why">

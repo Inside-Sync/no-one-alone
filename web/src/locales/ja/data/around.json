@@ -1,7 +1,7 @@
 {
   "surroundings": {
     "homeMap": {
-      "kicker": "📍 Margaret の住まい",
+      "kicker": "Margaret の住まい",
       "title": "Marrickville, Sydney",
       "detail": "Inner West · CBDから南西へ5.8 km · −33.911, 151.155",
       "lat": -33.911,
@@ -214,10 +214,11 @@
           "x": 220,
           "y": 345
         }
-      ]
+      ],
+      "icon": "map-pin"
     },
     "watchMap": {
-      "kicker": "👀 ご近所の見守り",
+      "kicker": "ご近所の見守り",
       "title": "Margaret の家の周り",
       "detail": "一人暮らしで気をつけたいこと · 1 km以内に8件",
       "ariaLabel": "ご近所のお知らせを表示した Margaret の街並みの3Dマップ：歩道工事、詐欺の通報、街灯の故障、急降下するカササギ、ヘビの目撃、暑さ対策の涼しい部屋",
@@ -238,7 +239,8 @@
       "ring": {
         "label": "見守りエリア",
         "radius": 150
-      }
+      },
+      "icon": "eye"
     },
     "pins": [
       {
@@ -389,7 +391,7 @@
       }
     ],
     "weather": {
-      "heading": "🌤️ Marrickville の天気",
+      "heading": "Marrickville の天気",
       "meta": "現在 · 15:10",
       "temp": "33°",
       "summary": "晴れ、暑い北東の風",
@@ -426,7 +428,8 @@
           "note": "良好"
         }
       ],
-      "note": "木曜日と金曜日は猛暑です。金曜日の夜に南風に変わり、最大瞬間風速60 km/hの見込みです。"
+      "note": "木曜日と金曜日は猛暑です。金曜日の夜に南風に変わり、最大瞬間風速60 km/hの見込みです。",
+      "icon": "cloud-sun"
     },
     "week": [
       {
@@ -481,7 +484,7 @@
     ],
     "kpis": [
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "気温",
         "value": "33",
         "unit": "°C",
@@ -502,7 +505,7 @@
         ]
       },
       {
-        "emoji": "🥵",
+        "icon": "thermometer-sun",
         "label": "体感温度",
         "value": "35",
         "unit": "°C",
@@ -523,7 +526,7 @@
         ]
       },
       {
-        "emoji": "💨",
+        "icon": "wind",
         "label": "風",
         "value": "22",
         "unit": "km/h",
@@ -544,7 +547,7 @@
         ]
       },
       {
-        "emoji": "🕶️",
+        "icon": "glasses",
         "label": "紫外線",
         "value": "11",
         "unit": "UV",
@@ -565,7 +568,7 @@
         ]
       },
       {
-        "emoji": "🌧️",
+        "icon": "cloud-rain",
         "label": "雨",
         "value": "10",
         "unit": "%（降水確率）",
@@ -586,7 +589,7 @@
         ]
       },
       {
-        "emoji": "🍃",
+        "icon": "wind",
         "label": "大気質",
         "value": "良好",
         "unit": "",
@@ -607,7 +610,7 @@
         ]
       },
       {
-        "emoji": "🌾",
+        "icon": "wheat",
         "label": "花粉",
         "value": "高",
         "unit": "",
@@ -628,7 +631,7 @@
         ]
       },
       {
-        "emoji": "✈️",
+        "icon": "plane",
         "label": "航空機の騒音",
         "value": "68",
         "unit": "dB",
@@ -649,7 +652,7 @@
         ]
       },
       {
-        "emoji": "🔥",
+        "icon": "flame",
         "label": "暑さのリスク",
         "value": "中",
         "unit": "",
@@ -670,7 +673,7 @@
         ]
       },
       {
-        "emoji": "🌅",
+        "icon": "sunrise",
         "label": "日照時間",
         "value": "13時間",
         "unit": "",
@@ -691,7 +694,7 @@
         ]
       },
       {
-        "emoji": "🌊",
+        "icon": "waves",
         "label": "海風",
         "value": "なし",
         "unit": "",
@@ -712,7 +715,7 @@
         ]
       },
       {
-        "emoji": "🔌",
+        "icon": "plug-zap",
         "label": "停電のリスク",
         "value": "低",
         "unit": "",
@@ -734,8 +737,9 @@
       }
     ],
     "alertsHeading": {
-      "title": "👀 一人暮らしで知っておきたいこと",
-      "meta": "一人暮らし · 緊急度順"
+      "title": "一人暮らしで知っておきたいこと",
+      "meta": "一人暮らし · 緊急度順",
+      "icon": "eye"
     },
     "alerts": [
       {
@@ -789,8 +793,9 @@
       }
     ],
     "newsHeading": {
-      "title": "📰 彼女に関係のあるニュース",
-      "meta": "2204に一人で暮らす78歳向けに絞り込み"
+      "title": "彼女に関係のあるニュース",
+      "meta": "2204に一人で暮らす78歳向けに絞り込み",
+      "icon": "news"
     },
     "newsCategories": [
       "All",

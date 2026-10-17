@@ -105,7 +105,6 @@ export function overlayCircle(mock: CircleMember[], seed: Seed, viewer: string):
     const base = mock.find((m) => m.id === e.memberId)
     const name = nameOf(seed, e.memberId)
     const place = placeOf(seed, e)
-    const emoji = base?.name.split(' ')[0] ?? '🙂'
     const relation = relationOf(e.relation)
     const who = e.memberId === viewer ? i18n.t('overlay:you') : relation
     const note = e.role === 'NEARBY'
@@ -118,7 +117,8 @@ export function overlayCircle(mock: CircleMember[], seed: Seed, viewer: string):
       id: e.memberId as CircleMember['id'],
       initials: initialsOf(name),
       color: base?.color ?? PALETTE[i % PALETTE.length],
-      name: `${emoji} ${name} · ${who}`,
+      name: `${name} · ${who}`,
+      icon: base?.icon ?? 'user-round',
       note,
       role,
       technicalName: `${name} · ${relation}`,

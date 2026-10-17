@@ -4,66 +4,71 @@
       "id": "david",
       "initials": "D",
       "color": "#2f6fb0",
-      "name": "👨 David · 她的弟弟",
+      "name": "David · 她的弟弟",
       "note": "距离 450 米 · 第一个联系",
       "role": {
         "tone": "good",
         "text": "待命"
       },
       "technicalName": "David · 弟弟",
-      "technicalNote": "450 米 · 第一个联系"
+      "technicalNote": "450 米 · 第一个联系",
+      "icon": "user-round"
     },
     {
       "id": "james",
       "initials": "J",
       "color": "#e07a3f",
-      "name": "🙋 James · 您",
+      "name": "James · 您",
       "note": "墨尔本 · 必要时拨打 000",
       "role": {
         "tone": "brand",
         "text": "第二位"
       },
       "technicalName": "James · 您",
-      "technicalNote": "墨尔本 · 000 拨打人"
+      "technicalNote": "墨尔本 · 000 拨打人",
+      "icon": "user-round"
     },
     {
       "id": "sarah",
       "initials": "S",
       "color": "#c2417a",
-      "name": "👩 Sarah · 女儿",
+      "name": "Sarah · 女儿",
       "note": "伦敦 · 接收最新消息",
       "role": {
         "tone": "plain",
         "text": "接收消息"
       },
       "technicalName": "Sarah · 女儿",
-      "technicalNote": "伦敦 · 仅接收消息"
+      "technicalNote": "伦敦 · 仅接收消息",
+      "icon": "user-round"
     },
     {
       "id": "priya",
       "initials": "P",
       "color": "#8a6bd1",
-      "name": "🩺 Priya · 社区护士",
+      "name": "Priya · 社区护士",
       "note": "工作日",
       "role": {
         "tone": "plain",
         "text": "后备"
       },
       "technicalName": "Priya Sharma",
-      "technicalNote": "社区护士 · 工作日"
+      "technicalNote": "社区护士 · 工作日",
+      "icon": "stethoscope"
     },
     {
       "id": "aisha",
       "initials": "A",
       "color": "#c2611f",
-      "name": "🏡 Aisha · 邻居",
+      "name": "Aisha · 邻居",
       "note": "隔两户 · 有钥匙",
       "role": {
         "tone": "plain",
         "text": "后备"
       },
       "technicalName": "Aisha · 邻居",
-      "technicalNote": "隔两户 · 持有钥匙"
+      "technicalNote": "隔两户 · 持有钥匙",
+      "icon": "home"
     }
   ],
   "circleOrbit": [

@@ -22,66 +22,71 @@
       "id": "david",
       "initials": "D",
       "color": "#2f6fb0",
-      "name": "👨 David · em trai bà",
+      "name": "David · em trai bà",
       "note": "Cách 450 m · người gọi đầu tiên",
       "role": {
         "tone": "good",
         "text": "Trực"
       },
       "technicalName": "David · em trai",
-      "technicalNote": "450 m · gọi đầu tiên"
+      "technicalNote": "450 m · gọi đầu tiên",
+      "icon": "user-round"
     },
     {
       "id": "james",
       "initials": "J",
       "color": "#e07a3f",
-      "name": "🙋 James · bạn",
+      "name": "James · bạn",
       "note": "Melbourne · gọi 000 nếu cần",
       "role": {
         "tone": "brand",
         "text": "Thứ hai"
       },
       "technicalName": "James · bạn",
-      "technicalNote": "Melbourne · người gọi 000"
+      "technicalNote": "Melbourne · người gọi 000",
+      "icon": "user-round"
     },
     {
       "id": "sarah",
       "initials": "S",
       "color": "#c2417a",
-      "name": "👩 Sarah · con gái",
+      "name": "Sarah · con gái",
       "note": "London · nhận cập nhật",
       "role": {
         "tone": "plain",
         "text": "Cập nhật"
       },
       "technicalName": "Sarah · con gái",
-      "technicalNote": "London · chỉ nhận cập nhật"
+      "technicalNote": "London · chỉ nhận cập nhật",
+      "icon": "user-round"
     },
     {
       "id": "priya",
       "initials": "P",
       "color": "#8a6bd1",
-      "name": "🩺 Priya · điều dưỡng cộng đồng",
+      "name": "Priya · điều dưỡng cộng đồng",
       "note": "Ngày thường",
       "role": {
         "tone": "plain",
         "text": "Dự phòng"
       },
       "technicalName": "Priya Sharma",
-      "technicalNote": "Điều dưỡng cộng đồng · ngày thường"
+      "technicalNote": "Điều dưỡng cộng đồng · ngày thường",
+      "icon": "stethoscope"
     },
     {
       "id": "aisha",
       "initials": "A",
       "color": "#c2611f",
-      "name": "🏡 Aisha · hàng xóm",
+      "name": "Aisha · hàng xóm",
       "note": "Cách 2 nhà · giữ chìa khóa",
       "role": {
         "tone": "plain",
         "text": "Dự phòng"
       },
       "technicalName": "Aisha · hàng xóm",
-      "technicalNote": "Cách 2 nhà · giữ chìa khóa"
+      "technicalNote": "Cách 2 nhà · giữ chìa khóa",
+      "icon": "home"
     }
   ],
   "circleOrbit": [

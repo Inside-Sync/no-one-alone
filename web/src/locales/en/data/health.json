@@ -948,363 +948,408 @@
     "groups": [
       {
         "icon": "heart",
-        "emoji": "❤️",
         "title": "Heart",
         "category": "heart",
         "metrics": [
           {
-            "label": "💓 At rest",
+            "label": "At rest",
             "value": "68 bpm",
             "note": "usual 63",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "heart-pulse"
           },
           {
-            "label": "🚶 When walking",
+            "label": "When walking",
             "value": "92 bpm",
-            "note": "normal"
+            "note": "normal",
+            "icon": "footprints"
           },
           {
-            "label": "🌿 Calm score",
+            "label": "Calm score",
             "value": "26",
             "note": "lower than usual",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "leaf"
           },
           {
-            "label": "⏱️ Recovers after walk",
+            "label": "Recovers after walk",
             "value": "18 beats",
-            "note": "in 1 minute"
+            "note": "in 1 minute",
+            "icon": "timer"
           },
           {
-            "label": "📈 Today's range",
+            "label": "Today's range",
             "value": "58–112",
-            "note": "bpm"
+            "note": "bpm",
+            "icon": "trend"
           },
           {
-            "label": "🏃 Fitness level",
+            "label": "Fitness level",
             "value": "Average",
-            "note": "for her age"
+            "note": "for her age",
+            "icon": "activity"
           }
         ]
       },
       {
         "icon": "lungs",
-        "emoji": "🫁",
         "title": "Heartbeat and breathing",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚡ Uneven heartbeat",
+            "label": "Uneven heartbeat",
             "value": "2 alerts",
             "note": "this week",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "bolt"
           },
           {
-            "label": "🌙 Uneven at night",
+            "label": "Uneven at night",
             "value": "~3%",
             "note": "of the night",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "📄 Heart tracing (ECG)",
+            "label": "Heart tracing (ECG)",
             "value": "Normal",
             "note": "12 Oct",
-            "tone": "good"
+            "tone": "good",
+            "icon": "file"
           },
           {
-            "label": "🩸 Oxygen in blood",
+            "label": "Oxygen in blood",
             "value": "95%",
-            "note": "normal"
+            "note": "normal",
+            "icon": "drop"
           },
           {
-            "label": "🌬️ Breaths a minute",
+            "label": "Breaths a minute",
             "value": "15",
-            "note": "asleep · normal"
+            "note": "asleep · normal",
+            "icon": "wind"
           },
           {
-            "label": "🌡️ Skin temperature",
+            "label": "Skin temperature",
             "value": "Normal",
-            "note": "+0.3°"
+            "note": "+0.3°",
+            "icon": "thermometer"
           }
         ]
       },
       {
-        "icon": "trend",
-        "emoji": "🔥",
+        "icon": "flame",
         "title": "Moving and energy",
         "category": "activity",
         "metrics": [
           {
-            "label": "👣 Steps",
+            "label": "Steps",
             "value": "3,240",
-            "note": "goal 3,500"
+            "note": "goal 3,500",
+            "icon": "footprints"
           },
           {
-            "label": "📏 Distance",
+            "label": "Distance",
             "value": "2.1 km",
-            "note": "walked"
+            "note": "walked",
+            "icon": "ruler"
           },
           {
-            "label": "🪜 Stairs",
+            "label": "Stairs",
             "value": "2 flights",
-            "note": "climbed"
+            "note": "climbed",
+            "icon": "door-stairwell"
           },
           {
-            "label": "🔥 Calories moving",
+            "label": "Calories moving",
             "value": "212",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "flame"
           },
           {
-            "label": "🛋️ Calories at rest",
+            "label": "Calories at rest",
             "value": "1,428",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "sofa"
           },
           {
-            "label": "🏋️ Exercise",
+            "label": "Exercise",
             "value": "18 min",
             "note": "goal 30",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "dumbbell"
           }
         ]
       },
       {
-        "icon": "people",
-        "emoji": "🚶",
+        "icon": "footprints",
         "title": "Walking and balance",
         "category": "activity",
         "metrics": [
           {
-            "label": "🐢 Walking speed",
+            "label": "Walking speed",
             "value": "Slower",
             "note": "0.82 m/s",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "turtle"
           },
           {
-            "label": "👟 Step length",
+            "label": "Step length",
             "value": "51 cm",
-            "note": "usual 54"
+            "note": "usual 54",
+            "icon": "footprints"
           },
           {
-            "label": "🦶 Both feet down",
+            "label": "Both feet down",
             "value": "34%",
             "note": "less steady",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "footprints"
           },
           {
-            "label": "⚖️ Even steps",
+            "label": "Even steps",
             "value": "Yes",
-            "note": "6% difference"
+            "note": "6% difference",
+            "icon": "scale"
           },
           {
-            "label": "🧍 Steadiness",
+            "label": "Steadiness",
             "value": "Low",
             "note": "higher fall chance",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "person-standing"
           },
           {
-            "label": "🕕 6-minute walk",
+            "label": "6-minute walk",
             "value": "310 m",
-            "note": "usual 340"
+            "note": "usual 340",
+            "icon": "timer"
           }
         ]
       },
       {
-        "icon": "moon",
-        "emoji": "😴",
+        "icon": "bed",
         "title": "Sleep",
         "category": "sleep",
         "metrics": [
           {
-            "label": "🛌 Asleep",
+            "label": "Asleep",
             "value": "6h 12m",
             "note": "usual 7h",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "bed"
           },
           {
-            "label": "✨ Good sleep",
+            "label": "Good sleep",
             "value": "81%",
-            "note": "of time in bed"
+            "note": "of time in bed",
+            "icon": "sparkles"
           },
           {
-            "label": "🌑 Deep sleep",
+            "label": "Deep sleep",
             "value": "52 min",
-            "note": "restoring"
+            "note": "restoring",
+            "icon": "moon"
           },
           {
-            "label": "💭 Dream sleep",
+            "label": "Dream sleep",
             "value": "52 min",
-            "note": "normal"
+            "note": "normal",
+            "icon": "cloud-moon"
           },
           {
-            "label": "👀 Woke up",
+            "label": "Woke up",
             "value": "6 times",
             "note": "38 min awake",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "eye"
           },
           {
-            "label": "🕙 Bedtime",
+            "label": "Bedtime",
             "value": "10:41 pm",
-            "note": "fairly regular"
+            "note": "fairly regular",
+            "icon": "clock"
           }
         ]
       },
       {
         "icon": "smile",
-        "emoji": "😊",
         "title": "Mood and company",
         "category": "mood",
         "metrics": [
           {
-            "label": "😊 Mood today",
+            "label": "Mood today",
             "value": "Cheerful",
             "note": "from her voice",
-            "tone": "good"
+            "tone": "good",
+            "icon": "smile"
           },
           {
-            "label": "🙂 This week",
+            "label": "This week",
             "value": "Mostly good",
-            "note": "steady"
+            "note": "steady",
+            "icon": "smile"
           },
           {
-            "label": "🫂 Feeling lonely",
+            "label": "Feeling lonely",
             "value": "A little",
-            "note": "4 out of 9"
+            "note": "4 out of 9",
+            "icon": "heart-handshake"
           },
           {
-            "label": "📞 Phone calls",
+            "label": "Phone calls",
             "value": "5",
-            "note": "this week"
+            "note": "this week",
+            "icon": "phone"
           },
           {
-            "label": "🏡 Visits",
+            "label": "Visits",
             "value": "2",
-            "note": "this week"
+            "note": "this week",
+            "icon": "home"
           },
           {
-            "label": "🧘 Calm breathing",
+            "label": "Calm breathing",
             "value": "10 min",
-            "note": "today"
+            "note": "today",
+            "icon": "wind"
           }
         ]
       },
       {
         "icon": "drop",
-        "emoji": "💧",
         "title": "Body and food",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚖️ Weight",
+            "label": "Weight",
             "value": "61.2 kg",
-            "note": "steady"
+            "note": "steady",
+            "icon": "scale"
           },
           {
-            "label": "📐 Body size (BMI)",
+            "label": "Body size (BMI)",
             "value": "Healthy",
-            "note": "23.4"
+            "note": "23.4",
+            "icon": "ruler"
           },
           {
-            "label": "💧 Water",
+            "label": "Water",
             "value": "1.1 of 1.5 L",
             "note": "drink more",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "drop"
           },
           {
-            "label": "🍽️ Meals",
+            "label": "Meals",
             "value": "3",
-            "note": "told us by voice"
+            "note": "told us by voice",
+            "icon": "utensils"
           },
           {
-            "label": "🫖 Cups of tea",
+            "label": "Cups of tea",
             "value": "2",
-            "note": "today"
+            "note": "today",
+            "icon": "coffee"
           },
           {
-            "label": "🌡️ Temperature",
+            "label": "Temperature",
             "value": "36.7°",
-            "note": "normal"
+            "note": "normal",
+            "icon": "thermometer"
           }
         ]
       },
       {
         "icon": "ear",
-        "emoji": "👂",
         "title": "Hearing and senses",
         "category": "speech",
         "metrics": [
           {
-            "label": "🔊 Noise around her",
+            "label": "Noise around her",
             "value": "62 dB",
-            "note": "normal"
+            "note": "normal",
+            "icon": "volume-2"
           },
           {
-            "label": "📺 TV volume",
+            "label": "TV volume",
             "value": "Loud",
             "note": "74 dB",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "tv"
           },
           {
-            "label": "❓ \"Pardon?\"",
+            "label": "\"Pardon?\"",
             "value": "9 times",
             "note": "this week",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-help"
           },
           {
-            "label": "🦻 Hearing aids",
+            "label": "Hearing aids",
             "value": "Not worn",
             "note": "today",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "ear"
           },
           {
-            "label": "☀️ Time outdoors",
+            "label": "Time outdoors",
             "value": "38 min",
-            "note": "goal 60"
+            "note": "goal 60",
+            "icon": "sun"
           },
           {
-            "label": "🔠 Screen text",
+            "label": "Screen text",
             "value": "Extra large",
-            "note": "28 pt"
+            "note": "28 pt",
+            "icon": "type"
           }
         ]
       },
       {
         "icon": "pill",
-        "emoji": "💊",
         "title": "Tablets and blood pressure",
         "category": "meds",
         "metrics": [
           {
-            "label": "✅ Taken on time",
+            "label": "Taken on time",
             "value": "86%",
             "note": "some missed",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-check"
           },
           {
-            "label": "🌅 Morning BP",
+            "label": "Morning BP",
             "value": "146/88",
             "note": "high",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "sunrise"
           },
           {
-            "label": "🌙 Evening BP",
+            "label": "Evening BP",
             "value": "139/84",
             "note": "a bit high",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "💊 Today",
+            "label": "Today",
             "value": "2 of 3",
-            "note": "next at 6 pm"
+            "note": "next at 6 pm",
+            "icon": "pill"
           },
           {
-            "label": "❌ Missed",
+            "label": "Missed",
             "value": "3",
             "note": "this week",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-x"
           },
           {
-            "label": "📦 Tablets left",
+            "label": "Tablets left",
             "value": "12 days",
-            "note": "refill soon"
+            "note": "refill soon",
+            "icon": "package"
           }
         ]
       }
@@ -2434,38 +2479,44 @@
       ],
       "stats": [
         {
-          "label": "🗣️ Speaking pace",
+          "label": "Speaking pace",
           "value": "132",
-          "note": "words a minute · usual 141"
+          "note": "words a minute · usual 141",
+          "icon": "speech"
         },
         {
-          "label": "⏸️ Pauses",
+          "label": "Pauses",
           "value": "A few more",
           "note": "than usual",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "pause"
         },
         {
-          "label": "✅ Clear speech",
+          "label": "Clear speech",
           "value": "Yes",
           "note": "no slurring",
-          "tone": "good"
+          "tone": "good",
+          "icon": "circle-check"
         },
         {
-          "label": "🔤 Lost for words",
+          "label": "Lost for words",
           "value": "3 times",
-          "note": "usually once or twice"
+          "note": "usually once or twice",
+          "icon": "type"
         },
         {
-          "label": "👂 \"Pardon?\"",
+          "label": "\"Pardon?\"",
           "value": "2 times",
           "note": "hearing",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "ear"
         },
         {
-          "label": "😊 Mood",
+          "label": "Mood",
           "value": "Cheerful",
           "note": "good day",
-          "tone": "good"
+          "tone": "good",
+          "icon": "smile"
         }
       ]
     },
@@ -2476,37 +2527,43 @@
       },
       "stats": [
         {
-          "label": "🌡️ Inside",
+          "label": "Inside",
           "value": "29.5°",
           "note": "too warm",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "thermometer"
         },
         {
-          "label": "☀️ Outside",
+          "label": "Outside",
           "value": "33°",
-          "note": "feels like 35°"
+          "note": "feels like 35°",
+          "icon": "sun"
         },
         {
-          "label": "💦 Humidity",
+          "label": "Humidity",
           "value": "58%",
-          "note": "inside"
+          "note": "inside",
+          "icon": "droplets"
         },
         {
-          "label": "🍃 Air",
+          "label": "Air",
           "value": "Good",
           "note": "clean today",
-          "tone": "good"
+          "tone": "good",
+          "icon": "wind"
         },
         {
-          "label": "🕶️ Sun strength",
+          "label": "Sun strength",
           "value": "Extreme",
           "note": "stay in shade",
-          "tone": "bad"
+          "tone": "bad",
+          "icon": "glasses"
         },
         {
-          "label": "💧 Drink reminders",
+          "label": "Drink reminders",
           "value": "6 of 8",
-          "note": "answered"
+          "note": "answered",
+          "icon": "drop"
         }
       ],
       "note": "Thursday forecast 38 °C. The agent will add a midday check-in and offer a lift to the library cool room (120 places, 400 m)."

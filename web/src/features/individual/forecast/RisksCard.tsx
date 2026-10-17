@@ -7,13 +7,13 @@ import { TableScroll } from '@/components/ui/TableScroll'
 
 const trendColour = (t: RiskRow['trend']) => (t === '↑' ? 'var(--bad-text)' : t === '↓' ? 'var(--good-text)' : 'var(--muted-text)')
 
-/** `📊 Chances over time` (c7): `#riskRows`. */
+/** `Chances over time` (c7): `#riskRows`. */
 export function RisksCard({ risks }: { risks: RiskRow[] }) {
   const { t } = useTranslation('forecast')
   const columns = t('risks.columns', { returnObjects: true })
   return (
     <GlassCard span={7}>
-      <Head title={t('risks.title')} meta={t('risks.meta')} />
+      <Head icon="chart-column" title={t('risks.title')} meta={t('risks.meta')} />
       <TableScroll>
         <table>
           <thead><tr>{columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>

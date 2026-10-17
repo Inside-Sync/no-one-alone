@@ -1,22 +1,22 @@
 {
   "today": {
-    "title": "🟢 Bà Margaret hôm nay",
+    "title": "Bà Margaret hôm nay",
     "soFar": "Hôm nay đến giờ",
     "soFarMeta": "Những gì bà Margaret chia sẻ với bạn",
     "askAgent": "Hỏi Noa"
   },
   "profile": {
-    "title": "👤 Về bà Margaret",
+    "title": "Về bà Margaret",
     "share": {
-      "label": "📤 Chia sẻ hồ sơ",
+      "label": "Chia sẻ hồ sơ",
       "done": "Đã chia sẻ"
     },
-    "conditionsTitle": "🩺 Bệnh lý",
+    "conditionsTitle": "Bệnh lý",
     "conditionsMeta": "Chạm vào một mục để xem chi tiết",
     "born": "Sinh {{born}} · thích được gọi là \"{{nickname}}\""
   },
   "wellbeing": {
-    "title": "🧭 An vui tổng thể",
+    "title": "An vui tổng thể",
     "meta": "So với một tháng bình thường của bà",
     "ariaLabel": "An vui tổng thể 72 trên 100: cơ thể 61, thuốc 68, vận động 74, giấc ngủ 70, giao tiếp 82, trí nhớ 88, nhà ở 58",
     "legend": [
@@ -25,7 +25,7 @@
     ]
   },
   "rhythm": {
-    "title": "🕰️ Nhịp sinh hoạt hằng ngày",
+    "title": "Nhịp sinh hoạt hằng ngày",
     "meta": "Những lúc bà thức và đi lại, theo từng giờ trong tuần",
     "legend": [
       "Ít",
@@ -42,22 +42,22 @@
     }
   },
   "circle": {
-    "title": "💞 Vòng chăm sóc của bà",
+    "title": "Vòng chăm sóc của bà",
     "meta": "Kéo để xoay · chạm vào một người",
     "ariaLabel": "Vòng chăm sóc quanh bà Margaret: David và điều dưỡng cộng đồng ở gần, Sarah và James ở xa, trung tâm đột quỵ trên vòng chăm sóc"
   },
   "chat": {
-    "title": "🗣️ Cuộc trò chuyện hôm nay với bà"
+    "title": "Cuộc trò chuyện hôm nay với bà"
   },
   "home": {
-    "title": "🏠 Nhà của bà hôm nay"
+    "title": "Nhà của bà hôm nay"
   },
   "near": {
-    "title": "🤝 Người và nơi gần bà",
+    "title": "Người và nơi gần bà",
     "meta": "Trong bán kính 1 km"
   },
   "helper": {
-    "title": "🤖 Noa đã làm gì hôm nay",
+    "title": "Noa đã làm gì hôm nay",
     "meta": "Mọi bước đều được ghi lại để gia đình kiểm tra",
     "columns": [
       "Thời gian",
@@ -83,24 +83,24 @@
   "drawer": {
     "mini": [
       [
-        "🗣️ Hỏi bà về việc này",
+        "Hỏi bà về việc này",
         "Đã thêm vào cuộc trò chuyện lúc 18:00",
         "Đã thêm"
       ],
       [
-        "📈 Xem xu hướng 30 ngày",
+        "Xem xu hướng 30 ngày",
         "Chế độ xem xu hướng sẽ có trong bản đầy đủ",
         "Đã ghi nhận"
       ]
     ],
     "kpi": [
       [
-        "🗣️ Hỏi bà về việc này",
+        "Hỏi bà về việc này",
         "Đã thêm vào cuộc trò chuyện lúc 18:00",
         "Đã thêm"
       ],
       [
-        "📤 Chia sẻ với gia đình",
+        "Chia sẻ với gia đình",
         "Đã chia sẻ với David và Sarah",
         "Đã chia sẻ"
       ]

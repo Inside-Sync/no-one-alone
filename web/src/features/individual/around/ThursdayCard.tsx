@@ -49,12 +49,12 @@ function ThursdayChart({ t }: { t: Surroundings['thursday'] }) {
   )
 }
 
-/** `🔥 Thursday, hour by hour` (c6). */
+/** `Thursday, hour by hour` (c6). */
 export function ThursdayCard({ thursday }: { thursday: Surroundings['thursday'] }) {
   const { t } = useTranslation('around')
   return (
     <GlassCard span={6} className="chart">
-      <Head title={t('thursday.title')} meta={t('thursday.meta')} />
+      <Head icon="flame" title={t('thursday.title')} meta={t('thursday.meta')} />
       <div id="thu"><ThursdayChart t={thursday} /></div>
       <Legend items={thursday.legend} />
     </GlassCard>

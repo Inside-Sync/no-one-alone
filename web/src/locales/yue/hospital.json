@@ -39,7 +39,7 @@
       "toast": "已建議救護車改道"
     },
     "recovery": {
-      "title": "📝 出院及康復計劃",
+      "title": "出院及康復計劃",
       "meta": "編輯、批准後，助手會用淺白語言送到 Margaret 嘅平台",
       "staff": "醫生",
       "diagnosis": "診斷",
@@ -57,7 +57,7 @@
       "sentAt": "{{time}} 已送返屋企",
       "sent": "已送返屋企",
       "failed": "傳送唔到計劃",
-      "delivering": "⏳ 助手傳送緊…",
+      "delivering": "助手傳送緊…",
       "why": "原因：{{text}}",
       "medHead": "藥物",
       "doseHead": "劑量",
@@ -78,10 +78,10 @@
       },
       "calls": "助手跟進電話",
       "callDay": "✓ 第 {{day}} 日",
-      "finalise": "✍️ 落實計劃",
-      "signed": "✍️ 由 {{name}} 落實 · {{time}}",
+      "finalise": "落實計劃",
+      "signed": "由 {{name}} 落實 · {{time}}",
       "editAgain": "再編輯",
-      "approve": "✅ 批准並交畀 Noa",
+      "approve": "批准並交畀 Noa",
       "approveNote": "助手會將計劃轉成淺白語言、設定提醒，並按 Margaret 自己嘅設定同佢嘅照顧圈分享。",
       "toastFinal": "計劃已落實及簽署。而家請批准，交畀助手處理。",
       "toastSent": "康復計劃已送到 Margaret 嘅平台",
@@ -96,9 +96,9 @@
       }
     },
     "discharge": {
-      "title": "🩺 可以出院：Margaret Collins，78 歲",
+      "title": "可以出院：Margaret Collins，78 歲",
       "sub": "缺血性中風，已溶栓 · 新發陣發性心房顫動 · 康復計劃等待批准",
-      "open": "📝 打開佢嘅病歷同康復計劃"
+      "open": "打開佢嘅病歷同康復計劃"
     }
   },
   "panel": {

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { lockMessage, sees, type CategoryId } from '@/domain/consent'
 import { useAppState } from '@/state/AppState'
 import { useDrawer } from './Drawer'
+import { Glyph } from './Icon'
 import type { CardSpan } from './GlassCard'
 import { OnceButton } from './OnceButton'
 
@@ -54,7 +55,7 @@ export function Locked({ cat, span, className, children }: Props) {
     <div className={cls} data-scat={cat} role="button" tabIndex={0} onClick={open} onKeyDown={onKey}>
       <div className="locked-fill" aria-hidden="true" />
       <span className="locked-msg">
-        <span aria-hidden="true">🔒&nbsp;&nbsp;</span>
+        <Glyph name="lock" />
         {share ? lockMessage(cat, paused) : t('lock.checking')}
       </span>
     </div>

@@ -7,43 +7,50 @@
     "wellbeingNote": "100点中72点で、先週より5点下がりました。下がった理由は2つです。血圧が少しずつ上がっていることと、家の中が暑すぎることです。",
     "wellbeingAxes": [
       {
-        "label": "❤️ 体",
+        "label": "体",
         "now": 61,
-        "lastMonth": 74
+        "lastMonth": 74,
+        "icon": "heart"
       },
       {
-        "label": "💊 お薬",
+        "label": "お薬",
         "now": 68,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "pill"
       },
       {
-        "label": "🚶 運動",
+        "label": "運動",
         "now": 74,
-        "lastMonth": 80
+        "lastMonth": 80,
+        "icon": "footprints"
       },
       {
-        "label": "😴 睡眠",
+        "label": "睡眠",
         "now": 70,
-        "lastMonth": 76
+        "lastMonth": 76,
+        "icon": "bed"
       },
       {
-        "label": "🤝 交流",
+        "label": "交流",
         "now": 82,
-        "lastMonth": 84
+        "lastMonth": 84,
+        "icon": "handshake"
       },
       {
-        "label": "🧠 記憶",
+        "label": "記憶",
         "now": 88,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "brain"
       },
       {
-        "label": "🏠 住まい",
+        "label": "住まい",
         "now": 58,
-        "lastMonth": 78
+        "lastMonth": 78,
+        "icon": "home"
       }
     ],
     "comingUp": {
-      "title": "🔮 今後：対応が必要なこと1つ",
+      "title": "今後：対応が必要なこと1つ",
       "meta": "脳卒中 · 90日",
       "pill": {
         "tone": "bad",
@@ -104,7 +111,8 @@
           "value": "forecast",
           "soft": true
         }
-      ]
+      ],
+      "icon": "telescope"
     },
     "weeklyPlan": [
       {
@@ -152,32 +160,32 @@
     "weeklyPlanMeta": "タスク4件 · 担当2人",
     "model": [
       {
-        "emoji": "👀",
+        "icon": "eye",
         "label": "見守り",
         "value": "11項目"
       },
       {
-        "emoji": "📚",
+        "icon": "book-open",
         "label": "予測方法",
         "value": "BigQuery AI.FORECAST"
       },
       {
-        "emoji": "🎯",
+        "icon": "target",
         "label": "リスクレベル",
         "value": "デモ用ルールで、診断ではありません"
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "準拠",
         "value": "医師のガイドライン"
       },
       {
-        "emoji": "🔄",
+        "icon": "refresh-cw",
         "label": "更新",
         "value": "1時間ごと"
       },
       {
-        "emoji": "🧑‍⚕️",
+        "icon": "stethoscope",
         "label": "判断するのは",
         "value": "アプリではなく主治医"
       }
@@ -278,114 +286,125 @@
     "shapNote": "バーは各要因がリスクレベルをどれだけ押し上げているかを示します。プロトタイプ用の例示的な重みです。",
     "signs": [
       {
-        "sign": "🩺 朝の血圧",
+        "sign": "朝の血圧",
         "from": "上腕式血圧計",
         "frequency": "毎朝",
         "now": "146",
         "usual": "132",
         "comparison": "かなり高い",
         "sigma": "+2.8",
-        "tone": "bad"
+        "tone": "bad",
+        "icon": "stethoscope"
       },
       {
-        "sign": "❤️ 安静時心拍数",
+        "sign": "安静時心拍数",
         "from": "注意",
         "frequency": "終日",
         "now": "68",
         "usual": "63",
         "comparison": "ほぼ同じ",
         "sigma": "+0.4",
-        "tone": "good"
+        "tone": "good",
+        "icon": "heart"
       },
       {
-        "sign": "🌿 リラックス度（HRV）",
+        "sign": "リラックス度（HRV）",
         "from": "注意",
         "frequency": "毎晩",
         "now": "26",
         "usual": "31",
         "comparison": "低い",
         "sigma": "−1.9",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "leaf"
       },
       {
-        "sign": "⚡ 不規則な心拍のアラート",
+        "sign": "不規則な心拍のアラート",
         "from": "注意",
         "frequency": "発生時",
         "now": "今週2回",
         "usual": "まれ",
         "comparison": "高い",
         "sigma": "+2.4",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "bolt"
       },
       {
-        "sign": "🚶 歩く速さ",
+        "sign": "歩く速さ",
         "from": "スマホ＋自宅",
         "frequency": "毎日",
         "now": "0.82 m/s",
         "usual": "0.89",
         "comparison": "遅い",
         "sigma": "−2.1",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "footprints"
       },
       {
-        "sign": "🌙 夜中に起きた回数",
+        "sign": "夜中に起きた回数",
         "from": "自宅センサー",
         "frequency": "一晩中",
         "now": "41回",
         "usual": "18",
         "comparison": "かなり高い",
         "sigma": "+2.3",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "moon"
       },
       {
-        "sign": "💊 服薬",
+        "sign": "服薬",
         "from": "ピルケース",
         "frequency": "毎回",
         "now": "86%",
         "usual": "95%",
         "comparison": "低い",
         "sigma": "−1.8",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pill"
       },
       {
-        "sign": "⏸️ 会話中の間",
+        "sign": "会話中の間",
         "from": "毎日の会話",
         "frequency": "毎日",
         "now": "多い",
         "usual": "少ない",
         "comparison": "高い",
         "sigma": "+1.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pause"
       },
       {
-        "sign": "👂「え？」",
+        "sign": "「え？」",
         "from": "毎日の会話",
         "frequency": "毎日",
         "now": "今週9回",
         "usual": "3",
         "comparison": "かなり高い",
         "sigma": "+2.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "ear"
       },
       {
-        "sign": "🌡️ 室温",
+        "sign": "室温",
         "from": "自宅センサー",
         "frequency": "終日",
         "now": "29.5°",
         "usual": "25.1°",
         "comparison": "かなり高い",
         "sigma": "+2.2",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "thermometer"
       },
       {
-        "sign": "⚖️ 体重",
+        "sign": "体重",
         "from": "体重計",
         "frequency": "毎日",
         "now": "61.2 kg",
         "usual": "61.0",
         "comparison": "ほぼ同じ",
         "sigma": "+0.2",
-        "tone": "good"
+        "tone": "good",
+        "icon": "scale"
       }
     ],
     "bp": {
@@ -421,27 +440,30 @@
       "sliders": [
         {
           "id": "adherence",
-          "label": "💊 時間どおりの服薬",
+          "label": "時間どおりの服薬",
           "min": 60,
           "max": 100,
           "step": 1,
-          "value": 86
+          "value": 86,
+          "icon": "pill"
         },
         {
           "id": "steps",
-          "label": "👣 1日の歩数",
+          "label": "1日の歩数",
           "min": 1500,
           "max": 7000,
           "step": 100,
-          "value": 3240
+          "value": 3240,
+          "icon": "footprints"
         },
         {
           "id": "salt",
-          "label": "🧂 食事の塩分",
+          "label": "食事の塩分",
           "min": 0,
           "max": 2,
           "step": 1,
-          "value": 1
+          "value": 1,
+          "icon": "cooking-pot"
         }
       ],
       "saltLabels": [
@@ -449,7 +471,7 @@
         "中",
         "高"
       ],
-      "hearingLabel": "👂 補聴器を毎日つける",
+      "hearingLabel": "補聴器を毎日つける",
       "hearingAids": false,
       "base": {
         "stroke": 2.1,
@@ -457,7 +479,8 @@
         "admission": 14,
         "mci": 3.1
       },
-      "note": "相対的な効果は公表された効果量に基づき、現在のリスクに当てはめています。処方ではなく、かかりつけ医と話すきっかけです。"
+      "note": "相対的な効果は公表された効果量に基づき、現在のリスクに当てはめています。処方ではなく、かかりつけ医と話すきっかけです。",
+      "hearingIcon": "ear"
     },
     "modes": [
       {

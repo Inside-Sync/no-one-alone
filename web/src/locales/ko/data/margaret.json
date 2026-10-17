@@ -23,7 +23,7 @@
     "medicineCount": 4,
     "conditions": [
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "title": "고혈압",
         "since": "61세부터 (2009)",
         "now": "최근 조절이 잘 안 됨",
@@ -31,7 +31,7 @@
         "detail": "6주 동안 혈압이 조금씩 올랐어요. 매일 저녁 암로디핀을 드시는데, 이번 주에 3번 놓치셨어요. 목표: 아침 135 미만."
       },
       {
-        "emoji": "🦻",
+        "icon": "ear",
         "title": "난청",
         "since": "양쪽 귀 · 72세부터 (2020)",
         "now": "오늘 보청기 미착용",
@@ -39,7 +39,7 @@
         "detail": "노인성 난청이에요. 보청기가 도움이 되고, 착용하면 나중에 기억력 문제가 생길 가능성도 낮아져요. 10월 22일 청력 검사 예약됨."
       },
       {
-        "emoji": "🫘",
+        "icon": "bean",
         "title": "신장 기능이 약간 느려짐",
         "since": "3a기 · 2025년 발견",
         "now": "안정, 매년 검사",
@@ -47,7 +47,7 @@
         "detail": "신장 기능(eGFR)은 58이며, 정상은 60 이상이에요. 이 나이에 흔한 일이에요. GP가 매년 검사하고 신장에 부담을 주는 약은 피하고 있어요."
       },
       {
-        "emoji": "🍬",
+        "icon": "candy",
         "title": "혈당이 높은 편",
         "since": "HbA1c 5.9% · 2026",
         "now": "관찰",
@@ -55,7 +55,7 @@
         "detail": "당뇨는 아니지만 기준선(6.0%)에 가까워요. 아버지가 2형 당뇨였어요. 걷기와 단 음료 줄이기가 도움이 돼요."
       },
       {
-        "emoji": "🦴",
+        "icon": "bone",
         "title": "양쪽 무릎 관절염",
         "since": "2015년부터",
         "now": "가벼운 통증, 지팡이 사용",
@@ -63,7 +63,7 @@
         "detail": "퇴행성 관절염이에요. 가벼운 걷기와 근력 수업이 도움이 돼요. 필요할 때 파라세타몰을 드세요."
       },
       {
-        "emoji": "💔",
+        "icon": "heart-crack",
         "title": "불규칙 심박 (의심)",
         "since": "검사 중 · 2026년 10월",
         "now": "이번 주 알림 2회",
@@ -71,7 +71,7 @@
         "detail": "밤에 시계가 불규칙 리듬을 두 번 감지했어요. 10월 12일 심전도는 정상이었어요. GP가 2주간 심장 모니터를 처방할 수도 있어요."
       },
       {
-        "emoji": "🧠",
+        "icon": "brain",
         "title": "기억력",
         "since": "진단 없음",
         "now": "부드럽게 지켜보는 중",
@@ -79,7 +79,7 @@
         "detail": "기억력 질환은 없어요. 어머니가 치매를 앓으셨기 때문에, 매일 대화에서 말투의 느린 변화를 살펴요. 지금까지 모두 정상이에요."
       },
       {
-        "emoji": "🦴",
+        "icon": "bone",
         "title": "뼈 건강",
         "since": "골감소증 · 2022",
         "now": "매일 비타민 D",
@@ -98,82 +98,87 @@
       "shareToast": "돌봄 서클과 공유된 프로필",
       "rows": [
         {
-          "emoji": "👩",
+          "icon": "user-round",
           "label": "성별",
           "value": "여성"
         },
         {
-          "emoji": "🎂",
+          "icon": "cake",
           "label": "나이",
           "value": "78"
         },
         {
-          "emoji": "📏",
+          "icon": "ruler",
           "label": "키",
           "value": "162 cm"
         },
         {
-          "emoji": "⚖️",
+          "icon": "scale",
           "label": "체중",
           "value": "61.2 kg"
         },
         {
-          "emoji": "📐",
+          "icon": "ruler",
           "label": "BMI",
           "value": "23.4 · 정상"
         },
         {
-          "emoji": "🩸",
+          "icon": "drop",
           "label": "혈액형",
           "value": "O형 Rh+"
         },
         {
-          "emoji": "🏠",
+          "icon": "home",
           "label": "거주",
           "value": "혼자 · 2층 테라스 하우스"
         },
         {
-          "emoji": "🗣️",
+          "icon": "speech",
           "label": "언어",
           "value": "영어"
         },
         {
-          "emoji": "🦯",
+          "icon": "accessibility",
           "label": "보행 보조기",
           "value": "외출 시 지팡이"
         },
         {
-          "emoji": "👓",
+          "icon": "glasses",
           "label": "시력",
           "value": "돋보기"
         },
         {
-          "emoji": "🦻",
+          "icon": "ear",
           "label": "청력",
           "value": "양쪽 귀 보청기"
         },
         {
-          "emoji": "📝",
+          "icon": "notebook-pen",
           "label": "돌봄 희망 사항",
           "value": "사전 돌봄 계획 등록됨"
         }
       ],
       "chips": [
         {
-          "text": "⚠️ 알레르기: 페니실린 (발진)",
-          "danger": true
+          "text": "알레르기: 페니실린 (발진)",
+          "danger": true,
+          "icon": "triangle-alert"
         },
         {
-          "text": "💊 정기 복용 약 4가지"
+          "text": "정기 복용 약 4가지",
+          "icon": "pill"
         },
         {
-          "text": "🚬 흡연 경험 없음"
+          "text": "흡연 경험 없음",
+          "icon": "cigarette-off"
         },
         {
-          "text": "🍷 주 1–2잔"
+          "text": "주 1–2잔",
+          "icon": "wine"
         },
         {
-          "text": "💉 독감 접종 2026년 4월 · 코로나 접종 시기"
+          "text": "독감 접종 2026년 4월 · 코로나 접종 시기",
+          "icon": "syringe"
         }
       ]
     },
@@ -210,38 +215,46 @@
     "dayline": [
       {
         "time": "아침",
-        "text": "🌅 일어나서 움직이세요 · 아침 인사를 하셨어요"
+        "text": "일어나서 움직이세요 · 아침 인사를 하셨어요",
+        "icon": "sunrise"
       },
       {
         "time": "08:12",
-        "text": "💬 아침 대화 · 모두 좋음"
+        "text": "아침 대화 · 모두 좋음",
+        "icon": "message-circle"
       },
       {
         "time": "08:31",
-        "text": "💊 아침 약 복용함"
+        "text": "아침 약 복용함",
+        "icon": "pill"
       },
       {
         "time": "09:31",
-        "text": "💊 어젯밤 약은 알림 후 복용",
-        "flag": "w"
+        "text": "어젯밤 약은 알림 후 복용",
+        "flag": "w",
+        "icon": "pill"
       },
       {
         "time": "늦은 아침",
-        "text": "🚶 산책하러 나가셨어요"
+        "text": "산책하러 나가셨어요",
+        "icon": "footprints"
       },
       {
         "time": "13:02",
-        "text": "🍽️ 점심 대화 · 밝음"
+        "text": "점심 대화 · 밝음",
+        "icon": "utensils"
       },
       {
         "time": "오후",
-        "text": "😴 쉬는 중 · 오늘은 따뜻해요",
-        "flag": "w"
+        "text": "쉬는 중 · 오늘은 따뜻해요",
+        "flag": "w",
+        "icon": "bed"
       },
       {
         "time": "18:00",
-        "text": "💬 다음 대화",
-        "flag": "n"
+        "text": "다음 대화",
+        "flag": "n",
+        "icon": "message-circle"
       }
     ],
     "context": {
@@ -283,7 +296,7 @@
     },
     "kpis": [
       {
-        "emoji": "❤️",
+        "icon": "heart",
         "label": "심박수",
         "value": "68",
         "unit": "bpm",
@@ -304,7 +317,7 @@
         ]
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "혈압",
         "value": "146",
         "unit": "/88",
@@ -325,7 +338,7 @@
         ]
       },
       {
-        "emoji": "🌿",
+        "icon": "leaf",
         "label": "안정 점수 (HRV)",
         "value": "26",
         "unit": "",
@@ -346,7 +359,7 @@
         ]
       },
       {
-        "emoji": "😴",
+        "icon": "bed",
         "label": "수면",
         "value": "6시간 12분",
         "unit": "",
@@ -367,7 +380,7 @@
         ]
       },
       {
-        "emoji": "👣",
+        "icon": "footprints",
         "label": "걸음 수",
         "value": "3,240",
         "unit": "오늘",
@@ -388,7 +401,7 @@
         ]
       },
       {
-        "emoji": "🚶",
+        "icon": "footprints",
         "label": "걷는 속도",
         "value": "0.82",
         "unit": "m/s",
@@ -409,7 +422,7 @@
         ]
       },
       {
-        "emoji": "💊",
+        "icon": "pill",
         "label": "약 복용",
         "value": "86",
         "unit": "%",
@@ -430,7 +443,7 @@
         ]
       },
       {
-        "emoji": "📞",
+        "icon": "phone",
         "label": "받은 전화",
         "value": "97",
         "unit": "%",
@@ -451,7 +464,7 @@
         ]
       },
       {
-        "emoji": "🗣️",
+        "icon": "speech",
         "label": "말하는 속도",
         "value": "132",
         "unit": "단어/분",
@@ -472,7 +485,7 @@
         ]
       },
       {
-        "emoji": "🤝",
+        "icon": "handshake",
         "label": "사람들과 보낸 시간",
         "value": "5",
         "unit": "이번 주",
@@ -493,7 +506,7 @@
         ]
       },
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "집 온도",
         "value": "29.5",
         "unit": "°C",
@@ -514,7 +527,7 @@
         ]
       },
       {
-        "emoji": "⚖️",
+        "icon": "scale",
         "label": "체중",
         "value": "61.2",
         "unit": "kg",
@@ -930,41 +943,41 @@
       "sub": "오늘 잘 지내고 계세요. 오늘 하루를 알려 드릴게요.",
       "tiles": [
         {
-          "emoji": "❤️",
+          "icon": "heart",
           "title": "심장",
           "note": "68 · 안정적"
         },
         {
-          "emoji": "👣",
+          "icon": "footprints",
           "title": "3,240걸음",
           "note": "3,500걸음까지 거의 다 왔어요!"
         },
         {
-          "emoji": "😴",
+          "icon": "bed",
           "title": "수면 6시간",
           "note": "조금 부족해요",
           "warn": true
         },
         {
-          "emoji": "💧",
+          "icon": "drop",
           "title": "물",
           "note": "지금 한 잔 드세요",
           "warn": true
         },
         {
-          "emoji": "💊",
+          "icon": "pill",
           "title": "다음 약",
           "note": "오후 6시, 암로디핀"
         },
         {
-          "emoji": "📞",
+          "icon": "phone",
           "title": "James의 전화",
           "note": "오늘 밤 8시"
         }
       ],
       "ideas": [
         {
-          "emoji": "🔥",
+          "icon": "flame",
           "title": "목요일은 38°까지 오른대요. 도서관 냉방실까지 차를 태워 드릴까요?",
           "note": "자원봉사자 Tom이 11시에 모시러 갈 수 있어요.",
           "yes": {
@@ -979,7 +992,7 @@
           }
         },
         {
-          "emoji": "💊",
+          "icon": "pill",
           "title": "저녁 약 드실 때 주간 약통이 도움이 될까요?",
           "note": "David가 토요일에 정리해 주겠다고 했어요.",
           "yes": {
@@ -994,7 +1007,7 @@
           }
         },
         {
-          "emoji": "🦻",
+          "icon": "ear",
           "title": "오후 대화 때 보청기를 끼실래요?",
           "note": "통화가 더 편해져요.",
           "yes": {
@@ -1011,27 +1024,27 @@
       ],
       "promise": [
         {
-          "emoji": "✋",
+          "icon": "hand",
           "lead": "결정은 당신이 해요.",
           "text": "누가 무엇을 볼지 직접 정하고, 언제든 바꿀 수 있어요."
         },
         {
-          "emoji": "📷",
+          "icon": "camera",
           "lead": "카메라는 절대 없어요.",
           "text": "집 센서는 움직임과 온도만 감지해요."
         },
         {
-          "emoji": "🎙️",
+          "icon": "mic",
           "lead": "엿듣지 않아요.",
           "text": "마이크는 직접 받은 통화 중에만 켜져요."
         },
         {
-          "emoji": "📍",
+          "icon": "map-pin",
           "lead": "위치 추적 안 해요.",
           "text": "위치는 꺼져 있어요. 켜더라도 \"집\" 또는 \"외출\"만 보여요."
         },
         {
-          "emoji": "🚨",
+          "icon": "siren",
           "lead": "긴급 상황만:",
           "text": "David와 James는 항상 안전 알림을 받아서 도움이 올 수 있어요."
         }
@@ -1072,18 +1085,21 @@
         "presets": [
           {
             "id": "family",
-            "label": "👨‍👩‍👧 가족은 대부분 보고, 기분은 비공개"
+            "label": "가족은 대부분 보고, 기분은 비공개",
+            "icon": "users"
           },
           {
             "id": "safety",
-            "label": "🚨 안전 알림만"
+            "label": "안전 알림만",
+            "icon": "siren"
           },
           {
             "id": "all",
-            "label": "🤝 가족과 모두 공유"
+            "label": "가족과 모두 공유",
+            "icon": "handshake"
           }
         ],
-        "safetyNote": "🚨 비상 연락처에 대한 안전 알림은 끌 수 없어요. 도움이 필요할 때 누군가 항상 올 수 있도록요. 비상 연락처는 바꿀 수 있어요.",
+        "safetyNote": "비상 연락처에 대한 안전 알림은 끌 수 없어요. 도움이 필요할 때 누군가 항상 올 수 있도록요. 비상 연락처는 바꿀 수 있어요.",
         "emergency": {
           "agreed": "10월 1일 동의함",
           "text": "구급차가 필요하면 병원이 빠르게 도울 수 있도록 질환, 약, 알레르기 정보를 받아요. 그 외에는 아무것도 없고, 그 방문에만 해당돼요.",
@@ -1099,7 +1115,8 @@
               "done": "확인됨"
             }
           ]
-        }
+        },
+        "safetyIcon": "siren"
       }
     }
   }

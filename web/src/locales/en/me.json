@@ -3,54 +3,54 @@
   "sub": "You're doing well today. Here's your day, just for you.",
   "tiles": [
     {
-      "emoji": "❤️",
+      "icon": "heart",
       "title": "Heart",
       "note": "68 · steady",
       "warn": false
     },
     {
-      "emoji": "👣",
+      "icon": "footprints",
       "title": "3,240 steps",
       "note": "nearly at 3,500!",
       "warn": false
     },
     {
-      "emoji": "😴",
+      "icon": "bed",
       "title": "6 h sleep",
       "note": "a bit short",
       "warn": true
     },
     {
-      "emoji": "💧",
+      "icon": "drop",
       "title": "Water",
       "note": "have a glass now",
       "warn": true
     },
     {
-      "emoji": "💊",
+      "icon": "pill",
       "title": "Next tablet",
       "note": "6 pm, amlodipine",
       "warn": false
     },
     {
-      "emoji": "📞",
+      "icon": "phone",
       "title": "James calls",
       "note": "tonight at 8 pm",
       "warn": false
     }
   ],
   "people": {
-    "title": "💞 Your people",
+    "title": "Your people",
     "meta": "You choose what each sees",
-    "change": "🔐 Change who sees what",
+    "change": "Change who sees what",
     "paused": "Paused",
     "sees": "Sees {{seen}} of {{total}}"
   },
-  "ideasTitle": "💡 Ideas for you",
+  "ideasTitle": "Ideas for you",
   "ideasMeta": "Only if you want them",
   "ideas": [
     {
-      "emoji": "🔥",
+      "icon": "flame",
       "title": "Thursday will be 38°. Would you like a lift to the library cool room?",
       "note": "Tom, a volunteer, can pick you up at 11.",
       "yes": [
@@ -65,7 +65,7 @@
       ]
     },
     {
-      "emoji": "💊",
+      "icon": "pill",
       "title": "Would a weekly pill box help with the evening tablet?",
       "note": "David offered to set it up on Saturday.",
       "yes": [
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "emoji": "🦻",
+      "icon": "ear",
       "title": "Pop your hearing aids in for this afternoon's chat?",
       "note": "It makes the calls easier.",
       "yes": [
@@ -96,31 +96,31 @@
     }
   ],
   "promise": {
-    "title": "🔐 Your privacy promise",
+    "title": "Your privacy promise",
     "meta": "Health support, not watching",
     "items": [
       {
-        "emoji": "✋",
+        "icon": "hand",
         "bold": "You're in charge.",
         "text": "You decide who sees what, and you can change it any time."
       },
       {
-        "emoji": "📷",
+        "icon": "camera",
         "bold": "No cameras, ever.",
         "text": "Home sensors only notice movement and temperature."
       },
       {
-        "emoji": "🎙️",
+        "icon": "mic",
         "bold": "No listening in.",
         "text": "The microphone is only on during calls you answer."
       },
       {
-        "emoji": "📍",
+        "icon": "map-pin",
         "bold": "No tracking.",
         "text": "Location is off. If you turn it on, people only see \"home\" or \"out\"."
       },
       {
-        "emoji": "🚨",
+        "icon": "siren",
         "bold": "Emergencies only:",
         "text": "David and James always get safety alerts, so help can come."
       }
@@ -128,7 +128,7 @@
     "settings": "See all settings"
   },
   "access": {
-    "title": "👀 Who looked at your information",
+    "title": "Who looked at your information",
     "meta": "So nothing happens behind your back",
     "head": [
       "When",
@@ -197,7 +197,7 @@
     "tick": "Done",
     "idle": "Your recovery plan will appear here",
     "idle_family": "Margaret's recovery plan will appear here",
-    "stop": "⛔ Stop: {{name}}",
+    "stop": "Stop: {{name}}",
     "meds": "Your medicines, explained",
     "meds_family": "Her medicines, explained",
     "slots": {
@@ -213,11 +213,11 @@
       "Stop": "Stop"
     },
     "noa": {
-      "title": "💬 From Noa",
-      "title_family": "💬 What Noa told Margaret",
+      "title": "From Noa",
+      "title_family": "What Noa told Margaret",
       "meta": "After the hospital approved the plan",
       "noa": "Noa",
-      "margaret": "👵 Margaret",
+      "margaret": "Margaret",
       "welcome": "Welcome home, Margaret. It's Noa 💙 The hospital has sent your recovery plan, and I've put it in your app in plain English.",
       "newMeds_one": "You have 1 new tablet: {{names}}.",
       "newMeds_other": "You have {{count}} new tablets: {{names}}.",
@@ -247,23 +247,23 @@
     "self": {
       "layout": {
         "label": "Layout",
-        "detailed": "📋 Detailed",
-        "simple": "🔆 Simple"
+        "detailed": "Detailed",
+        "simple": "Simple"
       },
-      "happened": "🌱 What happened",
+      "happened": "What happened",
       "happenedMeta": "In plain English",
       "dayOf": "Day {{day}} of 30",
       "doneToday": "{{done}} of {{total}} done today",
-      "nextTitle": "⏰ Next reminder",
-      "allDone": "🎉 All done for today",
-      "tasksTitle": "💊 Today's tablets and tasks",
+      "nextTitle": "Next reminder",
+      "allDone": "All done for today",
+      "tasksTitle": "Today's tablets and tasks",
       "tasksMeta": "Tap when done",
-      "appts": "🗓️ Appointments",
+      "appts": "Appointments",
       "callsMeta": "Short chats to see how you are",
       "callToday": "Today",
-      "logged": "Nice one 👍 Logged.",
+      "logged": "Nice one! Logged.",
       "fast": {
-        "title": "🚨 Call 000 straight away if…",
+        "title": "Call 000 straight away if…",
         "face": "Face",
         "faceText": "drooping on one side",
         "arm": "Arm",
@@ -272,7 +272,7 @@
         "speechText": "slurred or confused",
         "time": "Time",
         "timeText": "matters. Don't wait.",
-        "call": "📞 Call 000",
+        "call": "Call 000",
         "calling": "Calling 000 · ask for an ambulance"
       },
       "simple": {
@@ -283,16 +283,16 @@
         "now": "Now",
         "tookThem": "✓ I took them",
         "didIt": "✓ I did it",
-        "snooze": "⏰ Remind me in 10 minutes",
+        "snooze": "Remind me in 10 minutes",
         "snoozed": "OK, I'll remind you again in 10 minutes",
         "later": "Later today",
         "laterMeta": "You will get a reminder",
         "nothingLater": "Nothing else today.",
         "tabs": {
-          "meds": "💊 Tablets",
-          "appts": "🗓️ Visits",
-          "calls": "📞 Calls",
-          "help": "🚨 Warning signs"
+          "meds": "Tablets",
+          "appts": "Visits",
+          "calls": "Calls",
+          "help": "Warning signs"
         },
         "tablets": "Your tablets",
         "visits": "Visits and tests",

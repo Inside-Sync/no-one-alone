@@ -7,43 +7,50 @@
     "wellbeingNote": "100점 중 72점으로, 지난주보다 5점 내려갔어요. 두 가지가 점수를 끌어내리고 있어요: 혈압이 조금씩 오르고 있고, 집이 너무 더워요.",
     "wellbeingAxes": [
       {
-        "label": "❤️ 몸",
+        "label": "몸",
         "now": 61,
-        "lastMonth": 74
+        "lastMonth": 74,
+        "icon": "heart"
       },
       {
-        "label": "💊 약",
+        "label": "약",
         "now": 68,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "pill"
       },
       {
-        "label": "🚶 움직임",
+        "label": "움직임",
         "now": 74,
-        "lastMonth": 80
+        "lastMonth": 80,
+        "icon": "footprints"
       },
       {
-        "label": "😴 수면",
+        "label": "수면",
         "now": 70,
-        "lastMonth": 76
+        "lastMonth": 76,
+        "icon": "bed"
       },
       {
-        "label": "🤝 사회 활동",
+        "label": "사회 활동",
         "now": 82,
-        "lastMonth": 84
+        "lastMonth": 84,
+        "icon": "handshake"
       },
       {
-        "label": "🧠 기억력",
+        "label": "기억력",
         "now": 88,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "brain"
       },
       {
-        "label": "🏠 집",
+        "label": "집",
         "now": 58,
-        "lastMonth": 78
+        "lastMonth": 78,
+        "icon": "home"
       }
     ],
     "comingUp": {
-      "title": "🔮 다가오는 일: 조치할 한 가지",
+      "title": "다가오는 일: 조치할 한 가지",
       "meta": "뇌졸중 · 90일",
       "pill": {
         "tone": "bad",
@@ -104,7 +111,8 @@
           "value": "forecast",
           "soft": true
         }
-      ]
+      ],
+      "icon": "telescope"
     },
     "weeklyPlan": [
       {
@@ -152,32 +160,32 @@
     "weeklyPlanMeta": "할 일 4개 · 담당자 2명",
     "model": [
       {
-        "emoji": "👀",
+        "icon": "eye",
         "label": "살피는 것",
         "value": "신호 11가지"
       },
       {
-        "emoji": "📚",
+        "icon": "book-open",
         "label": "예측 방식",
         "value": "BigQuery AI.FORECAST"
       },
       {
-        "emoji": "🎯",
+        "icon": "target",
         "label": "위험 수준",
         "value": "데모 규칙이며, 진단이 아님"
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "따르는 기준",
         "value": "의사 진료 지침"
       },
       {
-        "emoji": "🔄",
+        "icon": "refresh-cw",
         "label": "업데이트",
         "value": "매시간"
       },
       {
-        "emoji": "🧑‍⚕️",
+        "icon": "stethoscope",
         "label": "결정하는 사람",
         "value": "앱이 아닌 주치의"
       }
@@ -278,114 +286,125 @@
     "shapNote": "막대는 각 이유가 위험 수준을 얼마나 높이는지 보여 줘요. 프로토타입용 예시 가중치예요.",
     "signs": [
       {
-        "sign": "🩺 아침 혈압",
+        "sign": "아침 혈압",
         "from": "팔 커프",
         "frequency": "매일 아침",
         "now": "146",
         "usual": "132",
         "comparison": "훨씬 높음",
         "sigma": "+2.8",
-        "tone": "bad"
+        "tone": "bad",
+        "icon": "stethoscope"
       },
       {
-        "sign": "❤️ 안정 시 심박수",
+        "sign": "안정 시 심박수",
         "from": "관찰",
         "frequency": "하루 종일",
         "now": "68",
         "usual": "63",
         "comparison": "비슷함",
         "sigma": "+0.4",
-        "tone": "good"
+        "tone": "good",
+        "icon": "heart"
       },
       {
-        "sign": "🌿 안정 점수 (HRV)",
+        "sign": "안정 점수 (HRV)",
         "from": "관찰",
         "frequency": "매일 밤",
         "now": "26",
         "usual": "31",
         "comparison": "낮음",
         "sigma": "−1.9",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "leaf"
       },
       {
-        "sign": "⚡ 불규칙 심박 알림",
+        "sign": "불규칙 심박 알림",
         "from": "관찰",
         "frequency": "발생할 때",
         "now": "이번 주 2회",
         "usual": "드물게",
         "comparison": "높음",
         "sigma": "+2.4",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "bolt"
       },
       {
-        "sign": "🚶 걷는 속도",
+        "sign": "걷는 속도",
         "from": "휴대폰 + 집",
         "frequency": "매일",
         "now": "0.82 m/s",
         "usual": "0.89",
         "comparison": "느려짐",
         "sigma": "−2.1",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "footprints"
       },
       {
-        "sign": "🌙 밤에 깨는 횟수",
+        "sign": "밤에 깨는 횟수",
         "from": "집 센서",
         "frequency": "밤새",
         "now": "41회",
         "usual": "18",
         "comparison": "훨씬 높음",
         "sigma": "+2.3",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "moon"
       },
       {
-        "sign": "💊 약 복용",
+        "sign": "약 복용",
         "from": "약통",
         "frequency": "매 복용",
         "now": "86%",
         "usual": "95%",
         "comparison": "낮음",
         "sigma": "−1.8",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pill"
       },
       {
-        "sign": "⏸️ 말할 때 멈춤",
+        "sign": "말할 때 멈춤",
         "from": "매일 대화",
         "frequency": "매일",
         "now": "많아짐",
         "usual": "적음",
         "comparison": "높음",
         "sigma": "+1.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pause"
       },
       {
-        "sign": "👂 \"뭐라고요?\"",
+        "sign": "\"뭐라고요?\"",
         "from": "매일 대화",
         "frequency": "매일",
         "now": "이번 주 9회",
         "usual": "3",
         "comparison": "훨씬 높음",
         "sigma": "+2.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "ear"
       },
       {
-        "sign": "🌡️ 집 온도",
+        "sign": "집 온도",
         "from": "집 센서",
         "frequency": "하루 종일",
         "now": "29.5°",
         "usual": "25.1°",
         "comparison": "훨씬 높음",
         "sigma": "+2.2",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "thermometer"
       },
       {
-        "sign": "⚖️ 체중",
+        "sign": "체중",
         "from": "체중계",
         "frequency": "매일",
         "now": "61.2 kg",
         "usual": "61.0",
         "comparison": "비슷함",
         "sigma": "+0.2",
-        "tone": "good"
+        "tone": "good",
+        "icon": "scale"
       }
     ],
     "bp": {
@@ -421,27 +440,30 @@
       "sliders": [
         {
           "id": "adherence",
-          "label": "💊 제시간에 약 복용",
+          "label": "제시간에 약 복용",
           "min": 60,
           "max": 100,
           "step": 1,
-          "value": 86
+          "value": 86,
+          "icon": "pill"
         },
         {
           "id": "steps",
-          "label": "👣 하루 걸음 수",
+          "label": "하루 걸음 수",
           "min": 1500,
           "max": 7000,
           "step": 100,
-          "value": 3240
+          "value": 3240,
+          "icon": "footprints"
         },
         {
           "id": "salt",
-          "label": "🧂 음식 속 소금",
+          "label": "음식 속 소금",
           "min": 0,
           "max": 2,
           "step": 1,
-          "value": 1
+          "value": 1,
+          "icon": "cooking-pot"
         }
       ],
       "saltLabels": [
@@ -449,7 +471,7 @@
         "보통",
         "높음"
       ],
-      "hearingLabel": "👂 매일 보청기 착용",
+      "hearingLabel": "매일 보청기 착용",
       "hearingAids": false,
       "base": {
         "stroke": 2.1,
@@ -457,7 +479,8 @@
         "admission": 14,
         "mci": 3.1
       },
-      "note": "상대적 효과는 발표된 효과 크기를 바탕으로 현재 위험에 적용한 값이에요. 처방이 아니라 GP와 이야기를 시작하기 위한 자료예요."
+      "note": "상대적 효과는 발표된 효과 크기를 바탕으로 현재 위험에 적용한 값이에요. 처방이 아니라 GP와 이야기를 시작하기 위한 자료예요.",
+      "hearingIcon": "ear"
     },
     "modes": [
       {

@@ -1,10 +1,11 @@
 /** Views, role-based tabs and page routing. Pure functions; no React. Text is read through i18n when accessed. */
 
 import i18n from '@/i18n'
+import type { IconName } from '@/data/types'
 
 export type ViewId = 'individual' | 'hospital' | 'community'
 export type Who = 'family' | 'self'
-export type Tab = { id: string; label: string; icon?: string }
+export type Tab = { id: string; label: string; icon?: IconName }
 
 export const VIEW_IDS: readonly ViewId[] = ['individual', 'hospital', 'community']
 
@@ -37,15 +38,21 @@ export const VIEW_USERS: Readonly<Record<ViewId, ViewUser>> = {
 
 type TabGroup = 'family' | 'self' | 'hospital' | 'community'
 /** A tab whose label is looked up in `common:tabs.<group>.<id>` each time it is read. */
-const tab = (group: TabGroup, id: string, icon?: string): Tab => ({
+const tab = (group: TabGroup, id: string, icon?: IconName): Tab => ({
   id,
   ...(icon ? { icon } : {}),
   get label() { return i18n.t(`common:tabs.${group}.${id}` as 'common:tabs.family.home') },
 })
 
-export const TABS_FAM: Tab[] = ['home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'recovery', 'device'].map((id) => tab('family', id))
+export const TABS_FAM: Tab[] = ([
+  ['home', 'home'], ['health', 'heart'], ['around', 'cloud-sun'], ['forecast', 'telescope'], ['lineage', 'tree'],
+  ['record', 'clipboard-list'], ['live', 'siren'], ['recovery', 'sprout'], ['device', 'smartphone'],
+] as const).map(([id, icon]) => tab('family', id, icon))
 
-export const TABS_SELF: Tab[] = ['me', 'recovery', 'health', 'live', 'privacy', 'around', 'lineage', 'device'].map((id) => tab('self', id))
+export const TABS_SELF: Tab[] = ([
+  ['me', 'sun'], ['recovery', 'sprout'], ['health', 'heart'], ['live', 'siren'], ['privacy', 'lock'],
+  ['around', 'cloud-sun'], ['lineage', 'tree'], ['device', 'smartphone'],
+] as const).map(([id, icon]) => tab('self', id, icon))
 
 const TABS_HOSPITAL: Tab[] = [
   tab('hospital', 'ed', 'siren'),
@@ -117,8 +124,10 @@ export const PAGE_TITLES: Readonly<Record<string, string>> = Object.defineProper
 )
 
 type OwnFact = { readonly live: boolean; readonly label: string; readonly value: string }
-const ownContext = (page: 'me' | 'privacy', initials: string, live: readonly boolean[]) => ({
+/** `icon` stands in for the initials (the prototype's privacy bar showed an emoji there). */
+const ownContext = (page: 'me' | 'privacy', initials: string, live: readonly boolean[], icon?: IconName) => ({
   initials,
+  icon,
   color: '#0b7f71',
   get sub() { return i18n.t(`common:ownContext.${page}.sub`) },
   get facts(): readonly OwnFact[] {
@@ -130,5 +139,5 @@ const ownContext = (page: 'me' | 'privacy', initials: string, live: readonly boo
 /** Margaret's own pages have their own context bar (PG.me, PG.privacy); text translated at read time. */
 export const OWN_CONTEXT = {
   me: ownContext('me', 'MC', [true, false, false]),
-  privacy: ownContext('privacy', '🔐', [true, false]),
+  privacy: ownContext('privacy', '', [true, false], 'lock'),
 } as const

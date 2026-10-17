@@ -20,14 +20,14 @@ export function KpiRow({ kpis }: { kpis: KpiData[] }) {
       {kpis.map((k, i) => (
         <Locked key={k.label} cat={KPI_CATEGORY[i] ?? 'checkin'}>
           <Kpi
-            emoji={k.emoji}
+            icon={k.icon}
             label={k.label}
             value={k.value}
             unit={k.unit}
             sub={k.baseline}
             delta={k.delta}
             tone={k.tone}
-            onOpen={() => drawer.open(`${k.emoji ?? ''}${k.label}`, <KpiDrawerBody kpi={k} />)}
+            onOpen={() => drawer.open(k.label, <KpiDrawerBody kpi={k} />)}
           >
             <Sparkline values={k.spark} color={k.color} decorative />
           </Kpi>

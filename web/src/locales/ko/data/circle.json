@@ -4,66 +4,71 @@
       "id": "david",
       "initials": "D",
       "color": "#2f6fb0",
-      "name": "👨 David · 남동생",
+      "name": "David · 남동생",
       "note": "450m 거리 · 첫 번째 연락",
       "role": {
         "tone": "good",
         "text": "당번"
       },
       "technicalName": "David · 남동생",
-      "technicalNote": "450m · 첫 번째 연락"
+      "technicalNote": "450m · 첫 번째 연락",
+      "icon": "user-round"
     },
     {
       "id": "james",
       "initials": "J",
       "color": "#e07a3f",
-      "name": "🙋 James · 나",
+      "name": "James · 나",
       "note": "멜버른 · 필요하면 000에 전화",
       "role": {
         "tone": "brand",
         "text": "두 번째"
       },
       "technicalName": "James · 나",
-      "technicalNote": "멜버른 · 000 신고자"
+      "technicalNote": "멜버른 · 000 신고자",
+      "icon": "user-round"
     },
     {
       "id": "sarah",
       "initials": "S",
       "color": "#c2417a",
-      "name": "👩 Sarah · 딸",
+      "name": "Sarah · 딸",
       "note": "런던 · 소식 받음",
       "role": {
         "tone": "plain",
         "text": "소식"
       },
       "technicalName": "Sarah · 딸",
-      "technicalNote": "런던 · 소식만"
+      "technicalNote": "런던 · 소식만",
+      "icon": "user-round"
     },
     {
       "id": "priya",
       "initials": "P",
       "color": "#8a6bd1",
-      "name": "🩺 Priya · 방문 간호사",
+      "name": "Priya · 방문 간호사",
       "note": "평일",
       "role": {
         "tone": "plain",
         "text": "대기"
       },
       "technicalName": "Priya Sharma",
-      "technicalNote": "방문 간호사 · 평일"
+      "technicalNote": "방문 간호사 · 평일",
+      "icon": "stethoscope"
     },
     {
       "id": "aisha",
       "initials": "A",
       "color": "#c2611f",
-      "name": "🏡 Aisha · 이웃",
+      "name": "Aisha · 이웃",
       "note": "두 집 건너 · 열쇠 보관",
       "role": {
         "tone": "plain",
         "text": "대기"
       },
       "technicalName": "Aisha · 이웃",
-      "technicalNote": "두 집 건너 · 열쇠 보관"
+      "technicalNote": "두 집 건너 · 열쇠 보관",
+      "icon": "home"
     }
   ],
   "circleOrbit": [

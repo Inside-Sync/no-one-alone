@@ -1,7 +1,7 @@
 {
   "surroundings": {
     "homeMap": {
-      "kicker": "📍 Margaret이 사는 곳",
+      "kicker": "Margaret이 사는 곳",
       "title": "Marrickville, Sydney",
       "detail": "Inner West · CBD에서 남서쪽으로 5.8 km · −33.911, 151.155",
       "lat": -33.911,
@@ -214,10 +214,11 @@
           "x": 220,
           "y": 345
         }
-      ]
+      ],
+      "icon": "map-pin"
     },
     "watchMap": {
-      "kicker": "👀 동네 살피기",
+      "kicker": "동네 살피기",
       "title": "Margaret의 집 주변",
       "detail": "혼자 살 때 주의할 점 · 1 km 안 8가지",
       "ariaLabel": "동네 알림이 표시된 Margaret 동네의 3D 지도: 보도 공사, 신고된 사기, 꺼진 가로등, 공격하는 까치, 뱀 목격, 폭염 냉방실",
@@ -238,7 +239,8 @@
       "ring": {
         "label": "관찰 구역",
         "radius": 150
-      }
+      },
+      "icon": "eye"
     },
     "pins": [
       {
@@ -389,7 +391,7 @@
       }
     ],
     "weather": {
-      "heading": "🌤️ Marrickville 날씨",
+      "heading": "Marrickville 날씨",
       "meta": "현재 · 15:10",
       "temp": "33°",
       "summary": "맑음, 뜨거운 북동풍",
@@ -426,7 +428,8 @@
           "note": "맑음"
         }
       ],
-      "note": "목요일과 금요일 폭염. 금요일 저녁 남풍으로 바뀌며 최대 60 km/h의 돌풍이 예상돼요."
+      "note": "목요일과 금요일 폭염. 금요일 저녁 남풍으로 바뀌며 최대 60 km/h의 돌풍이 예상돼요.",
+      "icon": "cloud-sun"
     },
     "week": [
       {
@@ -481,7 +484,7 @@
     ],
     "kpis": [
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "기온",
         "value": "33",
         "unit": "°C",
@@ -502,7 +505,7 @@
         ]
       },
       {
-        "emoji": "🥵",
+        "icon": "thermometer-sun",
         "label": "체감 온도",
         "value": "35",
         "unit": "°C",
@@ -523,7 +526,7 @@
         ]
       },
       {
-        "emoji": "💨",
+        "icon": "wind",
         "label": "바람",
         "value": "22",
         "unit": "km/h",
@@ -544,7 +547,7 @@
         ]
       },
       {
-        "emoji": "🕶️",
+        "icon": "glasses",
         "label": "자외선 세기",
         "value": "11",
         "unit": "UV",
@@ -565,7 +568,7 @@
         ]
       },
       {
-        "emoji": "🌧️",
+        "icon": "cloud-rain",
         "label": "비",
         "value": "10",
         "unit": "% 확률",
@@ -586,7 +589,7 @@
         ]
       },
       {
-        "emoji": "🍃",
+        "icon": "wind",
         "label": "대기질",
         "value": "좋음",
         "unit": "",
@@ -607,7 +610,7 @@
         ]
       },
       {
-        "emoji": "🌾",
+        "icon": "wheat",
         "label": "꽃가루",
         "value": "높음",
         "unit": "",
@@ -628,7 +631,7 @@
         ]
       },
       {
-        "emoji": "✈️",
+        "icon": "plane",
         "label": "비행기 소음",
         "value": "68",
         "unit": "dB",
@@ -649,7 +652,7 @@
         ]
       },
       {
-        "emoji": "🔥",
+        "icon": "flame",
         "label": "더위 위험",
         "value": "보통",
         "unit": "",
@@ -670,7 +673,7 @@
         ]
       },
       {
-        "emoji": "🌅",
+        "icon": "sunrise",
         "label": "일조 시간",
         "value": "13시간",
         "unit": "",
@@ -691,7 +694,7 @@
         ]
       },
       {
-        "emoji": "🌊",
+        "icon": "waves",
         "label": "바닷바람",
         "value": "없음",
         "unit": "",
@@ -712,7 +715,7 @@
         ]
       },
       {
-        "emoji": "🔌",
+        "icon": "plug-zap",
         "label": "정전 위험",
         "value": "낮음",
         "unit": "",
@@ -734,8 +737,9 @@
       }
     ],
     "alertsHeading": {
-      "title": "👀 혼자 사신다면 알아 두면 좋은 것",
-      "meta": "혼자 거주 · 긴급도순"
+      "title": "혼자 사신다면 알아 두면 좋은 것",
+      "meta": "혼자 거주 · 긴급도순",
+      "icon": "eye"
     },
     "alerts": [
       {
@@ -789,8 +793,9 @@
       }
     ],
     "newsHeading": {
-      "title": "📰 그녀에게 중요한 소식",
-      "meta": "2204에 혼자 사는 78세에 맞춰 선별"
+      "title": "그녀에게 중요한 소식",
+      "meta": "2204에 혼자 사는 78세에 맞춰 선별",
+      "icon": "news"
     },
     "newsCategories": [
       "All",

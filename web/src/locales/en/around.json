@@ -1,12 +1,12 @@
 {
   "mapChip": "Tap a pin for detail",
   "thursday": {
-    "title": "🔥 Thursday, hour by hour",
+    "title": "Thursday, hour by hour",
     "meta": "Outside vs how warm her home will get",
     "ariaLabel": "Thursday outdoor temperature peaks at 38 degrees at 13:00; indoor would reach 34 without air-con; agent moves Margaret to the library cool room from 11:00 to 16:00"
   },
   "air": {
-    "title": "🍃 Air, pollen and smoke",
+    "title": "Air, pollen and smoke",
     "meta": "7-day outlook",
     "columns": [
       "Day",

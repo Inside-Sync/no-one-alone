@@ -134,7 +134,7 @@ describe('consent', () => {
   test('a viewer without records (sarah) gets seven locked placeholders and no data in the DOM', async () => {
     renderWithProviders(<RecordPage />, { who: 'family', viewer: 'sarah' })
     await waitFor(() => expect(document.querySelectorAll('.locked-slot')).toHaveLength(7))
-    await waitFor(() => expect(screen.getAllByText(/🔒/)[0].textContent).not.toMatch(/Checking/))
+    await waitFor(() => expect(document.querySelector('.locked-slot')!.textContent).not.toMatch(/Checking/))
     absent()
     expect(document.querySelectorAll('[data-scat="records"]')).toHaveLength(7)
   })

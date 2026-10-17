@@ -1,11 +1,11 @@
 {
   "goals": {
-    "title": "🎯 Mục tiêu hôm nay",
+    "title": "Mục tiêu hôm nay",
     "meta": "Đặt cùng bác sĩ gia đình",
     "of": "trên {{goal}} {{unit}}"
   },
   "hr": {
-    "title": "❤️ Nhịp tim trong ngày qua",
+    "title": "Nhịp tim trong ngày qua",
     "meta": "Nhịp mỗi phút",
     "ariaLabel": "Nhịp tim trong 24 giờ: 55 đến 62 khi ngủ, có hai cảnh báo nhịp không đều lúc 02:14 và 03:40, cao nhất 112 khi đi bộ buổi sáng",
     "asleep": "đang ngủ",
@@ -31,11 +31,11 @@
     ]
   },
   "hypno": {
-    "title": "😴 Giấc ngủ đêm qua",
+    "title": "Giấc ngủ đêm qua",
     "ariaLabel": "Các giai đoạn ngủ: thức giấc 6 lần, ngủ sâu 52 phút, REM 52 phút"
   },
   "mood": {
-    "title": "😊 Tâm trạng 2 tuần qua",
+    "title": "Tâm trạng 2 tuần qua",
     "meta": "Từ những lần bà tự chạm và giọng nói của bà",
     "ariaLabel": "Tâm trạng trong 14 ngày, phần lớn dễ chịu, giảm vào hai ngày nóng, cao nhất vào những ngày đi bộ cùng nhóm",
     "top": "Dễ chịu",
@@ -44,13 +44,13 @@
     "walk": "đi bộ"
   },
   "steps": {
-    "title": "👣 Số bước 2 tuần qua",
+    "title": "Số bước 2 tuần qua",
     "meta": "Mục tiêu 3.500",
     "ariaLabel": "Số bước trong 14 ngày, đạt mục tiêu 7 ngày",
     "goal": "mục tiêu 3.500"
   },
   "bp": {
-    "title": "🩺 Huyết áp 2 tuần qua",
+    "title": "Huyết áp 2 tuần qua",
     "meta": "Số đo buổi sáng và buổi tối",
     "ariaLabel": "Huyết áp tâm thu buổi sáng tăng từ 134 lên 146 và buổi tối từ 128 lên 139 trong 14 ngày",
     "legend": [
@@ -69,7 +69,7 @@
     ]
   },
   "devices": {
-    "title": "📲 Dữ liệu này đến từ đâu",
+    "title": "Dữ liệu này đến từ đâu",
     "columns": [
       "Thiết bị",
       "Chỉ số",

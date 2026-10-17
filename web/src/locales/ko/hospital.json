@@ -39,7 +39,7 @@
       "toast": "구급차에 우회를 제안했습니다"
     },
     "recovery": {
-      "title": "📝 퇴원 및 회복 계획",
+      "title": "퇴원 및 회복 계획",
       "meta": "수정하고 승인하면 Noa가 쉬운 말로 Margaret의 포털에 전달합니다",
       "staff": "의사",
       "diagnosis": "진단",
@@ -57,7 +57,7 @@
       "sentAt": "{{time}}에 집으로 보냄",
       "sent": "집으로 보냄",
       "failed": "계획을 보내지 못했습니다",
-      "delivering": "⏳ Noa가 전달하는 중…",
+      "delivering": "Noa가 전달하는 중…",
       "why": "이유: {{text}}",
       "medHead": "약",
       "doseHead": "용량",
@@ -78,10 +78,10 @@
       },
       "calls": "Noa 추적 전화",
       "callDay": "✓ {{day}}일차",
-      "finalise": "✍️ 계획 확정",
-      "signed": "✍️ {{name}} 확정 · {{time}}",
+      "finalise": "계획 확정",
+      "signed": "{{name}} 확정 · {{time}}",
       "editAgain": "다시 수정",
-      "approve": "✅ 승인하고 Noa에게 넘기기",
+      "approve": "승인하고 Noa에게 넘기기",
       "approveNote": "Noa가 계획을 쉬운 말로 옮기고, 알림을 설정하고, Margaret 본인의 설정에 따라 돌봄 모임과 공유합니다.",
       "toastFinal": "계획이 확정·서명되었습니다. 이제 승인하여 Noa에게 넘기세요.",
       "toastSent": "회복 계획을 Margaret의 포털에 전달했습니다",
@@ -96,9 +96,9 @@
       }
     },
     "discharge": {
-      "title": "🩺 퇴원 준비: Margaret Collins, 78세",
+      "title": "퇴원 준비: Margaret Collins, 78세",
       "sub": "허혈성 뇌졸중, 혈전용해술 시행 · 신규 발작성 AF · 회복 계획 승인 대기",
-      "open": "📝 기록과 회복 계획 열기"
+      "open": "기록과 회복 계획 열기"
     }
   },
   "panel": {

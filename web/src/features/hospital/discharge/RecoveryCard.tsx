@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph } from '@/components/ui/Icon'
 import { TableScroll } from '@/components/ui/TableScroll'
 import { useToast } from '@/components/ui/Toast'
 import type { MedChange, RecoveryRequest } from '@/data/contract'
@@ -118,7 +119,7 @@ export function RecoveryCard() {
     const at = recovery && clock(Date.parse(recovery.createdAt))
     return (
       <GlassCard span={12}>
-        <Head title={t('ed.recovery.title')} meta={at ? t('ed.recovery.sentAt', { time: at }) : t('ed.recovery.sent')} />
+        <Head icon="notebook-pen" title={t('ed.recovery.title')} meta={at ? t('ed.recovery.sentAt', { time: at }) : t('ed.recovery.sent')} />
         <ol className="list steps">
           {steps.slice(0, visible).map((s, i) => <li key={s.key}><b>{i + 1}</b><span>{t(`ed.recovery.steps.${s.key}`, s.vars)}</span></li>)}
         </ol>
@@ -140,7 +141,7 @@ export function RecoveryCard() {
   const slots = Object.entries(SLOTS)
   return (
     <GlassCard span={12} id="planBuilder">
-      <Head title={t('ed.recovery.title')} meta={t('ed.recovery.meta')} />
+      <Head icon="notebook-pen" title={t('ed.recovery.title')} meta={t('ed.recovery.meta')} />
       <fieldset disabled={signedAt !== null} style={{ border: 0, padding: 0, margin: 0, minWidth: 0, opacity: signedAt ? 0.75 : 1 }}>
         <div className="row">
           {text(t('ed.recovery.staff'), form.staffName, (v) => set('staffName', v))}
@@ -203,7 +204,7 @@ export function RecoveryCard() {
       </fieldset>
       {signedAt && (
         <p className="row" style={{ fontSize: 13, padding: '8px 12px', borderRadius: 12, background: 'rgba(31,143,95,.12)' }}>
-          <span>{t('ed.recovery.signed', { name: form.staffName, time: signedAt })}</span>
+          <span><Glyph name="pen-line" />{t('ed.recovery.signed', { name: form.staffName, time: signedAt })}</span>
           <button type="button" className="btn soft sm" disabled={busy} onClick={() => setSignedAt(null)}>{t('ed.recovery.editAgain')}</button>
         </p>
       )}

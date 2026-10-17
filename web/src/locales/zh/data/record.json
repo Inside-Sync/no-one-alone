@@ -2,7 +2,7 @@
   "careRecord": {
     "kpis": [
       {
-        "emoji": "📁",
+        "icon": "folder",
         "label": "健康记录",
         "value": "1,284",
         "unit": "",
@@ -23,7 +23,7 @@
         ]
       },
       {
-        "emoji": "🏥",
+        "icon": "hospital",
         "label": "2023年以来就诊",
         "value": "46",
         "unit": "",
@@ -44,7 +44,7 @@
         ]
       },
       {
-        "emoji": "💊",
+        "icon": "pill",
         "label": "药物",
         "value": "4",
         "unit": "",
@@ -65,7 +65,7 @@
         ]
       },
       {
-        "emoji": "🧪",
+        "icon": "flask-conical",
         "label": "检查结果",
         "value": "212",
         "unit": "",
@@ -86,7 +86,7 @@
         ]
       },
       {
-        "emoji": "✅",
+        "icon": "circle-check",
         "label": "记录完整度",
         "value": "94",
         "unit": "%",
@@ -107,7 +107,7 @@
         ]
       },
       {
-        "emoji": "📅",
+        "icon": "calendar",
         "label": "距上次看家庭医生",
         "value": "32",
         "unit": "天",

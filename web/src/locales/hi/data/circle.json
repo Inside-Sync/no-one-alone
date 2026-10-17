@@ -4,66 +4,71 @@
       "id": "david",
       "initials": "D",
       "color": "#2f6fb0",
-      "name": "👨 David · उनके भाई",
+      "name": "David · उनके भाई",
       "note": "450 मी दूर · सबसे पहले कॉल",
       "role": {
         "tone": "good",
         "text": "ऑन कॉल"
       },
       "technicalName": "David · भाई",
-      "technicalNote": "450 मी · सबसे पहले कॉल"
+      "technicalNote": "450 मी · सबसे पहले कॉल",
+      "icon": "user-round"
     },
     {
       "id": "james",
       "initials": "J",
       "color": "#e07a3f",
-      "name": "🙋 James · आप",
+      "name": "James · आप",
       "note": "Melbourne · ज़रूरत पर 000 पर कॉल करते हैं",
       "role": {
         "tone": "brand",
         "text": "दूसरे"
       },
       "technicalName": "James · आप",
-      "technicalNote": "Melbourne · 000 कॉल करने वाले"
+      "technicalNote": "Melbourne · 000 कॉल करने वाले",
+      "icon": "user-round"
     },
     {
       "id": "sarah",
       "initials": "S",
       "color": "#c2417a",
-      "name": "👩 Sarah · बेटी",
+      "name": "Sarah · बेटी",
       "note": "London · अपडेट मिलते हैं",
       "role": {
         "tone": "plain",
         "text": "अपडेट"
       },
       "technicalName": "Sarah · बेटी",
-      "technicalNote": "London · सिर्फ़ अपडेट"
+      "technicalNote": "London · सिर्फ़ अपडेट",
+      "icon": "user-round"
     },
     {
       "id": "priya",
       "initials": "P",
       "color": "#8a6bd1",
-      "name": "🩺 Priya · कम्युनिटी नर्स",
+      "name": "Priya · कम्युनिटी नर्स",
       "note": "सोम–शुक्र",
       "role": {
         "tone": "plain",
         "text": "बैकअप"
       },
       "technicalName": "Priya Sharma",
-      "technicalNote": "कम्युनिटी नर्स · सोम–शुक्र"
+      "technicalNote": "कम्युनिटी नर्स · सोम–शुक्र",
+      "icon": "stethoscope"
     },
     {
       "id": "aisha",
       "initials": "A",
       "color": "#c2611f",
-      "name": "🏡 Aisha · पड़ोसी",
+      "name": "Aisha · पड़ोसी",
       "note": "2 घर छोड़कर · चाबी है",
       "role": {
         "tone": "plain",
         "text": "बैकअप"
       },
       "technicalName": "Aisha · पड़ोसी",
-      "technicalNote": "2 घर छोड़कर · चाबी रखती हैं"
+      "technicalNote": "2 घर छोड़कर · चाबी रखती हैं",
+      "icon": "home"
     }
   ],
   "circleOrbit": [

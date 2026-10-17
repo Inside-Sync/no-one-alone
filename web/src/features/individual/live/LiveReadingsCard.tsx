@@ -3,6 +3,7 @@
 import { useTranslation } from 'react-i18next'
 import { LineChart } from '@/components/charts/LineChart'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph } from '@/components/ui/Icon'
 import { ALERT_HR, ALERT_MIN, alertRun, clockText, watchNote, type Watch } from '@/domain/simulator'
 import { Head } from '../home/parts'
 
@@ -17,7 +18,7 @@ export function LiveReadingsCard({ watch: w }: { watch: Watch }) {
   const note = watchNote(w)
   return (
     <GlassCard span={8} id="simReadings">
-      <Head title={t('sim.readings.title')} meta={t('sim.readings.meta')}>
+      <Head icon="trend" title={t('sim.readings.title')} meta={t('sim.readings.meta')}>
         <b style={{ fontFamily: 'var(--mono)', fontSize: 22, fontWeight: 300 }}>{now}</b>
       </Head>
       <div className="chart">
@@ -58,7 +59,7 @@ export function LiveReadingsCard({ watch: w }: { watch: Watch }) {
           <i className="wbar"><i style={{ width: `${(n / ALERT_MIN) * 100}%` }} /></i>
         </div>
       </div>
-      <p className={`noteline ${note}`}>{t(`sim.readings.note.${note}`)}</p>
+      <p className={`noteline ${note}`}>{note === 'alert' && <Glyph name="siren" />}{t(`sim.readings.note.${note}`)}</p>
     </GlassCard>
   )
 }

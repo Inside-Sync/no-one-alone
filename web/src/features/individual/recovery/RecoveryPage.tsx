@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph } from '@/components/ui/Icon'
 import { intlLocale } from '@/i18n'
 import type { RecoveryDoc } from '@/data/contract'
 import { dayLabel, followUpCalls, handoffFacts } from '@/domain/recovery'
@@ -34,10 +35,10 @@ function NoaHandoffCard({ recovery, who }: { recovery: RecoveryDoc; who: 'self' 
   ]
   return (
     <GlassCard span={12}>
-      <div className="ch"><h2>{t('recovery.noa.title', { context: who })}</h2><span className="meta">{t('recovery.noa.meta')}</span></div>
+      <div className="ch"><h2><Glyph name="message-circle" />{t('recovery.noa.title', { context: who })}</h2><span className="meta">{t('recovery.noa.meta')}</span></div>
       <ol className="list">
         {lines.filter(([, text]) => text).map(([noa, text], i) => (
-          <li key={i} style={{ display: 'block' }}><b>{t(noa ? 'recovery.noa.noa' : 'recovery.noa.margaret')}</b><span>{text}</span></li>
+          <li key={i} style={{ display: 'block' }}><b>{noa ? t('recovery.noa.noa') : <><Glyph name="user-round" />{t('recovery.noa.margaret')}</>}</b><span>{text}</span></li>
         ))}
       </ol>
     </GlassCard>

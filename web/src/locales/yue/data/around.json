@@ -1,7 +1,7 @@
 {
   "surroundings": {
     "homeMap": {
-      "kicker": "📍 Margaret住喺邊",
+      "kicker": "Margaret住喺邊",
       "title": "Marrickville, Sydney",
       "detail": "Inner West · 市中心西南面5.8 km · −33.911, 151.155",
       "lat": -33.911,
@@ -214,10 +214,11 @@
           "x": 220,
           "y": 345
         }
-      ]
+      ],
+      "icon": "map-pin"
     },
     "watchMap": {
-      "kicker": "👀 鄰里守望",
+      "kicker": "鄰里守望",
       "title": "Margaret屋企附近",
       "detail": "獨居要留意嘅嘢 · 1 km範圍內有8項",
       "ariaLabel": "Margaret附近街道嘅3D地圖，附鄰里提示：行人路工程、有人舉報騙案、街燈壞咗、喜鵲啄人、有人見到蛇，仲有防暑冷氣房",
@@ -238,7 +239,8 @@
       "ring": {
         "label": "守望範圍",
         "radius": 150
-      }
+      },
+      "icon": "eye"
     },
     "pins": [
       {
@@ -389,7 +391,7 @@
       }
     ],
     "weather": {
-      "heading": "🌤️ Marrickville天氣",
+      "heading": "Marrickville天氣",
       "meta": "而家 · 15:10",
       "temp": "33°",
       "summary": "天晴，吹熱嘅東北風",
@@ -426,7 +428,8 @@
           "note": "清晰"
         }
       ],
-      "note": "星期四同星期五有熱浪。預計星期五傍晚轉吹南風，陣風每小時60公里。"
+      "note": "星期四同星期五有熱浪。預計星期五傍晚轉吹南風，陣風每小時60公里。",
+      "icon": "cloud-sun"
     },
     "week": [
       {
@@ -481,7 +484,7 @@
     ],
     "kpis": [
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "氣溫",
         "value": "33",
         "unit": "°C",
@@ -502,7 +505,7 @@
         ]
       },
       {
-        "emoji": "🥵",
+        "icon": "thermometer-sun",
         "label": "體感溫度",
         "value": "35",
         "unit": "°C",
@@ -523,7 +526,7 @@
         ]
       },
       {
-        "emoji": "💨",
+        "icon": "wind",
         "label": "風",
         "value": "22",
         "unit": "km/h",
@@ -544,7 +547,7 @@
         ]
       },
       {
-        "emoji": "🕶️",
+        "icon": "glasses",
         "label": "太陽猛度",
         "value": "11",
         "unit": "UV",
@@ -565,7 +568,7 @@
         ]
       },
       {
-        "emoji": "🌧️",
+        "icon": "cloud-rain",
         "label": "落雨",
         "value": "10",
         "unit": "% 機會",
@@ -586,7 +589,7 @@
         ]
       },
       {
-        "emoji": "🍃",
+        "icon": "wind",
         "label": "空氣質素",
         "value": "良好",
         "unit": "",
@@ -607,7 +610,7 @@
         ]
       },
       {
-        "emoji": "🌾",
+        "icon": "wheat",
         "label": "花粉",
         "value": "高",
         "unit": "",
@@ -628,7 +631,7 @@
         ]
       },
       {
-        "emoji": "✈️",
+        "icon": "plane",
         "label": "飛機噪音",
         "value": "68",
         "unit": "dB",
@@ -649,7 +652,7 @@
         ]
       },
       {
-        "emoji": "🔥",
+        "icon": "flame",
         "label": "中暑風險",
         "value": "中",
         "unit": "",
@@ -670,7 +673,7 @@
         ]
       },
       {
-        "emoji": "🌅",
+        "icon": "sunrise",
         "label": "日照",
         "value": "13小時",
         "unit": "",
@@ -691,7 +694,7 @@
         ]
       },
       {
-        "emoji": "🌊",
+        "icon": "waves",
         "label": "海風",
         "value": "冇",
         "unit": "",
@@ -712,7 +715,7 @@
         ]
       },
       {
-        "emoji": "🔌",
+        "icon": "plug-zap",
         "label": "停電風險",
         "value": "低",
         "unit": "",
@@ -734,8 +737,9 @@
       }
     ],
     "alertsHeading": {
-      "title": "👀 獨居值得知嘅嘢",
-      "meta": "獨居 · 按緊急程度排"
+      "title": "獨居值得知嘅嘢",
+      "meta": "獨居 · 按緊急程度排",
+      "icon": "eye"
     },
     "alerts": [
       {
@@ -789,8 +793,9 @@
       }
     ],
     "newsHeading": {
-      "title": "📰 同佢有關嘅新聞",
-      "meta": "為住喺2204、78歲獨居長者篩選"
+      "title": "同佢有關嘅新聞",
+      "meta": "為住喺2204、78歲獨居長者篩選",
+      "icon": "news"
     },
     "newsCategories": [
       "All",

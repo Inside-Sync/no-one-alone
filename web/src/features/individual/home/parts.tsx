@@ -2,17 +2,18 @@
 
 import type { CSSProperties, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Glyph, type IconName } from '@/components/ui/Icon'
 import type { MiniStat } from '@/data/types'
 import { MiniGrid as SharedMiniGrid } from '../../shared/drawers'
 
 export { Actions, Kv, keyActivate, type ActionList } from '../../shared/drawers'
 
-/** `.ch` header without the icon bubble: the prototype removes it when the title starts with an emoji. */
-export function Head({ title, meta, children, small }: { title: ReactNode; meta?: ReactNode; children?: ReactNode; small?: boolean }) {
+/** `.ch` header without the icon bubble: the prototype removes it when the title starts with an emoji; `icon` stands in for that emoji. */
+export function Head({ icon, title, meta, children, small }: { icon?: IconName; title: ReactNode; meta?: ReactNode; children?: ReactNode; small?: boolean }) {
   const h: CSSProperties | undefined = small ? { fontSize: '13.5px' } : undefined
   return (
     <div className="ch">
-      <h2 style={h}>{title}</h2>
+      <h2 style={h}>{icon && <Glyph name={icon} />}{title}</h2>
       {meta != null && <span className="meta">{meta}</span>}
       {children}
     </div>

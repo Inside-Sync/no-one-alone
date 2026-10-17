@@ -4,66 +4,71 @@
       "id": "david",
       "initials": "D",
       "color": "#2f6fb0",
-      "name": "👨 David · 佢細佬",
+      "name": "David · 佢細佬",
       "note": "450 米外 · 第一個打",
       "role": {
         "tone": "good",
         "text": "當值"
       },
       "technicalName": "David · 細佬",
-      "technicalNote": "450 米 · 第一個打"
+      "technicalNote": "450 米 · 第一個打",
+      "icon": "user-round"
     },
     {
       "id": "james",
       "initials": "J",
       "color": "#e07a3f",
-      "name": "🙋 James · 你",
+      "name": "James · 你",
       "note": "Melbourne · 有需要會打 000",
       "role": {
         "tone": "brand",
         "text": "第二"
       },
       "technicalName": "James · 你",
-      "technicalNote": "Melbourne · 負責打 000"
+      "technicalNote": "Melbourne · 負責打 000",
+      "icon": "user-round"
     },
     {
       "id": "sarah",
       "initials": "S",
       "color": "#c2417a",
-      "name": "👩 Sarah · 女",
+      "name": "Sarah · 女",
       "note": "London · 收到更新",
       "role": {
         "tone": "plain",
         "text": "更新"
       },
       "technicalName": "Sarah · 女",
-      "technicalNote": "London · 只收更新"
+      "technicalNote": "London · 只收更新",
+      "icon": "user-round"
     },
     {
       "id": "priya",
       "initials": "P",
       "color": "#8a6bd1",
-      "name": "🩺 Priya · 社康護士",
+      "name": "Priya · 社康護士",
       "note": "平日",
       "role": {
         "tone": "plain",
         "text": "後備"
       },
       "technicalName": "Priya Sharma",
-      "technicalNote": "社康護士 · 平日"
+      "technicalNote": "社康護士 · 平日",
+      "icon": "stethoscope"
     },
     {
       "id": "aisha",
       "initials": "A",
       "color": "#c2611f",
-      "name": "🏡 Aisha · 鄰居",
+      "name": "Aisha · 鄰居",
       "note": "隔兩間屋 · 有鎖匙",
       "role": {
         "tone": "plain",
         "text": "後備"
       },
       "technicalName": "Aisha · 鄰居",
-      "technicalNote": "隔兩間屋 · 持有鎖匙"
+      "technicalNote": "隔兩間屋 · 持有鎖匙",
+      "icon": "home"
     }
   ],
   "circleOrbit": [

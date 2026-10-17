@@ -69,7 +69,7 @@ test('a red stroke incident: steps, decision, calls and alerts follow the backen
   const a = agentView(red, people)
   expect(a.label).toBe('Calling David')
   expect(a.pill).toBe('bad')
-  expect(a.decision?.title).toBe('🔴 Red: possible stroke')
+  expect(a.decision?.title).toBe('Red: possible stroke')
   expect(a.decision?.text).toMatch(/^Slurred speech\. Time matters/)
   expect(a.steps.map((s) => [s.label, s.note])).toEqual([
     ['Notice the warning sign', 'Done'],

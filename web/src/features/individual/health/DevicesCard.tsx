@@ -3,6 +3,7 @@
 import { useTranslation } from 'react-i18next'
 import { useDrawer } from '@/components/ui/Drawer'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph } from '@/components/ui/Icon'
 import { Pill } from '@/components/ui/Pill'
 import type { DeviceFeed, DeviceRow } from '@/data/types'
 import { Actions, Kv, keyActivate } from '../home/parts'
@@ -26,7 +27,7 @@ function RowDrawerBody({ row }: { row: DeviceRow }) {
   )
 }
 
-/** `📲 Where this comes from` (c12): one row per data source. Not tagged with a consent category. */
+/** `Where this comes from` (c12): one row per data source. Not tagged with a consent category. */
 export function DevicesCard({ feed }: { feed: DeviceFeed }) {
   const { t } = useTranslation('health')
   const drawer = useDrawer()
@@ -34,7 +35,7 @@ export function DevicesCard({ feed }: { feed: DeviceFeed }) {
   return (
     <GlassCard span={12}>
       <div className="ch">
-        <h2>{t('devices.title')}</h2>
+        <h2><Glyph name="smartphone" />{t('devices.title')}</h2>
         <span className="meta">{feed.meta}</span>
       </div>
       <TableScroll>

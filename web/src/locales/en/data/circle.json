@@ -4,66 +4,71 @@
       "id": "david",
       "initials": "D",
       "color": "#2f6fb0",
-      "name": "👨 David · her brother",
+      "name": "David · her brother",
       "note": "450 m away · first to call",
       "role": {
         "tone": "good",
         "text": "On call"
       },
       "technicalName": "David · brother",
-      "technicalNote": "450 m · first to call"
+      "technicalNote": "450 m · first to call",
+      "icon": "user-round"
     },
     {
       "id": "james",
       "initials": "J",
       "color": "#e07a3f",
-      "name": "🙋 James · you",
+      "name": "James · you",
       "note": "Melbourne · calls 000 if needed",
       "role": {
         "tone": "brand",
         "text": "Second"
       },
       "technicalName": "James · you",
-      "technicalNote": "Melbourne · 000 caller"
+      "technicalNote": "Melbourne · 000 caller",
+      "icon": "user-round"
     },
     {
       "id": "sarah",
       "initials": "S",
       "color": "#c2417a",
-      "name": "👩 Sarah · daughter",
+      "name": "Sarah · daughter",
       "note": "London · gets updates",
       "role": {
         "tone": "plain",
         "text": "Updates"
       },
       "technicalName": "Sarah · daughter",
-      "technicalNote": "London · updates only"
+      "technicalNote": "London · updates only",
+      "icon": "user-round"
     },
     {
       "id": "priya",
       "initials": "P",
       "color": "#8a6bd1",
-      "name": "🩺 Priya · community nurse",
+      "name": "Priya · community nurse",
       "note": "Weekdays",
       "role": {
         "tone": "plain",
         "text": "Backup"
       },
       "technicalName": "Priya Sharma",
-      "technicalNote": "Community nurse · weekdays"
+      "technicalNote": "Community nurse · weekdays",
+      "icon": "stethoscope"
     },
     {
       "id": "aisha",
       "initials": "A",
       "color": "#c2611f",
-      "name": "🏡 Aisha · neighbour",
+      "name": "Aisha · neighbour",
       "note": "2 doors down · has a key",
       "role": {
         "tone": "plain",
         "text": "Backup"
       },
       "technicalName": "Aisha · neighbour",
-      "technicalNote": "2 doors down · key holder"
+      "technicalNote": "2 doors down · key holder",
+      "icon": "home"
     }
   ],
   "circleOrbit": [

@@ -3,54 +3,54 @@
   "sub": "你今日幾好呀。呢度係你嘅一日，專為你而設。",
   "tiles": [
     {
-      "emoji": "❤️",
+      "icon": "heart",
       "title": "心臟",
       "note": "68 · 穩定",
       "warn": false
     },
     {
-      "emoji": "👣",
+      "icon": "footprints",
       "title": "3,240 步",
       "note": "差少少就夠 3,500！",
       "warn": false
     },
     {
-      "emoji": "😴",
+      "icon": "bed",
       "title": "瞓咗 6 個鐘",
       "note": "少咗少少",
       "warn": true
     },
     {
-      "emoji": "💧",
+      "icon": "drop",
       "title": "飲水",
       "note": "而家飲杯水啦",
       "warn": true
     },
     {
-      "emoji": "💊",
+      "icon": "pill",
       "title": "下一粒藥",
       "note": "夜晚 6 點，amlodipine",
       "warn": false
     },
     {
-      "emoji": "📞",
+      "icon": "phone",
       "title": "James 打嚟",
       "note": "今晚 8 點",
       "warn": false
     }
   ],
   "people": {
-    "title": "💞 你身邊嘅人",
+    "title": "你身邊嘅人",
     "meta": "每個人睇到乜由你揀",
-    "change": "🔐 改邊個睇到乜",
+    "change": "改邊個睇到乜",
     "paused": "已暫停",
     "sees": "睇到 {{total}} 項中嘅 {{seen}} 項"
   },
-  "ideasTitle": "💡 畀你嘅建議",
+  "ideasTitle": "畀你嘅建議",
   "ideasMeta": "你想先至做",
   "ideas": [
     {
-      "emoji": "🔥",
+      "icon": "flame",
       "title": "星期四會有 38°。使唔使車你去圖書館嘅冷氣室？",
       "note": "義工 Tom 可以 11 點嚟接你。",
       "yes": [
@@ -65,7 +65,7 @@
       ]
     },
     {
-      "emoji": "💊",
+      "icon": "pill",
       "title": "用個每週藥盒會唔會方便你食夜晚嗰粒藥？",
       "note": "David 話星期六可以幫你整好。",
       "yes": [
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "emoji": "🦻",
+      "icon": "ear",
       "title": "今日下晝傾偈之前戴埋助聽器？",
       "note": "咁講電話會容易啲。",
       "yes": [
@@ -96,31 +96,31 @@
     }
   ],
   "promise": {
-    "title": "🔐 你嘅私隱承諾",
+    "title": "你嘅私隱承諾",
     "meta": "係健康支援，唔係監視",
     "items": [
       {
-        "emoji": "✋",
+        "icon": "hand",
         "bold": "你話事。",
         "text": "邊個睇到乜由你決定，隨時都可以改。"
       },
       {
-        "emoji": "📷",
+        "icon": "camera",
         "bold": "永遠冇鏡頭。",
         "text": "家居感應器只會留意活動同溫度。"
       },
       {
-        "emoji": "🎙️",
+        "icon": "mic",
         "bold": "唔會偷聽。",
         "text": "只有你接聽電話嗰陣先會開咪。"
       },
       {
-        "emoji": "📍",
+        "icon": "map-pin",
         "bold": "唔會追蹤。",
         "text": "位置係閂咗嘅。如果你開返，其他人只會見到「喺屋企」或者「出咗街」。"
       },
       {
-        "emoji": "🚨",
+        "icon": "siren",
         "bold": "只限緊急情況：",
         "text": "David 同 James 一定會收到安全警報，咁就有人嚟幫你。"
       }
@@ -128,7 +128,7 @@
     "settings": "睇所有設定"
   },
   "access": {
-    "title": "👀 邊個睇過你嘅資料",
+    "title": "邊個睇過你嘅資料",
     "meta": "冇嘢會喺你背後發生",
     "head": [
       "幾時",
@@ -197,7 +197,7 @@
     "tick": "完成",
     "idle": "你嘅康復計劃會喺度顯示",
     "idle_family": "Margaret 嘅康復計劃會喺度顯示",
-    "stop": "⛔ 停用：{{name}}",
+    "stop": "停用：{{name}}",
     "meds": "你嘅藥，逐樣講清楚",
     "meds_family": "佢嘅藥，逐樣講清楚",
     "slots": {
@@ -213,11 +213,11 @@
       "Stop": "停用"
     },
     "noa": {
-      "title": "💬 Noa 話你知",
-      "title_family": "💬 Noa 同 Margaret 講咗乜",
+      "title": "Noa 話你知",
+      "title_family": "Noa 同 Margaret 講咗乜",
       "meta": "醫院批准計劃之後",
       "noa": "Noa",
-      "margaret": "👵 Margaret",
+      "margaret": "Margaret",
       "welcome": "歡迎返屋企，Margaret。我係 Noa 💙 醫院已經傳咗你嘅康復計劃過嚟，我已經用淺白嘅說話放咗喺你個 app 度。",
       "newMeds_one": "你有 1 隻新藥：{{names}}。",
       "newMeds_other": "你有 {{count}} 隻新藥：{{names}}。",
@@ -247,23 +247,23 @@
     "self": {
       "layout": {
         "label": "版面",
-        "detailed": "📋 詳細",
-        "simple": "🔆 簡單"
+        "detailed": "詳細",
+        "simple": "簡單"
       },
-      "happened": "🌱 發生咗乜事",
+      "happened": "發生咗乜事",
       "happenedMeta": "用淺白說話講",
       "dayOf": "第 {{day}} 日（共 30 日）",
       "doneToday": "今日完成咗 {{total}} 樣中嘅 {{done}} 樣",
-      "nextTitle": "⏰ 下一個提醒",
-      "allDone": "🎉 今日全部完成",
-      "tasksTitle": "💊 今日嘅藥同要做嘅事",
+      "nextTitle": "下一個提醒",
+      "allDone": "今日全部完成",
+      "tasksTitle": "今日嘅藥同要做嘅事",
       "tasksMeta": "做完就撳一下",
-      "appts": "🗓️ 預約",
+      "appts": "預約",
       "callsMeta": "簡短傾下偈，睇下你點",
       "callToday": "今日",
-      "logged": "好嘢 👍 記低咗。",
+      "logged": "好嘢！記低咗。",
       "fast": {
-        "title": "🚨 如果有以下情況，即刻打 000…",
+        "title": "如果有以下情況，即刻打 000…",
         "face": "面",
         "faceText": "一邊垂低",
         "arm": "手",
@@ -272,7 +272,7 @@
         "speechText": "口齒不清或者混亂",
         "time": "時間",
         "timeText": "好重要，唔好等。",
-        "call": "📞 打 000",
+        "call": "打 000",
         "calling": "撥緊 000 · 叫救護車"
       },
       "simple": {
@@ -283,16 +283,16 @@
         "now": "而家",
         "tookThem": "✓ 我食咗喇",
         "didIt": "✓ 我做咗喇",
-        "snooze": "⏰ 10 分鐘後再提我",
+        "snooze": "10 分鐘後再提我",
         "snoozed": "好，我 10 分鐘後再提你",
         "later": "今日稍後",
         "laterMeta": "到時會提你",
         "nothingLater": "今日冇其他嘢喇。",
         "tabs": {
-          "meds": "💊 藥",
-          "appts": "🗓️ 覆診",
-          "calls": "📞 電話",
-          "help": "🚨 警號"
+          "meds": "藥",
+          "appts": "覆診",
+          "calls": "電話",
+          "help": "警號"
         },
         "tablets": "你嘅藥",
         "visits": "覆診同檢查",

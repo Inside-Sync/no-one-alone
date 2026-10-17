@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Orbit } from '@/components/canvas/Orbit'
 import { Avatar } from '@/components/ui/Avatar'
 import { useDrawer } from '@/components/ui/Drawer'
-import { Icon } from '@/components/ui/Icon'
+import { Glyph, Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import { apiErrorCode } from '@/data/repo'
 import type { AssignmentAction, IncidentDoc, ServerAction } from '@/data/contract'
@@ -95,7 +95,7 @@ export function LiveAlertCard({ view, incident, people, scene, viewer, act, manu
     <div className="c4" style={gap16}>
       <article className="glass card circ" id="circCard">
         <div className="ch">
-          <h2>{t('agent.circle.title', { name: personFirst })}</h2>
+          <h2><Glyph name="heart-handshake" />{t('agent.circle.title', { name: personFirst })}</h2>
           <span className={`pill ${tone === 'good' ? 'plain' : tone}`} id="emTag">{view?.levelLabel ?? t('agent.circle.allNormal')}</span>
           {view?.open && manual && <span style={endStyle}><button type="button" className="chip" disabled={pending} onClick={close}>{t('live.close')}</button></span>}
         </div>

@@ -400,7 +400,7 @@
     }
   },
   "sim": {
-    "title": "🎛️ Simulator",
+    "title": "Simulator",
     "meta": "Try Noa safely",
     "howto": [
       "Drag **heart rate** above 120",
@@ -409,18 +409,18 @@
       "Optional: tap Margaret's replies on her phone to change the story"
     ],
     "preset": {
-      "night": "🌙 Night emergency",
-      "stairs": "🪜 Climbed stairs",
-      "asleep": "😴 Sound asleep"
+      "night": "Night emergency",
+      "stairs": "Climbed stairs",
+      "asleep": "Sound asleep"
     },
-    "hr": "❤️ Heart rate",
+    "hr": "Heart rate",
     "hrAria": "Heart rate",
     "bpm": "{{n}} bpm",
-    "still": "🛋️ Not moving for",
+    "still": "Not moving for",
     "stillAria": "Not moving for",
     "moving": "Moving",
     "min": "{{n}} min",
-    "minAlert": "{{n}} min ⚠️",
+    "minAlert": "{{n}} min",
     "alertTick": "10 min · alert",
     "more": "More options: who answers the phone",
     "speech": "Speech",
@@ -431,14 +431,14 @@
     "david": "David picks up",
     "yes": "Yes",
     "no": "No",
-    "pause": "⏸️ Pause",
-    "resume": "▶️ Resume",
+    "pause": "Pause",
+    "resume": "Resume",
     "runTitle": "Monitoring runs live. Pause it any time.",
-    "faster": "⏩ Faster",
-    "normal": "🐢 Normal speed",
+    "faster": "Faster",
+    "normal": "Normal speed",
     "reset": "↺ Reset",
     "readings": {
-      "title": "📈 Live readings",
+      "title": "Live readings",
       "meta": "One reading per minute from her watch and home sensors",
       "hr": "Heart rate",
       "run": "Counting run",
@@ -451,7 +451,7 @@
       "moving": "moving",
       "still": "not moving",
       "note": {
-        "alert": "🚨 Noa is checking on her",
+        "alert": "Noa is checking on her",
         "moving": "Heart rate is high but she is moving (stairs, gardening): no alert",
         "resting": "Still, but heart rate is normal (sleeping, resting): no alert",
         "counting": "Counting… Noa waits 10 minutes so a short spike does not wake anyone",
@@ -465,7 +465,7 @@
       "condMoving": "moving now",
       "meter": "minutes in a row"
     },
-    "locked": "🔒 Locked while the alert runs"
+    "locked": "Locked while the alert runs"
   },
   "call": {
     "title": "000 call · demo call",
@@ -480,12 +480,12 @@
     "meta": "Compares tonight's voice with {{name}}'s own voice, not an average",
     "state": {
       "ready": "Ready · baseline from 41 morning chats",
-      "listen": "🎙️ Listening to {{name}}…",
+      "listen": "Listening to {{name}}…",
       "analyse": "Analysing against her own voice…",
       "clear": "✓ Clear · matches her normal voice",
-      "slurred": "⚠ Slurred speech detected · possible stroke"
+      "slurred": "Slurred speech detected · possible stroke"
     },
-    "slurred": "⚠ Slurred speech detected · possible stroke",
+    "slurred": "Slurred speech detected · possible stroke",
     "clear": "✓ Clear · matches her normal voice",
     "normal": "Her normal",
     "baseline": "baseline · 30 days",
@@ -525,37 +525,37 @@
   "agent": {
     "title": "Noa",
     "sub": "your No One Alone agent",
-    "ask": "💬 Ask Noa",
+    "ask": "Ask Noa",
     "her": "her",
     "idle": "Everything looks normal. Noa only steps in if both warning signs happen together.",
     "nowHr": "Warning sign: heart rate above 120 for 10 minutes while she isn't moving (now {{hr}} bpm). Checking on {{name}} first, before waking anyone.",
     "nowFall": "Warning sign: a hard fall and no movement since. Checking on {{name}} first, before waking anyone.",
     "pending": {
       "title": "Next steps depend on her answers",
-      "text": "🟢 fine → calm her and re-check · 🟡 unwell but clear → nurse + family · 🔴 slurred, no answer, chest pain, weakness or a fall → {{num}}"
+      "text": "fine → calm her and re-check · unwell but clear → nurse + family · slurred, no answer, chest pain, weakness or a fall → {{num}}"
     },
     "decision": {
       "green": {
         "title": {
-          "stroke": "🟢 Green: she's fine",
-          "fall": "🟢 Green: she's fine",
-          "other": "🟢 Green: she's fine"
+          "stroke": "Green: she's fine",
+          "fall": "Green: she's fine",
+          "other": "Green: she's fine"
         },
         "text": "Speech is clear, no warning symptoms and she sounds like herself. Stay calm and don't wake anyone."
       },
       "amber": {
         "title": {
-          "stroke": "🟡 Amber: unwell, but talking clearly",
-          "fall": "🟡 Amber: unwell, but talking clearly",
-          "other": "🟡 Amber: unwell, but talking clearly"
+          "stroke": "Amber: unwell, but talking clearly",
+          "fall": "Amber: unwell, but talking clearly",
+          "other": "Amber: unwell, but talking clearly"
         },
         "text": "She needs someone with her tonight. Noa calls her circle in order."
       },
       "red": {
         "title": {
-          "stroke": "🔴 Red: possible stroke",
-          "fall": "🔴 Red: possible serious fall",
-          "other": "🔴 Red: emergency"
+          "stroke": "Red: possible stroke",
+          "fall": "Red: possible serious fall",
+          "other": "Red: emergency"
         },
         "text": "Time matters, so Noa skips further questions and calls for help now."
       }
@@ -608,11 +608,11 @@
       "g3": "Wrapping up"
     },
     "calls": {
-      "title": "📞 Calls in order",
+      "title": "Calls in order",
       "meta": "Priority list, then nearest person"
     },
     "alerts": {
-      "title": "🔔 Alerts to her circle",
+      "title": "Alerts to her circle",
       "meta": "Everyone with safety alerts on",
       "none": "No alerts sent",
       "noneSub": "Nothing to report"
@@ -649,7 +649,7 @@
       "friend": "Friend"
     },
     "phone": {
-      "title": "📱 {{name}}'s phone",
+      "title": "{{name}}'s phone",
       "spoken": "Spoken aloud · large text",
       "goodnight": "Goodnight, {{name}}",
       "sleep": "Sleep well. I'm here if you need anything 💙",
@@ -658,13 +658,13 @@
       "okToast": "The family knows you're OK"
     },
     "log": {
-      "title": "🗒️ Noa's log",
+      "title": "Noa's log",
       "meta": "Every step, time-stamped",
       "idle": "Watching quietly. Nothing to report.",
       "sla": "Response times so far"
     },
     "circle": {
-      "title": "🫂 {{name}}'s circle",
+      "title": "{{name}}'s circle",
       "allNormal": "All normal",
       "watching": "Watching quietly",
       "lkw": "Last known well —",
@@ -678,16 +678,16 @@
       "and": " and "
     },
     "light": {
-      "green": "🟢 Green",
+      "green": "Green",
       "greenSub": "She is fine",
-      "amber": "🟡 Amber",
+      "amber": "Amber",
       "amberSub": "Unwell, talking clearly",
-      "red": "🔴 Red",
+      "red": "Red",
       "redSub": "Call for help now"
     }
   },
   "talk": {
-    "title": "🎙️ Live conversations",
+    "title": "Live conversations",
     "meta": "Everything Noa says, and to whom",
     "live": "Live · {{time}}",
     "filter": "Filter conversations",
@@ -704,7 +704,7 @@
     "onCall": "On the call with {{num}}"
   },
   "hand": {
-    "title": "📦 Who got what",
+    "title": "Who got what",
     "meta": "Each person gets only what they need · tap to see",
     "none": "Nothing shared",
     "noneSub": "Information is only handed over when Noa acts",

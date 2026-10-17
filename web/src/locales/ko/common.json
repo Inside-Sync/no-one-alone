@@ -119,31 +119,31 @@
   "packetNote": "응급 상황에서만, 동의가 확인된 경우 받는 응급실에 FHIR 번들로 전송돼요.",
   "notifications": [
     [
-      "⚠️",
+      "triangle-alert",
       "승인 필요: David의 주간 약통",
       "어제 21:40",
       "warn"
     ],
     [
-      "🔥",
+      "flame",
       "목요일 폭염 경보 · 계획 준비됨",
       "2시간 전",
       "warn"
     ],
     [
-      "🛡️",
+      "shield",
       "어머니 동네 거리에 사기 방문 신고",
       "5시간 전",
       "bad"
     ],
     [
-      "✅",
+      "circle-check",
       "Dr Patel이 혈압 보고서를 읽음",
       "어제 16:42",
       "good"
     ],
     [
-      "😊",
+      "smile",
       "Margaret이 13:02에 즐겁게 대화함",
       "2시간 전",
       "good"
@@ -151,12 +151,12 @@
   ],
   "condActions": [
     [
-      "🗣️ 직접 여쭤보기",
+      "직접 여쭤보기",
       "다음 대화에 추가했어요",
       "추가함"
     ],
     [
-      "🩺 Dr Patel에게 문의",
+      "Dr Patel에게 문의",
       "주치의 진료 안건에 추가했어요",
       "추가함"
     ]
@@ -167,15 +167,15 @@
     "David에게 약통 준비 부탁하기": "✓ David에게 요청함",
     "Dr Patel에게 혈압 보고서 보내기": "✓ 보냄",
     "Dr Patel에게 혈압 보고서 전송": "✓ 보냄",
-    "어머니께 전화": "📞 전화 중…",
-    "엄마에게 전화": "📞 전화 중…",
+    "어머니께 전화": "전화 중…",
+    "엄마에게 전화": "전화 중…",
     "검토": "✓ 검토함",
     "뇌졸중팀 호출": "✓ 호출함",
     "우회": "✓ 우회 요청 보냄",
     "Approve": "✓ 승인됨",
     "Ask David to set up a pill box": "✓ David에게 요청함",
     "Send BP report to Dr Patel": "✓ 보냄",
-    "Call Mum": "📞 전화 중…",
+    "Call Mum": "전화 중…",
     "Review": "✓ 검토함",
     "Page stroke team": "✓ 호출함",
     "Divert": "✓ 우회 요청 보냄",
@@ -184,41 +184,41 @@
   "drawerActions": {
     "row": [
       [
-        "🗣️ 직접 여쭤보기",
+        "직접 여쭤보기",
         "다음 대화에 추가했어요",
         "추가함"
       ],
       [
-        "📤 가족과 공유",
+        "가족과 공유",
         "공유함",
         "공유함"
       ]
     ],
     "alert": [
       [
-        "🗣️ Margaret에게 음성으로 알리기",
+        "Margaret에게 음성으로 알리기",
         "다음 통화 때 Margaret에게 전해 드려요",
         "전해 드릴게요"
       ],
       [
-        "📤 David와 공유",
+        "David와 공유",
         "David에게 보냄",
         "보냄"
       ],
       [
-        "✅ 처리 완료로 표시",
+        "처리 완료로 표시",
         "처리 완료로 표시했어요",
         "처리함"
       ]
     ],
     "news": [
       [
-        "🗣️ Margaret에게 읽어 주기",
+        "Margaret에게 읽어 주기",
         "18:00에 짧게 요약해서 들려 드려요",
         "대기 중"
       ],
       [
-        "📤 가족과 공유",
+        "가족과 공유",
         "돌봄 모임과 공유했어요",
         "공유함"
       ]
@@ -231,10 +231,10 @@
   },
   "saveFailed": "변경 사항을 저장하지 못해 되돌렸어요",
   "keptPrivate": {
-    "title": "🔒 비공개",
+    "title": "비공개",
     "body": "Margaret이 이 정보를 {{viewerName}} 님과 공유하지 않기로 했어요. 본인의 선택이며 언제든 바꿀 수 있어요.",
     "action": {
-      "label": "💬 Margaret에게 정중히 부탁하기",
+      "label": "Margaret에게 정중히 부탁하기",
       "toast": "Margaret이 예 또는 아니요로 답할 수 있는 부드러운 요청을 받게 돼요",
       "done": "요청 보냄"
     },
@@ -253,8 +253,8 @@
     "chooseView": "보기 선택",
     "brandBy": "by InsideSync",
     "whose": "누구의 화면",
-    "whoSelf": "👵 Margaret (본인 앱)",
-    "whoFamily": "👨‍👩‍👧 가족 및 돌봄 제공자",
+    "whoSelf": "Margaret (본인 앱)",
+    "whoFamily": "가족 및 돌봄 제공자",
     "search": {
       "placeholder": "사람, 동네 검색…",
       "label": "검색",
@@ -291,25 +291,25 @@
   },
   "tabs": {
     "family": {
-      "home": "🏠 홈",
-      "health": "❤️ 건강",
-      "around": "🌤️ 주변",
-      "forecast": "🔮 앞으로",
-      "lineage": "🌳 가족 건강",
-      "record": "📋 진료 기록",
-      "live": "🚨 응급",
-      "recovery": "🌱 회복",
-      "device": "📱 어머니 휴대폰"
+      "home": "홈",
+      "health": "건강",
+      "around": "주변",
+      "forecast": "앞으로",
+      "lineage": "가족 건강",
+      "record": "진료 기록",
+      "live": "응급",
+      "recovery": "회복",
+      "device": "어머니 휴대폰"
     },
     "self": {
-      "me": "🌞 나의 하루",
-      "recovery": "🌱 나의 회복",
-      "health": "❤️ 나의 건강",
-      "live": "🚨 응급",
-      "privacy": "🔐 공개 범위",
-      "around": "🌤️ 내 주변",
-      "lineage": "🌳 우리 가족 건강",
-      "device": "📱 내 휴대폰"
+      "me": "나의 하루",
+      "recovery": "나의 회복",
+      "health": "나의 건강",
+      "live": "응급",
+      "privacy": "공개 범위",
+      "around": "내 주변",
+      "lineage": "우리 가족 건강",
+      "device": "내 휴대폰"
     },
     "hospital": {
       "ed": "도착 예정",

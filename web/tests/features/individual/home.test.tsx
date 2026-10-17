@@ -14,7 +14,7 @@ beforeEach(() => {
   mockRaf()
 })
 
-const ready = () => screen.findByText('🤖 What Noa did today')
+const ready = () => screen.findByText('What Noa did today')
 const toastText = () => document.getElementById('toast')!.textContent
 
 test('is registered for individual/home', () => {
@@ -38,9 +38,9 @@ test('shows every section heading in prototype order', async () => {
   await ready()
   const heads = Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)
   expect(heads).toEqual([
-    '🟢 Margaret today', 'Today so far', '👤 About Margaret', '🩺 Health conditions', '🧭 Overall wellbeing',
-    '🕰️ Daily rhythm', '🔮 Coming up: one thing to act on', "This week's plan", '💞 Her care circle',
-    "🗣️ Today's chat with her", '🏠 Her home today', '🤝 People and places near her', '🤖 What Noa did today',
+    'Margaret today', 'Today so far', 'About Margaret', 'Health conditions', 'Overall wellbeing',
+    'Daily rhythm', 'Coming up: one thing to act on', "This week's plan", 'Her care circle',
+    "Today's chat with her", 'Her home today', 'People and places near her', 'What Noa did today',
   ])
 })
 
@@ -77,7 +77,7 @@ test('heart-category card is absent for sarah when heart sharing is off', async 
 
 test.each([
   ['Call Mum', 'Calling Margaret · captions on'],
-  ['📤 Share profile', 'Profile shared with the care circle'],
+  ['Share profile', 'Profile shared with the care circle'],
   ['Ask David to set up a pill box', "Sent to David · he'll set up the pill box on Saturday"],
   ['Send BP report to Dr Patel', 'Blood pressure report sent to Dr Patel'],
 ])('button %s shows its exact toast', async (label, text) => {
@@ -105,9 +105,9 @@ test('a condition opens its detail drawer', async () => {
   await ready()
   fireEvent.click(screen.getByRole('button', { name: /High blood pressure/ }))
   const drawer = document.getElementById('drawer')!
-  expect(within(drawer).getByRole('heading', { name: '🩺 High blood pressure' })).toBeInTheDocument()
+  expect(within(drawer).getByRole('heading', { name: 'High blood pressure' })).toBeInTheDocument()
   expect(within(drawer).getByText('Since age 61 (2009)')).toBeInTheDocument()
-  fireEvent.click(within(drawer).getByRole('button', { name: '🩺 Raise with Dr Patel' }))
+  fireEvent.click(within(drawer).getByRole('button', { name: 'Raise with Dr Patel' }))
   expect(toastText()).toBe('Added to the GP visit agenda')
 })
 
@@ -126,7 +126,7 @@ test('pausing sharing locks every category tile but keeps the unlocked cards', a
   act(() => r.app().togglePause())
   await waitFor(() => expect(screen.queryByText('Blood pressure')).toBeNull())
   expect(screen.queryByText('Speaking pace')).toBeNull()
-  expect(screen.getByText('🔮 Coming up: one thing to act on')).toBeInTheDocument()
+  expect(screen.getByText('Coming up: one thing to act on')).toBeInTheDocument()
 })
 
 test('a KPI tile opens its explanation drawer', async () => {
@@ -134,12 +134,12 @@ test('a KPI tile opens its explanation drawer', async () => {
   await ready()
   fireEvent.click(screen.getByText('Blood pressure'))
   const drawer = document.getElementById('drawer')!
-  expect(within(drawer).getByRole('heading', { name: '🩺Blood pressure' })).toBeInTheDocument()
+  expect(within(drawer).getByRole('heading', { name: 'Blood pressure' })).toBeInTheDocument()
   expect(within(drawer).getByText('usual 132/82')).toBeInTheDocument()
   expect(within(drawer).getByText(/The top number has crept up/)).toBeInTheDocument()
 })
 
-const TODAY_STRINGS = ['Doing well', '64% · on wrist', '🍽️ Lunch chat · cheerful', 'Last chat 13:02 · cheerful']
+const TODAY_STRINGS = ['Doing well', '64% · on wrist', 'Lunch chat · cheerful', 'Last chat 13:02 · cheerful']
 
 test('viewer without check-in access gets no Margaret-today data in the DOM', async () => {
   const r = renderWithProviders(<HomePage />, { who: 'family', viewer: 'sarah' })

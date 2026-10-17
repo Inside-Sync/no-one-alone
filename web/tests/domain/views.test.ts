@@ -6,12 +6,12 @@ test('family tabs', () =>
   ))
 test('family tab labels are verbatim', () =>
   expect(tabsFor('individual', 'family').map((t) => t.label)).toEqual(
-    ['🏠 Home', '❤️ Health', '🌤️ Around her', "🔮 What's ahead", '🌳 Health Lineage', '📋 Care record', '🚨 Emergency', '🌱 Recovery', '📱 Her phone'],
+    ['Home', 'Health', 'Around her', "What's ahead", 'Health Lineage', 'Care record', 'Emergency', 'Recovery', 'Her phone'],
   ))
 test('self tabs', () => {
   expect(tabsFor('individual', 'self')[0].id).toBe('me')
   expect(tabsFor('individual', 'self').map((t) => t.label)).toEqual(
-    ['🌞 My day', '🌱 My recovery', '❤️ My health', '🚨 Emergency', '🔐 Who sees what', '🌤️ Around me', '🌳 My family health', '📱 My phone'],
+    ['My day', 'My recovery', 'My health', 'Emergency', 'Who sees what', 'Around me', 'My family health', 'My phone'],
   )
 })
 test('hospital and community tabs ignore who', () => {

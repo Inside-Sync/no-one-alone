@@ -2,7 +2,7 @@
 
 import { useDrawer } from '@/components/ui/Drawer'
 import { GlassCard } from '@/components/ui/GlassCard'
-import { Icon } from '@/components/ui/Icon'
+import { Glyph, Icon } from '@/components/ui/Icon'
 import { useTranslation } from 'react-i18next'
 import type { Surroundings, WatchAlert } from '@/data/types'
 import { Actions, keyActivate } from '../home/parts'
@@ -20,14 +20,14 @@ function AlertDrawerBody({ a }: { a: WatchAlert }) {
   )
 }
 
-/** `👀 Worth knowing, living alone` (c6): alerts sorted by urgency, each opening a detail drawer. */
+/** `Worth knowing, living alone` (c6): alerts sorted by urgency, each opening a detail drawer. */
 export function AlertsCard({ heading, alerts }: { heading: Surroundings['alertsHeading']; alerts: WatchAlert[] }) {
   const drawer = useDrawer()
   const { t } = useTranslation('around')
   return (
     <GlassCard span={6}>
       <div className="ch">
-        <h2>{heading.title}</h2>
+        <h2><Glyph name={heading.icon} />{heading.title}</h2>
         <span className="meta">{heading.meta}</span>
       </div>
       <ul className="alerts" role="none">

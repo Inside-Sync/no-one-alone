@@ -1,7 +1,7 @@
 {
   "surroundings": {
     "homeMap": {
-      "kicker": "📍 Where Margaret lives",
+      "kicker": "Where Margaret lives",
       "title": "Marrickville, Sydney",
       "detail": "Inner West · 5.8 km south-west of the CBD · −33.911, 151.155",
       "lat": -33.911,
@@ -214,10 +214,11 @@
           "x": 220,
           "y": 345
         }
-      ]
+      ],
+      "icon": "map-pin"
     },
     "watchMap": {
-      "kicker": "👀 Neighbourhood watch",
+      "kicker": "Neighbourhood watch",
       "title": "Around Margaret's home",
       "detail": "What to pay attention to when you live alone · 8 items within 1 km",
       "ariaLabel": "3D map of Margaret's streets with neighbourhood alerts: footpath works, a reported scam, street light out, swooping magpies, a snake sighting and the heat cool room",
@@ -238,7 +239,8 @@
       "ring": {
         "label": "WATCH AREA",
         "radius": 150
-      }
+      },
+      "icon": "eye"
     },
     "pins": [
       {
@@ -389,7 +391,7 @@
       }
     ],
     "weather": {
-      "heading": "🌤️ Weather in Marrickville",
+      "heading": "Weather in Marrickville",
       "meta": "Now · 15:10",
       "temp": "33°",
       "summary": "Sunny, hot north-easterly",
@@ -426,7 +428,8 @@
           "note": "clear"
         }
       ],
-      "note": "Heatwave conditions Thursday and Friday. A southerly change is expected Friday evening with gusts to 60 km/h."
+      "note": "Heatwave conditions Thursday and Friday. A southerly change is expected Friday evening with gusts to 60 km/h.",
+      "icon": "cloud-sun"
     },
     "week": [
       {
@@ -481,7 +484,7 @@
     ],
     "kpis": [
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "Temperature",
         "value": "33",
         "unit": "°C",
@@ -502,7 +505,7 @@
         ]
       },
       {
-        "emoji": "🥵",
+        "icon": "thermometer-sun",
         "label": "Feels like",
         "value": "35",
         "unit": "°C",
@@ -523,7 +526,7 @@
         ]
       },
       {
-        "emoji": "💨",
+        "icon": "wind",
         "label": "Wind",
         "value": "22",
         "unit": "km/h",
@@ -544,7 +547,7 @@
         ]
       },
       {
-        "emoji": "🕶️",
+        "icon": "glasses",
         "label": "Sun strength",
         "value": "11",
         "unit": "UV",
@@ -565,7 +568,7 @@
         ]
       },
       {
-        "emoji": "🌧️",
+        "icon": "cloud-rain",
         "label": "Rain",
         "value": "10",
         "unit": "% chance",
@@ -586,7 +589,7 @@
         ]
       },
       {
-        "emoji": "🍃",
+        "icon": "wind",
         "label": "Air quality",
         "value": "Good",
         "unit": "",
@@ -607,7 +610,7 @@
         ]
       },
       {
-        "emoji": "🌾",
+        "icon": "wheat",
         "label": "Pollen",
         "value": "High",
         "unit": "",
@@ -628,7 +631,7 @@
         ]
       },
       {
-        "emoji": "✈️",
+        "icon": "plane",
         "label": "Plane noise",
         "value": "68",
         "unit": "dB",
@@ -649,7 +652,7 @@
         ]
       },
       {
-        "emoji": "🔥",
+        "icon": "flame",
         "label": "Heat risk",
         "value": "Medium",
         "unit": "",
@@ -670,7 +673,7 @@
         ]
       },
       {
-        "emoji": "🌅",
+        "icon": "sunrise",
         "label": "Daylight",
         "value": "13h",
         "unit": "",
@@ -691,7 +694,7 @@
         ]
       },
       {
-        "emoji": "🌊",
+        "icon": "waves",
         "label": "Sea breeze",
         "value": "None",
         "unit": "",
@@ -712,7 +715,7 @@
         ]
       },
       {
-        "emoji": "🔌",
+        "icon": "plug-zap",
         "label": "Power cut risk",
         "value": "Low",
         "unit": "",
@@ -734,8 +737,9 @@
       }
     ],
     "alertsHeading": {
-      "title": "👀 Worth knowing, living alone",
-      "meta": "Living alone · sorted by urgency"
+      "title": "Worth knowing, living alone",
+      "meta": "Living alone · sorted by urgency",
+      "icon": "eye"
     },
     "alerts": [
       {
@@ -789,8 +793,9 @@
       }
     ],
     "newsHeading": {
-      "title": "📰 News that matters to her",
-      "meta": "Filtered for a 78-year-old living alone in 2204"
+      "title": "News that matters to her",
+      "meta": "Filtered for a 78-year-old living alone in 2204",
+      "icon": "news"
     },
     "newsCategories": [
       "All",

@@ -39,7 +39,7 @@
       "toast": "已向救护车建议分流"
     },
     "recovery": {
-      "title": "📝 出院与康复计划",
+      "title": "出院与康复计划",
       "meta": "编辑、批准后，助手会用通俗语言将计划发送到 Margaret 的门户",
       "staff": "医生",
       "diagnosis": "诊断",
@@ -57,7 +57,7 @@
       "sentAt": "已于 {{time}} 发送到家中",
       "sent": "已发送到家中",
       "failed": "无法发送计划",
-      "delivering": "⏳ 助手正在发送…",
+      "delivering": "助手正在发送…",
       "why": "原因：{{text}}",
       "medHead": "药物",
       "doseHead": "剂量",
@@ -78,10 +78,10 @@
       },
       "calls": "助手随访电话",
       "callDay": "✓ 第 {{day}} 天",
-      "finalise": "✍️ 定稿计划",
-      "signed": "✍️ 由 {{name}} 定稿 · {{time}}",
+      "finalise": "定稿计划",
+      "signed": "由 {{name}} 定稿 · {{time}}",
       "editAgain": "重新编辑",
-      "approve": "✅ 批准并交给 Noa",
+      "approve": "批准并交给 Noa",
       "approveNote": "助手会把计划转成通俗语言、设置提醒，并按照 Margaret 自己的设置与她的照护圈分享。",
       "toastFinal": "计划已定稿并签署。现在请批准，交给助手。",
       "toastSent": "康复计划已发送到 Margaret 的门户",
@@ -96,9 +96,9 @@
       }
     },
     "discharge": {
-      "title": "🩺 可以出院：Margaret Collins，78 岁",
+      "title": "可以出院：Margaret Collins，78 岁",
       "sub": "缺血性卒中，已溶栓 · 新发阵发性房颤 · 康复计划待批准",
-      "open": "📝 打开她的病历和康复计划"
+      "open": "打开她的病历和康复计划"
     }
   },
   "panel": {

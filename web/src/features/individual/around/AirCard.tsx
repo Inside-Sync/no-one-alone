@@ -29,14 +29,14 @@ function AirDrawerBody({ d }: { d: AirDay }) {
   )
 }
 
-/** `🍃 Air, pollen and smoke` (c6): 7-day table. */
+/** `Air, pollen and smoke` (c6): 7-day table. */
 export function AirCard({ air, note }: { air: AirDay[]; note: string }) {
   const drawer = useDrawer()
   const { t } = useTranslation('around')
   const columns = t('air.columns', { returnObjects: true })
   return (
     <GlassCard span={6}>
-      <Head title={t('air.title')} meta={t('air.meta')} />
+      <Head icon="wind" title={t('air.title')} meta={t('air.meta')} />
       <TableScroll>
         <table style={{ minWidth: 0 }}>
           <thead><tr>{columns.map((h) => <th key={h}>{h}</th>)}</tr></thead>

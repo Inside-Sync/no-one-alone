@@ -253,3 +253,11 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .sla-col .sla b{font-size:20px;font-weight:400}
 @media (max-width:1000px){.loggrid{grid-template-columns:minmax(0,1fr)}}
 @media (prefers-reduced-motion:reduce){.typing i{animation:none}}
+/* Icons that replaced the prototype's emoji. */
+.steps2 .d .ic{font-size:13px}
+.alog .ic{font-size:15px;margin-top:1px;color:var(--ink2)}
+.alog li.bad .ic{color:var(--bad)}.alog li.good .ic{color:var(--good)}
+.ccard .n .ic{font-size:14px;color:var(--bad)}
+.tx-av .ic,.h-ic .ic{color:var(--brand)}
+.spk-how li>b{color:var(--brand)}
+.sim-warn{vertical-align:-.14em;margin-left:.25em}

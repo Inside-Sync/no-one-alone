@@ -1,7 +1,7 @@
 {
   "surroundings": {
     "homeMap": {
-      "kicker": "📍 Nơi bà Margaret sống",
+      "kicker": "Nơi bà Margaret sống",
       "title": "Marrickville, Sydney",
       "detail": "Inner West · cách trung tâm thành phố 5,8 km về phía tây nam · −33.911, 151.155",
       "lat": -33.911,
@@ -214,10 +214,11 @@
           "x": 220,
           "y": 345
         }
-      ]
+      ],
+      "icon": "map-pin"
     },
     "watchMap": {
-      "kicker": "👀 Canh chừng khu phố",
+      "kicker": "Canh chừng khu phố",
       "title": "Quanh nhà bà Margaret",
       "detail": "Những điều cần để ý khi sống một mình · 8 mục trong bán kính 1 km",
       "ariaLabel": "Bản đồ 3D các con phố quanh nhà bà Margaret với cảnh báo khu phố: sửa vỉa hè, một vụ lừa đảo được báo cáo, đèn đường hỏng, chim ác là sà xuống, phát hiện rắn và phòng mát tránh nóng",
@@ -238,7 +239,8 @@
       "ring": {
         "label": "KHU VỰC CANH CHỪNG",
         "radius": 150
-      }
+      },
+      "icon": "eye"
     },
     "pins": [
       {
@@ -389,7 +391,7 @@
       }
     ],
     "weather": {
-      "heading": "🌤️ Thời tiết ở Marrickville",
+      "heading": "Thời tiết ở Marrickville",
       "meta": "Hiện tại · 15:10",
       "temp": "33°",
       "summary": "Nắng, gió đông bắc nóng",
@@ -426,7 +428,8 @@
           "note": "quang đãng"
         }
       ],
-      "note": "Nắng nóng Thứ Năm và Thứ Sáu. Dự kiến gió nam đổi chiều tối Thứ Sáu với gió giật đến 60 km/h."
+      "note": "Nắng nóng Thứ Năm và Thứ Sáu. Dự kiến gió nam đổi chiều tối Thứ Sáu với gió giật đến 60 km/h.",
+      "icon": "cloud-sun"
     },
     "week": [
       {
@@ -481,7 +484,7 @@
     ],
     "kpis": [
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "Nhiệt độ",
         "value": "33",
         "unit": "°C",
@@ -502,7 +505,7 @@
         ]
       },
       {
-        "emoji": "🥵",
+        "icon": "thermometer-sun",
         "label": "Cảm giác như",
         "value": "35",
         "unit": "°C",
@@ -523,7 +526,7 @@
         ]
       },
       {
-        "emoji": "💨",
+        "icon": "wind",
         "label": "Gió",
         "value": "22",
         "unit": "km/h",
@@ -544,7 +547,7 @@
         ]
       },
       {
-        "emoji": "🕶️",
+        "icon": "glasses",
         "label": "Cường độ nắng",
         "value": "11",
         "unit": "UV",
@@ -565,7 +568,7 @@
         ]
       },
       {
-        "emoji": "🌧️",
+        "icon": "cloud-rain",
         "label": "Mưa",
         "value": "10",
         "unit": "% khả năng",
@@ -586,7 +589,7 @@
         ]
       },
       {
-        "emoji": "🍃",
+        "icon": "wind",
         "label": "Chất lượng không khí",
         "value": "Tốt",
         "unit": "",
@@ -607,7 +610,7 @@
         ]
       },
       {
-        "emoji": "🌾",
+        "icon": "wheat",
         "label": "Phấn hoa",
         "value": "Cao",
         "unit": "",
@@ -628,7 +631,7 @@
         ]
       },
       {
-        "emoji": "✈️",
+        "icon": "plane",
         "label": "Tiếng ồn máy bay",
         "value": "68",
         "unit": "dB",
@@ -649,7 +652,7 @@
         ]
       },
       {
-        "emoji": "🔥",
+        "icon": "flame",
         "label": "Nguy cơ nắng nóng",
         "value": "Trung bình",
         "unit": "",
@@ -670,7 +673,7 @@
         ]
       },
       {
-        "emoji": "🌅",
+        "icon": "sunrise",
         "label": "Ánh sáng ban ngày",
         "value": "13 giờ",
         "unit": "",
@@ -691,7 +694,7 @@
         ]
       },
       {
-        "emoji": "🌊",
+        "icon": "waves",
         "label": "Gió biển",
         "value": "Không",
         "unit": "",
@@ -712,7 +715,7 @@
         ]
       },
       {
-        "emoji": "🔌",
+        "icon": "plug-zap",
         "label": "Nguy cơ mất điện",
         "value": "Thấp",
         "unit": "",
@@ -734,8 +737,9 @@
       }
     ],
     "alertsHeading": {
-      "title": "👀 Nên biết khi sống một mình",
-      "meta": "Sống một mình · xếp theo mức khẩn"
+      "title": "Nên biết khi sống một mình",
+      "meta": "Sống một mình · xếp theo mức khẩn",
+      "icon": "eye"
     },
     "alerts": [
       {
@@ -789,8 +793,9 @@
       }
     ],
     "newsHeading": {
-      "title": "📰 Tin tức liên quan đến bà",
-      "meta": "Lọc cho người 78 tuổi sống một mình ở 2204"
+      "title": "Tin tức liên quan đến bà",
+      "meta": "Lọc cho người 78 tuổi sống một mình ở 2204",
+      "icon": "news"
     },
     "newsCategories": [
       "All",

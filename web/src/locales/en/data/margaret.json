@@ -23,7 +23,7 @@
     "medicineCount": 4,
     "conditions": [
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "title": "High blood pressure",
         "since": "Since age 61 (2009)",
         "now": "Not well controlled lately",
@@ -31,7 +31,7 @@
         "detail": "Her blood pressure has crept up over 6 weeks. She takes amlodipine each evening; 3 doses were missed this week. Target: under 135 in the morning."
       },
       {
-        "emoji": "🦻",
+        "icon": "ear",
         "title": "Hearing loss",
         "since": "Both ears · since 72 (2020)",
         "now": "Aids not worn today",
@@ -39,7 +39,7 @@
         "detail": "Age-related hearing loss. Hearing aids help, and wearing them also lowers the chance of memory problems later. Hearing test booked 22 Oct."
       },
       {
-        "emoji": "🫘",
+        "icon": "bean",
         "title": "Kidneys working a bit slower",
         "since": "Stage 3a · found 2025",
         "now": "Stable, check yearly",
@@ -47,7 +47,7 @@
         "detail": "Kidney function (eGFR) is 58; normal is 60 or above. Common at her age. Her GP checks it yearly and avoids medicines that strain the kidneys."
       },
       {
-        "emoji": "🍬",
+        "icon": "candy",
         "title": "Blood sugar at the high end",
         "since": "HbA1c 5.9% · 2026",
         "now": "Watch",
@@ -55,7 +55,7 @@
         "detail": "Not diabetes, but close to the line (6.0%). Her father had type 2 diabetes. Walking and fewer sweet drinks help."
       },
       {
-        "emoji": "🦴",
+        "icon": "bone",
         "title": "Arthritis in both knees",
         "since": "Since 2015",
         "now": "Mild pain, uses a stick",
@@ -63,7 +63,7 @@
         "detail": "Wear-and-tear arthritis. Gentle walking and the strength class help. Paracetamol when needed."
       },
       {
-        "emoji": "💔",
+        "icon": "heart-crack",
         "title": "Uneven heartbeat (possible)",
         "since": "Being checked · Oct 2026",
         "now": "2 alerts this week",
@@ -71,7 +71,7 @@
         "detail": "Her watch flagged an uneven rhythm twice at night. Her heart tracing on 12 Oct was normal. Her GP may order a 2-week heart monitor."
       },
       {
-        "emoji": "🧠",
+        "icon": "brain",
         "title": "Memory",
         "since": "No diagnosis",
         "now": "Watching gently",
@@ -79,7 +79,7 @@
         "detail": "No memory condition. Her mother had dementia, so the daily chat looks for slow changes in speech. All normal so far."
       },
       {
-        "emoji": "🦴",
+        "icon": "bone",
         "title": "Bone strength",
         "since": "Osteopenia · 2022",
         "now": "Vitamin D daily",
@@ -98,82 +98,87 @@
       "shareToast": "Profile shared with the care circle",
       "rows": [
         {
-          "emoji": "👩",
+          "icon": "user-round",
           "label": "Gender",
           "value": "Female"
         },
         {
-          "emoji": "🎂",
+          "icon": "cake",
           "label": "Age",
           "value": "78"
         },
         {
-          "emoji": "📏",
+          "icon": "ruler",
           "label": "Height",
           "value": "162 cm"
         },
         {
-          "emoji": "⚖️",
+          "icon": "scale",
           "label": "Weight",
           "value": "61.2 kg"
         },
         {
-          "emoji": "📐",
+          "icon": "ruler",
           "label": "BMI",
           "value": "23.4 · healthy"
         },
         {
-          "emoji": "🩸",
+          "icon": "drop",
           "label": "Blood type",
           "value": "O positive"
         },
         {
-          "emoji": "🏠",
+          "icon": "home",
           "label": "Lives",
           "value": "Alone · 2-storey terrace"
         },
         {
-          "emoji": "🗣️",
+          "icon": "speech",
           "label": "Language",
           "value": "English"
         },
         {
-          "emoji": "🦯",
+          "icon": "accessibility",
           "label": "Mobility aid",
           "value": "Walking stick outdoors"
         },
         {
-          "emoji": "👓",
+          "icon": "glasses",
           "label": "Vision",
           "value": "Reading glasses"
         },
         {
-          "emoji": "🦻",
+          "icon": "ear",
           "label": "Hearing",
           "value": "Aids, both ears"
         },
         {
-          "emoji": "📝",
+          "icon": "notebook-pen",
           "label": "Care wishes",
           "value": "Advance care plan on file"
         }
       ],
       "chips": [
         {
-          "text": "⚠️ Allergy: penicillin (rash)",
-          "danger": true
+          "text": "Allergy: penicillin (rash)",
+          "danger": true,
+          "icon": "triangle-alert"
         },
         {
-          "text": "💊 4 regular medicines"
+          "text": "4 regular medicines",
+          "icon": "pill"
         },
         {
-          "text": "🚬 Never smoked"
+          "text": "Never smoked",
+          "icon": "cigarette-off"
         },
         {
-          "text": "🍷 1–2 drinks a week"
+          "text": "1–2 drinks a week",
+          "icon": "wine"
         },
         {
-          "text": "💉 Flu shot Apr 2026 · COVID due"
+          "text": "Flu shot Apr 2026 · COVID due",
+          "icon": "syringe"
         }
       ]
     },
@@ -210,38 +215,46 @@
     "dayline": [
       {
         "time": "Morning",
-        "text": "🌅 Up and about · said good morning"
+        "text": "Up and about · said good morning",
+        "icon": "sunrise"
       },
       {
         "time": "08:12",
-        "text": "💬 Morning chat · all well"
+        "text": "Morning chat · all well",
+        "icon": "message-circle"
       },
       {
         "time": "08:31",
-        "text": "💊 Morning tablets taken"
+        "text": "Morning tablets taken",
+        "icon": "pill"
       },
       {
         "time": "09:31",
-        "text": "💊 Last night's tablet taken after a reminder",
-        "flag": "w"
+        "text": "Last night's tablet taken after a reminder",
+        "flag": "w",
+        "icon": "pill"
       },
       {
         "time": "Late morning",
-        "text": "🚶 Went out for a walk"
+        "text": "Went out for a walk",
+        "icon": "footprints"
       },
       {
         "time": "13:02",
-        "text": "🍽️ Lunch chat · cheerful"
+        "text": "Lunch chat · cheerful",
+        "icon": "utensils"
       },
       {
         "time": "Afternoon",
-        "text": "😴 Having a rest · it's warm today",
-        "flag": "w"
+        "text": "Having a rest · it's warm today",
+        "flag": "w",
+        "icon": "bed"
       },
       {
         "time": "18:00",
-        "text": "💬 Next chat",
-        "flag": "n"
+        "text": "Next chat",
+        "flag": "n",
+        "icon": "message-circle"
       }
     ],
     "context": {
@@ -283,7 +296,7 @@
     },
     "kpis": [
       {
-        "emoji": "❤️",
+        "icon": "heart",
         "label": "Heart rate",
         "value": "68",
         "unit": "bpm",
@@ -304,7 +317,7 @@
         ]
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "Blood pressure",
         "value": "146",
         "unit": "/88",
@@ -325,7 +338,7 @@
         ]
       },
       {
-        "emoji": "🌿",
+        "icon": "leaf",
         "label": "Calm score (HRV)",
         "value": "26",
         "unit": "",
@@ -346,7 +359,7 @@
         ]
       },
       {
-        "emoji": "😴",
+        "icon": "bed",
         "label": "Sleep",
         "value": "6h 12m",
         "unit": "",
@@ -367,7 +380,7 @@
         ]
       },
       {
-        "emoji": "👣",
+        "icon": "footprints",
         "label": "Steps",
         "value": "3,240",
         "unit": "today",
@@ -388,7 +401,7 @@
         ]
       },
       {
-        "emoji": "🚶",
+        "icon": "footprints",
         "label": "Walking speed",
         "value": "0.82",
         "unit": "m/s",
@@ -409,7 +422,7 @@
         ]
       },
       {
-        "emoji": "💊",
+        "icon": "pill",
         "label": "Tablets taken",
         "value": "86",
         "unit": "%",
@@ -430,7 +443,7 @@
         ]
       },
       {
-        "emoji": "📞",
+        "icon": "phone",
         "label": "Calls answered",
         "value": "97",
         "unit": "%",
@@ -451,7 +464,7 @@
         ]
       },
       {
-        "emoji": "🗣️",
+        "icon": "speech",
         "label": "Speaking pace",
         "value": "132",
         "unit": "words/min",
@@ -472,7 +485,7 @@
         ]
       },
       {
-        "emoji": "🤝",
+        "icon": "handshake",
         "label": "Time with people",
         "value": "5",
         "unit": "this week",
@@ -493,7 +506,7 @@
         ]
       },
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "Home temperature",
         "value": "29.5",
         "unit": "°C",
@@ -514,7 +527,7 @@
         ]
       },
       {
-        "emoji": "⚖️",
+        "icon": "scale",
         "label": "Weight",
         "value": "61.2",
         "unit": "kg",
@@ -930,41 +943,41 @@
       "sub": "You're doing well today. Here's your day, just for you.",
       "tiles": [
         {
-          "emoji": "❤️",
+          "icon": "heart",
           "title": "Heart",
           "note": "68 · steady"
         },
         {
-          "emoji": "👣",
+          "icon": "footprints",
           "title": "3,240 steps",
           "note": "nearly at 3,500!"
         },
         {
-          "emoji": "😴",
+          "icon": "bed",
           "title": "6 h sleep",
           "note": "a bit short",
           "warn": true
         },
         {
-          "emoji": "💧",
+          "icon": "drop",
           "title": "Water",
           "note": "have a glass now",
           "warn": true
         },
         {
-          "emoji": "💊",
+          "icon": "pill",
           "title": "Next tablet",
           "note": "6 pm, amlodipine"
         },
         {
-          "emoji": "📞",
+          "icon": "phone",
           "title": "James calls",
           "note": "tonight at 8 pm"
         }
       ],
       "ideas": [
         {
-          "emoji": "🔥",
+          "icon": "flame",
           "title": "Thursday will be 38°. Would you like a lift to the library cool room?",
           "note": "Tom, a volunteer, can pick you up at 11.",
           "yes": {
@@ -979,7 +992,7 @@
           }
         },
         {
-          "emoji": "💊",
+          "icon": "pill",
           "title": "Would a weekly pill box help with the evening tablet?",
           "note": "David offered to set it up on Saturday.",
           "yes": {
@@ -994,7 +1007,7 @@
           }
         },
         {
-          "emoji": "🦻",
+          "icon": "ear",
           "title": "Pop your hearing aids in for this afternoon's chat?",
           "note": "It makes the calls easier.",
           "yes": {
@@ -1011,27 +1024,27 @@
       ],
       "promise": [
         {
-          "emoji": "✋",
+          "icon": "hand",
           "lead": "You're in charge.",
           "text": "You decide who sees what, and you can change it any time."
         },
         {
-          "emoji": "📷",
+          "icon": "camera",
           "lead": "No cameras, ever.",
           "text": "Home sensors only notice movement and temperature."
         },
         {
-          "emoji": "🎙️",
+          "icon": "mic",
           "lead": "No listening in.",
           "text": "The microphone is only on during calls you answer."
         },
         {
-          "emoji": "📍",
+          "icon": "map-pin",
           "lead": "No tracking.",
           "text": "Location is off. If you turn it on, people only see \"home\" or \"out\"."
         },
         {
-          "emoji": "🚨",
+          "icon": "siren",
           "lead": "Emergencies only:",
           "text": "David and James always get safety alerts, so help can come."
         }
@@ -1072,18 +1085,21 @@
         "presets": [
           {
             "id": "family",
-            "label": "👨‍👩‍👧 Family sees most, not my mood"
+            "label": "Family sees most, not my mood",
+            "icon": "users"
           },
           {
             "id": "safety",
-            "label": "🚨 Safety alerts only"
+            "label": "Safety alerts only",
+            "icon": "siren"
           },
           {
             "id": "all",
-            "label": "🤝 Share everything with family"
+            "label": "Share everything with family",
+            "icon": "handshake"
           }
         ],
-        "safetyNote": "🚨 Safety alerts can't be turned off for your emergency contacts, so someone can always come if you need help. You can change who your emergency contacts are.",
+        "safetyNote": "Safety alerts can't be turned off for your emergency contacts, so someone can always come if you need help. You can change who your emergency contacts are.",
         "emergency": {
           "agreed": "Agreed 1 October",
           "text": "If you need an ambulance, the hospital receives your conditions, tablets and allergy, so they can help quickly. Nothing else, and only for that visit.",
@@ -1099,7 +1115,8 @@
               "done": "Checked"
             }
           ]
-        }
+        },
+        "safetyIcon": "siren"
       }
     }
   }

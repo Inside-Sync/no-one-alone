@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { usePathname, useRouter } from '@/app/navigation'
 import { Avatar } from '@/components/ui/Avatar'
+import { Glyph, Icon } from '@/components/ui/Icon'
 import { WhoSwitch } from './WhoSwitch'
 import * as repo from '@/data/repo'
 import { STEPS } from '@/domain/emergency'
@@ -39,6 +40,7 @@ export function ContextBar() {
   const bars = useContextBars()
 
   let ctx: Ctx | undefined
+  const ownIcon = page === 'me' || page === 'privacy' ? OWN_CONTEXT[page].icon : undefined
   if (page === 'me' || page === 'privacy') ctx = { ...OWN_CONTEXT[page], facts: [...OWN_CONTEXT[page].facts] }
   else if (view === 'hospital') ctx = bars?.hospital
   else if (view === 'community') ctx = bars?.community
@@ -76,7 +78,7 @@ export function ContextBar() {
           id="ctxAv"
           style={{ '--c': ctx?.color ?? '#0b7f71', width: 46, height: 46, fontSize: 15 } as React.CSSProperties}
         >
-          {ctx?.initials}
+          {ownIcon ? <span className="ic"><Icon name={ownIcon} /></span> : ctx?.initials}
         </Avatar>
         <div>
           <span className="vbanner" id="vban">{banner}</span>
@@ -96,7 +98,7 @@ export function ContextBar() {
       </section>
       {individual && !self && paused && (
         <div className={`glass ${s.pauseBanner}`} id="pauseBanner">
-          ⏸️ <b>{t('context.pausedBold')}</b> {t('context.pausedRest')}
+          <Glyph name="pause" /><b>{t('context.pausedBold')}</b> {t('context.pausedRest')}
         </div>
       )}
     </>

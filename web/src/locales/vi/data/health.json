@@ -948,363 +948,408 @@
     "groups": [
       {
         "icon": "heart",
-        "emoji": "❤️",
         "title": "Tim",
         "category": "heart",
         "metrics": [
           {
-            "label": "💓 Khi nghỉ",
+            "label": "Khi nghỉ",
             "value": "68 bpm",
             "note": "thường 63",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "heart-pulse"
           },
           {
-            "label": "🚶 Khi đi bộ",
+            "label": "Khi đi bộ",
             "value": "92 bpm",
-            "note": "bình thường"
+            "note": "bình thường",
+            "icon": "footprints"
           },
           {
-            "label": "🌿 Điểm thư thái",
+            "label": "Điểm thư thái",
             "value": "26",
             "note": "thấp hơn thường lệ",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "leaf"
           },
           {
-            "label": "⏱️ Hồi phục sau đi bộ",
+            "label": "Hồi phục sau đi bộ",
             "value": "18 nhịp",
-            "note": "trong 1 phút"
+            "note": "trong 1 phút",
+            "icon": "timer"
           },
           {
-            "label": "📈 Dao động hôm nay",
+            "label": "Dao động hôm nay",
             "value": "58–112",
-            "note": "bpm"
+            "note": "bpm",
+            "icon": "trend"
           },
           {
-            "label": "🏃 Thể lực",
+            "label": "Thể lực",
             "value": "Trung bình",
-            "note": "so với tuổi của bà"
+            "note": "so với tuổi của bà",
+            "icon": "activity"
           }
         ]
       },
       {
         "icon": "lungs",
-        "emoji": "🫁",
         "title": "Nhịp tim và hơi thở",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚡ Nhịp tim không đều",
+            "label": "Nhịp tim không đều",
             "value": "2 cảnh báo",
             "note": "tuần này",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "bolt"
           },
           {
-            "label": "🌙 Không đều ban đêm",
+            "label": "Không đều ban đêm",
             "value": "~3%",
             "note": "thời gian đêm",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "📄 Điện tim (ECG)",
+            "label": "Điện tim (ECG)",
             "value": "Bình thường",
             "note": "12/10",
-            "tone": "good"
+            "tone": "good",
+            "icon": "file"
           },
           {
-            "label": "🩸 Oxy trong máu",
+            "label": "Oxy trong máu",
             "value": "95%",
-            "note": "bình thường"
+            "note": "bình thường",
+            "icon": "drop"
           },
           {
-            "label": "🌬️ Nhịp thở mỗi phút",
+            "label": "Nhịp thở mỗi phút",
             "value": "15",
-            "note": "khi ngủ · bình thường"
+            "note": "khi ngủ · bình thường",
+            "icon": "wind"
           },
           {
-            "label": "🌡️ Nhiệt độ da",
+            "label": "Nhiệt độ da",
             "value": "Bình thường",
-            "note": "+0,3°"
+            "note": "+0,3°",
+            "icon": "thermometer"
           }
         ]
       },
       {
-        "icon": "trend",
-        "emoji": "🔥",
+        "icon": "flame",
         "title": "Vận động và năng lượng",
         "category": "activity",
         "metrics": [
           {
-            "label": "👣 Số bước",
+            "label": "Số bước",
             "value": "3.240",
-            "note": "mục tiêu 3.500"
+            "note": "mục tiêu 3.500",
+            "icon": "footprints"
           },
           {
-            "label": "📏 Quãng đường",
+            "label": "Quãng đường",
             "value": "2,1 km",
-            "note": "đã đi"
+            "note": "đã đi",
+            "icon": "ruler"
           },
           {
-            "label": "🪜 Cầu thang",
+            "label": "Cầu thang",
             "value": "2 tầng",
-            "note": "đã leo"
+            "note": "đã leo",
+            "icon": "door-stairwell"
           },
           {
-            "label": "🔥 Calo vận động",
+            "label": "Calo vận động",
             "value": "212",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "flame"
           },
           {
-            "label": "🛋️ Calo khi nghỉ",
+            "label": "Calo khi nghỉ",
             "value": "1.428",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "sofa"
           },
           {
-            "label": "🏋️ Tập luyện",
+            "label": "Tập luyện",
             "value": "18 phút",
             "note": "mục tiêu 30",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "dumbbell"
           }
         ]
       },
       {
-        "icon": "people",
-        "emoji": "🚶",
+        "icon": "footprints",
         "title": "Đi lại và thăng bằng",
         "category": "activity",
         "metrics": [
           {
-            "label": "🐢 Tốc độ đi",
+            "label": "Tốc độ đi",
             "value": "Chậm hơn",
             "note": "0,82 m/s",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "turtle"
           },
           {
-            "label": "👟 Độ dài bước",
+            "label": "Độ dài bước",
             "value": "51 cm",
-            "note": "thường 54"
+            "note": "thường 54",
+            "icon": "footprints"
           },
           {
-            "label": "🦶 Hai chân chạm đất",
+            "label": "Hai chân chạm đất",
             "value": "34%",
             "note": "kém vững hơn",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "footprints"
           },
           {
-            "label": "⚖️ Bước đều",
+            "label": "Bước đều",
             "value": "Có",
-            "note": "chênh 6%"
+            "note": "chênh 6%",
+            "icon": "scale"
           },
           {
-            "label": "🧍 Độ vững",
+            "label": "Độ vững",
             "value": "Thấp",
             "note": "dễ té ngã hơn",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "person-standing"
           },
           {
-            "label": "🕕 Đi bộ 6 phút",
+            "label": "Đi bộ 6 phút",
             "value": "310 m",
-            "note": "thường 340"
+            "note": "thường 340",
+            "icon": "timer"
           }
         ]
       },
       {
-        "icon": "moon",
-        "emoji": "😴",
+        "icon": "bed",
         "title": "Giấc ngủ",
         "category": "sleep",
         "metrics": [
           {
-            "label": "🛌 Thời gian ngủ",
+            "label": "Thời gian ngủ",
             "value": "6 giờ 12 phút",
             "note": "thường 7 giờ",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "bed"
           },
           {
-            "label": "✨ Ngủ ngon",
+            "label": "Ngủ ngon",
             "value": "81%",
-            "note": "thời gian nằm giường"
+            "note": "thời gian nằm giường",
+            "icon": "sparkles"
           },
           {
-            "label": "🌑 Ngủ sâu",
+            "label": "Ngủ sâu",
             "value": "52 phút",
-            "note": "phục hồi"
+            "note": "phục hồi",
+            "icon": "moon"
           },
           {
-            "label": "💭 Ngủ mơ",
+            "label": "Ngủ mơ",
             "value": "52 phút",
-            "note": "bình thường"
+            "note": "bình thường",
+            "icon": "cloud-moon"
           },
           {
-            "label": "👀 Thức giấc",
+            "label": "Thức giấc",
             "value": "6 lần",
             "note": "thức 38 phút",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "eye"
           },
           {
-            "label": "🕙 Giờ đi ngủ",
+            "label": "Giờ đi ngủ",
             "value": "22:41",
-            "note": "khá đều đặn"
+            "note": "khá đều đặn",
+            "icon": "clock"
           }
         ]
       },
       {
         "icon": "smile",
-        "emoji": "😊",
         "title": "Tâm trạng và bầu bạn",
         "category": "mood",
         "metrics": [
           {
-            "label": "😊 Tâm trạng hôm nay",
+            "label": "Tâm trạng hôm nay",
             "value": "Vui vẻ",
             "note": "qua giọng nói",
-            "tone": "good"
+            "tone": "good",
+            "icon": "smile"
           },
           {
-            "label": "🙂 Tuần này",
+            "label": "Tuần này",
             "value": "Phần lớn tốt",
-            "note": "ổn định"
+            "note": "ổn định",
+            "icon": "smile"
           },
           {
-            "label": "🫂 Cảm giác cô đơn",
+            "label": "Cảm giác cô đơn",
             "value": "Một chút",
-            "note": "4 trên 9"
+            "note": "4 trên 9",
+            "icon": "heart-handshake"
           },
           {
-            "label": "📞 Cuộc gọi",
+            "label": "Cuộc gọi",
             "value": "5",
-            "note": "tuần này"
+            "note": "tuần này",
+            "icon": "phone"
           },
           {
-            "label": "🏡 Lượt thăm",
+            "label": "Lượt thăm",
             "value": "2",
-            "note": "tuần này"
+            "note": "tuần này",
+            "icon": "home"
           },
           {
-            "label": "🧘 Thở thư giãn",
+            "label": "Thở thư giãn",
             "value": "10 phút",
-            "note": "hôm nay"
+            "note": "hôm nay",
+            "icon": "wind"
           }
         ]
       },
       {
         "icon": "drop",
-        "emoji": "💧",
         "title": "Cơ thể và ăn uống",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚖️ Cân nặng",
+            "label": "Cân nặng",
             "value": "61,2 kg",
-            "note": "ổn định"
+            "note": "ổn định",
+            "icon": "scale"
           },
           {
-            "label": "📐 Chỉ số cơ thể (BMI)",
+            "label": "Chỉ số cơ thể (BMI)",
             "value": "Khỏe mạnh",
-            "note": "23,4"
+            "note": "23,4",
+            "icon": "ruler"
           },
           {
-            "label": "💧 Nước",
+            "label": "Nước",
             "value": "1,1 / 1,5 L",
             "note": "uống thêm",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "drop"
           },
           {
-            "label": "🍽️ Bữa ăn",
+            "label": "Bữa ăn",
             "value": "3",
-            "note": "kể qua giọng nói"
+            "note": "kể qua giọng nói",
+            "icon": "utensils"
           },
           {
-            "label": "🫖 Tách trà",
+            "label": "Tách trà",
             "value": "2",
-            "note": "hôm nay"
+            "note": "hôm nay",
+            "icon": "coffee"
           },
           {
-            "label": "🌡️ Thân nhiệt",
+            "label": "Thân nhiệt",
             "value": "36,7°",
-            "note": "bình thường"
+            "note": "bình thường",
+            "icon": "thermometer"
           }
         ]
       },
       {
         "icon": "ear",
-        "emoji": "👂",
         "title": "Thính giác và giác quan",
         "category": "speech",
         "metrics": [
           {
-            "label": "🔊 Tiếng ồn quanh bà",
+            "label": "Tiếng ồn quanh bà",
             "value": "62 dB",
-            "note": "bình thường"
+            "note": "bình thường",
+            "icon": "volume-2"
           },
           {
-            "label": "📺 Âm lượng TV",
+            "label": "Âm lượng TV",
             "value": "To",
             "note": "74 dB",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "tv"
           },
           {
-            "label": "❓ \"Gì cơ?\"",
+            "label": "\"Gì cơ?\"",
             "value": "9 lần",
             "note": "tuần này",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-help"
           },
           {
-            "label": "🦻 Máy trợ thính",
+            "label": "Máy trợ thính",
             "value": "Chưa đeo",
             "note": "hôm nay",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "ear"
           },
           {
-            "label": "☀️ Thời gian ngoài trời",
+            "label": "Thời gian ngoài trời",
             "value": "38 phút",
-            "note": "mục tiêu 60"
+            "note": "mục tiêu 60",
+            "icon": "sun"
           },
           {
-            "label": "🔠 Chữ trên màn hình",
+            "label": "Chữ trên màn hình",
             "value": "Rất lớn",
-            "note": "28 pt"
+            "note": "28 pt",
+            "icon": "type"
           }
         ]
       },
       {
         "icon": "pill",
-        "emoji": "💊",
         "title": "Thuốc và huyết áp",
         "category": "meds",
         "metrics": [
           {
-            "label": "✅ Uống đúng giờ",
+            "label": "Uống đúng giờ",
             "value": "86%",
             "note": "quên vài liều",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-check"
           },
           {
-            "label": "🌅 Huyết áp sáng",
+            "label": "Huyết áp sáng",
             "value": "146/88",
             "note": "cao",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "sunrise"
           },
           {
-            "label": "🌙 Huyết áp tối",
+            "label": "Huyết áp tối",
             "value": "139/84",
             "note": "hơi cao",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "💊 Hôm nay",
+            "label": "Hôm nay",
             "value": "2 / 3",
-            "note": "liều tiếp lúc 18:00"
+            "note": "liều tiếp lúc 18:00",
+            "icon": "pill"
           },
           {
-            "label": "❌ Đã quên",
+            "label": "Đã quên",
             "value": "3",
             "note": "tuần này",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-x"
           },
           {
-            "label": "📦 Thuốc còn lại",
+            "label": "Thuốc còn lại",
             "value": "12 ngày",
-            "note": "sắp cần mua thêm"
+            "note": "sắp cần mua thêm",
+            "icon": "package"
           }
         ]
       }
@@ -2434,38 +2479,44 @@
       ],
       "stats": [
         {
-          "label": "🗣️ Tốc độ nói",
+          "label": "Tốc độ nói",
           "value": "132",
-          "note": "từ mỗi phút · thường 141"
+          "note": "từ mỗi phút · thường 141",
+          "icon": "speech"
         },
         {
-          "label": "⏸️ Ngắt quãng",
+          "label": "Ngắt quãng",
           "value": "Nhiều hơn chút",
           "note": "so với thường lệ",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "pause"
         },
         {
-          "label": "✅ Nói rõ ràng",
+          "label": "Nói rõ ràng",
           "value": "Có",
           "note": "không líu lưỡi",
-          "tone": "good"
+          "tone": "good",
+          "icon": "circle-check"
         },
         {
-          "label": "🔤 Quên từ",
+          "label": "Quên từ",
           "value": "3 lần",
-          "note": "thường 1–2 lần"
+          "note": "thường 1–2 lần",
+          "icon": "type"
         },
         {
-          "label": "👂 \"Gì cơ?\"",
+          "label": "\"Gì cơ?\"",
           "value": "2 lần",
           "note": "thính giác",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "ear"
         },
         {
-          "label": "😊 Tâm trạng",
+          "label": "Tâm trạng",
           "value": "Vui vẻ",
           "note": "ngày tốt",
-          "tone": "good"
+          "tone": "good",
+          "icon": "smile"
         }
       ]
     },
@@ -2476,37 +2527,43 @@
       },
       "stats": [
         {
-          "label": "🌡️ Trong nhà",
+          "label": "Trong nhà",
           "value": "29,5°",
           "note": "quá ấm",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "thermometer"
         },
         {
-          "label": "☀️ Ngoài trời",
+          "label": "Ngoài trời",
           "value": "33°",
-          "note": "cảm giác như 35°"
+          "note": "cảm giác như 35°",
+          "icon": "sun"
         },
         {
-          "label": "💦 Độ ẩm",
+          "label": "Độ ẩm",
           "value": "58%",
-          "note": "trong nhà"
+          "note": "trong nhà",
+          "icon": "droplets"
         },
         {
-          "label": "🍃 Không khí",
+          "label": "Không khí",
           "value": "Tốt",
           "note": "trong lành hôm nay",
-          "tone": "good"
+          "tone": "good",
+          "icon": "wind"
         },
         {
-          "label": "🕶️ Cường độ nắng",
+          "label": "Cường độ nắng",
           "value": "Cực mạnh",
           "note": "ở trong bóng râm",
-          "tone": "bad"
+          "tone": "bad",
+          "icon": "glasses"
         },
         {
-          "label": "💧 Nhắc uống nước",
+          "label": "Nhắc uống nước",
           "value": "6 / 8",
-          "note": "đã phản hồi"
+          "note": "đã phản hồi",
+          "icon": "drop"
         }
       ],
       "note": "Dự báo Thứ Năm 38 °C. Trợ lý sẽ thêm một lần hỏi thăm buổi trưa và đề nghị đưa bà đến phòng mát ở thư viện (120 chỗ, 400 m)."

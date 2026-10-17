@@ -3,54 +3,54 @@
   "sub": "Hôm nay bà đang rất ổn. Đây là ngày của bà, dành riêng cho bà.",
   "tiles": [
     {
-      "emoji": "❤️",
+      "icon": "heart",
       "title": "Tim",
       "note": "68 · ổn định",
       "warn": false
     },
     {
-      "emoji": "👣",
+      "icon": "footprints",
       "title": "3.240 bước",
       "note": "sắp đạt 3.500 rồi!",
       "warn": false
     },
     {
-      "emoji": "😴",
+      "icon": "bed",
       "title": "Ngủ 6 giờ",
       "note": "hơi ít",
       "warn": true
     },
     {
-      "emoji": "💧",
+      "icon": "drop",
       "title": "Nước",
       "note": "uống một ly ngay nhé",
       "warn": true
     },
     {
-      "emoji": "💊",
+      "icon": "pill",
       "title": "Liều thuốc tiếp theo",
       "note": "18:00, amlodipine",
       "warn": false
     },
     {
-      "emoji": "📞",
+      "icon": "phone",
       "title": "James gọi",
       "note": "tối nay lúc 20:00",
       "warn": false
     }
   ],
   "people": {
-    "title": "💞 Người thân của tôi",
+    "title": "Người thân của tôi",
     "meta": "Bà chọn mỗi người được xem gì",
-    "change": "🔐 Thay đổi ai xem được gì",
+    "change": "Thay đổi ai xem được gì",
     "paused": "Đã tạm dừng",
     "sees": "Xem {{seen}}/{{total}}"
   },
-  "ideasTitle": "💡 Gợi ý cho bà",
+  "ideasTitle": "Gợi ý cho bà",
   "ideasMeta": "Chỉ khi bà muốn",
   "ideas": [
     {
-      "emoji": "🔥",
+      "icon": "flame",
       "title": "Thứ Năm trời sẽ lên 38°. Bà có muốn được đưa tới phòng mát ở thư viện không?",
       "note": "Tom, một tình nguyện viên, có thể đón bà lúc 11:00.",
       "yes": [
@@ -65,7 +65,7 @@
       ]
     },
     {
-      "emoji": "💊",
+      "icon": "pill",
       "title": "Hộp chia thuốc hằng tuần có giúp bà nhớ liều thuốc buổi tối không?",
       "note": "David đề nghị chuẩn bị giúp vào thứ Bảy.",
       "yes": [
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "emoji": "🦻",
+      "icon": "ear",
       "title": "Bà đeo máy trợ thính cho cuộc trò chuyện chiều nay nhé?",
       "note": "Như vậy nghe điện thoại sẽ dễ hơn.",
       "yes": [
@@ -96,31 +96,31 @@
     }
   ],
   "promise": {
-    "title": "🔐 Cam kết riêng tư với bà",
+    "title": "Cam kết riêng tư với bà",
     "meta": "Hỗ trợ sức khỏe, không phải theo dõi",
     "items": [
       {
-        "emoji": "✋",
+        "icon": "hand",
         "bold": "Bà là người quyết định.",
         "text": "Bà chọn ai xem được gì, và có thể thay đổi bất cứ lúc nào."
       },
       {
-        "emoji": "📷",
+        "icon": "camera",
         "bold": "Không bao giờ có camera.",
         "text": "Cảm biến trong nhà chỉ nhận biết chuyển động và nhiệt độ."
       },
       {
-        "emoji": "🎙️",
+        "icon": "mic",
         "bold": "Không nghe lén.",
         "text": "Micrô chỉ bật trong những cuộc gọi bà nghe máy."
       },
       {
-        "emoji": "📍",
+        "icon": "map-pin",
         "bold": "Không theo dõi vị trí.",
         "text": "Định vị đang tắt. Nếu bà bật lên, mọi người chỉ thấy \"ở nhà\" hoặc \"ra ngoài\"."
       },
       {
-        "emoji": "🚨",
+        "icon": "siren",
         "bold": "Chỉ khi khẩn cấp:",
         "text": "David và James luôn nhận cảnh báo an toàn, để có người đến giúp."
       }
@@ -128,7 +128,7 @@
     "settings": "Xem tất cả cài đặt"
   },
   "access": {
-    "title": "👀 Ai đã xem thông tin của bà",
+    "title": "Ai đã xem thông tin của bà",
     "meta": "Để không có gì diễn ra sau lưng bà",
     "head": [
       "Khi nào",
@@ -197,7 +197,7 @@
     "tick": "Xong",
     "idle": "Kế hoạch hồi phục của mạ sẽ hiện ở đây",
     "idle_family": "Kế hoạch hồi phục của bà Margaret sẽ hiện ở đây",
-    "stop": "⛔ Ngừng: {{name}}",
+    "stop": "Ngừng: {{name}}",
     "meds": "Thuốc của bạn, giải thích rõ",
     "meds_family": "Thuốc của bà, giải thích rõ",
     "slots": {
@@ -213,11 +213,11 @@
       "Stop": "Ngừng"
     },
     "noa": {
-      "title": "💬 Lời Noa nhắn",
-      "title_family": "💬 Noa đã nói gì với Margaret",
+      "title": "Lời Noa nhắn",
+      "title_family": "Noa đã nói gì với Margaret",
       "meta": "Sau khi bệnh viện duyệt kế hoạch",
       "noa": "Noa",
-      "margaret": "👵 Margaret",
+      "margaret": "Margaret",
       "welcome": "Chào mừng về nhà, Margaret. Noa đây 💙 Bệnh viện đã gửi kế hoạch hồi phục, và Noa đã đưa vào ứng dụng bằng lời dễ hiểu.",
       "newMeds_one": "Bà có 1 viên thuốc mới: {{names}}.",
       "newMeds_other": "Bà có {{count}} viên thuốc mới: {{names}}.",
@@ -247,23 +247,23 @@
     "self": {
       "layout": {
         "label": "Bố cục",
-        "detailed": "📋 Chi tiết",
-        "simple": "🔆 Đơn giản"
+        "detailed": "Chi tiết",
+        "simple": "Đơn giản"
       },
-      "happened": "🌱 Chuyện gì đã xảy ra",
+      "happened": "Chuyện gì đã xảy ra",
       "happenedMeta": "Nói cho dễ hiểu",
       "dayOf": "Ngày {{day}} / 30",
       "doneToday": "Xong {{done}} / {{total}} việc hôm nay",
-      "nextTitle": "⏰ Nhắc tiếp theo",
-      "allDone": "🎉 Hôm nay xong hết rồi",
-      "tasksTitle": "💊 Thuốc và việc hôm nay",
+      "nextTitle": "Nhắc tiếp theo",
+      "allDone": "Hôm nay xong hết rồi",
+      "tasksTitle": "Thuốc và việc hôm nay",
       "tasksMeta": "Chạm khi làm xong",
-      "appts": "🗓️ Lịch hẹn",
+      "appts": "Lịch hẹn",
       "callsMeta": "Trò chuyện ngắn hỏi thăm mạ",
       "callToday": "Hôm nay",
-      "logged": "Giỏi lắm 👍 Đã ghi lại.",
+      "logged": "Giỏi lắm! Đã ghi lại.",
       "fast": {
-        "title": "🚨 Gọi 000 ngay nếu…",
+        "title": "Gọi 000 ngay nếu…",
         "face": "Mặt",
         "faceText": "bị xệ một bên",
         "arm": "Tay",
@@ -272,7 +272,7 @@
         "speechText": "ngọng hoặc lẫn lộn",
         "time": "Thời gian",
         "timeText": "rất quan trọng. Đừng chờ.",
-        "call": "📞 Gọi 000",
+        "call": "Gọi 000",
         "calling": "Đang gọi 000 · xin xe cứu thương"
       },
       "simple": {
@@ -283,16 +283,16 @@
         "now": "Bây giờ",
         "tookThem": "✓ Mạ uống rồi",
         "didIt": "✓ Mạ làm rồi",
-        "snooze": "⏰ Nhắc lại sau 10 phút",
+        "snooze": "Nhắc lại sau 10 phút",
         "snoozed": "Được rồi, 10 phút nữa Noa nhắc lại nhé",
         "later": "Lát nữa hôm nay",
         "laterMeta": "Mạ sẽ được nhắc",
         "nothingLater": "Hôm nay không còn việc nào nữa.",
         "tabs": {
-          "meds": "💊 Thuốc",
-          "appts": "🗓️ Lịch khám",
-          "calls": "📞 Cuộc gọi",
-          "help": "🚨 Dấu hiệu nguy hiểm"
+          "meds": "Thuốc",
+          "appts": "Lịch khám",
+          "calls": "Cuộc gọi",
+          "help": "Dấu hiệu nguy hiểm"
         },
         "tablets": "Thuốc của mạ",
         "visits": "Lịch khám và xét nghiệm",

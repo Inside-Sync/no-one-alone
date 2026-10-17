@@ -77,31 +77,31 @@
   "packetNote": "Sent as a FHIR bundle to the receiving ED only during an emergency, with consent on file.",
   "notifications": [
     [
-      "⚠️",
+      "triangle-alert",
       "Needs your OK: weekly pill box by David",
       "Yesterday 21:40",
       "warn"
     ],
     [
-      "🔥",
+      "flame",
       "Heat warning for Thursday · plan ready",
       "2 h ago",
       "warn"
     ],
     [
-      "🛡️",
+      "shield",
       "Scam door-knocks reported on her street",
       "5 h ago",
       "bad"
     ],
     [
-      "✅",
+      "circle-check",
       "Blood pressure report read by Dr Patel",
       "Yesterday 16:42",
       "good"
     ],
     [
-      "😊",
+      "smile",
       "Margaret had a cheerful chat at 13:02",
       "2 h ago",
       "good"
@@ -109,12 +109,12 @@
   ],
   "condActions": [
     [
-      "🗣️ Ask her about it",
+      "Ask her about it",
       "Added to her next chat",
       "Added"
     ],
     [
-      "🩺 Raise with Dr Patel",
+      "Raise with Dr Patel",
       "Added to the GP visit agenda",
       "Added"
     ]
@@ -123,7 +123,7 @@
     "Approve": "✓ Approved",
     "Ask David to set up a pill box": "✓ David asked",
     "Send BP report to Dr Patel": "✓ Sent",
-    "Call Mum": "📞 Calling…",
+    "Call Mum": "Calling…",
     "Review": "✓ Reviewed",
     "Page stroke team": "✓ Paged",
     "Divert": "✓ Diversion sent"
@@ -131,41 +131,41 @@
   "drawerActions": {
     "row": [
       [
-        "🗣️ Ask her about it",
+        "Ask her about it",
         "Added to her next chat",
         "Added"
       ],
       [
-        "📤 Share with family",
+        "Share with family",
         "Shared",
         "Shared"
       ]
     ],
     "alert": [
       [
-        "🗣️ Tell Margaret by voice",
+        "Tell Margaret by voice",
         "Margaret will hear this in her next call",
         "Will tell her"
       ],
       [
-        "📤 Share with David",
+        "Share with David",
         "Sent to David",
         "Sent"
       ],
       [
-        "✅ Mark as handled",
+        "Mark as handled",
         "Marked as handled",
         "Handled"
       ]
     ],
     "news": [
       [
-        "🗣️ Read it to Margaret",
+        "Read it to Margaret",
         "She will hear a short version at 18:00",
         "Queued"
       ],
       [
-        "📤 Share with family",
+        "Share with family",
         "Shared with the care circle",
         "Shared"
       ]
@@ -178,10 +178,10 @@
   },
   "saveFailed": "Couldn't save that change · it has been undone",
   "keptPrivate": {
-    "title": "🔒 Kept private",
+    "title": "Kept private",
     "body": "Margaret has chosen not to share this with {{viewerName}}. That's her choice, and she can change it any time.",
     "action": {
-      "label": "💬 Ask Margaret kindly",
+      "label": "Ask Margaret kindly",
       "toast": "Margaret will get a gentle request she can say yes or no to",
       "done": "Request sent"
     },
@@ -200,8 +200,8 @@
     "chooseView": "Choose a view",
     "brandBy": "by InsideSync",
     "whose": "Whose view",
-    "whoSelf": "👵 Margaret (her own app)",
-    "whoFamily": "👨‍👩‍👧 Family & carers",
+    "whoSelf": "Margaret (her own app)",
+    "whoFamily": "Family & carers",
     "search": {
       "placeholder": "Search people, suburbs…",
       "label": "Search",
@@ -238,25 +238,25 @@
   },
   "tabs": {
     "family": {
-      "home": "🏠 Home",
-      "health": "❤️ Health",
-      "around": "🌤️ Around her",
-      "forecast": "🔮 What's ahead",
-      "lineage": "🌳 Health Lineage",
-      "record": "📋 Care record",
-      "live": "🚨 Emergency",
-      "recovery": "🌱 Recovery",
-      "device": "📱 Her phone"
+      "home": "Home",
+      "health": "Health",
+      "around": "Around her",
+      "forecast": "What's ahead",
+      "lineage": "Health Lineage",
+      "record": "Care record",
+      "live": "Emergency",
+      "recovery": "Recovery",
+      "device": "Her phone"
     },
     "self": {
-      "me": "🌞 My day",
-      "recovery": "🌱 My recovery",
-      "health": "❤️ My health",
-      "live": "🚨 Emergency",
-      "privacy": "🔐 Who sees what",
-      "around": "🌤️ Around me",
-      "lineage": "🌳 My family health",
-      "device": "📱 My phone"
+      "me": "My day",
+      "recovery": "My recovery",
+      "health": "My health",
+      "live": "Emergency",
+      "privacy": "Who sees what",
+      "around": "Around me",
+      "lineage": "My family health",
+      "device": "My phone"
     },
     "hospital": {
       "ed": "Pre-arrivals",

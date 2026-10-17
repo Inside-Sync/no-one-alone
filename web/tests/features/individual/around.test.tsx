@@ -15,7 +15,7 @@ beforeEach(() => {
   mockRaf()
 })
 
-const ready = () => screen.findByText('🍃 Air, pollen and smoke')
+const ready = () => screen.findByText('Air, pollen and smoke')
 const newsItems = () => Array.from(document.querySelectorAll('ul.news > li'))
 
 test('is registered for individual/around', () => {
@@ -27,8 +27,8 @@ test('shows every section in prototype order', async () => {
   await ready()
   const heads = Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)
   expect(heads).toEqual([
-    '🌤️ Weather in Marrickville', '👀 Worth knowing, living alone', '📰 News that matters to her',
-    '🔥 Thursday, hour by hour', '🍃 Air, pollen and smoke',
+    'Weather in Marrickville', 'Worth knowing, living alone', 'News that matters to her',
+    'Thursday, hour by hour', 'Air, pollen and smoke',
   ])
   expect(screen.getByText("Around Margaret's home")).toBeInTheDocument()
   expect(screen.getByRole('img', { name: /3D map of Margaret's streets with neighbourhood alerts/ })).toBeInTheDocument()
@@ -67,7 +67,7 @@ test('a news item opens its drawer with actions', async () => {
   fireEvent.click(screen.getByText('Southerly change Friday evening, gusts to 60 km/h'))
   const drawer = document.getElementById('drawer')!
   expect(within(drawer).getByText(/Secure outdoor furniture/)).toBeInTheDocument()
-  fireEvent.click(within(drawer).getByRole('button', { name: '🗣️ Read it to Margaret' }))
+  fireEvent.click(within(drawer).getByRole('button', { name: 'Read it to Margaret' }))
   expect(document.getElementById('toast')!.textContent).toBe('She will hear a short version at 18:00')
 })
 
@@ -82,7 +82,7 @@ test('alerts are sorted as the prototype lists them and open a drawer', async ()
   fireEvent.click(items[1])
   const drawer = document.getElementById('drawer')!
   expect(within(drawer).getByRole('heading', { name: 'Thursday heatwave, 38°' })).toBeInTheDocument()
-  fireEvent.click(within(drawer).getByRole('button', { name: '✅ Mark as handled' }))
+  fireEvent.click(within(drawer).getByRole('button', { name: 'Mark as handled' }))
   expect(document.getElementById('toast')!.textContent).toBe('Marked as handled')
 })
 
@@ -133,7 +133,7 @@ test('in Vietnamese the news categories and the age read naturally', async () =>
   await act(() => i18n.changeLanguage('vi'))
   try {
     renderWithProviders(<AroundPage />, { who: 'self' })
-    await screen.findByText('🍃 Không khí, phấn hoa và khói')
+    await screen.findByText('Không khí, phấn hoa và khói')
     const group = screen.getByRole('group', { name: 'Lọc tin tức' })
     expect(within(group).getAllByRole('button').map((b) => b.textContent)).toEqual(['Tất cả', 'Sức khỏe', 'An toàn', 'Thời tiết', 'Cộng đồng', 'Giao thông'])
     fireEvent.click(within(group).getByRole('button', { name: 'An toàn' }))

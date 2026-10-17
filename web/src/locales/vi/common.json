@@ -108,31 +108,31 @@
   "packetNote": "Chỉ gửi dưới dạng gói FHIR tới khoa cấp cứu tiếp nhận khi có trường hợp khẩn cấp, có sẵn chấp thuận chia sẻ.",
   "notifications": [
     [
-      "⚠️",
+      "triangle-alert",
       "Cần bạn duyệt: hộp chia thuốc hằng tuần do David chuẩn bị",
       "Hôm qua 21:40",
       "warn"
     ],
     [
-      "🔥",
+      "flame",
       "Cảnh báo nắng nóng thứ Năm · kế hoạch đã sẵn sàng",
       "2 giờ trước",
       "warn"
     ],
     [
-      "🛡️",
+      "shield",
       "Có báo cáo lừa đảo gõ cửa trên phố của Mẹ",
       "5 giờ trước",
       "bad"
     ],
     [
-      "✅",
+      "circle-check",
       "Dr Patel đã đọc báo cáo huyết áp",
       "Hôm qua 16:42",
       "good"
     ],
     [
-      "😊",
+      "smile",
       "Bà Margaret đã trò chuyện vui vẻ lúc 13:02",
       "2 giờ trước",
       "good"
@@ -140,12 +140,12 @@
   ],
   "condActions": [
     [
-      "🗣️ Hỏi Mẹ về việc này",
+      "Hỏi Mẹ về việc này",
       "Đã thêm vào cuộc trò chuyện tới",
       "Đã thêm"
     ],
     [
-      "🩺 Trao đổi với Dr Patel",
+      "Trao đổi với Dr Patel",
       "Đã thêm vào nội dung buổi khám bác sĩ gia đình",
       "Đã thêm"
     ]
@@ -154,15 +154,15 @@
     "Duyệt": "✓ Đã duyệt",
     "Nhờ David chuẩn bị hộp chia thuốc": "✓ Đã nhờ David",
     "Gửi báo cáo huyết áp cho Dr Patel": "✓ Đã gửi",
-    "Gọi Mẹ": "📞 Đang gọi…",
-    "Gọi cho Mẹ": "📞 Đang gọi…",
+    "Gọi Mẹ": "Đang gọi…",
+    "Gọi cho Mẹ": "Đang gọi…",
     "Xem xét": "✓ Đã xem xét",
     "Gọi đội đột quỵ": "✓ Đã gọi",
     "Chuyển hướng": "✓ Đã gửi đề nghị chuyển hướng",
     "Approve": "✓ Đã duyệt",
     "Ask David to set up a pill box": "✓ Đã nhờ David",
     "Send BP report to Dr Patel": "✓ Đã gửi",
-    "Call Mum": "📞 Đang gọi…",
+    "Call Mum": "Đang gọi…",
     "Review": "✓ Đã xem xét",
     "Page stroke team": "✓ Đã gọi",
     "Divert": "✓ Đã gửi đề nghị chuyển hướng"
@@ -170,41 +170,41 @@
   "drawerActions": {
     "row": [
       [
-        "🗣️ Hỏi bà về việc này",
+        "Hỏi bà về việc này",
         "Đã thêm vào cuộc trò chuyện tới",
         "Đã thêm"
       ],
       [
-        "📤 Chia sẻ với gia đình",
+        "Chia sẻ với gia đình",
         "Đã chia sẻ",
         "Đã chia sẻ"
       ]
     ],
     "alert": [
       [
-        "🗣️ Báo bà Margaret bằng giọng nói",
+        "Báo bà Margaret bằng giọng nói",
         "Bà Margaret sẽ nghe tin này trong cuộc gọi tới",
         "Sẽ báo bà"
       ],
       [
-        "📤 Chia sẻ với David",
+        "Chia sẻ với David",
         "Đã gửi cho David",
         "Đã gửi"
       ],
       [
-        "✅ Đánh dấu đã xử lý",
+        "Đánh dấu đã xử lý",
         "Đã đánh dấu là đã xử lý",
         "Đã xử lý"
       ]
     ],
     "news": [
       [
-        "🗣️ Đọc cho bà Margaret nghe",
+        "Đọc cho bà Margaret nghe",
         "Bà sẽ nghe bản tóm tắt lúc 18:00",
         "Đã xếp lịch"
       ],
       [
-        "📤 Chia sẻ với gia đình",
+        "Chia sẻ với gia đình",
         "Đã chia sẻ với vòng chăm sóc",
         "Đã chia sẻ"
       ]
@@ -217,10 +217,10 @@
   },
   "saveFailed": "Không lưu được thay đổi · đã hoàn tác",
   "keptPrivate": {
-    "title": "🔒 Được giữ riêng tư",
+    "title": "Được giữ riêng tư",
     "body": "Bà Margaret đã chọn không chia sẻ mục này với {{viewerName}}. Đó là lựa chọn của bà, và bà có thể thay đổi bất cứ lúc nào.",
     "action": {
-      "label": "💬 Nhẹ nhàng hỏi bà Margaret",
+      "label": "Nhẹ nhàng hỏi bà Margaret",
       "toast": "Bà Margaret sẽ nhận một lời đề nghị nhẹ nhàng, bà có thể đồng ý hoặc từ chối",
       "done": "Đã gửi đề nghị"
     },
@@ -239,8 +239,8 @@
     "chooseView": "Chọn chế độ xem",
     "brandBy": "bởi InsideSync",
     "whose": "Góc nhìn của ai",
-    "whoSelf": "👵 Bà Margaret (ứng dụng của bà)",
-    "whoFamily": "👨‍👩‍👧 Gia đình & người chăm sóc",
+    "whoSelf": "Bà Margaret (ứng dụng của bà)",
+    "whoFamily": "Gia đình & người chăm sóc",
     "search": {
       "placeholder": "Tìm người, khu vực…",
       "label": "Tìm kiếm",
@@ -277,25 +277,25 @@
   },
   "tabs": {
     "family": {
-      "home": "🏠 Trang chủ",
-      "health": "❤️ Sức khỏe",
-      "around": "🌤️ Quanh bà",
-      "forecast": "🔮 Sắp tới",
-      "lineage": "🌳 Gia phả sức khỏe",
-      "record": "📋 Hồ sơ chăm sóc",
-      "live": "🚨 Khẩn cấp",
-      "recovery": "🌱 Hồi phục",
-      "device": "📱 Điện thoại của bà"
+      "home": "Trang chủ",
+      "health": "Sức khỏe",
+      "around": "Quanh bà",
+      "forecast": "Sắp tới",
+      "lineage": "Gia phả sức khỏe",
+      "record": "Hồ sơ chăm sóc",
+      "live": "Khẩn cấp",
+      "recovery": "Hồi phục",
+      "device": "Điện thoại của bà"
     },
     "self": {
-      "me": "🌞 Ngày của tôi",
-      "recovery": "🌱 Hồi phục của tôi",
-      "health": "❤️ Sức khỏe của tôi",
-      "live": "🚨 Khẩn cấp",
-      "privacy": "🔐 Ai xem được gì",
-      "around": "🌤️ Quanh tôi",
-      "lineage": "🌳 Sức khỏe gia đình tôi",
-      "device": "📱 Điện thoại của tôi"
+      "me": "Ngày của tôi",
+      "recovery": "Hồi phục của tôi",
+      "health": "Sức khỏe của tôi",
+      "live": "Khẩn cấp",
+      "privacy": "Ai xem được gì",
+      "around": "Quanh tôi",
+      "lineage": "Sức khỏe gia đình tôi",
+      "device": "Điện thoại của tôi"
     },
     "hospital": {
       "ed": "Báo trước khi đến",

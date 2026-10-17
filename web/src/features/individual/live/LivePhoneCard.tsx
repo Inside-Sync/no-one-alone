@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PhoneScreen } from '@/components/phone/PhoneScreen'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { Glyph } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import { apiErrorCode, audioUrl } from '@/data/repo'
 import type { CheckinInput } from '@/data/contract'
@@ -138,7 +139,7 @@ export function LivePhoneCard({ phone, name, helpInitials, checkin, onSpoken, on
 
   return (
     <GlassCard id="liveC" className="c4">
-      <div className="ch"><h2>{t('agent.phone.title', { name })}</h2></div>
+      <div className="ch"><h2><Glyph name="smartphone" />{t('agent.phone.title', { name })}</h2></div>
       <PhoneScreen
         proto
         time={phone.time}
@@ -167,7 +168,7 @@ export function IdlePhoneCard({ name, time, onHelp, disabled }: { name: string; 
   const { t } = useTranslation('live')
   return (
     <GlassCard id="liveC" className="c4">
-      <div className="ch"><h2>{t('agent.phone.title', { name })}</h2></div>
+      <div className="ch"><h2><Glyph name="smartphone" />{t('agent.phone.title', { name })}</h2></div>
       <PhoneScreen proto time={time} q={t('agent.phone.sleep')} onAnswer={() => {}}
         idle={{ title: t('agent.phone.goodnight', { name }), ok: t('agent.phone.ok'), help: t('agent.phone.help'), disabled,
           onOk: () => toast(t('agent.phone.okToast')), onHelp }} />

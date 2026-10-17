@@ -5,12 +5,12 @@ import { Icon } from '@/components/ui/Icon'
 import type { Surroundings } from '@/data/types'
 import { Head, MiniGrid } from '../home/parts'
 
-/** `🌤️ Weather in Marrickville` (c4): now, the 7-day strip and six readings. */
+/** `Weather in Marrickville` (c4): now, the 7-day strip and six readings. */
 export function WeatherCard({ s }: { s: Surroundings }) {
   const w = s.weather
   return (
     <GlassCard span={4}>
-      <Head title={w.heading} meta={w.meta} />
+      <Head icon={w.icon} title={w.heading} meta={w.meta} />
       <div className="wx-now"><b>{w.temp}</b><span>{w.summary}<br /><small className="muted">{w.feelsLike}</small></span></div>
       <div className="week">
         {s.week.map((d) => (

@@ -948,363 +948,408 @@
     "groups": [
       {
         "icon": "heart",
-        "emoji": "❤️",
         "title": "心臓",
         "category": "heart",
         "metrics": [
           {
-            "label": "💓 安静時",
+            "label": "安静時",
             "value": "68 bpm",
             "note": "普段は 63",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "heart-pulse"
           },
           {
-            "label": "🚶 歩行時",
+            "label": "歩行時",
             "value": "92 bpm",
-            "note": "正常"
+            "note": "正常",
+            "icon": "footprints"
           },
           {
-            "label": "🌿 落ち着き度",
+            "label": "落ち着き度",
             "value": "26",
             "note": "普段より低め",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "leaf"
           },
           {
-            "label": "⏱️ 歩いた後の回復",
+            "label": "歩いた後の回復",
             "value": "18拍",
-            "note": "1分間で"
+            "note": "1分間で",
+            "icon": "timer"
           },
           {
-            "label": "📈 今日の範囲",
+            "label": "今日の範囲",
             "value": "58–112",
-            "note": "bpm"
+            "note": "bpm",
+            "icon": "trend"
           },
           {
-            "label": "🏃 体力レベル",
+            "label": "体力レベル",
             "value": "平均的",
-            "note": "同年代と比べて"
+            "note": "同年代と比べて",
+            "icon": "activity"
           }
         ]
       },
       {
         "icon": "lungs",
-        "emoji": "🫁",
         "title": "心拍と呼吸",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚡ 不規則な心拍",
+            "label": "不規則な心拍",
             "value": "通知 2回",
             "note": "今週",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "bolt"
           },
           {
-            "label": "🌙 夜間の不規則な心拍",
+            "label": "夜間の不規則な心拍",
             "value": "~3%",
             "note": "夜間のうち",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "📄 心電図（ECG）",
+            "label": "心電図（ECG）",
             "value": "正常",
             "note": "10月12日",
-            "tone": "good"
+            "tone": "good",
+            "icon": "file"
           },
           {
-            "label": "🩸 血中酸素",
+            "label": "血中酸素",
             "value": "95%",
-            "note": "正常"
+            "note": "正常",
+            "icon": "drop"
           },
           {
-            "label": "🌬️ 1分間の呼吸数",
+            "label": "1分間の呼吸数",
             "value": "15",
-            "note": "睡眠中 · 正常"
+            "note": "睡眠中 · 正常",
+            "icon": "wind"
           },
           {
-            "label": "🌡️ 皮膚温",
+            "label": "皮膚温",
             "value": "正常",
-            "note": "+0.3°"
+            "note": "+0.3°",
+            "icon": "thermometer"
           }
         ]
       },
       {
-        "icon": "trend",
-        "emoji": "🔥",
+        "icon": "flame",
         "title": "活動とエネルギー",
         "category": "activity",
         "metrics": [
           {
-            "label": "👣 歩数",
+            "label": "歩数",
             "value": "3,240",
-            "note": "目標 3,500"
+            "note": "目標 3,500",
+            "icon": "footprints"
           },
           {
-            "label": "📏 距離",
+            "label": "距離",
             "value": "2.1 km",
-            "note": "歩行"
+            "note": "歩行",
+            "icon": "ruler"
           },
           {
-            "label": "🪜 階段",
+            "label": "階段",
             "value": "2階分",
-            "note": "上った"
+            "note": "上った",
+            "icon": "door-stairwell"
           },
           {
-            "label": "🔥 活動カロリー",
+            "label": "活動カロリー",
             "value": "212",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "flame"
           },
           {
-            "label": "🛋️ 安静時カロリー",
+            "label": "安静時カロリー",
             "value": "1,428",
-            "note": "kcal"
+            "note": "kcal",
+            "icon": "sofa"
           },
           {
-            "label": "🏋️ エクササイズ",
+            "label": "エクササイズ",
             "value": "18分",
             "note": "目標 30",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "dumbbell"
           }
         ]
       },
       {
-        "icon": "people",
-        "emoji": "🚶",
+        "icon": "footprints",
         "title": "歩行とバランス",
         "category": "activity",
         "metrics": [
           {
-            "label": "🐢 歩く速さ",
+            "label": "歩く速さ",
             "value": "遅め",
             "note": "0.82 m/s",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "turtle"
           },
           {
-            "label": "👟 歩幅",
+            "label": "歩幅",
             "value": "51 cm",
-            "note": "普段は 54"
+            "note": "普段は 54",
+            "icon": "footprints"
           },
           {
-            "label": "🦶 両足が着いている時間",
+            "label": "両足が着いている時間",
             "value": "34%",
             "note": "安定感が低下",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "footprints"
           },
           {
-            "label": "⚖️ 左右均等な歩き",
+            "label": "左右均等な歩き",
             "value": "はい",
-            "note": "差 6%"
+            "note": "差 6%",
+            "icon": "scale"
           },
           {
-            "label": "🧍 安定性",
+            "label": "安定性",
             "value": "低い",
             "note": "転倒の可能性が高め",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "person-standing"
           },
           {
-            "label": "🕕 6分間歩行",
+            "label": "6分間歩行",
             "value": "310 m",
-            "note": "普段は 340"
+            "note": "普段は 340",
+            "icon": "timer"
           }
         ]
       },
       {
-        "icon": "moon",
-        "emoji": "😴",
+        "icon": "bed",
         "title": "睡眠",
         "category": "sleep",
         "metrics": [
           {
-            "label": "🛌 睡眠時間",
+            "label": "睡眠時間",
             "value": "6時間12分",
             "note": "普段は 7時間",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "bed"
           },
           {
-            "label": "✨ 良い睡眠",
+            "label": "良い睡眠",
             "value": "81%",
-            "note": "ベッドにいた時間のうち"
+            "note": "ベッドにいた時間のうち",
+            "icon": "sparkles"
           },
           {
-            "label": "🌑 深い睡眠",
+            "label": "深い睡眠",
             "value": "52分",
-            "note": "回復につながる"
+            "note": "回復につながる",
+            "icon": "moon"
           },
           {
-            "label": "💭 レム睡眠",
+            "label": "レム睡眠",
             "value": "52分",
-            "note": "正常"
+            "note": "正常",
+            "icon": "cloud-moon"
           },
           {
-            "label": "👀 目覚めた回数",
+            "label": "目覚めた回数",
             "value": "6回",
             "note": "起きていた時間 38分",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "eye"
           },
           {
-            "label": "🕙 就寝時刻",
+            "label": "就寝時刻",
             "value": "22:41",
-            "note": "ほぼ規則的"
+            "note": "ほぼ規則的",
+            "icon": "clock"
           }
         ]
       },
       {
         "icon": "smile",
-        "emoji": "😊",
         "title": "気分とつながり",
         "category": "mood",
         "metrics": [
           {
-            "label": "😊 今日の気分",
+            "label": "今日の気分",
             "value": "明るい",
             "note": "声の様子から",
-            "tone": "good"
+            "tone": "good",
+            "icon": "smile"
           },
           {
-            "label": "🙂 今週",
+            "label": "今週",
             "value": "おおむね良好",
-            "note": "安定"
+            "note": "安定",
+            "icon": "smile"
           },
           {
-            "label": "🫂 孤独感",
+            "label": "孤独感",
             "value": "少し",
-            "note": "9点中 4点"
+            "note": "9点中 4点",
+            "icon": "heart-handshake"
           },
           {
-            "label": "📞 電話",
+            "label": "電話",
             "value": "5",
-            "note": "今週"
+            "note": "今週",
+            "icon": "phone"
           },
           {
-            "label": "🏡 訪問",
+            "label": "訪問",
             "value": "2",
-            "note": "今週"
+            "note": "今週",
+            "icon": "home"
           },
           {
-            "label": "🧘 落ち着く呼吸",
+            "label": "落ち着く呼吸",
             "value": "10分",
-            "note": "今日"
+            "note": "今日",
+            "icon": "wind"
           }
         ]
       },
       {
         "icon": "drop",
-        "emoji": "💧",
         "title": "体と食事",
         "category": "heart",
         "metrics": [
           {
-            "label": "⚖️ 体重",
+            "label": "体重",
             "value": "61.2 kg",
-            "note": "安定"
+            "note": "安定",
+            "icon": "scale"
           },
           {
-            "label": "📐 体格（BMI）",
+            "label": "体格（BMI）",
             "value": "標準",
-            "note": "23.4"
+            "note": "23.4",
+            "icon": "ruler"
           },
           {
-            "label": "💧 水分",
+            "label": "水分",
             "value": "1.5 L 中 1.1 L",
             "note": "もっと飲みましょう",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "drop"
           },
           {
-            "label": "🍽️ 食事",
+            "label": "食事",
             "value": "3",
-            "note": "声で教えてくれました"
+            "note": "声で教えてくれました",
+            "icon": "utensils"
           },
           {
-            "label": "🫖 紅茶",
+            "label": "紅茶",
             "value": "2",
-            "note": "今日"
+            "note": "今日",
+            "icon": "coffee"
           },
           {
-            "label": "🌡️ 体温",
+            "label": "体温",
             "value": "36.7°",
-            "note": "正常"
+            "note": "正常",
+            "icon": "thermometer"
           }
         ]
       },
       {
         "icon": "ear",
-        "emoji": "👂",
         "title": "聴力と感覚",
         "category": "speech",
         "metrics": [
           {
-            "label": "🔊 周囲の音",
+            "label": "周囲の音",
             "value": "62 dB",
-            "note": "正常"
+            "note": "正常",
+            "icon": "volume-2"
           },
           {
-            "label": "📺 テレビの音量",
+            "label": "テレビの音量",
             "value": "大きい",
             "note": "74 dB",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "tv"
           },
           {
-            "label": "❓「え、何？」",
+            "label": "「え、何？」",
             "value": "9回",
             "note": "今週",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-help"
           },
           {
-            "label": "🦻 補聴器",
+            "label": "補聴器",
             "value": "未装着",
             "note": "今日",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "ear"
           },
           {
-            "label": "☀️ 屋外にいた時間",
+            "label": "屋外にいた時間",
             "value": "38分",
-            "note": "目標 60"
+            "note": "目標 60",
+            "icon": "sun"
           },
           {
-            "label": "🔠 画面の文字",
+            "label": "画面の文字",
             "value": "特大",
-            "note": "28 pt"
+            "note": "28 pt",
+            "icon": "type"
           }
         ]
       },
       {
         "icon": "pill",
-        "emoji": "💊",
         "title": "薬と血圧",
         "category": "meds",
         "metrics": [
           {
-            "label": "✅ 時間どおりに服用",
+            "label": "時間どおりに服用",
             "value": "86%",
             "note": "飲み忘れあり",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-check"
           },
           {
-            "label": "🌅 朝の血圧",
+            "label": "朝の血圧",
             "value": "146/88",
             "note": "高い",
-            "tone": "bad"
+            "tone": "bad",
+            "icon": "sunrise"
           },
           {
-            "label": "🌙 夜の血圧",
+            "label": "夜の血圧",
             "value": "139/84",
             "note": "やや高い",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "moon"
           },
           {
-            "label": "💊 今日",
+            "label": "今日",
             "value": "3回中 2回",
-            "note": "次は 18:00"
+            "note": "次は 18:00",
+            "icon": "pill"
           },
           {
-            "label": "❌ 飲み忘れ",
+            "label": "飲み忘れ",
             "value": "3",
             "note": "今週",
-            "tone": "warn"
+            "tone": "warn",
+            "icon": "circle-x"
           },
           {
-            "label": "📦 残りの薬",
+            "label": "残りの薬",
             "value": "12日分",
-            "note": "もうすぐ補充"
+            "note": "もうすぐ補充",
+            "icon": "package"
           }
         ]
       }
@@ -2434,38 +2479,44 @@
       ],
       "stats": [
         {
-          "label": "🗣️ 話す速さ",
+          "label": "話す速さ",
           "value": "132",
-          "note": "語/分 · 普段は 141"
+          "note": "語/分 · 普段は 141",
+          "icon": "speech"
         },
         {
-          "label": "⏸️ 間（ま）",
+          "label": "間（ま）",
           "value": "少し多め",
           "note": "普段より",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "pause"
         },
         {
-          "label": "✅ はっきりした発話",
+          "label": "はっきりした発話",
           "value": "はい",
           "note": "ろれつ問題なし",
-          "tone": "good"
+          "tone": "good",
+          "icon": "circle-check"
         },
         {
-          "label": "🔤 言葉が出てこない",
+          "label": "言葉が出てこない",
           "value": "3回",
-          "note": "普段は1〜2回"
+          "note": "普段は1〜2回",
+          "icon": "type"
         },
         {
-          "label": "👂「え、何？」",
+          "label": "「え、何？」",
           "value": "2回",
           "note": "聴力",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "ear"
         },
         {
-          "label": "😊 気分",
+          "label": "気分",
           "value": "明るい",
           "note": "良い日",
-          "tone": "good"
+          "tone": "good",
+          "icon": "smile"
         }
       ]
     },
@@ -2476,37 +2527,43 @@
       },
       "stats": [
         {
-          "label": "🌡️ 室内",
+          "label": "室内",
           "value": "29.5°",
           "note": "暑すぎ",
-          "tone": "warn"
+          "tone": "warn",
+          "icon": "thermometer"
         },
         {
-          "label": "☀️ 屋外",
+          "label": "屋外",
           "value": "33°",
-          "note": "体感 35°"
+          "note": "体感 35°",
+          "icon": "sun"
         },
         {
-          "label": "💦 湿度",
+          "label": "湿度",
           "value": "58%",
-          "note": "室内"
+          "note": "室内",
+          "icon": "droplets"
         },
         {
-          "label": "🍃 空気",
+          "label": "空気",
           "value": "良好",
           "note": "今日はきれい",
-          "tone": "good"
+          "tone": "good",
+          "icon": "wind"
         },
         {
-          "label": "🕶️ 紫外線の強さ",
+          "label": "紫外線の強さ",
           "value": "極端に強い",
           "note": "日陰にいましょう",
-          "tone": "bad"
+          "tone": "bad",
+          "icon": "glasses"
         },
         {
-          "label": "💧 水分補給リマインダー",
+          "label": "水分補給リマインダー",
           "value": "8回中 6回",
-          "note": "応答"
+          "note": "応答",
+          "icon": "drop"
         }
       ],
       "note": "木曜の予報は38 °C。エージェントが正午の安否確認を追加し、図書館のクールルーム（120席、400 m先）への送迎を提案します。"

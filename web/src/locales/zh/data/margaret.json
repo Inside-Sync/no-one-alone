@@ -23,7 +23,7 @@
     "medicineCount": 4,
     "conditions": [
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "title": "高血压",
         "since": "61岁起（2009年）",
         "now": "近期控制不佳",
@@ -31,7 +31,7 @@
         "detail": "她的血压在6周内慢慢升高。她每晚服用氨氯地平，本周漏服3次。目标：早上低于135。"
       },
       {
-        "emoji": "🦻",
+        "icon": "ear",
         "title": "听力下降",
         "since": "双耳 · 72岁起（2020年）",
         "now": "今天没戴助听器",
@@ -39,7 +39,7 @@
         "detail": "老年性听力下降。助听器有帮助，坚持佩戴还能降低以后出现记忆问题的几率。已预约10月22日听力检查。"
       },
       {
-        "emoji": "🫘",
+        "icon": "bean",
         "title": "肾功能略有下降",
         "since": "3a期 · 2025年发现",
         "now": "稳定，每年检查",
@@ -47,7 +47,7 @@
         "detail": "肾功能（eGFR）为58，正常值为60及以上。在她这个年龄很常见。家庭医生每年为她检查，并避免使用伤肾的药物。"
       },
       {
-        "emoji": "🍬",
+        "icon": "candy",
         "title": "血糖偏高",
         "since": "HbA1c 5.9% · 2026年",
         "now": "观察",
@@ -55,7 +55,7 @@
         "detail": "不是糖尿病，但接近临界值（6.0%）。她父亲患有2型糖尿病。多走路、少喝甜饮料会有帮助。"
       },
       {
-        "emoji": "🦴",
+        "icon": "bone",
         "title": "双膝关节炎",
         "since": "2015年起",
         "now": "轻微疼痛，使用手杖",
@@ -63,7 +63,7 @@
         "detail": "退行性关节炎。轻松散步和力量课有帮助。需要时服用对乙酰氨基酚。"
       },
       {
-        "emoji": "💔",
+        "icon": "heart-crack",
         "title": "心跳不齐（疑似）",
         "since": "检查中 · 2026年10月",
         "now": "本周2次提醒",
@@ -71,7 +71,7 @@
         "detail": "她的手表在夜间两次提示心律不齐。10月12日的心电图正常。家庭医生可能会安排2周的心脏监测。"
       },
       {
-        "emoji": "🧠",
+        "icon": "brain",
         "title": "记忆",
         "since": "无诊断",
         "now": "温和关注中",
@@ -79,7 +79,7 @@
         "detail": "没有记忆方面的疾病。她母亲曾患痴呆，所以每日聊天会留意说话方式的缓慢变化。目前一切正常。"
       },
       {
-        "emoji": "🦴",
+        "icon": "bone",
         "title": "骨骼强度",
         "since": "骨量减少 · 2022年",
         "now": "每日服维生素D",
@@ -98,82 +98,87 @@
       "shareToast": "档案已与照护圈共享",
       "rows": [
         {
-          "emoji": "👩",
+          "icon": "user-round",
           "label": "性别",
           "value": "女"
         },
         {
-          "emoji": "🎂",
+          "icon": "cake",
           "label": "年龄",
           "value": "78"
         },
         {
-          "emoji": "📏",
+          "icon": "ruler",
           "label": "身高",
           "value": "162 cm"
         },
         {
-          "emoji": "⚖️",
+          "icon": "scale",
           "label": "体重",
           "value": "61.2 kg"
         },
         {
-          "emoji": "📐",
+          "icon": "ruler",
           "label": "BMI",
           "value": "23.4 · 健康"
         },
         {
-          "emoji": "🩸",
+          "icon": "drop",
           "label": "血型",
           "value": "O型Rh阳性"
         },
         {
-          "emoji": "🏠",
+          "icon": "home",
           "label": "居住",
           "value": "独居 · 两层联排屋"
         },
         {
-          "emoji": "🗣️",
+          "icon": "speech",
           "label": "语言",
           "value": "英语"
         },
         {
-          "emoji": "🦯",
+          "icon": "accessibility",
           "label": "助行器具",
           "value": "外出用手杖"
         },
         {
-          "emoji": "👓",
+          "icon": "glasses",
           "label": "视力",
           "value": "老花镜"
         },
         {
-          "emoji": "🦻",
+          "icon": "ear",
           "label": "听力",
           "value": "双耳助听器"
         },
         {
-          "emoji": "📝",
+          "icon": "notebook-pen",
           "label": "照护意愿",
           "value": "已存档预立医疗计划"
         }
       ],
       "chips": [
         {
-          "text": "⚠️ 过敏：青霉素（皮疹）",
-          "danger": true
+          "text": "过敏：青霉素（皮疹）",
+          "danger": true,
+          "icon": "triangle-alert"
         },
         {
-          "text": "💊 4种常用药"
+          "text": "4种常用药",
+          "icon": "pill"
         },
         {
-          "text": "🚬 从不吸烟"
+          "text": "从不吸烟",
+          "icon": "cigarette-off"
         },
         {
-          "text": "🍷 每周饮酒1–2杯"
+          "text": "每周饮酒1–2杯",
+          "icon": "wine"
         },
         {
-          "text": "💉 2026年4月接种流感疫苗 · 新冠疫苗到期"
+          "text": "2026年4月接种流感疫苗 · 新冠疫苗到期",
+          "icon": "syringe"
         }
       ]
     },
@@ -210,38 +215,46 @@
     "dayline": [
       {
         "time": "早上",
-        "text": "🌅 已起床活动 · 道了早安"
+        "text": "已起床活动 · 道了早安",
+        "icon": "sunrise"
       },
       {
         "time": "08:12",
-        "text": "💬 早间聊天 · 一切都好"
+        "text": "早间聊天 · 一切都好",
+        "icon": "message-circle"
       },
       {
         "time": "08:31",
-        "text": "💊 早上的药已服"
+        "text": "早上的药已服",
+        "icon": "pill"
       },
       {
         "time": "09:31",
-        "text": "💊 昨晚的药经提醒后已服",
-        "flag": "w"
+        "text": "昨晚的药经提醒后已服",
+        "flag": "w",
+        "icon": "pill"
       },
       {
         "time": "上午晚些时候",
-        "text": "🚶 出门散步了"
+        "text": "出门散步了",
+        "icon": "footprints"
       },
       {
         "time": "13:02",
-        "text": "🍽️ 午餐聊天 · 心情愉快"
+        "text": "午餐聊天 · 心情愉快",
+        "icon": "utensils"
       },
       {
         "time": "下午",
-        "text": "😴 正在休息 · 今天比较热",
-        "flag": "w"
+        "text": "正在休息 · 今天比较热",
+        "flag": "w",
+        "icon": "bed"
       },
       {
         "time": "18:00",
-        "text": "💬 下次聊天",
-        "flag": "n"
+        "text": "下次聊天",
+        "flag": "n",
+        "icon": "message-circle"
       }
     ],
     "context": {
@@ -283,7 +296,7 @@
     },
     "kpis": [
       {
-        "emoji": "❤️",
+        "icon": "heart",
         "label": "心率",
         "value": "68",
         "unit": "bpm",
@@ -304,7 +317,7 @@
         ]
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "血压",
         "value": "146",
         "unit": "/88",
@@ -325,7 +338,7 @@
         ]
       },
       {
-        "emoji": "🌿",
+        "icon": "leaf",
         "label": "平静分（HRV）",
         "value": "26",
         "unit": "",
@@ -346,7 +359,7 @@
         ]
       },
       {
-        "emoji": "😴",
+        "icon": "bed",
         "label": "睡眠",
         "value": "6小时12分",
         "unit": "",
@@ -367,7 +380,7 @@
         ]
       },
       {
-        "emoji": "👣",
+        "icon": "footprints",
         "label": "步数",
         "value": "3,240",
         "unit": "今天",
@@ -388,7 +401,7 @@
         ]
       },
       {
-        "emoji": "🚶",
+        "icon": "footprints",
         "label": "步速",
         "value": "0.82",
         "unit": "m/s",
@@ -409,7 +422,7 @@
         ]
       },
       {
-        "emoji": "💊",
+        "icon": "pill",
         "label": "服药情况",
         "value": "86",
         "unit": "%",
@@ -430,7 +443,7 @@
         ]
       },
       {
-        "emoji": "📞",
+        "icon": "phone",
         "label": "接听电话",
         "value": "97",
         "unit": "%",
@@ -451,7 +464,7 @@
         ]
       },
       {
-        "emoji": "🗣️",
+        "icon": "speech",
         "label": "说话速度",
         "value": "132",
         "unit": "词/分钟",
@@ -472,7 +485,7 @@
         ]
       },
       {
-        "emoji": "🤝",
+        "icon": "handshake",
         "label": "与人相处",
         "value": "5",
         "unit": "本周",
@@ -493,7 +506,7 @@
         ]
       },
       {
-        "emoji": "🌡️",
+        "icon": "thermometer",
         "label": "室内温度",
         "value": "29.5",
         "unit": "°C",
@@ -514,7 +527,7 @@
         ]
       },
       {
-        "emoji": "⚖️",
+        "icon": "scale",
         "label": "体重",
         "value": "61.2",
         "unit": "kg",
@@ -930,41 +943,41 @@
       "sub": "您今天状态不错。这是为您准备的今日概览。",
       "tiles": [
         {
-          "emoji": "❤️",
+          "icon": "heart",
           "title": "心脏",
           "note": "68 · 平稳"
         },
         {
-          "emoji": "👣",
+          "icon": "footprints",
           "title": "3,240步",
           "note": "快到3,500了！"
         },
         {
-          "emoji": "😴",
+          "icon": "bed",
           "title": "睡了6小时",
           "note": "有点少",
           "warn": true
         },
         {
-          "emoji": "💧",
+          "icon": "drop",
           "title": "喝水",
           "note": "现在喝一杯吧",
           "warn": true
         },
         {
-          "emoji": "💊",
+          "icon": "pill",
           "title": "下次吃药",
           "note": "晚上6点，氨氯地平"
         },
         {
-          "emoji": "📞",
+          "icon": "phone",
           "title": "James 来电",
           "note": "今晚8点"
         }
       ],
       "ideas": [
         {
-          "emoji": "🔥",
+          "icon": "flame",
           "title": "周四会到38°。要不要送您去图书馆避暑室？",
           "note": "志愿者 Tom 可以11点来接您。",
           "yes": {
@@ -979,7 +992,7 @@
           }
         },
         {
-          "emoji": "💊",
+          "icon": "pill",
           "title": "用每周药盒会不会让晚上吃药更方便？",
           "note": "David 说周六可以来帮您准备。",
           "yes": {
@@ -994,7 +1007,7 @@
           }
         },
         {
-          "emoji": "🦻",
+          "icon": "ear",
           "title": "下午聊天前把助听器戴上好吗？",
           "note": "这样通话会更轻松。",
           "yes": {
@@ -1011,27 +1024,27 @@
       ],
       "promise": [
         {
-          "emoji": "✋",
+          "icon": "hand",
           "lead": "由您做主。",
           "text": "谁能看到什么由您决定，随时都可以更改。"
         },
         {
-          "emoji": "📷",
+          "icon": "camera",
           "lead": "永远不用摄像头。",
           "text": "家中传感器只感知活动和温度。"
         },
         {
-          "emoji": "🎙️",
+          "icon": "mic",
           "lead": "不会偷听。",
           "text": "只有在您接听电话时麦克风才会开启。"
         },
         {
-          "emoji": "📍",
+          "icon": "map-pin",
           "lead": "不追踪位置。",
           "text": "定位已关闭。如果您打开，别人也只能看到“在家”或“外出”。"
         },
         {
-          "emoji": "🚨",
+          "icon": "siren",
           "lead": "仅限紧急情况：",
           "text": "David 和 James 始终会收到安全警报，以便及时赶来帮忙。"
         }
@@ -1072,18 +1085,21 @@
         "presets": [
           {
             "id": "family",
-            "label": "👨‍👩‍👧 家人可看大部分，不含我的心情"
+            "label": "家人可看大部分，不含我的心情",
+            "icon": "users"
           },
           {
             "id": "safety",
-            "label": "🚨 仅安全警报"
+            "label": "仅安全警报",
+            "icon": "siren"
           },
           {
             "id": "all",
-            "label": "🤝 全部与家人共享"
+            "label": "全部与家人共享",
+            "icon": "handshake"
           }
         ],
-        "safetyNote": "🚨 紧急联系人的安全警报无法关闭，这样您需要帮助时总有人能赶来。您可以更换紧急联系人。",
+        "safetyNote": "紧急联系人的安全警报无法关闭，这样您需要帮助时总有人能赶来。您可以更换紧急联系人。",
         "emergency": {
           "agreed": "10月1日已同意",
           "text": "如果您需要救护车，医院会收到您的病症、用药和过敏信息，以便尽快救治。不会有其他信息，而且仅限那一次就诊。",
@@ -1099,7 +1115,8 @@
               "done": "已查看"
             }
           ]
-        }
+        },
+        "safetyIcon": "siren"
       }
     }
   }

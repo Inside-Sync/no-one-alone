@@ -4,6 +4,7 @@ import { Fragment, type CSSProperties, type KeyboardEvent, type ReactNode } from
 import { useTranslation } from 'react-i18next'
 import { Sparkline } from '@/components/charts/Sparkline'
 import { useDrawer } from '@/components/ui/Drawer'
+import { Glyph } from '@/components/ui/Icon'
 import { Kpi } from '@/components/ui/Kpi'
 import { OnceButton } from '@/components/ui/OnceButton'
 import type { Kpi as KpiData, MiniStat } from '@/data/types'
@@ -72,7 +73,7 @@ export function Kv({ rows }: { rows: readonly (readonly [label: string, value: R
 
 interface KpiBodyProps extends DrawerConfig {
   kpi: KpiData
-  /** Text matched against EXPLAIN; the individual view prefixes the tile's emoji. */
+  /** Text matched against EXPLAIN. */
   explainLabel?: string
 }
 
@@ -129,7 +130,7 @@ export function MiniGrid({ stats, plain: plainFont, ...config }: DrawerConfig & 
         const open = () => drawer.open(s.label, <MiniDrawerBody stat={s} {...config} />)
         return (
           <div key={s.label} role="button" tabIndex={0} onClick={open} onKeyDown={keyActivate(open)}>
-            <small>{s.label}</small>
+            <small>{s.icon && <Glyph name={s.icon} />}{s.label}</small>
             <b style={plainFont ? PLAIN_B : undefined}>{s.value}</b>
             <em style={{ ...(plainFont ? PLAIN_EM : undefined), ...(s.tone ? { color: toneVar(s.tone) } : undefined) }}>{s.note}</em>
           </div>

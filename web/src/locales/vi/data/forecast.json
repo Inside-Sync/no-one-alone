@@ -7,43 +7,50 @@
     "wellbeingNote": "72 trên 100, giảm 5 so với tuần trước. Có hai điều kéo điểm xuống: huyết áp của bà đang tăng dần, và nhà bà quá nóng.",
     "wellbeingAxes": [
       {
-        "label": "❤️ Cơ thể",
+        "label": "Cơ thể",
         "now": 61,
-        "lastMonth": 74
+        "lastMonth": 74,
+        "icon": "heart"
       },
       {
-        "label": "💊 Thuốc",
+        "label": "Thuốc",
         "now": 68,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "pill"
       },
       {
-        "label": "🚶 Vận động",
+        "label": "Vận động",
         "now": 74,
-        "lastMonth": 80
+        "lastMonth": 80,
+        "icon": "footprints"
       },
       {
-        "label": "😴 Giấc ngủ",
+        "label": "Giấc ngủ",
         "now": 70,
-        "lastMonth": 76
+        "lastMonth": 76,
+        "icon": "bed"
       },
       {
-        "label": "🤝 Giao tiếp",
+        "label": "Giao tiếp",
         "now": 82,
-        "lastMonth": 84
+        "lastMonth": 84,
+        "icon": "handshake"
       },
       {
-        "label": "🧠 Trí nhớ",
+        "label": "Trí nhớ",
         "now": 88,
-        "lastMonth": 90
+        "lastMonth": 90,
+        "icon": "brain"
       },
       {
-        "label": "🏠 Nhà ở",
+        "label": "Nhà ở",
         "now": 58,
-        "lastMonth": 78
+        "lastMonth": 78,
+        "icon": "home"
       }
     ],
     "comingUp": {
-      "title": "🔮 Sắp tới: một việc cần làm",
+      "title": "Sắp tới: một việc cần làm",
       "meta": "Đột quỵ · 90 ngày",
       "pill": {
         "tone": "bad",
@@ -104,7 +111,8 @@
           "value": "forecast",
           "soft": true
         }
-      ]
+      ],
+      "icon": "telescope"
     },
     "weeklyPlan": [
       {
@@ -152,32 +160,32 @@
     "weeklyPlanMeta": "4 việc · 2 người phụ trách",
     "model": [
       {
-        "emoji": "👀",
+        "icon": "eye",
         "label": "Theo dõi",
         "value": "11 dấu hiệu"
       },
       {
-        "emoji": "📚",
+        "icon": "book-open",
         "label": "Dự báo bằng",
         "value": "BigQuery AI.FORECAST"
       },
       {
-        "emoji": "🎯",
+        "icon": "target",
         "label": "Mức nguy cơ",
         "value": "Quy tắc demo, không phải chẩn đoán"
       },
       {
-        "emoji": "🩺",
+        "icon": "stethoscope",
         "label": "Tuân theo",
         "value": "Hướng dẫn của bác sĩ"
       },
       {
-        "emoji": "🔄",
+        "icon": "refresh-cw",
         "label": "Cập nhật",
         "value": "Mỗi giờ"
       },
       {
-        "emoji": "🧑‍⚕️",
+        "icon": "stethoscope",
         "label": "Người quyết định",
         "value": "Bác sĩ của bà, không phải ứng dụng"
       }
@@ -278,114 +286,125 @@
     "shapNote": "Thanh cho thấy mỗi lý do đẩy mức nguy cơ của bà lên hay xuống mạnh thế nào. Trọng số mẫu cho bản thử nghiệm.",
     "signs": [
       {
-        "sign": "🩺 Huyết áp buổi sáng",
+        "sign": "Huyết áp buổi sáng",
         "from": "Máy đo huyết áp bắp tay",
         "frequency": "Mỗi sáng",
         "now": "146",
         "usual": "132",
         "comparison": "Cao hơn nhiều",
         "sigma": "+2.8",
-        "tone": "bad"
+        "tone": "bad",
+        "icon": "stethoscope"
       },
       {
-        "sign": "❤️ Nhịp tim lúc nghỉ",
+        "sign": "Nhịp tim lúc nghỉ",
         "from": "Đồng hồ đeo tay",
         "frequency": "Cả ngày",
         "now": "68",
         "usual": "63",
         "comparison": "Gần như không đổi",
         "sigma": "+0.4",
-        "tone": "good"
+        "tone": "good",
+        "icon": "heart"
       },
       {
-        "sign": "🌿 Chỉ số thư thái (HRV)",
+        "sign": "Chỉ số thư thái (HRV)",
         "from": "Đồng hồ đeo tay",
         "frequency": "Mỗi đêm",
         "now": "26",
         "usual": "31",
         "comparison": "Thấp hơn",
         "sigma": "−1.9",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "leaf"
       },
       {
-        "sign": "⚡ Cảnh báo nhịp tim không đều",
+        "sign": "Cảnh báo nhịp tim không đều",
         "from": "Đồng hồ đeo tay",
         "frequency": "Khi xảy ra",
         "now": "2 lần tuần này",
         "usual": "hiếm khi",
         "comparison": "Cao hơn",
         "sigma": "+2.4",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "bolt"
       },
       {
-        "sign": "🚶 Tốc độ đi bộ",
+        "sign": "Tốc độ đi bộ",
         "from": "Điện thoại + nhà",
         "frequency": "Mỗi ngày",
         "now": "0.82 m/s",
         "usual": "0.89",
         "comparison": "Chậm hơn",
         "sigma": "−2.1",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "footprints"
       },
       {
-        "sign": "🌙 Thức dậy ban đêm",
+        "sign": "Thức dậy ban đêm",
         "from": "Cảm biến tại nhà",
         "frequency": "Cả đêm",
         "now": "41 lần",
         "usual": "18",
         "comparison": "Cao hơn nhiều",
         "sigma": "+2.3",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "moon"
       },
       {
-        "sign": "💊 Thuốc đã uống",
+        "sign": "Thuốc đã uống",
         "from": "Hộp chia thuốc",
         "frequency": "Mỗi liều",
         "now": "86%",
         "usual": "95%",
         "comparison": "Thấp hơn",
         "sigma": "−1.8",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pill"
       },
       {
-        "sign": "⏸️ Ngập ngừng khi nói",
+        "sign": "Ngập ngừng khi nói",
         "from": "Trò chuyện hằng ngày",
         "frequency": "Mỗi ngày",
         "now": "Nhiều hơn",
         "usual": "ít hơn",
         "comparison": "Cao hơn",
         "sigma": "+1.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "pause"
       },
       {
-        "sign": "👂 \"Hả, gì cơ?\"",
+        "sign": "\"Hả, gì cơ?\"",
         "from": "Trò chuyện hằng ngày",
         "frequency": "Mỗi ngày",
         "now": "9 lần tuần này",
         "usual": "3",
         "comparison": "Cao hơn nhiều",
         "sigma": "+2.6",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "ear"
       },
       {
-        "sign": "🌡️ Nhiệt độ trong nhà",
+        "sign": "Nhiệt độ trong nhà",
         "from": "Cảm biến tại nhà",
         "frequency": "Cả ngày",
         "now": "29.5°",
         "usual": "25.1°",
         "comparison": "Cao hơn nhiều",
         "sigma": "+2.2",
-        "tone": "warn"
+        "tone": "warn",
+        "icon": "thermometer"
       },
       {
-        "sign": "⚖️ Cân nặng",
+        "sign": "Cân nặng",
         "from": "Cân",
         "frequency": "Mỗi ngày",
         "now": "61.2 kg",
         "usual": "61.0",
         "comparison": "Gần như không đổi",
         "sigma": "+0.2",
-        "tone": "good"
+        "tone": "good",
+        "icon": "scale"
       }
     ],
     "bp": {
@@ -421,27 +440,30 @@
       "sliders": [
         {
           "id": "adherence",
-          "label": "💊 Uống thuốc đúng giờ",
+          "label": "Uống thuốc đúng giờ",
           "min": 60,
           "max": 100,
           "step": 1,
-          "value": 86
+          "value": 86,
+          "icon": "pill"
         },
         {
           "id": "steps",
-          "label": "👣 Số bước mỗi ngày",
+          "label": "Số bước mỗi ngày",
           "min": 1500,
           "max": 7000,
           "step": 100,
-          "value": 3240
+          "value": 3240,
+          "icon": "footprints"
         },
         {
           "id": "salt",
-          "label": "🧂 Muối trong thức ăn",
+          "label": "Muối trong thức ăn",
           "min": 0,
           "max": 2,
           "step": 1,
-          "value": 1
+          "value": 1,
+          "icon": "cooking-pot"
         }
       ],
       "saltLabels": [
@@ -449,7 +471,7 @@
         "Vừa",
         "Nhiều"
       ],
-      "hearingLabel": "👂 Đeo máy trợ thính mỗi ngày",
+      "hearingLabel": "Đeo máy trợ thính mỗi ngày",
       "hearingAids": false,
       "base": {
         "stroke": 2.1,
@@ -457,7 +479,8 @@
         "admission": 14,
         "mci": 3.1
       },
-      "note": "Mức tác động tương đối lấy từ các nghiên cứu đã công bố và được áp dụng lên nguy cơ hiện tại của bà. Đây là gợi ý để trao đổi với bác sĩ gia đình, không phải đơn thuốc."
+      "note": "Mức tác động tương đối lấy từ các nghiên cứu đã công bố và được áp dụng lên nguy cơ hiện tại của bà. Đây là gợi ý để trao đổi với bác sĩ gia đình, không phải đơn thuốc.",
+      "hearingIcon": "ear"
     },
     "modes": [
       {
