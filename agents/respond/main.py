@@ -112,7 +112,7 @@ class ChatIn(BaseModel):
     mode: Literal["hosp", "self", "fam"]
     viewer: str | None = Field(default=None, max_length=100)
     history: list[ChatLine] = Field(default=[], max_length=10)
-    snapshot: dict = {}
+    snapshot: dict | None = None
 
 
 @app.post("/chat")

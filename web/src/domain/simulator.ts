@@ -12,7 +12,7 @@ export const scenarioFor = (): DemoScenario => 'stroke'
 export const overridesFor = (s: SimSettings) => ({ hr: s.hr, movementMin: s.stillMin })
 
 /** Clips and a live mic answer need longer than the server's default 10 s no-reply window. */
-export const NO_REPLY_SECONDS = 25
+export const NO_REPLY_SECONDS = 45
 
 export function clipFor(s: SimSettings, questionIndex: number): string | null {
   if (s.speech !== 'slurred' || questionIndex < 0 || questionIndex > 1) return null

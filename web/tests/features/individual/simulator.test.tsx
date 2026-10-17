@@ -70,7 +70,7 @@ test('Start runs stroke with HR 137 and 10 min still; the speech and David toggl
   click("I'll answer (mic)")
   expect(speech.getByRole('button', { name: "I'll answer (mic)" })).toHaveAttribute('aria-pressed', 'true')
   click('Start')
-  expect(start).toHaveBeenCalledWith('stroke', { hr: 137, movementMin: 10, noReplySeconds: 25 })
+  expect(start).toHaveBeenCalledWith('stroke', { hr: 137, movementMin: 10, noReplySeconds: 45 })
 })
 
 const T0 = Date.parse('2026-10-14T14:30:00Z')
@@ -85,7 +85,7 @@ function incidentAt(start: number, call: boolean, david = false): LiveIncidentVa
   ] : [])]
   const incident = {
     personId: 'margaret', status: 'ESCALATING', level: 'EMERGENCY', alert: { kind: 'HR_HIGH_NO_MOVEMENT', at: at(start), hr: 137 },
-    timeline, assignments: [], ownerId: null, demo: { timerSeconds: 5, noReplySeconds: 25, clockOffsetMs: 0 },
+    timeline, assignments: [], ownerId: null, demo: { timerSeconds: 5, noReplySeconds: 45, clockOffsetMs: 0 },
   } as unknown as IncidentDoc
   return { ...idleValue, incident, view: liveView(`inc-${start}`, incident, people, T0 + start * 1000 + 70_000) }
 }

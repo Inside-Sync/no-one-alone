@@ -1,4 +1,4 @@
-import { act, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 import type { TurnDoc } from '@/data/contract'
 import { EmergencyCallCard } from '@/features/individual/live/EmergencyCallCard'
@@ -55,6 +55,18 @@ test("000 call: line 1 waits for Margaret's phone to finish speaking", async () 
   await flush()
   expect(played).toEqual([])
   await act(async () => { spoke() })
+  await flush()
+  expect(played).toEqual(['/noa/000-1.mp3'])
+})
+
+test('000 call: a late David accept does not restart the dialogue', async () => {
+  const dialDone = Promise.resolve()
+  const { rerender } = render(<EmergencyCallCard live davidAccepted={false} dialDone={dialDone} onDone={() => {}} />)
+  await flush()
+  await flush()
+  expect(played).toEqual(['/noa/000-1.mp3'])
+  rerender(<EmergencyCallCard live davidAccepted dialDone={dialDone} onDone={() => {}} />)
+  await flush()
   await flush()
   expect(played).toEqual(['/noa/000-1.mp3'])
 })

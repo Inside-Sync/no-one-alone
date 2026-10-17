@@ -45,6 +45,7 @@ export function EmergencyCallCard({ davidAccepted, live, dialDone, speechRef, on
   const [shown, setShown] = useState(live ? 0 : lines.length)
   const done = useRef(onDone)
   useEffect(() => { done.current = onDone })
+  const accepted = useRef(davidAccepted)
 
   useEffect(() => {
     if (!live) { done.current(true); return }
@@ -54,7 +55,7 @@ export function EmergencyCallCard({ davidAccepted, live, dialDone, speechRef, on
     void (async () => {
       await dialDone
       await speechRef?.current
-      const all = callLines(davidAccepted)
+      const all = callLines(accepted.current)
       for (let i = 0; i < all.length && !stopped; i++) {
         setShown(i + 1)
         await playClip(all[i].clip, (a) => { audio = a })
@@ -62,7 +63,7 @@ export function EmergencyCallCard({ davidAccepted, live, dialDone, speechRef, on
       if (!stopped) done.current(false)
     })()
     return () => { stopped = true; audio?.pause() }
-  }, [live, dialDone, davidAccepted, speechRef])
+  }, [live, dialDone, speechRef])
 
   return (
     <GlassCard span={7} id="call000">

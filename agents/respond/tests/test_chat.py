@@ -32,6 +32,11 @@ def test_answer_uses_facts_and_snapshot_in_system_and_question_in_user(monkeypat
     assert "Who is coming?" in user and "Is Mum ok?" in user and "Who is coming?" not in system
 
 
+def test_null_snapshot_is_accepted(monkeypatch):
+    monkeypatch.setattr(main, "chatter", Chatter("All quiet."))
+    assert client.post("/chat", json=ask(snapshot=None)).status_code == 200
+
+
 def test_question_over_500_chars_is_422(monkeypatch):
     fake = Chatter("x")
     monkeypatch.setattr(main, "chatter", fake)
