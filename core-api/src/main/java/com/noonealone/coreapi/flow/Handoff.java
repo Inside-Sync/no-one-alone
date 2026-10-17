@@ -218,7 +218,7 @@ public class Handoff {
         body.put("level", inc.level.name());
         body.put("suspected", stroke ? "STROKE" : "UNKNOWN");
         if (inc.lastKnownWellAt != null) {
-            body.put("lastKnownWellAt", SCRIPT_PERSON.equals(inc.personId) ? scriptLastWell(inc.lastKnownWellAt, person) : inc.lastKnownWellAt);
+            body.put("lastKnownWellAt", inc.lastKnownWellAt);
         }
         body.put("findings", inc.triage == null ? List.of() : inc.triage.reasons);
         body.put("hospital", hospital);

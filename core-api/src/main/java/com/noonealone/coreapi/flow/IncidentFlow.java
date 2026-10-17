@@ -99,7 +99,9 @@ public class IncidentFlow {
             x.verify.isReal = result.isReal();
             x.verify.reason = result.reason();
             x.verify.fallback = result.fallback();
-            x.lastKnownWellAt = result.lastKnownWellAt();
+            // Margaret's 000 audio says 01:30, so every screen and agent reads that time.
+            x.lastKnownWellAt = Handoff.SCRIPT_PERSON.equals(x.personId) && result.lastKnownWellAt() != null
+                    ? Handoff.scriptLastWell(result.lastKnownWellAt(), person) : result.lastKnownWellAt();
             if (down) {
                 x.log(now, "AGENT", "AGENT_FALLBACK", "Verify used fallback");
             }
