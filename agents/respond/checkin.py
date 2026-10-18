@@ -29,7 +29,10 @@ def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
         else:
             out["transcript"] = res["transcript"]
             out["assessment"] = {k: v for k, v in res.items() if k not in ("transcript", "ack")}
-            slurred = slurred or res.get("clarity") == "SLURRED"
+            # A repeat that is not clear and coherent fails the speech check like slurring does.
+            if expected and (res.get("clarity") != "CLEAR" or not res.get("coherent", True)):
+                out["assessment"]["clarity"] = "SLURRED"
+            slurred = slurred or out["assessment"]["clarity"] == "SLURRED"
 
     out["done"] = asked >= len(s["questions"]) or "yesNo" in inp or (slurred and asked >= 2)
     if not out["done"]:

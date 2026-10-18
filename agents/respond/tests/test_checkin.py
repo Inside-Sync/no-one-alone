@@ -98,3 +98,18 @@ def test_yes_no_prompts_are_lowercase_so_tts_does_not_spell_them():
     for lang in ("en", "vi"):
         prompt = load_scripts()[lang]["yes_no"]
         assert "YES" not in prompt and "NO" not in prompt and "CÓ" not in prompt and "KHÔNG" not in prompt
+
+
+def test_a_garbled_or_wordless_repeat_fails_the_speech_check():
+    for res in ({"transcript": "blah la la", "clarity": "NO_SPEECH", "coherent": False, "symptoms": [], "confidence": 0.5},
+                {"transcript": "I like potatoes", "clarity": "CLEAR", "coherent": False, "symptoms": [], "confidence": 0.7}):
+        out = checkin.turn(body(MARGARET, turns=agent(2), input=audio()), fake(res))
+        assert out["assessment"]["clarity"] == "SLURRED"
+        assert out["done"] is True and "next" not in out
+
+
+def test_a_wordless_first_answer_is_not_a_failed_speech_check():
+    res = {"transcript": "", "clarity": "NO_SPEECH", "coherent": False, "symptoms": [], "confidence": 0.5}
+    out = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(res))
+    assert out["assessment"]["clarity"] == "NO_SPEECH"
+    assert out["done"] is False
