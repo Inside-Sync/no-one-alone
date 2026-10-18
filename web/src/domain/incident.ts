@@ -255,7 +255,10 @@ function phoneView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
     return { ...base, q: last?.text ?? `${name}…`, small: ci?.busy ? ph('listening') : undefined, busy: true }
   }
   if (inc.verify && !inc.verify.isReal) return { ...base, q: ph('fine') }
-  if (inc.status === 'CLOSED' && (inc.level === 'OK' || inc.level === 'MONITOR')) return { ...base, q: ph('glad') }
+  const instr = inc.personInstruction
+  if (inc.status === 'CLOSED' && (inc.level === 'OK' || inc.level === 'MONITOR')) {
+    return { ...base, q: instr?.text ?? ph('glad'), audioPath: instr?.audioPath ?? null, questionKey: instr ? 'closing' : null }
+  }
   let help: string | null = null
   let helperName: string | null = null
   if (inc.ownerId) {
@@ -265,7 +268,6 @@ function phoneView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
     const left = ownerEtaMin(inc, now)
     help = inc.status === 'ON_SCENE' ? ph('withYou', { name: helper }) : ph('away', { name: helper, eta: left !== null ? min(left) : arrived ? '✓' : '—' })
   }
-  const instr = inc.personInstruction
   return {
     ...base, q: instr?.text ?? ph('onTheWay'), help, helperName, audioPath: instr?.audioPath ?? null, questionKey: instr ? 'instruction' : null,
     status: instr ? helperStatus(inc, people) : null,

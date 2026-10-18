@@ -75,7 +75,14 @@ const HOW_ICONS: IconName[] = ['headphones', 'message-circle', 'chart-column', '
 const STATE_ICON: Partial<Record<State, IconName>> = { listen: 'mic', slurred: 'triangle-alert' }
 
 /** Noa Speech Check (c12, prototype part 10): her own voice against tonight's sentence, five measures and the verdict. */
-export function SpeechCheckCard({ incident, name, timeZone }: { incident: IncidentDoc | null; name: string; timeZone: string }) {
+export function SpeechCheckCard({ incident, name, timeZone, onReplay, busy = false }: {
+  incident: IncidentDoc | null
+  name: string
+  timeZone: string
+  /** Runs the night demo again so another answer can be tried. */
+  onReplay?: () => void
+  busy?: boolean
+}) {
   const { t } = useTranslation('live')
   const { state, at } = speechState(incident?.checkIn?.turns ?? [], incident?.checkIn?.busy ?? false)
   const heard = state === 'clear' || state === 'slurred' || state === 'analyse'
@@ -94,7 +101,14 @@ export function SpeechCheckCard({ incident, name, timeZone }: { incident: Incide
         {/* Once there is a verdict it gets the banner below instead of the pill. */}
         {!show && <span className={`pill ${pill}`} id="spkVerdict">{STATE_ICON[state] && <Glyph name={STATE_ICON[state]} />}{t(`speech.state.${state}`, { name })}</span>}
       </div>
-      {show && <div className={`spk-verdict ${state}`} role="status">{STATE_ICON[state] && <Glyph name={STATE_ICON[state]} />}{t(`speech.state.${state}`, { name })}</div>}
+      {show && (
+        <div className={`spk-verdict ${state}`} role="status">
+          <b className="spk-pass"><Glyph name={state === 'clear' ? 'check' : 'x'} />{t(state === 'clear' ? 'speech.pass' : 'speech.fail')}</b>
+          <span className="spk-num">{t('speech.clarity', { x: state === 'clear' ? METRICS[0][1] : METRICS[0][2], normal: METRICS[0][0] })}</span>
+          {onReplay && <button type="button" className="btn sm soft spk-replay" onClick={onReplay} disabled={busy}>{t('speech.replay')}</button>}
+          <small>{STATE_ICON[state] && <Glyph name={STATE_ICON[state]} />}{t(`speech.state.${state}`, { name })}</small>
+        </div>
+      )}
       <div className="spk-grid">
         <div className="spk-waves">
           <div className="spk-row">

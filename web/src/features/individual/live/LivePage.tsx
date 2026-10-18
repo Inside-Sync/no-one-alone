@@ -185,7 +185,8 @@ function LiveIncidentPage() {
       ) : (
         <IdlePhoneCard name={name} time={clockText(watch.watch.clock)} disabled={busy} onHelp={() => begin(watch.watch.hr > 120 ? watch.watch.hr : 142, ALERT_MIN)} />
       )}
-      <SpeechCheckCard incident={shown?.incident ?? null} name={name} timeZone={people.person?.timezone ?? 'Asia/Ho_Chi_Minh'} />
+      <SpeechCheckCard incident={shown?.incident ?? null} name={name} timeZone={people.person?.timezone ?? 'Asia/Ho_Chi_Minh'}
+        onReplay={() => nightDemo.current()} busy={busy} />
       <ConversationsCard incident={shown?.incident ?? null} people={people} call={dialogue.lines} dialling={dialogue.dialling} />
       <HandoverCard incident={shown?.incident ?? null} view={shown?.view ?? null} people={people} agent={agent} />
       <NoaLogCard view={shown?.view ?? null} time={clockText(watch.watch.clock)} />

@@ -62,3 +62,23 @@ test('pressing record calls onManual once', async () => {
   await act(async () => { fireEvent.click(screen.getByRole('button', { name: /Tap to answer/ })) })
   expect(onManual).toHaveBeenCalledTimes(1)
 })
+
+test('a goodbye already there at mount does not play again', async () => {
+  const bye = { ...phone, status: null, questionKey: 'closing', audioPath: '/noa/closing.mp3' }
+  renderWithProviders(<LivePhoneCard phone={bye} name="Margaret" helpInitials="DM" checkin={() => Promise.resolve()} />)
+  await act(async () => {})
+  expect(Audio).not.toHaveBeenCalled()
+})
+
+test('a goodbye that arrives while the card is open plays once', async () => {
+  const ask = { ...phone, status: null, audioPath: null, questionKey: '2:0:How are you feeling?' }
+  let close = () => {}
+  function Harness() {
+    const [p, setP] = useState<LivePhone>(ask)
+    close = () => setP({ ...ask, questionKey: 'closing', audioPath: '/noa/closing.mp3' })
+    return <LivePhoneCard phone={p} name="Margaret" helpInitials="DM" checkin={() => Promise.resolve()} />
+  }
+  renderWithProviders(<Harness />)
+  await act(async () => { close() })
+  expect(Audio).toHaveBeenCalledWith('/noa/closing.mp3')
+})

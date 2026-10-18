@@ -229,3 +229,10 @@ describe('helperStatus: what Noa tells Margaret after the plan', () => {
     expect(liveView('inc1', withTl(alerted), circle, T0).timeline[2].ph).toBe('Escalate')
   })
 })
+
+test('a closed OK check-in shows and plays her goodbye, else the glad line', () => {
+  const closed = { ...incident, status: 'CLOSED', level: 'OK', ownerId: undefined } as unknown as IncidentDoc
+  expect(liveView('inc1', closed, people, T0).phone).toMatchObject({ q: 'Thank you. Glad you are OK.', audioPath: null, questionKey: null })
+  const bye = { ...closed, personInstruction: { scriptIds: [], text: "That's all right, Margaret.", audioPath: 'audio/inc1/closing.mp3' } } as unknown as IncidentDoc
+  expect(liveView('inc1', bye, people, T0).phone).toMatchObject({ q: "That's all right, Margaret.", audioPath: 'audio/inc1/closing.mp3', questionKey: 'closing' })
+})
