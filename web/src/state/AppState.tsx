@@ -6,7 +6,7 @@ import i18n from '@/i18n'
 import type { AuditEntry, PersonId, SharePerson, ShareMatrix } from '@/data/types'
 import { CATEGORY_IDS, type CategoryId } from '@/domain/consent'
 import { EM_INITIAL, emergencyReducer, packetArrived, TICK_MS, type EmAction, type EmState } from '@/domain/emergency'
-import type { Who } from '@/domain/views'
+import { parsePath, whoForPage, type Who } from '@/domain/views'
 import { useLiveIncident } from './LiveIncident'
 
 export type SharePreset = 'family' | 'safety' | 'all'
@@ -138,6 +138,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     } catch {
       /* storage unavailable: keep defaults */
     }
+    // A deep link to a one-role page (/individual/me in a fresh tab) opens as that role instead of redirecting away.
+    const { view, page } = parsePath(window.location.pathname)
+    who = whoForPage(view, page) ?? who
     commit({ type: 'hydrate', who, viewer })
     repo.getSharePeople().then((people) => { if (mounted.current) commit({ type: 'people', people }) }, () => {})
     repo.getShare().then((share) => { if (mounted.current) commit({ type: 'share', share }) }, () => {})
