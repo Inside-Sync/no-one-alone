@@ -4,6 +4,8 @@ An AI care agent for older people who live alone. When a wearable raises a criti
 
 Entry for the Google Cloud AI Builder Cup, Sustainability & Social Impact track. Live demo: https://noonealone.insidesync.ai
 
+The live demo runs one emergency at a time and is shared by everyone who opens it. If the Emergency page says the demo is busy, or a run you started resets, someone else is trying it too. Wait a minute and reload the page.
+
 All people, places and medical records in this repo are fictional.
 
 ## Architecture
