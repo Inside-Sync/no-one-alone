@@ -59,24 +59,25 @@ type Timeline = readonly { at: string; kind: string; text: string }[]
 const autoCall = (timeline: Timeline) => timeline.find((e) => e.kind === 'CALLED_115' && e.text.startsWith('Calling '))
 
 /** Rings or dials once per new call, one sound after another; returns the calls seen at load and the 000 dial. */
-function useCallRing(timeline: Timeline | undefined) {
+function useCallRing(timeline: Timeline | undefined, id = '') {
   const [initial, setInitial] = useState<ReadonlySet<string> | null>(null)
-  if (timeline && initial === null) setInitial(new Set(callKeys(timeline)))
+  if (timeline && initial === null) setInitial(new Set(callKeys(timeline, id)))
   const seen = useRef<Set<string> | null>(null)
   const [dial, setDial] = useState<{ at: string; done: Promise<void> } | null>(null)
   const chain = useRef<Promise<void>>(Promise.resolve())
   useEffect(() => {
     if (!timeline) return
-    if (seen.current === null) { seen.current = new Set(callKeys(timeline)); return }
-    const sound = freshCallSound(timeline, seen.current)
-    const at = autoCall(timeline)?.at
+    if (seen.current === null) { seen.current = new Set(callKeys(timeline, id)); return }
+    const sound = freshCallSound(timeline, seen.current, id)
+    const auto = autoCall(timeline)
+    const at = auto && `${id} ${auto.at}`
     if (sound === 'dial' && at) {
       const done = chain.current.then(() => playDial000())
       chain.current = done
       // Async so the effect does not set state synchronously.
       void Promise.resolve().then(() => setDial({ at, done }))
     } else if (sound === 'ring') chain.current = chain.current.then(() => playRing(3000))
-  }, [timeline])
+  }, [timeline]) // eslint-disable-line react-hooks/exhaustive-deps
   return { initial, dial }
 }
 
@@ -99,7 +100,7 @@ function LiveIncidentPage() {
   const scene = useRepo(getOrbitScene).data
   useFlash(Boolean(view?.phone.flash))
   // Not before the followed incident arrives, or a call already on it would count as new.
-  const calls = useCallRing(loading || !settled ? undefined : incident?.timeline ?? [])
+  const calls = useCallRing(loading || !settled ? undefined : incident?.timeline ?? [], view?.id)
   const [dialogueDone, setDialogueDone] = useState<{ id: string; silent: boolean } | null>(null)
   // Margaret's phone speech queue, shared so the 000 lines wait for her status clip.
   const speech = useRef<Promise<void>>(Promise.resolve())
@@ -161,10 +162,10 @@ function LiveIncidentPage() {
   }, [loading]) // eslint-disable-line react-hooks/exhaustive-deps
   const call = incident && view ? autoCall(incident.timeline) : undefined
   const dialogue = useCallDialogue({
-    callKey: call && calls.initial ? call.at : null,
-    live: Boolean(call && calls.initial && !calls.initial.has(callKeys([call])[0])),
+    callKey: call && calls.initial ? `${view?.id} ${call.at}` : null,
+    live: Boolean(call && calls.initial && !calls.initial.has(callKeys([call], view?.id)[0])),
     davidAccepted: Boolean(incident?.timeline.some((e) => e.kind === 'ACCEPTED')),
-    dialDone: call && calls.dial?.at === call.at ? calls.dial.done : null, speechRef: speech,
+    dialDone: call && calls.dial?.at === `${view?.id} ${call.at}` ? calls.dial.done : null, speechRef: speech,
     onDone: (silent) => { if (view) setDialogueDone({ id: view.id, silent }) },
   })
 
