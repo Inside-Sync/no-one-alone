@@ -32,10 +32,11 @@ function useReveal(count: number): number {
 }
 
 /** `Noa's log` (c12): every step of the incident, newest first, then the response times so far. */
-export function NoaLogCard({ view, time }: { view: LiveView | null; time: string }) {
+export function NoaLogCard({ view, time, limit }: { view: LiveView | null; time: string; limit?: number }) {
   const { t } = useTranslation('live')
   const all = view?.timeline ?? []
-  const shown = useReveal(all.length)
+  // `limit`: entries past what Margaret has heard wait (LivePage owns it).
+  const shown = useReveal(Math.min(all.length, limit ?? all.length))
   const rows = all.slice(0, shown).reverse()
   return (
     <GlassCard span={12} id="liveB">

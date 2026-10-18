@@ -16,7 +16,7 @@ import { useRecorder } from './useRecorder'
  * `Margaret's screen` for a live incident: the pending question, Yes / No or a voice reply posted to
  * `/api/incidents/{id}/checkin`, and `noReply` after `demo.noReplySeconds` without an answer (contract 3).
  */
-export function LivePhoneCard({ phone, name, helpInitials, checkin, onSpoken, onManual, statusOverride, speechRef }: {
+export function LivePhoneCard({ phone, name, helpInitials, checkin, onSpoken, onManual, onStatus, statusOverride, speechRef }: {
   phone: LivePhone
   /** The person's first name for the card title. */
   name: string
@@ -25,6 +25,8 @@ export function LivePhoneCard({ phone, name, helpInitials, checkin, onSpoken, on
   onSpoken?: (questionKey: string) => void
   /** She answered by hand (record or Yes / No), so the autopilot stays quiet. */
   onManual?: () => void
+  /** A status starts on her phone (its key), so other cards can follow what she has heard. */
+  onStatus?: (key: string) => void
   /** Said instead of `phone.status` (the ambulance line once the 000 call ends). */
   statusOverride?: HelperStatus | null
   /** Mirrors the speech queue so other cards can wait for it. */
@@ -112,6 +114,8 @@ export function LivePhoneCard({ phone, name, helpInitials, checkin, onSpoken, on
   if (!statusKey && statusShown !== null) setStatusShown(null)
   const said = useRef<string | null>(null)
   const statusAudio = useRef<HTMLAudioElement | null>(null)
+  const statusCb = useRef(onStatus)
+  useEffect(() => { statusCb.current = onStatus })
   const mounted = useRef(true)
   useEffect(() => () => { mounted.current = false; statusAudio.current?.pause() }, [])
   useEffect(() => {
@@ -121,6 +125,7 @@ export function LivePhoneCard({ phone, name, helpInitials, checkin, onSpoken, on
     speaking.current = speaking.current.then(() => new Promise<void>((done) => {
       if (!mounted.current) { done(); return }
       setStatusShown(statusText)
+      statusCb.current?.(statusKey)
       if (!statusClip) { done(); return }
       const a = new Audio(statusClip)
       statusAudio.current = a

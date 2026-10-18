@@ -82,3 +82,13 @@ test('a goodbye that arrives while the card is open plays once', async () => {
   await act(async () => { close() })
   expect(Audio).toHaveBeenCalledWith('/noa/closing.mp3')
 })
+
+test('log entries past the limit wait until the limit grows', () => {
+  const v = { timeline: [row('entry 0'), row('entry 1')], sla: [] } as unknown as LiveView
+  vi.useFakeTimers()
+  const { rerender } = renderWithProviders(<NoaLogCard view={v} time="02:03" limit={1} />)
+  expect(screen.queryByText('entry 1')).toBeNull()
+  rerender(<NoaLogCard view={v} time="02:03" limit={2} />)
+  act(() => { vi.advanceTimersByTime(1500) })
+  expect(screen.getByText('entry 1')).toBeInTheDocument()
+})

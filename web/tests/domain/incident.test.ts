@@ -1,5 +1,5 @@
 import type { IncidentDoc, PacketDoc } from '@/data/contract'
-import { helperStatus, liveView, orbitWithHospital, packetRows, type LivePeople } from '@/domain/incident'
+import { heardLimit, helperStatus, liveView, orbitWithHospital, packetRows, type LivePeople } from '@/domain/incident'
 import type { OrbitScene } from '@/data/types'
 import i18n from '@/i18n'
 
@@ -235,4 +235,31 @@ test('a closed OK check-in shows and plays her goodbye, else the glad line', () 
   expect(liveView('inc1', closed, people, T0).phone).toMatchObject({ q: 'Thank you. Glad you are OK.', audioPath: null, questionKey: null })
   const bye = { ...closed, personInstruction: { scriptIds: [], text: "That's all right, Margaret.", audioPath: 'audio/inc1/closing.mp3' } } as unknown as IncidentDoc
   expect(liveView('inc1', bye, people, T0).phone).toMatchObject({ q: "That's all right, Margaret.", audioPath: 'audio/inc1/closing.mp3', questionKey: 'closing' })
+})
+
+describe('heardLimit: the timeline shown waits for what Margaret has heard', () => {
+  const circle = {
+    person: { displayName: 'Margaret Collins', emergencyNumber: '000' },
+    members: { james: { displayName: 'James Collins' }, david: { displayName: 'David Collins' } },
+  } as unknown as LivePeople
+  const ev = (s: number, actor: string, kind: string, text: string) => ({ at: at(s), actor, kind, text })
+  const tl = [
+    ev(79, 'SYSTEM', 'ALERTED', 'Alert sent to James and David'),
+    ev(80, 'SYSTEM', 'NOTIFIED', 'Calling James: x'),
+    ev(85, 'SYSTEM', 'EXPIRED', 'James did not answer in 5 s · voicemail and text sent'),
+    ev(85, 'SYSTEM', 'NOTIFIED', 'Calling David: x'),
+    ev(86, 'david', 'ACCEPTED', 'x'),
+  ]
+  const inc = { ...incident, timeline: tl } as unknown as IncidentDoc
+
+  test('stops before the first call until its status is heard, then before the next status', () => {
+    expect(heardLimit(inc, circle, null)).toBe(1)
+    expect(heardLimit(inc, circle, `calling-james ${at(80)}`)).toBe(2)
+    expect(heardLimit(inc, circle, `no-answer-james-calling-david ${at(85)}`)).toBe(4)
+    expect(heardLimit(inc, circle, `on-the-way ${at(86)}`)).toBe(5)
+  })
+
+  test('a closed incident shows everything', () => {
+    expect(heardLimit({ ...inc, status: 'CLOSED' } as IncidentDoc, circle, null)).toBe(5)
+  })
 })

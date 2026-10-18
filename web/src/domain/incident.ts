@@ -309,6 +309,20 @@ export function helperStatus(inc: IncidentDoc, people: LivePeople): HelperStatus
   return status(`calling-${x.toLowerCase()}`, s('calling', { name: x }))
 }
 
+/** How many timeline entries to show: up to the next status Margaret has not heard yet (`heard` is the last status key she heard). */
+export function heardLimit(inc: IncidentDoc, people: LivePeople, heard: string | null): number {
+  const n = inc.timeline.length
+  if (inc.status === 'CLOSED') return n
+  const keys = inc.timeline.map((_, i) => helperStatus({ ...inc, timeline: inc.timeline.slice(0, i + 1) }, people)?.key ?? null)
+  const k = heard ? keys.lastIndexOf(heard) : -1
+  if (heard && k < 0) return n
+  let next = keys.findIndex((x, i) => i > k && x !== null && x !== (k < 0 ? null : keys[k]))
+  if (next < 0) return n
+  // "James did not answer" belongs to the status that follows it ("no answer, calling David").
+  while (next - 1 > k && ['EXPIRED', 'DECLINED'].includes(inc.timeline[next - 1].kind)) next--
+  return next
+}
+
 /** Said on Margaret's phone once the 000 call has ended (LivePage owns when). */
 export const ambulanceStatus = (incidentId: string): HelperStatus =>
   ({ text: tl('incident.phone.status.ambulance'), clip: '/noa/ambulance-coming.mp3', key: `ambulance-coming ${incidentId}` })
