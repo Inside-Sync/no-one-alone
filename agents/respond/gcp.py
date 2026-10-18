@@ -12,6 +12,8 @@ CLARITY = ["CLEAR", "SLURRED", "NO_SPEECH"]
 TIMEOUT_S = 15
 ACK_MAX = 120
 
+FEELINGS = ["GOOD", "UNSURE", "BAD"]
+
 SCHEMA = {
     "type": "OBJECT",
     "properties": {
@@ -21,6 +23,7 @@ SCHEMA = {
         "symptoms": {"type": "ARRAY", "items": {"type": "STRING"}},
         "confidence": {"type": "NUMBER"},
         "ack": {"type": "STRING"},
+        "feeling": {"type": "STRING", "enum": FEELINGS},
     },
     "required": ["transcript", "clarity", "coherent", "symptoms", "confidence"],
 }
@@ -47,6 +50,8 @@ def validate(data) -> dict | None:
     # ponytail: length and no-question guard only; the prompt forbids advice
     if isinstance(ack, str) and ack.strip() and len(ack.strip()) <= ACK_MAX and "?" not in ack:
         out["ack"] = ack.strip()
+    if data.get("feeling") in FEELINGS:
+        out["feeling"] = data["feeling"]
     return out
 
 
@@ -75,7 +80,8 @@ class GeminiAssessor:
                 prompt += f' The speaker was asked to repeat "{ctx["expected"]}"; use SLURRED if the repetition is garbled.'
             prompt += (" In ack, write one short warm sentence of at most 12 words in the speaker's language that "
                        "acknowledges what they said. No medical advice, no instructions, no questions, and never say "
-                       "that help is coming. Leave ack empty if there is no speech.")
+                       "that help is coming. Leave ack empty if there is no speech."
+                       " In feeling, say how the speaker says she is: GOOD if fine, UNSURE if not sure or so-so, BAD if unwell.")
             if not str(ctx.get("locale") or "").startswith("en"):
                 prompt += ' In Vietnamese, call the speaker "mạ" and yourself "con".'
             resp = self._get_client().models.generate_content(

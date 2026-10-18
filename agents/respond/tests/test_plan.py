@@ -31,7 +31,7 @@ def test_vi_emergency():
     assert "6 phút" in msgs["ong-hung"]
     assert "Ông Hùng" in msgs["lan"]
     assert out["personInstruction"]["scriptIds"] == ["GET_HELP"]
-    assert out["personInstruction"]["text"] == load_scripts()["vi"]["speech_result"]
+    assert out["personInstruction"]["text"] == load_scripts()["vi"]["speech_result"].format(name="Mai")
     assert "01:55" in out["callScript"] and "nói ngọng" in out["callScript"]
     assert out["fallback"] is False
 
@@ -42,8 +42,8 @@ def test_en_emergency():
     assert "05:55" in out["callScript"]
     assert "slurred speech" in out["callScript"]
     assert out["personInstruction"]["text"] == (
-        "Your voice doesn't sound as clear as normal. It seems you are experiencing sudden slurred speech. "
-        "Please stay still while I reach out to your family. I'm right here with you.")
+        "Margaret, your speech sounds less clear than usual. Please stay sitting and don't try to stand up, "
+        "I'm getting help. I'm here with you.")
     assert "Địa chỉ" not in out["callScript"] and "phút" not in " ".join(by_id(out).values())
 
 
@@ -76,5 +76,5 @@ def test_templates_resolve_and_instruction_sentences_exist(person, members, leve
     helper = members[0]["displayName"]
     name = person["displayName"].split()[0]
     sentences = [safety[i].format(helper=helper, name=name) for i in out["personInstruction"]["scriptIds"]]
-    assert out["personInstruction"]["text"] == own["speech_result"]
+    assert out["personInstruction"]["text"] == own["speech_result"].format(name=name)
     assert all(sentences)

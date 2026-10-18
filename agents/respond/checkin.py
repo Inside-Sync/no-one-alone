@@ -14,7 +14,7 @@ def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
     s = load_scripts()[lang]
     asked = sum(1 for t in turns if t.get("by") == "AGENT")
     out = {"fallback": False}
-    ack = None
+    feeling = None
     slurred = any((t.get("assessment") or {}).get("clarity") == "SLURRED" for t in turns)
 
     if "audioBase64" in inp:
@@ -29,8 +29,8 @@ def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
             out["assessment"], out["fallback"] = dict(NO_SPEECH, symptoms=[]), True
         else:
             out["transcript"] = res["transcript"]
-            ack = res.get("ack")
-            out["assessment"] = {k: v for k, v in res.items() if k not in ("transcript", "ack")}
+            feeling = res.get("feeling")
+            out["assessment"] = {k: v for k, v in res.items() if k not in ("transcript", "ack", "feeling")}
             # A repeat that is not clear and coherent fails the speech check like slurring does.
             if expected and (res.get("clarity") != "CLEAR" or not res.get("coherent", True)):
                 out["assessment"]["clarity"] = "SLURRED"
@@ -41,9 +41,8 @@ def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
         if body.get("noReplyCount", 0) >= 1:
             out["next"] = {"text": s["yes_no"], "kind": "YES_NO"}
         else:
-            text = s["questions"][asked].format(name=(person.get("displayName") or "").split(" ")[0])
-            # The speech check opens with Noa's reply to her first answer instead of a fixed thanks.
-            if asked == 1 and ack:
-                text = ack + " " + text.split(". ", 1)[1]
+            # The speech check opens with one of three replies to how she said she feels.
+            q = s["speech_check"][feeling if feeling in s["speech_check"] else "UNSURE"] if asked == 1 else s["questions"][asked]
+            text = q.format(name=(person.get("displayName") or "").split(" ")[0])
             out["next"] = {"text": text, "kind": "VOICE"}
     return out

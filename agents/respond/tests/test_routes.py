@@ -108,6 +108,8 @@ def test_validate_keeps_only_a_short_plain_ack():
     assert gcp.validate({**ok, "ack": " I'm glad you can hear me. "})["ack"] == "I'm glad you can hear me."
     assert "ack" not in gcp.validate({**ok, "ack": "Are you okay?"})
     assert "ack" not in gcp.validate({**ok, "ack": "x" * 121})
+    assert gcp.validate({**ok, "feeling": "BAD"})["feeling"] == "BAD"
+    assert "feeling" not in gcp.validate({**ok, "feeling": "MEH"})
     assert "ack" not in gcp.validate(ok)
 
 
