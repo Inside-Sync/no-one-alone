@@ -6,6 +6,8 @@
       "Mạ nói rõ lắm, giỏi quá. Giờ mạ thấy trong người thế nào? Mạ có đau ngực, chóng mặt, yếu tay hay yếu mặt, hay vừa bị té không?"
     ],
     "repeat_phrase": "trời Sydney hôm nay xanh",
+    "speech_result": "Giọng mạ nghe không rõ như mọi khi. Hình như mạ đang bị nói ngọng đột ngột. Mạ ngồi yên nhé, con đang báo cho gia đình.",
+    "goodbye": "Vậy là ổn rồi mạ. Mình cùng hít thở chậm năm lần nhé… hít vào… thở ra. Mạ uống ngụm nước rồi ngồi chỗ nào cho thoải mái. Mười phút nữa con hỏi thăm mạ lại. Chúc mạ ngủ ngon.",
     "yes_no": "Mạ có nghe con không? Mạ bấm có hoặc không.",
     "caller_default": "Gia đình",
     "safety": {
@@ -45,6 +47,8 @@
       "That was lovely and clear, {name}, well done. Now, how are you feeling? Any chest pain, dizziness, weakness in your arm or face, or have you had a fall?"
     ],
     "repeat_phrase": "the sky is blue in sydney",
+    "speech_result": "Your voice doesn't sound as clear as normal. It seems you are experiencing sudden slurred speech. Please stay still while I reach out to your family.",
+    "goodbye": "That's all right, {name}. Let's take five slow breaths together… in… and out. Have a sip of water and sit somewhere comfy. I'll check on you again in 10 minutes. Goodnight, {name}.",
     "yes_no": "Can you hear me? Press yes or no.",
     "caller_default": "Your family",
     "safety": {
