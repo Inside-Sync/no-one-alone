@@ -1,7 +1,10 @@
-import { ramp, rgbHex, shade } from '@/lib/color'
+import { luminance, ramp, rgbHex, shade } from '@/lib/color'
 import { rng } from '@/lib/rng'
 import type { CityGeometry, MapPin, Suburb, Surroundings } from '@/data/types'
-import type { CityLabel, CityModel, CityPin, Face, Pt3, Tree } from './types'
+import { INNER_WEST_BOUNDARIES, INNER_WEST_CONTEXT, INNER_WEST_PLATE } from '@/domain/innerWestBoundaries'
+import { MARRICKVILLE_MAP, streetPoint } from '@/domain/marrickvilleMap'
+import type { MapIcon } from './icons'
+import type { CityLabel, CityLine, CityModel, CityPin, CityText, Face, Pt3, Tree } from './types'
 
 /**
  * Ports of the prototype's model builders (lines 1252–1336). The order of
@@ -246,24 +249,260 @@ export function watchScene(
   }
 }
 
+/** Light from +x/−y, as `boxF`'s wall shades. */
+const LIGHT = -Math.PI / 4
+
+/** Column colour from the lowest (0) to the highest (1) value; the Google 3D map uses it too. */
+export const DISTRICT_RAMP = ['#ffe3c2', '#f9b26e', '#ef7350', '#d63f3f'] as const
+
+/** Map units: 20 m each, origin at the plate's south-west corner, +y north (away from the camera). */
+const UNIT = 20
+const [W0, S0, E0, N0] = INNER_WEST_PLATE
+const COS = Math.cos((((S0 + N0) / 2) * Math.PI) / 180)
+const toMap = ([lng, lat]: [number, number]): [number, number] => [((lng - W0) * COS * 111320) / UNIT, ((lat - S0) * 110540) / UNIT]
+/** Plate size in map units (the `district` camera's `size`). */
+export const DISTRICT_SIZE = toMap([E0, N0]).map(Math.round) as [number, number]
+
+/** Footprint (map units²) below which a roof carries only its value: Enmore, Lewisham and Sydenham. */
+const SMALL_ROOF = 2000
+
+/** Area centroid of a ring (falls back to the vertex mean for a degenerate one). */
+function centroid(r: [number, number][]): [number, number] {
+  let a = 0, cx = 0, cy = 0
+  for (let i = 0; i < r.length; i++) {
+    const [x0, y0] = r[i], [x1, y1] = r[(i + 1) % r.length], c = x0 * y1 - x1 * y0
+    a += c; cx += (x0 + x1) * c; cy += (y0 + y1) * c
+  }
+  if (Math.abs(a) < 1e-9) return [r.reduce((s, p) => s + p[0], 0) / r.length, r.reduce((s, p) => s + p[1], 0) / r.length]
+  return [cx / (3 * a), cy / (3 * a)]
+}
+
 /**
- * `buildDistrict(m)` (line 1325): one tile per suburb coloured by heat
- * vulnerability, a column whose height and colour follow `values`, and a tag
- * reading `${value}${suffix}`. The metric itself (DM high/alone/heat/gap) is
- * computed by the caller.
+ * Inner West district map: every suburb's real boundary (ABS SAL 2021) extruded to its value and tinted by it, with
+ * the value and name printed on its roof. Faces sort by the suburb's own footprint (`key`) so each suburb paints as
+ * one block, walls first. Each suburb also gets a hit-only tag pin for the tap toast. The metric
+ * (high/alone/heat/gap) comes from the caller.
  */
 export function buildDistrict(suburbs: Suburb[], values: number[], suffix: string, highlight = 'Marrickville'): CityModel {
-  const F: Face[] = [], G: Face[] = [], P: CityPin[] = []
-  slab(F, G, 400, 320, '#e6ece2', '#b9b09e')
+  const F: Face[] = [], G: Face[] = [], P: CityPin[] = [], X: CityText[] = []
   const mx = Math.max(...values) || 1
+  const rings = suburbs.map((s) => (INNER_WEST_BOUNDARIES[s.name] ?? []).map(toMap))
+  // A water-blue plate; the surrounding suburbs flat on it as land, so the bays show where there is none.
+  // No walls: the map fades out before the plate's edge (cover view).
+  G.push({ pts: rect(0, 0, DISTRICT_SIZE[0], DISTRICT_SIZE[1]), fill: '#d6e9f0' })
+  INNER_WEST_CONTEXT.forEach((r) => G.push({ pts: r.map((p) => [...toMap(p), 0] as Pt3), fill: '#eef0ea', stroke: '#ffffff', lw: 0.8 }))
+  // A soft shadow under each suburb.
+  rings.forEach((r) => r.length && G.push({ pts: r.map(([x, y]) => [x + 3, y + 5, 0] as Pt3), fill: 'rgba(28,52,50,.14)' }))
   suburbs.forEach((s, i) => {
-    const x0 = s.col * 80 + 5, y0 = s.row * 80 + 5, v = values[i], t = v / mx
-    if (s.name === highlight) G.push({ pts: rect(x0 - 2.5, y0 - 2.5, x0 + 72.5, y0 + 72.5), fill: '#14a08c' })
-    G.push({ pts: rect(x0, y0, x0 + 70, y0 + 70), fill: ramp(s.heat, ['#e6f1ee', '#f6deb8', '#f0a681']) })
-    const h = 6 + t * 110, col = ramp(t, ['#8fd3c3', '#e2a32c', '#d9443f'])
-    const ch = rgbHex(col)
-    boxF(F, x0 + 20, y0 + 20, 30, 30, h, ch, shade(ch, 1.15))
-    P.push({ x: x0 + 35, y: y0 + 35, z: h + 6, name: s.name, sub: v + suffix, c: s.name === highlight ? '#14a08c' : col, ini: '', tag: true })
+    const r = rings[i]
+    if (!r.length) return
+    const v = values[i], t = v / mx, h = 2 + t * 22, mine = s.name === highlight
+    const col = rgbHex(ramp(t, DISTRICT_RAMP)), [cx, cy] = centroid(r), key: Pt3 = [cx, cy, 0]
+    // Outward wall normals need the ring's winding.
+    let area = 0
+    for (let k = 0; k < r.length; k++) area += r[k][0] * r[(k + 1) % r.length][1] - r[(k + 1) % r.length][0] * r[k][1]
+    const wind = area > 0 ? 1 : -1
+    for (let k = 0; k < r.length; k++) {
+      const [x0, y0] = r[k], [x1, y1] = r[(k + 1) % r.length]
+      const nx = (y1 - y0) * wind, ny = -(x1 - x0) * wind, n = Math.atan2(ny, nx)
+      const fill = shade(col, 0.74 + 0.2 * Math.cos(n - LIGHT))
+      F.push({ pts: [[x0, y0, 0], [x1, y1, 0], [x1, y1, h], [x0, y0, h]], fill, stroke: fill, key })
+    }
+    F.push({ pts: r.map(([x, y]) => [x, y, h] as Pt3), fill: shade(col, 1.08), stroke: mine ? '#0b7f71' : 'rgba(255,255,255,.95)', lw: mine ? 2.5 : 1.2, key, last: true })
+    // A roof too small for its name shows the value alone (the tap toast still names it).
+    X.push({ x: cx, y: cy, z: h, t: String(v), sub: Math.abs(area) / 2 < SMALL_ROOF ? '' : s.name, light: luminance(col) < 0.3 })
+    P.push({ x: cx, y: cy, z: h, name: s.name, sub: v + suffix, c: mine ? '#14a08c' : col, ini: '', tag: true, ghost: true })
   })
-  return { faces: F, ground: G, trees: [], pins: P, labels: [] }
+  return { faces: F, ground: G, trees: [], pins: P, labels: [], texts: X }
+}
+
+/** Streets base: the static OpenStreetMap layer plus where Margaret's and David's houses stand. */
+export interface StreetBase {
+  faces: Face[]
+  ground: Face[]
+  trees: Tree[]
+  lines: CityLine[]
+  home: { x: number; y: number; z: number }
+  david: { x: number; y: number; z: number }
+}
+
+/** Sydney roofs: terracotta tile and grey or charcoal sheet for houses; flat, paler roofs for the bigger buildings. */
+const ROOFS: Record<string, readonly string[]> = {
+  house: ['#d4977d', '#cb8c72', '#dca58c', '#c08670', '#b3bbbf', '#a3acb2', '#c4b7aa'],
+  apartments: ['#d3d9de', '#c9d1d8'],
+  retail: ['#ddd2c1', '#d4c9b6'],
+  commercial: ['#ddd2c1', '#d2cdc4'],
+  industrial: ['#cfd3cf'],
+  garage: ['#cbc6bd'],
+  shed: ['#cbc6bd'],
+}
+const WALLS = ['#f5efe5', '#efe6d9', '#f7f2ea', '#ebe3d6', '#f2ebe0'] as const
+/** Kinds that get a pitched roof when small and near-rectangular. */
+const PITCHED = new Set(['house', 'detached', 'semidetached_house', 'terrace', 'yes', 'garage', 'shed'])
+const STREET_TREE = ['#a5d394', '#5f9f5b'] as const, JACARANDA = ['#cdb7f2', '#8f6fd0'] as const
+
+function ringCentre(r: [number, number][]): [number, number] {
+  return [r.reduce((a, p) => a + p[0], 0) / r.length, r.reduce((a, p) => a + p[1], 0) / r.length]
+}
+
+const ringArea = (r: [number, number][]) => {
+  let a = 0
+  for (let k = 0; k < r.length; k++) a += r[k][0] * r[(k + 1) % r.length][1] - r[(k + 1) % r.length][0] * r[k][1]
+  return a / 2
+}
+
+/** Minimum-area bounding rectangle (over the footprint's edge directions): centre, long axis, half-lengths. */
+function orientedBox(r: [number, number][]) {
+  let best: { area: number; cx: number; cy: number; ux: number; uy: number; a: number; b: number } | null = null
+  for (let k = 0; k < r.length; k++) {
+    const [x0, y0] = r[k], [x1, y1] = r[(k + 1) % r.length], l = Math.hypot(x1 - x0, y1 - y0)
+    if (l < 1e-6) continue
+    const ux = (x1 - x0) / l, uy = (y1 - y0) / l
+    let u0 = Infinity, u1 = -Infinity, v0 = Infinity, v1 = -Infinity
+    r.forEach(([x, y]) => {
+      const u = x * ux + y * uy, v = -x * uy + y * ux
+      u0 = Math.min(u0, u); u1 = Math.max(u1, u); v0 = Math.min(v0, v); v1 = Math.max(v1, v)
+    })
+    const area = (u1 - u0) * (v1 - v0)
+    if (best && area >= best.area) continue
+    const uc = (u0 + u1) / 2, vc = (v0 + v1) / 2
+    // Long axis first.
+    const long = u1 - u0 >= v1 - v0
+    best = {
+      area, cx: uc * ux - vc * uy, cy: uc * uy + vc * ux,
+      ux: long ? ux : -uy, uy: long ? uy : ux, a: (long ? u1 - u0 : v1 - v0) / 2, b: (long ? v1 - v0 : u1 - u0) / 2,
+    }
+  }
+  return best!
+}
+
+const facing = (col: string, nx: number, ny: number, k = 0.18) => shade(col, 0.8 + k * Math.cos(Math.atan2(ny, nx) - LIGHT))
+
+/** Flat-roofed block: walls shaded by facing, the roof with a darker parapet edge, sorted by its footprint centre. */
+function flatBuilding(F: Face[], r: [number, number][], h: number, wall: string, roof: string): void {
+  const [cx, cy] = ringCentre(r), key: Pt3 = [cx, cy, 0], wind = ringArea(r) > 0 ? 1 : -1
+  for (let k = 0; k < r.length; k++) {
+    const [x0, y0] = r[k], [x1, y1] = r[(k + 1) % r.length], fill = facing(wall, (y1 - y0) * wind, -(x1 - x0) * wind)
+    F.push({ pts: [[x0, y0, 0], [x1, y1, 0], [x1, y1, h], [x0, y0, h]], fill, stroke: fill, key })
+  }
+  F.push({ pts: r.map(([x, y]) => [x, y, h] as Pt3), fill: roof, stroke: shade(roof, 0.78), lw: 1, key, last: true })
+}
+
+/**
+ * A house: its footprint's bounding rectangle as four walls, and a pitched roof whose ridge runs along the long axis,
+ * with a small overhang; each slope is shaded by the way it faces, the gable ends take the wall colour.
+ */
+function pitchedHouse(F: Face[], box: ReturnType<typeof orientedBox>, h: number, wall: string, roof: string): void {
+  const { cx, cy, ux, uy, a, b } = box, vx = -uy, vy = ux, key: Pt3 = [cx, cy, 0]
+  const at = (u: number, v: number, z: number): Pt3 => [cx + u * ux + v * vx, cy + u * uy + v * vy, z]
+  const c: [number, number][] = [[-a, -b], [a, -b], [a, b], [-a, b]]
+  c.forEach(([u0, v0], i) => {
+    const [u1, v1] = c[(i + 1) % 4], nu = (u0 + u1) / 2, nv = (v0 + v1) / 2
+    const fill = facing(wall, nu * ux + nv * vx, nu * uy + nv * vy)
+    F.push({ pts: [at(u0, v0, 0), at(u1, v1, 0), at(u1, v1, h), at(u0, v0, h)], fill, stroke: fill, key })
+  })
+  const rise = Math.min(b * 0.75, 2.6), o = 0.35, ridge = h + rise
+  // Two slopes (eave to ridge) and two gable triangles.
+  ;[-1, 1].forEach((side) => {
+    const fill = facing(roof, side * vx, side * vy, 0.28)
+    F.push({ pts: [at(-a - o, side * (b + o), h - 0.2), at(a + o, side * (b + o), h - 0.2), at(a + o, 0, ridge), at(-a - o, 0, ridge)], fill, stroke: shade(fill, 0.86), key, last: true })
+    const g = facing(wall, side * ux, side * uy)
+    F.push({ pts: [at(side * a, -b, h), at(side * a, b, h), at(side * a, 0, ridge)], fill: g, stroke: g, key, last: true })
+  })
+}
+
+/** One building: a pitched house when it is a small near-rectangular dwelling, else a flat-roofed block. */
+function building(F: Face[], r: [number, number][], h: number, kind: string, wall: string, roof: string): void {
+  const box = orientedBox(r), area = Math.abs(ringArea(r))
+  if (PITCHED.has(kind) && area < 60 && area / (4 * box.a * box.b) > 0.72 && box.b > 0.8) pitchedHouse(F, box, h, wall, roof)
+  else flatBuilding(F, r, h, wall, roof)
+}
+
+/** Margaret's streets from OpenStreetMap (`MARRICKVILLE_MAP`): plate, parks, water, roads, rail, buildings and trees. */
+export function buildStreets(): StreetBase {
+  const M = MARRICKVILLE_MAP, F: Face[] = [], G: Face[] = [], L: CityLine[] = [], T: Tree[] = []
+  const R = rng(5)
+  G.push({ pts: rect(0, 0, M.size[0], M.size[1]), fill: '#eef0ea' })
+  M.railLand.forEach((r) => G.push({ pts: r.map(([x, y]) => [x, y, 0] as Pt3), fill: '#e4e2db' }))
+  M.greens.forEach((r) => G.push({ pts: r.map(([x, y]) => [x, y, 0] as Pt3), fill: '#d3e9c6' }))
+  M.water.forEach((r) => G.push({ pts: r.map(([x, y]) => [x, y, 0] as Pt3), fill: '#c4e2ec' }))
+  // Minor ways first, then the main roads with a soft casing on top.
+  M.roads.filter((r) => !r.major).forEach((r) => L.push({ pts: r.pts, w: r.w, c: r.w < 1 ? 'rgba(255,255,255,.8)' : '#ffffff' }))
+  M.roads.filter((r) => r.major).forEach((r) => L.push({ pts: r.pts, w: r.w + 0.8, c: '#e3dccb' }))
+  M.roads.filter((r) => r.major).forEach((r) => L.push({ pts: r.pts, w: r.w, c: '#fff8e6' }))
+  M.rails.forEach((r) => {
+    L.push({ pts: r, w: 1.6, c: '#aaa49a' })
+    L.push({ pts: r, w: 1.6, c: '#ffffff', dash: [1, 2] })
+  })
+  let home = { x: 0, y: 0, z: 0 }, david = { x: 0, y: 0, z: 0 }
+  M.buildings.forEach((b) => {
+    const pal = ROOFS[b.k] ?? ROOFS.house, roof = pal[Math.floor(R() * pal.length)]
+    // Far out (under the fade) a building is just its footprint: cheap to draw while turning.
+    if (b.far) {
+      G.push({ pts: b.r.map(([x, y]) => [x, y, 0] as Pt3), fill: shade(roof, 0.97) })
+      return
+    }
+    // A little taller than life so the low terraces still read as blocks at this scale.
+    const h = b.h * 1.1, wall = WALLS[Math.floor(R() * WALLS.length)]
+    if (b.role === 'home') {
+      building(F, b.r, h, b.k, '#ffffff', '#14a08c')
+      home = { x: ringCentre(b.r)[0], y: ringCentre(b.r)[1], z: h + 2 }
+    } else if (b.role === 'david') {
+      building(F, b.r, h, b.k, '#e3ecf8', '#2f6fb0')
+      david = { x: ringCentre(b.r)[0], y: ringCentre(b.r)[1], z: h + 2 }
+    } else building(F, b.r, h, b.k, wall, roof)
+  })
+  // Full crowns on short trunks, so they read as trees from above rather than as pins.
+  M.trees.forEach(([x, y, r, jac]) => T.push({ x, y, h: r * 2, r: r * 1.5, c: jac ? JACARANDA : STREET_TREE }))
+  return { faces: F, ground: G, trees: T, lines: L, home, david }
+}
+
+/** The glyph on a home-map marker, from its kind (and, inside a kind, its initials). */
+function markerIcon(p: MapPin): MapIcon {
+  if (p.tag) return 'hospital'
+  if (p.kind === 'home') return 'house'
+  if (p.kind === 'family') return 'user-round'
+  if (p.kind === 'health') return p.initials === 'Rx' ? 'pill' : 'stethoscope'
+  if (p.kind === 'community') return p.initials === 'L' ? 'book-open' : 'footprints'
+  return 'users'
+}
+
+/** Legacy home-map units (the procedural model) in metres, for ring radii given in them. */
+const LEGACY_M = 3.4
+
+/** Home page map on the real streets: pins at their lat/lng, the walk ring around her house, David's walk to her door. */
+export function streetHomeScene(base: StreetBase, map: Surroundings['homeMap']): CityModel {
+  const { home, david } = base, M = MARRICKVILLE_MAP
+  const pins = map.pins.map((p): CityPin => {
+    const [x, y] = p.geo ? streetPoint(p.geo.lat, p.geo.lng) : [M.size[0] * 0.8, M.size[1] * 0.36]
+    const at = p.big ? home : p.kind === 'family' ? david : { x, y, z: 4 }
+    const pin: CityPin = { x: at.x, y: at.y, z: at.z + 2, name: p.name, sub: p.sub ?? '', c: p.color, ini: p.initials }
+    if (p.detail != null) pin.d = p.detail
+    if (p.ink) pin.ink = p.ink
+    if (p.big) pin.big = true
+    if (p.phase != null) pin.ph = p.phase
+    if (p.tag) pin.tag = true
+    pin.icon = markerIcon(p)
+    return pin
+  })
+  const labels = map.labels.flatMap((l, i): CityLabel[] => {
+    const a = M.labels[i]
+    if (!a) return []
+    const label: CityLabel = { t: l.text, x: a[0], y: a[1] }
+    if (l.bold) label.b = true
+    if (a[2] != null) label.a = a[2]
+    return [label]
+  })
+  return {
+    faces: base.faces,
+    ground: base.ground,
+    trees: base.trees,
+    lines: base.lines,
+    pins,
+    rings: [{ x: home.x, y: home.y, r: (map.walkRing.radius * LEGACY_M) / M.unit, c: 'rgba(20,160,140,.75)', label: map.walkRing.label }],
+    // From his marker (his house's centre) along the streets to her door.
+    routes: [{ pts: [[david.x, david.y], ...M.davidRoute.slice(1)], c: '#2f6fb0' }],
+    labels,
+    modern: true,
+  }
 }

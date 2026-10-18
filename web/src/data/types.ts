@@ -39,7 +39,7 @@ export type StatusLevel = 'good' | 'watch' | 'alert'
 /** Icon keys from the prototype's ICONS table (dot-ic attribute values). */
 export type DrawnIconName =
   | 'home' | 'spark' | 'tree' | 'file' | 'bell' | 'bolt' | 'mic' | 'heart' | 'right' | 'left'
-  | 'trend' | 'pill' | 'people' | 'ear' | 'eye' | 'brain' | 'plus' | 'clinic' | 'hospital'
+  | 'trend' | 'pill' | 'people' | 'ear' | 'eye' | 'brain' | 'plus' | 'minus' | 'clinic' | 'hospital'
   | 'phone' | 'pause' | 'play' | 'check' | 'x' | 'grid' | 'sun' | 'search' | 'target'
   | 'siren' | 'shield' | 'radar' | 'moon' | 'cpu' | 'smile' | 'news' | 'wind' | 'drop'
   | 'cloud' | 'lungs' | 'watch'
@@ -1093,6 +1093,8 @@ export interface CityView {
   compassY?: number
   pitch?: number
   zoom?: number
+  /** Scale so the footprint covers the whole canvas (cropped at the edges) instead of fitting inside it. */
+  cover?: boolean
 }
 
 /** Inputs of the procedural Marrickville model (`buildSuburb`, line 1270). */
@@ -1122,5 +1124,6 @@ export interface CityGeometry {
     jacaranda: readonly [string, string]
     riverside: readonly [string, string]
   }
-  views: { home: CityView; watch: CityView; district: CityView }
+  /** `street`: the home map drawn from OpenStreetMap (`buildStreets`). */
+  views: { home: CityView; watch: CityView; district: CityView; street: CityView }
 }

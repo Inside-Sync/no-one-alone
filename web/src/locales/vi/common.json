@@ -405,6 +405,8 @@
     "link": "Về Trang chủ"
   },
   "charts": {
+    "zoomIn": "Phóng to",
+    "zoomOut": "Thu nhỏ",
     "timeline": "Dòng thời gian",
     "table": "Bảng",
     "heatmap": "Bản đồ nhiệt sinh hoạt hằng ngày, {{days}} ngày x {{hours}} giờ",

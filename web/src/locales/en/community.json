@@ -11,18 +11,18 @@
       },
       "chips": [
         "Drag to turn",
-        "Tap a column for detail",
+        "Tap a suburb for detail",
         "Data refreshed 15:00"
       ],
       "models": {
         "high": {
           "title": "High-risk residents",
-          "subtitle": "Column height = people at high risk · tile colour = heat vulnerability",
+          "subtitle": "Suburb height and colour = people at high risk",
           "unit": " high risk"
         },
         "alone": {
           "title": "Living alone",
-          "subtitle": "Column height = share of enrolled residents living alone",
+          "subtitle": "Suburb height = share of enrolled residents living alone",
           "unit": " % alone"
         },
         "heat": {

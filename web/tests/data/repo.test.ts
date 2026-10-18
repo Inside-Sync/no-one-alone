@@ -279,7 +279,7 @@ test('city scene: blocks, colours and the three camera presets', async () => {
   expect(g.blocks).toHaveLength(11)
   expect(g.blocks[0]).toEqual([0, 102, 46, 142, 'shops'])
   expect(g.views.home).toMatchObject({ size: [400, 400], yaw: -0.62, cy: 0.6, vpad: 110, zmax: 30, fill: 1.1 })
-  expect(g.views.district).toMatchObject({ size: [400, 320], yaw: -0.5, compassY: 70 })
+  expect(g.views.district).toMatchObject({ size: [820, 820], yaw: 0, compassY: 70 })
   expect(g.views.watch.yaw).toBe(0.35)
 })
 

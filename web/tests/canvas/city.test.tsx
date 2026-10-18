@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { createRef } from 'react'
-import { buildDistrict, buildSuburb, homeScene, watchScene } from '@/components/canvas/city/geometry'
+import { buildDistrict, buildStreets, buildSuburb, homeScene, streetHomeScene, watchScene } from '@/components/canvas/city/geometry'
 import { cityHit, drawCityFrame, pinText } from '@/components/canvas/city/draw'
 import { DEFAULT_FONTS } from '@/components/canvas/fonts'
 import { City3D } from '@/components/canvas/City3D'
@@ -67,13 +67,31 @@ test('watch scene matches the prototype surroundings map', () => {
   expect(m.rings).toEqual([{ x: home.x, y: home.y, r: 150, c: 'rgba(217,68,63,.6)', label: 'WATCH AREA' }])
 })
 
-test.each(['high', 'alone', 'heat', 'gap'])('buildDistrict(%s) matches the prototype DM model', (mode) => {
-  const proto = P.buildDistrict(mode)
-  const values = P.SUBS.map((s: any) => P.subVal(s, mode))
-  const m = buildDistrict(community.suburbs, values, P.DM[mode][2])
-  expect(m.ground).toEqual(proto.ground)
-  expect(m.faces).toEqual(proto.faces)
-  expect(m.pins.map(flags)).toEqual(proto.pins.map(flags))
+test('buildDistrict: one block per suburb, its value and name printed on its roof, the tallest for the biggest value', () => {
+  const values = community.suburbs.map((s) => s.highRisk)
+  const m = buildDistrict(community.suburbs, values, ' high risk')
+  expect(m.texts).toHaveLength(community.suburbs.length)
+  expect(m.pins).toHaveLength(community.suburbs.length)
+  m.pins.forEach((p, i) => {
+    expect(p).toMatchObject({ name: community.suburbs[i].name, sub: values[i] + ' high risk', ghost: true })
+    expect(m.texts![i]).toMatchObject({ t: String(values[i]), z: p.z })
+    // Roofs too small for a name (Enmore, Lewisham, Sydenham) carry the value alone.
+    expect(m.texts![i].sub).toBe(['Enmore', 'Lewisham', 'Sydenham'].includes(p.name) ? '' : p.name)
+  })
+  const top = values.indexOf(Math.max(...values))
+  expect(Math.max(...m.pins.map((p) => p.z))).toBe(m.pins[top].z)
+})
+
+test('district map: every suburb is tappable on its roof', () => {
+  const view = cityScene.views.district
+  const values = community.suburbs.map((s) => s.highRisk)
+  const m = buildDistrict(community.suburbs, values, ' high risk')
+  const buf = document.createElement('canvas')
+  buf.width = 800; buf.height = 600
+  const hits = drawCityFrame(fakeCtx(), { canvas: buf, ctx: fakeCtx(), key: '' }, m, view, {
+    width: 400, height: 300, dpr: 2, yaw: view.yaw, now: 0, night: false, reduced: true, fonts: DEFAULT_FONTS,
+  })
+  expect(new Set(hits.map((h) => h.p))).toEqual(new Set(m.pins))
 })
 
 function protoFrame(view: any, model: any, opts: { yaw?: number; now: number; night?: boolean }) {
@@ -126,15 +144,6 @@ describe('City3D frame is drawn call for call like the prototype', () => {
     expect(normCalls(ours.bx)).toEqual(normCalls(proto.bx))
     expect(normCalls(ours.ctx)).toEqual(normCalls(proto.ctx))
   })
-
-  test('district map', () => {
-    const view = cityScene.views.district
-    const values = P.SUBS.map((s: any) => P.subVal(s, 'gap'))
-    const proto = protoFrame(view, P.buildDistrict('gap'), { now: 500 })
-    const ours = ourFrame(view, buildDistrict(community.suburbs, values, P.DM.gap[2]), { now: 500 })
-    expect(normCalls(ours.bx)).toEqual(normCalls(proto.bx))
-    expect(normCalls(ours.ctx)).toEqual(normCalls(proto.ctx))
-  })
 })
 
 test('tap text and hit testing follow the prototype toast', () => {
@@ -174,4 +183,31 @@ describe('components', () => {
     )
     expect(container.querySelector('.c3d')).toHaveAttribute('aria-label', '3D column map of 15 Inner West suburbs')
   })
+})
+
+test('buildDistrict: every suburb is drawn from its real boundary, north up', () => {
+  const values = community.suburbs.map((s) => s.highRisk)
+  const m = buildDistrict(community.suburbs, values, ' high risk')
+  const at = (name: string) => m.pins.find((p) => p.name === name)!
+  expect(m.faces.filter((f) => f.last)).toHaveLength(community.suburbs.length)
+  expect(at('Leichhardt').y).toBeGreaterThan(at('Marrickville').y) // Leichhardt lies north of Marrickville
+  expect(at('Camperdown').x).toBeGreaterThan(at('Ashfield').x) // and Camperdown east of Ashfield
+})
+
+test('streetHomeScene: the real streets, her house and David\'s marked, pins at their lat/lng, his walk ending at her door', () => {
+  const base = buildStreets()
+  const m = streetHomeScene(base, surroundings.homeMap)
+  // Both houses were found on the map (a pitched roof shades its colour, so check positions, not fills).
+  expect(base.home.x).toBeGreaterThan(0)
+  expect(base.david.x).toBeGreaterThan(0)
+  expect(Math.hypot(base.home.x - base.david.x, base.home.y - base.david.y)).toBeGreaterThan(50)
+  expect(m.pins).toHaveLength(surroundings.homeMap.pins.length)
+  const home = m.pins.find((p) => p.big)!
+  expect([home.x, home.y]).toEqual([base.home.x, base.home.y])
+  const gp = m.pins.find((p) => p.name === 'GP')!, pharmacy = m.pins.find((p) => p.name === 'Pharmacy')!
+  expect(gp.x).toBeGreaterThan(pharmacy.x) // the GP is east of the pharmacy on Marrickville Rd
+  const route = m.routes![0].pts
+  expect(Math.hypot(route.at(-1)![0] - base.home.x, route.at(-1)![1] - base.home.y)).toBeLessThan(15)
+  // Cooks River lies off the plate, so its label is dropped.
+  expect(m.labels!.map((l) => l.t)).not.toContain('Cooks River')
 })

@@ -4,40 +4,21 @@ import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
-import { ALERT_HR, ALERT_MIN, HR_MAX, HR_MIN, PRESETS, STILL_MAX, type PresetId, type SimSettings, type SimSpeech } from '@/domain/simulator'
+import { ALERT_HR, ALERT_MIN, HR_MAX, HR_MIN, PRESETS, STILL_MAX, type PresetId } from '@/domain/simulator'
 import { Head } from '../home/parts'
 import type { WatchApi } from './useWatch'
 
-const SPEECH: SimSpeech[] = ['slurred', 'mic']
 const PRESET_IDS = Object.keys(PRESETS) as PresetId[]
 const PRESET_ICON: Record<PresetId, IconName> = { night: 'moon', stairs: 'door-stairwell', asleep: 'bed' }
 /** The alert threshold's warning sign, after a number. */
 const warn = <span className="ic sim-warn"><Icon name="triangle-alert" tint /></span>
 
-function Toggle<T extends string | boolean>({ label, value, options, onChange, disabled }: {
-  label: string; value: T; options: { v: T; text: string }[]; onChange: (v: T) => void; disabled: boolean
-}) {
-  return (
-    <div className="sim-opt">
-      <span>{label}</span>
-      <div className="seg" role="group" aria-label={label}>
-        {options.map((o) => (
-          <button key={String(o.v)} type="button" aria-pressed={o.v === value} disabled={disabled} onClick={() => onChange(o.v)}>{o.text}</button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 const pct = (v: number, min: number, max: number) => `${((v - min) / (max - min)) * 100}%`
 
 /** Live mode (c12, one row like the prototype's): presets and sliders drive the watch; Noa starts the real incident when the rule is met. Locked while one is open. */
-export function SimulatorCard({ watch: api, settings: s, onChange, locked, onReset }: {
-  watch: WatchApi; settings: SimSettings; onChange: (s: SimSettings) => void; locked: boolean; onReset: () => void
-}) {
+export function SimulatorCard({ watch: api, locked, onReset }: { watch: WatchApi; locked: boolean; onReset: () => void }) {
   const { t } = useTranslation('live')
   const { watch: w } = api
-  const set = (patch: Partial<SimSettings>) => onChange({ ...s, ...patch })
   const still = w.stillMin === 0 ? t('sim.moving') : t(w.stillMin >= ALERT_MIN ? 'sim.minAlert' : 'sim.min', { n: w.stillMin })
   // The how-to steps tick themselves off as the sliders reach the alert rule; step 3 runs while the alert is open.
   const stepState = (k: number) => (k === 0 ? w.hr > ALERT_HR : k === 1 ? w.stillMin >= ALERT_MIN : false) ? 'done' : k === 2 && locked ? 'cur' : ''
@@ -70,6 +51,7 @@ export function SimulatorCard({ watch: api, settings: s, onChange, locked, onRes
               )
             })}
           </div>
+          <div className="sliders">
           <label className="slider">
             <span className="top"><span><Glyph name="heart" />{t('sim.hr')}</span><b className={w.hr > ALERT_HR ? 'val hot' : 'val'}>{t('sim.bpm', { n: w.hr })}</b></span>
             <input type="range" className="rng" min={HR_MIN} max={HR_MAX} value={w.hr} aria-label={t('sim.hrAria')} disabled={locked}
@@ -93,11 +75,6 @@ export function SimulatorCard({ watch: api, settings: s, onChange, locked, onRes
               <span style={{ left: '100%' }}>{STILL_MAX}</span>
             </span>
           </label>
-          <div className="sim-opts">
-            <Toggle label={t('sim.speech')} value={s.speech} disabled={locked} onChange={(speech) => set({ speech })}
-              options={SPEECH.map((v) => ({ v, text: t(`sim.speechOpt.${v}`) }))} />
-            <Toggle label={t('sim.david')} value={s.davidPicksUp} disabled={locked} onChange={(davidPicksUp) => set({ davidPicksUp })}
-              options={[{ v: true, text: t('sim.yes') }, { v: false, text: t('sim.no') }]} />
           </div>
           <div className="btns">
             <button type="button" className="btn" title={t('sim.runTitle')} disabled={locked} onClick={api.toggleRun}>

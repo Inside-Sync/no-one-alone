@@ -418,6 +418,8 @@
     "link": "返回首页"
   },
   "charts": {
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
     "timeline": "时间线",
     "table": "表格",
     "heatmap": "日常作息热力图，{{days}} 天 × {{hours}} 小时",

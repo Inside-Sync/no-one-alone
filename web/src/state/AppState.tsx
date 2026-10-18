@@ -94,6 +94,8 @@ export interface AppStateValue {
    * previous incident and the few seconds before Noa steps in do not flash the day sky.
    */
   holdNight: (on: boolean) => void
+  /** Night mode is on: an alert is running or the demo click is holding it. The Night alert demo switch shows this. */
+  night: boolean
   hydrated: boolean
 }
 
@@ -250,10 +252,10 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const value = useMemo<AppStateValue>(
     () => ({
       who: s.who, setWho, viewer: s.viewer, setViewer, paused: s.paused, togglePause, toggleShare, applyPreset,
-      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew, alertActive, holdNight,
+      audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew, alertActive, holdNight, night,
       hydrated: s.hydrated,
     }),
-    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency, packetNew, alertActive, holdNight],
+    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency, packetNew, alertActive, holdNight, night],
   )
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

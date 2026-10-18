@@ -5,3 +5,8 @@ export const NIGHT_DEMO = 'noa:night-demo'
 export const NIGHT_DEMO_PATH = '/individual/live?demo=night'
 
 export const startNightDemo = (): void => { window.dispatchEvent(new Event(NIGHT_DEMO)) }
+
+/** The switch turned off: the Emergency page on screen resets its incident and the watch, like its Reset button. */
+export const NIGHT_DEMO_STOP = 'noa:night-demo-stop'
+
+export const stopNightDemo = (): void => { window.dispatchEvent(new Event(NIGHT_DEMO_STOP)) }

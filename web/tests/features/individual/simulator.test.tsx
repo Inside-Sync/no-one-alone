@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, within } from '@testing-library/react'
+import { act, fireEvent, screen } from '@testing-library/react'
 import { useState } from 'react'
 import { vi } from 'vitest'
 import type { IncidentDoc } from '@/data/contract'
@@ -48,10 +48,6 @@ beforeEach(() => {
 })
 afterEach(() => { vi.unstubAllGlobals() })
 
-const render = async () => {
-  renderWithProviders(<LivePage />)
-  await screen.findByRole('heading', { name: 'Simulator' })
-}
 const click = (name: string) => fireEvent.click(screen.getByRole('button', { name }))
 
 const TIMERS: ('setTimeout' | 'clearTimeout' | 'setInterval' | 'clearInterval')[] = ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']
@@ -132,16 +128,6 @@ describe('watch', () => {
     expect(start).not.toHaveBeenCalled()
     expect(screen.getByText('01:30')).toBeInTheDocument()
   })
-})
-
-test('the Speech toggle sits with the phone options, defaults to the mic and still flips', async () => {
-  await render()
-  const group = screen.getByRole('group', { name: 'Speech' })
-  expect(group.closest('.sim-opts')).not.toBeNull()
-  const speech = within(group)
-  expect(speech.getByRole('button', { name: "I'll answer (mic)" })).toHaveAttribute('aria-pressed', 'true')
-  click('Slurred (auto)')
-  expect(speech.getByRole('button', { name: 'Slurred (auto)' })).toHaveAttribute('aria-pressed', 'true')
 })
 
 const T0 = Date.parse('2026-10-14T14:30:00Z')
