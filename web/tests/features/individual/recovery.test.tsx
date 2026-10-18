@@ -71,6 +71,9 @@ test('without a live recovery the page shows the idle card, worded per role', ()
 })
 
 test('with a live recovery the page shows the plan and 5 planned calls with dates', () => {
+  // Day 2 at home in Sydney: no call falls today, so every call is "Planned".
+  vi.useFakeTimers({ toFake: ['Date'] })
+  vi.setSystemTime(Date.parse('2026-10-18T02:00:00Z'))
   liveValue.incident = { recovery } as unknown as IncidentDoc
   renderWithProviders(<RecoveryPage />, { who: 'self' })
   expect(screen.getByText('Margaret, you are home.')).toBeInTheDocument()
