@@ -166,6 +166,7 @@ function LiveIncidentPage() {
     callKey: call && calls.initial ? `${view?.id} ${call.at}` : null,
     live: Boolean(call && calls.initial && !calls.initial.has(callKeys([call], view?.id)[0])),
     davidAccepted: Boolean(incident?.timeline.some((e) => e.kind === 'ACCEPTED')),
+    reasons: incident?.triage?.reasons,
     dialDone: call && calls.dial?.at === `${view?.id} ${call.at}` ? calls.dial.done : null, speechRef: speech,
     onDone: (silent) => { if (view) setDialogueDone({ id: view.id, silent }) },
   })
