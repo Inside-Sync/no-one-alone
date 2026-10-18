@@ -9,6 +9,7 @@
   "typing": "Noa đang trả lời",
   "offline": "Noa không hoạt động trong bản xem trước này.",
   "failed": "Noa chưa thể trả lời lúc này.",
+  "busy": "Đang có nhiều câu hỏi. Vui lòng thử lại sau một phút.",
   "sub": {
     "hosp": "Chế độ lâm sàng · có ghi nhật ký",
     "self": "Noa · chỉ riêng bạn",

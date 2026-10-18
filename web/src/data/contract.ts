@@ -226,7 +226,7 @@ export type DemoScenario = 'stroke' | 'fall' | 'false-alarm'
 
 export type CheckinInput = { audio: Blob } | { yesNo: 'YES' | 'NO' } | { noReply: true }
 
-export type ApiErrorCode = 'INVALID_REQUEST' | 'UNAUTHENTICATED' | 'NOT_FOUND' | 'ALREADY_OWNED' | 'INVALID_STATE' | 'AGENT_FAILED'
+export type ApiErrorCode = 'INVALID_REQUEST' | 'UNAUTHENTICATED' | 'NOT_FOUND' | 'ALREADY_OWNED' | 'INVALID_STATE' | 'AGENT_FAILED' | 'RATE_LIMITED'
 
 export type MedChange = 'New' | 'Increased' | 'Continue' | 'Stop'
 

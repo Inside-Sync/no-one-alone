@@ -9,6 +9,7 @@
   "typing": "Noa is typing",
   "offline": "Noa is offline in this preview.",
   "failed": "Noa can't answer right now.",
+  "busy": "Lots of questions just now. Please try again in a minute.",
   "sub": {
     "hosp": "Clinical mode · audit-logged",
     "self": "Noa · private to you",
