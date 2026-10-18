@@ -461,6 +461,7 @@ export function buildStreets(): StreetBase {
 function markerIcon(p: MapPin): MapIcon {
   if (p.tag) return 'hospital'
   if (p.kind === 'home') return 'house'
+  if (p.kind === 'alert') return p.tone === 'act' ? 'octagon-alert' : p.tone === 'info' ? 'info' : 'triangle-alert'
   if (p.kind === 'family') return 'user-round'
   if (p.kind === 'health') return p.initials === 'Rx' ? 'pill' : 'stethoscope'
   if (p.kind === 'community') return p.initials === 'L' ? 'book-open' : 'footprints'
@@ -470,39 +471,66 @@ function markerIcon(p: MapPin): MapIcon {
 /** Legacy home-map units (the procedural model) in metres, for ring radii given in them. */
 const LEGACY_M = 3.4
 
-/** Home page map on the real streets: pins at their lat/lng, the walk ring around her house, David's walk to her door. */
-export function streetHomeScene(base: StreetBase, map: Surroundings['homeMap']): CityModel {
-  const { home, david } = base, M = MARRICKVILLE_MAP
-  const pins = map.pins.map((p): CityPin => {
-    const [x, y] = p.geo ? streetPoint(p.geo.lat, p.geo.lng) : [M.size[0] * 0.8, M.size[1] * 0.36]
-    const at = p.big ? home : p.kind === 'family' ? david : { x, y, z: 4 }
-    const pin: CityPin = { x: at.x, y: at.y, z: at.z + 2, name: p.name, sub: p.sub ?? '', c: p.color, ini: p.initials }
-    if (p.detail != null) pin.d = p.detail
-    if (p.ink) pin.ink = p.ink
-    if (p.big) pin.big = true
-    if (p.phase != null) pin.ph = p.phase
-    if (p.tag) pin.tag = true
-    pin.icon = markerIcon(p)
-    return pin
-  })
-  const labels = map.labels.flatMap((l, i): CityLabel[] => {
-    const a = M.labels[i]
+/** A data pin on the real streets: at its lat/lng, or on her house (`big`) / David's (`family`). */
+function streetPin(p: MapPin, base: StreetBase): CityPin {
+  const M = MARRICKVILLE_MAP
+  const [x, y] = p.geo ? streetPoint(p.geo.lat, p.geo.lng) : [M.size[0] * 0.8, M.size[1] * 0.36]
+  const at = p.big ? base.home : p.kind === 'family' ? base.david : { x, y, z: 4 }
+  const pin: CityPin = { x: at.x, y: at.y, z: at.z + 2, name: p.name, sub: p.sub ?? '', c: p.color, ini: p.initials }
+  if (p.detail != null) pin.d = p.detail
+  if (p.ink) pin.ink = p.ink
+  if (p.big) pin.big = true
+  if (p.phase != null) pin.ph = p.phase
+  if (p.tag) pin.tag = true
+  pin.icon = markerIcon(p)
+  return pin
+}
+
+/** Street names at their anchors on the plate (`MARRICKVILLE_MAP.labels`, same order as `homeMap.labels`). */
+function streetLabels(labels: Surroundings['homeMap']['labels']): CityLabel[] {
+  return labels.flatMap((l, i): CityLabel[] => {
+    const a = MARRICKVILLE_MAP.labels[i]
     if (!a) return []
     const label: CityLabel = { t: l.text, x: a[0], y: a[1] }
     if (l.bold) label.b = true
     if (a[2] != null) label.a = a[2]
     return [label]
   })
+}
+
+/** Home page map on the real streets: pins at their lat/lng, the walk ring around her house, David's walk to her door. */
+export function streetHomeScene(base: StreetBase, map: Surroundings['homeMap']): CityModel {
+  const { home, david } = base, M = MARRICKVILLE_MAP
   return {
     faces: base.faces,
     ground: base.ground,
     trees: base.trees,
     lines: base.lines,
-    pins,
+    pins: map.pins.map((p) => streetPin(p, base)),
     rings: [{ x: home.x, y: home.y, r: (map.walkRing.radius * LEGACY_M) / M.unit, c: 'rgba(20,160,140,.75)', label: map.walkRing.label }],
     // From his marker (his house's centre) along the streets to her door.
     routes: [{ pts: [[david.x, david.y], ...M.davidRoute.slice(1)], c: '#2f6fb0' }],
-    labels,
+    labels: streetLabels(map.labels),
+    modern: true,
+  }
+}
+
+/** Surroundings page map on the real streets: alert pins at their lat/lng and the watch ring around her house. */
+export function streetWatchScene(
+  base: StreetBase,
+  pins: MapPin[],
+  ring: Surroundings['watchMap']['ring'],
+  labels: Surroundings['homeMap']['labels'],
+): CityModel {
+  const { home } = base
+  return {
+    faces: base.faces,
+    ground: base.ground,
+    trees: base.trees,
+    lines: base.lines,
+    pins: pins.map((p) => streetPin(p, base)),
+    rings: [{ x: home.x, y: home.y, r: (ring.radius * LEGACY_M) / MARRICKVILLE_MAP.unit, c: 'rgba(217,68,63,.6)', label: ring.label }],
+    labels: streetLabels(labels),
     modern: true,
   }
 }

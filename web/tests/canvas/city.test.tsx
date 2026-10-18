@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { createRef } from 'react'
-import { buildDistrict, buildStreets, buildSuburb, homeScene, streetHomeScene, watchScene } from '@/components/canvas/city/geometry'
+import { buildDistrict, buildStreets, buildSuburb, homeScene, streetHomeScene, streetWatchScene, watchScene } from '@/components/canvas/city/geometry'
 import { cityHit, drawCityFrame, pinText } from '@/components/canvas/city/draw'
 import { DEFAULT_FONTS } from '@/components/canvas/fonts'
 import { City3D } from '@/components/canvas/City3D'
@@ -210,4 +210,17 @@ test('streetHomeScene: the real streets, her house and David\'s marked, pins at 
   expect(Math.hypot(route.at(-1)![0] - base.home.x, route.at(-1)![1] - base.home.y)).toBeLessThan(15)
   // Cooks River lies off the plate, so its label is dropped.
   expect(m.labels!.map((l) => l.t)).not.toContain('Cooks River')
+})
+
+test('streetWatchScene: alert pins at their lat/lng with a severity glyph, the watch ring round her house', () => {
+  const base = buildStreets()
+  const m = streetWatchScene(base, surroundings.pins, surroundings.watchMap.ring, surroundings.homeMap.labels)
+  expect(m.modern).toBe(true)
+  expect(m.pins).toHaveLength(surroundings.pins.length)
+  const home = m.pins.find((p) => p.big)!
+  expect([home.x, home.y]).toEqual([base.home.x, base.home.y])
+  expect(m.pins.find((p) => p.name === 'Scam reported')!.icon).toBe('octagon-alert')
+  expect(m.pins.find((p) => p.name === 'Footpath works')!.icon).toBe('triangle-alert')
+  expect(m.pins.find((p) => p.name === 'Vaccines')!.icon).toBe('info')
+  expect([m.rings![0].x, m.rings![0].y]).toEqual([base.home.x, base.home.y])
 })

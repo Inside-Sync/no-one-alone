@@ -8,7 +8,7 @@ import { bodyIsNight, readCanvasFonts, type CanvasFonts } from './fonts'
 import { useCanvas3D, type Canvas3DHandle, type DrawFn } from './useCanvas3D'
 
 export type { CityModel } from './city/types'
-export { buildSuburb, homeScene, watchScene, buildDistrict, buildStreets, streetHomeScene } from './city/geometry'
+export { buildSuburb, homeScene, watchScene, buildDistrict, buildStreets, streetHomeScene, streetWatchScene } from './city/geometry'
 
 interface Props {
   /** Render model, e.g. `homeScene(buildSuburb(geometry), surroundings.homeMap)`. */
