@@ -52,3 +52,9 @@ test('dialSequence: three DTMF zeros, a pause, then the Australian ring', () => 
   const ring = s.slice(s.findIndex((t) => t.freqs.join() === '400,450'))
   expect(total(ring)).toBe(6000)
 })
+
+test('freshCallSound: the same story-time call in a new incident dials again', () => {
+  const seen = new Set(callKeys([auto000], 'run1'))
+  expect(freshCallSound([auto000], seen, 'run1')).toBeNull()
+  expect(freshCallSound([auto000], seen, 'run2')).toBe('dial')
+})
