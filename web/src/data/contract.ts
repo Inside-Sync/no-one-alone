@@ -1,6 +1,6 @@
 /**
- * Shapes from `docs/contract.md` (v1.4): the Firestore documents the web reads and the core-api routes it calls.
- * Change docs/contract.md first, then this file. Optional fields are omitted, never null (except `ownerId`).
+ * Wire shapes: the Firestore documents the web reads and the core-api routes it calls.
+ * Keep in step with core-api. Optional fields are omitted, never null (except `ownerId`).
  */
 
 export interface LatLng { lat: number; lng: number }

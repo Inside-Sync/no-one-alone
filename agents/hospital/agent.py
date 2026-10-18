@@ -39,5 +39,5 @@ class HospitalAgent(BaseAgent):
 root_agent = HospitalAgent(
     name="hospital_agent",
     description="Builds a consent-filtered pre-arrival packet for the receiving emergency department from the "
-                "person's FHIR R4 record. Input: the /handoff body from docs/contract.md 4.3. Output: the 4.4 packet as JSON text.",
+                "person's FHIR R4 record. Input: the /handoff request body. Output: the pre-arrival packet as JSON text.",
 )

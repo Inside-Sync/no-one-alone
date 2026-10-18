@@ -1,7 +1,7 @@
 # data/predict: family screening and the day-21 forecast
 
 One-off jobs that write `families/{personId}` (contract 2.5) and, later, `forecasts/{personId}` (2.4) to Firestore
-for the web to read. Owners: Minh, Dũng. All people and records are synthetic. Nothing here is deployed: the jobs
+for the web to read. All people and records are synthetic. Nothing here is deployed: the jobs
 run once from a laptop with Application Default Credentials.
 
 ## Family screening
@@ -63,9 +63,3 @@ and `forecasts`; core-api's demo reset does not touch them.
 .venv/bin/python -m predict.run forecast --from /tmp/forecasts.review.json --write   # Firestore only (approved runs)
 ```
 
-## CI
-
-CI runs the tests in `agents/respond` and `agents/hospital` only. Until it covers this folder, every PR here carries
-the local `pytest` output. Request for Dũng: a CI step with `working-directory: data/predict` that installs
-`requirements.txt` and `requirements-dev.txt` and runs `python -m pytest -q`. `data/` is outside the Deploy path
-filters, so merging here deploys nothing.

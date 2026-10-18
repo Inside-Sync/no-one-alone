@@ -1,4 +1,4 @@
-/* Design tokens copied verbatim from docs/reference/prototype.html lines 9-35 */
+/* Design tokens copied verbatim from tests/fixtures/prototype.html lines 9-35 */
 :root{
   color-scheme:light;
   --sky1:#bfe3f2; --sky2:#e4f1ee; --sky3:#fbe3c9; --sun:#ffd49b; --sun-o:.95;

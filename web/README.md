@@ -1,8 +1,8 @@
 # web
 
-Owner: Hải. Vite + React + TypeScript, routed with React Router.
+Vite + React + TypeScript, routed with React Router.
 
-Firebase Hosting serves `web/dist`. Call core-api with relative paths under `/api/...` (see `docs/contract.md`, "Hosting and URLs"). The dev server on `http://localhost:5173` proxies `/api` to a local core-api on port 8080.
+Firebase Hosting serves `web/dist`. Call core-api with relative paths under `/api/...`. The dev server on `http://localhost:5173` proxies `/api` to a local core-api on port 8080.
 
 ## Run locally
 

@@ -1,4 +1,4 @@
-/* Copied from docs/reference/prototype.html <style> (lines 36-478); tokens live in tokens.css */
+/* Copied from tests/fixtures/prototype.html <style> (lines 36-478); tokens live in tokens.css */
 /* R36 (Task 14 fix round): text-only status tones. The prototype's --warn #b97f04, --good #1f8f5f and --bad #d9443f
    (tokens.css, unchanged; still used for fills, dots, borders and lines) are only 1.6-2.0:1 as text on the worst
    measured glass (cards over the hills, median pixel rgb(135,186,168)) and 3.4/4.1/4.3:1 on white.

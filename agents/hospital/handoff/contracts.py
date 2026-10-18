@@ -1,4 +1,4 @@
-"""Wire shapes from docs/contract.md v1.4: section 4.3 request and section 4.4 packet."""
+"""Wire shapes: the /handoff request from respond-agent and the pre-arrival packet."""
 from datetime import datetime
 from typing import Literal
 
