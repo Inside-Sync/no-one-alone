@@ -9,6 +9,7 @@ import { GlassCard } from '@/components/ui/GlassCard'
 import { useToast } from '@/components/ui/Toast'
 import { apiErrorCode, getDeviceFeed, getOrbitScene } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useRepo } from '@/features/shared/useRepo'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
@@ -29,7 +30,7 @@ export function DevicePage() {
   const [busy, setBusy] = useState(false)
   if (feedRes.status === 'error') return <PageError page="device" onRetry={feedRes.retry} />
   const feed = feedRes.data
-  if (!feed) return null
+  if (!feed) return <PageSkeleton page="device" />
   const p = feed.phone
   const h = p.home
   return (

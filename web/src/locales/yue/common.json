@@ -227,6 +227,7 @@
       ]
     ]
   },
+  "pageLoading": "載入緊…",
   "pageError": {
     "text": "暫時載入唔到呢一頁。",
     "retry": "再試",

@@ -1,6 +1,7 @@
 'use client'
 
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useCommunity, useDistrictView } from '../useCommunity'
 import { CommunityKpis } from '../shared'
 import { CapacityCard } from './CapacityCard'
@@ -22,7 +23,7 @@ export function CommunityPage() {
   const c = res.data
   const view = useDistrictView()
   if (res.status === 'error') return <PageError page="community" onRetry={res.retry} />
-  if (!c) return null
+  if (!c) return <PageSkeleton page="community" />
   return (
     <main className="grid" data-page="community">
       <CommunityKpis id="comKpis" kpis={c.kpis} />

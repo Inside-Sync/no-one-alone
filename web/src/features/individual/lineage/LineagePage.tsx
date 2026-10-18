@@ -2,6 +2,7 @@
 
 import { getLineage } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useRepo } from '@/features/shared/useRepo'
 import { ConsentCard } from './ConsentCard'
 import { MatrixCard } from './MatrixCard'
@@ -14,7 +15,7 @@ export function LineagePage() {
   const r = useRepo(() => getLineage('margaret'))
   if (r.status === 'error') return <PageError page="lineage" onRetry={r.retry} />
   const l = r.data
-  if (!l) return null
+  if (!l) return <PageSkeleton page="lineage" />
   return (
     <main className="grid" data-page="lineage">
       <Pedigree lineage={l} />

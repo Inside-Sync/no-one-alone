@@ -1,6 +1,7 @@
 'use client'
 
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useWatch } from '../useCommunity'
 import { CommunityKpis } from '../shared'
 import { CalloutsCard } from './CalloutsCard'
@@ -13,7 +14,7 @@ export function WatchPage() {
   const res = useWatch()
   const w = res.data
   if (res.status === 'error') return <PageError page="watch" onRetry={res.retry} />
-  if (!w) return null
+  if (!w) return <PageSkeleton page="watch" />
   return (
     <main className="grid" data-page="watch">
       <CommunityKpis id="watchKpis" kpis={w.kpis} />

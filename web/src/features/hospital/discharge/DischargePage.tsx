@@ -6,6 +6,7 @@ import type { DischargeRow } from '@/data/types'
 import { useLiveIncident } from '@/state/LiveIncident'
 import { HospitalKpis, ReadyBanner } from '../shared'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useHospital } from '../useHospital'
 import { BoardCard } from './BoardCard'
 
@@ -16,7 +17,7 @@ export function DischargePage() {
   const { t, i18n } = useTranslation('hospital')
   const { people, recovery } = useLiveIncident()
   if (res.status === 'error') return <PageError page="discharge" onRetry={res.retry} />
-  if (!h) return null
+  if (!h) return <PageSkeleton page="discharge" />
   const vi = i18n.language.startsWith('vi')
   const margaret: DischargeRow[] = recovery ? [{
     patient: 'Margaret C., 78',

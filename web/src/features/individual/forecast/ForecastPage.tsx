@@ -5,6 +5,7 @@ import { getForecast } from '@/data/repo'
 import type { Forecast } from '@/data/types'
 import type { SimInput } from '@/domain/riskSim'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useRepo } from '@/features/shared/useRepo'
 import { BpProjectionCard } from './BpProjectionCard'
 import { ModelCard } from './ModelCard'
@@ -38,5 +39,5 @@ function ForecastBody({ f }: { f: Forecast }) {
 export function ForecastPage() {
   const r = useRepo(() => getForecast('margaret'))
   if (r.status === 'error') return <PageError page="forecast" onRetry={r.retry} />
-  return r.data ? <ForecastBody f={r.data} /> : null
+  return r.data ? <ForecastBody f={r.data} /> : <PageSkeleton page="forecast" />
 }
