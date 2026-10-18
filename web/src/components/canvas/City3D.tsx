@@ -8,7 +8,7 @@ import { bodyIsNight, readCanvasFonts, type CanvasFonts } from './fonts'
 import { useCanvas3D, type Canvas3DHandle, type DrawFn } from './useCanvas3D'
 
 export type { CityModel } from './city/types'
-export { buildSuburb, homeScene, watchScene, buildDistrict } from './city/geometry'
+export { buildSuburb, homeScene, watchScene, buildDistrict, buildStreets, streetHomeScene } from './city/geometry'
 
 interface Props {
   /** Render model, e.g. `homeScene(buildSuburb(geometry), surroundings.homeMap)`. */
@@ -25,6 +25,9 @@ interface Props {
   /** `rotate(±π/4)` / `reset()` for the map's rotate buttons. */
   ref?: Ref<Canvas3DHandle>
 }
+
+/** User zoom range of a cover view: never below its frame (so no edge shows), up to 4×. */
+const ZOOM = { min: 1, max: 4 }
 
 /**
  * Prototype `City3D` (line 1176) on a `.c3d` card: drag to rotate, eased
@@ -60,6 +63,9 @@ export function City3D({ scene, view, ariaLabel, onSelect, night, className, sty
         night: night ?? bodyIsNight(),
         reduced: info.reduced,
         fonts: fonts.current,
+        zoom: info.zoom,
+        panX: info.panX,
+        panY: info.panY,
       })
     },
     [scene, view, night],
@@ -75,7 +81,8 @@ export function City3D({ scene, view, ariaLabel, onSelect, night, className, sty
 
   // autoRotate = keep the frame loop running for the marching dashes and pin pulses;
   // like the prototype, the city itself only turns on drag or the rotate buttons.
-  const handle = useCanvas3D(canvasRef, draw, { autoRotate: true, initialAngle: view.yaw, dragFactor: -0.008, onTap })
+  // Cover views (the plate fills the card) can zoom in; the others keep the prototype's fixed framing.
+  const handle = useCanvas3D(canvasRef, draw, { autoRotate: true, initialAngle: view.yaw, dragFactor: -0.008, onTap, zoom: view.cover ? ZOOM : undefined })
   useImperativeHandle(ref, () => handle, [handle])
 
   // New scene or palette: draw again even when no loop is running (reduced motion).

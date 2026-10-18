@@ -61,7 +61,7 @@ test('search filters people and suburbs; Enter navigates', async () => {
 
 test('night alert demo goes to the live tab as family', async () => {
   render(ui())
-  await act(async () => { fireEvent.click(await screen.findByRole('button', { name: /Night alert demo/ })) })
+  await act(async () => { fireEvent.click(await screen.findByRole('switch', { name: /Night alert demo/ })) })
   expect(push).toHaveBeenCalledWith('/individual/live')
 })
 
@@ -124,9 +124,21 @@ test('Pre-arrivals gets a 1 badge from 02:07 (step 7), not before, and loses it 
 
 test('the night alert demo starts the emergency state', async () => {
   const r = render(withControls())
-  await act(async () => { fireEvent.click(await screen.findByRole('button', { name: /Night alert demo/ })) })
+  await act(async () => { fireEvent.click(await screen.findByRole('switch', { name: /Night alert demo/ })) })
   expect(push).toHaveBeenCalledWith('/individual/live')
   expect(document.body).toHaveClass('night')
   r.unmount()
+  expect(document.body.classList.contains('night')).toBe(false)
+})
+
+test('the night alert demo is a switch: on starts the emergency, off ends it and leaves night', async () => {
+  render(withControls())
+  const sw = await screen.findByRole('switch', { name: /Night alert demo/ })
+  expect(sw).toHaveAttribute('aria-checked', 'false')
+  await act(async () => { fireEvent.click(sw) })
+  expect(sw).toHaveAttribute('aria-checked', 'true')
+  expect(document.body).toHaveClass('night')
+  await act(async () => { fireEvent.click(sw) })
+  expect(sw).toHaveAttribute('aria-checked', 'false')
   expect(document.body.classList.contains('night')).toBe(false)
 })

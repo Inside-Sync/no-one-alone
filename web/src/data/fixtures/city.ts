@@ -53,7 +53,8 @@ export const TREE_COLOURS = {
 export const CITY_VIEWS = {
   home: { size: [400, 400], yaw: -0.62, cy: 0.6, vpad: 110, zmax: 30, fill: 1.1 },
   watch: { size: [400, 400], yaw: 0.35, cy: 0.6, vpad: 110, zmax: 30, fill: 1.1 },
-  district: { size: [400, 320], yaw: -0.5, cy: 0.66, vpad: 170, zmax: 120, fill: 1, compassY: 70 },
+  district: { size: [820, 820], yaw: 0, pitch: 0.8, cy: 0.54, vpad: 0, zmax: 30, fill: 1, zoom: 1, cover: true, compassY: 70 },
+  street: { size: [843, 840], yaw: 0, pitch: 0.8, cy: 0.52, vpad: 0, zmax: 20, fill: 1, zoom: 1, cover: true, compassY: 70 },
 } as const
 
 /** Everything the City3D generator needs, served by `getCityScene()`. */

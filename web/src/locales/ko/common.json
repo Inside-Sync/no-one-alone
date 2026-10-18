@@ -419,6 +419,8 @@
     "link": "홈으로 가기"
   },
   "charts": {
+    "zoomIn": "확대",
+    "zoomOut": "축소",
     "timeline": "타임라인",
     "table": "표",
     "heatmap": "하루 일과 히트맵, {{days}}일 × {{hours}}시간",

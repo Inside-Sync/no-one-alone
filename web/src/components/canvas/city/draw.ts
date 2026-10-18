@@ -2,7 +2,8 @@ import i18n from '@/i18n'
 import { shade } from '@/lib/color'
 import type { CityView } from '@/data/types'
 import type { CanvasFonts } from '../fonts'
-import type { CityModel, CityPin } from './types'
+import { drawModernOverlay, modernTree } from './modern'
+import type { CityModel, CityPin, CityText } from './types'
 
 /**
  * Pure drawing functions of the prototype's `City3D` (lines 1176–1251): an
@@ -27,23 +28,31 @@ export interface Camera {
   cy: number
   sp: number
   cp: number
+  /** Fade the static layer out towards the plate's inscribed circle (cover views). */
+  fade?: boolean
+  /** Pan of the user's zoom, in CSS pixels. */
+  ox?: number
+  oy?: number
 }
 
-export function makeCamera(view: CityView, W: number, H: number, yaw: number): Camera {
+export function makeCamera(view: CityView, W: number, H: number, yaw: number, zoom = 1, ox = 0, oy = 0): Camera {
   const PITCH = view.pitch || 0.62, sp = Math.sin(PITCH), cp = Math.cos(PITCH), S = view.size
   const dg = Math.hypot(S[0], S[1])
-  const k = Math.min((W * (view.fill || 0.94)) / dg, (H - (view.vpad || 150)) / (dg * sp + (view.zmax || 30) * cp)) * (view.zoom || 1)
-  return { W, H, yaw, k, S, cy: view.cy || 0.58, sp, cp }
+  // Cover: the plate's inscribed circle reaches the canvas corners, so no rotation ever shows its edge.
+  const k = view.cover
+    ? (Math.hypot(W / 2, (H * Math.max(view.cy, 1 - view.cy)) / sp) / (Math.min(S[0], S[1]) / 2)) * (view.zoom || 1)
+    : Math.min((W * (view.fill || 0.94)) / dg, (H - (view.vpad || 150)) / (dg * sp + (view.zmax || 30) * cp)) * (view.zoom || 1)
+  return { W, H, yaw, k: k * zoom, S, cy: view.cy || 0.58, sp, cp, fade: Boolean(view.cover), ox, oy }
 }
 
 /** Prototype `P(x, y, z)`. */
 export function project(c: Camera, x: number, y: number, z: number): Projected {
   const dx = x - c.S[0] / 2, dy = y - c.S[1] / 2, co = Math.cos(c.yaw), s = Math.sin(c.yaw)
   const xr = dx * co - dy * s, yr = dx * s + dy * co
-  return { x: c.W / 2 + xr * c.k, y: c.H * c.cy - yr * c.k * c.sp - z * c.k * c.cp, d: yr * c.cp - z * c.sp }
+  return { x: c.W / 2 + (c.ox || 0) + xr * c.k, y: c.H * c.cy + (c.oy || 0) - yr * c.k * c.sp - z * c.k * c.cp, d: yr * c.cp - z * c.sp }
 }
 
-function poly(c: CanvasRenderingContext2D, pp: Projected[], fill: string, stroke?: string) {
+function poly(c: CanvasRenderingContext2D, pp: Projected[], fill: string, stroke?: string, lw = 0.5) {
   c.beginPath()
   for (let i = 0; i < pp.length; i++) {
     if (i) c.lineTo(pp[i].x, pp[i].y)
@@ -54,7 +63,7 @@ function poly(c: CanvasRenderingContext2D, pp: Projected[], fill: string, stroke
   c.fill()
   if (stroke) {
     c.strokeStyle = stroke
-    c.lineWidth = 0.5
+    c.lineWidth = lw
     c.stroke()
   }
 }
@@ -70,23 +79,57 @@ export function renderStatic(bx: CanvasRenderingContext2D, bufW: number, bufH: n
   bx.setTransform(1, 0, 0, 1, 0, 0)
   bx.clearRect(0, 0, bufW, bufH)
   bx.setTransform(dpr, 0, 0, dpr, 0, 0)
-  m.ground.forEach((g) => poly(bx, g.pts.map((p) => P(p[0], p[1], p[2] || 0)), g.fill))
-  type Item = { d: number; f?: CityModel['faces'][number]; pp?: Projected[]; t?: CityModel['trees'][number]; q?: Projected }
+  // A map with roof text darkens its faces at night instead of tinting the whole layer.
+  const dim = night && Boolean(m.texts?.length)
+  if (dim) bx.filter = NIGHT_DIM
+  m.ground.forEach((g) => poly(bx, g.pts.map((p) => P(p[0], p[1], p[2] || 0)), g.fill, g.stroke, g.lw))
+  ;(m.lines || []).forEach((l) => {
+    bx.strokeStyle = l.c
+    bx.lineWidth = Math.max(0.6, l.w * k)
+    bx.lineCap = 'round'
+    bx.lineJoin = 'round'
+    bx.setLineDash(l.dash ? l.dash.map((v) => v * k) : [])
+    bx.beginPath()
+    l.pts.forEach(([x, y], i) => {
+      const q = P(x, y, 0)
+      if (i) bx.lineTo(q.x, q.y)
+      else bx.moveTo(q.x, q.y)
+    })
+    bx.stroke()
+  })
+  if (m.lines?.length) {
+    bx.setLineDash([])
+    bx.lineCap = 'butt'
+  }
+  // `d2` orders items that share a sort key (one solid): far walls first, then the roof.
+  type Item = { d: number; d2: number; f?: CityModel['faces'][number]; pp?: Projected[]; t?: CityModel['trees'][number]; q?: Projected }
   const items: Item[] = []
   m.faces.forEach((f) => {
     const pp = f.pts.map((p) => P(p[0], p[1], p[2]))
     let d = 0
     for (let i = 0; i < pp.length; i++) d += pp[i].d
-    items.push({ d: d / pp.length + (f.bias || 0), f, pp })
+    if (f.cull) {
+      let area = 0
+      for (let i = 0; i < pp.length; i++) area += pp[i].x * pp[(i + 1) % pp.length].y - pp[(i + 1) % pp.length].x * pp[i].y
+      if (area >= 0) return
+    }
+    const own = d / pp.length + (f.bias || 0)
+    // Inside one solid: walls by their own depth, then its roof faces (also far ones first).
+    if (f.key) items.push({ d: P(...f.key).d, d2: f.last ? own - 1e9 : own, f, pp })
+    else items.push({ d: own, d2: 0, f, pp })
   })
   m.trees.forEach((t) => {
     const q = P(t.x, t.y, t.h)
-    items.push({ d: q.d, t, q })
+    items.push({ d: q.d, d2: 0, t, q })
   })
-  items.sort((a, b) => b.d - a.d)
+  items.sort((a, b) => b.d - a.d || b.d2 - a.d2)
   items.forEach((it) => {
     if (it.f) {
-      poly(bx, it.pp!, it.f.fill, it.f.stroke || 'rgba(30,40,40,.08)')
+      poly(bx, it.pp!, it.f.fill, it.f.stroke || 'rgba(30,40,40,.08)', it.f.lw)
+      return
+    }
+    if (m.modern) {
+      modernTree(bx, it.t!, it.q!, P(it.t!.x, it.t!.y, 0), it.t!.r * k)
       return
     }
     const t = it.t!, q = it.q!, b = P(t.x, t.y, 0), r = t.r * k
@@ -104,12 +147,47 @@ export function renderStatic(bx: CanvasRenderingContext2D, bufW: number, bufH: n
     bx.arc(q.x, q.y, r, 0, 7)
     bx.fill()
   })
-  if (night) {
+  if (dim) bx.filter = 'none'
+  else if (night) {
     bx.globalCompositeOperation = 'source-atop'
     bx.fillStyle = 'rgba(12,16,44,.55)'
     bx.fillRect(0, 0, cam.W, cam.H)
     bx.globalCompositeOperation = 'source-over'
   }
+  if (cam.fade) {
+    // The ground circle seen at this pitch is an ellipse: fade inside it, so the plate's square edge never shows.
+    const c = P(cam.S[0] / 2, cam.S[1] / 2, 0), r = (Math.min(cam.S[0], cam.S[1]) / 2) * k
+    bx.save()
+    bx.globalCompositeOperation = 'destination-in'
+    bx.translate(c.x, c.y)
+    bx.scale(1, cam.sp)
+    const g = bx.createRadialGradient(0, 0, r * 0.8, 0, 0, r)
+    g.addColorStop(0, 'rgba(0,0,0,1)')
+    g.addColorStop(1, 'rgba(0,0,0,0)')
+    bx.fillStyle = g
+    bx.fillRect(-r * 2, -r * 2 / cam.sp, r * 4, (r * 4) / cam.sp)
+    bx.restore()
+  }
+}
+
+const NIGHT_DIM = 'brightness(.6) saturate(.85)'
+
+/** A roof label: the value, the name under it, each with a soft halo so it reads over a neighbour's edge too. */
+function surfaceText(c: CanvasRenderingContext2D, x: CityText, q: Projected, fonts: CanvasFonts, night: boolean) {
+  const light = x.light || night
+  c.textAlign = 'center'
+  c.textBaseline = 'middle'
+  c.lineJoin = 'round'
+  c.strokeStyle = light ? 'rgba(0,0,0,.28)' : 'rgba(255,255,255,.75)'
+  c.lineWidth = 3
+  const line = (t: string, font: string, fill: string, y: number) => {
+    c.font = font
+    c.strokeText(t, q.x, y)
+    c.fillStyle = fill
+    c.fillText(t, q.x, y)
+  }
+  line(x.t, '700 15px ' + fonts.sans, light ? '#ffffff' : 'rgba(13,42,42,.92)', x.sub ? q.y - 5 : q.y)
+  if (x.sub) line(x.sub, '600 10px ' + fonts.sans, light ? 'rgba(255,255,255,.88)' : 'rgba(13,42,42,.72)', q.y + 9)
 }
 
 export interface Hit {
@@ -180,9 +258,13 @@ export interface OverlayOptions {
 
 /** The per-frame part of `City3D.frame`: rings, routes, labels, pins and compass. Returns tap targets. */
 export function drawOverlay(ctx: CanvasRenderingContext2D, m: CityModel, cam: Camera, o: OverlayOptions): Hit[] {
+  if (m.modern) {
+    const hits = drawModernOverlay(ctx, m, cam, o)
+    drawCompass(ctx, cam, o)
+    return hits
+  }
   const { now, night, reduced, fonts } = o
   const P = (x: number, y: number, z: number) => project(cam, x, y, z)
-  const { W, H, S } = cam
   ;(m.rings || []).forEach((r) => {
     const pts = circ(cam, r.x, r.y, r.r)
     ctx.setLineDash([6, 6])
@@ -228,9 +310,14 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, m: CityModel, cam: Ca
     ctx.textBaseline = 'middle'
     ctx.fillText(l.t, q.x, q.y)
   })
+  ;(m.texts || []).map((x) => ({ x, q: P(x.x, x.y, x.z) })).sort((a, b) => b.q.d - a.q.d).forEach(({ x, q }) => surfaceText(ctx, x, q, fonts, night))
   const hits: Hit[] = []
   const pins = m.pins.map((p) => ({ p, q: P(p.x, p.y, p.z || 0) })).sort((a, b) => b.q.d - a.q.d)
   pins.forEach(({ p, q: top }) => {
+    if (p.ghost) {
+      hits.push({ x: top.x - 30, y: top.y - 18, w: 60, h: 36, p })
+      return
+    }
     if (p.tag) {
       const b = pill(ctx, fonts, top.x, top.y - 16, p.name, p.sub, p.c, night, 'c')
       hits.push({ ...b, p })
@@ -283,7 +370,14 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, m: CityModel, cam: Ca
     hits.push({ x: hx - r, y: hy - r, w: r * 2, h: r * 2, p })
     hits.push({ ...b2, p })
   })
-  // compass
+  drawCompass(ctx, cam, o)
+  return hits
+}
+
+/** The compass, its needle along the map's +y (north). */
+export function drawCompass(ctx: CanvasRenderingContext2D, cam: Camera, o: OverlayOptions): void {
+  const { night, fonts } = o, { W, H, S } = cam
+  const P = (x: number, y: number, z: number) => project(cam, x, y, z)
   const c0 = P(S[0] / 2, S[1] / 2, 0), c1 = P(S[0] / 2, S[1] / 2 + 40, 0)
   let vx = c1.x - c0.x, vy = c1.y - c0.y
   const vl = Math.hypot(vx, vy) || 1
@@ -310,7 +404,6 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, m: CityModel, cam: Ca
   ctx.textAlign = 'center'
   ctx.fillStyle = '#ef4e4a'
   ctx.fillText(i18n.t('common:charts.north'), cx + vx * 24, cy + vy * 24 + 3)
-  return hits
 }
 
 /** Offscreen static layer, re-rendered only when size, yaw, night or the model change. */
@@ -330,12 +423,16 @@ export interface FrameOptions {
   night: boolean
   reduced: boolean
   fonts: CanvasFonts
+  /** User zoom and pan (`useCanvas3D`'s `zoom` option). */
+  zoom?: number
+  panX?: number
+  panY?: number
 }
 
 /** One `City3D.frame`: refresh the static buffer if needed, blit it, draw the overlay. */
 export function drawCityFrame(ctx: CanvasRenderingContext2D, buf: StaticBuffer, m: CityModel, view: CityView, o: FrameOptions): Hit[] {
-  const cam = makeCamera(view, o.width, o.height, o.yaw)
-  const key = `${o.width}x${o.height}@${o.dpr}|${o.yaw}|${o.night}`
+  const cam = makeCamera(view, o.width, o.height, o.yaw, o.zoom ?? 1, o.panX ?? 0, o.panY ?? 0)
+  const key = `${o.width}x${o.height}@${o.dpr}|${o.yaw}|${o.night}|${o.zoom ?? 1}|${o.panX ?? 0},${o.panY ?? 0}`
   if (buf.key !== key || buf.model !== m) {
     renderStatic(buf.ctx, buf.canvas.width, buf.canvas.height, m, cam, o.dpr, o.night)
     buf.key = key

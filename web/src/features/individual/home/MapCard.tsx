@@ -2,11 +2,11 @@
 
 import { useTranslation } from 'react-i18next'
 import { useMemo, useRef, useState } from 'react'
-import { City3D, buildSuburb, homeScene } from '@/components/canvas/City3D'
+import { City3D, buildStreets, streetHomeScene } from '@/components/canvas/City3D'
+import { MapZoom } from '@/components/canvas/MapZoom'
 import type { Canvas3DHandle } from '@/components/canvas/useCanvas3D'
 import { LocationMap, pinsToMarkers } from '@/components/maps/LocationMap'
 import { DEFAULT_HEADING, DEFAULT_TILT, HEADING_STEP, MAP_CENTER, mapsEnabled } from '@/components/maps/mapsConfig'
-import { Chip } from '@/components/ui/Chip'
 import { Glyph, Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import type { CityGeometry, Surroundings } from '@/data/types'
@@ -21,7 +21,9 @@ export function MapCard({ map, geometry }: Props) {
   const { t } = useTranslation('home')
   const toast = useToast()
   const city = useRef<Canvas3DHandle>(null)
-  const scene = useMemo(() => homeScene(buildSuburb(geometry), map), [geometry, map])
+  // The OpenStreetMap layer is static, so it is built once per mount.
+  const streets = useMemo(() => buildStreets(), [])
+  const scene = useMemo(() => streetHomeScene(streets, map), [streets, map])
   const markers = useMemo(() => pinsToMarkers(map.pins), [map.pins])
   const [cam, setCam] = useState({ heading: DEFAULT_HEADING, tilt: DEFAULT_TILT })
   const gmaps = mapsEnabled()
@@ -51,10 +53,15 @@ export function MapCard({ map, geometry }: Props) {
         ariaLabel={map.ariaLabel}
         heading={cam.heading}
         tilt={cam.tilt}
-        fallback={<City3D ref={city} scene={scene} view={geometry.views.home} ariaLabel={map.ariaLabel} onSelect={toast} />}
+        fallback={<City3D ref={city} scene={scene} view={geometry.views.street} ariaLabel={map.ariaLabel} onSelect={toast} />}
       />
+      {!gmaps && <small className="map-attr">© OpenStreetMap contributors</small>}
+      {!gmaps && <MapZoom map={city} />}
+      {/* Facts, not controls: one info strip so nothing looks pressable. */}
       <div className="map-bottom">
-        {map.chips.map((chip) => <Chip key={chip.text} icon={chip.icon}>{chip.text}</Chip>)}
+        <p className="map-facts">
+          {map.chips.map((chip) => <span key={chip.text}>{chip.icon && <Glyph name={chip.icon} />}{chip.text}</span>)}
+        </p>
       </div>
     </article>
   )

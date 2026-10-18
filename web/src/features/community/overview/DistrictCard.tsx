@@ -1,9 +1,12 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DistrictMap } from '@/components/canvas/DistrictMap'
-import { Chip } from '@/components/ui/Chip'
+import { MapZoom } from '@/components/canvas/MapZoom'
+import type { Canvas3DHandle } from '@/components/canvas/useCanvas3D'
+import { DistrictMap3D } from '@/components/maps/DistrictMap3D'
+import { mapsEnabled } from '@/components/maps/mapsConfig'
 import { useToast } from '@/components/ui/Toast'
 import type { CityView, Suburb } from '@/data/types'
 import { DISTRICT_MODEL_IDS, districtModel, metricFor, type DistrictModel } from '@/domain/district'
@@ -19,6 +22,7 @@ interface Props {
 export function DistrictCard({ suburbs, kicker, view }: Props) {
   const toast = useToast()
   const [model, setModel] = useState<DistrictModel>('high')
+  const city = useRef<Canvas3DHandle>(null)
   const { t } = useTranslation('community')
   const chips = t('overview.district.chips', { returnObjects: true })
   const buttons = t('overview.district.buttons', { returnObjects: true })
@@ -39,14 +43,17 @@ export function DistrictCard({ suburbs, kicker, view }: Props) {
           </div>
         </div>
       </div>
-      {view ? (
-        <DistrictMap suburbs={suburbs} metric={metric} view={view} ariaLabel={t('overview.district.ariaLabel')} onSelect={toast} />
+      {mapsEnabled() ? (
+        <DistrictMap3D suburbs={suburbs} metric={metric} ariaLabel={t('overview.district.ariaLabel')} onSelect={toast} />
+      ) : view ? (
+        <DistrictMap ref={city} suburbs={suburbs} metric={metric} view={view} ariaLabel={t('overview.district.ariaLabel')} onSelect={toast} />
       ) : (
         <div className="c3d" role="img" aria-label={t('overview.district.ariaLabel')}></div>
       )}
-      <div className="map-bottom">
-        {chips.map((chip) => <Chip key={chip}>{chip}</Chip>)}
-      </div>
+      {!mapsEnabled() && <small className="map-attr">Boundaries © ABS (CC BY 4.0)</small>}
+      {!mapsEnabled() && view && <MapZoom map={city} />}
+      {/* Hints, not controls: plain text so nothing looks pressable. */}
+      <p className="map-bottom map-hint">{chips.join(' · ')}</p>
     </article>
   )
 }

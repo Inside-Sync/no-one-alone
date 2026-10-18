@@ -103,21 +103,22 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
    same rules read in the day look before an alert and in the night look during one. ===== */
 
 /* Simulator: how-to steps that tick off, preset cards, sliders with the alert zone marked. */
-.simc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;align-items:start}
-.howto2{list-style:none;display:grid;gap:8px;margin:0;padding:0}
-.howto2 li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:center;padding:9px 12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:13px;color:var(--ink2)}
-.howto2 .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:600;background:var(--track)}
+.simc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+.howto2{list-style:none;display:grid;gap:6px;margin:0;padding:0}
+.howto2 li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:center;padding:5px 10px;border-radius:12px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:13px;color:var(--ink2)}
+.howto2 .n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:600;background:var(--track)}
 .howto2 li.done .n{background:var(--good);color:#fff}
 .howto2 li.cur{box-shadow:var(--glass-edge),inset 0 0 0 1.5px var(--sos)}
 .howto2 li.cur .n{background:var(--sos);color:#fff}
 .howto2 strong{color:var(--ink)}
-.sim-ctl{display:grid;gap:14px}
+.sim-ctl{display:grid;gap:10px}
 .presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.preset{display:grid;gap:2px;padding:10px 12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:12px;color:var(--muted-text)}
+.preset{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;padding:7px 12px;border-radius:12px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:12px;color:var(--muted-text)}
 .preset b{font-size:13.5px;font-weight:600;color:var(--ink)}
 .preset[aria-pressed="true"]{background:rgba(31,179,156,.16);box-shadow:inset 0 0 0 1.5px var(--brand-2)}
 .preset:disabled{cursor:not-allowed}
-.slider{display:grid;gap:6px}
+.sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.slider{display:grid;gap:4px}
 .slider .top{display:flex;justify-content:space-between;align-items:baseline;font-size:13px}
 .slider .val{font-family:var(--mono);font-size:14px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--track)}
 .slider .val.hot{background:rgba(239,78,74,.16);color:var(--bad)}
@@ -130,12 +131,10 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .ticks>*{position:absolute;transform:translateX(-50%);white-space:nowrap}
 .ticks>:first-child{transform:none}.ticks>:last-child{transform:translateX(-100%)}
 .ticks b{color:var(--bad);font-weight:600}
-.sim-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.sim-opt{display:grid;gap:6px;justify-items:start;padding:10px 12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:12.5px}
 #simCard .btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .sim-lock{margin-left:auto;font-size:12px;font-weight:500;color:var(--warn)}
 @media (max-width:1000px){.simc{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:600px){.presets,.sim-opts{grid-template-columns:minmax(0,1fr)}.sim-lock{margin-left:0}}
+@media (max-width:600px){.presets,.sliders{grid-template-columns:minmax(0,1fr)}.sim-lock{margin-left:0}}
 
 /* Circle: the minutes in a box, the owner card with the ETA, a full-width call button. */
 .circ-stat{padding:12px 14px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge)}

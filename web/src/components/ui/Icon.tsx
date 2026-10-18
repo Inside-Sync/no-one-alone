@@ -34,6 +34,7 @@ const ICONS: Partial<Record<DrawnIconName, string>> = {
   eye: "<path d=\"M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>",
   brain: "<path d=\"M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3V4zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3V4z\"/>",
   plus: "<path d=\"M12 5v14M5 12h14\"/>",
+  minus: "<path d=\"M5 12h14\"/>",
   clinic: "<path d=\"M4 20V9l8-5 8 5v11z\"/><path d=\"M12 10v6M9 13h6\"/>",
   hospital: "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M12 9v7M8.5 12.5h7\"/>",
   phone: "<path d=\"M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z\"/>",

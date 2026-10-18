@@ -51,7 +51,7 @@ h1,h2,h3{text-wrap:balance}
 .mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
 .scene{position:fixed;inset:0;z-index:0;pointer-events:none;background:#8fc3e6 url(/bg/day.jpg) center/cover no-repeat}
-.scene::after{content:"";position:absolute;inset:0;background:url(/bg/night.jpg) center/cover no-repeat;opacity:0;transition:opacity 1.2s ease}
+.scene::after{content:"";position:absolute;inset:0;background:url(/bg/bg_night.jpeg) center/cover no-repeat;opacity:0;transition:opacity 1.2s ease}
 body.night .scene::after{opacity:1}
 .flash{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(60% 50% at 50% 30%,rgba(255,138,106,.3),transparent 70%);opacity:0}
 @media (prefers-reduced-motion:reduce){.scene::after{transition:none}}
@@ -116,6 +116,11 @@ main > .fine.c12{color:#eaf4f0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 14px;border-radius:12px;font-size:13.5px;font-weight:500;background:var(--brand);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 8px 18px rgba(11,127,113,.26);white-space:nowrap}
 .btn.soft{background:rgba(255,255,255,.7);color:#0d2a2a;box-shadow:var(--glass-edge)}
 .btn.sos{background:var(--sos-fill);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 8px 22px rgba(239,78,74,.36)}
+.demo-sw .knob{position:relative;flex:none;width:30px;height:18px;border-radius:9px;background:var(--track);transition:background .2s}
+.demo-sw .knob i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.demo-sw[aria-checked="true"] .knob{background:rgba(255,255,255,.35)}
+.demo-sw[aria-checked="true"] .knob i{transform:translateX(12px)}
+@media (prefers-reduced-motion:reduce){.demo-sw .knob,.demo-sw .knob i{transition:none}}
 .btn.sm{padding:6px 10px;font-size:12.5px;border-radius:10px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .seg{display:inline-flex;gap:2px;padding:3px;border-radius:12px;background:var(--glass-2);box-shadow:var(--glass-edge)}
@@ -141,6 +146,16 @@ main > .fine.c12{color:#eaf4f0}
 .map-ctrl{margin-left:auto;display:flex;gap:6px}
 .map-bottom{position:absolute;left:18px;right:18px;bottom:16px;z-index:3;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none}
 .map-bottom .chip{pointer-events:auto;background:rgba(255,255,255,.7)}
+.map-hint{margin:0;font-size:11.5px;color:var(--muted-text);letter-spacing:.01em}
+.map-facts{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;padding:7px 12px;border-radius:12px;background:rgba(255,255,255,.78);backdrop-filter:blur(8px);font-size:12px;color:var(--ink2);pointer-events:auto;max-width:calc(100% - 56px)}
+.map-facts span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.map-facts span+span::before{content:"";width:1px;height:12px;margin-right:9px;background:rgba(13,42,42,.16)}
+body.night .map-facts{background:rgba(20,24,48,.72)}
+/* Data attribution the licences ask for (OpenStreetMap ODbL, ABS CC BY), above the compass. */
+/* Zoom buttons of a 3D map, stacked above its compass. */
+.map-zoom{position:absolute;right:21px;bottom:102px;z-index:3;display:grid;gap:6px}
+.map-attr{position:absolute;right:14px;bottom:4px;z-index:3;font-size:9.5px;color:var(--muted-text);opacity:.8;pointer-events:none}
+body.night .map-facts span+span::before{background:rgba(255,255,255,.2)}
 .map-legend{position:absolute;right:18px;top:96px;z-index:3;display:grid;gap:5px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.62);box-shadow:var(--glass-edge);font-size:11.5px;color:var(--ink2)}
 .map-legend span{display:flex;align-items:center;gap:7px}
 .map-legend i{width:10px;height:10px;border-radius:3px}

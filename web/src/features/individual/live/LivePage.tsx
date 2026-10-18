@@ -28,7 +28,7 @@ import { PhoneCard } from './PhoneCard'
 import { SimulatorCard } from './SimulatorCard'
 import { SpeechCheckCard } from './SpeechCheckCard'
 import { useAutopilot } from './useAutopilot'
-import { NIGHT_DEMO } from './nightDemo'
+import { NIGHT_DEMO, NIGHT_DEMO_STOP } from './nightDemo'
 import { useCallDialogue } from './useCallDialogue'
 import { useWatch } from './useWatch'
 import { TimelineCard } from './TimelineCard'
@@ -109,7 +109,7 @@ function LiveIncidentPage() {
   // questionKey is not incident-scoped, so a new run must forget the last one.
   const [spoken, setSpoken] = useState<string | null>(null)
   // Kept here, not in the cards, so the settings survive the incident they started.
-  const [sim, setSim] = useState(SIM_DEFAULTS)
+  const sim = SIM_DEFAULTS
   const [busy, setBusy] = useState(false)
   // The incident she answered by hand on: no autopilot voice for it.
   const [manual, setManual] = useState<string | null>(null)
@@ -145,10 +145,14 @@ function LiveIncidentPage() {
       reset().then(() => watch.loadPreset('night'), () => { holdNight(false); toast(t('live.failed')) })
     }
   })
+  const stopDemo = useRef(onReset)
+  useEffect(() => { stopDemo.current = onReset })
   useEffect(() => {
     const run = () => nightDemo.current()
+    const stop = () => stopDemo.current()
     window.addEventListener(NIGHT_DEMO, run)
-    return () => window.removeEventListener(NIGHT_DEMO, run)
+    window.addEventListener(NIGHT_DEMO_STOP, stop)
+    return () => { window.removeEventListener(NIGHT_DEMO, run); window.removeEventListener(NIGHT_DEMO_STOP, stop) }
   }, [])
   useEffect(() => {
     if (loading || new URLSearchParams(window.location.search).get('demo') !== 'night') return
@@ -174,7 +178,7 @@ function LiveIncidentPage() {
   // The prototype's sim page: controls, circle and readings, Noa / calls / her phone, then the conversation and the log.
   return (
     <main className="grid" data-page="live">
-      <SimulatorCard watch={watch} settings={sim} onChange={setSim} locked={open || busy} onReset={onReset} />
+      <SimulatorCard watch={watch} locked={open || busy} onReset={onReset} />
       <LiveAlertCard view={shown?.view ?? null} incident={shown?.incident ?? null} people={people} scene={scene} viewer={viewer} act={act} manual={!auto} />
       <LiveReadingsCard watch={watch.watch} />
       <AgentCard agent={agent} num={num} />

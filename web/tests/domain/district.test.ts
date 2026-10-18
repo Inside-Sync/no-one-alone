@@ -6,7 +6,7 @@ const sub: Suburb = { name: 'Tempe', col: 2, row: 0, enrolled: 58, alonePct: 42,
 test('model titles', () => expect(districtModel('gap').title).toBe('Visit gap'))
 
 test('model copy is verbatim from DM', () => {
-  expect(districtModel('high')).toEqual({ title: 'High-risk residents', subtitle: 'Column height = people at high risk · tile colour = heat vulnerability', unit: ' high risk' })
+  expect(districtModel('high')).toEqual({ title: 'High-risk residents', subtitle: 'Suburb height and colour = people at high risk', unit: ' high risk' })
   expect(districtModel('alone').unit).toBe(' % alone')
   expect(districtModel('heat').subtitle).toBe('Index from age, air-con, tree cover and housing')
   expect(districtModel('gap').unit).toBe(' visits short')

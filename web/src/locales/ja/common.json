@@ -416,6 +416,8 @@
     "link": "ホームへ"
   },
   "charts": {
+    "zoomIn": "拡大",
+    "zoomOut": "縮小",
     "timeline": "推移",
     "table": "表",
     "heatmap": "日常生活のヒートマップ（{{days}}日 × {{hours}}時間）",

@@ -422,6 +422,8 @@
     "link": "返主頁"
   },
   "charts": {
+    "zoomIn": "放大",
+    "zoomOut": "縮細",
     "timeline": "時間線",
     "table": "表格",
     "heatmap": "日常作息熱圖，{{days}} 日 × {{hours}} 個鐘",

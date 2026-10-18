@@ -240,7 +240,7 @@ test('the demo runs while sharing is paused (safety stays visible)', async () =>
 test('Night alert demo (TopNav) goes to the live page as family; body.night; End removes it', async () => {
   const r = renderWithProviders(<Both />, { who: 'self' })
   await idle()
-  fireEvent.click(screen.getByRole('button', { name: /Night alert demo/ }))
+  fireEvent.click(screen.getByRole('switch', { name: /Night alert demo/ }))
   expect(push).toHaveBeenCalledWith('/individual/live')
   expect(r.app().who).toBe('family')
   expect(r.app().emergency).toMatchObject({ active: true, step: 0, playing: true })

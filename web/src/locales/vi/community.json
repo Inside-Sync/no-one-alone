@@ -11,18 +11,18 @@
       },
       "chips": [
         "Kéo để xoay",
-        "Chạm vào một cột để xem chi tiết",
+        "Chạm vào một suburb để xem chi tiết",
         "Dữ liệu cập nhật 15:00"
       ],
       "models": {
         "high": {
           "title": "Cư dân nguy cơ cao",
-          "subtitle": "Chiều cao cột = số người nguy cơ cao · màu ô = mức dễ tổn thương khi nắng nóng",
+          "subtitle": "Độ cao và màu suburb = số người nguy cơ cao",
           "unit": " người nguy cơ cao"
         },
         "alone": {
           "title": "Sống một mình",
-          "subtitle": "Chiều cao cột = tỷ lệ cư dân đã đăng ký sống một mình",
+          "subtitle": "Độ cao suburb = tỷ lệ cư dân đã đăng ký sống một mình",
           "unit": " % sống một mình"
         },
         "heat": {
