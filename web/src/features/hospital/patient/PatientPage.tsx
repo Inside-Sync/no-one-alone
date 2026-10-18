@@ -28,7 +28,7 @@ export function PatientPage() {
       </GlassCard>
       <GlassCard span={7}>
         <div className="ch"><h2>{t('patient.course.title')}</h2><span className="meta">{t('patient.course.meta')}</span></div>
-        <ul className="dayline">
+        <ul className="dayline pt-course">
           {h.patient.course.map(([time, text]) => (
             <li key={time + text}><span className="t" style={{ width: 'auto' }}>{time}</span><span className="d"></span><span>{text}</span></li>
           ))}

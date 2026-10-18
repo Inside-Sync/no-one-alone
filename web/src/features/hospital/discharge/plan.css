@@ -1,0 +1,165 @@
+/* Discharge and recovery plan (hospital · Patient record & discharge): the doctor's prescription form and what was sent. */
+
+.plan{display:grid;gap:18px}
+.plan section{display:grid;gap:10px;min-width:0;align-content:start}
+.plan-form{border:0;padding:0;margin:0;min-width:0;display:grid;gap:22px}
+.plan-form:disabled .plan-who,.plan-form:disabled .plan-notes,.plan-form:disabled .plan-rows{opacity:.85}
+
+/* Section heads: icon, title, a count of what is in it */
+.plan-h{display:flex;align-items:center;gap:2px;font-size:14.5px;font-weight:600;margin:0;color:var(--ink)}
+.plan-h.sub{font-size:13.5px;margin-top:8px}
+.plan-count{margin-left:8px;min-width:22px;padding:1px 7px;border-radius:999px;background:var(--track);font-size:11.5px;font-weight:600;color:var(--muted-text);text-align:center}
+.plan-hint{margin:0;font-size:12px;color:var(--muted-text)}
+
+/* Inputs: quiet until touched, so the plan reads like a document */
+.plan input:not([type=checkbox]),.plan select,.plan textarea{
+  font:inherit;color:var(--ink);background:rgba(255,255,255,.55);border:1px solid transparent;border-radius:10px;
+  padding:7px 10px;min-width:0;width:100%;box-shadow:inset 0 0 0 1px var(--line);transition:background .15s,box-shadow .15s}
+.plan input:not([type=checkbox]):hover,.plan textarea:hover{background:rgba(255,255,255,.75)}
+.plan input:not([type=checkbox]):focus-visible,.plan select:focus-visible,.plan textarea:focus-visible{
+  outline:0;background:#fff;box-shadow:inset 0 0 0 1.5px var(--brand),0 0 0 4px color-mix(in srgb,var(--brand) 16%,transparent)}
+.plan-form:disabled input:not([type=checkbox]),.plan-form:disabled select,.plan-form:disabled textarea{background:transparent;box-shadow:none}
+.plan .mono{font-family:var(--mono);font-size:12.5px}
+
+/* Who signs and what for */
+.plan-who{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:12px;padding:12px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge)}
+.plan-who label,.plan-notes{display:grid;gap:4px}
+.plan-who span,.plan-notes span{font-size:11.5px;font-weight:500;color:var(--muted-text)}
+.plan-who input{font-weight:500}
+
+/* Medicines: a time grid; the change column is coloured by what happens to the tablet */
+.plan-meds th{padding:6px 8px}
+.plan-meds th.c,.plan-meds td.c{text-align:center}
+.plan-meds th small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:0;text-transform:none;font-weight:400}
+.plan-meds td{padding:6px 8px}
+.plan-meds .name{font-weight:600;min-width:140px}
+.plan-meds .dose{font-family:var(--mono);font-size:12.5px}
+.plan-meds td:nth-child(2),.plan-meds th:nth-child(2){width:120px}
+.plan-meds td.c,.plan-meds th.c{width:96px}
+.plan-meds td:nth-last-child(3),.plan-meds th:nth-last-child(3){width:140px}
+.plan-meds .note{display:block;min-width:260px;font-size:12.5px;line-height:1.4;resize:vertical;min-height:44px}
+.plan-meds tr[data-change="Stop"] .name{text-decoration:line-through;text-decoration-color:var(--bad);color:var(--muted-text)}
+.plan-meds tr[data-change="Stop"] .dose{color:var(--muted-text)}
+
+.plan-slot{position:relative;display:inline-grid;cursor:pointer}
+.plan-slot input{position:absolute;inset:0;opacity:0;margin:0;cursor:inherit}
+.plan-slot span{min-width:58px;padding:5px 8px;border-radius:999px;font-family:var(--mono);font-size:12px;color:var(--muted-text);
+  box-shadow:inset 0 0 0 1px var(--line);background:transparent;transition:background .15s,color .15s}
+.plan-slot input:checked+span{background:var(--brand);color:#fff;box-shadow:none}
+.plan-slot input:focus-visible+span{outline:2px solid var(--brand);outline-offset:2px}
+.plan-meds tr[data-change="Stop"] .plan-slot span{opacity:.35}
+.plan-slot:has(input:disabled){cursor:default}
+
+.plan .plan-change{width:auto;min-width:112px;font-size:12.5px;font-weight:600;border-radius:999px;padding:5px 26px 5px 12px;
+  appearance:none;cursor:pointer;color:var(--chg);background:color-mix(in srgb,var(--chg) 12%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--chg) 30%,transparent);
+  background-image:linear-gradient(45deg,transparent 50%,var(--chg) 50%),linear-gradient(135deg,var(--chg) 50%,transparent 50%);
+  background-position:calc(100% - 14px) 52%,calc(100% - 10px) 52%;background-size:4px 4px;background-repeat:no-repeat}
+.plan-meds tr{--chg:var(--muted-text)}
+.plan-meds tr[data-change="New"]{--chg:var(--brand-text)}
+.plan-meds tr[data-change="Increased"]{--chg:var(--warn)}
+.plan-meds tr[data-change="Stop"]{--chg:var(--bad)}
+.plan-form:disabled .plan-change{background-image:none;padding-right:12px}
+
+/* Instructions and appointments side by side */
+.plan-cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px}
+.plan-rows{display:grid;gap:6px}
+.plan-rowhead,.plan-row{display:grid;grid-template-columns:30px minmax(0,1fr) minmax(170px,260px) 28px;gap:8px;align-items:center}
+.plan-rowhead{font-size:10.5px;font-weight:500;color:var(--muted-text);padding:0 2px}
+.plan-rowhead span:first-child{grid-column:2}
+.plan-dot{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--glass-2);box-shadow:var(--glass-edge);color:var(--brand)}
+.plan-dot svg{width:16px;height:16px}
+.plan-days{display:flex;align-items:center;gap:8px;min-width:0}
+.plan-days input{flex:1;min-width:0}
+.plan-row.fu,.plan-rowhead.fu{grid-template-columns:30px minmax(0,1fr) minmax(210px,250px) 28px}
+
+/* Reminder times: one chip per time, then a picker that adds the next one */
+.plan-times{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.plan-time{display:inline-flex;align-items:center;gap:2px;padding:3px 4px 3px 9px;border-radius:999px;font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;background:var(--brand)}
+.plan-time button{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;color:inherit;opacity:.8}
+.plan-time button:hover{opacity:1;background:rgba(255,255,255,.22)}
+.plan-time button:focus-visible{outline:2px solid #fff;outline-offset:0}
+.plan-time svg{width:11px;height:11px}
+.plan-tp{position:relative;display:inline-flex}
+.plan-row:has(.plan-list){position:relative;z-index:30}
+.plan-pick{display:inline-flex;align-items:center;gap:3px;padding:3px 10px 3px 7px;border-radius:999px;font-size:12px;font-weight:600;color:var(--brand-text);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--brand) 45%,transparent);transition:background .15s}
+.plan-pick svg{width:12px;height:12px}
+.plan-pick:hover,.plan-pick[aria-expanded="true"]{background:color-mix(in srgb,var(--brand) 10%,transparent)}
+.plan-pick:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.plan-list{position:absolute;z-index:20;top:calc(100% + 4px);left:0;width:108px;max-height:216px;overflow-y:auto;overscroll-behavior:contain;
+  display:grid;padding:4px;border-radius:12px;background:#fff;box-shadow:0 12px 32px rgba(8,50,48,.22),0 0 0 1px var(--line);isolation:isolate}
+.plan-list button{padding:6px 10px;border-radius:8px;font-family:var(--mono);font-size:12.5px;text-align:left;color:var(--ink)}
+.plan-list button:hover:not(:disabled),.plan-list button:focus-visible{background:var(--brand);color:#fff;outline:0}
+.plan-list button:disabled{color:var(--muted-text);opacity:.45;cursor:default;text-decoration:line-through}
+body.night .plan-list{background:#1d2440}
+.plan-none{font-size:12px;color:var(--muted-text);font-style:italic;margin-right:2px}
+.plan input[type=date]{font-family:var(--mono);font-size:12.5px}
+.plan input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.6}
+.plan-form:disabled .plan-pick,.plan-form:disabled .plan-time button{display:none}
+.plan-days small{flex:none;min-width:62px;font-size:11.5px;color:var(--muted-text);white-space:nowrap}
+
+.plan-calls{display:flex;flex-wrap:wrap;gap:6px}
+.plan-calls span{padding:5px 11px;border-radius:999px;font-size:12px;font-weight:600;color:var(--brand-text);background:color-mix(in srgb,var(--brand) 12%,transparent)}
+
+.plan-notes textarea{resize:vertical;line-height:1.5}
+
+/* Adding and removing rows; a row that cannot be signed yet */
+.plan-add{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.plan-add .btn svg{width:14px;height:14px}
+.plan-x{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;color:var(--muted-text);transition:background .15s,color .15s}
+.plan-x svg{width:14px;height:14px}
+.plan-x:hover{background:color-mix(in srgb,var(--bad) 12%,transparent);color:var(--bad)}
+.plan-x:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
+.plan-form:disabled .plan-x,.plan-form:disabled .plan-add{display:none}
+.plan-err{display:block;grid-column:2/-1;margin-top:3px;font-size:11.5px;font-weight:500;color:var(--bad)}
+.plan [aria-invalid="true"]:not([type=checkbox]){box-shadow:inset 0 0 0 1.5px var(--bad)!important;background:color-mix(in srgb,var(--bad) 6%,#fff)!important}
+.plan-meds tr[data-invalid] .plan-slot input[aria-invalid="true"]+span{box-shadow:inset 0 0 0 1.5px var(--bad)}
+.plan-meds td:last-child.c,.plan-meds th:last-child{width:40px}
+/* Keeps the hidden header inside the table's own scroll box, so it cannot widen the page */
+.plan .tw{position:relative}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Footer: the signature on the left, the decision on the right */
+.plan-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge)}
+.plan-foot .plan-hint{max-width:62ch}
+.plan-foot.signed{background:color-mix(in srgb,var(--good) 12%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--good) 30%,transparent)}
+.plan-sig{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;font-weight:500;color:var(--ink)}
+
+/* After sending: what the agent did, then Margaret's day */
+.plan-sent{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:start}
+.plan-steps{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.plan-steps li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;align-items:start;font-size:13px;line-height:1.45;animation:plan-in .3s ease-out both}
+.plan-steps b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--good);color:#fff}
+.plan-steps b svg{width:13px;height:13px}
+@keyframes plan-in{from{opacity:0;transform:translateY(4px)}}
+
+.plan-day{list-style:none;margin:0;padding:0;display:grid;position:relative}
+.plan-day::before{content:"";position:absolute;left:63px;top:14px;bottom:14px;width:2px;border-radius:2px;background:var(--line)}
+.plan-day li{display:grid;grid-template-columns:44px 30px minmax(0,1fr);gap:8px;align-items:start;padding:6px 0;position:relative}
+.plan-day time{font-family:var(--mono);font-size:12px;color:var(--muted-text);padding-top:7px;text-align:right}
+.plan-day li[data-kind="MED"] .plan-dot{color:var(--hue-purple)}
+.plan-day li b{display:block;font-size:13px;font-weight:500;padding-top:5px}
+.plan-day li small{display:block;font-size:11.5px;color:var(--muted-text);margin-top:1px}
+
+/* Inpatient course: the dots joined into one line, so the stay reads as a sequence */
+.pt-course li{grid-template-columns:52px 12px minmax(0,1fr);position:relative}
+.pt-course li:not(:last-child)::after{content:"";position:absolute;left:65px;top:16px;bottom:-6px;width:2px;background:var(--line)}
+.pt-course .d{position:relative;z-index:1;box-shadow:0 0 0 3px rgba(255,255,255,.7)}
+.pt-course li:last-child .d{background:var(--good)}
+
+body.night .plan input:not([type=checkbox]),body.night .plan textarea{background:rgba(255,255,255,.06)}
+body.night .plan input:not([type=checkbox]):focus-visible,body.night .plan textarea:focus-visible{background:rgba(255,255,255,.12)}
+
+@media (max-width:900px){
+  .plan-cols,.plan-sent,.plan-who{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .plan-rowhead,.plan-row,.plan-row.fu,.plan-rowhead.fu{grid-template-columns:30px minmax(0,1fr) 28px}
+  .plan-row>:nth-child(3){grid-column:2;grid-row:2}
+  .plan-row>.plan-x{grid-column:3;grid-row:1}
+  .plan-rowhead span:last-child{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .plan-steps li{animation:none}
+  .plan *{transition:none}
+}

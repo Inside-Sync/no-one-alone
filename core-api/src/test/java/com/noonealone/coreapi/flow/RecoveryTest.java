@@ -129,6 +129,30 @@ class RecoveryTest extends FirestoreTestBase {
     }
 
     @Test
+    void medNoteIsForwardedAndStoredAsWritten() {
+        incident(ID, "margaret", true);
+        when(agent.recovery(any())).thenReturn(new RecoveryResult("Home.", null,
+                List.of(new RecoveryResult.Reminder("08:00", "MED", "Apixaban.", null)), false));
+        String note = "Stops clots forming because of the uneven heartbeat. Replaces aspirin.";
+
+        recovery.discharge(ID, plan(List.of(new Med("apixaban", "5 mg", List.of("08:00"), "New", note),
+                new Med("amlodipine", "5 mg", List.of("18:00"), "Continue")), List.of()));
+
+        verify(agent).recovery(argThat(b -> ((Map<?, ?>) ((List<?>) ((Map<?, ?>) b.get("plan")).get("meds")).get(0))
+                .get("note").equals(note)));
+        assertThat(store.get(ID).recovery.meds).extracting(Med::note).containsExactly(note, null);
+    }
+
+    @Test
+    void medNoteLongerThanTheTextLimitIsRejected() {
+        incident(ID, "margaret", true);
+        Recovery.Plan p = plan(List.of(new Med("apixaban", "5 mg", List.of("08:00"), "New", "x".repeat(301))), List.of());
+
+        assertThatThrownBy(() -> recovery.discharge(ID, p)).isInstanceOf(ApiException.class);
+        verify(agent, never()).recovery(any());
+    }
+
+    @Test
     void agentFailureFallsBackToSortedRuleReminders() {
         incident(ID, "margaret", true);
         when(agent.recovery(any())).thenThrow(new AgentException("down", null));
