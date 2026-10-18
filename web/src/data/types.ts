@@ -1,7 +1,7 @@
 /**
  * Domain types for "No One Alone". Every figure is fictional.
  * Types are named after the page section they serve; field order follows the
- * arrays in docs/reference/prototype.html so fixtures can be diffed against it.
+ * arrays in tests/fixtures/prototype.html so fixtures can be diffed against it.
  * Tuples (`[label, value]`) are used only where the prototype itself is a
  * two-column label/value list (packet rows).
  */

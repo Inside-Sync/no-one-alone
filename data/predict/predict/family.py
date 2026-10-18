@@ -14,7 +14,7 @@ KIND_BY_TEXT = [(re.compile(r"stroke|cerebrovascular", re.I), STROKE), (re.compi
 PARENT_ROLE = {"FTH": "father", "MTH": "mother"}
 SIBLINGS = {"brother", "sister"}
 CHILDREN = {"son", "daughter"}
-# Names documented in docs/contract.md 2.5; any other relative without a name keeps its relation label.
+# Named relatives; any other relative without a name keeps its relation label.
 CONTRACT_NAMES = {"ba-mai-father": ("ong-tu", "Ông Tư")}
 
 BP_CHECK, SUGAR_TEST = "Blood pressure check", "Blood sugar test"

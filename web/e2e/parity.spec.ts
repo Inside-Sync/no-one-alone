@@ -22,7 +22,7 @@ import { caseName, openPage, routeCases, type RouteCase } from './helpers'
  */
 
 const HERE = dirname(fileURLToPath(import.meta.url))
-const PROTO_URL = 'file://' + resolve(HERE, '../docs/reference/prototype.html')
+const PROTO_URL = 'file://' + resolve(HERE, '../tests/fixtures/prototype.html')
 const OUT = join(HERE, 'parity')
 const FONTS = resolve(HERE, '../node_modules/@fontsource')
 const LIMIT = 3 // % of pixels

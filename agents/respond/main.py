@@ -1,4 +1,4 @@
-"""respond-agent. Owner: Tài. Interface: docs/contract.md section 4.3."""
+"""respond-agent: verify, check-in, triage, escalation plan and recovery for core-api."""
 import base64
 import logging
 import os

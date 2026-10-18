@@ -1,6 +1,6 @@
 # hospital-agent
 
-Builds the pre-arrival packet for the receiving emergency department (docs/contract.md 4.4). Owner: Minh.
+Builds the pre-arrival packet for the receiving emergency department.
 
 One deterministic ADK `BaseAgent` (no LLM planning) served over A2A by `to_a2a`, plus a plain-HTTP fallback
 on the same pipeline. Hospital choice and ETA come from core-api in the request; this agent does not pick
@@ -25,7 +25,7 @@ request ─ validate ─ read FHIR record ─ normalize ─ consent ─ packet (
 | `scripts/probe_a2a.py` | Low-level A2A probe (data, text or HTTP part) |
 | `scripts/load_fhir.py` | Loads `data/fhir` into the FHIR store: dry run by default, `--write`, `--verify` |
 
-Packet fields, consent policy and text format: [docs/contract.md](../../docs/contract.md) section 4.4.
+Packet fields and consent policy: `handoff/contracts.py` and `handoff/consent.py`.
 
 ## Run and test
 

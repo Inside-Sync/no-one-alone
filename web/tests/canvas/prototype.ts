@@ -2,10 +2,10 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
- * Loads the prototype's own scene code (docs/reference/prototype.html) so the
+ * Loads the prototype's own scene code (tests/fixtures/prototype.html) so the
  * ports can be compared with the original call for call.
  */
-const html = readFileSync(join(process.cwd(), 'docs/reference/prototype.html'), 'utf8')
+const html = readFileSync(join(process.cwd(), 'tests/fixtures/prototype.html'), 'utf8')
 
 function between(start: string, end: string): string {
   const i = html.indexOf(start)
