@@ -1,4 +1,4 @@
-import { resolvePage, tabsFor, allRoutes, VIEW_USERS } from '@/domain/views'
+import { resolvePage, whoForPage, tabsFor, allRoutes, VIEW_USERS } from '@/domain/views'
 
 test('family tabs', () =>
   expect(tabsFor('individual', 'family').map((t) => t.id)).toEqual(
@@ -49,4 +49,10 @@ test('allRoutes covers me, privacy and every other view x page pair', () => {
   expect(new Set(r).size).toBe(r.length)
   expect(r).toContain('hospital/patient')
   expect(r).toHaveLength(11 + 5 + 2)
+})
+test('one-role individual pages imply the role; shared and other views do not', () => {
+  expect(whoForPage('individual', 'me')).toBe('self')
+  expect(whoForPage('individual', 'forecast')).toBe('family')
+  expect(whoForPage('individual', 'health')).toBeUndefined()
+  expect(whoForPage('hospital', 'ed')).toBeUndefined()
 })

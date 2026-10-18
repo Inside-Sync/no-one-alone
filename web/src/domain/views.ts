@@ -96,6 +96,14 @@ export function resolvePage(view: string, page: string, who: Who): PageResolutio
   return { kind: 'notFound' }
 }
 
+/** The role an individual page belongs to when only one role has it as a tab (`me` -> self); undefined when shared or not individual. */
+export function whoForPage(view: string, page: string | undefined): Who | undefined {
+  if (view !== 'individual' || !page) return undefined
+  const self = TABS_SELF.some((t) => t.id === page)
+  const fam = TABS_FAM.some((t) => t.id === page)
+  return self === fam ? undefined : self ? 'self' : 'family'
+}
+
 /** Every valid view x page pair: the routes App.tsx accepts (anything else is a 404). */
 export function allRoutes(): { view: ViewId; page: string }[] {
   const out: { view: ViewId; page: string }[] = []
