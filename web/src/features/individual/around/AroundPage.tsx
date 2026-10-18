@@ -3,6 +3,7 @@
 import { getCityScene, getSurroundings } from '@/data/repo'
 import type { CityGeometry, Surroundings } from '@/data/types'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useRepo } from '@/features/shared/useRepo'
 import { AirCard } from './AirCard'
 import { AlertsCard } from './AlertsCard'
@@ -28,7 +29,7 @@ export function AroundPage() {
   const r = useRepo(loadAround)
   if (r.status === 'error') return <PageError page="around" onRetry={r.retry} />
   const d = r.data
-  if (!d) return null
+  if (!d) return <PageSkeleton page="around" />
   const { s, city } = d
   return (
     <main className="grid" data-page="around">

@@ -59,6 +59,12 @@ body.night .scene::after{opacity:1}
 .wrap{position:relative;z-index:2;max-width:1600px;margin:0 auto;padding-inline:16px;padding-block:12px 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
 .glass{background:var(--glass);-webkit-backdrop-filter:var(--frost);backdrop-filter:var(--frost);box-shadow:var(--glass-edge),var(--glass-drop);border-radius:22px}
 
+/* loading skeleton (PageSkeleton) */
+.skel-card{display:flex;flex-direction:column;gap:12px}
+.skel{display:block;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.35) 25%,rgba(255,255,255,.7) 50%,rgba(255,255,255,.35) 75%);background-size:200% 100%;animation:skel 1.4s ease-in-out infinite}
+@keyframes skel{from{background-position:100% 0}to{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}
+
 /* top navigation */
 .topnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:10px 12px 8px 16px;border-radius:20px}
 .topnav .tabs{order:3;flex-basis:100%;border-top:1px solid var(--line);padding-top:8px}

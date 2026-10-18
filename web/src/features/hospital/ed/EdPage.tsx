@@ -7,6 +7,7 @@ import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 import { HospitalKpis, ReadyBanner } from '../shared'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useHospital } from '../useHospital'
 import { InboxCard, type InboxItem } from './InboxCard'
 import { PacketCard } from './PacketCard'
@@ -23,7 +24,7 @@ export function EdPage() {
   // A pick belongs to one inbox: when the demo's packet arrives or leaves, the pane goes back to its default (prototype re-renders it).
   const [pick, setPick] = useState<{ name: string; inbox: boolean } | null>(null)
   if (res.status === 'error') return <PageError page="ed" onRetry={res.retry} />
-  if (!h) return null
+  if (!h) return <PageSkeleton page="ed" />
 
   const items: InboxItem[] = h.inbox.map((m) => ({ ...m, fresh: false }))
   if (packetNew) {

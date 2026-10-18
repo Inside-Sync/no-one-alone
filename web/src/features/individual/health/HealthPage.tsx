@@ -3,6 +3,7 @@
 import { getDeviceFeed, getHealth } from '@/data/repo'
 import type { DeviceFeed, HealthData } from '@/data/types'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useRepo } from '@/features/shared/useRepo'
 import { BpCard } from './BpCard'
 import { DevicesCard } from './DevicesCard'
@@ -26,7 +27,7 @@ export function HealthPage() {
   const r = useRepo(loadHealth)
   if (r.status === 'error') return <PageError page="health" onRetry={r.retry} />
   const d = r.data
-  if (!d) return null
+  if (!d) return <PageSkeleton page="health" />
   const h = d.health
   return (
     <main className="grid" data-page="health">

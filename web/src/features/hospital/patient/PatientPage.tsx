@@ -4,6 +4,7 @@ import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { FitBanner, RecoveryCard, usePlanBuilder } from '../discharge/RecoveryCard'
 import { HospitalKpis } from '../shared'
 import { useHospital } from '../useHospital'
@@ -15,7 +16,7 @@ export function PatientPage() {
   const { t } = useTranslation('hospital')
   const plan = usePlanBuilder()
   if (res.status === 'error') return <PageError page="patient" onRetry={res.retry} />
-  if (!h) return null
+  if (!h) return <PageSkeleton page="patient" />
   return (
     <main className="grid" data-page="patient">
       <FitBanner plan={plan} />

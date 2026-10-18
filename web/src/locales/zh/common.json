@@ -223,6 +223,7 @@
       ]
     ]
   },
+  "pageLoading": "加载中…",
   "pageError": {
     "text": "暂时无法加载此页面。",
     "retry": "重试",

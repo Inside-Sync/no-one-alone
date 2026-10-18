@@ -1,6 +1,7 @@
 'use client'
 
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useHospital } from '../useHospital'
 import { ActionsCard } from './ActionsCard'
 import { BedsCard } from './BedsCard'
@@ -12,7 +13,7 @@ export function DemandPage() {
   const res = useHospital()
   const h = res.data
   if (res.status === 'error') return <PageError page="demand" onRetry={res.retry} />
-  if (!h) return null
+  if (!h) return <PageSkeleton page="demand" />
   return (
     <main className="grid" data-page="demand">
       <ForecastCard demand={h.demand} />

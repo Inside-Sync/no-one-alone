@@ -3,6 +3,7 @@
 import { Locked } from '@/components/ui/Locked'
 import { getCareRecord } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useRepo } from '@/features/shared/useRepo'
 import { EncountersCard } from './EncountersCard'
 import { FollowUpCard } from './FollowUpCard'
@@ -17,7 +18,7 @@ export function RecordPage() {
   const res = useRepo(() => getCareRecord('margaret'))
   if (res.status === 'error') return <PageError page="record" onRetry={res.retry} />
   const r = res.data
-  if (!r) return null
+  if (!r) return <PageSkeleton page="record" />
   return (
     <main className="grid" data-page="record">
       <Locked cat="records" span={12}><RecordKpis kpis={r.kpis} /></Locked>

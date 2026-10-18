@@ -171,6 +171,7 @@
       ]
     ]
   },
+  "pageLoading": "Loading…",
   "pageError": {
     "text": "We couldn't load this page just now.",
     "retry": "Try again",

@@ -2,6 +2,7 @@
 
 import { getCareCircle, getCityScene, getForecast, getHealth, getOrbitScene, getPerson, getSurroundings } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
+import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useRepo } from '@/features/shared/useRepo'
 import type { CircleMember, CityGeometry, Forecast, HealthData, OrbitScene, Person, Surroundings } from '@/data/types'
 import { ChatCard } from './ChatCard'
@@ -39,7 +40,7 @@ export function HomePage() {
   const r = useRepo(loadHome)
   if (r.status === 'error') return <PageError page="home" onRetry={r.retry} />
   const d = r.data
-  if (!d) return null
+  if (!d) return <PageSkeleton page="home" />
   return (
     <main className="grid" data-page="home">
       <MapCard map={d.surroundings.homeMap} geometry={d.city} />
