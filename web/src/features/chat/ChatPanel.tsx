@@ -72,8 +72,8 @@ export function ChatPanel() {
     if (live) {
       try {
         reply = { by: 'noa', text: (await (await import('@/data/api')).chat({ question, mode, viewer: mode === 'fam' ? viewer : undefined, history })).answer }
-      } catch {
-        reply = { by: 'noa', text: t('failed'), local: true }
+      } catch (e) {
+        reply = { by: 'noa', text: t((e as { status?: number }).status === 429 ? 'busy' : 'failed'), local: true }
       }
     }
     setLog((l) => (l.key === key ? { key, msgs: [...l.msgs, reply], waiting: false } : l))

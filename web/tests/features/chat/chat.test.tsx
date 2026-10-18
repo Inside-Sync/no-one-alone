@@ -54,6 +54,14 @@ test('an API failure shows that Noa cannot answer', async () => {
   expect(await within(panel()).findByText("Noa can't answer right now.")).toBeInTheDocument()
 })
 
+test('a 429 from the rate limit asks to try again in a minute', async () => {
+  chat.mockRejectedValue(Object.assign(new Error('Too many requests'), { status: 429 }))
+  renderWithProviders(<ChatPanel />)
+  openChat()
+  ask('How is she?')
+  expect(await within(panel()).findByText('Lots of questions just now. Please try again in a minute.')).toBeInTheDocument()
+})
+
 test('in mock mode Noa is offline and nothing is posted', async () => {
   live = false
   renderWithProviders(<ChatPanel />)

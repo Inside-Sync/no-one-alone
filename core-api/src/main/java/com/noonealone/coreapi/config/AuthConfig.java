@@ -1,8 +1,10 @@
 package com.noonealone.coreapi.config;
 
 import java.io.IOException;
+import java.time.Clock;
 import java.util.function.Predicate;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,9 +14,15 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.noonealone.coreapi.web.AuthFilter;
+import com.noonealone.coreapi.web.RateLimitFilter;
 
 @Configuration
 public class AuthConfig {
+
+    @Bean
+    RateLimitFilter rateLimitFilter(Clock clock, @Value("${noa.rate-limit.trusted-hops:1}") int trustedHops) {
+        return new RateLimitFilter(clock, trustedHops);
+    }
 
     @Bean
     AuthFilter authFilter(NoaProperties props) throws IOException {
