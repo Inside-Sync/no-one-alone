@@ -32,10 +32,12 @@ function useReveal(count: number): number {
 }
 
 /** `Noa's log` (c12): every step of the incident, newest first, then the response times so far. */
-export function NoaLogCard({ view, time }: { view: LiveView | null; time: string }) {
+export function NoaLogCard({ view, time, dialling = false }: { view: LiveView | null; time: string; dialling?: boolean }) {
   const { t } = useTranslation('live')
   const all = view?.timeline ?? []
-  const shown = useReveal(all.length)
+  // The automatic 000 call is logged once Live conversations starts it, not while the dial tone plays.
+  const call = dialling ? all.findIndex((x) => x.kind === 'CALLED_115' && x.d.startsWith('Calling ')) : -1
+  const shown = useReveal(call < 0 ? all.length : call)
   const rows = all.slice(0, shown).reverse()
   return (
     <GlassCard span={12} id="liveB">

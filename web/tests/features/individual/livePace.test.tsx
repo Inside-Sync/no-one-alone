@@ -82,3 +82,14 @@ test('a goodbye that arrives while the card is open plays once', async () => {
   await act(async () => { close() })
   expect(Audio).toHaveBeenCalledWith('/noa/closing.mp3')
 })
+
+test('the automatic 000 entry waits in the log until the dial ends', () => {
+  const auto = { kind: 'CALLED_115', t: '02:03', ph: 'Escalate', d: 'Calling 000 automatically with the call script (demo call)', s: 'System' }
+  const v = { timeline: [row('entry 0'), auto], sla: [] } as unknown as LiveView
+  vi.useFakeTimers()
+  const { rerender } = renderWithProviders(<NoaLogCard view={v} time="02:03" dialling />)
+  expect(screen.queryByText(/Calling 000 automatically/)).toBeNull()
+  rerender(<NoaLogCard view={v} time="02:03" dialling={false} />)
+  act(() => { vi.advanceTimersByTime(1500) })
+  expect(screen.getByText(/Calling 000 automatically/)).toBeInTheDocument()
+})

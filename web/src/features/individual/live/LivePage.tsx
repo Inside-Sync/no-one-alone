@@ -194,7 +194,7 @@ function LiveIncidentPage() {
         onReplay={() => nightDemo.current()} busy={busy} />
       <ConversationsCard incident={shown?.incident ?? null} people={people} call={dialogue.lines} dialling={dialogue.dialling} />
       <HandoverCard incident={shown?.incident ?? null} view={shown?.view ?? null} people={people} agent={agent} />
-      <NoaLogCard view={shown?.view ?? null} time={clockText(watch.watch.clock)} />
+      <NoaLogCard view={shown?.view ?? null} time={clockText(watch.watch.clock)} dialling={dialogue.dialling} />
     </main>
   )
 }
