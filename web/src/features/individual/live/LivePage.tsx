@@ -7,7 +7,7 @@ import { apiErrorCode, getOrbitScene } from '@/data/repo'
 import { PageError } from '@/features/shared/PageError'
 import { useRepo } from '@/features/shared/useRepo'
 import { STEPS } from '@/domain/emergency'
-import { ambulanceStatus } from '@/domain/incident'
+import { ambulanceStatus, heardLimit } from '@/domain/incident'
 import { agentView } from '@/domain/agent'
 import { ALERT_MIN, NO_REPLY_SECONDS, SIM_DEFAULTS, alertRun, clockText, scenarioFor, type Watch } from '@/domain/simulator'
 import { useToast } from '@/components/ui/Toast'
@@ -102,6 +102,7 @@ function LiveIncidentPage() {
   // Not before the followed incident arrives, or a call already on it would count as new.
   const calls = useCallRing(loading || !settled ? undefined : incident?.timeline ?? [], view?.id)
   const [dialogueDone, setDialogueDone] = useState<{ id: string; silent: boolean } | null>(null)
+  const [heard, setHeard] = useState<{ id: string; key: string } | null>(null)
   // Margaret's phone speech queue, shared so the 000 lines wait for her status clip.
   const speech = useRef<Promise<void>>(Promise.resolve())
   const { t } = useTranslation('live')
@@ -172,6 +173,13 @@ function LiveIncidentPage() {
   if (error) return <PageError page="live" onRetry={() => location.reload()} />
   if (loading) return <main className="grid" data-page="live"><p className="fine c12">{t('live.loading')}</p></main>
   const shown = incident && view ? { incident, view } : null
+  // Log and conversations follow what Margaret has heard, and hold the 000 call while it dials.
+  const autoAt = shown && call ? shown.incident.timeline.findIndex((e) => e === call) : -1
+  const heardUpTo = shown ? heardLimit(shown.incident, people, heard?.id === shown.view.id ? heard.key : null) : 0
+  // Once the 000 dialogue is talking, the call itself is heard.
+  const limit = !shown ? 0 : dialogue.dialling && autoAt >= 0 ? Math.min(heardUpTo, autoAt)
+    : dialogue.lines.length && autoAt >= 0 ? Math.max(heardUpTo, autoAt + 1) : heardUpTo
+  const heardIncident = shown ? { ...shown.incident, timeline: shown.incident.timeline.slice(0, limit) } : null
   const agent = agentView(shown?.incident ?? null, people)
   const name = (people.person?.displayName ?? view?.personName ?? '').split(' ')[0]
   const num = people.person?.emergencyNumber ?? view?.emergencyNumber ?? '000'
@@ -186,15 +194,16 @@ function LiveIncidentPage() {
       <CallsCard agent={agent} />
       {shown ? (
         <LivePhoneCard phone={shown.view.phone} name={name} helpInitials={shown.view.owner.initials} checkin={checkin} onSpoken={setSpoken} speechRef={speech}
+          onStatus={(key) => setHeard({ id: shown.view.id, key })}
           onManual={() => setManual(shown.view.id)} statusOverride={ambulance} />
       ) : (
         <IdlePhoneCard name={name} time={clockText(watch.watch.clock)} disabled={busy} onHelp={() => begin(watch.watch.hr > 120 ? watch.watch.hr : 142, ALERT_MIN)} />
       )}
       <SpeechCheckCard incident={shown?.incident ?? null} name={name} timeZone={people.person?.timezone ?? 'Asia/Ho_Chi_Minh'}
         onReplay={() => nightDemo.current()} busy={busy} />
-      <ConversationsCard incident={shown?.incident ?? null} people={people} call={dialogue.lines} dialling={dialogue.dialling} />
+      <ConversationsCard incident={heardIncident} people={people} call={dialogue.lines} dialling={dialogue.dialling} />
       <HandoverCard incident={shown?.incident ?? null} view={shown?.view ?? null} people={people} agent={agent} />
-      <NoaLogCard view={shown?.view ?? null} time={clockText(watch.watch.clock)} dialling={dialogue.dialling} />
+      <NoaLogCard view={shown?.view ?? null} time={clockText(watch.watch.clock)} limit={limit} />
     </main>
   )
 }
