@@ -81,7 +81,7 @@ def test_speech_check_is_second_and_slurred_there_ends_with_emergency():
     clear = {"transcript": "Mm yes", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 0.9,
              "ack": "Thank you."}
     first = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(clear))
-    assert first["next"]["text"] == ("Thank you, Margaret. Let's do our quick speech check, the same one from our "
+    assert first["next"]["text"] == ("Thank you. Let's do our quick speech check, the same one from our "
                                      "morning chats. Please say after me: The sky is blue in Sydney.")
     seen = []
     slurred = {"transcript": "th sky iz bloo sid", "clarity": "SLURRED", "coherent": False, "symptoms": [],
@@ -113,3 +113,17 @@ def test_a_wordless_first_answer_is_not_a_failed_speech_check():
     out = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(res))
     assert out["assessment"]["clarity"] == "NO_SPEECH"
     assert out["done"] is False
+
+
+def test_speech_check_opens_with_noas_reply_to_her_answer():
+    res = {"transcript": "My heart's racing a bit", "clarity": "CLEAR", "coherent": True, "symptoms": [],
+           "confidence": 0.9, "ack": "I'm sorry your heart is racing, Margaret."}
+    out = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(res))
+    assert out["next"]["text"] == ("I'm sorry your heart is racing, Margaret. Let's do our quick speech check, the same "
+                                   "one from our morning chats. Please say after me: The sky is blue in Sydney.")
+
+
+def test_speech_check_keeps_the_scripted_thanks_without_an_ack():
+    res = {"transcript": "Yes", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 0.9}
+    out = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(res))
+    assert out["next"]["text"].startswith("Thank you, Margaret. Let's do our quick speech check")
