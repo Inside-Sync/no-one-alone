@@ -168,7 +168,7 @@ public class Recovery {
             if (blank(m.name()) || blank(m.dose())) {
                 throw ApiException.badRequest("Each medicine needs a name and a dose");
             }
-            text(m.name(), m.dose());
+            text(m.name(), m.dose(), m.note());
             times(m.times());
         }
         for (Activity a : p.activities()) {

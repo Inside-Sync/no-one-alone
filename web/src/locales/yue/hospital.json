@@ -51,9 +51,8 @@
       "actTimes": "活動 {{n}} 時間",
       "followUps": "覆診跟進",
       "fuText": "跟進 {{n}}",
-      "fuDays": "跟進 {{n}}（日數）",
       "notes": "醫生筆記",
-      "hint": "時間格式 HH:mm，用逗號分隔",
+      "hint": "幫每條指示揀提醒時間。冇提醒嘅建議都會留喺佢個計劃度。",
       "sentAt": "{{time}} 已送返屋企",
       "sent": "已送返屋企",
       "failed": "傳送唔到計劃",
@@ -93,7 +92,39 @@
         "appointments": "預約：{{list}}",
         "circle": "{{names}} 睇到",
         "delivered": "計劃已顯示喺 Margaret 嘅螢幕"
-      }
+      },
+      "stepsTitle": "助手做咗啲咩",
+      "remindersTitle": "Noa 會提醒 Margaret 嘅一日",
+      "actHead": "指示",
+      "timesHead": "提醒時間",
+      "fuHead": "預約",
+      "daysHead": "日期",
+      "addMed": "加藥",
+      "addAct": "加指示",
+      "addFu": "加預約",
+      "remove": "刪除{{what}}",
+      "removeHead": "刪除",
+      "thisRow": "呢一行",
+      "medPlaceholder": "藥名",
+      "keepHint": "佢食緊嘅藥唔可以刪除：請設做停用，Noa 會通知佢同藥房。",
+      "toastFix": "有啲行未填完。請改好紅色標示嘅行，然後先確認。",
+      "errors": {
+        "nameMissing": "請寫低藥名。",
+        "noTimes": "請揀最少一個時間，或者設做停用。",
+        "textMissing": "請寫低指示，或者刪除呢一行。",
+        "badDays": "請揀由聽日起一年內嘅日期。",
+        "doseMissing": "請寫低劑量，例如 5 mg。"
+      },
+      "full": "最多 {{n}} 行。",
+      "noteHead": "俾病人嘅備註",
+      "medNote": "藥物 {{n}} 俾病人嘅備註",
+      "notePlaceholder": "用簡單說話講佢點解要食呢隻藥",
+      "addTime": "幫活動 {{n}} 加提醒時間",
+      "removeTime": "喺活動 {{n}} 刪除 {{time}}",
+      "fuDate": "預約 {{n}} 嘅日期",
+      "inDays_other": "{{count}} 日後",
+      "addTimeShort": "加時間",
+      "noReminder": "唔使提醒"
     },
     "discharge": {
       "title": "可以出院：Margaret Collins，78 歲",
@@ -220,6 +251,24 @@
         }
       ],
       "new": "新"
+    }
+  },
+  "patient": {
+    "banner": {
+      "title": "Margaret Collins 可以出院",
+      "sub": "睇完下面個計劃先批准。助手會連埋提醒送去 Margaret 嘅平台。",
+      "approve": "批准並送俾 Margaret",
+      "review": "睇計劃",
+      "portal": "打開 Margaret 嘅平台",
+      "sent": "已經送咗俾 Margaret · {{time}}"
+    },
+    "summary": {
+      "title": "入院摘要",
+      "tag": "就診"
+    },
+    "course": {
+      "title": "住院經過",
+      "meta": "重要事件"
     }
   },
   "actions": {

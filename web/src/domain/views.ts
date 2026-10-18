@@ -59,6 +59,7 @@ const TABS_HOSPITAL: Tab[] = [
   tab('hospital', 'panel', 'people'),
   tab('hospital', 'demand', 'trend'),
   tab('hospital', 'discharge', 'check'),
+  tab('hospital', 'patient', 'file'),
 ]
 
 const TABS_COMMUNITY: Tab[] = [
@@ -114,7 +115,7 @@ export function parsePath(pathname: string | null): { view: ViewId; page: string
 
 const PAGE_IDS = [
   'home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'device', 'me', 'privacy', 'recovery',
-  'ed', 'panel', 'demand', 'discharge', 'community', 'watch',
+  'ed', 'panel', 'demand', 'discharge', 'patient', 'community', 'watch',
 ] as const
 
 /** Page titles (PG in the prototype, after the later overrides); translated at read time. */
@@ -123,12 +124,13 @@ export const PAGE_TITLES: Readonly<Record<string, string>> = Object.defineProper
   Object.fromEntries(PAGE_IDS.map((id) => [id, { enumerable: true, get: () => i18n.t(`common:pageTitles.${id}`) }])),
 )
 
+type OwnPage = 'me' | 'privacy' | 'patient'
 type OwnFact = { readonly live: boolean; readonly label: string; readonly value: string }
 /** `icon` stands in for the initials (the prototype's privacy bar showed an emoji there). */
-const ownContext = (page: 'me' | 'privacy', initials: string, live: readonly boolean[], icon?: IconName) => ({
+const ownContext = (page: OwnPage, initials: string, live: readonly boolean[], icon?: IconName, color = '#0b7f71') => ({
   initials,
   icon,
-  color: '#0b7f71',
+  color,
   get sub() { return i18n.t(`common:ownContext.${page}.sub`) },
   get facts(): readonly OwnFact[] {
     const rows = i18n.t(`common:ownContext.${page}.facts`, { returnObjects: true }) as readonly (readonly string[])[]
@@ -136,8 +138,11 @@ const ownContext = (page: 'me' | 'privacy', initials: string, live: readonly boo
   },
 })
 
-/** Margaret's own pages have their own context bar (PG.me, PG.privacy); text translated at read time. */
+/** Pages with their own context bar (PG.me, PG.privacy, PG.patient: Margaret's hospital record); text translated at read time. */
 export const OWN_CONTEXT = {
   me: ownContext('me', 'MC', [true, false, false]),
   privacy: ownContext('privacy', '', [true, false], 'lock'),
+  patient: ownContext('patient', 'MC', [true, false, false, false], undefined, '#2563a8'),
 } as const
+
+export const hasOwnContext = (page: string | undefined): page is keyof typeof OWN_CONTEXT => !!page && page in OWN_CONTEXT

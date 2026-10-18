@@ -51,9 +51,8 @@
       "actTimes": "Activity {{n}} times",
       "followUps": "Follow-ups",
       "fuText": "Follow-up {{n}}",
-      "fuDays": "Follow-up {{n}} in days",
       "notes": "Doctor's notes",
-      "hint": "Times as HH:mm, separated by commas",
+      "hint": "Pick a reminder time for each instruction. Advice with no reminder stays on her plan.",
       "sentAt": "Sent home at {{time}}",
       "sent": "Sent home",
       "failed": "Could not send the plan",
@@ -93,7 +92,40 @@
         "appointments": "Appointments: {{list}}",
         "circle": "Visible to {{names}}",
         "delivered": "Plan is on Margaret's screen"
-      }
+      },
+      "stepsTitle": "What the agent did",
+      "remindersTitle": "Margaret's day, as Noa will remind her",
+      "actHead": "Instruction",
+      "timesHead": "Reminder times",
+      "fuHead": "Appointment",
+      "daysHead": "Date",
+      "addMed": "Add medicine",
+      "addAct": "Add instruction",
+      "addFu": "Add appointment",
+      "remove": "Remove {{what}}",
+      "removeHead": "Remove",
+      "thisRow": "this row",
+      "medPlaceholder": "Medicine name",
+      "keepHint": "A medicine she already takes can't be removed: set it to Stop so Noa tells her and her pharmacy.",
+      "toastFix": "Some rows are not complete. Fix the ones marked in red, then finalise.",
+      "errors": {
+        "nameMissing": "Add the medicine name.",
+        "noTimes": "Tick at least one time, or set it to Stop.",
+        "textMissing": "Write the instruction or remove this row.",
+        "badDays": "Pick a date from tomorrow up to a year ahead.",
+        "doseMissing": "Add the dose, like 5 mg."
+      },
+      "full": "Up to {{n}} rows.",
+      "noteHead": "Note for patient",
+      "medNote": "Medicine {{n}} note for patient",
+      "notePlaceholder": "Why she takes it, in plain words",
+      "addTime": "Activity {{n}} add a reminder time",
+      "removeTime": "Remove {{time}} from activity {{n}}",
+      "fuDate": "Follow-up {{n}} date",
+      "inDays_one": "in {{count}} day",
+      "inDays_other": "in {{count}} days",
+      "addTimeShort": "Add time",
+      "noReminder": "No reminder"
     },
     "discharge": {
       "title": "Ready for discharge: Margaret Collins, 78",
@@ -220,6 +252,24 @@
         }
       ],
       "new": "New"
+    }
+  },
+  "patient": {
+    "banner": {
+      "title": "Margaret Collins is fit for discharge",
+      "sub": "Review the plan below, then approve. The agent delivers it to Margaret's portal with reminders.",
+      "approve": "Approve and send to Margaret",
+      "review": "Review the plan",
+      "portal": "Open Margaret's portal",
+      "sent": "Sent to Margaret · {{time}}"
+    },
+    "summary": {
+      "title": "Admission summary",
+      "tag": "ENCOUNTER"
+    },
+    "course": {
+      "title": "Inpatient course",
+      "meta": "Key events"
     }
   },
   "actions": {

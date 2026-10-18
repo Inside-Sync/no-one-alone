@@ -262,7 +262,8 @@
       "ed": "Pre-arrivals",
       "panel": "Patient panel",
       "demand": "Demand & beds",
-      "discharge": "Discharge follow-up"
+      "discharge": "Discharge follow-up",
+      "patient": "Patient record & discharge"
     },
     "community": {
       "community": "Community overview",
@@ -285,6 +286,7 @@
     "panel": "Patient panel · older patients",
     "demand": "Demand and beds · next 14 days",
     "discharge": "Discharge follow-up · last 30 days",
+    "patient": "Patient record · COLLINS, Margaret (F, 78)",
     "community": "Inner West community",
     "watch": "Neighbourhood watch · Inner West"
   },
@@ -316,6 +318,27 @@
         [
           "Location",
           "off"
+        ]
+      ]
+    },
+    "patient": {
+      "sub": "MRN 0048213 · Stroke unit bed 4 · admitted 15 Oct 02:24 via ambulance · day 3",
+      "facts": [
+        [
+          "Status",
+          "fit for discharge"
+        ],
+        [
+          "NIHSS",
+          "6 → 1"
+        ],
+        [
+          "Allergy",
+          "penicillin"
+        ],
+        [
+          "Consent",
+          "portal + family (per patient settings)"
         ]
       ]
     }

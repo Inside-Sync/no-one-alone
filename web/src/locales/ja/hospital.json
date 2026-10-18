@@ -51,9 +51,8 @@
       "actTimes": "活動{{n}}の時刻",
       "followUps": "フォローアップ",
       "fuText": "フォローアップ{{n}}",
-      "fuDays": "フォローアップ{{n}}（日後）",
       "notes": "医師のメモ",
-      "hint": "時刻はHH:mm形式、カンマ区切り",
+      "hint": "指示ごとにリマインド時刻を選んでください。リマインドのない助言もプランに残ります。",
       "sentAt": "{{time}}に自宅へ送信",
       "sent": "自宅へ送信済み",
       "failed": "プランを送信できませんでした",
@@ -93,7 +92,39 @@
         "appointments": "予約：{{list}}",
         "circle": "{{names}}に表示",
         "delivered": "プランがMargaretさんの画面に表示されています"
-      }
+      },
+      "stepsTitle": "エージェントが行ったこと",
+      "remindersTitle": "Noa がリマインドする Margaret さんの一日",
+      "actHead": "指示",
+      "timesHead": "リマインド時刻",
+      "fuHead": "予約",
+      "daysHead": "日付",
+      "addMed": "薬を追加",
+      "addAct": "指示を追加",
+      "addFu": "予約を追加",
+      "remove": "{{what}}を削除",
+      "removeHead": "削除",
+      "thisRow": "この行",
+      "medPlaceholder": "薬の名前",
+      "keepHint": "すでに服用中の薬は削除できません。中止に設定すると、Noa が本人と薬局に伝えます。",
+      "toastFix": "未入力の行があります。赤で示した行を直してから確定してください。",
+      "errors": {
+        "nameMissing": "薬の名前を入力してください。",
+        "noTimes": "時刻を1つ以上選ぶか、中止に設定してください。",
+        "textMissing": "指示を入力するか、この行を削除してください。",
+        "badDays": "明日から1年以内の日付を選んでください。",
+        "doseMissing": "用量を入力してください（例：5 mg）。"
+      },
+      "full": "最大 {{n}} 行です。",
+      "noteHead": "患者へのメモ",
+      "medNote": "薬 {{n}} の患者へのメモ",
+      "notePlaceholder": "なぜ飲むのかを、わかりやすい言葉で",
+      "addTime": "活動 {{n}} にリマインド時刻を追加",
+      "removeTime": "活動 {{n}} から {{time}} を削除",
+      "fuDate": "予約 {{n}} の日付",
+      "inDays_other": "{{count}} 日後",
+      "addTimeShort": "時刻を追加",
+      "noReminder": "リマインドなし"
     },
     "discharge": {
       "title": "退院準備完了：Margaret Collins、78歳",
@@ -220,6 +251,24 @@
         }
       ],
       "new": "新規"
+    }
+  },
+  "patient": {
+    "banner": {
+      "title": "Margaret Collins さんは退院可能です",
+      "sub": "下のプランを確認してから承認してください。エージェントがリマインダー付きで Margaret さんのポータルに届けます。",
+      "approve": "承認して Margaret さんに送る",
+      "review": "プランを確認",
+      "portal": "Margaret さんのポータルを開く",
+      "sent": "Margaret さんに送信済み · {{time}}"
+    },
+    "summary": {
+      "title": "入院サマリー",
+      "tag": "受診"
+    },
+    "course": {
+      "title": "入院経過",
+      "meta": "主な出来事"
     }
   },
   "actions": {

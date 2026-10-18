@@ -16,7 +16,7 @@ test('self tabs', () => {
 })
 test('hospital and community tabs ignore who', () => {
   expect(tabsFor('hospital', 'self').map((t) => t.label)).toEqual(
-    ['Pre-arrivals', 'Patient panel', 'Demand & beds', 'Discharge follow-up'],
+    ['Pre-arrivals', 'Patient panel', 'Demand & beds', 'Discharge follow-up', 'Patient record & discharge'],
   )
   expect(tabsFor('community', 'family').map((t) => t.id)).toEqual(['community', 'watch'])
 })
@@ -47,5 +47,6 @@ test('allRoutes covers me, privacy and every other view x page pair', () => {
   expect(r).toContain('hospital/discharge')
   expect(r).toContain('community/watch')
   expect(new Set(r).size).toBe(r.length)
-  expect(r).toHaveLength(11 + 4 + 2)
+  expect(r).toContain('hospital/patient')
+  expect(r).toHaveLength(11 + 5 + 2)
 })

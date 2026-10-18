@@ -234,7 +234,8 @@ export type MedChange = 'New' | 'Increased' | 'Continue' | 'Stop'
 export interface RecoveryRequest {
   staffName: string
   diagnosis: string
-  meds: { name: string; dose: string; times: string[]; change?: MedChange }[]
+  /** `note`: one line for the person on why they take it, written by the hospital and stored as is. */
+  meds: { name: string; dose: string; times: string[]; change?: MedChange; note?: string }[]
   /** `reminder`: what Noa says at each time, as written; else core-api's template. */
   activities: { text: string; times: string[]; reminder?: string }[]
   followUps: { text: string; inDays: number }[]

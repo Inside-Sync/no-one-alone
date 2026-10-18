@@ -349,7 +349,8 @@ Response `202`, or `409 INVALID_STATE` while `checkIn.busy`. The result appears 
   "staffName": "Dr Nguyen, Sydney Stroke Center",
   "diagnosis": "Ischaemic stroke, treated with clot-busting medicine",
   "meds": [
-    { "name": "aspirin", "dose": "100 mg", "times": ["08:00"] },
+    { "name": "apixaban", "dose": "5 mg", "times": ["08:00", "18:00"], "change": "New", "note": "Stops clots forming because of the uneven heartbeat. Replaces aspirin." },
+    { "name": "aspirin", "dose": "100 mg", "times": [], "change": "Stop" },
     { "name": "atorvastatin", "dose": "40 mg", "times": ["20:00"] },
     { "name": "amlodipine", "dose": "5 mg", "times": ["18:00"] }
   ],
@@ -364,6 +365,8 @@ Response `202`, or `409 INVALID_STATE` while `checkIn.busy`. The result appears 
   "notes": "No driving for 4 weeks. Call 000 at once if face, arm or speech changes again."
 }
 ```
+
+Med `change` is `New` \| `Increased` \| `Continue` \| `Stop`, optional. Med `note` is optional: one line for the person on why they take it, stored and shown as written.
 
 Rules: `meds` and `activities` may be empty but not both; every `times` entry matches `^([01]\d|2[0-3]):[0-5]\d$`; `inDays` 1 to 365; strings at most 300 chars; at most 10 meds, 10 activities, 5 follow-ups. Otherwise `400 INVALID_REQUEST`. Allowed only when `handoff` is present (any status, so the demo works when hospital-agent is down) and `recovery` is absent; otherwise `409 INVALID_STATE`. Response `200 { "version": n }`.
 

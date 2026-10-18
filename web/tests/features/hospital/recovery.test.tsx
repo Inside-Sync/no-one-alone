@@ -1,8 +1,10 @@
-import { act, fireEvent, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { vi } from 'vitest'
 import type { IncidentDoc, RecoveryDoc, RecoveryRequest } from '@/data/contract'
 import { DischargePage } from '@/features/hospital/discharge/DischargePage'
 import { EdPage } from '@/features/hospital/ed/EdPage'
+import { PatientPage } from '@/features/hospital/patient/PatientPage'
+import { addDays, localDay } from '@/domain/recovery'
 import type { LiveIncidentValue } from '@/state/LiveIncident'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
 
@@ -13,12 +15,13 @@ const recover = vi.fn<(b: RecoveryRequest) => Promise<void>>(async () => {})
 const liveValue: LiveIncidentValue = {
   live: true, loading: false, error: null, incident: null, people: { person: null, members: {} }, view: null,
   start: async () => {}, reset: async () => {}, checkin: async () => {}, act: async () => {}, recover,
+  get recovery() { return this.incident?.recovery },
 }
 vi.mock('@/state/LiveIncident', () => ({ useLiveIncident: () => liveValue }))
 
 const handoff = { hospitalId: 'h1', hospitalName: 'Camperdown', status: 'RECEIVED' } as const
 const incident = (extra: Partial<IncidentDoc>) => ({ handoff, ...extra }) as unknown as IncidentDoc
-const ready = () => screen.findByText('30-day follow-up board')
+const ready = () => screen.findByText('Admission summary')
 const finalise = () => fireEvent.click(screen.getByRole('button', { name: 'Finalise the plan' }))
 const approve = () => screen.getByRole('button', { name: 'Approve and hand off to Noa' })
 const sentDoc = (extra: Partial<RecoveryDoc> = {}) => ({
@@ -30,7 +33,7 @@ beforeEach(() => { recover.mockClear(); recover.mockResolvedValue(undefined); pu
 
 test('Approve is disabled until the plan is finalised, and Edit again unlocks it', async () => {
   liveValue.incident = incident({})
-  renderWithProviders(<DischargePage />, { who: 'family' })
+  renderWithProviders(<PatientPage />, { who: 'family' })
   await ready()
   expect(approve()).toBeDisabled()
   expect(screen.getByLabelText('Medicine 1 name')).toBeEnabled()
@@ -45,7 +48,7 @@ test('Approve is disabled until the plan is finalised, and Edit again unlocks it
 
 test('posts the plan with each medicine change and its ticked slots, Stop with no times', async () => {
   liveValue.incident = incident({})
-  renderWithProviders(<DischargePage />, { who: 'family' })
+  renderWithProviders(<PatientPage />, { who: 'family' })
   await ready()
   fireEvent.click(screen.getByLabelText('Medicine 1 Evening'))
   fireEvent.change(screen.getByLabelText('Medicine 4 change'), { target: { value: 'Stop' } })
@@ -71,19 +74,50 @@ test('posts the plan with each medicine change and its ticked slots, Stop with n
     'Time for your speech exercises, 15 minutes.', 'Time for a glass of water.', undefined, undefined, undefined,
   ])
   expect(body.followUps.map((f) => f.inDays)).toEqual([7, 4, 6, 45, 7])
+  expect(body.meds[0].note).toBe('Stops clots forming because of the uneven heartbeat. Replaces aspirin.')
 })
 
-test('is hidden when there is no handoff', async () => {
-  liveValue.incident = { timeline: [] } as unknown as IncidentDoc
-  renderWithProviders(<DischargePage />, { who: 'family' })
+test('Note for patient is sent as written, and left out when empty', async () => {
+  liveValue.incident = incident({})
+  renderWithProviders(<PatientPage />, { who: 'family' })
   await ready()
+  fireEvent.change(screen.getByLabelText('Medicine 2 note for patient'), { target: { value: 'Keeps your blood pressure down.' } })
+  fireEvent.change(screen.getByLabelText('Medicine 3 note for patient'), { target: { value: ' ' } })
+  finalise()
+  fireEvent.click(approve())
+  await waitFor(() => expect(recover).toHaveBeenCalledTimes(1))
+  const meds = recover.mock.calls[0][0].meds
+  expect(meds[1].note).toBe('Keeps your blood pressure down.')
+  expect(meds[2]).not.toHaveProperty('note')
+})
+
+test('Discharge follow-up shows the ready banner, and the plan lives on the patient record', async () => {
+  liveValue.incident = null
+  renderWithProviders(<DischargePage />, { who: 'family' })
+  await screen.findByText('30-day follow-up board')
   expect(screen.queryByText('Discharge and recovery plan')).toBeNull()
+  fireEvent.click(screen.getByRole('button', { name: 'Open her record and recovery plan' }))
+  expect(push).toHaveBeenCalledWith('/hospital/patient')
+})
+
+test('the patient record shows the stay in prototype order, and the banner approves in one click', async () => {
+  liveValue.incident = null
+  renderWithProviders(<PatientPage />, { who: 'family' })
+  await ready()
+  expect(Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)).toEqual([
+    'Admission summary', 'Inpatient course', 'Discharge and recovery plan',
+  ])
+  expect(document.querySelectorAll('#ptKpis .kpi')).toHaveLength(6)
+  expect(screen.getByText('Margaret Collins is fit for discharge')).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Approve and send to Margaret' }))
+  await waitFor(() => expect(recover).toHaveBeenCalledTimes(1))
+  expect(await screen.findByRole('button', { name: "Open Margaret's portal" })).toBeInTheDocument()
 })
 
 test('a failed send toasts the message and keeps the form', async () => {
   liveValue.incident = incident({})
   recover.mockRejectedValue(new Error('A recovery plan already exists'))
-  renderWithProviders(<DischargePage />, { who: 'family' })
+  renderWithProviders(<PatientPage />, { who: 'family' })
   await ready()
   finalise()
   fireEvent.click(approve())
@@ -93,7 +127,7 @@ test('a failed send toasts the message and keeps the form', async () => {
 
 test('shows the sent plan read-only once recovery exists', async () => {
   liveValue.incident = incident({ recovery: sentDoc() })
-  renderWithProviders(<DischargePage />, { who: 'family' })
+  renderWithProviders(<PatientPage />, { who: 'family' })
   await ready()
   expect(screen.getByText(/Sent home at/)).toBeInTheDocument()
   expect(screen.getByText('Time for your apixaban, 5 mg.')).toBeInTheDocument()
@@ -111,7 +145,7 @@ test('after approval the delivery steps reveal one by one from the stored doc', 
   })
   liveValue.incident = incident({})
   recover.mockImplementation(async () => { liveValue.incident = incident({ recovery }) })
-  renderWithProviders(<DischargePage />, { who: 'family' })
+  renderWithProviders(<PatientPage />, { who: 'family' })
   await ready()
   vi.useFakeTimers()
   try {
@@ -135,16 +169,95 @@ test('after approval the delivery steps reveal one by one from the stored doc', 
   }
 })
 
-test('the ED page shows the discharge banner while a handed-off case has no plan, and it opens Discharge', async () => {
+test('the ED page shows the discharge banner until the plan is sent, and it opens the patient record', async () => {
   liveValue.incident = incident({})
   const { unmount } = renderWithProviders(<EdPage />, { who: 'family' })
   await screen.findByText('Pre-arrival inbox')
   expect(screen.getByText('Ready for discharge: Margaret Collins, 78')).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: 'Open her record and recovery plan' }))
-  expect(push).toHaveBeenCalledWith('/hospital/discharge')
+  expect(push).toHaveBeenCalledWith('/hospital/patient')
   unmount()
   liveValue.incident = incident({ recovery: sentDoc() })
   renderWithProviders(<EdPage />, { who: 'family' })
   await screen.findByText('Pre-arrival inbox')
   expect(screen.queryByText('Ready for discharge: Margaret Collins, 78')).toBeNull()
+})
+
+test('Add medicine adds a focused New row that cannot be signed until it has a name, a dose and a time', async () => {
+  liveValue.incident = incident({})
+  renderWithProviders(<PatientPage />, { who: 'family' })
+  await ready()
+  fireEvent.click(screen.getByRole('button', { name: 'Add medicine' }))
+  const name = screen.getByLabelText('Medicine 7 name')
+  expect(name).toHaveFocus()
+  expect(screen.getByLabelText('Medicine 7 change')).toHaveValue('New')
+  finalise()
+  expect(screen.getByText('Add the medicine name.')).toBeInTheDocument()
+  expect(name).toHaveAttribute('aria-invalid', 'true')
+  expect(approve()).toBeDisabled()
+  fireEvent.change(name, { target: { value: 'Metformin' } })
+  expect(screen.getByText('Add the dose, like 5 mg.')).toBeInTheDocument()
+  fireEvent.change(screen.getByLabelText('Medicine 7 dose'), { target: { value: '500 mg' } })
+  expect(screen.getByText('Tick at least one time, or set it to Stop.')).toBeInTheDocument()
+  fireEvent.click(screen.getByLabelText('Medicine 7 Morning'))
+  finalise()
+  expect(approve()).toBeEnabled()
+  fireEvent.click(approve())
+  await waitFor(() => expect(recover).toHaveBeenCalledTimes(1))
+  expect(recover.mock.calls[0][0].meds.at(-1)).toEqual({ name: 'Metformin', dose: '500 mg', times: ['08:00'], change: 'New' })
+})
+
+test('only a New medicine can be removed; instructions and appointments add and remove rows', async () => {
+  liveValue.incident = incident({})
+  renderWithProviders(<PatientPage />, { who: 'family' })
+  await ready()
+  expect(screen.getByRole('button', { name: 'Remove Apixaban' })).toBeInTheDocument()
+  expect(screen.queryByRole('button', { name: 'Remove Aspirin' })).toBeNull()
+  expect(screen.queryByRole('button', { name: 'Remove Amlodipine' })).toBeNull()
+  fireEvent.click(screen.getByRole('button', { name: 'Remove Apixaban' }))
+  expect(screen.getByLabelText('Medicine 1 name')).toHaveValue('Perindopril')
+
+  fireEvent.click(screen.getByRole('button', { name: 'Remove No driving for 1 month' }))
+  expect(screen.queryByDisplayValue('No driving for 1 month')).toBeNull()
+  fireEvent.click(screen.getByRole('button', { name: 'Add instruction' }))
+  expect(screen.getByLabelText('Activity 7')).toHaveFocus()
+  finalise()
+  expect(screen.getByText('Write the instruction or remove this row.')).toBeInTheDocument()
+  fireEvent.change(screen.getByLabelText('Activity 7'), { target: { value: 'Stretch' } })
+  // Times come from the picker, one at a time, kept in order and without repeats.
+  const pick = screen.getByRole('button', { name: 'Activity 7 add a reminder time' })
+  const choose = (time: string) => {
+    fireEvent.click(pick)
+    fireEvent.click(within(screen.getByRole('listbox')).getByRole('option', { name: time }))
+  }
+  choose('18:00')
+  choose('09:15')
+  fireEvent.click(pick)
+  expect(within(screen.getByRole('listbox')).getByRole('option', { name: '18:00' })).toBeDisabled()
+  fireEvent.keyDown(document, { key: 'Escape' })
+  expect(screen.queryByRole('listbox')).toBeNull()
+  const times = screen.getByRole('group', { name: 'Activity 7 times' })
+  expect([...times.querySelectorAll('.plan-time')].map((c) => c.textContent)).toEqual(['09:15', '18:00'])
+  fireEvent.click(screen.getByRole('button', { name: 'Remove 18:00 from activity 7' }))
+
+  // Five appointments is core-api's limit: remove one to add another.
+  expect(screen.getByRole('button', { name: 'Add appointment' })).toBeDisabled()
+  fireEvent.click(screen.getByRole('button', { name: 'Remove Physio home visit' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Add appointment' }))
+  fireEvent.change(screen.getByLabelText('Follow-up 5'), { target: { value: 'OT home check' } })
+  finalise()
+  expect(screen.getByText('Pick a date from tomorrow up to a year ahead.')).toBeInTheDocument()
+  const date = screen.getByLabelText('Follow-up 5 date')
+  const today = localDay(Date.now(), 'Australia/Sydney')
+  expect(date).toHaveAttribute('min', addDays(today, 1))
+  expect(date).toHaveAttribute('max', addDays(today, 365))
+  fireEvent.change(date, { target: { value: addDays(today, 2) } })
+  expect(screen.getByText('in 2 days')).toBeInTheDocument()
+  finalise()
+  fireEvent.click(approve())
+  await waitFor(() => expect(recover).toHaveBeenCalledTimes(1))
+  const body = recover.mock.calls[0][0]
+  expect(body.meds.map((m) => m.name)).toEqual(['Perindopril', 'Atorvastatin', 'Amlodipine', 'Vitamin D', 'Aspirin'])
+  expect(body.activities.at(-1)).toEqual({ text: 'Stretch', times: ['09:15'] })
+  expect(body.followUps.at(-1)).toEqual({ text: 'OT home check', inDays: 2 })
 })

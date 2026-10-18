@@ -7,6 +7,7 @@ import { DemandPage } from './hospital/demand/DemandPage'
 import { DischargePage } from './hospital/discharge/DischargePage'
 import { EdPage } from './hospital/ed/EdPage'
 import { PanelPage } from './hospital/panel/PanelPage'
+import { PatientPage } from './hospital/patient/PatientPage'
 import { AroundPage } from './individual/around/AroundPage'
 import { DevicePage } from './individual/device/DevicePage'
 import { ForecastPage } from './individual/forecast/ForecastPage'
@@ -36,6 +37,7 @@ export const PAGE_REGISTRY: Record<string, ComponentType> = {
   'hospital/panel': PanelPage,
   'hospital/demand': DemandPage,
   'hospital/discharge': DischargePage,
+  'hospital/patient': PatientPage,
   'community/community': CommunityPage,
   'community/watch': WatchPage,
 }

@@ -1441,6 +1441,194 @@
           "tone": "plain"
         }
       ]
+    },
+    "patient": {
+      "kpis": [
+        {
+          "label": "Từ cửa đến kim",
+          "value": "28",
+          "unit": "phút",
+          "color": "#1f8f5f",
+          "baseline": "mục tiêu ≤ 45",
+          "delta": "−17 so với trung vị",
+          "tone": "good",
+          "spark": [
+            52,
+            48,
+            44,
+            40,
+            38,
+            35,
+            33,
+            30,
+            28
+          ]
+        },
+        {
+          "label": "NIHSS",
+          "value": "1",
+          "unit": "hiện tại",
+          "color": "#1f8f5f",
+          "baseline": "6 khi nhập viện",
+          "delta": "−5",
+          "tone": "good",
+          "spark": [
+            6,
+            5,
+            4,
+            3,
+            3,
+            2,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "label": "Thời gian nằm viện",
+          "value": "3",
+          "unit": "ngày",
+          "color": "#2563a8",
+          "baseline": "dự kiến 4",
+          "delta": "",
+          "tone": "good",
+          "spark": [
+            1,
+            1,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "label": "Huyết áp tâm thu (24 giờ)",
+          "value": "128",
+          "unit": "mmHg",
+          "color": "#c88a05",
+          "baseline": "mục tiêu < 130",
+          "delta": "đang dùng perindopril",
+          "tone": "good",
+          "spark": [
+            168,
+            152,
+            144,
+            138,
+            134,
+            131,
+            130,
+            129,
+            128
+          ]
+        },
+        {
+          "label": "Gánh nặng rung nhĩ (theo dõi)",
+          "value": "4",
+          "unit": "%",
+          "color": "#c2417a",
+          "baseline": "3 cơn",
+          "delta": "cần chống đông",
+          "tone": "warn",
+          "spark": [
+            0,
+            2,
+            3,
+            5,
+            4,
+            4,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "label": "Tái nhập viện 30 ngày",
+          "value": "14",
+          "unit": "% nguy cơ",
+          "color": "#2563a8",
+          "baseline": "điều chỉnh LACE+",
+          "delta": "có theo dõi sau xuất viện",
+          "tone": "good",
+          "spark": [
+            22,
+            20,
+            19,
+            18,
+            17,
+            16,
+            15,
+            14,
+            14
+          ]
+        }
+      ],
+      "summary": [
+        [
+          "Chẩn đoán",
+          "Đột quỵ thiếu máu cấp, vùng ĐM não giữa trái (M2)"
+        ],
+        [
+          "Điều trị",
+          "Tenecteplase 0,25 mg/kg lúc 02:52 · DTN 28 phút"
+        ],
+        [
+          "Phát hiện mới",
+          "Rung nhĩ kịch phát trên monitor · CHA₂DS₂-VASc 5"
+        ],
+        [
+          "Hình ảnh",
+          "CT/CTA: không xuất huyết; MRI ngày 1: nhồi máu nhỏ thùy trán trái"
+        ],
+        [
+          "Siêu âm tim",
+          "LVEF 58%, giãn nhẹ nhĩ trái"
+        ],
+        [
+          "Chức năng",
+          "Nói khó nhẹ, đang cải thiện · tự đi với gậy · mRS 1"
+        ],
+        [
+          "Trước khi đến",
+          "Nhận hồ sơ 17 phút trước khi đến (No One Alone)"
+        ]
+      ],
+      "course": [
+        [
+          "15/10 02:24",
+          "Đến viện · đã có hồ sơ báo trước; đội đột quỵ chờ ở cửa"
+        ],
+        [
+          "02:31",
+          "CT/CTA: không xuất huyết, tắc M2 trái"
+        ],
+        [
+          "02:52",
+          "Đã dùng tenecteplase (DTN 28 phút)"
+        ],
+        [
+          "03:40",
+          "NIHSS 6 → 3"
+        ],
+        [
+          "16/10",
+          "Monitor: 3 cơn rung nhĩ kịch phát; MRI nhồi máu nhỏ thùy trán trái"
+        ],
+        [
+          "16/10",
+          "Ngôn ngữ trị liệu: nói khó nhẹ, bài tập tại nhà"
+        ],
+        [
+          "17/10",
+          "Vật lý trị liệu: tự đi với gậy, lên cầu thang có tay vịn · đã đặt lịch OT kiểm tra nhà"
+        ],
+        [
+          "17/10",
+          "Đủ điều kiện xuất viện · ngừng aspirin, bắt đầu apixaban"
+        ]
+      ]
     }
   }
 }

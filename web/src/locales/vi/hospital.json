@@ -51,9 +51,8 @@
       "actTimes": "Giờ hoạt động {{n}}",
       "followUps": "Tái khám",
       "fuText": "Tái khám {{n}}",
-      "fuDays": "Tái khám {{n}} sau bao nhiêu ngày",
       "notes": "Dặn dò của bác sĩ",
-      "hint": "Giờ dạng HH:mm, cách nhau bằng dấu phẩy",
+      "hint": "Chọn giờ nhắc cho từng hướng dẫn. Lời khuyên không có giờ nhắc vẫn nằm trong kế hoạch của bà.",
       "sentAt": "Đã cho về nhà lúc {{time}}",
       "sent": "Đã cho về nhà",
       "failed": "Không gửi được kế hoạch",
@@ -93,7 +92,39 @@
         "appointments": "Lịch hẹn: {{list}}",
         "circle": "{{names}} cũng xem được",
         "delivered": "Kế hoạch đã hiện trên màn hình của Margaret"
-      }
+      },
+      "stepsTitle": "Trợ lý đã làm gì",
+      "remindersTitle": "Một ngày của Margaret, theo lời nhắc của Noa",
+      "actHead": "Hướng dẫn",
+      "timesHead": "Giờ nhắc",
+      "fuHead": "Lịch hẹn",
+      "daysHead": "Ngày",
+      "addMed": "Thêm thuốc",
+      "addAct": "Thêm hướng dẫn",
+      "addFu": "Thêm lịch hẹn",
+      "remove": "Xóa {{what}}",
+      "removeHead": "Xóa",
+      "thisRow": "dòng này",
+      "medPlaceholder": "Tên thuốc",
+      "keepHint": "Thuốc bà đang uống thì không xóa được: hãy chọn Ngừng để Noa báo cho bà và nhà thuốc.",
+      "toastFix": "Một số dòng chưa đủ thông tin. Sửa các dòng được đánh dấu đỏ rồi hoàn tất.",
+      "errors": {
+        "nameMissing": "Nhập tên thuốc.",
+        "noTimes": "Chọn ít nhất một giờ uống, hoặc chọn Ngừng.",
+        "textMissing": "Nhập hướng dẫn hoặc xóa dòng này.",
+        "badDays": "Chọn ngày từ ngày mai đến tối đa một năm sau.",
+        "doseMissing": "Nhập liều, ví dụ 5 mg."
+      },
+      "full": "Tối đa {{n}} dòng.",
+      "noteHead": "Ghi chú cho bệnh nhân",
+      "medNote": "Ghi chú cho bệnh nhân của thuốc {{n}}",
+      "notePlaceholder": "Vì sao bà uống thuốc này, bằng lời dễ hiểu",
+      "addTime": "Thêm giờ nhắc cho hoạt động {{n}}",
+      "removeTime": "Bỏ {{time}} khỏi hoạt động {{n}}",
+      "fuDate": "Ngày của lịch hẹn {{n}}",
+      "inDays_other": "sau {{count}} ngày",
+      "addTimeShort": "Thêm giờ",
+      "noReminder": "Không nhắc"
     },
     "discharge": {
       "title": "Sẵn sàng xuất viện: Margaret Collins, 78",
@@ -220,6 +251,24 @@
         }
       ],
       "new": "Mới"
+    }
+  },
+  "patient": {
+    "banner": {
+      "title": "Margaret Collins đủ điều kiện xuất viện",
+      "sub": "Xem kế hoạch bên dưới rồi duyệt. Trợ lý sẽ gửi kế hoạch kèm nhắc nhở tới cổng thông tin của Margaret.",
+      "approve": "Duyệt và gửi cho Margaret",
+      "review": "Xem kế hoạch",
+      "portal": "Mở cổng thông tin của Margaret",
+      "sent": "Đã gửi cho Margaret · {{time}}"
+    },
+    "summary": {
+      "title": "Tóm tắt nhập viện",
+      "tag": "LẦN KHÁM"
+    },
+    "course": {
+      "title": "Diễn biến nội trú",
+      "meta": "Sự kiện chính"
     }
   },
   "actions": {

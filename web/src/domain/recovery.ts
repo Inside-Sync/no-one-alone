@@ -1,6 +1,6 @@
-import type { RecoveryDoc } from '@/data/contract'
+import type { RecoveryDoc, RecoveryRequest } from '@/data/contract'
 import type { IconName } from '@/data/types'
-import i18n, { intlLocale } from '@/i18n'
+import i18n, { intlLocale, LANGUAGES } from '@/i18n'
 
 export type Reminder = RecoveryDoc['reminders'][number]
 
@@ -40,6 +40,21 @@ export type Med = RecoveryDoc['meds'][number]
 
 export const isStopped = (m: Med) => m.change === 'Stop'
 
+/** A note that is one of the stock `me:recovery.why` lines, in any language (the hospital form starts with them). */
+const isStockWhy = (note: string) =>
+  WHY_MATCH.some(([, key]) => LANGUAGES.some((l) => i18n.getFixedT(l, 'me')(`recovery.why.${key}`) === note))
+
+/**
+ * Why Margaret takes a medicine: the hospital's own note as written; a stock line, or no note, reads in her language.
+ */
+export function medWhy(m: Med): string | undefined {
+  const note = m.note?.trim()
+  return note && !isStockWhy(note) ? note : whyOf(m.name) || undefined
+}
+
+/** The medicine a MED reminder is about, by its name in the reminder text. */
+const medOf = (r: RecoveryDoc, text: string) => r.meds.find((m) => m.name && text.toLowerCase().includes(m.name.toLowerCase()))
+
 export interface Task { id: string; time: string; kind: 'MED' | 'ACTIVITY'; title: string; why?: string; audioPath?: string }
 
 /** One task per reminder, in reminder order, minus any that name a stopped medicine; `id` matches the reminder key used for ticks. */
@@ -47,14 +62,17 @@ export function todayTasks(r: RecoveryDoc): Task[] {
   const stopped = r.meds.filter(isStopped).map((m) => m.name.toLowerCase())
   return r.reminders
     .filter((x) => !(x.kind === 'MED' && stopped.some((n) => x.text.toLowerCase().includes(n))))
-    .map((x) => ({ id: x.time + x.text, time: x.time, kind: x.kind, title: x.text, why: whyOf(x.text), audioPath: x.audioPath }))
+    .map((x) => {
+      const med = x.kind === 'MED' ? medOf(r, x.text) : undefined
+      return { id: x.time + x.text, time: x.time, kind: x.kind, title: x.text, why: med ? medWhy(med) : whyOf(x.text) || undefined, audioPath: x.audioPath }
+    })
 }
 
 /** Medicine table time slots, keyed by their clock time. */
 export const SLOTS = { '08:00': 'morning', '13:00': 'midday', '18:00': 'evening', '21:00': 'night' } as const
 
 /** Medicines Margaret still takes, with why each one matters. */
-export const medsExplained = (r: RecoveryDoc) => r.meds.filter((m) => !isStopped(m)).map((m) => ({ ...m, why: whyOf(m.name) }))
+export const medsExplained = (r: RecoveryDoc) => r.meds.filter((m) => !isStopped(m)).map((m) => ({ ...m, why: medWhy(m) }))
 
 /** What Noa says at hand-off, worked out from the plan: new and stopped medicines, the first slot of the day, the GP follow-up (else the first). */
 export function handoffFacts(r: RecoveryDoc) {
@@ -117,6 +135,18 @@ export function taskIcon(task: Pick<Task, 'kind' | 'title'>): IconName {
 
 const localDate = (ms: number, tz: string) => new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(ms)
 
+/** The person's local calendar date of `ms`, as `YYYY-MM-DD`. */
+export const localDay = localDate
+
+/** `YYYY-MM-DD` plus `n` calendar days. */
+export function addDays(date: string, n: number): string {
+  const [y, m, d] = date.split('-').map(Number)
+  return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10)
+}
+
+/** Whole calendar days from `from` to `to` (both `YYYY-MM-DD`). */
+export const daysBetween = (from: string, to: string) => Math.round((Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / 86_400_000)
+
 /** Days at home since the plan arrived, in the person's local dates: the plan day is 0, so day N lines up with the day-N call. */
 export function daysHome(createdAt: string, nowMs: number, tz: string): number {
   return Math.round((Date.parse(localDate(nowMs, tz)) - Date.parse(localDate(Date.parse(createdAt), tz))) / 86_400_000)
@@ -126,4 +156,24 @@ export function daysHome(createdAt: string, nowMs: number, tz: string): number {
 export function partOfDay(nowMs: number, tz: string): 'morning' | 'afternoon' | 'evening' {
   const h = hhmm(nowMs, tz)
   return h < '12:00' ? 'morning' : h < '18:00' ? 'afternoon' : 'evening'
+}
+
+/**
+ * The plan as Margaret's page shows it when there is no incident to post it to (mock mode, or before the night demo):
+ * the doctor's notes stand in for the summary, and every ticked time becomes a reminder, as core-api would set them.
+ */
+export function localRecovery(body: RecoveryRequest, nowMs: number, tz: string): RecoveryDoc {
+  const [y, m, d] = localDate(nowMs, tz).split('-').map(Number)
+  const reminders: Reminder[] = [
+    ...body.meds.filter((x) => !isStopped(x)).flatMap((x) => x.times.map((time) => ({ time, kind: 'MED' as const, text: `${x.name} ${x.dose}` }))),
+    ...body.activities.flatMap((a) => a.times.map((time) => ({ time, kind: 'ACTIVITY' as const, text: a.reminder ?? a.text }))),
+  ].sort((a, b) => a.time.localeCompare(b.time))
+  return {
+    ...body,
+    createdAt: new Date(nowMs).toISOString(),
+    followUps: body.followUps.map((f) => ({ ...f, date: new Date(Date.UTC(y, m - 1, d + f.inDays)).toISOString().slice(0, 10) })),
+    summary: body.notes,
+    reminders,
+    fallback: true,
+  }
 }

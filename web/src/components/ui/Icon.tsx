@@ -1,5 +1,6 @@
+import type { CSSProperties } from 'react'
 import {
-  Accessibility, Activity, Ambulance, Ban, Bean, Bed, BellOff, BicepsFlexed, Bone, BookOpen, Bot, Cake, Calendar,
+  Accessibility, Activity, Ambulance, ArrowDown, Ban, Bean, Bed, BellOff, BicepsFlexed, Bone, BookOpen, Bot, Cake, Calendar,
   Camera, Candy, ChartColumn, CigaretteOff, CircleCheck, CircleHelp, CircleX, ClipboardList, Clock, CloudMoon,
   CloudRain, CloudSun, Coffee, Compass, CookingPot, DoorStairwell, Droplets, Dumbbell, FastForward, Flame,
   FlaskConical, Folder, Footprints, Glasses, Hand, Handshake, Headphones, HeartCrack, HeartHandshake, HeartPulse, Info,
@@ -59,7 +60,7 @@ const ICONS: Partial<Record<DrawnIconName, string>> = {
 
 /** The emoji the prototype used, drawn with lucide at the same weight as ICONS. */
 const LUCIDE: Record<LucideIconName, LucideIcon> = {
-  accessibility: Accessibility, activity: Activity, ambulance: Ambulance, ban: Ban, bean: Bean, bed: Bed,
+  accessibility: Accessibility, activity: Activity, ambulance: Ambulance, 'arrow-down': ArrowDown, ban: Ban, bean: Bean, bed: Bed,
   'bell-off': BellOff, 'biceps-flexed': BicepsFlexed, bone: Bone, 'book-open': BookOpen, bot: Bot, cake: Cake,
   calendar: Calendar, camera: Camera, candy: Candy, 'chart-column': ChartColumn, 'cigarette-off': CigaretteOff,
   'circle-check': CircleCheck, 'circle-help': CircleHelp, 'circle-x': CircleX, 'clipboard-list': ClipboardList,
@@ -93,7 +94,7 @@ const HUES: Record<Hue, readonly IconName[]> = {
   blue: ['drop', 'droplets', 'waves', 'cloud', 'cloud-rain', 'wind', 'lungs', 'phone', 'smartphone', 'message-circle', 'speech', 'mic', 'headphones', 'ear', 'volume-2', 'plane', 'info'],
   indigo: ['moon', 'bed', 'cloud-moon', 'sofa', 'timer', 'clock', 'calendar', 'fast-forward', 'pause', 'play'],
   purple: ['pill', 'brain', 'syringe', 'flask-conical', 'stethoscope', 'telescope', 'bean', 'bone', 'eye'],
-  slate: ['lock', 'settings', 'user-round', 'users', 'people', 'hand', 'clipboard-list', 'file', 'folder', 'receipt', 'notebook-pen', 'notebook-text', 'pen-line',
+  slate: ['arrow-down', 'lock', 'settings', 'user-round', 'users', 'people', 'hand', 'clipboard-list', 'file', 'folder', 'receipt', 'notebook-pen', 'notebook-text', 'pen-line',
     'ruler', 'scale', 'type', 'tv', 'glasses', 'package', 'book-open', 'news', 'camera', 'volume-x', 'bell-off', 'phone-off', 'meh', 'cigarette-off', 'refresh-cw',
     'sliders-horizontal', 'circle-help', 'share'],
 }
@@ -141,7 +142,10 @@ export function Icon({ name, tint }: { name: IconName; tint?: boolean }) {
   )
 }
 
-/** An icon set inline before text, where the prototype put an emoji: `<Glyph name="pill" />Tablets`. Coloured by meaning. */
+/**
+ * An icon set inline before text, where the prototype put an emoji: `<Glyph name="pill" />Tablets`. Coloured by meaning
+ * through `--gl`, so a filled button can hand it its own text colour instead (globals.css `.gl`).
+ */
 export function Glyph({ name }: { name: IconName }) {
-  return <span className="ic gl"><Icon name={name} tint /></span>
+  return <span className="ic gl" style={{ '--gl': hueOf(name) } as CSSProperties}><Icon name={name} /></span>
 }

@@ -1441,6 +1441,194 @@
           "tone": "plain"
         }
       ]
+    },
+    "patient": {
+      "kpis": [
+        {
+          "label": "Door to needle",
+          "value": "28",
+          "unit": "min",
+          "color": "#1f8f5f",
+          "baseline": "target ≤ 45",
+          "delta": "−17 vs median",
+          "tone": "good",
+          "spark": [
+            52,
+            48,
+            44,
+            40,
+            38,
+            35,
+            33,
+            30,
+            28
+          ]
+        },
+        {
+          "label": "NIHSS",
+          "value": "1",
+          "unit": "now",
+          "color": "#1f8f5f",
+          "baseline": "6 on arrival",
+          "delta": "−5",
+          "tone": "good",
+          "spark": [
+            6,
+            5,
+            4,
+            3,
+            3,
+            2,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "label": "Length of stay",
+          "value": "3",
+          "unit": "days",
+          "color": "#2563a8",
+          "baseline": "expected 4",
+          "delta": "",
+          "tone": "good",
+          "spark": [
+            1,
+            1,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "label": "Systolic BP (24 h)",
+          "value": "128",
+          "unit": "mmHg",
+          "color": "#c88a05",
+          "baseline": "target < 130",
+          "delta": "on perindopril",
+          "tone": "good",
+          "spark": [
+            168,
+            152,
+            144,
+            138,
+            134,
+            131,
+            130,
+            129,
+            128
+          ]
+        },
+        {
+          "label": "AF burden (telemetry)",
+          "value": "4",
+          "unit": "%",
+          "color": "#c2417a",
+          "baseline": "3 episodes",
+          "delta": "anticoagulate",
+          "tone": "warn",
+          "spark": [
+            0,
+            2,
+            3,
+            5,
+            4,
+            4,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "label": "30-day readmission",
+          "value": "14",
+          "unit": "% risk",
+          "color": "#2563a8",
+          "baseline": "LACE+ adjusted",
+          "delta": "with follow-up",
+          "tone": "good",
+          "spark": [
+            22,
+            20,
+            19,
+            18,
+            17,
+            16,
+            15,
+            14,
+            14
+          ]
+        }
+      ],
+      "summary": [
+        [
+          "Diagnosis",
+          "Acute ischaemic stroke, L MCA (M2) territory"
+        ],
+        [
+          "Treatment",
+          "Tenecteplase 0.25 mg/kg at 02:52 · DTN 28 min"
+        ],
+        [
+          "New finding",
+          "Paroxysmal AF on telemetry · CHA₂DS₂-VASc 5"
+        ],
+        [
+          "Imaging",
+          "CT/CTA: no haemorrhage; MRI D1: small L frontal infarct"
+        ],
+        [
+          "Echo",
+          "LVEF 58%, mild LA dilatation"
+        ],
+        [
+          "Function",
+          "Mild dysarthria improving · independent with stick · mRS 1"
+        ],
+        [
+          "Pre-arrival",
+          "Packet received 17 min before arrival (No One Alone)"
+        ]
+      ],
+      "course": [
+        [
+          "15 Oct 02:24",
+          "Arrival · pre-alert packet on file; stroke team at door"
+        ],
+        [
+          "02:31",
+          "CT/CTA: no haemorrhage, L M2 occlusion"
+        ],
+        [
+          "02:52",
+          "Tenecteplase given (DTN 28 min)"
+        ],
+        [
+          "03:40",
+          "NIHSS 6 → 3"
+        ],
+        [
+          "16 Oct",
+          "Telemetry: 3 episodes paroxysmal AF; MRI small L frontal infarct"
+        ],
+        [
+          "16 Oct",
+          "Speech pathology: mild dysarthria, home exercises"
+        ],
+        [
+          "17 Oct",
+          "Physio: independent with stick, stairs with rail · OT home check booked"
+        ],
+        [
+          "17 Oct",
+          "Fit for discharge · aspirin stopped, apixaban started"
+        ]
+      ]
     }
   }
 }

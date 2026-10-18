@@ -46,7 +46,7 @@ export type DrawnIconName =
 
 /** lucide-react icons, by their lucide name; they stand in for the prototype's emoji. */
 export type LucideIconName =
-  | 'accessibility' | 'activity' | 'ambulance' | 'ban' | 'bean' | 'bed' | 'bell-off' | 'biceps-flexed'
+  | 'accessibility' | 'activity' | 'ambulance' | 'arrow-down' | 'ban' | 'bean' | 'bed' | 'bell-off' | 'biceps-flexed'
   | 'bone' | 'book-open' | 'bot' | 'cake' | 'calendar' | 'camera' | 'candy' | 'chart-column'
   | 'cigarette-off' | 'circle-check' | 'circle-help' | 'circle-x' | 'clipboard-list' | 'clock'
   | 'cloud-moon' | 'cloud-rain' | 'cloud-sun' | 'coffee' | 'compass' | 'cooking-pot' | 'door-stairwell'
@@ -933,6 +933,13 @@ export interface HospitalData {
   discharge: {
     kpis: Kpi[]
     board: DischargeRow[]
+  }
+  /** Patient record & discharge: Margaret's stroke unit stay. */
+  patient: {
+    kpis: Kpi[]
+    summary: LabelValue[]
+    /** Inpatient course: [time, event]. */
+    course: [time: string, text: string][]
   }
 }
 

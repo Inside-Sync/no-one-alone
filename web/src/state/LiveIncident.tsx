@@ -2,8 +2,9 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { useTranslation } from 'react-i18next'
 import * as repo from '@/data/repo'
 import type { DemoOverrides } from '@/data/api'
-import type { CheckinInput, DemoScenario, IncidentDoc, RecoveryRequest, ServerAction } from '@/data/contract'
+import type { CheckinInput, DemoScenario, IncidentDoc, RecoveryDoc, RecoveryRequest, ServerAction } from '@/data/contract'
 import { liveView, type LivePeople, type LiveView } from '@/domain/incident'
+import { localRecovery } from '@/domain/recovery'
 import { storyNow } from '@/lib/clock'
 import { resetsOnLoad } from './reloadReset'
 
@@ -26,6 +27,8 @@ export interface LiveIncidentValue {
   checkin: (input: CheckinInput) => Promise<void>
   act: (memberId: string, action: ServerAction) => Promise<void>
   recover: (body: RecoveryRequest) => Promise<void>
+  /** Margaret's plan: the incident's stored doc, else the one approved with no incident to post it to (kept in memory). */
+  recovery?: RecoveryDoc
 }
 
 const NO_PEOPLE: LivePeople = { person: null, members: {} }
@@ -46,6 +49,7 @@ export function LiveIncidentProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null)
   const [people, setPeople] = useState<LivePeople>(NO_PEOPLE)
   const [tick, setTick] = useState(0)
+  const [local, setLocal] = useState<RecoveryDoc | undefined>()
 
   useEffect(() => {
     if (!repo.LIVE || reloadHandled) return
@@ -91,6 +95,7 @@ export function LiveIncidentProvider({ children }: { children: ReactNode }) {
 
   const start = useCallback(async (scenario: DemoScenario, overrides?: DemoOverrides) => { await repo.startDemo(scenario, overrides) }, [])
   const reset = useCallback(async () => {
+    setLocal(undefined)
     await repo.resetDemo()
     const s = await repo.getSeed()
     setPeople(s ? { person: s.person, members: s.members } : NO_PEOPLE)
@@ -104,12 +109,14 @@ export function LiveIncidentProvider({ children }: { children: ReactNode }) {
 
   const recover = useCallback(async (body: RecoveryRequest) => {
     if (id) await repo.recovery(id, body)
-  }, [id])
+    else setLocal(localRecovery(body, Date.now(), people.person?.timezone ?? 'Australia/Sydney')) // layering-allow: the approval time
+  }, [id, people])
 
   const value = useMemo<LiveIncidentValue>(() => ({
     live: repo.LIVE, loading: repo.LIVE && snap === null && !error, error, incident, people, view, start, reset, checkin, act, recover,
+    recovery: incident?.recovery ?? (id ? undefined : local),
     settled: snap !== null && (!snap.demo?.incidentId || snap.incident !== null),
-  }), [snap, error, incident, people, view, start, reset, checkin, act, recover])
+  }), [snap, error, incident, people, view, start, reset, checkin, act, recover, local, id])
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
 

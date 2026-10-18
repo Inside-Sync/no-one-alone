@@ -197,6 +197,7 @@
     "tick": "完成",
     "idle": "你嘅康復計劃會喺度顯示",
     "idle_family": "Margaret 嘅康復計劃會喺度顯示",
+    "openHospital": "打開醫院畫面送個計劃",
     "stop": "停用：{{name}}",
     "meds": "你嘅藥，逐樣講清楚",
     "meds_family": "佢嘅藥，逐樣講清楚",

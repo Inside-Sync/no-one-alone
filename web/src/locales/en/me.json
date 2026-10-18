@@ -197,6 +197,7 @@
     "tick": "Done",
     "idle": "Your recovery plan will appear here",
     "idle_family": "Margaret's recovery plan will appear here",
+    "openHospital": "Open the hospital view to send the plan",
     "stop": "Stop: {{name}}",
     "meds": "Your medicines, explained",
     "meds_family": "Her medicines, explained",

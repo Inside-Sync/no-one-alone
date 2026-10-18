@@ -4,19 +4,17 @@ import { useTranslation } from 'react-i18next'
 import { intlLocale } from '@/i18n'
 import type { DischargeRow } from '@/data/types'
 import { useLiveIncident } from '@/state/LiveIncident'
-import { HospitalKpis } from '../shared'
+import { HospitalKpis, ReadyBanner } from '../shared'
 import { PageError } from '@/features/shared/PageError'
 import { useHospital } from '../useHospital'
 import { BoardCard } from './BoardCard'
-import { RecoveryCard } from './RecoveryCard'
 
 /** Hospital view · Discharge follow-up (`<main data-page="discharge">`). */
 export function DischargePage() {
   const res = useHospital()
   const h = res.data
   const { t, i18n } = useTranslation('hospital')
-  const { live, incident, people } = useLiveIncident()
-  const recovery = incident?.recovery
+  const { people, recovery } = useLiveIncident()
   if (res.status === 'error') return <PageError page="discharge" onRetry={res.retry} />
   if (!h) return null
   const vi = i18n.language.startsWith('vi')
@@ -30,7 +28,7 @@ export function DischargePage() {
   }] : []
   return (
     <main className="grid" data-page="discharge">
-      {live && incident?.handoff && <RecoveryCard />}
+      <ReadyBanner />
       <HospitalKpis id="disKpis" kpis={h.discharge.kpis} />
       <BoardCard board={[...margaret, ...h.discharge.board]} />
     </main>

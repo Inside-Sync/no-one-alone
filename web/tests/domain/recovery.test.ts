@@ -1,6 +1,8 @@
 import type { RecoveryDoc } from '@/data/contract'
-import { CALL_DAYS, dayLabel, deliverySteps, followUpCalls, handoffFacts, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
+import { CALL_DAYS, dayLabel, deliverySteps, followUpCalls, handoffFacts, localRecovery, medWhy, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
+import i18n from '@/i18n'
 import en from '@/locales/en/me.json'
+import vi from '@/locales/vi/me.json'
 
 const R = [
   { time: '08:00', kind: 'MED' as const, text: 'aspirin' },
@@ -113,4 +115,37 @@ test('the default reminders read naturally and keep their WHY lines', () => {
     r('Time for your speech exercises, 15 minutes.'), r('Time for a glass of water.'),
   ] }))
   expect(tasks.map((t) => t.why)).toEqual([en.recovery.why.walk, en.recovery.why.bloodPressure, en.recovery.why.speech, en.recovery.why.water])
+})
+
+test('localRecovery turns an approved request into the doc Margaret sees: notes as summary, a reminder per ticked time', () => {
+  const r = localRecovery({
+    staffName: 'Dr Ross', diagnosis: 'd', notes: 'You had a small stroke.',
+    meds: [{ name: 'Apixaban', dose: '5 mg', times: ['18:00', '08:00'], change: 'New' }, { name: 'Aspirin', dose: '100 mg', times: ['08:00'], change: 'Stop' }],
+    activities: [{ text: 'Walk 20 minutes daily', times: ['10:00'], reminder: 'Time for your 20-minute walk.' }, { text: 'No driving', times: [] }],
+    followUps: [{ text: 'GP review', inDays: 7 }],
+  }, Date.parse('2026-10-16T09:30:00Z'), 'Australia/Sydney')
+  expect(r.summary).toBe('You had a small stroke.')
+  expect(r.fallback).toBe(true)
+  expect(r.reminders).toEqual([
+    { time: '08:00', kind: 'MED', text: 'Apixaban 5 mg' },
+    { time: '10:00', kind: 'ACTIVITY', text: 'Time for your 20-minute walk.' },
+    { time: '18:00', kind: 'MED', text: 'Apixaban 5 mg' },
+  ])
+  expect(r.followUps).toEqual([{ text: 'GP review', inDays: 7, date: '2026-10-23' }])
+})
+
+test("medWhy shows the hospital's own note as written; a stock note or none reads in the language in use", async () => {
+  const own = { name: 'Metformin', dose: '500 mg', times: ['08:00'], change: 'New' as const, note: 'Keeps your sugar steady.' }
+  const stock = { name: 'Apixaban', dose: '5 mg', times: ['08:00'], change: 'New' as const, note: en.recovery.why.apixaban }
+  expect(medWhy(own)).toBe('Keeps your sugar steady.')
+  expect(medWhy({ ...own, note: '  ' })).toBeUndefined()
+  await i18n.changeLanguage('vi')
+  try {
+    expect(medWhy(stock)).toBe(vi.recovery.why.apixaban)
+    expect(medWhy(own)).toBe('Keeps your sugar steady.')
+  } finally {
+    await i18n.changeLanguage('en')
+  }
+  const tasks = todayTasks(doc({ meds: [own], reminders: [{ time: '08:00', kind: 'MED', text: 'Time for your metformin, 500 mg.' }] }))
+  expect(tasks[0].why).toBe('Keeps your sugar steady.')
 })

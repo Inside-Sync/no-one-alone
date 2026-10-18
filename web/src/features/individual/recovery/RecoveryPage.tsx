@@ -6,9 +6,9 @@ import { Glyph } from '@/components/ui/Icon'
 import { intlLocale } from '@/i18n'
 import type { RecoveryDoc } from '@/data/contract'
 import { dayLabel, followUpCalls, handoffFacts } from '@/domain/recovery'
+import { useRouter } from '@/app/navigation'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
-import { MOCK_RECOVERY } from './mockRecovery'
 import { RecoveryCard } from './RecoveryCard'
 import { SelfRecovery } from './SelfRecovery'
 
@@ -49,13 +49,16 @@ function NoaHandoffCard({ recovery, who }: { recovery: RecoveryDoc; who: 'self' 
 export function RecoveryPage() {
   const { who } = useAppState()
   const { t, i18n } = useTranslation('me')
-  const { live, incident, people } = useLiveIncident()
-  // Dev only: a dummy plan stands in until a live incident has one, so the page can be checked.
-  const recovery = (live ? incident?.recovery : undefined) ?? (import.meta.env.DEV && import.meta.env.MODE !== 'test' ? MOCK_RECOVERY : undefined)
+  const { people, recovery } = useLiveIncident()
+  const router = useRouter()
+  // Nothing until the hospital approves a plan (prototype: the idle card points to the hospital view).
   if (!recovery) {
     return (
       <main className="grid" data-page="recovery">
-        <GlassCard span={12}><p>{t('recovery.idle', { context: who })}</p></GlassCard>
+        <GlassCard span={12}>
+          <p>{t('recovery.idle', { context: who })}</p>
+          <div className="row"><button type="button" className="btn" onClick={() => router.push('/hospital/patient')}><Glyph name="hospital" />{t('recovery.openHospital')}</button></div>
+        </GlassCard>
       </main>
     )
   }
