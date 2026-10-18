@@ -30,6 +30,7 @@ def plan(body: dict) -> dict:
     ids = SAFETY_IDS.get(level, ["HELP_COMING"])
     instruction = " ".join(own["safety"][i].format(helper=helper, name=name.split(" ")[0]) for i in ids)
     if "slurred speech" in (ctx.get("findings") or []):
-        instruction = own["speech_result"] + " " + instruction
+        # The result line already tells her to stay still, so it replaces the safety lines instead of repeating them.
+        instruction = own["speech_result"].format(name=name.split(" ")[0])
     return {"messages": messages, "callScript": call_script,
             "personInstruction": {"scriptIds": ids, "text": instruction}, "fallback": False}

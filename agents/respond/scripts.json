@@ -6,7 +6,7 @@
       "Mạ nói rõ lắm, giỏi quá. Giờ mạ thấy trong người thế nào? Mạ có đau ngực, chóng mặt, yếu tay hay yếu mặt, hay vừa bị té không?"
     ],
     "repeat_phrase": "trời Sydney hôm nay xanh",
-    "speech_result": "Giọng mạ nghe không rõ như mọi khi. Hình như mạ đang bị nói ngọng đột ngột. Mạ ngồi yên nhé, con đang báo cho gia đình.",
+    "speech_result": "Mạ ơi, giọng mạ nghe không rõ như mọi khi. Mạ cứ ngồi yên, đừng đứng dậy nhé, con đang gọi người giúp. Con ở ngay đây với mạ.",
     "goodbye": "Vậy là ổn rồi mạ. Mình cùng hít thở chậm năm lần nhé… hít vào… thở ra. Mạ uống ngụm nước rồi ngồi chỗ nào cho thoải mái. Mười phút nữa con hỏi thăm mạ lại. Chúc mạ ngủ ngon.",
     "yes_no": "Mạ có nghe con không? Mạ bấm có hoặc không.",
     "caller_default": "Gia đình",
@@ -37,8 +37,16 @@
       "cannot stand": "không đứng được"
     },
     "unknown": "không rõ",
-    "recovery": {"MED": "Mạ ơi, tới giờ uống {name} {dose} rồi.", "ACTIVITY": "Mạ ơi, tới giờ {text_lower} rồi."},
-    "call_script": "Địa chỉ {address}. {name}. {findings}. Bình thường lần cuối {lkw}. Thuốc: {meds}. Dị ứng: {allergies}."
+    "recovery": {
+      "MED": "Mạ ơi, tới giờ uống {name} {dose} rồi.",
+      "ACTIVITY": "Mạ ơi, tới giờ {text_lower} rồi."
+    },
+    "call_script": "Địa chỉ {address}. {name}. {findings}. Bình thường lần cuối {lkw}. Thuốc: {meds}. Dị ứng: {allergies}.",
+    "speech_check": {
+      "GOOD": "Con mừng quá mạ ơi! Để cho chắc, mình làm bài kiểm tra giọng nói nhanh nhé. Mạ nói theo con: trời Sydney hôm nay xanh.",
+      "UNSURE": "Không sao đâu mạ. Con ở đây với mạ, mình cùng kiểm tra giọng nói cho chắc nhé. Mạ nói theo con: trời Sydney hôm nay xanh.",
+      "BAD": "Con ở đây rồi mạ. Mình kiểm tra giọng nói trong lúc con tìm cách giúp mạ nhé. Mạ nói theo con: trời Sydney hôm nay xanh."
+    }
   },
   "en": {
     "questions": [
@@ -47,7 +55,7 @@
       "That was lovely and clear, {name}, well done. Now, how are you feeling? Any chest pain, dizziness, weakness in your arm or face, or have you had a fall?"
     ],
     "repeat_phrase": "the sky is blue in sydney",
-    "speech_result": "Your voice doesn't sound as clear as normal. It seems you are experiencing sudden slurred speech. Please stay still while I reach out to your family.",
+    "speech_result": "{name}, your speech sounds less clear than usual. Please stay sitting and don't try to stand up, I'm getting help. I'm here with you.",
     "goodbye": "That's all right, {name}. Let's take five slow breaths together… in… and out. Have a sip of water and sit somewhere comfy. I'll check on you again in 10 minutes. Goodnight, {name}.",
     "yes_no": "Can you hear me? Press yes or no.",
     "caller_default": "Your family",
@@ -67,7 +75,15 @@
     },
     "findings": {},
     "unknown": "unknown",
-    "recovery": {"MED": "Time for your {name}, {dose}.", "ACTIVITY": "Time to {text_lower}."},
-    "call_script": "Address {address}. {name}. {findings}. Last known well {lkw}. Medicines: {meds}. Allergies: {allergies}."
+    "recovery": {
+      "MED": "Time for your {name}, {dose}.",
+      "ACTIVITY": "Time to {text_lower}."
+    },
+    "call_script": "Address {address}. {name}. {findings}. Last known well {lkw}. Medicines: {meds}. Allergies: {allergies}.",
+    "speech_check": {
+      "GOOD": "Glad to hear that, {name}! Just to be safe, let's do a quick speech check. Please repeat after me: The sky is blue in Sydney.",
+      "UNSURE": "That's okay, {name}. I'm here with you, let's check your speech together, to be sure. Please repeat after me: The sky is blue in Sydney.",
+      "BAD": "I'm here, {name}. Let's check your speech while I work out what help you need. Please repeat after me: The sky is blue in Sydney."
+    }
   }
 }

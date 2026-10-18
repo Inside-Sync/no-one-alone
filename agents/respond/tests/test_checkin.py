@@ -81,8 +81,8 @@ def test_speech_check_is_second_and_slurred_there_ends_with_emergency():
     clear = {"transcript": "Mm yes", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 0.9,
              "ack": "Thank you."}
     first = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(clear))
-    assert first["next"]["text"] == ("Thank you, Margaret. Let's do our quick speech check, the same one from our "
-                                     "morning chats. Please say after me: The sky is blue in Sydney.")
+    assert first["next"]["text"] == ("That's okay, Margaret. I'm here with you, let's check your speech together, "
+                                     "to be sure. Please repeat after me: The sky is blue in Sydney.")
     seen = []
     slurred = {"transcript": "th sky iz bloo sid", "clarity": "SLURRED", "coherent": False, "symptoms": [],
                "confidence": 0.8}
@@ -113,3 +113,27 @@ def test_a_wordless_first_answer_is_not_a_failed_speech_check():
     out = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(res))
     assert out["assessment"]["clarity"] == "NO_SPEECH"
     assert out["done"] is False
+
+
+
+EN_SPEECH_CHECK = {
+    "GOOD": "Glad to hear that, Margaret! Just to be safe, let's do a quick speech check. Please repeat after me: The sky is blue in Sydney.",
+    "UNSURE": "That's okay, Margaret. I'm here with you, let's check your speech together, to be sure. Please repeat after me: The sky is blue in Sydney.",
+    "BAD": "I'm here, Margaret. Let's check your speech while I work out what help you need. Please repeat after me: The sky is blue in Sydney.",
+}
+
+
+def test_speech_check_opening_follows_how_she_says_she_feels():
+    for feeling, text in EN_SPEECH_CHECK.items():
+        res = {"transcript": "x", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 0.9, "feeling": feeling}
+        out = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(res))
+        assert out["next"]["text"] == text
+        assert "feeling" not in out["assessment"]
+
+
+def test_speech_check_opening_without_a_feeling_is_the_unsure_one():
+    res = {"transcript": "Yes", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 0.9}
+    out = checkin.turn(body(MARGARET, turns=agent(1), input=audio()), fake(res))
+    assert out["next"]["text"] == EN_SPEECH_CHECK["UNSURE"]
+    vi = checkin.turn(body(turns=agent(1), input=audio()), fake(res))
+    assert vi["next"]["text"].endswith("trời Sydney hôm nay xanh.")
