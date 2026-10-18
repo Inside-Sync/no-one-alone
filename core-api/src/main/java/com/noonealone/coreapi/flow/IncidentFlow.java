@@ -25,6 +25,7 @@ import com.noonealone.coreapi.model.Incident;
 import com.noonealone.coreapi.model.Level;
 import com.noonealone.coreapi.model.Pending;
 import com.noonealone.coreapi.model.Person;
+import com.noonealone.coreapi.model.PersonInstruction;
 import com.noonealone.coreapi.model.Role;
 import com.noonealone.coreapi.model.Status;
 import com.noonealone.coreapi.model.StoryClock;
@@ -247,11 +248,23 @@ public class IncidentFlow {
         Incident inc = store.get(incidentId);
         TriageResult r;
         try {
-            r = agent.triage(triageBody(inc));
+            r = agent.triage(triageBody(inc, store.person(inc.personId)));
         } catch (AgentException e) {
             r = new TriageResult(fallbackLevel(inc), List.of("respond-agent unavailable"), true);
         }
         TriageResult result = r;
+        boolean calm = result.level() == Level.OK || result.level() == Level.MONITOR;
+        TriageResult.Closing closing = calm ? result.closing() : null;
+        String closingAudio = null;
+        if (closing != null && closing.audioBase64() != null) {
+            try {
+                closingAudio = audio.save(incidentId, "closing.mp3",
+                        Base64.getDecoder().decode(closing.audioBase64()), "audio/mpeg");
+            } catch (RuntimeException e) {
+                log.warn("Closing audio not saved for incident {}: {}", incidentId, e.getClass().getSimpleName());
+            }
+        }
+        String closingPath = closingAudio;
         IncidentStore.Mutation m = store.mutate(incidentId, (x, now) -> {
             if (x.level != null || x.status != Status.CHECKING_IN) {
                 return false;
@@ -264,7 +277,13 @@ public class IncidentFlow {
                 x.log(now, "AGENT", "AGENT_FALLBACK", "Triage used fallback");
             }
             x.log(now, "AGENT", "TRIAGED", "Level " + result.level() + ": " + String.join(", ", result.reasons()));
-            if (result.level() == Level.OK || result.level() == Level.MONITOR) {
+            if (closing != null && closing.text() != null) {
+                x.personInstruction = new PersonInstruction();
+                x.personInstruction.scriptIds = List.of();
+                x.personInstruction.text = closing.text();
+                x.personInstruction.audioPath = closingPath;
+            }
+            if (calm) {
                 x.status = Status.CLOSED;
                 x.log(now, "SYSTEM", "CLOSED", "Closed after check-in");
             }
@@ -279,7 +298,7 @@ public class IncidentFlow {
         return inc.hasSlurredTurn() ? Level.EMERGENCY : Level.COME_NOW;
     }
 
-    private Map<String, Object> triageBody(Incident inc) {
+    private Map<String, Object> triageBody(Incident inc, Person person) {
         List<Map<String, Object>> turns = new ArrayList<>();
         for (Turn t : inc.checkIn.turns) {
             Map<String, Object> m = new HashMap<>();
@@ -293,7 +312,13 @@ public class IncidentFlow {
         Map<String, Object> alert = new HashMap<>();
         alert.put("kind", inc.alert.kind);
         alert.put("hr", inc.alert.hr);
-        return Map.of("alert", alert, "verify", Map.of("isReal", true), "turns", turns,
+        Map<String, Object> p = new HashMap<>();
+        p.put("displayName", person.displayName);
+        p.put("locale", person.locale);
+        if (person.dialect != null) {
+            p.put("dialect", person.dialect);
+        }
+        return Map.of("person", p, "alert", alert, "verify", Map.of("isReal", true), "turns", turns,
                 "noReplyCount", inc.checkIn.noReplyCount);
     }
 

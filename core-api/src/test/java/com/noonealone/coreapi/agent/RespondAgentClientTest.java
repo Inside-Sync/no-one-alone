@@ -58,6 +58,19 @@ class RespondAgentClientTest {
     }
 
     @Test
+    void triageParsesTheGoodbye() {
+        server.expect(requestTo("http://agent/triage"))
+                .andRespond(withSuccess("{\"level\":\"MONITOR\",\"reasons\":[],\"fallback\":false,"
+                        + "\"closing\":{\"text\":\"Goodnight, Margaret.\",\"audioBase64\":\"AQI=\",\"mimeType\":\"audio/mpeg\"}}",
+                        MediaType.APPLICATION_JSON));
+
+        TriageResult r = client.triage(Map.of());
+
+        assertThat(r.closing().text()).isEqualTo("Goodnight, Margaret.");
+        assertThat(r.closing().audioBase64()).isEqualTo("AQI=");
+    }
+
+    @Test
     void serverErrorBecomesAgentException() {
         server.expect(requestTo("http://agent/plan")).andRespond(withServerError());
 
