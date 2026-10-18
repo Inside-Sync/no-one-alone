@@ -109,3 +109,36 @@ def test_validate_keeps_only_a_short_plain_ack():
     assert "ack" not in gcp.validate({**ok, "ack": "Are you okay?"})
     assert "ack" not in gcp.validate({**ok, "ack": "x" * 121})
     assert "ack" not in gcp.validate(ok)
+
+
+def triage_body(person, clarity):
+    turns = [{"by": "PERSON", "text": "I'm fine", "assessment": {"clarity": clarity, "symptoms": []}}]
+    return {"person": person, "alert": {"hr": 110, "kind": "HR_HIGH"}, "turns": turns, "noReplyCount": 0}
+
+
+def test_triage_monitor_says_goodbye_by_name(monkeypatch):
+    from tests.test_plan import MARGARET
+    monkeypatch.setattr(main, "voice", Voice(b"mp3"))
+    out = client.post("/triage", json=triage_body(MARGARET, "CLEAR")).json()
+    assert out["level"] == "MONITOR"
+    assert out["closing"]["text"].startswith("That's all right, Margaret.")
+    assert out["closing"]["audioBase64"] == base64.b64encode(b"mp3").decode()
+
+
+def test_triage_goodbye_without_tts_keeps_text(monkeypatch):
+    monkeypatch.setattr(main, "voice", Voice(None))
+    out = client.post("/triage", json=triage_body(MAI, "CLEAR")).json()
+    assert out["level"] == "MONITOR" and out["closing"]["text"] and "audioBase64" not in out["closing"]
+
+
+def test_triage_emergency_has_no_goodbye(monkeypatch):
+    monkeypatch.setattr(main, "voice", Voice(b"mp3"))
+    out = client.post("/triage", json=triage_body(MAI, "SLURRED")).json()
+    assert out["level"] == "EMERGENCY" and "closing" not in out
+
+
+def test_triage_without_person_keeps_level(monkeypatch):
+    monkeypatch.setattr(main, "voice", Voice(b"mp3"))
+    body = {k: v for k, v in triage_body(MAI, "CLEAR").items() if k != "person"}
+    out = client.post("/triage", json=body).json()
+    assert out["level"] == "MONITOR" and "closing" not in out

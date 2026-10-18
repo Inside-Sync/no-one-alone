@@ -476,6 +476,10 @@
   },
   "speech": {
     "title": "Kiểm tra giọng nói của Noa",
+    "pass": "Đạt · giọng nói rõ ràng",
+    "fail": "Không đạt · nói ngọng",
+    "clarity": "độ rõ {{x}} · bình thường của bà {{normal}}",
+    "replay": "↺ Kiểm tra giọng nói lại",
     "tag": "CÔNG NGHỆ CỐT LÕI",
     "meta": "So giọng tối nay với chính giọng của {{name}}, không phải giọng trung bình",
     "state": {

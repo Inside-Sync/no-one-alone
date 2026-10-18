@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 import type { IncidentDoc, TurnDoc } from '@/data/contract'
 import { SpeechCheckCard } from '@/features/individual/live/SpeechCheckCard'
@@ -112,4 +112,26 @@ test('speech check: a re-asked speech question still shows the latest verdict', 
   const again = turn('AGENT', 'Say after me again, the sky is blue in Sydney.')
   renderWithProviders(card([q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', '', 'CLEAR'), again, turn('PERSON', 'iz', 'SLURRED')]))
   expect(screen.getByText('Slurred speech detected · possible stroke')).toBeInTheDocument()
+})
+
+test('speech check: a clear verdict says Passed, a slurred one Failed, with the clarity numbers', () => {
+  const { rerender } = renderWithProviders(card([q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', 'the sky is blue', 'CLEAR')]))
+  expect(screen.getByText('Passed · speech is clear')).toBeInTheDocument()
+  expect(screen.getByText('clarity 0.93 · her normal 0.94')).toBeInTheDocument()
+  rerender(card([q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', 'the sky iz', 'SLURRED')]))
+  expect(screen.getByText('Failed · slurred speech')).toBeInTheDocument()
+  expect(screen.getByText('clarity 0.41 · her normal 0.94')).toBeInTheDocument()
+})
+
+test('speech check: replay runs only once there is a verdict and not while busy', () => {
+  const onReplay = vi.fn()
+  const turns = [q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', 'the sky iz', 'SLURRED')]
+  const inc = { checkIn: { turns, busy: false } } as unknown as IncidentDoc
+  const { rerender } = renderWithProviders(<SpeechCheckCard incident={{ checkIn: { turns: [q1], busy: false } } as unknown as IncidentDoc} name="Margaret" timeZone="UTC" onReplay={onReplay} />)
+  expect(screen.queryByRole('button', { name: /Run the speech check again/ })).toBeNull()
+  rerender(<SpeechCheckCard incident={inc} name="Margaret" timeZone="UTC" onReplay={onReplay} />)
+  fireEvent.click(screen.getByRole('button', { name: /Run the speech check again/ }))
+  expect(onReplay).toHaveBeenCalledTimes(1)
+  rerender(<SpeechCheckCard incident={inc} name="Margaret" timeZone="UTC" onReplay={onReplay} busy />)
+  expect(screen.getByRole('button', { name: /Run the speech check again/ })).toBeDisabled()
 })

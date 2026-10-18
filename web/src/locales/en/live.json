@@ -476,6 +476,10 @@
   },
   "speech": {
     "title": "Noa Speech Check",
+    "pass": "Passed · speech is clear",
+    "fail": "Failed · slurred speech",
+    "clarity": "clarity {{x}} · her normal {{normal}}",
+    "replay": "↺ Run the speech check again",
     "tag": "OUR CORE TECHNOLOGY",
     "meta": "Compares tonight's voice with {{name}}'s own voice, not an average",
     "state": {

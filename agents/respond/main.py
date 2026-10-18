@@ -14,6 +14,7 @@ import plan
 import recovery
 import rules
 from hospital_client import send_handoff
+from lang import is_en, load_scripts
 
 log = logging.getLogger("respond")
 app = FastAPI(title="respond-agent")
@@ -59,10 +60,20 @@ def checkin_turn(body: dict):
 @app.post("/triage")
 def triage(body: dict):
     try:
-        return rules.triage(body)
+        out = rules.triage(body)
     except Exception as e:
         log.warning("triage failed: %s", type(e).__name__)
         return {"level": "EMERGENCY", "reasons": ["rules failed"], "fallback": True}
+    if out["level"] in ("OK", "MONITOR"):
+        try:
+            person = body["person"]
+            own = load_scripts()["en" if is_en(person) else "vi"]
+            closing = {"text": own["goodbye"].format(name=person["displayName"].split(" ")[0])}
+            add_audio(closing, gcp.locale_for(person))
+            out["closing"] = closing
+        except Exception as e:
+            log.warning("closing failed: %s", type(e).__name__)
+    return out
 
 
 @app.post("/plan")

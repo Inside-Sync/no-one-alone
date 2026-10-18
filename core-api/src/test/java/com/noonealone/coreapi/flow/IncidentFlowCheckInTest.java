@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,6 +25,7 @@ import com.noonealone.coreapi.agent.TriageResult;
 import com.noonealone.coreapi.agent.TurnResult;
 import com.noonealone.coreapi.agent.VerifyResult;
 import com.noonealone.coreapi.data.Seed;
+import com.noonealone.coreapi.gcp.AudioStore;
 import com.noonealone.coreapi.gcp.EscalationTimers;
 import com.noonealone.coreapi.gcp.RoutesClient;
 import com.noonealone.coreapi.model.Assessment;
@@ -45,6 +48,7 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
     @MockBean RespondAgentClient agent;
     @MockBean RoutesClient routes;
     @MockBean EscalationTimers tasks;
+    @MockBean AudioStore audio;
 
     static TurnResult ask(String text, String kind) {
         return new TurnResult(null, null, new TurnResult.Next(text, kind, null, null), false, false);
@@ -148,6 +152,57 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
         Incident inc = store.get("c-1");
         assertThat(inc.status).isEqualTo(Status.CLOSED);
         assertThat(inc.timeline).extracting(t -> t.kind).contains("TRIAGED", "CLOSED");
+    }
+
+    @Test
+    void okLevelKeepsTheGoodbyeForHerPhone() {
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Mạ khỏe", null, null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.OK, List.of("clear speech"), false,
+                new TriageResult.Closing("Vậy là ổn rồi mạ.", "AQI=")));
+        when(audio.save(eq("c-1"), eq("closing.mp3"), any(), eq("audio/mpeg"))).thenReturn("audio/c-1/closing.mp3");
+
+        CheckInInput input = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
+        flow.acceptCheckIn("c-1", input);
+        flow.processCheckIn("c-1", input);
+
+        Incident inc = store.get("c-1");
+        assertThat(inc.status).isEqualTo(Status.CLOSED);
+        assertThat(inc.personInstruction.text).isEqualTo("Vậy là ổn rồi mạ.");
+        assertThat(inc.personInstruction.audioPath).isEqualTo("audio/c-1/closing.mp3");
+        assertThat(inc.personInstruction.scriptIds).isEmpty();
+        verify(agent).triage(argThat(b -> "vi-VN".equals(((Map<?, ?>) b.get("person")).get("locale"))));
+    }
+
+    @Test
+    void goodbyeAudioFailureStillClosesWithText() {
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Mạ khỏe", null, null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.MONITOR, List.of("clear speech"), false,
+                new TriageResult.Closing("Vậy là ổn rồi mạ.", "%%%")));
+
+        CheckInInput input = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
+        flow.acceptCheckIn("c-1", input);
+        flow.processCheckIn("c-1", input);
+
+        Incident inc = store.get("c-1");
+        assertThat(inc.status).isEqualTo(Status.CLOSED);
+        assertThat(inc.personInstruction.text).isEqualTo("Vậy là ổn rồi mạ.");
+        assertThat(inc.personInstruction.audioPath).isNull();
+    }
+
+    @Test
+    void emergencyIgnoresAClosing() {
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Ừ...", slurred(), null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.EMERGENCY, List.of("slurred speech"), false,
+                new TriageResult.Closing("bye", "AQI=")));
+
+        CheckInInput input = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
+        flow.acceptCheckIn("c-1", input);
+        flow.processCheckIn("c-1", input);
+
+        Incident inc = store.get("c-1");
+        assertThat(inc.level).isEqualTo(Level.EMERGENCY);
+        assertThat(inc.personInstruction == null || !"bye".equals(inc.personInstruction.text)).isTrue();
+        verify(audio, never()).save(any(), eq("closing.mp3"), any(), any());
     }
 
     @Test

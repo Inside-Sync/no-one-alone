@@ -74,7 +74,8 @@ export function LivePhoneCard({ phone, name, helpInitials, checkin, onSpoken, on
   }, [phone.flash, phone.questionKey])
 
   // Autoplay when the question or the instruction audio changes (contract 2.6). Browsers may block it: then silent.
-  const played = useRef<string | null>(null)
+  // A goodbye already there at mount was heard before: never replay it on reload.
+  const played = useRef<string | null>(phone.questionKey === 'closing' ? phone.audioPath : null)
   // Resolves when the question or instruction audio ends, so the status clip never talks over it.
   const speaking = useRef<Promise<void>>(Promise.resolve())
   const spokenCb = useRef(onSpoken)
