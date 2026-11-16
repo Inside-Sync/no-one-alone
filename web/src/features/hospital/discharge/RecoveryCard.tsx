@@ -22,8 +22,9 @@ export interface Form {
   staffName: string
   diagnosis: string
   notes: string
-  meds: { name: string; dose: string; times: string[]; change: MedChange; note: string }[]
-  activities: { text: string; times: string[]; reminder?: string }[]
+  /** `key`: the catalogue item the row came from; dropped when the doctor retypes the name or text. */
+  meds: { name: string; dose: string; times: string[]; change: MedChange; note: string; key?: string }[]
+  activities: { text: string; times: string[]; reminder?: string; key?: string }[]
   /** `date`: the visit's local date, picked on a calendar; sent as days from today. */
   followUps: { text: string; date: string }[]
 }
@@ -69,9 +70,9 @@ const toRequest = (f: Form, today: string): RecoveryRequest => ({
   diagnosis: f.diagnosis.trim(),
   notes: f.notes.trim(),
   meds: f.meds.map((m) => ({
-    name: m.name.trim(), dose: m.dose.trim(), times: m.change === 'Stop' ? [] : [...m.times].sort(), change: m.change, ...(m.note.trim() ? { note: m.note.trim() } : {}),
+    name: m.name.trim(), dose: m.dose.trim(), times: m.change === 'Stop' ? [] : [...m.times].sort(), change: m.change, ...(m.note.trim() ? { note: m.note.trim() } : {}), ...(m.key ? { key: m.key } : {}),
   })),
-  activities: f.activities.map((a) => ({ text: a.text.trim(), times: [...a.times].sort(), ...(a.reminder ? { reminder: a.reminder } : {}) })),
+  activities: f.activities.map((a) => ({ text: a.text.trim(), times: [...a.times].sort(), ...(a.reminder ? { reminder: a.reminder } : {}), ...(a.key ? { key: a.key } : {}) })),
   followUps: f.followUps.map((u) => ({ text: u.text.trim(), inDays: daysBetween(today, u.date) })),
 })
 
@@ -247,7 +248,7 @@ export function RecoveryCard({ plan }: { plan: PlanBuilder }) {
                 {form.meds.map((m, i) => (
                   <tr key={i} data-change={m.change} data-invalid={problem('meds', i) ? '' : undefined}>
                     <td>
-                      <input className="plan-in name" aria-label={t('ed.recovery.medName', n(i))} autoFocus={focus('meds', i)} placeholder={t('ed.recovery.medPlaceholder')} value={m.name} onChange={(e) => row('meds', i, { name: e.target.value })} {...invalid('meds', i, ['nameMissing'])} />
+                      <input className="plan-in name" aria-label={t('ed.recovery.medName', n(i))} autoFocus={focus('meds', i)} placeholder={t('ed.recovery.medPlaceholder')} value={m.name} onChange={(e) => row('meds', i, { name: e.target.value, key: undefined })} {...invalid('meds', i, ['nameMissing'])} />
                       {err('meds', i)}
                     </td>
                     <td><input className="plan-in dose" aria-label={t('ed.recovery.medDose', n(i))} placeholder={t('ed.recovery.dosePlaceholder')} value={m.dose} onChange={(e) => row('meds', i, { dose: e.target.value })} {...invalid('meds', i, ['doseMissing'])} /></td>
@@ -293,7 +294,7 @@ export function RecoveryCard({ plan }: { plan: PlanBuilder }) {
               {form.activities.map((a, i) => (
                 <div className="plan-row" key={i}>
                   <span className="plan-dot"><Icon name={instructionIcon(a.text)} /></span>
-                  <input className="plan-in" aria-label={t('ed.recovery.actText', n(i))} autoFocus={focus('activities', i)} value={a.text} onChange={(e) => row('activities', i, { text: e.target.value, reminder: undefined })} {...invalid('activities', i, ['textMissing'])} />
+                  <input className="plan-in" aria-label={t('ed.recovery.actText', n(i))} autoFocus={focus('activities', i)} value={a.text} onChange={(e) => row('activities', i, { text: e.target.value, reminder: undefined, key: undefined })} {...invalid('activities', i, ['textMissing'])} />
                   <div className="plan-times" role="group" aria-label={t('ed.recovery.actTimes', n(i))}>
                     {a.times.map((x) => (
                       <span key={x} className="plan-time">

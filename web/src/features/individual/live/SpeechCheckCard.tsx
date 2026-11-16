@@ -5,7 +5,7 @@ import { NoaOrb } from '@/components/noa/NoaOrb'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import type { IncidentDoc, TurnDoc } from '@/data/contract'
-import { isSpeechCheck } from '@/domain/agent'
+import { isSpeechCheckTurn } from '@/domain/agent'
 import { clockTime } from '@/domain/incident'
 import { rng } from '@/lib/rng'
 
@@ -19,7 +19,7 @@ function speechState(turns: readonly TurnDoc[], busy: boolean): { state: State; 
   let state: State = 'ready'
   for (const turn of turns) {
     if (turn.by === 'AGENT') {
-      if (isSpeechCheck(turn.text)) { at = turn.at; state = 'listen' }
+      if (isSpeechCheckTurn(turn)) { at = turn.at; state = 'listen' }
       else if (state === 'listen') state = 'ready'
       continue
     }

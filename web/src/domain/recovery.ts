@@ -19,8 +19,9 @@ export function nextReminder(reminders: Reminder[], nowMs: number, tz: string): 
 }
 
 /**
- * Why each default-plan item matters: a lowercased word in the medicine name or reminder text (core-api writes those,
- * in the person's own language) and its `treatment:why` line, in the language in use (display only). First match wins.
+ * Why each default-plan item matters: core-api's `key` on the item or reminder, else a lowercased word in the medicine
+ * name or reminder text (written in the person's own language), and its `treatment:why` line, in the language in use
+ * (display only). First match wins.
  */
 const WHY_MATCH = [
   ['apixaban', 'apixaban'], ['perindopril', 'perindopril'], ['atorvastatin', 'atorvastatin'], ['amlodipine', 'amlodipine'],
@@ -30,10 +31,17 @@ const WHY_MATCH = [
 
 export type WhyKey = (typeof WHY_MATCH)[number][1]
 
+/** core-api's stable item keys (`RecoveryKeys`) and the `why` line each one has. */
+const WHY_BY_KEY: Record<string, WhyKey> = {
+  apixaban: 'apixaban', perindopril: 'perindopril', atorvastatin: 'atorvastatin', amlodipine: 'amlodipine',
+  vitamin_d: 'vitaminD', aspirin: 'aspirin', walk: 'walk', blood_pressure: 'bloodPressure', speech: 'speech', water: 'water',
+}
+
 /** The `treatment:why` line for one item, in the language in use. */
 export const whyLine = (key: WhyKey): string => i18n.t(`treatment:why.${key}`)
 
-const whyOf = (text: string) => {
+const whyOf = (text: string, key?: string) => {
+  if (key && key in WHY_BY_KEY) return whyLine(WHY_BY_KEY[key])
   const t = text.toLowerCase()
   const hit = WHY_MATCH.find(([word]) => t.includes(word))
   return hit && whyLine(hit[1])
@@ -52,22 +60,27 @@ const isStockWhy = (note: string) =>
  */
 export function medWhy(m: Med): string | undefined {
   const note = m.note?.trim()
-  return note && !isStockWhy(note) ? note : whyOf(m.name) || undefined
+  return note && !isStockWhy(note) ? note : whyOf(m.name, m.key) || undefined
 }
 
-/** The medicine a MED reminder is about, by its name in the reminder text. */
-const medOf = (r: RecoveryDoc, text: string) => r.meds.find((m) => m.name && text.toLowerCase().includes(m.name.toLowerCase()))
+/** The medicine a MED reminder is about: the one with the reminder's `key`, else by its name in the reminder text. */
+const medOf = (r: RecoveryDoc, text: string, key?: string) =>
+  (key ? r.meds.find((m) => m.key === key) : undefined) ?? r.meds.find((m) => m.name && text.toLowerCase().includes(m.name.toLowerCase()))
 
-export interface Task { id: string; time: string; kind: 'MED' | 'ACTIVITY'; title: string; why?: string; audioPath?: string }
+export interface Task { id: string; time: string; kind: 'MED' | 'ACTIVITY'; title: string; why?: string; audioPath?: string; key?: string }
 
 /** One task per reminder, in reminder order, minus any that name a stopped medicine; `id` matches the reminder key used for ticks. */
 export function todayTasks(r: RecoveryDoc): Task[] {
   const stopped = r.meds.filter(isStopped).map((m) => m.name.toLowerCase())
+  const isStoppedMed = (x: Reminder) => {
+    const byKey = x.key ? r.meds.find((m) => m.key === x.key) : undefined
+    return byKey ? isStopped(byKey) : stopped.some((n) => x.text.toLowerCase().includes(n))
+  }
   return r.reminders
-    .filter((x) => !(x.kind === 'MED' && stopped.some((n) => x.text.toLowerCase().includes(n))))
+    .filter((x) => !(x.kind === 'MED' && isStoppedMed(x)))
     .map((x) => {
-      const med = x.kind === 'MED' ? medOf(r, x.text) : undefined
-      return { id: x.time + x.text, time: x.time, kind: x.kind, title: x.text, why: med ? medWhy(med) : whyOf(x.text) || undefined, audioPath: x.audioPath }
+      const med = x.kind === 'MED' ? medOf(r, x.text, x.key) : undefined
+      return { id: x.time + x.text, time: x.time, kind: x.kind, title: x.text, why: med ? medWhy(med) : whyOf(x.text, x.key) || undefined, audioPath: x.audioPath, ...(x.key ? { key: x.key } : {}) }
     })
 }
 
@@ -123,9 +136,12 @@ export function deliverySteps(r: RecoveryDoc, circle: string[]): Step[] {
   return steps
 }
 
+const ICON_BY_KEY: Record<string, IconName> = { walk: 'footprints', blood_pressure: 'stethoscope', speech: 'speech', water: 'drop' }
+
 /** A glanceable icon for a task: tablets, or the kind of activity named in the reminder (display only). */
-export function taskIcon(task: Pick<Task, 'kind' | 'title'>): IconName {
+export function taskIcon(task: Pick<Task, 'kind' | 'title' | 'key'>): IconName {
   if (task.kind === 'MED') return 'pill'
+  if (task.key && task.key in ICON_BY_KEY) return ICON_BY_KEY[task.key]
   const t = task.title.toLowerCase()
   if (t.includes('walk')) return 'footprints'
   if (t.includes('blood pressure')) return 'stethoscope'
@@ -166,8 +182,8 @@ export function partOfDay(nowMs: number, tz: string): 'morning' | 'afternoon' | 
 export function localRecovery(body: RecoveryRequest, nowMs: number, tz: string): RecoveryDoc {
   const [y, m, d] = localDate(nowMs, tz).split('-').map(Number)
   const reminders: Reminder[] = [
-    ...body.meds.filter((x) => !isStopped(x)).flatMap((x) => x.times.map((time) => ({ time, kind: 'MED' as const, text: `${x.name} ${x.dose}` }))),
-    ...body.activities.flatMap((a) => a.times.map((time) => ({ time, kind: 'ACTIVITY' as const, text: a.reminder ?? a.text }))),
+    ...body.meds.filter((x) => !isStopped(x)).flatMap((x) => x.times.map((time) => ({ time, kind: 'MED' as const, text: `${x.name} ${x.dose}`, ...(x.key ? { key: x.key } : {}) }))),
+    ...body.activities.flatMap((a) => a.times.map((time) => ({ time, kind: 'ACTIVITY' as const, text: a.reminder ?? a.text, ...(a.key ? { key: a.key } : {}) }))),
   ].sort((a, b) => a.time.localeCompare(b.time))
   return {
     ...body,

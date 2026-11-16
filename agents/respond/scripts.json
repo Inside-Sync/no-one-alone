@@ -1,60 +1,11 @@
 {
-  "vi": {
-    "questions": [
-      "Mạ ơi, con là Noa đây. Con thấy tim mạ đập nhanh khoảng 10 phút nay trong lúc mạ ngồi yên. Mạ có sao không?",
-      "Cảm ơn mạ. Mình làm bài kiểm tra giọng nói nhanh nhé, giống bài mình vẫn làm mỗi sáng. Mạ nói theo con: trời Sydney hôm nay xanh.",
-      "Mạ nói rõ lắm, giỏi quá. Giờ mạ thấy trong người thế nào? Mạ có đau ngực, chóng mặt, yếu tay hay yếu mặt, hay vừa bị té không?"
-    ],
-    "repeat_phrase": "trời Sydney hôm nay xanh",
-    "speech_result": "Mạ ơi, giọng mạ nghe không rõ như mọi khi. Mạ cứ ngồi yên, đừng đứng dậy nhé, con đang gọi người giúp. Con ở ngay đây với mạ.",
-    "goodbye": "Vậy là ổn rồi mạ. Mình cùng hít thở chậm năm lần nhé… hít vào… thở ra. Mạ uống ngụm nước rồi ngồi chỗ nào cho thoải mái. Mười phút nữa con hỏi thăm mạ lại. Chúc mạ ngủ ngon.",
-    "yes_no": "Mạ có nghe con không? Mạ bấm có hoặc không.",
-    "caller_default": "Gia đình",
-    "safety": {
-      "SIT_STILL": "Mạ ngồi yên, đừng cố đứng dậy.",
-      "HELP_COMING": "Con đang gọi {helper} tới với mạ.",
-      "GET_HELP": "Mạ ơi, con là Noa đây. Con đang gọi người tới giúp mạ ngay bây giờ. Mạ cứ ngồi yên, đừng cố đứng dậy. Con ở ngay đây với mạ."
-    },
-    "messages": {
-      "NEARBY": "{name} có thể đang {problem}. Đi khoảng {eta} phút là tới. Mở cửa bằng chìa dự phòng nếu cần.",
-      "NEARBY_NO_ETA": "{name} có thể đang {problem}. Xin đến ngay {address}.",
-      "DISTANT": "{name} có thể đang {problem}. {helper} đã được báo."
-    },
-    "problems": {
-      "EMERGENCY": "bị đột quỵ",
-      "COME_NOW": "gặp nguy hiểm"
-    },
-    "findings": {
-      "slurred speech": "nói ngọng",
-      "no answer": "không trả lời",
-      "fall detected": "té ngã",
-      "answered no": "trả lời không ổn",
-      "chest pain": "đau ngực",
-      "dizziness": "chóng mặt",
-      "fall": "té ngã",
-      "headache": "đau đầu",
-      "weakness": "yếu tay chân",
-      "cannot stand": "không đứng được"
-    },
-    "unknown": "không rõ",
-    "recovery": {
-      "MED": "Mạ ơi, tới giờ uống {name} {dose} rồi.",
-      "ACTIVITY": "Mạ ơi, tới giờ {text_lower} rồi."
-    },
-    "call_script": "Địa chỉ {address}. {name}. {findings}. Bình thường lần cuối {lkw}. Thuốc: {meds}. Dị ứng: {allergies}.",
-    "speech_check": {
-      "GOOD": "Con mừng quá mạ ơi! Để cho chắc, mình làm bài kiểm tra giọng nói nhanh nhé. Mạ nói theo con: trời Sydney hôm nay xanh.",
-      "UNSURE": "Không sao đâu mạ. Con ở đây với mạ, mình cùng kiểm tra giọng nói cho chắc nhé. Mạ nói theo con: trời Sydney hôm nay xanh.",
-      "BAD": "Con ở đây rồi mạ. Mình kiểm tra giọng nói trong lúc con tìm cách giúp mạ nhé. Mạ nói theo con: trời Sydney hôm nay xanh."
-    }
-  },
   "en": {
     "questions": [
       "Hello {name}, it's Noa. I noticed your heart has been racing for about 10 minutes while you've been sitting still. Are you all right?",
-      "Thank you, {name}. Let's do our quick speech check, the same one from our morning chats. Please say after me: The sky is blue in Sydney.",
+      "Thank you, {name}. Let's do our quick speech check, the same one from our morning chats. Please say after me: The sky is blue in Abu Dhabi.",
       "That was lovely and clear, {name}, well done. Now, how are you feeling? Any chest pain, dizziness, weakness in your arm or face, or have you had a fall?"
     ],
-    "repeat_phrase": "the sky is blue in sydney",
+    "repeat_phrase": "the sky is blue in abu dhabi",
     "speech_result": "{name}, your speech sounds less clear than usual. Please stay sitting and don't try to stand up, I'm getting help. I'm here with you.",
     "goodbye": "That's all right, {name}. Let's take five slow breaths together… in… and out. Have a sip of water and sit somewhere comfy. I'll check on you again in 10 minutes. Goodnight, {name}.",
     "yes_no": "Can you hear me? Press yes or no.",
@@ -81,9 +32,58 @@
     },
     "call_script": "Address {address}. {name}. {findings}. Last known well {lkw}. Medicines: {meds}. Allergies: {allergies}.",
     "speech_check": {
-      "GOOD": "Glad to hear that, {name}! Just to be safe, let's do a quick speech check. Please repeat after me: The sky is blue in Sydney.",
-      "UNSURE": "That's okay, {name}. I'm here with you, let's check your speech together, to be sure. Please repeat after me: The sky is blue in Sydney.",
-      "BAD": "I'm here, {name}. Let's check your speech while I work out what help you need. Please repeat after me: The sky is blue in Sydney."
+      "GOOD": "Glad to hear that, {name}! Just to be safe, let's do a quick speech check. Please repeat after me: The sky is blue in Abu Dhabi.",
+      "UNSURE": "That's okay, {name}. I'm here with you, let's check your speech together, to be sure. Please repeat after me: The sky is blue in Abu Dhabi.",
+      "BAD": "I'm here, {name}. Let's check your speech while I work out what help you need. Please repeat after me: The sky is blue in Abu Dhabi."
+    }
+  },
+  "ar": {
+    "questions": [
+      "مرحباً {name}، معكِ نوا. لاحظتُ أن قلبكِ ينبض بسرعة منذ نحو 10 دقائق وأنتِ جالسة دون حركة. هل أنتِ بخير؟",
+      "شكراً لكِ يا {name}. لنُجرِ اختبار النطق السريع، هو نفسه الذي نفعله في أحاديث الصباح. من فضلكِ قولي بعدي: السماء زرقاء في أبوظبي.",
+      "كان نطقكِ واضحاً جداً يا {name}، أحسنتِ. والآن، كيف تشعرين؟ هل تشعرين بألم في الصدر، أو دوخة، أو ضعف في الذراع أو الوجه، أو هل سقطتِ؟"
+    ],
+    "repeat_phrase": "السماء زرقاء في أبوظبي",
+    "speech_result": "{name}، يبدو نطقكِ أقل وضوحاً من المعتاد. ابقي جالسة ولا تحاولي الوقوف، فأنا أطلب المساعدة. أنا معكِ.",
+    "goodbye": "لا بأس يا {name}. لنأخذ معاً خمسة أنفاس بطيئة… شهيق… وزفير. اشربي رشفة ماء واجلسي في مكان مريح. سأطمئن عليكِ مرة أخرى بعد 10 دقائق. تصبحين على خير يا {name}.",
+    "yes_no": "هل تسمعينني؟ اضغطي نعم أو لا.",
+    "caller_default": "عائلتكِ",
+    "safety": {
+      "SIT_STILL": "ابقي جالسة ولا تحاولي النهوض.",
+      "HELP_COMING": "أطلب من {helper} القدوم إليكِ.",
+      "GET_HELP": "{name}، معكِ نوا. أطلب لكِ المساعدة الآن. ابقي جالسة ولا تحاولي الوقوف. أنا هنا معكِ."
+    },
+    "messages": {
+      "NEARBY": "قد تكون {name} {problem}. المسافة إليها نحو {eta} دقيقة. يُرجى استخدام المفتاح الاحتياطي عند الحاجة.",
+      "NEARBY_NO_ETA": "قد تكون {name} {problem}. يُرجى التوجه إلى {address} الآن.",
+      "DISTANT": "قد تكون {name} {problem}. تم تنبيه {helper}."
+    },
+    "problems": {
+      "EMERGENCY": "تعاني من سكتة دماغية",
+      "COME_NOW": "في خطر"
+    },
+    "findings": {
+      "slurred speech": "تلعثم في الكلام",
+      "no answer": "لا تجيب",
+      "fall detected": "سقوط",
+      "answered no": "أجابت بلا",
+      "chest pain": "ألم في الصدر",
+      "dizziness": "دوخة",
+      "fall": "سقوط",
+      "headache": "صداع",
+      "weakness": "ضعف في الذراع أو الوجه",
+      "cannot stand": "لا تستطيع الوقوف"
+    },
+    "unknown": "غير معروف",
+    "recovery": {
+      "MED": "حان وقت دوائكِ {name} {dose}.",
+      "ACTIVITY": "حان وقت {text_lower}."
+    },
+    "call_script": "العنوان {address}. {name}. {findings}. آخر مرة كانت فيها بخير الساعة {lkw}. الأدوية: {meds}. الحساسية: {allergies}.",
+    "speech_check": {
+      "GOOD": "يسعدني سماع ذلك يا {name}! للاطمئنان فقط، لنُجرِ اختبار نطق سريعاً. من فضلكِ قولي بعدي: السماء زرقاء في أبوظبي.",
+      "UNSURE": "لا بأس يا {name}. أنا معكِ، لنتحقق من نطقكِ معاً لنطمئن. من فضلكِ قولي بعدي: السماء زرقاء في أبوظبي.",
+      "BAD": "أنا هنا يا {name}. لنتحقق من نطقكِ بينما أعرف أي مساعدة تحتاجينها. من فضلكِ قولي بعدي: السماء زرقاء في أبوظبي."
     }
   }
 }

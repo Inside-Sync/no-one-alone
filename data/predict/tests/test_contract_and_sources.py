@@ -36,7 +36,7 @@ def test_contract_check_catches_shape_errors(mutate, expect):
     assert any(expect in p for p in check_family_doc(d))
 
 
-@pytest.mark.parametrize("pid", ["../ba-mai", "Ba-Mai", "ba_mai", "", "margaret/../x"])
+@pytest.mark.parametrize("pid", ["../margaret", "Margaret", "moza_x", "", "margaret/../x"])
 def test_sources_reject_ids_that_are_not_kebab_case(pid):
     with pytest.raises(ValueError):
         sources.load_bundle(pid)

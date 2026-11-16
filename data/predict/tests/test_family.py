@@ -22,9 +22,10 @@ def flags(doc):
 def test_margaret_history_comes_from_fhir_and_relationships_from_the_seed():
     doc = build("margaret")["doc"]
     m = by_id(doc)
-    assert m["margaret-father"]["conditions"] == [{"label": "stroke", "ageAtOnset": 74}, {"label": "type 2 diabetes"}]
+    assert m["margaret-father"]["conditions"] == [{"label": "stroke", "ageAtOnset": 74, "code": "STROKE"},
+                                                  {"label": "type 2 diabetes", "code": "TYPE_2_DIABETES"}]
     assert m["margaret-father"]["deceased"] is True
-    assert m["margaret-mother"]["conditions"] == [{"label": "dementia"}]
+    assert m["margaret-mother"]["conditions"] == [{"label": "dementia", "code": "DEMENTIA"}]
     assert "deceased" not in m["margaret-mother"], "not recorded in FHIR, so omitted"
     assert m["david"]["relation"] == "brother" and m["david"]["generation"] == 1
     assert m["david"]["parentId"] == "margaret-father", "a brother shares Margaret's parents"
@@ -60,36 +61,18 @@ def test_margaret_children_and_brother_get_bp_and_sugar_flags_with_documented_re
     assert reasons[("david", family.SUGAR_TEST)] == "Father: type 2 diabetes"
 
 
-def test_ba_mai_father_uses_the_contract_name_and_hung_has_no_invented_history():
-    doc = build("ba-mai")["doc"]
-    m = by_id(doc)
-    assert (m["ong-tu"]["name"], m["ong-tu"]["relation"]) == ("Ông Tư", "father")
-    assert m["ong-tu"]["conditions"] == [{"label": "stroke", "ageAtOnset": 68}, {"label": "hypertension"}]
-    assert m["ong-hung"] == {"id": "ong-hung", "name": "Ông Hùng", "relation": "brother", "generation": 1,
-                             "conditions": [], "parentId": "ong-tu"}
-    assert m["ba-mai"]["parentId"] == "ong-tu"
-
-
-def test_ba_mai_flags_lan_tuan_and_hung_for_blood_pressure_only():
-    doc = build("ba-mai")["doc"]
-    assert flags(doc) == [("lan", family.BP_CHECK), ("ong-hung", family.BP_CHECK), ("tuan", family.BP_CHECK)]
-    reasons = {f["memberId"]: f["reason"] for f in doc["flags"]}
-    assert reasons["lan"] == "Mother: hypertension; grandfather: stroke at 68, hypertension"
-    assert reasons["ong-hung"] == "Father: stroke at 68, hypertension"
-
-
 def test_missing_family_history_keeps_self_based_flags_and_no_parents():
-    resources = [r for r in sources.load_bundle("ba-mai") if r["resourceType"] != "FamilyMemberHistory"]
-    doc = build("ba-mai", resources)["doc"]
+    resources = [r for r in sources.load_bundle("margaret") if r["resourceType"] != "FamilyMemberHistory"]
+    doc = build("margaret", resources)["doc"]
     assert {m["generation"] for m in doc["members"]} == {1, 2}
-    assert "parentId" not in by_id(doc)["ong-hung"] and "parentId" not in by_id(doc)["ba-mai"]
-    assert flags(doc) == [("lan", family.BP_CHECK), ("tuan", family.BP_CHECK)]
+    assert "parentId" not in by_id(doc)["david"] and "parentId" not in by_id(doc)["margaret"]
+    assert flags(doc) == sorted((c, s) for c in ("james", "sarah") for s in (family.BP_CHECK, family.SUGAR_TEST))
     assert all("grandfather" not in f["reason"] for f in doc["flags"])
 
 
 def test_no_documented_history_gives_no_flags():
-    resources = [r for r in sources.load_bundle("ba-mai") if r["resourceType"] not in ("FamilyMemberHistory", "Condition")]
-    doc = build("ba-mai", resources)["doc"]
+    resources = [r for r in sources.load_bundle("margaret") if r["resourceType"] not in ("FamilyMemberHistory", "Condition")]
+    doc = build("margaret", resources)["doc"]
     assert doc["flags"] == []
     assert all(m["conditions"] == [] for m in doc["members"])
 
@@ -107,12 +90,13 @@ def test_unknown_relation_and_entered_in_error_history_are_skipped_not_guessed()
 
 
 def test_inactive_and_unconfirmed_conditions_never_enter_the_tree():
-    resources = copy.deepcopy(sources.load_bundle("ba-mai"))
+    resources = copy.deepcopy(sources.load_bundle("margaret"))
     for r in resources:
-        if r["id"] == "ba-mai-hypertension":
+        if r["id"] == "margaret-hypertension":
             r["verificationStatus"]["coding"][0]["code"] = "unconfirmed"
-    doc = build("ba-mai", resources)["doc"]
-    assert by_id(doc)["ba-mai"]["conditions"] == [{"label": "hearing loss"}]
+    doc = build("margaret", resources)["doc"]
+    assert [c["label"] for c in by_id(doc)["margaret"]["conditions"]] == [
+        "chronic kidney disease stage 3a", "hearing loss", "osteoarthritis of both knees", "prediabetes"]
     assert all("Mother: hypertension" not in f["reason"] for f in doc["flags"])
 
 
@@ -132,8 +116,6 @@ def test_only_relatives_recorded_as_deceased_are_marked():
     margaret = build("margaret")["facts"]
     assert margaret[("james", family.BP_CHECK)] == ["mother: hypertension", "grandfather (deceased): stroke at 74"]
     assert margaret[("david", family.BP_CHECK)] == ["father (deceased): stroke at 74"]
-    hung = build("ba-mai")["facts"][("ong-hung", family.BP_CHECK)]
-    assert hung == ["father (deceased): stroke at 68", "father (deceased): hypertension"]
 
 
 def test_unknown_or_living_status_is_never_marked_deceased():
@@ -163,10 +145,22 @@ def test_no_internal_fields_leak_into_the_document(pid):
     for m in build(pid)["doc"]["members"]:
         assert set(m) <= {"id", "name", "relation", "generation", "deceased", "parentId", "conditions"}
         for c in m["conditions"]:
-            assert set(c) <= {"label", "ageAtOnset"}
+            assert set(c) <= {"label", "ageAtOnset", "code"}
 
 
 @pytest.mark.parametrize("code,kind", [("230690007", family.STROKE), ("38341003", family.HTN),
                                        ("44054006", family.T2D), ("714628002", family.PREDIABETES)])
 def test_snomed_code_alone_identifies_the_condition(code, kind):
     assert family._kind({"coding": [{"system": family.SNOMED, "code": code}], "text": "recorded by GP"}) == kind
+
+
+def test_each_condition_carries_a_stable_code_next_to_its_label_and_unknown_ones_get_none():
+    m = by_id(build("margaret")["doc"])
+    assert {c["label"]: c["code"] for c in m["margaret"]["conditions"]} == {
+        "chronic kidney disease stage 3a": "CHRONIC_KIDNEY_DISEASE", "hearing loss": "HEARING_LOSS", "hypertension": "HYPERTENSION",
+        "osteoarthritis of both knees": "OSTEOARTHRITIS", "prediabetes": "PREDIABETES"}
+    assert family._condition_code({"text": "glaucoma, left eye"}) == "GLAUCOMA"
+    assert family._condition_code({"text": "atrial fibrillation"}) == "ATRIAL_FIBRILLATION"
+    assert family._condition_code({"coding": [{"system": family.SNOMED, "code": "38341003"}], "text": "high BP"}) == "HYPERTENSION"
+    assert family._condition_code({"text": "chilblains"}) is None
+    assert "code" not in family._public({"label": "chilblains", "code": None})

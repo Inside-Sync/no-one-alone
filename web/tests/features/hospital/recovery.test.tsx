@@ -71,14 +71,31 @@ test('posts the plan with each medicine change and its ticked slots, Stop with n
   ])
   expect(body.activities[1]).toEqual({
     text: 'Check blood pressure morning and evening, target under 130/80', times: ['08:15', '18:15'],
-    reminder: 'Time to check your blood pressure. Aim for under 130/80.',
+    reminder: 'Time to check your blood pressure. Aim for under 130/80.', key: 'blood_pressure',
   })
+  expect(body.meds.map((m) => m.key)).toEqual(['apixaban', 'perindopril', 'atorvastatin', 'amlodipine', 'vitamin_d', 'aspirin'])
+  expect(body.activities.map((a) => a.key)).toEqual(['walk', 'blood_pressure', 'speech', 'water', undefined, undefined, undefined])
   expect(body.activities.map((a) => a.reminder)).toEqual([
     'Time for your 20-minute walk.', 'Time to check your blood pressure. Aim for under 130/80.',
     'Time for your speech exercises, 15 minutes.', 'Time for a glass of water.', undefined, undefined, undefined,
   ])
   expect(body.followUps.map((f) => f.inDays)).toEqual([7, 4, 6, 45, 7])
   expect(body.meds[0].note).toBe('Stops clots forming because of the uneven heartbeat. Replaces aspirin.')
+})
+
+test('retyping a catalogue medicine or instruction drops its key, so core-api derives it again', async () => {
+  liveValue.incident = incident({})
+  renderWithProviders(<PatientPage />, { who: 'family' })
+  await ready()
+  fireEvent.change(screen.getByLabelText('Medicine 2 name'), { target: { value: 'Ramipril' } })
+  fireEvent.change(screen.getByLabelText('Activity 1'), { target: { value: 'Walk to the park' } })
+  finalise()
+  fireEvent.click(approve())
+  await waitFor(() => expect(recover).toHaveBeenCalledTimes(1))
+  const body = recover.mock.calls[0][0]
+  expect(body.meds[1]).not.toHaveProperty('key')
+  expect(body.meds[0].key).toBe('apixaban')
+  expect(body.activities[0]).not.toHaveProperty('key')
 })
 
 test('Note for patient is sent as written, and left out when empty', async () => {

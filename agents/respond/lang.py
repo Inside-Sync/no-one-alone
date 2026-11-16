@@ -6,8 +6,13 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 
+def lang_of(person: dict) -> str:
+    """The script language for a person or circle member: "ar" for an Arabic locale, otherwise "en"."""
+    return "ar" if (person.get("locale") or "").lower().startswith("ar") else "en"
+
+
 def is_en(person: dict) -> bool:
-    return (person.get("locale") or "").lower().startswith("en")
+    return lang_of(person) == "en"
 
 
 @lru_cache(maxsize=1)
@@ -19,4 +24,4 @@ def fmt_local(iso: str | None, tz: str | None) -> str | None:
     if iso is None:
         return None
     at = datetime.fromisoformat(iso.replace("Z", "+00:00"))
-    return at.astimezone(ZoneInfo(tz or "Asia/Ho_Chi_Minh")).strftime("%H:%M")
+    return at.astimezone(ZoneInfo(tz or "Asia/Dubai")).strftime("%H:%M")

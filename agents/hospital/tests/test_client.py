@@ -163,7 +163,7 @@ def test_log_line_has_no_patient_data_or_token(stub, request_body, packet, caplo
     stub(Calls(error=hc.TransportError("a2a: ConnectError")), Calls(reply=packet))
     run(hc.send_handoff("https://hospital.test", request_body, token_provider=lambda _: TOKEN))
     text = " ".join(r.getMessage() for r in caplog.records)
-    for secret in ("Bà Mai", "Ông Hùng", "slurred", "HR 142", "penicillin", "amlodipine", TOKEN):
+    for secret in ("Moza Al Hammadi", "Hamad", "slurred", "HR 142", "penicillin", "amlodipine", TOKEN):
         assert secret not in text
     log = last_log(caplog)
     assert log["incidentId"] == request_body["incidentId"] and log["packetStatus"] == "COMPLETED"
@@ -205,23 +205,9 @@ class Proxy(httpx.AsyncBaseTransport):
         await self.inner.aclose()
 
 
-def margaret(body):
-    body = dict(body, personId="margaret", lastKnownWellAt="2026-10-15T14:55:00Z",
-                onScene={"name": "David", "relation": "son"})
-    body["hospital"] = {"id": "sydney-stroke-center", "name": "Sydney Stroke Center (demo)", "etaMin": 9}
-    return body
-
-
-def test_live_a2a_ba_mai_returns_golden_packet(server_url, request_body, packet):
+def test_live_a2a_returns_golden_packet(server_url, request_body, packet):
     out = run(hc.send_handoff(server_url, request_body, auth=False))
     assert out == {"status": "RECEIVED", "fallback": False, "packet": packet}
-
-
-def test_live_a2a_margaret(server_url, request_body):
-    out = run(hc.send_handoff(server_url, margaret(request_body), auth=False))
-    assert out["status"] == "RECEIVED" and out["fallback"] is False
-    assert out["packet"]["status"] == "COMPLETED"
-    assert out["packet"]["patient"] == {"name": "Margaret Collins", "age": 78, "sex": "F"}
 
 
 def test_live_invalid_request_is_failed_without_fallback(server_url, request_body, caplog):

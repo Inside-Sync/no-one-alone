@@ -763,5 +763,48 @@
     "name": "حمد",
     "initial": "د"
   },
-  "deviceCircleLabel": "دائرة عائلة موزة"
+  "deviceCircleLabel": "دائرة عائلة موزة",
+  "line": {
+    "sep": "، ",
+    "ALERT": "النبض {{hr}}، بلا حركة منذ {{min}} دقيقة",
+    "fallback": {
+      "VERIFY": "اعتمد التحقق على الإجراء البديل",
+      "CHECKIN": "اعتمد الاطمئنان على الإجراء البديل",
+      "TRIAGE": "اعتمد التقييم على الإجراء البديل",
+      "PLAN": "اعتمدت الخطة على الإجراء البديل",
+      "HANDOFF": "اعتمد التسليم على الإجراء البديل"
+    },
+    "answered": {
+      "YES": "نعم",
+      "NO": "لا",
+      "noSpeech": "بلا كلام"
+    },
+    "NO_REPLY": "لا رد",
+    "level": {
+      "OK": "سليم",
+      "MONITOR": "مراقبة",
+      "COME_NOW": "تعال الآن",
+      "EMERGENCY": "طوارئ"
+    },
+    "TRIAGED": "المستوى {{level}}: {{reasons}}",
+    "ALERTED": "تم تنبيه {{names}}",
+    "ALERTED_STROKE": "تم تنبيه {{names}}: سكتة محتملة",
+    "NOTIFIED": "الاتصال بـ {{name}}",
+    "NOTIFIED_ETA": "الاتصال بـ {{name}}، على بعد {{eta}} دقيقة",
+    "EXPIRED": "{{name}} لم يجب خلال {{seconds}} ث",
+    "EXPIRED_VOICEMAIL": "{{name}} لم يجب خلال {{seconds}} ث · أُرسلت رسالة صوتية ونصية",
+    "ACCEPTED": "{{name}} وافق",
+    "DECLINED": "{{name}} لا يستطيع المجيء",
+    "ARRIVED": "{{name}} وصل",
+    "NO_NEARBY": "لم يقبل أحد من القريبين",
+    "CALLED_115_AUTO": "الاتصال بـ {{number}} تلقائياً مع نص المكالمة (مكالمة تجريبية)",
+    "CALLED_115_MEMBER": "{{name}} اتصل بـ {{number}}",
+    "HANDOFF_RECEIVED": "تم الاستلام. فُعّل نداء السكتة، وجهاز الأشعة المقطعية في الانتظار.",
+    "HANDOFF_FAILED": "تعذر الوصول إلى {{hospital}}",
+    "closed": {
+      "CHECKIN": "أُغلقت بعد الاطمئنان",
+      "CONSOLE": "أُغلقت من لوحة العرض"
+    },
+    "DISCHARGED": "عادت إلى المنزل بخطة تعافٍ بإشراف {{name}}"
+  }
 }

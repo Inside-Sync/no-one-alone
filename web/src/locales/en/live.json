@@ -763,5 +763,48 @@
     "name": "Hamad",
     "initial": "D"
   },
-  "deviceCircleLabel": "Moza's family circle"
+  "deviceCircleLabel": "Moza's family circle",
+  "line": {
+    "sep": ", ",
+    "ALERT": "HR {{hr}}, no movement {{min}} min",
+    "fallback": {
+      "VERIFY": "Verify used fallback",
+      "CHECKIN": "Check-in used fallback",
+      "TRIAGE": "Triage used fallback",
+      "PLAN": "Plan used fallback",
+      "HANDOFF": "Handoff used fallback"
+    },
+    "answered": {
+      "YES": "Yes",
+      "NO": "No",
+      "noSpeech": "No speech"
+    },
+    "NO_REPLY": "No reply",
+    "level": {
+      "OK": "OK",
+      "MONITOR": "Monitor",
+      "COME_NOW": "Come now",
+      "EMERGENCY": "Emergency"
+    },
+    "TRIAGED": "Level {{level}}: {{reasons}}",
+    "ALERTED": "Alerted {{names}}",
+    "ALERTED_STROKE": "Alerted {{names}}: possible stroke",
+    "NOTIFIED": "Calling {{name}}",
+    "NOTIFIED_ETA": "Calling {{name}}, {{eta}} min away",
+    "EXPIRED": "{{name}} did not answer in {{seconds}} s",
+    "EXPIRED_VOICEMAIL": "{{name}} did not answer in {{seconds}} s · voicemail and text sent",
+    "ACCEPTED": "{{name}} accepted",
+    "DECLINED": "{{name}} cannot go",
+    "ARRIVED": "{{name}} arrived",
+    "NO_NEARBY": "No one nearby accepted",
+    "CALLED_115_AUTO": "Calling {{number}} automatically with the call script (demo call)",
+    "CALLED_115_MEMBER": "{{name}} called {{number}}",
+    "HANDOFF_RECEIVED": "Received. Stroke call activated, CT scanner on standby.",
+    "HANDOFF_FAILED": "Could not reach {{hospital}}",
+    "closed": {
+      "CHECKIN": "Closed after check-in",
+      "CONSOLE": "Closed from the demo console"
+    },
+    "DISCHARGED": "Discharged home with a recovery plan by {{name}}"
+  }
 }

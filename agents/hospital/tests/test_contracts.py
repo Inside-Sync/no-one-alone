@@ -7,10 +7,10 @@ from tests.conftest import ROOT, load_json
 
 def test_contract_request_parses(request_body):
     req = HandoffRequest.model_validate(request_body)
-    assert req.person_id == "ba-mai"
-    assert req.hospital.eta_min == 14
-    assert req.on_scene.name == "Ông Hùng"
-    assert req.last_known_well_at == "2026-10-15T18:55:00Z"
+    assert req.person_id == "margaret"
+    assert req.hospital.eta_min == 11
+    assert req.on_scene.name == "Hamad"
+    assert req.last_known_well_at == "2026-10-15T21:22:00Z"
 
 
 @pytest.mark.parametrize("field", ["incidentId", "personId", "level", "suspected", "hospital"])
@@ -57,7 +57,7 @@ def test_error_shape_matches_contract():
     assert ErrorBody.of("INVALID_REQUEST", "bad").to_json() == {"error": {"code": "INVALID_REQUEST", "message": "bad"}}
 
 
-@pytest.mark.parametrize("name", ["ba-mai", "margaret"])
+@pytest.mark.parametrize("name", ["margaret"])
 def test_every_bundle_is_synthetic_with_resolvable_references(name):
     bundle = load_json(ROOT / "data" / "fhir" / f"{name}.json")
     assert bundle["type"] == "transaction"

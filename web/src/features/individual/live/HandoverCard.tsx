@@ -6,7 +6,7 @@ import { GlassCard } from '@/components/ui/GlassCard'
 import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import type { IncidentDoc } from '@/data/contract'
 import type { AgentView } from '@/domain/agent'
-import { clockTime, memberName, type LivePeople, type LiveView } from '@/domain/incident'
+import { clockTime, memberName, timelineLine, type LivePeople, type LiveView } from '@/domain/incident'
 import { Kv } from '@/features/shared/drawers'
 
 interface Hand { id: string; at: number; icon: IconName; to: string; what: string; rows: [string, string][] }
@@ -44,7 +44,7 @@ export function HandoverCard({ incident, view, people, agent }: { incident: Inci
     const called = incident.timeline.find((e) => e.kind === 'CALLED_115')
     if (called) {
       hands.push({ id: 'ooo', at: ms(called.at), icon: 'ambulance', to: t('hand.ambulance', { num }), what: t('hand.fullCall'),
-        rows: [[t('hand.how'), called.text], ...(incident.callScript ? [[t('hand.script'), incident.callScript] as [string, string]] : [])] })
+        rows: [[t('hand.how'), timelineLine(incident, people, called)], ...(incident.callScript ? [[t('hand.script'), incident.callScript] as [string, string]] : [])] })
     }
     const sent = incident.timeline.find((e) => e.kind === 'HANDOFF_SENT')
     if (sent && incident.handoff) {

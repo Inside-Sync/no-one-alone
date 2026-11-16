@@ -5,8 +5,8 @@
  */
 import i18n, { LANGUAGES } from '@/i18n'
 import type { IconName } from '@/data/types'
-import type { AssignmentDoc, CircleEntryDoc, IncidentDoc, LatLng, TimelineDoc, TimelineKind } from '@/data/contract'
-import { clockTime, memberName, type LivePeople } from './incident'
+import type { AssignmentDoc, CircleEntryDoc, IncidentDoc, LatLng, TimelineDoc, TimelineKind, TurnDoc } from '@/data/contract'
+import { clockTime, memberName, timelineLine, type LivePeople } from './incident'
 
 export type StepState = '' | 'done' | 'cur' | 'fail' | 'skip'
 export type Tone = 'green' | 'amber' | 'red'
@@ -31,11 +31,15 @@ const initials = (s: string) => s.split(/\s+/).filter(Boolean).slice(0, 2).map((
 const has = (inc: IncidentDoc, k: TimelineKind) => inc.timeline.some((e) => e.kind === k)
 const entry = (inc: IncidentDoc, k: TimelineKind): TimelineDoc | undefined => inc.timeline.find((e) => e.kind === k)
 /**
- * True for the agent question that starts the speech check. The agent's own words are not an id, so the test is the
- * check's sentence in every language the app has (`live:speech.phrase`); core-api should tag that turn (see the report).
+ * True for an agent question that starts the speech check, by its words: the check's sentence in every language the
+ * app has (`live:speech.phrase`). Only for turns core-api did not tag (see `isSpeechCheckTurn`).
  */
 export const isSpeechCheck = (text: string): boolean =>
   LANGUAGES.some((l) => text.toLowerCase().includes(i18n.getFixedT(l, 'live')('speech.phrase')))
+
+/** True for the agent turn that starts the speech check: its `kind` when core-api set one, else its words. */
+export const isSpeechCheckTurn = (turn: Pick<TurnDoc, 'kind' | 'text'>): boolean =>
+  turn.kind !== undefined ? turn.kind === 'SPEECH_CHECK' : isSpeechCheck(turn.text)
 /** Initials colours of the prototype's call cards, by call order; 000 is always red. */
 const COLORS = ['#e07a3f', '#2f6fb0', '#7a5bd1', '#c2417a']
 
@@ -93,7 +97,7 @@ const toneOf = (inc: IncidentDoc): Tone | null =>
 function checkSteps(inc: IncidentDoc): Record<'ask' | 'speech' | 'feel', StepState> {
   const turns = inc.checkIn?.turns ?? []
   const asks = turns.map((t, i) => ({ t, i })).filter(({ t }) => t.by === 'AGENT')
-  const speechAt = asks.find(({ t }) => isSpeechCheck(t.text))?.i ?? -1
+  const speechAt = asks.find(({ t }) => isSpeechCheckTurn(t))?.i ?? -1
   const triaged = has(inc, 'TRIAGED') || (inc.status !== 'VERIFYING' && inc.status !== 'CHECKING_IN')
   const reply = (from: number) => turns.slice(from + 1).find((t) => t.by === 'PERSON')
   const clarity = speechAt >= 0 ? reply(speechAt)?.assessment?.clarity : undefined
@@ -216,7 +220,7 @@ export function agentView(inc: IncidentDoc | null, people: LivePeople): AgentVie
   const after = inc.timeline.filter((e) => e.kind !== 'ASKED' && e.kind !== 'ANSWERED' && e.kind !== 'NO_REPLY')
   const now = !triaged
     ? (inc.verify && !inc.verify.isReal ? inc.verify.reason : tl(inc.alert.kind === 'FALL_IMPACT_NO_MOVEMENT' ? 'nowFall' : 'nowHr', { hr, name }))
-    : after[after.length - 1]?.text ?? ''
+    : after.length ? timelineLine(inc, people, after[after.length - 1]) : ''
 
   return {
     label: pillLabel(inc, steps, people),

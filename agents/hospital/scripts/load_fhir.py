@@ -26,7 +26,7 @@ from handoff import pipeline  # noqa: E402
 from handoff.fhir import DEFAULT_DIR, PERSON_ID, FixtureReader  # noqa: E402
 from handoff.live import AdcTokens, HealthcareReader, api_base, store_name  # noqa: E402
 
-PEOPLE = ("ba-mai", "margaret")
+PEOPLE = ("margaret",)
 HTEST = ("http://terminology.hl7.org/CodeSystem/v3-ActReason", "HTEST")
 VERIFY_AT = datetime(2026, 10, 15, 19, 7, tzinfo=timezone.utc)
 

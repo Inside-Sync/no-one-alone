@@ -8,6 +8,7 @@ import { PageError } from '@/features/shared/PageError'
 import { useRepo } from '@/features/shared/useRepo'
 import { STEPS } from '@/domain/emergency'
 import { ambulanceStatus, heardLimit } from '@/domain/incident'
+import { isAutoCall, type TimelineLike } from '@/domain/timeline'
 import { agentView } from '@/domain/agent'
 import { ALERT_MIN, NO_REPLY_SECONDS, SIM_DEFAULTS, alertRun, clockText, scenarioFor, type Watch } from '@/domain/simulator'
 import { useToast } from '@/components/ui/Toast'
@@ -55,8 +56,8 @@ function useFlash(on: boolean) {
   }, [on])
 }
 
-type Timeline = readonly { at: string; kind: string; text: string }[]
-const autoCall = (timeline: Timeline) => timeline.find((e) => e.kind === 'CALLED_115' && e.text.startsWith('Calling '))
+type Timeline = readonly TimelineLike[]
+const autoCall = (timeline: Timeline) => timeline.find(isAutoCall)
 
 /** Rings or dials once per new call, one sound after another; returns the calls seen at load and the 000 dial. */
 function useCallRing(timeline: Timeline | undefined, id = '') {

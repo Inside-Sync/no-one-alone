@@ -1,4 +1,4 @@
-import type { CircleEntryDoc, FamilyDoc, HospitalDoc, LatLng, PersonDoc } from '../contract'
+import type { CircleEntryDoc, ConditionCode, FamilyDoc, HospitalDoc, LatLng, PersonDoc } from '../contract'
 import type {
   CircleMember, ConditionKey, Lineage, LineageGeneration, LineageMatrixRow, OrbitScene, Person,
   ScreeningRow, SharePerson, StrengthRow,
@@ -179,7 +179,15 @@ const CONDITION_KEY: [RegExp, ConditionKey][] = [
   [/hearing/i, 'HEAR'],
 ]
 
-const keyOf = (label: string) => CONDITION_KEY.find(([re]) => re.test(label))?.[1]
+/** The predict job's `code` for each condition the lineage has a column for; `null` is a known condition with no column. */
+const CODE_KEY: Record<ConditionCode, ConditionKey | null> = {
+  STROKE: 'STR', HYPERTENSION: 'HTN', TYPE_2_DIABETES: 'T2D', PREDIABETES: 'T2D', DEMENTIA: 'DEM', HEARING_LOSS: 'HEAR',
+  ATRIAL_FIBRILLATION: 'AF', GLAUCOMA: 'GLA', CHRONIC_KIDNEY_DISEASE: null, OSTEOARTHRITIS: null,
+}
+
+/** `code` first; the English label's wording only for a document without a code (or one this app does not know). */
+const keyOf = (c: { label: string; code?: string }): ConditionKey | undefined =>
+  c.code !== undefined && c.code in CODE_KEY ? CODE_KEY[c.code as ConditionCode] ?? undefined : CONDITION_KEY.find(([re]) => re.test(c.label))?.[1]
 
 function generationLabel(diff: number, self: string): string {
   if (diff === -2) return i18n.t('overlay:lineage.generation.grandparents')
@@ -196,7 +204,7 @@ export function overlayLineage(l: Lineage, doc: FamilyDoc, viewer: string): Line
   const selfName = firstName(self.name)
   const conds = (m: FamilyDoc['members'][number]) =>
     m.conditions.flatMap((c): [ConditionKey, number | string][] => {
-      const k = keyOf(c.label)
+      const k = keyOf(c)
       return k ? [[k, c.ageAtOnset ?? '✓']] : []
     })
   const gens = [...new Set(doc.members.map((m) => m.generation))].sort((a, b) => a - b)

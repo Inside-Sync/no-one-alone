@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -25,6 +26,7 @@ import com.noonealone.coreapi.agent.TriageResult;
 import com.noonealone.coreapi.agent.TurnResult;
 import com.noonealone.coreapi.agent.VerifyResult;
 import com.noonealone.coreapi.data.Seed;
+import com.noonealone.coreapi.data.SeedData;
 import com.noonealone.coreapi.gcp.AudioStore;
 import com.noonealone.coreapi.gcp.EscalationTimers;
 import com.noonealone.coreapi.gcp.RoutesClient;
@@ -36,10 +38,11 @@ import com.noonealone.coreapi.store.IncidentStore;
 import com.noonealone.coreapi.support.FirestoreTestBase;
 import com.noonealone.coreapi.support.FixedClockConfig;
 import com.noonealone.coreapi.support.SyncExecutorConfig;
+import com.noonealone.coreapi.support.TestPeopleConfig;
 import com.noonealone.coreapi.web.ApiException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@Import({FixedClockConfig.class, SyncExecutorConfig.class})
+@Import({FixedClockConfig.class, SyncExecutorConfig.class, TestPeopleConfig.class})
 class IncidentFlowCheckInTest extends FirestoreTestBase {
 
     @Autowired IncidentFlow flow;
@@ -65,7 +68,7 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
     void start() {
         store.seed(seed.data());
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
-        when(agent.checkinTurn(any())).thenReturn(ask("Mạ ơi?", "VOICE"));
+        when(agent.checkinTurn(any())).thenReturn(ask("Hello?", "VOICE"));
         when(agent.plan(any())).thenThrow(new AgentException("not under test", null));
         when(agent.handoff(any())).thenThrow(new AgentException("not under test", null));
         flow.create(IncidentFlowAlertTest.stroke("c-1"));
@@ -86,17 +89,54 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
     }
 
     @Test
+    void anArabicPersonAnswersYesAndNoInArabic() {
+        SeedData data = seed.data();
+        data.people().get("margaret").locale = "ar-AE";
+        store.seed(data);
+        flow.create(IncidentFlowAlertTest.stroke("c-ar", "margaret"));
+        flow.process("c-ar");
+
+        CheckInInput no = CheckInInput.ofYesNo("NO");
+        flow.acceptCheckIn("c-ar", no);
+        flow.processCheckIn("c-ar", no);
+
+        assertThat(store.get("c-ar").checkIn.turns).filteredOn(t -> "PERSON".equals(t.by))
+                .extracting(t -> t.text).containsExactly("لا");
+    }
+
+    @Test
+    void theScriptedQuestionStepIsKeptOnTheTurnThePendingQuestionAndTheTimeline() {
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Fine", null,
+                new TurnResult.Next("Please repeat after me: the sky is blue.", "VOICE", null, null, "SPEECH_CHECK"), false, false));
+
+        CheckInInput input = CheckInInput.ofYesNo("YES");
+        flow.acceptCheckIn("c-1", input);
+        flow.processCheckIn("c-1", input);
+
+        Incident inc = store.get("c-1");
+        assertThat(inc.checkIn.turns).extracting(t -> t.kind).containsExactly(null, null, "SPEECH_CHECK");
+        assertThat(inc.checkIn.pending.step).isEqualTo("SPEECH_CHECK");
+        assertThat(inc.checkIn.pending.kind).isEqualTo("VOICE");
+        assertThat(inc.timeline).filteredOn(t -> "ASKED".equals(t.kind)).extracting(t -> t.params)
+                .containsExactly(null, Map.of("step", "SPEECH_CHECK"));
+        assertThat(inc.timeline).filteredOn(t -> "ANSWERED".equals(t.kind)).extracting(t -> t.params)
+                .containsExactly(Map.of("answer", "YES"));
+    }
+
+    @Test
     void personWithoutDialectSendsNoDialectKey() {
         flow.create(IncidentFlowAlertTest.stroke("c-m", "margaret"));
         flow.process("c-m");
 
-        verify(agent).checkinTurn(argThat(b -> !((Map<?, ?>) b.get("person")).containsKey("dialect")));
+        // start() already opened one check-in for the same person, so more than one call carries her.
+        verify(agent, atLeastOnce()).checkinTurn(argThat(b -> !((Map<?, ?>) b.get("person")).containsKey("dialect")));
+        verify(agent, never()).checkinTurn(argThat(b -> ((Map<?, ?>) b.get("person")).containsKey("dialect")));
     }
 
     @Test
     void slurredAnswerIsStoredAndNextQuestionAsked() {
-        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Ừ... mạ nghe", slurred(),
-                new TurnResult.Next("Mạ nhắc lại giúp con: hôm nay trời đẹp.", "VOICE", null, null), false, false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Mm... I hear you", slurred(),
+                new TurnResult.Next("Please repeat after me: the sky is blue.", "VOICE", null, null), false, false));
 
         CheckInInput input = CheckInInput.ofAudio(new byte[] {1, 2}, "audio/webm");
         flow.acceptCheckIn("c-1", input);
@@ -106,7 +146,7 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
         assertThat(inc.checkIn.turns).extracting(t -> t.by).containsExactly("AGENT", "PERSON", "AGENT");
         assertThat(inc.checkIn.turns.get(1).assessment.clarity).isEqualTo("SLURRED");
         assertThat(inc.checkIn.busy).isFalse();
-        assertThat(inc.checkIn.pending.text).isEqualTo("Mạ nhắc lại giúp con: hôm nay trời đẹp.");
+        assertThat(inc.checkIn.pending.text).isEqualTo("Please repeat after me: the sky is blue.");
     }
 
     @Test
@@ -120,7 +160,7 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
 
     @Test
     void firstNoReplySwitchesToLargeTextSecondEndsCheckIn() {
-        when(agent.checkinTurn(any())).thenReturn(ask("Mạ có sao không?", "YES_NO"));
+        when(agent.checkinTurn(any())).thenReturn(ask("Are you all right?", "YES_NO"));
         when(agent.triage(any())).thenReturn(new TriageResult(Level.COME_NOW, List.of("no reply"), false));
 
         CheckInInput noReply = CheckInInput.ofNoReply();
@@ -142,7 +182,7 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
 
     @Test
     void okLevelCloses() {
-        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Mạ khỏe", null, null, true, false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("I am fine", null, null, true, false));
         when(agent.triage(any())).thenReturn(new TriageResult(Level.OK, List.of("clear speech"), false));
 
         CheckInInput input = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
@@ -156,9 +196,9 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
 
     @Test
     void okLevelKeepsTheGoodbyeForHerPhone() {
-        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Mạ khỏe", null, null, true, false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("I am fine", null, null, true, false));
         when(agent.triage(any())).thenReturn(new TriageResult(Level.OK, List.of("clear speech"), false,
-                new TriageResult.Closing("Vậy là ổn rồi mạ.", "AQI=")));
+                new TriageResult.Closing("That is all right.", "AQI=")));
         when(audio.save(eq("c-1"), eq("closing.mp3"), any(), eq("audio/mpeg"))).thenReturn("audio/c-1/closing.mp3");
 
         CheckInInput input = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
@@ -167,17 +207,17 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
 
         Incident inc = store.get("c-1");
         assertThat(inc.status).isEqualTo(Status.CLOSED);
-        assertThat(inc.personInstruction.text).isEqualTo("Vậy là ổn rồi mạ.");
+        assertThat(inc.personInstruction.text).isEqualTo("That is all right.");
         assertThat(inc.personInstruction.audioPath).isEqualTo("audio/c-1/closing.mp3");
         assertThat(inc.personInstruction.scriptIds).isEmpty();
-        verify(agent).triage(argThat(b -> "vi-VN".equals(((Map<?, ?>) b.get("person")).get("locale"))));
+        verify(agent).triage(argThat(b -> "en-AE".equals(((Map<?, ?>) b.get("person")).get("locale"))));
     }
 
     @Test
     void goodbyeAudioFailureStillClosesWithText() {
-        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Mạ khỏe", null, null, true, false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("I am fine", null, null, true, false));
         when(agent.triage(any())).thenReturn(new TriageResult(Level.MONITOR, List.of("clear speech"), false,
-                new TriageResult.Closing("Vậy là ổn rồi mạ.", "%%%")));
+                new TriageResult.Closing("That is all right.", "%%%")));
 
         CheckInInput input = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
         flow.acceptCheckIn("c-1", input);
@@ -185,13 +225,13 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
 
         Incident inc = store.get("c-1");
         assertThat(inc.status).isEqualTo(Status.CLOSED);
-        assertThat(inc.personInstruction.text).isEqualTo("Vậy là ổn rồi mạ.");
+        assertThat(inc.personInstruction.text).isEqualTo("That is all right.");
         assertThat(inc.personInstruction.audioPath).isNull();
     }
 
     @Test
     void emergencyIgnoresAClosing() {
-        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Ừ...", slurred(), null, true, false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Mm...", slurred(), null, true, false));
         when(agent.triage(any())).thenReturn(new TriageResult(Level.EMERGENCY, List.of("slurred speech"), false,
                 new TriageResult.Closing("bye", "AQI=")));
 
@@ -207,8 +247,8 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
 
     @Test
     void agentDownMidCheckInStillReachesALevel() {
-        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Ừ...", slurred(),
-                new TurnResult.Next("Mạ nhắc lại?", "VOICE", null, null), false, false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult("Mm...", slurred(),
+                new TurnResult.Next("Please repeat?", "VOICE", null, null), false, false));
         CheckInInput first = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
         flow.acceptCheckIn("c-1", first);
         flow.processCheckIn("c-1", first);
@@ -277,7 +317,7 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
                 x.status = Status.CLOSED;
                 return true;
             });
-            return ask("Mạ ơi?", "VOICE");
+            return ask("Hello?", "VOICE");
         });
         CheckInInput input = CheckInInput.ofYesNo("YES");
         flow.acceptCheckIn("c-1", input);
@@ -291,13 +331,13 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
     @Test
     void malformedQuestionAudioStillAsksTheQuestion() {
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Mạ ơi?", "VOICE", "%%%", null), false, false));
+                new TurnResult.Next("Hello?", "VOICE", "%%%", null), false, false));
         CheckInInput input = CheckInInput.ofYesNo("YES");
         flow.acceptCheckIn("c-1", input);
         flow.processCheckIn("c-1", input);
 
         Incident inc = store.get("c-1");
-        assertThat(inc.checkIn.pending.text).isEqualTo("Mạ ơi?");
+        assertThat(inc.checkIn.pending.text).isEqualTo("Hello?");
         assertThat(inc.checkIn.pending.audioPath).isNull();
     }
 }

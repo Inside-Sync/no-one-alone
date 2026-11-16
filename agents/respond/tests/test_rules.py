@@ -7,7 +7,7 @@ import pytest
 import rules
 
 DATA = Path(__file__).resolve().parents[3] / "core-api/src/main/resources/data"
-ALERT_AT = datetime(2026, 10, 15, 19, 3)
+ALERT_AT = datetime(2026, 10, 15, 22, 3)
 SEED = json.loads((DATA / "seed.json").read_text(encoding="utf-8"))["people"]
 
 
@@ -23,13 +23,13 @@ def fixture(name, person="margaret"):
 
 def test_stroke_and_fall_are_real_false_alarm_is_not():
     assert rules.verify(fixture("stroke"))["isReal"]
-    assert rules.verify(fixture("fall", "ba-mai"))["isReal"]
+    assert rules.verify(fixture("fall"))["isReal"]
     assert not rules.verify(fixture("false-alarm"))["isReal"]
 
 
 def test_last_known_well_is_last_moving_near_baseline_point():
     body = fixture("stroke")
-    assert rules.verify(body)["lastKnownWellAt"] == "2026-10-15T18:52:00Z"
+    assert rules.verify(body)["lastKnownWellAt"] == "2026-10-15T21:52:00Z"
 
 
 def test_empty_window_has_no_last_known_well():
@@ -46,7 +46,7 @@ def person(text, **a):
 
 
 def test_slurred_anywhere_is_emergency():
-    r = rules.triage({"alert": alert(), "turns": [person("Ừ", clarity="SLURRED"), person("Có")]})
+    r = rules.triage({"alert": alert(), "turns": [person("نعم", clarity="SLURRED"), person("نعم")]})
     assert r["level"] == "EMERGENCY" and "slurred speech" in r["reasons"]
 
 
@@ -65,7 +65,7 @@ def test_unresponsive_with_high_hr_is_emergency():
 
 
 def test_clear_yes_answer_is_monitor():
-    r = rules.triage({"alert": alert(80), "turns": [person("Có")]})
+    r = rules.triage({"alert": alert(80), "turns": [person("نعم")]})
     assert r["level"] == "MONITOR" and r["fallback"] is False
 
 
@@ -74,7 +74,7 @@ def test_clear_yes_answer_is_monitor():
     ("My face feels weak", "EMERGENCY", "weakness"),
     ("I have chest pain", "EMERGENCY", "chest pain"),
     ("I fell over in the kitchen", "EMERGENCY", "fall"),
-    ("Tay mạ yếu lắm", "EMERGENCY", "weakness"),
+    ("ذراعي ضعيفة جداً", "EMERGENCY", "weakness"),
     ("No pain. But I feel dizzy and my heart is fluttering.", "COME_NOW", "dizziness"),
     ("No, none of that. I had a bad dream and got up for a cup of tea.", "MONITOR", None),
     ("No, I fell over", "EMERGENCY", "fall"),
@@ -82,8 +82,8 @@ def test_clear_yes_answer_is_monitor():
     ("No… my face feels funny", "EMERGENCY", "weakness"),
     ("No chest pain", "MONITOR", None),
     ("I don't have chest pain", "MONITOR", None),
-    ("Mạ không đau ngực", "MONITOR", None),
-    ("Mạ giơ tay lên được", "MONITOR", None),
+    ("عندي ألم في الصدر", "EMERGENCY", "chest pain"),
+    ("أستطيع رفع يدي", "MONITOR", None),
 ])
 def test_how_she_feels_answer_sets_level(text, level, reason):
     r = rules.triage({"alert": alert(), "turns": [person(text)]})
@@ -91,17 +91,17 @@ def test_how_she_feels_answer_sets_level(text, level, reason):
 
 
 def test_gemini_symptoms_count_too():
-    r = rules.triage({"alert": alert(), "turns": [person("Có", symptoms=["chest pain"])]})
+    r = rules.triage({"alert": alert(), "turns": [person("نعم", symptoms=["chest pain"])]})
     assert r["level"] == "EMERGENCY" and "chest pain" in r["reasons"]
 
 
 def test_fall_alert_escalates_even_with_yes():
-    r = rules.triage({"alert": fixture("fall")["alert"], "turns": [person("Có")]})
+    r = rules.triage({"alert": fixture("fall")["alert"], "turns": [person("نعم")]})
     assert r["level"] == "COME_NOW" and "fall detected" in r["reasons"]
 
 
 def test_answered_no_is_come_now():
-    assert rules.triage({"alert": alert(), "turns": [person("Không")]})["level"] == "COME_NOW"
+    assert rules.triage({"alert": alert(), "turns": [person("لا")]})["level"] == "COME_NOW"
 
 
 def test_null_text_does_not_crash():

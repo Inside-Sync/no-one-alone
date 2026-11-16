@@ -118,15 +118,14 @@ class FakeDb:
 def test_dry_run_writes_nothing_and_checks_both_documents(capsys):
     assert run.main(["family", "--person", "all"]) == 0
     out = capsys.readouterr().out
-    assert "DRY RUN: would set families/margaret" in out and "DRY RUN: would set families/ba-mai" in out
+    assert "DRY RUN: would set families/margaret" in out
     assert "families/margaret: 6 members, 6 flags, 0 explained" in out
-    assert "families/ba-mai: 5 members, 3 flags, 0 explained" in out
 
 
 def test_write_sets_whole_documents_only_in_families():
     db = FakeDb()
     assert run.main(["family", "--person", "all", "--write"], db=db) == 0
-    assert [(c, i) for c, i, _ in db.sets] == [("families", "margaret"), ("families", "ba-mai")]
+    assert [(c, i) for c, i, _ in db.sets] == [("families", "margaret")]
     assert set(db.sets[0][2]) == {"members", "flags"}
 
 
@@ -138,7 +137,7 @@ def test_gemini_explanations_are_added_only_when_valid():
     assert run.main(["family", "--person", "margaret", "--write"], db=db,
                     explainer=GeminiExplainer(client=FakeClient(replies))) == 0
     flags = db.sets[0][2]["flags"]
-    # David is her brother: "your mother ... grandfather" is not in his facts, so both his flags stay unexplained
+    # Hamad is her brother: "your mother ... grandfather" is not in his facts, so both his flags stay unexplained
     assert [(f["memberId"], "explanation" in f) for f in flags] == [("james", True), ("james", False), ("david", False),
                                                                     ("david", False), ("sarah", True), ("sarah", False)]
 

@@ -27,9 +27,10 @@ import com.noonealone.coreapi.store.IncidentStore;
 import com.noonealone.coreapi.support.FirestoreTestBase;
 import com.noonealone.coreapi.support.FixedClockConfig;
 import com.noonealone.coreapi.support.SyncExecutorConfig;
+import com.noonealone.coreapi.support.TestPeopleConfig;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@Import({FixedClockConfig.class, SyncExecutorConfig.class})
+@Import({FixedClockConfig.class, SyncExecutorConfig.class, TestPeopleConfig.class})
 class IncidentFlowAlertTest extends FirestoreTestBase {
 
     @Autowired IncidentFlow flow;
@@ -38,7 +39,7 @@ class IncidentFlowAlertTest extends FirestoreTestBase {
     @MockBean RespondAgentClient agent;
 
     static AlertMessage stroke(String id) {
-        return stroke(id, "ba-mai");
+        return stroke(id, "test-elder");
     }
 
     static AlertMessage stroke(String id, String personId) {
@@ -58,7 +59,7 @@ class IncidentFlowAlertTest extends FirestoreTestBase {
     void realAlertAsksTheFirstQuestion() {
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "HR 142 at night", "2026-10-15T18:55:00Z", false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Mạ ơi, mạ có nghe con nói không?", "VOICE", null, null), false, false));
+                new TurnResult.Next("Hello, can you hear me?", "VOICE", null, null), false, false));
 
         assertThat(flow.create(stroke("alert-1"))).isTrue();
         flow.process("alert-1");
@@ -67,7 +68,7 @@ class IncidentFlowAlertTest extends FirestoreTestBase {
         assertThat(inc.status).isEqualTo(Status.CHECKING_IN);
         assertThat(inc.alert.at).isEqualTo("2026-10-15T19:03:00Z");
         assertThat(inc.lastKnownWellAt).isEqualTo("2026-10-15T18:55:00Z");
-        assertThat(inc.checkIn.pending.text).isEqualTo("Mạ ơi, mạ có nghe con nói không?");
+        assertThat(inc.checkIn.pending.text).isEqualTo("Hello, can you hear me?");
         assertThat(inc.checkIn.turns).hasSize(1);
         assertThat(inc.checkIn.busy).isFalse();
         assertThat(inc.timeline).extracting(t -> t.kind).containsExactly("ALERT", "VERIFIED", "ASKED");
@@ -96,7 +97,7 @@ class IncidentFlowAlertTest extends FirestoreTestBase {
     void verifyFailureIsTreatedAsRealWithFallback() {
         when(agent.verify(any())).thenThrow(new AgentException("down", null));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Mạ ơi?", "VOICE", null, null), false, false));
+                new TurnResult.Next("Hello?", "VOICE", null, null), false, false));
 
         flow.create(stroke("alert-4"));
         flow.process("alert-4");
@@ -112,7 +113,7 @@ class IncidentFlowAlertTest extends FirestoreTestBase {
     void processingTwiceAsksOnlyOnce() {
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "HR 142 at night", "2026-10-15T18:55:00Z", false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Mạ ơi?", "VOICE", null, null), false, false));
+                new TurnResult.Next("Hello?", "VOICE", null, null), false, false));
 
         flow.create(stroke("alert-5"));
         flow.process("alert-5");

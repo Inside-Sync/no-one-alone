@@ -3,15 +3,16 @@ import base64
 import binascii
 from typing import Callable
 
-from lang import is_en, load_scripts
+from lang import lang_of, load_scripts
 
+# Which scripted question a turn is, by how many agent questions came before it. The web reads this, not the wording.
+STEPS = ["OPENING", "SPEECH_CHECK", "SYMPTOMS"]
 NO_SPEECH = {"clarity": "NO_SPEECH", "coherent": False, "symptoms": [], "confidence": 0.0}
 
 
 def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
     person, turns, inp = body["person"], body.get("turns") or [], body.get("input") or {}
-    lang = "en" if is_en(person) else "vi"
-    s = load_scripts()[lang]
+    s = load_scripts()[lang_of(person)]
     asked = sum(1 for t in turns if t.get("by") == "AGENT")
     out = {"fallback": False}
     feeling = None
@@ -39,10 +40,10 @@ def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
     out["done"] = asked >= len(s["questions"]) or "yesNo" in inp or (slurred and asked >= 2)
     if not out["done"]:
         if body.get("noReplyCount", 0) >= 1:
-            out["next"] = {"text": s["yes_no"], "kind": "YES_NO"}
+            out["next"] = {"text": s["yes_no"], "kind": "YES_NO", "step": "YES_NO"}
         else:
             # The speech check opens with one of three replies to how she said she feels.
             q = s["speech_check"][feeling if feeling in s["speech_check"] else "UNSURE"] if asked == 1 else s["questions"][asked]
             text = q.format(name=(person.get("displayName") or "").split(" ")[0])
-            out["next"] = {"text": text, "kind": "VOICE"}
+            out["next"] = {"text": text, "kind": "VOICE", "step": STEPS[asked]}
     return out

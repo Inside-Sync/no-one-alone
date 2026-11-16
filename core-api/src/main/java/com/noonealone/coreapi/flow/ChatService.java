@@ -19,7 +19,12 @@ public class ChatService {
 
     public record Line(String by, String text) {}
 
-    public record Request(String question, String mode, String viewer, List<Line> history) {}
+    /** `lang`: the language of the answer, "en" or "ar"; missing means "en". */
+    public record Request(String question, String mode, String viewer, List<Line> history, String lang) {
+        public Request(String question, String mode, String viewer, List<Line> history) {
+            this(question, mode, viewer, history, null);
+        }
+    }
 
     private static final String PERSON = "margaret";
 
@@ -38,6 +43,7 @@ public class ChatService {
         body.put("mode", r.mode());
         body.put("viewer", r.viewer());
         body.put("history", r.history() == null ? List.of() : r.history());
+        body.put("lang", r.lang() == null ? "en" : r.lang());
         body.put("snapshot", incident().map(this::snapshot).orElse(null));
         return agent.chat(body).answer();
     }
@@ -48,6 +54,9 @@ public class ChatService {
         }
         if (r.mode() == null || !Set.of("hosp", "self", "fam").contains(r.mode())) {
             throw ApiException.badRequest("mode must be hosp, self or fam");
+        }
+        if (r.lang() != null && !Set.of("en", "ar").contains(r.lang())) {
+            throw ApiException.badRequest("lang must be en or ar");
         }
         if (r.viewer() != null && r.viewer().length() > 100) {
             throw ApiException.badRequest("viewer is too long");

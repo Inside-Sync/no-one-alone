@@ -61,13 +61,41 @@ class RespondAgentClientTest {
     void triageParsesTheGoodbye() {
         server.expect(requestTo("http://agent/triage"))
                 .andRespond(withSuccess("{\"level\":\"MONITOR\",\"reasons\":[],\"fallback\":false,"
-                        + "\"closing\":{\"text\":\"Goodnight, Margaret.\",\"audioBase64\":\"AQI=\",\"mimeType\":\"audio/mpeg\"}}",
+                        + "\"closing\":{\"text\":\"Goodnight, Moza.\",\"audioBase64\":\"AQI=\",\"mimeType\":\"audio/mpeg\"}}",
                         MediaType.APPLICATION_JSON));
 
         TriageResult r = client.triage(Map.of());
 
-        assertThat(r.closing().text()).isEqualTo("Goodnight, Margaret.");
+        assertThat(r.closing().text()).isEqualTo("Goodnight, Moza.");
         assertThat(r.closing().audioBase64()).isEqualTo("AQI=");
+    }
+
+    @Test
+    void checkinTurnParsesWhichScriptedQuestionItIs() {
+        server.expect(requestTo("http://agent/checkin/turn"))
+                .andRespond(withSuccess("{\"done\":false,\"fallback\":false,\"next\":{\"text\":\"Please repeat\",\"kind\":\"VOICE\",\"step\":\"SPEECH_CHECK\"}}",
+                        MediaType.APPLICATION_JSON));
+
+        assertThat(client.checkinTurn(Map.of()).next().step()).isEqualTo("SPEECH_CHECK");
+    }
+
+    @Test
+    void checkinTurnFromAnOlderAgentHasNoStep() {
+        server.expect(requestTo("http://agent/checkin/turn"))
+                .andRespond(withSuccess("{\"done\":false,\"fallback\":false,\"next\":{\"text\":\"Hello\",\"kind\":\"VOICE\"}}",
+                        MediaType.APPLICATION_JSON));
+
+        assertThat(client.checkinTurn(Map.of()).next().step()).isNull();
+    }
+
+    @Test
+    void recoveryParsesTheKeyOfEachReminder() {
+        server.expect(requestTo("http://agent/recovery"))
+                .andRespond(withSuccess("{\"summary\":\"s\",\"fallback\":false,\"reminders\":["
+                        + "{\"time\":\"08:00\",\"kind\":\"MED\",\"text\":\"t\",\"key\":\"aspirin\"},"
+                        + "{\"time\":\"09:00\",\"kind\":\"ACTIVITY\",\"text\":\"u\"}]}", MediaType.APPLICATION_JSON));
+
+        assertThat(client.recovery(Map.of()).reminders()).extracting(r -> r.key()).containsExactly("aspirin", null);
     }
 
     @Test
