@@ -169,13 +169,15 @@ Sửa/viết, cần Docker để chạy (đã chạy, xanh): `IncidentFlowCheckI
 6. **Dữ liệu đã triển khai**:
    - Firestore: `store.seed` chỉ `set`, không xóa. Sau reset, `people/margaret`, `david`, `aisha`, `james`, `sarah` và 2 bệnh viện được ghi đè, nhưng `people/{ba-mai,ong-hung,lan,tuan}` và `hospitals/{stroke-center-a,district-clinic-b}` vẫn còn (vô hại: `Handoff` chọn Corniche vì các bệnh viện kia ở >5° và bị xếp sau), cần xóa tay cùng `families/ba-mai`, `forecasts/ba-mai`. Doc `people/margaret` trên môi trường chạy vẫn là Sydney đến khi có reset/seed.
    - `families/margaret`, `forecasts/margaret`: phải chạy lại `python -m predict.run family --person margaret --write` (chạy được duyệt) để có tên mới và `code`; tài liệu cũ vẫn hợp lệ (field mới tùy chọn).
-   - FHIR store `noa/records`: `scripts/load_fhir.py` **từ chối ghi đè** resource khác nội dung ("differ from ours, nothing was written"), nên `Patient/margaret` đã nạp (tên, địa chỉ Sydney) cần cập nhật tay. Production đang ở `FHIR_SOURCE=fixture`, không ảnh hưởng.
+   - FHIR store `noa/records`: `scripts/load_fhir.py` **từ chối ghi đè** resource khác nội dung ("differ from ours, nothing was written"), nên `Patient/margaret` đã nạp (tên, địa chỉ Sydney) cần cập nhật tay. Production hospital-agent chạy `FHIR_SOURCE=live` (đọc 2026-11-16, revision `hospital-agent-00014-l86`), và `Patient/margaret` trong store vẫn là Margaret Collins, Sydney: phải thay bằng bản mới trước khi deploy, nếu không packet gửi bệnh viện vẫn ghi tên cũ.
    - Incident cũ trong Firestore không có `memberId`/`params`/`kind`/`step`/`key`: web phải chịu được vắng.
    - Cloud Run: không có env var nào về múi giờ/locale trong `infra/` hay `application.properties` (đã grep); `noa.region=asia-southeast1` không đổi. Múi giờ chỉ lấy từ `people/{id}.timezone` và `StoryClock.DEFAULT_ZONE`.
    - Firestore rules/indexes: không đổi, không cần.
 7. **Quyết định giữ ngôn ngữ nói là tiếng Anh**: `locale: "en-AE"` trong seed để audio ghi sẵn và demo tiếp tục chạy. Chuyển sang tiếng Ả Rập = đổi **một field**, `people/margaret.locale` → `"ar-AE"`, rồi `POST /api/demo/reset`. Khi đó check-in/plan/recovery/TTS/Gemini dùng khối `ar` và `ar-XA`; các thành viên khác (`david`...) cũng cần `locale: "ar-AE"` nếu muốn tin nhắn cho họ bằng tiếng Ả Rập. Chưa thử.
 
 ### Audio ghi sẵn (`web/public/noa`, `web/public/sim`; bản trong `web/dist` là bản build)
+
+**Đã tạo lại** bằng `tools/gen_clips.py` (xem commit `fix(web): status clips and 998 call match the Abu Dhabi story`): các file tên `james`/`david` đổi thành `khalid`/`hamad`; câu chữ giống web `live.json` và `useCallDialogue.ts`. Bảng dưới là trạng thái trước khi tạo lại. `sim/slurred-1.mp3` không có nơi nào tham chiếu, chưa động tới.
 
 Giọng: Noa `en-AU-Chirp3-HD-Aoede`, operator `en-AU-Chirp3-HD-Charon`, bà `en-AU-Chirp3-HD-Gacrux`. Tên file chứa `james`/`david` là id, giữ nguyên.
 
