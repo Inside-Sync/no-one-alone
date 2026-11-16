@@ -50,7 +50,7 @@ test('000 call: waits for the dial, then plays the 8 clips in order with the Dav
   expect(played).toEqual(['1', '2', '3', '4-david', '5', '6', '7', '8'].map((n) => `/noa/000-${n}.mp3`))
   expect(screen.getAllByText('000 operator')).toHaveLength(4)
   expect(screen.getAllByText('Noa')).toHaveLength(4)
-  expect(screen.getByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
+  expect(screen.getByText(/Her brother Hamad is on his way with a key/)).toBeInTheDocument()
   expect(onDone).toHaveBeenCalledTimes(1)
   expect(onDone).toHaveBeenCalledWith(false)
 })
@@ -86,7 +86,7 @@ test('000 call on reload: the whole transcript, no audio, and done is silent', a
   expect(played).toEqual([])
   expect(onDone).toHaveBeenCalledWith(true)
   expect(screen.getAllByRole('listitem')).toHaveLength(8)
-  expect(screen.getByText(/Nobody is with her\. Key lockbox by the front door/)).toBeInTheDocument()
+  expect(screen.getByText(/Nobody is with her\. Her neighbour Shamma holds a spare key/)).toBeInTheDocument()
 })
 
 const turn = (by: TurnDoc['by'], text: string, clarity?: 'CLEAR' | 'SLURRED'): TurnDoc =>

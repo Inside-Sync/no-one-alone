@@ -162,7 +162,7 @@ function mountLive() {
 test('000 call already on the timeline at load: transcript only, no dial and no audio', async () => {
   liveValue = incidentAt(0, true)
   mountLive()
-  expect(await screen.findByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
+  expect(await screen.findByText(/Her brother Hamad is on his way with a key/)).toBeInTheDocument()
   expect(playDial000).not.toHaveBeenCalled()
   expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual([])
 })
@@ -175,7 +175,7 @@ test('a new 000 call dials once, then the dialogue starts; a second run in the s
   expect(screen.getByText('Dialling 998…')).toBeInTheDocument()
   await act(async () => { dialed[0]() })
   expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual(['/noa/000-1.mp3'])
-  expect(screen.getByText(/Emergency. Police, Fire or Ambulance/)).toBeInTheDocument()
+  expect(screen.getByText(/Ambulance. What is your emergency/)).toBeInTheDocument()
 
   await show(idleValue)
   await show(incidentAt(600, false))
@@ -193,7 +193,7 @@ test('an incident that arrives after the empty first snapshot, already holding t
   await show(incidentAt(0, true))
   expect(playDial000).not.toHaveBeenCalled()
   expect(playRing).not.toHaveBeenCalled()
-  expect(screen.getByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
+  expect(screen.getByText(/Her brother Hamad is on his way with a key/)).toBeInTheDocument()
   expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual([])
 })
 

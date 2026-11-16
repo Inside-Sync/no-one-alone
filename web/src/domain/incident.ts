@@ -275,7 +275,7 @@ function phoneView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
   }
 }
 
-const CLIPS = new Set(['calling-james', 'no-answer-james-calling-david', 'on-the-way-david'])
+const CLIPS = new Set(['calling-khalid', 'no-answer-khalid-calling-hamad', 'on-the-way-hamad'])
 const clip = (name: string) => (CLIPS.has(name) ? `/noa/${name}.mp3` : null)
 
 /** Margaret's status line from the latest escalation event; `key` names the status and the event it came from. */
