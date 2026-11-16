@@ -55,7 +55,7 @@ public class Handoff {
         this.tasks = tasks;
     }
 
-    // Starts the hand-off once the automatic 000 call is logged, after the 000 dialogue when Cloud Tasks runs.
+    // Starts the hand-off once the automatic emergency call is logged, after the call dialogue when Cloud Tasks runs.
     public void afterCall(String incidentId) {
         try {
             Incident inc = store.get(incidentId);

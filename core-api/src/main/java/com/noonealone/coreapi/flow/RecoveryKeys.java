@@ -3,10 +3,7 @@ package com.noonealone.coreapi.flow;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Stable keys for the items the recovery plan form offers. A key is found by a lowercase word in the name or text, so
- * "Apixaban 5 mg" is `apixaban`. Anything a doctor types that matches none of them gets no key.
- */
+// Stable keys for recovery plan items, found by a lowercase word in the name or text; no match, no key.
 final class RecoveryKeys {
 
     // First match wins, so "vitamin d" is checked before shorter words.

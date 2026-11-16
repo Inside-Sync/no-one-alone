@@ -3,10 +3,7 @@ package com.noonealone.coreapi.model;
 import java.util.List;
 
 public class RecoveryInfo {
-    /**
-     * `note`: optional line for the person on why they take it, written by the hospital and shown as is.
-     * `key`: stable code when the medicine is in the known list (apixaban, aspirin ...), set by core-api; absent otherwise.
-     */
+    // `note` is shown as is; `key` is the stable code set by core-api when the medicine is in the known list.
     public record Med(String name, String dose, List<String> times, String change, String note, String key) {
         public Med(String name, String dose, List<String> times, String change, String note) {
             this(name, dose, times, change, note, null);
@@ -17,10 +14,7 @@ public class RecoveryInfo {
         }
     }
 
-    /**
-     * `reminder`: optional wording for the timed reminder, used as is instead of the template.
-     * `key`: stable code when the activity is in the known list (walk, blood_pressure ...), set by core-api; absent otherwise.
-     */
+    // `reminder` replaces the template wording; `key` is the stable code set by core-api when the activity is in the known list.
     public record Activity(String text, List<String> times, String reminder, String key) {
         public Activity(String text, List<String> times, String reminder) {
             this(text, times, reminder, null);

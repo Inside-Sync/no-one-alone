@@ -29,8 +29,7 @@ SCHEMA = {
 }
 
 
-# Chirp 3 HD locale for each script language. Unverified: "ar-XA" for Arabic is the Cloud TTS Arabic locale,
-# but nobody has listened to a Chirp 3 HD Arabic voice from this project yet.
+# Chirp 3 HD locale per script language; "ar-XA" is unverified by ear.
 TTS_LOCALE = {"en": "en-AU", "ar": "ar-XA"}
 
 

@@ -126,9 +126,7 @@ class HandoffTest extends FirestoreTestBase {
         Incident inc = store.get("h-m");
         assertThat(inc.handoff.hospitalId).isEqualTo("sydney-stroke-center");
         assertThat(inc.handoff.etaMin).isEqualTo(12);
-        verify(agent).handoff(argThat(b -> String.valueOf(b.get("lastKnownWellAt")).equals(
-                java.time.Instant.parse(inc.lastKnownWellAt).atZone(java.time.ZoneId.of("Asia/Dubai"))
-                        .withHour(1).withMinute(22).toInstant().toString())));
+        verify(agent).handoff(argThat(b -> "2026-10-14T21:22:00Z".equals(String.valueOf(b.get("lastKnownWellAt")))));
         assertThat(inc.timeline).filteredOn(t -> t.kind.startsWith("HANDOFF_")).extracting(t -> t.text).containsExactly(
                 "This is Noa from No One Alone. Moza Al Hammadi, 78, female. Suspected stroke. Last seen well 01:22. "
                         + "Slurred speech found 02:04. Heart rate up to 142. On amlodipine, aspirin, atorvastatin, not on blood thinners. "

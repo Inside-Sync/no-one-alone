@@ -128,9 +128,17 @@ class IncidentFlowCheckInTest extends FirestoreTestBase {
         flow.create(IncidentFlowAlertTest.stroke("c-m", "margaret"));
         flow.process("c-m");
 
-        // start() already opened one check-in for the same person, so more than one call carries her.
+        // start() opened c-1 for test-elder, so the calls are not all hers; no seeded person has a dialect now (ba-mai had HUE).
         verify(agent, atLeastOnce()).checkinTurn(argThat(b -> !((Map<?, ?>) b.get("person")).containsKey("dialect")));
         verify(agent, never()).checkinTurn(argThat(b -> ((Map<?, ?>) b.get("person")).containsKey("dialect")));
+    }
+
+    @Test
+    void personWithDialectSendsTheDialectKey() {
+        flow.create(IncidentFlowAlertTest.stroke("c-d", "test-dialect"));
+        flow.process("c-d");
+
+        verify(agent, atLeastOnce()).checkinTurn(argThat(b -> "HUE".equals(((Map<?, ?>) b.get("person")).get("dialect"))));
     }
 
     @Test

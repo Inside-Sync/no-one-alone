@@ -185,6 +185,18 @@ class EscalationTest extends FirestoreTestBase {
                 "Calling Hamad: Moza may be having a stroke. You are 6 min away. Use the spare key if needed.",
                 "Hamad accepted",
                 "Calling 998 automatically with the call script (demo call)");
+
+        assertThat(entry("m-e1", "ALERTED", 0).params)
+                .isEqualTo(Map.of("memberIds", List.of("james", "sarah", "david"), "suspectedStroke", true));
+        assertThat(entry("m-e1", "NOTIFIED", 0).memberId).isEqualTo("james");
+        assertThat(entry("m-e1", "NOTIFIED", 1).memberId).isEqualTo("david");
+        assertThat(entry("m-e1", "NOTIFIED", 1).params).isEqualTo(Map.of("etaMin", 6L, "attempt", 1L));
+        assertThat(entry("m-e1", "EXPIRED", 0).memberId).isEqualTo("james");
+        assertThat(entry("m-e1", "EXPIRED", 0).params).isEqualTo(Map.of("seconds", 30L, "voicemail", true));
+        assertThat(entry("m-e1", "ACCEPTED", 0).memberId).isEqualTo("david");
+        assertThat(entry("m-e1", "ACCEPTED", 0).params).isNull();
+        assertThat(entry("m-e1", "CALLED_115", 0).memberId).isNull();
+        assertThat(entry("m-e1", "CALLED_115", 0).params).isEqualTo(Map.of("number", "998"));
     }
 
     @Test
@@ -202,6 +214,10 @@ class EscalationTest extends FirestoreTestBase {
                 "Hamad did not answer in 30 s",
                 "No one nearby accepted",
                 "Calling 998 automatically with the call script (demo call)");
+        assertThat(entry("m-e2", "EXPIRED", 1).memberId).isEqualTo("david");
+        assertThat(entry("m-e2", "EXPIRED", 1).params).isEqualTo(Map.of("seconds", 30L, "voicemail", false));
+        assertThat(entry("m-e2", "NO_NEARBY", 0).memberId).isNull();
+        assertThat(entry("m-e2", "NO_NEARBY", 0).params).isNull();
         assertThat(store.get("m-e2").assignment("aisha")).isEmpty();
         verify(tasks, never()).schedule(anyString(), eq("aisha"), anyInt(), anyInt());
     }
@@ -216,6 +232,10 @@ class EscalationTest extends FirestoreTestBase {
 
         assertThat(store.get("m-e3").timeline)
                 .filteredOn(t -> "CALLED_115".equals(t.kind) && "SYSTEM".equals(t.actor)).hasSize(1);
+    }
+
+    com.noonealone.coreapi.model.TimelineEntry entry(String id, String kind, int n) {
+        return store.get(id).timeline.stream().filter(t -> kind.equals(t.kind)).skip(n).findFirst().orElseThrow();
     }
 
     String text(String id, String kind) {
@@ -241,6 +261,8 @@ class EscalationTest extends FirestoreTestBase {
 
         assertThat(store.get("m-h2").timeline).extracting(t -> t.kind).containsSubsequence("CALLED_115", "HANDOFF_SENT");
         assertThat(text("m-h2", "FAMILY_UPDATE")).contains("Hamad is on his way.");
+        assertThat(entry("m-h2", "FAMILY_UPDATE", 0).memberId).isEqualTo("david");
+        assertThat(entry("m-h2", "FAMILY_UPDATE", 0).params).isEqualTo(Map.of("hospitalId", "sydney-stroke-center", "ownerId", "david"));
     }
 
     @Test
@@ -252,6 +274,28 @@ class EscalationTest extends FirestoreTestBase {
 
         assertThat(text("m-h3", "FAMILY_UPDATE")).isEqualTo("An ambulance is on its way to Moza (about 12 minutes). "
                 + "The stroke team at Corniche Stroke Centre has her details. I'm staying with her.");
+        assertThat(entry("m-h3", "HANDOFF_SENT", 0).params).isEqualTo(Map.of("hospitalId", "sydney-stroke-center", "etaMin", 12L));
+        assertThat(entry("m-h3", "HANDOFF_RECEIVED", 0).params).isEqualTo(Map.of("hospitalId", "sydney-stroke-center"));
+        assertThat(entry("m-h3", "FAMILY_UPDATE", 0).memberId).isNull();
+        assertThat(entry("m-h3", "FAMILY_UPDATE", 0).params).isEqualTo(Map.of("hospitalId", "sydney-stroke-center"));
+    }
+
+    @Test
+    void personWithoutEmergencyNumberGetsTheDefault998() {
+        when(agent.plan(any())).thenReturn(plan());
+        when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
+        when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null, null, true, false));
+        when(agent.triage(any())).thenReturn(new TriageResult(Level.COME_NOW, List.of("no answer"), false));
+        when(routes.etaMinutes(any(), any())).thenReturn(Optional.of(6));
+        when(tasks.schedule(anyString(), anyString(), anyInt(), anyInt())).thenReturn(TASK);
+        store.seed(seed.data());
+        flow.create(IncidentFlowAlertTest.stroke("e-n", "test-nonumber"));
+        flow.process("e-n");
+
+        actions.apply("e-n", "test-far", "CALLED_115");
+
+        assertThat(entry("e-n", "CALLED_115", 0).text).isEqualTo("Test Far called 998");
+        assertThat(entry("e-n", "CALLED_115", 0).params).isEqualTo(Map.of("number", "998"));
     }
 
     @Test

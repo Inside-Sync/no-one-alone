@@ -11,10 +11,6 @@ def lang_of(person: dict) -> str:
     return "ar" if (person.get("locale") or "").lower().startswith("ar") else "en"
 
 
-def is_en(person: dict) -> bool:
-    return lang_of(person) == "en"
-
-
 @lru_cache(maxsize=1)
 def load_scripts() -> dict:
     return json.loads(Path(__file__).with_name("scripts.json").read_text(encoding="utf-8"))

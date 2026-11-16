@@ -8,11 +8,7 @@ import com.noonealone.coreapi.data.Seed;
 import com.noonealone.coreapi.data.SeedData;
 import com.noonealone.coreapi.model.Docs;
 
-/**
- * Adds a made-up person ("test-elder") with her own circle and two made-up hospitals to the seed, for the tests of the
- * flow engine that need a second circle shape. Her times are UTC+7, which has no daylight saving, so test times are
- * easy to read. The real seed (Moza and her circle) is untouched underneath.
- */
+// Adds made-up people (test-elder and others, UTC+7) and two hospitals to the seed for the flow tests; Moza stays untouched.
 @TestConfiguration
 public class TestPeopleConfig {
 
@@ -29,6 +25,25 @@ public class TestPeopleConfig {
                     { "memberId": "test-near", "relation": "brother", "role": "NEARBY", "priority": 1, "criticalAlerts": true },
                     { "memberId": "test-far", "relation": "daughter", "role": "DISTANT", "priority": 2, "criticalAlerts": true },
                     { "memberId": "test-extra", "relation": "son", "role": "DISTANT", "priority": 3, "criticalAlerts": false }
+                  ]
+                },
+                "test-dialect": {
+                  "displayName": "Test Dialect", "age": 80, "sex": "F", "timezone": "Asia/Ho_Chi_Minh", "locale": "en-AE", "dialect": "HUE",
+                  "addressText": "14 Test Street", "emergencyNumber": "998",
+                  "location": { "lat": 16.4013, "lng": 107.6872 },
+                  "baseline": { "restingHr": 64, "nightHr": 58 },
+                  "circle": [
+                    { "memberId": "test-near", "relation": "brother", "role": "NEARBY", "priority": 1, "criticalAlerts": true }
+                  ]
+                },
+                "test-nonumber": {
+                  "displayName": "Test NoNumber", "age": 79, "sex": "F", "timezone": "Asia/Ho_Chi_Minh", "locale": "en-AE",
+                  "addressText": "16 Test Street",
+                  "location": { "lat": 16.4014, "lng": 107.6873 },
+                  "baseline": { "restingHr": 64, "nightHr": 58 },
+                  "circle": [
+                    { "memberId": "test-near", "relation": "brother", "role": "NEARBY", "priority": 1, "criticalAlerts": true },
+                    { "memberId": "test-far", "relation": "daughter", "role": "DISTANT", "priority": 2, "criticalAlerts": true }
                   ]
                 },
                 "test-near": { "displayName": "Test Near", "timezone": "Asia/Ho_Chi_Minh", "locale": "en-AE", "location": { "lat": 16.4105, "lng": 107.6930 } },
