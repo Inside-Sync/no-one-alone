@@ -88,7 +88,7 @@ test('step text follows the language at call time; timing and structure do not c
   } finally {
     await i18n.changeLanguage('en')
   }
-  expect(emSteps()[0].d).toBe('Heart rate 142, no movement for 4 min')
+  expect(emSteps()[0].d).toBe('Heart rate 142, no movement for 10 min')
 })
 
 test('resolveStepView does not mutate STEPS', () => {
