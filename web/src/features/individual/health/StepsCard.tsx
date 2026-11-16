@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { SourceLine } from '@/features/shared/SourceLine'
 import { Locked } from '@/components/ui/Locked'
 import { Head } from '../home/parts'
 
@@ -15,7 +16,7 @@ function StepsChart({ steps, goal }: { steps: number[]; goal: number }) {
   const n = steps.length
   return (
     <svg viewBox="0 0 640 140" role="img" aria-label={t('steps.ariaLabel')}>
-      {[0, 2500, 5000].map((t) => <text key={t} x={L - 6} y={y(t) + 3} textAnchor="end">{t / 1000}k</text>)}
+      {[0, 2500, 5000].map((v) => <text key={v} x={L - 6} y={y(v) + 3} textAnchor="end">{t('steps.axisK', { n: v / 1000 })}</text>)}
       {steps.map((v, i) => (
         <g key={i}>
           <rect x={L + i * bw + 4} y={y(v)} width={bw - 8} height={B - y(v)} rx="5" fill={v >= goal ? '#1fb39c' : '#8fd3c3'} />
@@ -36,6 +37,7 @@ export function StepsCard({ steps, goal }: { steps: number[]; goal: number }) {
       <GlassCard span={6} className="chart">
         <Head icon="footprints" title={t('steps.title')} meta={t('steps.meta')} />
         <div id="steps14"><StepsChart steps={steps} goal={goal} /></div>
+        <SourceLine source={t('src.steps.source')} time={t('src.steps.time')} />
       </GlassCard>
     </Locked>
   )

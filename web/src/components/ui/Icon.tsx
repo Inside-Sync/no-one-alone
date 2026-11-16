@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import type { DotIconName, DrawnIconName, IconName, LucideIconName } from '@/data/types'
+import { EMOJI } from './emoji'
 
 export type { IconName }
 
@@ -107,13 +108,39 @@ export const hueOf = (name: IconName): string => `var(--hue-${HUE.get(name) ?? '
 const isLucide = (name: IconName): name is LucideIconName => name in LUCIDE
 const isDot = (name: IconName): name is DotIconName => name in DOT
 
+const EMOJI_FONT = "'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif"
+const emojiUri = new Map<string, string>()
+
+/** The emoji as a small svg image, so it scales like a picture and never joins the text of the element around it. */
+function emojiSrc(char: string): string {
+  let uri = emojiUri.get(char)
+  if (!uri) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><text x="12" y="12" dy=".36em" text-anchor="middle" font-size="20" font-family="${EMOJI_FONT}">${char}</text></svg>`
+    uri = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`
+    emojiUri.set(char, uri)
+  }
+  return uri
+}
+
+/** A colour emoji in the same 24-unit svg box as the line icons, so every existing `.ic svg` size rule still applies. */
+function Emoji({ char }: { char: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="emo" style={{ stroke: 'none' }}>
+      <image href={emojiSrc(char)} width="24" height="24" />
+    </svg>
+  )
+}
+
 /**
  * Same svg as the prototype's `paint()`. Wrap it in `<span className="ic">` where
  * the prototype used `<span class="ic" data-ic>`. Names without a path (the
- * prototype's `watch`) render nothing, as the prototype does. `tint` colours it by meaning
- * (where an emoji stood); without it the icon takes the text colour, as nav and buttons need.
+ * prototype's `watch`) render nothing, as the prototype does. `tint` marks an icon that stands for something
+ * (where the design has an emoji): it draws the colour emoji, or the line icon coloured by meaning when there is none.
+ * Without it the icon is a line in the text colour, as nav and buttons need.
  */
 export function Icon({ name, tint }: { name: IconName; tint?: boolean }) {
+  const emoji = tint ? EMOJI[name] : undefined
+  if (emoji) return <Emoji char={emoji} />
   const style = tint ? { color: hueOf(name) } : undefined
   if (isLucide(name)) {
     const Lucide = LUCIDE[name]
@@ -148,5 +175,5 @@ export function Icon({ name, tint }: { name: IconName; tint?: boolean }) {
  * through `--gl`, so a filled button can hand it its own text colour instead (globals.css `.gl`).
  */
 export function Glyph({ name }: { name: IconName }) {
-  return <span className="ic gl" style={{ '--gl': hueOf(name) } as CSSProperties}><Icon name={name} /></span>
+  return <span className="ic gl" style={{ '--gl': hueOf(name) } as CSSProperties}><Icon name={name} tint={name in EMOJI} /></span>
 }

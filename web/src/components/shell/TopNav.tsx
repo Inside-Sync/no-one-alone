@@ -7,14 +7,15 @@ import { BrandMark } from './BrandMark'
 import { LocaleSwitch } from './LocaleSwitch'
 import { SearchBox } from './SearchBox'
 import { Tabs } from './Tabs'
+import { ThemeSwitch } from './ThemeSwitch'
 import { ViewSwitcher } from './ViewSwitcher'
 import { Avatar } from '@/components/ui/Avatar'
 import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import { firstPage, parsePath, tabsFor, VIEW_USERS, type ViewId } from '@/domain/views'
-import { NIGHT_DEMO_PATH, startNightDemo, stopNightDemo } from '@/features/individual/live/nightDemo'
 import { useAppState } from '@/state/AppState'
-import { useLiveIncident } from '@/state/LiveIncident'
+import { useNightDemo } from '@/state/useNightDemo'
+import { useTour } from '@/state/Tour'
 
 interface Props {
   /** Overrides; by default each shows its `data-toast` copy via `useToast()`. */
@@ -27,27 +28,27 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
   const router = useRouter()
   const { view, page } = parsePath(usePathname())
   const toastMsg = useToast()
-  const { who, setWho, viewer, people, alertActive, packetNew, dispatchEmergency, holdNight, night } = useAppState()
-  const { live, reset } = useLiveIncident()
-  const onLive = view === 'individual' && page === 'live'
+  const { who, viewer, people, alertActive, packetNew } = useAppState()
+  const demo = useNightDemo()
+  const tour = useTour()
 
   useEffect(() => {
     document.body.dataset.view = view
   }, [view])
 
-  const tabs = tabsFor(view, who)
+  const tabs = tabsFor(view, who, page)
   const bellToast = t('nav.bellToast')
 
   const go = (v: ViewId, p: string) => router.push(`/${v}/${p}`)
 
-  // Signed-in user: Margaret herself, the chosen family viewer, or the view's own user.
+  // Signed in as: Moza herself, the chosen family viewer, or the view's own user.
   let initials: string = VIEW_USERS[view].initials
   let color: string = VIEW_USERS[view].color
   let name: string = VIEW_USERS[view].name
   let toast: string = VIEW_USERS[view].toast
   if (view === 'individual') {
     if (who === 'self') {
-      initials = 'MC'; color = '#0b7f71'; name = 'Margaret Collins'; toast = t('nav.signedInAs', { name })
+      initials = t('nav.selfInitials'); color = '#0b7f71'; name = t('nav.selfName'); toast = t('nav.signedInAs', { name })
     } else {
       const p = people.find((x) => x.id === viewer)
       if (p) { initials = p.initials; color = p.color; name = p.name; toast = t('nav.signedInAs', { name: p.name }) }
@@ -56,7 +57,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
 
   const badges: Record<string, string | undefined> = {}
   if (alertActive) {
-    badges.live = 'LIVE'
+    badges.live = t('nav.liveBadge')
     if (packetNew) badges.ed = '1'
   }
 
@@ -67,34 +68,21 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
       <LocaleSwitch />
       <Tabs tabs={tabs} current={page} badges={badges} onSelect={(id) => go(view, id)} />
       <div className="tn-right">
+        <ThemeSwitch />
         <SearchBox />
+        <button type="button" className="btn" id="runCase" aria-label={t('nav.tour')} onClick={tour.start}>
+          <span className="ic"><Icon name="play" /></span>
+          <span className="t">{t('nav.tour')}</span>
+        </button>
         <button
           type="button"
           role="switch"
-          aria-checked={night}
-          className={night ? 'btn sos demo-sw' : 'btn soft demo-sw'}
+          aria-checked={demo.night}
+          className="btn sos demo-sw"
           id="runDemo"
           aria-label={t('nav.demo')}
           // Live mode: the Live page starts a real scenario through core-api; the mock plays the scripted demo.
-          // Live mode follows the prototype's startEm: Margaret's own view, the night preset running.
-          onClick={() => {
-            if (night) {
-              // Off: back to the day sky with nothing running. The Emergency page on screen also resets its watch.
-              if (!live) dispatchEmergency({ type: 'end' })
-              else {
-                holdNight(false)
-                if (onLive) stopNightDemo()
-                else reset().catch(() => {})
-              }
-              return
-            }
-            setWho(live ? 'self' : 'family')
-            if (!live) dispatchEmergency({ type: 'start' })
-            else holdNight(true)
-            // Already on the Emergency page: the URL does not remount it, so the event starts the demo there.
-            if (live && onLive) startNightDemo()
-            else router.push(live ? NIGHT_DEMO_PATH : '/individual/live')
-          }}
+          onClick={demo.toggle}
         >
           <span className="knob" aria-hidden="true"><i /></span>
           <span className="t">{t('nav.demo')}</span>

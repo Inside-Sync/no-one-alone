@@ -102,6 +102,6 @@ test('while checking in, Noa says why it stepped in', async () => {
   expect(a.label).toBe('Checking on her')
   expect(a.steps[1].state).toBe('cur')
   expect(a.now).toMatch(/^Warning sign: heart rate above 120 for 10 minutes while she isn't moving \(now 142 bpm\)/)
-  await i18n.changeLanguage('vi')
-  expect(agentView(checking, people).label).toBe('Đang hỏi thăm bà')
+  await i18n.changeLanguage('ar')
+  expect(agentView(checking, people).label).toBe(i18n.getFixedT('ar', 'live')('agent.pill.ask'))
 })

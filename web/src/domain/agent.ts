@@ -3,7 +3,7 @@
  * which alerts went out, all read from the live incident (contract 2.3). Pure, like `incident.ts`: labels come from
  * the `live` namespace at call time; text written by the backend (timeline entries, alert messages) is shown as is.
  */
-import i18n from '@/i18n'
+import i18n, { LANGUAGES } from '@/i18n'
 import type { IconName } from '@/data/types'
 import type { AssignmentDoc, CircleEntryDoc, IncidentDoc, LatLng, TimelineDoc, TimelineKind } from '@/data/contract'
 import { clockTime, memberName, type LivePeople } from './incident'
@@ -30,7 +30,12 @@ const first = (s: string) => s.split(' ')[0]
 const initials = (s: string) => s.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('')
 const has = (inc: IncidentDoc, k: TimelineKind) => inc.timeline.some((e) => e.kind === k)
 const entry = (inc: IncidentDoc, k: TimelineKind): TimelineDoc | undefined => inc.timeline.find((e) => e.kind === k)
-const SPEECH_CHECK = /sky is blue in sydney|trời sydney hôm nay xanh/i
+/**
+ * True for the agent question that starts the speech check. The agent's own words are not an id, so the test is the
+ * check's sentence in every language the app has (`live:speech.phrase`); core-api should tag that turn (see the report).
+ */
+export const isSpeechCheck = (text: string): boolean =>
+  LANGUAGES.some((l) => text.toLowerCase().includes(i18n.getFixedT(l, 'live')('speech.phrase')))
 /** Initials colours of the prototype's call cards, by call order; 000 is always red. */
 const COLORS = ['#e07a3f', '#2f6fb0', '#7a5bd1', '#c2417a']
 
@@ -88,7 +93,7 @@ const toneOf = (inc: IncidentDoc): Tone | null =>
 function checkSteps(inc: IncidentDoc): Record<'ask' | 'speech' | 'feel', StepState> {
   const turns = inc.checkIn?.turns ?? []
   const asks = turns.map((t, i) => ({ t, i })).filter(({ t }) => t.by === 'AGENT')
-  const speechAt = asks.find(({ t }) => SPEECH_CHECK.test(t.text))?.i ?? -1
+  const speechAt = asks.find(({ t }) => isSpeechCheck(t.text))?.i ?? -1
   const triaged = has(inc, 'TRIAGED') || (inc.status !== 'VERIFYING' && inc.status !== 'CHECKING_IN')
   const reply = (from: number) => turns.slice(from + 1).find((t) => t.by === 'PERSON')
   const clarity = speechAt >= 0 ? reply(speechAt)?.assessment?.clarity : undefined
@@ -103,7 +108,7 @@ function checkSteps(inc: IncidentDoc): Record<'ask' | 'speech' | 'feel', StepSta
 
 function escalationSteps(inc: IncidentDoc, people: LivePeople, tone: Tone): AgentStep[] {
   const queue = callQueue(people)
-  const num = people.person?.emergencyNumber ?? '000'
+  const num = people.person?.emergencyNumber ?? '998'
   const closed = inc.status === 'CLOSED' || inc.status === 'ON_SCENE'
   const steps: Omit<AgentStep, 'note'>[] = [{ key: 'alertall', icon: 'bell', label: tl('step.alertAll'), state: has(inc, 'ALERTED') ? 'done' : 'cur' }]
   queue.forEach((c, k) => {
@@ -149,14 +154,14 @@ function pillLabel(inc: IncidentDoc | null, steps: AgentStep[], people: LivePeop
   const cur = steps.find((s) => s.state === 'cur')
   if (!cur) return tl('pill.deciding')
   if (cur.key.startsWith('call-')) return tl('pill.calling', { name: first(memberName(people, cur.key.slice(5))) })
-  return tl(`pill.${cur.key}`, { num: people.person?.emergencyNumber ?? '000' })
+  return tl(`pill.${cur.key}`, { num: people.person?.emergencyNumber ?? '998' })
 }
 
 export function agentView(inc: IncidentDoc | null, people: LivePeople): AgentView {
   const name = first(people.person?.displayName ?? tl('her'))
-  const tz = people.person?.timezone ?? 'Asia/Ho_Chi_Minh'
+  const tz = people.person?.timezone ?? 'Asia/Dubai'
   const queue = callQueue(people)
-  const num = people.person?.emergencyNumber ?? '000'
+  const num = people.person?.emergencyNumber ?? '998'
   const base: Omit<AgentStep, 'note'>[] = [
     { key: 'detect', icon: 'search', label: tl('step.detect'), state: '' },
     { key: 'ask', icon: 'message-circle', label: tl('step.ask', { name }), state: '' },

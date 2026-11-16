@@ -1,0 +1,62 @@
+{
+  "you": "أنت",
+  "youParen": " (أنت)",
+  "youSuffix": " · أنت",
+  "relation": {
+    "self": "نفسها",
+    "son": "الابن",
+    "daughter": "الابنة",
+    "brother": "الأخ",
+    "sister": "الأخت",
+    "father": "الأب",
+    "mother": "الأم",
+    "husband": "الزوج",
+    "wife": "الزوجة",
+    "neighbour": "الجار",
+    "friend": "الصديق",
+    "grandson": "الحفيد",
+    "granddaughter": "الحفيدة",
+    "nephew": "ابن الأخ",
+    "niece": "ابنة الأخ"
+  },
+  "person": {
+    "restingHrBase": "الأساس {{n}}",
+    "female": "أنثى",
+    "male": "ذكر"
+  },
+  "circle": {
+    "noteNearby": "على بُعد {{place}} · {{order}}",
+    "firstToCall": "أول من يُتصل به",
+    "nextToCall": "التالي في الاتصال",
+    "noteCalls": "{{place}} · يتصل بالرقم {{num}} عند الحاجة",
+    "noteUpdates": "{{place}} · يتلقى التحديثات",
+    "onCall": "على أهبة الاستعداد",
+    "backup": "احتياطي",
+    "calls": "يتصل بـ{{num}}",
+    "updates": "التحديثات"
+  },
+  "lineage": {
+    "generation": {
+      "grandparents": "الأجداد",
+      "parents": "الوالدان",
+      "self": "جيل {{name}}",
+      "children": "الأبناء",
+      "grandchildren": "الأحفاد",
+      "ancestors": "الأسلاف",
+      "descendants": "الذرية"
+    },
+    "herself": "هي نفسها",
+    "selfRow": "نفسها",
+    "strength": {
+      "strong": "قوي",
+      "moderate": "متوسط",
+      "weak": "ضعيف"
+    },
+    "dueNow": "مستحق الآن",
+    "book": "احجز"
+  },
+  "distance": {
+    "m": "{{n}} م",
+    "km": "{{n}} كم"
+  }
+}

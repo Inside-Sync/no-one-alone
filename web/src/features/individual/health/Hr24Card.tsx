@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { SourceLine } from '@/features/shared/SourceLine'
 import { Locked } from '@/components/ui/Locked'
 import type { Hr24 } from '@/data/types'
 import { Head } from '../home/parts'
@@ -17,6 +18,7 @@ export function Hr24Card({ hr }: { hr: Hr24 }) {
         <Head icon="heart" title={t('hr.title')} meta={t('hr.meta')} />
         <div id="hr24"><Hr24Chart hr={hr} ariaLabel={t('hr.ariaLabel')} asleepLabel={t('hr.asleep')} /></div>
         <Legend items={t('hr.legend', { returnObjects: true })} />
+        <SourceLine source={t('src.hr.source')} time={t('src.hr.time')} />
       </GlassCard>
     </Locked>
   )

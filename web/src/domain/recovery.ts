@@ -4,6 +4,9 @@ import i18n, { intlLocale, LANGUAGES } from '@/i18n'
 
 export type Reminder = RecoveryDoc['reminders'][number]
 
+/** `HH:MM` on the 24-hour clock of `tz` at `nowMs`. */
+export const localTime = (nowMs: number, tz: string) => hhmm(nowMs, tz)
+
 const hhmm = (nowMs: number, tz: string) =>
   new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(nowMs)
 
@@ -16,8 +19,8 @@ export function nextReminder(reminders: Reminder[], nowMs: number, tz: string): 
 }
 
 /**
- * Why each DEFAULT_PLAN item matters: a lowercased word in the medicine name or reminder text (core-api writes those,
- * in the person's own language) and its `me:recovery.why` line, in the language in use (display only). First match wins.
+ * Why each default-plan item matters: a lowercased word in the medicine name or reminder text (core-api writes those,
+ * in the person's own language) and its `treatment:why` line, in the language in use (display only). First match wins.
  */
 const WHY_MATCH = [
   ['apixaban', 'apixaban'], ['perindopril', 'perindopril'], ['atorvastatin', 'atorvastatin'], ['amlodipine', 'amlodipine'],
@@ -27,8 +30,8 @@ const WHY_MATCH = [
 
 export type WhyKey = (typeof WHY_MATCH)[number][1]
 
-/** The `me:recovery.why` line for one item, in the language in use. */
-export const whyLine = (key: WhyKey): string => i18n.t(`me:recovery.why.${key}`)
+/** The `treatment:why` line for one item, in the language in use. */
+export const whyLine = (key: WhyKey): string => i18n.t(`treatment:why.${key}`)
 
 const whyOf = (text: string) => {
   const t = text.toLowerCase()
@@ -40,12 +43,12 @@ export type Med = RecoveryDoc['meds'][number]
 
 export const isStopped = (m: Med) => m.change === 'Stop'
 
-/** A note that is one of the stock `me:recovery.why` lines, in any language (the hospital form starts with them). */
+/** A note that is one of the stock `treatment:why` lines, in any language (the hospital form starts with them). */
 const isStockWhy = (note: string) =>
-  WHY_MATCH.some(([, key]) => LANGUAGES.some((l) => i18n.getFixedT(l, 'me')(`recovery.why.${key}`) === note))
+  WHY_MATCH.some(([, key]) => LANGUAGES.some((l) => i18n.getFixedT(l, 'treatment')(`why.${key}`) === note))
 
 /**
- * Why Margaret takes a medicine: the hospital's own note as written; a stock line, or no note, reads in her language.
+ * Why the person takes a medicine: the hospital's own note as written; a stock line, or no note, reads in her language.
  */
 export function medWhy(m: Med): string | undefined {
   const note = m.note?.trim()
@@ -71,7 +74,7 @@ export function todayTasks(r: RecoveryDoc): Task[] {
 /** Medicine table time slots, keyed by their clock time. */
 export const SLOTS = { '08:00': 'morning', '13:00': 'midday', '18:00': 'evening', '21:00': 'night' } as const
 
-/** Medicines Margaret still takes, with why each one matters. */
+/** Medicines the person still takes, with why each one matters. */
 export const medsExplained = (r: RecoveryDoc) => r.meds.filter((m) => !isStopped(m)).map((m) => ({ ...m, why: medWhy(m) }))
 
 /** What Noa says at hand-off, worked out from the plan: new and stopped medicines, the first slot of the day, the GP follow-up (else the first). */
@@ -98,12 +101,10 @@ export function followUpCalls(createdAt: string, tz: string): { day: number; dat
   return CALL_DAYS.map((day) => ({ day, date: new Date(Date.UTC(y, m - 1, d + day)).toISOString().slice(0, 10) }))
 }
 
-/** A `YYYY-MM-DD` calendar date for people: `Fri 23 Oct` in English, `T6 23/10` in Vietnamese, `10月23日(金)` in Japanese… */
+/** A `YYYY-MM-DD` calendar date for people: `Fri 23 Oct` in English, the Arabic weekday and month (Latin digits) in Arabic. */
 export function dayLabel(date: string, lang = i18n.language): string {
   const d = new Date(`${date}T00:00:00Z`)
-  if (!lang.startsWith('vi')) return new Intl.DateTimeFormat(intlLocale(lang), { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(d)
-  const wd = d.getUTCDay()
-  return `${wd === 0 ? 'CN' : `T${wd + 1}`} ${d.getUTCDate()}/${d.getUTCMonth() + 1}`
+  return new Intl.DateTimeFormat(intlLocale(lang), { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(d)
 }
 
 /** i18n key under hospital:ed.recovery.steps with its values. */
@@ -159,7 +160,7 @@ export function partOfDay(nowMs: number, tz: string): 'morning' | 'afternoon' | 
 }
 
 /**
- * The plan as Margaret's page shows it when there is no incident to post it to (mock mode, or before the night demo):
+ * The plan as the person's page shows it when there is no incident to post it to (mock mode, or before the night demo):
  * the doctor's notes stand in for the summary, and every ticked time becomes a reminder, as core-api would set them.
  */
 export function localRecovery(body: RecoveryRequest, nowMs: number, tz: string): RecoveryDoc {

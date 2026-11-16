@@ -109,7 +109,7 @@ export function LiveIncidentProvider({ children }: { children: ReactNode }) {
 
   const recover = useCallback(async (body: RecoveryRequest) => {
     if (id) await repo.recovery(id, body)
-    else setLocal(localRecovery(body, Date.now(), people.person?.timezone ?? 'Australia/Sydney')) // layering-allow: the approval time
+    else setLocal(localRecovery(body, Date.now(), people.person?.timezone ?? 'Asia/Dubai')) // layering-allow: the approval time
   }, [id, people])
 
   const value = useMemo<LiveIncidentValue>(() => ({

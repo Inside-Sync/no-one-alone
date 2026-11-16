@@ -18,8 +18,8 @@ const first = (s: string) => s.split(' ')[0]
 export function HandoverCard({ incident, view, people, agent }: { incident: IncidentDoc | null; view: LiveView | null; people: LivePeople; agent: AgentView }) {
   const { t } = useTranslation('live')
   const drawer = useDrawer()
-  const tz = people.person?.timezone ?? 'Asia/Ho_Chi_Minh'
-  const num = people.person?.emergencyNumber ?? '000'
+  const tz = people.person?.timezone ?? 'Asia/Dubai'
+  const num = people.person?.emergencyNumber ?? '998'
   const hands: Hand[] = []
   if (incident) {
     const ms = (iso?: string) => (iso ? Date.parse(iso) : NaN)

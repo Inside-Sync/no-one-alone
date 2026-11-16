@@ -2,43 +2,43 @@
   "careCircle": [
     {
       "id": "david",
-      "initials": "D",
+      "initials": "H",
       "color": "#2f6fb0",
-      "name": "David · her brother",
+      "name": "Hamad · her brother",
       "note": "450 m away · first to call",
       "role": {
         "tone": "good",
         "text": "On call"
       },
-      "technicalName": "David · brother",
+      "technicalName": "Hamad · brother",
       "technicalNote": "450 m · first to call",
       "icon": "user-round"
     },
     {
       "id": "james",
-      "initials": "J",
+      "initials": "K",
       "color": "#e07a3f",
-      "name": "James · you",
-      "note": "Melbourne · calls 000 if needed",
+      "name": "Khalid · you",
+      "note": "Al Ain · calls 998 if needed",
       "role": {
         "tone": "brand",
         "text": "Second"
       },
-      "technicalName": "James · you",
-      "technicalNote": "Melbourne · 000 caller",
+      "technicalName": "Khalid · you",
+      "technicalNote": "Al Ain · 998 caller",
       "icon": "user-round"
     },
     {
       "id": "sarah",
-      "initials": "S",
+      "initials": "A",
       "color": "#c2417a",
-      "name": "Sarah · daughter",
+      "name": "Alia · daughter",
       "note": "London · gets updates",
       "role": {
         "tone": "plain",
         "text": "Updates"
       },
-      "technicalName": "Sarah · daughter",
+      "technicalName": "Alia · daughter",
       "technicalNote": "London · updates only",
       "icon": "user-round"
     },
@@ -58,15 +58,15 @@
     },
     {
       "id": "aisha",
-      "initials": "A",
+      "initials": "S",
       "color": "#c2611f",
-      "name": "Aisha · neighbour",
+      "name": "Shamma · neighbour",
       "note": "2 doors down · has a key",
       "role": {
         "tone": "plain",
         "text": "Backup"
       },
-      "technicalName": "Aisha · neighbour",
+      "technicalName": "Shamma · neighbour",
       "technicalNote": "2 doors down · key holder",
       "icon": "home"
     }
@@ -74,9 +74,9 @@
   "circleOrbit": [
     {
       "id": "david",
-      "name": "David",
+      "name": "Hamad",
       "sub": "Brother · 450 m",
-      "initials": "D",
+      "initials": "H",
       "ring": 0,
       "angle": 0.5,
       "colors": [
@@ -100,9 +100,9 @@
     },
     {
       "id": "james",
-      "name": "James",
-      "sub": "Son · Melbourne (you)",
-      "initials": "J",
+      "name": "Khalid",
+      "sub": "Son · Al Ain (you)",
+      "initials": "K",
       "ring": 1,
       "angle": 1.4,
       "colors": [
@@ -113,9 +113,9 @@
     },
     {
       "id": "sarah",
-      "name": "Sarah",
+      "name": "Alia",
       "sub": "Daughter · London",
-      "initials": "S",
+      "initials": "A",
       "ring": 1,
       "angle": 4.4,
       "colors": [
@@ -126,8 +126,8 @@
     },
     {
       "id": "hosp",
-      "name": "Stroke centre",
-      "sub": "Camperdown · 4.2 km",
+      "name": "Corniche Stroke Centre",
+      "sub": "Al Bateen · 3.4 km",
       "initials": "+",
       "ring": 2,
       "angle": 2.5,
@@ -161,9 +161,9 @@
     "nodes": [
       {
         "id": "david",
-        "name": "David",
+        "name": "Hamad",
         "sub": "Brother · 450 m",
-        "initials": "D",
+        "initials": "H",
         "ring": 0,
         "angle": 0.5,
         "colors": [
@@ -187,9 +187,9 @@
       },
       {
         "id": "james",
-        "name": "James",
-        "sub": "Son · Melbourne (you)",
-        "initials": "J",
+        "name": "Khalid",
+        "sub": "Son · Al Ain (you)",
+        "initials": "K",
         "ring": 1,
         "angle": 1.4,
         "colors": [
@@ -200,9 +200,9 @@
       },
       {
         "id": "sarah",
-        "name": "Sarah",
+        "name": "Alia",
         "sub": "Daughter · London",
-        "initials": "S",
+        "initials": "A",
         "ring": 1,
         "angle": 4.4,
         "colors": [
@@ -213,8 +213,8 @@
       },
       {
         "id": "hosp",
-        "name": "Stroke centre",
-        "sub": "Camperdown · 4.2 km",
+        "name": "Corniche Stroke Centre",
+        "sub": "Al Bateen · 3.4 km",
         "initials": "+",
         "ring": 2,
         "angle": 2.5,
@@ -246,8 +246,8 @@
     ],
     "centre": {
       "initials": "M",
-      "label": "Margaret, 78",
-      "name": "Margaret",
+      "label": "Moza, 78",
+      "name": "Moza",
       "calmSub": "Safe at home",
       "alertSub": "Needs help now"
     }
@@ -255,26 +255,26 @@
   "sharePeople": [
     {
       "id": "james",
-      "name": "James",
-      "role": "Son · Melbourne",
+      "name": "Khalid",
+      "role": "Son · Al Ain",
       "color": "#e07a3f",
-      "initials": "J",
+      "initials": "K",
       "emergency": true
     },
     {
       "id": "sarah",
-      "name": "Sarah",
+      "name": "Alia",
       "role": "Daughter · London",
       "color": "#c2417a",
-      "initials": "S",
+      "initials": "A",
       "emergency": false
     },
     {
       "id": "david",
-      "name": "David",
+      "name": "Hamad",
       "role": "Brother · 450 m",
       "color": "#2f6fb0",
-      "initials": "D",
+      "initials": "H",
       "emergency": true
     },
     {
@@ -287,7 +287,7 @@
     },
     {
       "id": "gp",
-      "name": "Dr Patel",
+      "name": "Dr Fatima Al Ali",
       "role": "Her GP",
       "color": "#0b7f71",
       "initials": "GP",

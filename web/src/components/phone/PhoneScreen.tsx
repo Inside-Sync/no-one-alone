@@ -57,7 +57,7 @@ export function PhoneScreen({ time, q, small, flash, listen, help, yn, disabled,
           </span>
         </div>}
         {proto && <span className="dev-h">{idle ? time : `${time} · ${tc('hearingMode')}`}</span>}
-        {idle ? <span className={`dev-t ${s.t}`}>{idle.title}</span> : !proto && <span className="dev-h">{tc('hearingMode')}</span>}
+        {idle ? <span className={`dev-t ${s.t}`}>{idle.title}</span> : !proto && <span className={`dev-h ${s.h}`}>{tc('hearingMode')}</span>}
         {flash && caller && (
           <Avatar name={caller} className={`av ${s.caller}`} style={callerStyle}>{caller[0]}</Avatar>
         )}

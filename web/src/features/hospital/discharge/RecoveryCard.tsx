@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useRouter } from '@/app/navigation'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import { TableScroll } from '@/components/ui/TableScroll'
@@ -8,40 +7,8 @@ import { useToast } from '@/components/ui/Toast'
 import type { MedChange, RecoveryRequest } from '@/data/contract'
 import { CALL_DAYS, SLOTS, addDays, daysBetween, deliverySteps, localDay, taskIcon, todayTasks } from '@/domain/recovery'
 import { Head } from '../../individual/home/parts'
-import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 import './plan.css'
-
-const DEFAULT_PLAN: RecoveryRequest = {
-  staffName: 'Dr Amelia Ross, stroke registrar',
-  diagnosis: 'Ischaemic stroke, thrombolysed · new paroxysmal AF',
-  meds: [
-    { name: 'Apixaban', dose: '5 mg', times: ['08:00', '18:00'], change: 'New', note: 'Stops clots forming because of the uneven heartbeat. Replaces aspirin.' },
-    { name: 'Perindopril', dose: '4 mg', times: ['08:00'], change: 'New', note: 'Lowers blood pressure and protects the brain.' },
-    { name: 'Atorvastatin', dose: '40 mg', times: ['21:00'], change: 'Increased', note: 'Lowers cholesterol. Dose raised from 20 mg.' },
-    { name: 'Amlodipine', dose: '5 mg', times: ['18:00'], change: 'Continue', note: 'Blood pressure tablet, as before.' },
-    { name: 'Vitamin D', dose: '1000 IU', times: ['08:00'], change: 'Continue', note: 'For bones, as before.' },
-    { name: 'Aspirin', dose: '100 mg', times: [], change: 'Stop', note: 'Stop taking this. Apixaban does its job now.' },
-  ],
-  activities: [
-    { text: 'Walk 20 minutes daily', times: ['10:00'], reminder: 'Time for your 20-minute walk.' },
-    { text: 'Check blood pressure morning and evening, target under 130/80', times: ['08:15', '18:15'], reminder: 'Time to check your blood pressure. Aim for under 130/80.' },
-    { text: 'Speech exercises 15 minutes', times: ['14:00'], reminder: 'Time for your speech exercises, 15 minutes.' },
-    { text: 'Drink 1.5 L of water a day', times: ['11:00', '16:00'], reminder: 'Time for a glass of water.' },
-    { text: 'Low-salt food, under 5 g a day', times: [] },
-    { text: 'No driving for 1 month', times: [] },
-    { text: 'Call 000 straight away if face drooping, arm weakness or speech trouble', times: [] },
-  ],
-  followUps: [
-    // Counted from the story's discharge night, 16 Oct: GP Fri 23 Oct, physio Tue 20 Oct.
-    { text: 'GP review with Dr Patel at 10:30', inDays: 7 },
-    { text: 'Physio home visit', inDays: 4 },
-    { text: 'Speech pathology, weekly for 6 weeks', inDays: 6 },
-    { text: 'Stroke clinic, Camperdown at 09:00', inDays: 45 },
-    { text: 'Blood test (kidneys, on apixaban)', inDays: 7 },
-  ],
-  notes: 'You had a small stroke on 15 October. The hospital treated it quickly and you are recovering well. They also found your heartbeat is sometimes uneven, so there is a new tablet to stop clots.',
-}
 
 type ListKey = 'meds' | 'activities' | 'followUps'
 
@@ -113,10 +80,10 @@ export function usePlanBuilder() {
   const { t } = useTranslation('hospital')
   const { people, recover, recovery } = useLiveIncident()
   const toast = useToast()
-  const tz = people.person?.timezone ?? 'Australia/Sydney'
+  const tz = people.person?.timezone ?? 'Asia/Dubai'
   // Today in the person's timezone: visits are picked as dates and sent as days from it.
   const [today] = useState(() => localDay(Date.now(), tz)) // layering-allow: the real date the plan is written
-  const [form, setForm] = useState(() => toForm(DEFAULT_PLAN, today))
+  const [form, setForm] = useState(() => toForm(t('ed.recovery.defaultPlan', { returnObjects: true }) as unknown as RecoveryRequest, today))
   const [signedAt, setSignedAt] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const [sent, setSent] = useState(false)
@@ -154,49 +121,10 @@ export function usePlanBuilder() {
     }
   }
 
-  /** The banner's one-click approval: the doctor signs and hands off in the same step. */
-  const approve = async () => {
-    if (!signedAt && !sign()) return
-    await send()
-  }
-
-  return { form, setForm, signedAt, setSignedAt, busy, sent, recovery, people, clock, finalise, send, approve, today, problems: checked ? problems : null }
+  return { form, setForm, signedAt, setSignedAt, busy, sent, recovery, people, clock, finalise, send, today, problems: checked ? problems : null }
 }
 
 export type PlanBuilder = ReturnType<typeof usePlanBuilder>
-
-/** `Margaret Collins is fit for discharge` (c12 sendbar): approve from the top, jump to the plan, then open her portal. */
-export function FitBanner({ plan }: { plan: PlanBuilder }) {
-  const { t } = useTranslation('hospital')
-  const router = useRouter()
-  const { setWho } = useAppState()
-  const done = Boolean(plan.recovery || plan.sent)
-  const at = plan.recovery && plan.clock(Date.parse(plan.recovery.createdAt))
-  const openPortal = () => {
-    setWho('self')
-    router.push('/individual/recovery')
-  }
-  return (
-    <GlassCard span={12}>
-      <div className="row" style={{ borderLeft: '4px solid var(--brand)', paddingLeft: 14, justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>
-          <b style={{ fontSize: 16 }}><Glyph name="stethoscope" />{t('patient.banner.title')}</b>
-          <small className="meta" style={{ display: 'block' }}>{t('patient.banner.sub')}</small>
-        </span>
-        <span className="row">
-          <button type="button" className="btn" disabled={done || plan.busy} onClick={plan.approve}>
-            <Glyph name={done ? 'check' : 'circle-check'} />
-            {done ? t('patient.banner.sent', { time: at ?? '' }) : plan.busy ? t('ed.recovery.delivering') : t('patient.banner.approve')}
-          </button>
-          <button type="button" className="btn soft" onClick={() => document.getElementById('planBuilder')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
-            <Glyph name="arrow-down" />{t('patient.banner.review')}
-          </button>
-          {done && <button type="button" className="btn soft" onClick={openPortal}><Glyph name="user-round" />{t('patient.banner.portal')}</button>}
-        </span>
-      </div>
-    </GlassCard>
-  )
-}
 
 /** `Discharge and recovery plan` (c12): the doctor finalises the plan, then approves it and Noa delivers it (contract 4.1). */
 export function RecoveryCard({ plan }: { plan: PlanBuilder }) {
@@ -322,7 +250,7 @@ export function RecoveryCard({ plan }: { plan: PlanBuilder }) {
                       <input className="plan-in name" aria-label={t('ed.recovery.medName', n(i))} autoFocus={focus('meds', i)} placeholder={t('ed.recovery.medPlaceholder')} value={m.name} onChange={(e) => row('meds', i, { name: e.target.value })} {...invalid('meds', i, ['nameMissing'])} />
                       {err('meds', i)}
                     </td>
-                    <td><input className="plan-in dose" aria-label={t('ed.recovery.medDose', n(i))} placeholder="5 mg" value={m.dose} onChange={(e) => row('meds', i, { dose: e.target.value })} {...invalid('meds', i, ['doseMissing'])} /></td>
+                    <td><input className="plan-in dose" aria-label={t('ed.recovery.medDose', n(i))} placeholder={t('ed.recovery.dosePlaceholder')} value={m.dose} onChange={(e) => row('meds', i, { dose: e.target.value })} {...invalid('meds', i, ['doseMissing'])} /></td>
                     {slots.map(([time, slot]) => (
                       <td key={time} className="c">
                         <label className="plan-slot">
@@ -433,7 +361,7 @@ function instructionIcon(text: string): IconName {
   const s = text.toLowerCase()
   if (s.includes('salt')) return 'utensils'
   if (s.includes('driv')) return 'ban'
-  if (s.includes('000')) return 'siren'
+  if (s.includes('998') || s.includes('000')) return 'siren'
   return taskIcon({ kind: 'ACTIVITY', title: text })
 }
 

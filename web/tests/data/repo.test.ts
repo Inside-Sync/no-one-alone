@@ -6,16 +6,15 @@ import {
   getCareRecord,
   getCityScene,
   getOrbitScene,
-  getCommunity,
+  getGovernment,
   getDeviceFeed,
-  getForecast,
   getHealth,
   getHospital,
   getLineage,
   getPerson,
   getShare,
   getSurroundings,
-  getWatch,
+  getSignals,
   saveShare,
 } from '@/data/repo'
 import { resetMockSource } from '@/data/sources/mock'
@@ -24,26 +23,15 @@ beforeEach(() => resetMockSource())
 
 test('margaret fixture matches prototype', async () => {
   const p = await getPerson('margaret')
-  expect(p).toMatchObject({ name: 'Margaret Collins', age: 78, postcode: '2204', allergies: ['Penicillin'] })
+  expect(p).toMatchObject({ name: 'Moza Al Hammadi', age: 78, postcode: '', allergies: ['Penicillin'] })
   expect(p.devices).toEqual({ wearableBattery: 64, hubSensors: 6 })
-})
-
-test('forecast headline numbers', async () => {
-  const f = await getForecast('margaret')
-  expect(f.wellbeing).toEqual({ score: 72, delta: -5 })
-})
-
-test('care plan has 4 tasks with owners', async () => {
-  const plan = (await getForecast('margaret')).weeklyPlan
-  expect(plan).toHaveLength(4)
-  expect(plan.map((t) => t.owner)).toEqual(['Agent', 'David', 'Dr Patel', 'David'])
 })
 
 describe('person', () => {
   test('profile and conditions', async () => {
     const p = await getPerson('margaret')
     expect(p).toMatchObject({
-      id: 'margaret', suburb: 'Marrickville', heightCm: 162, weightKg: 61.2, bmi: 23.4,
+      id: 'margaret', suburb: 'Al Bateen', heightCm: 162, weightKg: 61.2, bmi: 23.4,
       bloodType: 'O positive', medicineCount: 4, status: 'good',
     })
     expect(p.conditions).toHaveLength(8)
@@ -62,7 +50,7 @@ describe('helper log (What the helper did today)', () => {
     expect(p.helperLog).toHaveLength(8)
     expect(p.helperLog[6]).toEqual({
       time: 'Yesterday 21:40',
-      what: 'Suggested David sets up a weekly pill box',
+      what: 'Suggested Hamad sets up a weekly pill box',
       how: 'Needs your OK',
       why: 'Missed tablets + rising BP',
       result: 'Waiting for you',
@@ -80,8 +68,6 @@ describe('health', () => {
     const h = await getHealth('margaret')
     expect(h.hr24.points).toHaveLength(289)
     expect(h.hr24.points.every((v) => v > 40 && v < 130)).toBe(true)
-    expect(h.rhythm.days).toHaveLength(7)
-    expect(h.rhythm.days[0].cells).toHaveLength(24)
     expect(h.steps14).toHaveLength(14)
     expect(h.mood14.values).toHaveLength(14)
     expect(h.bp14.morning.at(-1)).toBe(146)
@@ -92,25 +78,11 @@ describe('health', () => {
   })
 })
 
-describe('forecast', () => {
-  test('tables and projections', async () => {
-    const f = await getForecast('margaret')
-    expect(f.risks).toHaveLength(8)
-    expect(f.risks[0]).toMatchObject({ name: 'Stroke', level: 'High' })
-    expect(f.shap).toHaveLength(8)
-    expect(f.signs).toHaveLength(11)
-    expect(f.bp.observed).toEqual([128, 131, 133, 137, 140, 146])
-    expect(f.modes.map((m) => m.name)).toEqual(['Hearing', 'Vision', 'Memory'])
-    expect(f.model).toHaveLength(6)
-    expect(f.wellbeingAxes).toHaveLength(7)
-  })
-})
-
 describe('lineage', () => {
   test('generations, matrix and consent', async () => {
     const l = await getLineage('margaret')
     expect(l.generations.map((g) => g.label)).toEqual([
-      'Grandparents', "Margaret's generation", 'Children', 'Grandchildren',
+      'Grandparents', "Moza's generation", 'Children', 'Grandchildren',
     ])
     expect(l.generations.flatMap((g) => g.nodes)).toHaveLength(9)
     expect(Object.keys(l.conditionKeys)).toHaveLength(7)
@@ -125,13 +97,13 @@ describe('care record', () => {
   test('record lists', async () => {
     const r = await getCareRecord('margaret')
     expect(r.kpis).toHaveLength(6)
-    expect(r.medicines).toHaveLength(4)
+    expect(r.medicines).toHaveLength(5)
     expect(r.labs).toHaveLength(4)
-    expect(r.hospitals).toHaveLength(3)
-    expect(r.sources).toHaveLength(7)
+    expect(r.entries).toHaveLength(23)
+    expect(r.history.episodes).toHaveLength(6)
     expect(r.encounters.types.map((t) => t.count)).toEqual([18, 6, 14, 2, 6])
     expect(r.encounters.types.every((t) => t.months.length === t.count)).toBe(true)
-    expect(r.followUp).toHaveLength(5)
+    expect(r.followUp.days).toHaveLength(5)
   })
 })
 
@@ -160,32 +132,31 @@ describe('surroundings', () => {
   })
 })
 
-describe('hospital, community, watch', () => {
+describe('hospital, government, signals', () => {
   test('hospital', async () => {
     const h = await getHospital()
     expect(h.packet[0]).toEqual(['Patient', 'Female, 78 · DOB 03/03/1948 · 162 cm, 61 kg · O+'])
     expect(h.packet[4][0]).toBe('History')
     expect(h.packet).toHaveLength(10)
-    expect(h.panel.rows).toHaveLength(10)
-    expect(h.panel.scatter).toHaveLength(120)
-    expect(h.demand.forecast).toHaveLength(14)
-    expect(h.discharge.board).toHaveLength(8)
   })
-  test('community', async () => {
-    const c = await getCommunity()
-    expect(c.suburbs).toHaveLength(15)
-    expect(c.kpis[0]).toMatchObject({ label: 'Older residents enrolled', value: '1,846' })
-    expect(c.kpis[2]).toMatchObject({ label: 'High risk', value: '212' })
-    expect(c.visits).toHaveLength(8)
-    expect(c.funnel).toHaveLength(7)
-    expect(c.languages).toHaveLength(8)
-    expect(c.programs).toHaveLength(6)
+  test('government', async () => {
+    const c = await getGovernment()
+    expect(c.areas).toHaveLength(17)
+    expect(c.wellbeing).toHaveLength(8)
+    expect(c.kpis[0]).toMatchObject({ label: 'Actionable results', value: '2,738' })
+    expect(c.kpis[4]).toMatchObject({ label: 'Open past target', value: '636' })
+    expect(c.facilities.rows).toHaveLength(8)
+    expect(c.stalled).toHaveLength(7)
+    expect(c.funnel).toHaveLength(8)
+    expect(c.referrals).toHaveLength(9)
+    expect(c.byLanguage.rows).toHaveLength(7)
+    expect(c.programmes).toHaveLength(6)
   })
-  test('watch', async () => {
-    const w = await getWatch()
-    expect(w.reports).toHaveLength(8)
-    expect(w.scams).toHaveLength(8)
-    expect(w.callouts).toHaveLength(6)
+  test('signals', async () => {
+    const w = await getSignals()
+    expect(w.signals).toHaveLength(7)
+    expect(w.weekly).toHaveLength(8)
+    expect(w.decisions).toHaveLength(5)
     expect(w.feed).toHaveLength(5)
   })
 })
@@ -230,9 +201,6 @@ describe('seeded series match the prototype generators', () => {
     expect(h.hr24.points[288]).toBeCloseTo(62.05626296722913, 9)
     expect(h.hr24.band.hi[0]).toBeCloseTo(70.45941887466184, 9)
     expect(h.hr24.band.hi[288]).toBeCloseTo(67.59946646457487, 9)
-    const hosp = await getHospital()
-    expect(hosp.panel.scatter[119].age).toBeCloseTo(85.75951663847968, 9)
-    expect(hosp.panel.scatter[119].risk).toBeCloseTo(16.37761468843335, 9)
     const rec = await getCareRecord('margaret')
     const gp = rec.encounters.types[0].months
     expect(gp[0]).toBeCloseTo(0.500035217963192, 9)
@@ -240,20 +208,16 @@ describe('seeded series match the prototype generators', () => {
     expect(rec.encounters.types[3].months).toEqual([14, 33])
     expect(rec.encounters.types[4].months).toEqual([28, 31, 34, 37, 40, 43])
   })
-  test('rhythm anomalies and future cells', async () => {
-    const { rhythm } = await getHealth('margaret')
-    const flagged = rhythm.days.flatMap((d, di) => d.cells.flatMap((c, h) => (c.anomaly ? [`${di}-${h}`] : [])))
-    expect(flagged).toEqual(['0-2', '2-3', '4-1', '6-14'])
-    expect(rhythm.days[6].cells.filter((c) => c.future)).toHaveLength(8)
-  })
 })
 
 describe('verbatim spot checks', () => {
-  test('community totals derive from the suburbs', async () => {
-    const c = await getCommunity()
-    expect(c.kpis.map((k) => k.value).slice(0, 9)).toEqual(['1,846', '38', '212', '92.7', '8.6', '64', '37', '78', '180'])
-    expect(c.capacity).toHaveLength(9)
-    expect(c.capacity[0]).toEqual({ name: 'Marrickville', need: 76, capacity: 36 })
+  test('government totals derive from the areas', async () => {
+    const c = await getGovernment()
+    expect(c.areas.reduce((n, a) => n + a.screened, 0)).toBe(18170)
+    expect(c.areas.reduce((n, a) => n + a.actionable, 0)).toBe(2738)
+    expect(c.areas.reduce((n, a) => n + Math.round(a.actionable * (1 - a.reached / 100)), 0)).toBe(636)
+    expect(c.kpis.map((k) => k.value)).toEqual(['2,738', '96', '77', '20', '636', '59'])
+    expect(c.referrals[0]).toEqual({ name: 'Diabetes education', need: 64, slots: 60 })
   })
   test('individual KPI tiles are the plain-language set', async () => {
     const p = await getPerson('margaret')
@@ -261,16 +225,10 @@ describe('verbatim spot checks', () => {
     expect(p.kpisTechnical[1]).toMatchObject({ label: 'Blood pressure (7 d)', delta: '+2.8σ' })
     expect(p.kpis.every((k) => k.spark.length === 9)).toBe(true)
   })
-  test('the forecast disclaimer card text is present', async () => {
-    const f = await getForecast('margaret')
-    expect(f.modelMeta).toBe('Example figures for a prototype')
-    expect(f.model.at(-1)).toEqual({ icon: 'stethoscope', label: 'Decides', value: 'Her doctor, not the app' })
-  })
   test('pre-arrival pathway demo steps', async () => {
     const h = await getHospital()
     expect(h.pathway).toHaveLength(8)
-    expect(h.inbox.map((m) => m.name)).toEqual(['Kostas P., 82', 'Joan W., 88'])
-    expect(h.panel.rows.filter((r) => r.sex === 'M').map((r) => r.name)).toEqual(['Kostas P.', 'Nguyen Van T.', 'Giuseppe R.', 'Peter H.'])
+    expect(h.inbox.map((m) => m.name)).toEqual(['Salem K., 82', 'Hessa M., 88'])
   })
 })
 
@@ -283,9 +241,9 @@ test('city scene: blocks, colours and the three camera presets', async () => {
   expect(g.views.watch.yaw).toBe(0.35)
 })
 
-test('orbit scene: CIRCLE, RINGS and Margaret in the centre', async () => {
+test('orbit scene: CIRCLE, RINGS and Moza in the centre', async () => {
   const o = await getOrbitScene()
   expect(o.nodes.map((n) => n.id)).toEqual(['david', 'nurse', 'james', 'sarah', 'hosp'])
   expect(o.rings.map((r) => r.radius)).toEqual([78, 126, 172])
-  expect(o.centre).toEqual({ initials: 'M', label: 'Margaret, 78', name: 'Margaret', calmSub: 'Safe at home', alertSub: 'Needs help now' })
+  expect(o.centre).toEqual({ initials: 'M', label: 'Moza, 78', name: 'Moza', calmSub: 'Safe at home', alertSub: 'Needs help now' })
 })

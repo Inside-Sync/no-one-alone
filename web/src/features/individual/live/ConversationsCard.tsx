@@ -57,8 +57,8 @@ export function ConversationsCard({ incident, people, call, dialling }: {
 }) {
   const { t } = useTranslation('live')
   const [filter, setFilter] = useState('all')
-  const tz = people.person?.timezone ?? 'Asia/Ho_Chi_Minh'
-  const num = people.person?.emergencyNumber ?? '000'
+  const tz = people.person?.timezone ?? 'Asia/Dubai'
+  const num = people.person?.emergencyNumber ?? '998'
   const all = incident ? conversation(incident, people, call, t as unknown as (k: string, o?: object) => string) : []
   const channel = (ch: string): [icon: IconName, name: string] => {
     if (ch === 'mg') return ['user-round', first(people.person?.displayName ?? t('agent.her'))]

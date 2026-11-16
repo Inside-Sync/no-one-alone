@@ -2,7 +2,6 @@
 
 import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useRouter } from '@/app/navigation'
 import { Avatar } from '@/components/ui/Avatar'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
@@ -10,19 +9,17 @@ import { OnceButton } from '@/components/ui/OnceButton'
 import { useToast } from '@/components/ui/Toast'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
 import { useAppState } from '@/state/AppState'
-import { PauseButton } from '../privacy/PauseButton'
+import { PauseButton } from './PauseButton'
 import { TableScroll } from '@/components/ui/TableScroll'
 
-/** Individual view · My day (`<main data-page="me">`): Margaret's own page, in her words. */
+/** Individual view · My day (`<main data-page="me">`): Moza's own page, in her words. */
 export function MePage() {
   const { people, share, paused } = useAppState()
-  const router = useRouter()
   const toast = useToast()
   const { t } = useTranslation('me')
-  const goPrivacy = () => router.push('/individual/privacy')
   return (
     <main className="grid" data-page="me">
-      <GlassCard span={8} className="me-hero">
+      <GlassCard span={8} className="me-hero" tour="me">
         <span className="hello">{t('hello')}</span>
         <p className="me-sub">{t('sub')}</p>
         <div className="big-tiles">
@@ -48,7 +45,6 @@ export function MePage() {
             </li>
           ))}
         </ul>
-        <button type="button" className="btn" onClick={goPrivacy}>{t('people.change')}</button>
       </GlassCard>
       <GlassCard span={6}>
         <div className="ch"><h2><Glyph name="lightbulb" />{t('ideasTitle')}</h2><span className="meta">{t('ideasMeta')}</span></div>
@@ -74,7 +70,6 @@ export function MePage() {
         </ul>
         <div className="row">
           <PauseButton />
-          <button type="button" className="btn soft" onClick={goPrivacy}>{t('promise.settings')}</button>
         </div>
       </GlassCard>
       <GlassCard span={12}>

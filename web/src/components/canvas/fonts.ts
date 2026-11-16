@@ -1,6 +1,6 @@
 /**
  * Canvas font families. The prototype writes `"Be Vietnam Pro",system-ui` and
- * `"JetBrains Mono",monospace` into ctx.font; @fontsource registers the faces
+ * `"JetBrains Mono","IBM Plex Sans Arabic",monospace` into ctx.font; @fontsource registers the faces
  * under those same family names, so the prototype strings work as they are.
  */
 export interface CanvasFonts {
@@ -11,8 +11,8 @@ export interface CanvasFonts {
 }
 
 export const DEFAULT_FONTS: CanvasFonts = {
-  sans: '"Be Vietnam Pro",system-ui',
-  mono: '"JetBrains Mono",monospace',
+  sans: '"Be Vietnam Pro","IBM Plex Sans Arabic",system-ui',
+  mono: '"JetBrains Mono","IBM Plex Sans Arabic",monospace',
 }
 
 export function readCanvasFonts(): CanvasFonts {

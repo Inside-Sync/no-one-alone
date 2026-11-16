@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { SourceLine } from '@/features/shared/SourceLine'
 import { Locked } from '@/components/ui/Locked'
 import type { HealthData } from '@/data/types'
 import { Head } from '../home/parts'
@@ -46,6 +47,7 @@ export function BpCard({ bp }: { bp: HealthData['bp14'] }) {
         <Head icon="stethoscope" title={t('bp.title')} meta={t('bp.meta')} />
         <div id="bp14"><BpChart bp={bp} /></div>
         <Legend items={t('bp.legend', { returnObjects: true })} />
+        <SourceLine source={t('src.bp.source')} time={t('src.bp.time')} />
       </GlassCard>
     </Locked>
   )

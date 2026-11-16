@@ -25,7 +25,7 @@ function EmergencyCallCard(props: Omit<Parameters<typeof useCallDialogue>[0], 'c
   const { lines, dialling } = useCallDialogue({ callKey: 'call-1', ...props })
   return (
     <>
-      {dialling && <p>Dialling 000…</p>}
+      {dialling && <p>Dialling 998…</p>}
       <ol>{lines.map((l) => <li key={l.clip}><b>{l.by === 'operator' ? '000 operator' : 'Noa'}</b>: {l.text}</li>)}</ol>
     </>
   )
@@ -38,7 +38,7 @@ test('000 call: waits for the dial, then plays the 8 clips in order with the Dav
   const dialDone = new Promise<void>((r) => { dialed = r })
   const onDone = vi.fn()
   renderWithProviders(<EmergencyCallCard live davidAccepted dialDone={dialDone} onDone={onDone} />)
-  expect(screen.getByText('Dialling 000…')).toBeInTheDocument()
+  expect(screen.getByText('Dialling 998…')).toBeInTheDocument()
   await flush()
   expect(played).toEqual([])
   await act(async () => { dialed(); await dialDone })

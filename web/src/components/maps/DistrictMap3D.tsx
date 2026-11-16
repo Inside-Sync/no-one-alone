@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import { APIProvider } from '@vis.gl/react-google-maps'
 import { Map3D, MapMode, Marker3D, Polygon3D } from '@vis.gl/react-google-maps/3d'
-import { DISTRICT_RAMP } from '@/components/canvas/city/geometry'
+import { DISTRICT_RAMP, districtScale } from '@/components/canvas/city/geometry'
 import type { DistrictMetric } from '@/components/canvas/DistrictMap'
-import type { Suburb } from '@/data/types'
-import { INNER_WEST_BOUNDARIES } from '@/domain/innerWestBoundaries'
+import type { Area } from '@/data/government.types'
+import { areaGeoRing } from '@/domain/areaGeometry'
 import { ramp, rgbHex } from '@/lib/color'
 import { mapsApiKey, mapsMapId } from './mapsConfig'
 
@@ -21,28 +21,27 @@ interface Column {
   value: number
 }
 
-function columns(suburbs: Suburb[], metric: DistrictMetric): Column[] {
-  const mx = Math.max(...metric.values) || 1
-  return suburbs.flatMap((s, i) => {
-    const ring = INNER_WEST_BOUNDARIES[s.name]
-    if (!ring) return []
-    const v = metric.values[i], t = v / mx
+function columns(areas: Area[], metric: DistrictMetric): Column[] {
+  const scale = districtScale(metric.values)
+  return areas.flatMap((s, i) => {
+    const ring = areaGeoRing(s)
+    const v = metric.values[i], t = Math.max(0, Math.min(1, scale[i]))
     const centre = { lng: ring.reduce((a, p) => a + p[0], 0) / ring.length, lat: ring.reduce((a, p) => a + p[1], 0) / ring.length }
-    return [{ name: s.name, ring, centre, height: MIN_H + t * (MAX_H - MIN_H), colour: rgbHex(ramp(t, DISTRICT_RAMP)), text: `${s.name} · ${v}${metric.suffix}`, value: v }]
+    return [{ name: s.name, ring, centre, height: MIN_H + t * (MAX_H - MIN_H), colour: rgbHex(ramp(metric.higherIsBetter ? 1 - t : t, DISTRICT_RAMP)), text: `${s.name} · ${v}${metric.suffix}`, value: v }]
   })
 }
 
 interface Props {
-  suburbs: Suburb[]
+  areas: Area[]
   metric: DistrictMetric
   ariaLabel: string
   highlight?: string
   onSelect?: (text: string) => void
 }
 
-/** Google photorealistic 3D map of the Inner West with one extruded suburb per value. Needs a Maps key (see `mapsEnabled`). */
-export function DistrictMap3D({ suburbs, metric, ariaLabel, highlight = 'Marrickville', onSelect }: Props) {
-  const cols = useMemo(() => columns(suburbs, metric), [suburbs, metric])
+/** Google photorealistic 3D map of Abu Dhabi with one extruded area per value. Needs a Maps key (see `mapsEnabled`). */
+export function DistrictMap3D({ areas, metric, ariaLabel, highlight, onSelect }: Props) {
+  const cols = useMemo(() => columns(areas, metric), [areas, metric])
   const lat = cols.reduce((a, c) => a + c.centre.lat, 0) / (cols.length || 1)
   const lng = cols.reduce((a, c) => a + c.centre.lng, 0) / (cols.length || 1)
   return (
@@ -51,15 +50,15 @@ export function DistrictMap3D({ suburbs, metric, ariaLabel, highlight = 'Marrick
         <Map3D
           mode={MapMode.SATELLITE}
           mapId={mapsMapId() || undefined}
-          defaultCenter={{ lat: lat - 0.012, lng, altitude: 0 }}
-          defaultRange={9000}
+          defaultCenter={{ lat: lat - 0.03, lng, altitude: 0 }}
+          defaultRange={24000}
           defaultTilt={58}
           defaultHeading={15}
           defaultLabelsDisabled
           defaultUIHidden
           style={{ width: '100%', height: '100%' }}
         >
-          {/* Each suburb's real boundary, extruded to its value and tinted by it; a tap reports `name · value`. */}
+          {/* Each area's footprint, extruded to its value and tinted by it; a tap reports `name · value`. */}
           {cols.map((c) => (
             <Polygon3D key={c.name} outerCoordinates={c.ring.map(([lng, lat]) => ({ lat, lng, altitude: c.height }))}
               altitudeMode="RELATIVE_TO_GROUND" extruded fillColor={c.colour + 'd9'}

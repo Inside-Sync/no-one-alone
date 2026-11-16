@@ -88,7 +88,7 @@ export function DevicePage() {
         {scene && (
           <Orbit
             scene={{ ...scene, nodes: scene.nodes.filter((n) => MINI_ORBIT.includes(n.id)) }}
-            ariaLabel="Margaret's family circle"
+            ariaLabel={t('deviceCircleLabel')}
             labels
             tilt={0.5}
             style={{ height: 260 }}

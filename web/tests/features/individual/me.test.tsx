@@ -17,7 +17,7 @@ test('is registered for individual/me', () => {
 test('shows every section in prototype order', async () => {
   renderWithProviders(<MePage />, { who: 'self' })
   await screen.findByText('Sees 8 of 11')
-  expect(screen.getByText('Good afternoon, Maggie 🌞')).toBeInTheDocument()
+  expect(screen.getByText('Good afternoon, Umm Khalid 🌞')).toBeInTheDocument()
   expect(screen.getByText("You're doing well today. Here's your day, just for you.")).toBeInTheDocument()
   expect(Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)).toEqual([
     'Your people', 'Ideas for you', 'Your privacy promise', 'Who looked at your information',
@@ -43,12 +43,19 @@ test('pause here shares the same state and labels flip', async () => {
   expect(toastText()).toBe('Sharing resumed')
 })
 
-test('"Change who sees what" and "See all settings" go to privacy', async () => {
+test('the people list is the circle of Moza and has no link to a removed settings page', async () => {
   renderWithProviders(<MePage />, { who: 'self' })
-  fireEvent.click(screen.getByRole('button', { name: 'Change who sees what' }))
-  expect(push).toHaveBeenLastCalledWith('/individual/privacy')
-  fireEvent.click(screen.getByRole('button', { name: 'See all settings' }))
-  expect(push).toHaveBeenCalledTimes(2)
+  await screen.findByText('Sees 8 of 11')
+  for (const name of ['Khalid', 'Alia', 'Hamad', 'Priya', 'Dr Fatima Al Ali', 'Hospital']) expect(screen.getAllByText(name).length).toBeGreaterThan(0)
+  expect(screen.getByText('Son · Al Ain')).toBeInTheDocument()
+  expect(screen.queryByRole('button', { name: 'Change who sees what' })).toBeNull()
+  expect(screen.queryByRole('button', { name: 'See all settings' })).toBeNull()
+  expect(push).not.toHaveBeenCalled()
+})
+
+test('the main card is the walkthrough target for My day', () => {
+  renderWithProviders(<MePage />, { who: 'self' })
+  expect(document.querySelector('[data-tour="me"]')).toHaveTextContent('Good afternoon, Umm Khalid')
 })
 
 test('idea buttons toast once and then show done', async () => {

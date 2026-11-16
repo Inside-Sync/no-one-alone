@@ -18,7 +18,7 @@ export function Tabs({
     <nav className="tabs" aria-label={tr('nav.sections')} id="tabs">
       {tabs.map((t) => (
         <button key={t.id} type="button" aria-current={t.id === current ? 'page' : undefined} onClick={() => onSelect(t.id)}>
-          {t.icon && <span className="ic"><Icon name={t.icon} /></span>}
+          {t.icon && <span className="ic"><Icon name={t.icon} tint={t.emoji} /></span>}
           {t.label}
           {badges[t.id] && <> <span className="badge">{badges[t.id]}</span></>}
         </button>

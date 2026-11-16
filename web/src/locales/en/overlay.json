@@ -20,9 +20,6 @@
     "niece": "niece"
   },
   "person": {
-    "ageLabel": "Age",
-    "genderLabel": "Gender",
-    "restingHrLabel": "Resting heart rate",
     "restingHrBase": "base {{n}}",
     "female": "Female",
     "male": "Male"
@@ -37,20 +34,6 @@
     "backup": "Backup",
     "calls": "Calls {{num}}",
     "updates": "Updates"
-  },
-  "forecast": {
-    "risk": {
-      "STROKE": "Stroke",
-      "FALL": "Fall with injury"
-    },
-    "level": {
-      "HIGH": "High",
-      "MEDIUM": "Medium",
-      "LOW": "Low"
-    },
-    "horizon": "{{n}} d",
-    "sentTo": "Sent to {{name}}",
-    "shared": "Shared with the circle"
   },
   "lineage": {
     "generation": {
@@ -71,5 +54,9 @@
     },
     "dueNow": "Due now",
     "book": "Book"
+  },
+  "distance": {
+    "m": "{{n}} m",
+    "km": "{{n}} km"
   }
 }

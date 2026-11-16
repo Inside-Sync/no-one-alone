@@ -55,25 +55,25 @@ test('starting shows the three cards, body.night and the first step', async () =
   act(() => start())
   expect(document.body).toHaveClass('night')
   expect(screen.queryByRole('heading', { name: 'No active alert' })).toBeNull()
-  expect(Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)).toEqual(['Live timeline', "Margaret's screen"])
+  expect(Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)).toEqual(['Live timeline', "Moza's screen"])
   expect(screen.getAllByText('Checking')).toHaveLength(2) // tag and level
   expect(screen.getByText('0′')).toBeInTheDocument()
   expect(screen.getByText('since alert')).toBeInTheDocument()
   expect(screen.getByText('Heart rate 142, not moving')).toBeInTheDocument()
-  expect(screen.getByText('David · not yet alerted')).toBeInTheDocument()
-  expect(screen.getByRole('img', { name: 'Care circle in emergency: help moving toward Margaret' })).toBeInTheDocument()
+  expect(screen.getByText('Hamad · not yet alerted')).toBeInTheDocument()
+  expect(screen.getByRole('img', { name: 'Care circle in emergency: help moving toward Moza' })).toBeInTheDocument()
   expect(document.querySelectorAll('#tl li')).toHaveLength(10)
   expect(document.querySelectorAll('#tl li.done')).toHaveLength(1)
   expect(document.querySelectorAll('#pDots i')).toHaveLength(10)
   expect(screen.getByRole('button', { name: 'Previous step' })).toHaveAttribute('aria-disabled', 'true')
   expect(screen.getByRole('button', { name: 'Pause' })).toBeInTheDocument()
   expect(document.querySelectorAll('#sla > div')).toHaveLength(5)
-  expect(within(document.getElementById('devLive')!).getByText('Margaret…')).toBeInTheDocument()
+  expect(within(document.getElementById('devLive')!).getByText('Moza…')).toBeInTheDocument()
   expect(within(document.getElementById('devLive')!).getByText('Hearing mode')).toBeInTheDocument()
   expect(within(document.getElementById('devLive')!).getByText('02:03')).toBeInTheDocument()
 })
 
-test('Next shows step 2 "Calls Margaret by voice" and pauses; keyboard-operable buttons', async () => {
+test('Next shows step 2 "Calls Moza by voice" and pauses; keyboard-operable buttons', async () => {
   renderWithProviders(<LivePage />)
   await idle()
   act(() => start())
@@ -82,9 +82,9 @@ test('Next shows step 2 "Calls Margaret by voice" and pauses; keyboard-operable 
   nextBtn.focus()
   expect(nextBtn).toHaveFocus()
   fireEvent.click(nextBtn) // Enter on a focused button fires click
-  expect(screen.getByText(/Calls Margaret by voice/)).toBeInTheDocument()
+  expect(screen.getByText(/Calls Moza by voice/)).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Play' })).toBeInTheDocument()
-  expect(within(document.getElementById('devLive')!).getByText('Margaret, it\'s your check-in. Can you hear me?')).toBeInTheDocument()
+  expect(within(document.getElementById('devLive')!).getByText('Moza, it\'s your check-in. Can you hear me?')).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Previous step' })).toHaveAttribute('aria-disabled', 'false')
   expect(within(document.getElementById('devLive')!).getByRole('button', { name: 'Yes' })).toBeInTheDocument()
 })
@@ -110,13 +110,13 @@ test('Next keeps keyboard focus at the last step and does nothing there (aria-di
   expect(prev).toHaveFocus()
 })
 
-test('Yes and No on her screen toast what Margaret said', async () => {
+test('Yes and No on her screen toast what Moza said', async () => {
   renderWithProviders(<LivePage />)
   await idle()
   act(() => start())
   next()
   fireEvent.click(within(document.getElementById('devLive')!).getByRole('button', { name: 'No' }))
-  expect(document.getElementById('toast')!.textContent).toBe('Margaret: No')
+  expect(document.getElementById('toast')!.textContent).toBe('Moza: No')
 })
 
 test('autoplay advances every 2800 ms and stops with Play shown at the last step', async () => {
@@ -153,15 +153,15 @@ test('owner and timeline carry forward; SLA fills in as steps pass', async () =>
   const sla = () => Array.from(document.querySelectorAll('#sla > div b')).map((b) => b.textContent)
   expect(sla()).toEqual(['—', '—', '—', '—', '—'])
   for (let i = 0; i < 5; i++) next()
-  expect(screen.getByText('David · on his way')).toBeInTheDocument()
+  expect(screen.getByText('Hamad · on his way')).toBeInTheDocument()
   expect(sla()).toEqual(['41 s', '58 s', '1:12', '—', '—'])
   next() // step 6 omits own[0] and own[1]
-  expect(screen.getByText('David · on his way')).toBeInTheDocument()
+  expect(screen.getByText('Hamad · on his way')).toBeInTheDocument()
   expect(screen.getByText('Owns the case')).toBeInTheDocument()
   expect(screen.getByText('5′')).toBeInTheDocument()
   for (let i = 0; i < 3; i++) next()
   expect(sla()).toEqual(['41 s', '58 s', '1:12', '8 min', '14 min'])
-  expect(screen.getByText('On the way to Camperdown')).toBeInTheDocument()
+  expect(screen.getByText('On the way to Corniche')).toBeInTheDocument()
 })
 
 test('the flash overlay fires on step 0 only', async () => {
@@ -188,17 +188,17 @@ test('listen bars appear on the repeat-after-me step', async () => {
   expect(screen.getByText(/Please say after me/)).toBeInTheDocument()
 })
 
-test('Call 000 opens the script drawer; the other calls toast', async () => {
+test('Call 998 opens the script drawer; the other calls toast', async () => {
   renderWithProviders(<LivePage />)
   await idle()
   act(() => start())
   fireEvent.click(screen.getByRole('button', { name: 'Call Mum' }))
   expect(document.getElementById('toast')!.textContent).toBe('Calling Mum · captions on')
-  fireEvent.click(screen.getByRole('button', { name: 'Call David' }))
-  expect(document.getElementById('toast')!.textContent).toBe('Calling David')
-  fireEvent.click(screen.getByRole('button', { name: 'Call 000' }))
-  expect(await screen.findByText('Script for 000')).toBeInTheDocument()
-  expect(screen.getByText('Margaret Collins, 78, lives alone')).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Call Hamad' }))
+  expect(document.getElementById('toast')!.textContent).toBe('Calling Hamad')
+  fireEvent.click(screen.getByRole('button', { name: 'Call 998' }))
+  expect(await screen.findByText('Script for 998')).toBeInTheDocument()
+  expect(screen.getByText('Moza Al Hammadi, 78, lives alone')).toBeInTheDocument()
   expect(screen.getByText('Noa prepares this. A person makes the call.')).toBeInTheDocument()
 })
 
@@ -250,7 +250,7 @@ test('Night alert demo (TopNav) goes to the live page as family; body.night; End
   // Tab to Next: it is a real, focusable button; Enter activates it.
   screen.getByRole('button', { name: 'Next step' }).focus()
   fireEvent.click(screen.getByRole('button', { name: 'Next step' }))
-  expect(screen.getByText(/Calls Margaret by voice/)).toBeInTheDocument()
+  expect(screen.getByText(/Calls Moza by voice/)).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: 'End demo' }))
   expect(document.body.classList.contains('night')).toBe(false)
   expect(screen.queryByText('LIVE')).toBeNull()
@@ -270,17 +270,17 @@ describe.each([
   ['never resolves', () => new Promise<never>(() => {})],
   ['rejects', () => Promise.reject(new Error('scene unavailable'))],
 ])('safety controls when the orbit scene %s', (_name, load) => {
-  test('End demo and Call 000 work without the orbit', async () => {
+  test('End demo and Call 998 work without the orbit', async () => {
     const unhandled = vi.fn()
     process.on('unhandledRejection', unhandled)
     setDataSource({ ...mockSource, getOrbitScene: load })
     renderWithProviders(<LivePage />)
     await idle()
     act(() => start())
-    expect(screen.getByText('David · not yet alerted')).toBeInTheDocument()
+    expect(screen.getByText('Hamad · not yet alerted')).toBeInTheDocument()
     expect(screen.queryByRole('img', { name: LIVE_COPY.orbitLabel })).toBeNull()
-    fireEvent.click(screen.getByRole('button', { name: 'Call 000' }))
-    expect(await screen.findByText('Script for 000')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Call 998' }))
+    expect(await screen.findByText('Script for 998')).toBeInTheDocument()
     await act(async () => { await new Promise((r) => setTimeout(r, 20)) })
     expect(unhandled).not.toHaveBeenCalled()
     process.off('unhandledRejection', unhandled)

@@ -1,51 +1,23 @@
 /* Values copied from the prototype's late <style> block (line ~2022) and new search dropdown. */
 .whoseg button { font-size: 12.5px; padding: 7px 12px; }
-.pauseBanner { padding: 12px 18px; font-size: 13.5px; border-left: 4px solid var(--warn); }
+.pauseBanner { padding: 12px 18px; font-size: 13.5px; border-inline-start: 4px solid var(--warn); }
 
 .searchWrap { position: relative; }
 @media (max-width: 1280px) { .searchWrap { display: none; } }
 .results {
-  position: absolute; top: calc(100% + 6px); right: 0; z-index: 40; min-width: 260px;
+  position: absolute; top: calc(100% + 6px); inset-inline-end: 0; z-index: 40; min-width: 260px;
   list-style: none; margin: 0; padding: 6px; border-radius: 14px;
   background: var(--glass); -webkit-backdrop-filter: var(--frost); backdrop-filter: var(--frost);
   box-shadow: var(--glass-edge), var(--glass-drop);
 }
 .result {
   list-style: none;
-  display: flex; flex-direction: column; gap: 1px; width: 100%; text-align: left;
+  display: flex; flex-direction: column; gap: 1px; width: 100%; text-align: start;
   padding: 8px 10px; border-radius: 10px; font-size: 13px; color: var(--ink); cursor: pointer;
 }
 .result small { font-size: 11.5px; color: var(--muted-text); }
 .result:hover, .result[aria-selected="true"] { background: var(--glass-2); }
 
-/* Language picker: the round badge and its glass listbox (same surface as the search results). */
-.localeWrap { position: relative; display: inline-flex; }
-.localeFlag { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px rgba(13, 42, 42, 0.12); }
-.localeList {
-  position: absolute; top: calc(100% + 8px); left: 0; z-index: 40; width: 236px;
-  list-style: none; margin: 0; padding: 6px; border-radius: 16px; outline: none;
-  /* Near-opaque like the drawer: a backdrop-filter inside the (already filtered) top bar blurs nothing, so a glass
-     tint alone lets the cards behind read through. Light in both themes, with the drawer's ink. */
-  --ink: #0d2a2a; --muted-text: #354544; --brand-text: #064a42; --glass-2: rgba(13, 42, 42, 0.06);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(240, 249, 246, 0.95));
-  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgba(13, 42, 42, 0.06), 0 18px 48px rgba(4, 30, 28, 0.28);
-  transform-origin: top left; animation: localeIn 140ms ease-out;
-}
-.localeList:focus-visible { outline: none; }
-@keyframes localeIn { from { opacity: 0; transform: translateY(-4px) scale(0.97); } }
-@media (prefers-reduced-motion: reduce) { .localeList { animation: none; } }
-.localeItem {
-  display: flex; align-items: center; gap: 10px; padding: 7px 10px 7px 7px; border-radius: 11px;
-  color: var(--ink); cursor: pointer;
-}
-.localeItem[data-active] { background: var(--glass-2); }
-.localeBadge {
-  flex: none; width: 28px; height: 28px; border-radius: 50%; object-fit: cover;
-  box-shadow: 0 0 0 1px rgba(13, 42, 42, 0.12);
-}
-.localeItem[aria-selected="true"] .localeBadge { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--brand); }
-.localeText { display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.25; }
-.localeText b { font-size: 13.5px; font-weight: 600; }
-.localeText small { font-size: 11px; color: var(--muted-text); }
-.localeCheck { flex: none; display: grid; color: var(--brand-text); font-size: 15px; }
-@media (max-width: 760px) { .localeList { left: auto; right: 0; transform-origin: top right; } }
+/* Language switch: a two-state EN / Arabic segmented control (the global .seg look). */
+.localeWrap { display: inline-flex; }
+.localeWrap button { min-width: 34px; }

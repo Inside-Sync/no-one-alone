@@ -13,10 +13,10 @@ import { SosDrawerBody } from './SosDrawerBody'
 
 const gap16: CSSProperties = { display: 'grid', gap: 16, alignContent: 'start' }
 const orbitStyle: CSSProperties = { height: 360 }
-const endStyle: CSSProperties = { marginLeft: 'auto' }
+const endStyle: CSSProperties = { marginInlineStart: 'auto' }
 const ownerAv = { '--c': '#2f6fb0' } as CSSProperties
 const medium: CSSProperties = { fontWeight: 500 }
-const right: CSSProperties = { textAlign: 'right' }
+const right: CSSProperties = { textAlign: 'end' }
 
 /** Left column (c5): level tag, orbit, minutes, owner of the case and the call buttons. */
 export function AlertCard({ step, scene, onEnd }: { step: number; scene: OrbitScene | null; onEnd: () => void }) {
@@ -29,7 +29,7 @@ export function AlertCard({ step, scene, onEnd }: { step: number; scene: OrbitSc
   const { mode, ...targets } = orbitTargets(step)
   return (
     <div className="c5" style={gap16}>
-      <article className="glass card">
+      <article className="glass card" data-tour="live">
         <div className="ch">
           <span className="em-tag"><i></i><span id="emTag">{s.lv}</span></span>
           <button type="button" className="chip" id="endDemo" style={endStyle} onClick={onEnd}>{t('endDemo')}</button>
@@ -46,7 +46,7 @@ export function AlertCard({ step, scene, onEnd }: { step: number; scene: OrbitSc
           <span style={right}><b id="emWhat" style={medium}>{v.what}</b><br /><small className="muted" id="emSub">{v.sub}</small></span>
         </div>
         <div className="owner">
-          <Avatar name="David" style={ownerAv}>D</Avatar>
+          <Avatar name={t('owner.name')} style={ownerAv}>{t('owner.initial')}</Avatar>
           <span><b id="ownT">{v.own[0]}</b><small id="ownS">{v.own[1]}</small></span>
           <span className="eta" id="ownE">{v.own[2]}</span>
         </div>

@@ -1,0 +1,61 @@
+/* Section headings, the wellbeing and recovery cards, and the little bars of the facility tables. Logical properties, so Arabic mirrors. */
+.sec {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 6px 4px -6px;
+  justify-self: start;
+  padding: 3px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82); /* readable on the photo and on the page colour below it */
+}
+:global(html[lang='ar']) .sec { text-transform: none; letter-spacing: 0; }
+
+.fill { display: flex; flex-direction: column; }
+
+.wb { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; flex: 1; grid-auto-rows: 1fr; }
+.wbt { padding: 12px; border-radius: 14px; background: var(--glass-2); box-shadow: var(--glass-edge); display: grid; gap: 4px; min-width: 0; align-content: space-between; }
+.wbt small { font-size: 12px; color: var(--ink2); font-weight: 500; }
+.wbv { display: flex; align-items: baseline; gap: 4px; }
+.wbv b { font-size: 24px; font-weight: 600; }
+.wbv span { font-size: 12px; color: var(--muted-text); }
+.wbs svg { width: 100%; height: 34px; display: block; }
+.wbf { display: grid; gap: 1px; font-size: 11.5px; }
+.wbf em { font-style: normal; font-weight: 600; }
+.wbf span { color: var(--muted-text); }
+
+.rcTop { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.rcTop div { padding: 10px 12px; border-radius: 14px; background: var(--glass-2); box-shadow: var(--glass-edge); }
+.rcTop b { font-size: 24px; font-weight: 600; display: block; }
+.rcTop small { font-size: 11.5px; color: var(--muted-text); }
+.rcl { list-style: none; display: grid; gap: 10px; padding: 0; margin: 0 0 10px; }
+.rcl li { display: grid; gap: 4px; }
+.rcl b { font-size: 13px; font-weight: 600; }
+.rcl small { font-size: 11.5px; color: var(--muted-text); margin-inline-start: 6px; }
+
+/* Value bar with an optional target tick. */
+.bar { display: flex; align-items: center; gap: 8px; }
+.bar i { flex: 1; height: 8px; border-radius: 5px; background: var(--track); position: relative; display: block; }
+.bar s { position: absolute; inset-block: 0; inset-inline-start: 0; border-radius: 5px; display: block; }
+.bar u { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--ink); opacity: 0.55; }
+.bar b { font-family: var(--mono); font-size: 12px; font-weight: 600; min-width: 36px; text-align: end; }
+
+.capsum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px; }
+.capsum div { padding: 10px 12px; border-radius: 14px; background: var(--glass-2); box-shadow: var(--glass-edge); display: grid; gap: 1px; }
+.capsum b { font-size: 24px; font-weight: 600; }
+.capsum small { font-size: 11.5px; color: var(--muted-text); }
+
+.scat { direction: ltr; }
+.scat svg { width: 100%; height: auto; display: block; }
+.scat text { font-size: 11px; fill: var(--ink2); }
+
+.muted { color: var(--muted-text); }
+.tableNote { margin-top: 10px; }
+
+@media (max-width: 1100px) {
+  .wb { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Dark theme: the pill goes dark too, so the light muted text keeps its contrast. */
+:global(body.night) .sec { background: rgba(20, 24, 48, 0.86); }

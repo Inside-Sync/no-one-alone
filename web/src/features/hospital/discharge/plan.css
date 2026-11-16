@@ -8,7 +8,7 @@
 /* Section heads: icon, title, a count of what is in it */
 .plan-h{display:flex;align-items:center;gap:2px;font-size:14.5px;font-weight:600;margin:0;color:var(--ink)}
 .plan-h.sub{font-size:13.5px;margin-top:8px}
-.plan-count{margin-left:8px;min-width:22px;padding:1px 7px;border-radius:999px;background:var(--track);font-size:11.5px;font-weight:600;color:var(--muted-text);text-align:center}
+.plan-count{margin-inline-start:8px;min-width:22px;padding:1px 7px;border-radius:999px;background:var(--track);font-size:11.5px;font-weight:600;color:var(--muted-text);text-align:center}
 .plan-hint{margin:0;font-size:12px;color:var(--muted-text)}
 
 /* Inputs: quiet until touched, so the plan reads like a document */
@@ -58,7 +58,7 @@
 .plan-meds tr[data-change="New"]{--chg:var(--brand-text)}
 .plan-meds tr[data-change="Increased"]{--chg:var(--warn)}
 .plan-meds tr[data-change="Stop"]{--chg:var(--bad)}
-.plan-form:disabled .plan-change{background-image:none;padding-right:12px}
+.plan-form:disabled .plan-change{background-image:none;padding-inline-end:12px}
 
 /* Instructions and appointments side by side */
 .plan-cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px}
@@ -86,13 +86,13 @@
 .plan-pick svg{width:12px;height:12px}
 .plan-pick:hover,.plan-pick[aria-expanded="true"]{background:color-mix(in srgb,var(--brand) 10%,transparent)}
 .plan-pick:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-.plan-list{position:absolute;z-index:20;top:calc(100% + 4px);left:0;width:108px;max-height:216px;overflow-y:auto;overscroll-behavior:contain;
+.plan-list{position:absolute;z-index:20;top:calc(100% + 4px);inset-inline-start:0;width:108px;max-height:216px;overflow-y:auto;overscroll-behavior:contain;
   display:grid;padding:4px;border-radius:12px;background:#fff;box-shadow:0 12px 32px rgba(8,50,48,.22),0 0 0 1px var(--line);isolation:isolate}
-.plan-list button{padding:6px 10px;border-radius:8px;font-family:var(--mono);font-size:12.5px;text-align:left;color:var(--ink)}
+.plan-list button{padding:6px 10px;border-radius:8px;font-family:var(--mono);font-size:12.5px;text-align:start;color:var(--ink)}
 .plan-list button:hover:not(:disabled),.plan-list button:focus-visible{background:var(--brand);color:#fff;outline:0}
 .plan-list button:disabled{color:var(--muted-text);opacity:.45;cursor:default;text-decoration:line-through}
 body.night .plan-list{background:#1d2440}
-.plan-none{font-size:12px;color:var(--muted-text);font-style:italic;margin-right:2px}
+.plan-none{font-size:12px;color:var(--muted-text);font-style:italic;margin-inline-end:2px}
 .plan input[type=date]{font-family:var(--mono);font-size:12.5px}
 .plan input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.6}
 .plan-form:disabled .plan-pick,.plan-form:disabled .plan-time button{display:none}
@@ -134,16 +134,16 @@ body.night .plan-list{background:#1d2440}
 @keyframes plan-in{from{opacity:0;transform:translateY(4px)}}
 
 .plan-day{list-style:none;margin:0;padding:0;display:grid;position:relative}
-.plan-day::before{content:"";position:absolute;left:63px;top:14px;bottom:14px;width:2px;border-radius:2px;background:var(--line)}
+.plan-day::before{content:"";position:absolute;inset-inline-start:63px;top:14px;bottom:14px;width:2px;border-radius:2px;background:var(--line)}
 .plan-day li{display:grid;grid-template-columns:44px 30px minmax(0,1fr);gap:8px;align-items:start;padding:6px 0;position:relative}
-.plan-day time{font-family:var(--mono);font-size:12px;color:var(--muted-text);padding-top:7px;text-align:right}
+.plan-day time{font-family:var(--mono);font-size:12px;color:var(--muted-text);padding-top:7px;text-align:end}
 .plan-day li[data-kind="MED"] .plan-dot{color:var(--hue-purple)}
 .plan-day li b{display:block;font-size:13px;font-weight:500;padding-top:5px}
 .plan-day li small{display:block;font-size:11.5px;color:var(--muted-text);margin-top:1px}
 
 /* Inpatient course: the dots joined into one line, so the stay reads as a sequence */
 .pt-course li{grid-template-columns:52px 12px minmax(0,1fr);position:relative}
-.pt-course li:not(:last-child)::after{content:"";position:absolute;left:65px;top:16px;bottom:-6px;width:2px;background:var(--line)}
+.pt-course li:not(:last-child)::after{content:"";position:absolute;inset-inline-start:65px;top:16px;bottom:-6px;width:2px;background:var(--line)}
 .pt-course .d{position:relative;z-index:1;box-shadow:0 0 0 3px rgba(255,255,255,.7)}
 .pt-course li:last-child .d{background:var(--good)}
 

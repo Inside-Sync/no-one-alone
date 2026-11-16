@@ -12,7 +12,7 @@ interface Props {
   pathway: PathwayStep[]
   /** Pathway text for the treatment window. */
   window: string
-  /** Demo step, or null while Margaret's packet has not arrived. */
+  /** Demo step, or null while Moza's packet has not arrived. */
   step: number | null
 }
 

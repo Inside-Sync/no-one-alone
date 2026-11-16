@@ -31,13 +31,13 @@ const ui = (cat: 'meds' | 'heart' = 'meds') => (
     </DrawerProvider>
   </ToastProvider>
 )
-beforeEach(() => { sessionStorage.clear(); resetMockSource() })
+beforeEach(() => { sessionStorage.clear(); sessionStorage.setItem('noa-app-state', JSON.stringify({ who: 'family' })); resetMockSource() })
 const click = async (name: string) => { await act(async () => { fireEvent.click(screen.getByRole('button', { name })) }) }
 
 test('locked content is not in the DOM', async () => {
   render(ui())
   await click('viewer-sarah')
-  expect(await screen.findByText('Margaret keeps her tablets private')).toBeInTheDocument()
+  expect(await screen.findByText('Moza keeps her tablets private')).toBeInTheDocument()
   expect(screen.queryByText(/Apixaban/)).toBeNull()
   expect(document.body.innerHTML).not.toMatch(/Apixaban/)
 })
@@ -63,7 +63,7 @@ test('paused locks with the paused message and writes audit', async () => {
   render(ui('heart'))
   await screen.findByText('Apixaban 5 mg')
   await click('pause')
-  expect(screen.getByText('Margaret paused sharing until tomorrow')).toBeInTheDocument()
+  expect(screen.getByText('Moza paused sharing until tomorrow')).toBeInTheDocument()
   expect(screen.queryByText(/Apixaban/)).toBeNull()
   expect(screen.getByTestId('audit').textContent).toContain('"action":"pause"')
   await click('pause')
@@ -74,7 +74,7 @@ test('paused locks with the paused message and writes audit', async () => {
 test('toggleShare flips access optimistically and audits; safety is a no-op', async () => {
   render(ui())
   await click('viewer-sarah')
-  await screen.findByText('Margaret keeps her tablets private')
+  await screen.findByText('Moza keeps her tablets private')
   await click('share-meds')
   expect(await screen.findByText('Apixaban 5 mg')).toBeInTheDocument()
   const a = JSON.parse(screen.getByTestId('audit').textContent!)
@@ -87,21 +87,21 @@ test('toggleShare flips access optimistically and audits; safety is a no-op', as
 test('tapping a locked card opens the Kept private sheet', async () => {
   render(ui())
   await click('viewer-sarah')
-  fireEvent.click(await screen.findByText('Margaret keeps her tablets private'))
+  fireEvent.click(await screen.findByText('Moza keeps her tablets private'))
   const drawer = screen.getByRole('dialog', { hidden: true })
   expect(drawer).toHaveClass('on')
   expect(drawer).toHaveTextContent('Kept private')
-  expect(drawer).toHaveTextContent("Margaret has chosen not to share this with Sarah. That's her choice, and she can change it any time.")
-  fireEvent.click(screen.getByRole('button', { name: 'Ask Margaret kindly' }))
-  expect(document.getElementById('toast')!.textContent).toBe('Margaret will get a gentle request she can say yes or no to')
+  expect(drawer).toHaveTextContent("Moza has chosen not to share this with Alia. That's her choice, and she can change it any time.")
+  fireEvent.click(screen.getByRole('button', { name: 'Ask Moza kindly' }))
+  expect(document.getElementById('toast')!.textContent).toBe('Moza will get a gentle request she can say yes or no to')
   expect(screen.getByRole('button', { name: '✓ Request sent', hidden: true })).toBeDisabled()
 })
 
-test('the sheet says "you" for James and mentions the pause', async () => {
+test('the sheet says "you" for Khalid and mentions the pause', async () => {
   render(ui('heart'))
   await click('pause')
-  fireEvent.click(await screen.findByText('Margaret paused sharing until tomorrow'))
+  fireEvent.click(await screen.findByText('Moza paused sharing until tomorrow'))
   expect(screen.getByRole('dialog', { hidden: true })).toHaveTextContent(
-    'Margaret has chosen not to share this with you right now. She paused sharing until 9 am tomorrow. Safety alerts still reach you.',
+    'Moza has chosen not to share this with you right now. She paused sharing until 9 am tomorrow. Safety alerts still reach you.',
   )
 })

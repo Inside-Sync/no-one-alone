@@ -183,7 +183,7 @@ function LiveIncidentPage() {
   const heardIncident = shown ? { ...shown.incident, timeline: shown.incident.timeline.slice(0, limit) } : null
   const agent = agentView(shown?.incident ?? null, people)
   const name = (people.person?.displayName ?? view?.personName ?? '').split(' ')[0]
-  const num = people.person?.emergencyNumber ?? view?.emergencyNumber ?? '000'
+  const num = people.person?.emergencyNumber ?? view?.emergencyNumber ?? '998'
   const ambulance = shown && dialogueDone?.id === shown.view.id ? { ...ambulanceStatus(shown.view.id), ...(dialogueDone.silent ? { clip: null } : {}) } : null
   // The prototype's sim page: controls, circle and readings, Noa / calls / her phone, then the conversation and the log.
   return (
@@ -200,7 +200,7 @@ function LiveIncidentPage() {
       ) : (
         <IdlePhoneCard name={name} time={clockText(watch.watch.clock)} disabled={busy} onHelp={() => begin(watch.watch.hr > 120 ? watch.watch.hr : 142, ALERT_MIN)} />
       )}
-      <SpeechCheckCard incident={shown?.incident ?? null} name={name} timeZone={people.person?.timezone ?? 'Asia/Ho_Chi_Minh'}
+      <SpeechCheckCard incident={shown?.incident ?? null} name={name} timeZone={people.person?.timezone ?? 'Asia/Dubai'}
         onReplay={() => nightDemo.current()} busy={busy} />
       <ConversationsCard incident={heardIncident} people={people} call={dialogue.lines} dialling={dialogue.dialling} />
       <HandoverCard incident={shown?.incident ?? null} view={shown?.view ?? null} people={people} agent={agent} />

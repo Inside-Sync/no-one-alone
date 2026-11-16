@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { SourceLine } from '@/features/shared/SourceLine'
 import { Locked } from '@/components/ui/Locked'
 import { Pill } from '@/components/ui/Pill'
 import type { HealthData } from '@/data/types'
@@ -48,6 +49,7 @@ export function MoodCard({ mood }: { mood: HealthData['mood14'] }) {
         <div className="tags" style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {mood.tags.map((t) => <Pill key={t.text} tone={t.tone}>{t.text}</Pill>)}
         </div>
+        <SourceLine source={t('src.mood.source')} time={t('src.mood.time')} />
       </GlassCard>
     </Locked>
   )

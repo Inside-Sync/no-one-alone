@@ -1,0 +1,202 @@
+{
+  "treatment": {
+    "plan": {
+      "meta": "From Corniche Stroke Centre · sent by the agent",
+      "source": "Discharge plan, Corniche Stroke Centre",
+      "time": "17 Oct",
+      "summary": {
+        "self": "You had a small stroke on 15 October. The hospital treated it quickly and you are recovering well. They also found your heartbeat is sometimes uneven, so there is a new tablet to stop clots.",
+        "family": "Moza had a small stroke on 15 October. The hospital treated it quickly and she is recovering well. They also found her heartbeat is sometimes uneven, so there is a new tablet to stop clots."
+      },
+      "day": 11,
+      "chips": [
+        {
+          "icon": "octagon-x",
+          "tone": "stop",
+          "text": "Stop: Aspirin"
+        },
+        {
+          "icon": "ban",
+          "tone": "plain",
+          "text": "No driving for 1 month"
+        },
+        {
+          "icon": "cooking-pot",
+          "tone": "plain",
+          "text": "Less salt"
+        },
+        {
+          "icon": "droplets",
+          "tone": "plain",
+          "text": "1.5 L water"
+        }
+      ]
+    },
+    "reminders": {
+      "source": "Noa reminders",
+      "time": "Today 15:08",
+      "now": "15:08"
+    },
+    "tasks": {
+      "source": "Pill box and app",
+      "time": "Today 15:08",
+      "items": [
+        {
+          "time": "08:00",
+          "kind": "MED",
+          "icon": "pill",
+          "title": "Apixaban 5 mg + Perindopril 4 mg + Vitamin D 1000 IU",
+          "why": "Stops clots forming because of the uneven heartbeat. Replaces aspirin. Lowers blood pressure and protects the brain. For bones, as before.",
+          "done": true
+        },
+        {
+          "time": "08:15",
+          "kind": "ACTIVITY",
+          "icon": "stethoscope",
+          "title": "Check your blood pressure",
+          "why": "Sit for 5 minutes first. Aim for under 130/80.",
+          "done": true
+        },
+        {
+          "time": "10:00",
+          "kind": "ACTIVITY",
+          "icon": "footprints",
+          "title": "Walk for 20 minutes",
+          "why": "Gentle walking helps the brain heal and keeps blood pressure down.",
+          "done": true
+        },
+        {
+          "time": "11:00",
+          "kind": "ACTIVITY",
+          "icon": "drop",
+          "title": "Drink a glass of water",
+          "why": "Aim for 1.5 L today.",
+          "done": true
+        },
+        {
+          "time": "14:00",
+          "kind": "ACTIVITY",
+          "icon": "speech",
+          "title": "Speech exercises, 15 minutes",
+          "why": "Practise the sounds from your speech therapist.",
+          "done": true
+        },
+        {
+          "time": "16:00",
+          "kind": "ACTIVITY",
+          "icon": "drop",
+          "title": "Drink a glass of water",
+          "why": "Halfway there.",
+          "done": false
+        },
+        {
+          "time": "18:00",
+          "kind": "MED",
+          "icon": "pill",
+          "title": "Apixaban 5 mg + Amlodipine 5 mg",
+          "why": "Stops clots forming because of the uneven heartbeat. Replaces aspirin. Blood pressure tablet, as before.",
+          "done": false
+        },
+        {
+          "time": "18:15",
+          "kind": "ACTIVITY",
+          "icon": "stethoscope",
+          "title": "Check your blood pressure",
+          "why": "Evening reading.",
+          "done": false
+        },
+        {
+          "time": "21:00",
+          "kind": "MED",
+          "icon": "pill",
+          "title": "Atorvastatin 40 mg",
+          "why": "Lowers cholesterol. Dose raised from 20 mg.",
+          "done": false
+        }
+      ]
+    },
+    "medicines": {
+      "source": "Discharge plan",
+      "time": "17 Oct",
+      "items": [
+        {
+          "name": "Apixaban 5 mg",
+          "when": "morning and evening",
+          "why": "Stops clots forming because of the uneven heartbeat. Replaces aspirin.",
+          "change": "New",
+          "entry": "t3"
+        },
+        {
+          "name": "Perindopril 4 mg",
+          "when": "morning",
+          "why": "Lowers blood pressure and protects the brain.",
+          "change": "New",
+          "entry": "t3"
+        },
+        {
+          "name": "Atorvastatin 40 mg",
+          "when": "night",
+          "why": "Lowers cholesterol. Dose raised from 20 mg.",
+          "change": "Increased",
+          "entry": "t3"
+        },
+        {
+          "name": "Amlodipine 5 mg",
+          "when": "evening",
+          "why": "Blood pressure tablet, as before.",
+          "change": "Continue",
+          "entry": "h2"
+        },
+        {
+          "name": "Vitamin D 1000 IU",
+          "when": "morning",
+          "why": "For bones, as before.",
+          "change": "Continue",
+          "entry": ""
+        }
+      ]
+    },
+    "appointments": {
+      "source": "Hospital and clinic bookings",
+      "time": "23 Oct",
+      "items": [
+        {
+          "title": "GP review, Dr Fatima Al Ali",
+          "when": "Fri 23 Oct, 10:30",
+          "entry": "f2"
+        },
+        {
+          "title": "Physio home visit",
+          "when": "Tue 20 Oct",
+          "entry": "f1"
+        },
+        {
+          "title": "Speech pathology (weekly × 6)",
+          "when": "from Thu 22 Oct",
+          "entry": "f1"
+        },
+        {
+          "title": "Stroke clinic, Corniche",
+          "when": "Mon 30 Nov, 09:00",
+          "entry": "t4"
+        },
+        {
+          "title": "Blood test (kidneys, on apixaban)",
+          "when": "Fri 23 Oct",
+          "entry": ""
+        }
+      ]
+    },
+    "warning": {
+      "source": "Stroke unit guidance",
+      "time": "17 Oct"
+    },
+    "calls": {
+      "source": "Noa voice calls",
+      "time": "Today 08:10",
+      "done": [
+        1
+      ]
+    }
+  }
+}

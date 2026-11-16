@@ -14,7 +14,7 @@ beforeEach(() => {
   mockRaf()
 })
 const toastText = () => document.getElementById('toast')!.textContent
-const ready = () => screen.findByRole('heading', { name: 'Designed for Margaret' })
+const ready = () => screen.findByRole('heading', { name: 'Designed for Moza' })
 
 test('is registered for individual/device', () => {
   expect(PAGE_REGISTRY['individual/device']).toBe(DevicePage)
@@ -23,11 +23,11 @@ test('is registered for individual/device', () => {
 test('shows her home screen on the phone and the design facts', async () => {
   renderWithProviders(<DevicePage />, { who: 'self' })
   await ready()
-  expect(screen.getByText('Wednesday 14 October')).toBeInTheDocument()
-  expect(screen.getByText('Hello, Margaret')).toBeInTheDocument()
+  expect(screen.getByText('Wednesday 28 October')).toBeInTheDocument()
+  expect(screen.getByText('Hello, Moza')).toBeInTheDocument()
   expect(screen.getByText('Blood pressure tablet')).toBeInTheDocument()
   expect(screen.getByText('No training, no menus')).toBeInTheDocument()
-  expect(screen.getByRole('img', { name: "Margaret's family circle" })).toBeInTheDocument()
+  expect(screen.getByRole('img', { name: "Moza's family circle" })).toBeInTheDocument()
   expect(screen.getByText('28 pt')).toBeInTheDocument()
   expect(screen.getByText('92 px')).toBeInTheDocument()
   expect(screen.getByText('Two large buttons and one task at a time. Nothing to navigate.')).toBeInTheDocument()
@@ -37,7 +37,7 @@ test('phone buttons use the prototype toasts', async () => {
   renderWithProviders(<DevicePage />, { who: 'self' })
   await ready()
   fireEvent.click(screen.getByRole('button', { name: "I've taken it" }))
-  expect(toastText()).toBe('Noted · James will see it')
+  expect(toastText()).toBe('Noted · Khalid will see it')
   fireEvent.click(screen.getByRole('button', { name: "I'm OK" }))
   expect(toastText()).toBe("The family knows you're OK")
 })

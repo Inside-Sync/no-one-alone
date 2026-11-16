@@ -10,7 +10,7 @@ const bubble: CSSProperties = { width: 56, height: 56, fontSize: 26 }
 export function IdleCard({ onRun }: { onRun: () => void }) {
   const { t } = useTranslation('live')
   return (
-    <article className="glass card idle c12" id="liveIdle">
+    <article className="glass card idle c12" id="liveIdle" data-tour="live">
       <span className="li" style={bubble}><span className="ic"><Icon name="check" /></span></span>
       <h2>{t('idle.title')}</h2>
       <p>{t('idle.body')}</p>

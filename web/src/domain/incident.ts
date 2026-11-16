@@ -7,7 +7,7 @@
  * change gives the new language. Text written by the backend (timeline entries, agent questions, triage reasons,
  * the call script, packet findings) is shown as is.
  */
-import i18n from '@/i18n'
+import i18n, { intlLocale } from '@/i18n'
 import type {
   AssignmentAction, AssignmentDoc, IncidentDoc, PacketDoc, PersonDoc, ServerAction, TimelineDoc, TimelineKind,
 } from '@/data/contract'
@@ -91,8 +91,8 @@ const initials = (s: string) => s.split(/\s+/).filter(Boolean).slice(0, 2).map((
 const ms = (iso?: string) => (iso ? Date.parse(iso) : NaN)
 
 /** `HH:mm` of an ISO time in the person's timezone (contract: screens convert to the viewer's timezone). */
-export function clockTime(iso: string | number, timeZone = 'Asia/Ho_Chi_Minh'): string {
-  return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone }).format(new Date(iso))
+export function clockTime(iso: string | number, timeZone = 'Asia/Dubai'): string {
+  return new Intl.DateTimeFormat(intlLocale(), { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone }).format(new Date(iso))
 }
 
 /** `live:` lookup by a built key (`incident.owner.${k}`); the namespace's JSON holds every key used here. */
@@ -207,7 +207,7 @@ function ownerView(inc: IncidentDoc, people: LivePeople, now: number, tz: string
     const eta = !Number.isFinite(left) ? '—' : secs < 60 ? `${secs}″` : duration(left)
     return { name, initials: initials(name), title: o('alerted', { name }), subtitle: o(waiting.role === 'NEARBY' ? 'waiting' : 'calling'), eta }
   }
-  if (firstEntry(inc.timeline, 'NO_NEARBY')) return { name: '', initials: '!', title: o('noNearby'), subtitle: o(firstEntry(inc.timeline, 'CALLED_115') ? 'autoCalled' : 'callNow', { num: people.person?.emergencyNumber ?? '000' }), eta: '—' }
+  if (firstEntry(inc.timeline, 'NO_NEARBY')) return { name: '', initials: '!', title: o('noNearby'), subtitle: o(firstEntry(inc.timeline, 'CALLED_115') ? 'autoCalled' : 'callNow', { num: people.person?.emergencyNumber ?? '998' }), eta: '—' }
   const firstUp = callQueue(people)[0]
   const name = firstUp ? first(memberName(people, firstUp.memberId)) : tl('incident.who.circle')
   return { name, initials: initials(name), title: o('notYet', { name }), subtitle: o('firstToCall'), eta: '—' }
@@ -291,7 +291,7 @@ export function helperStatus(inc: IncidentDoc, people: LivePeople): HelperStatus
   const last = events[events.length - 1]
   if (!last) return null
   const status = (name: string, text: string): HelperStatus => ({ text, clip: clip(name), key: `${name} ${last.at}` })
-  const num = people.person?.emergencyNumber ?? '115'
+  const num = people.person?.emergencyNumber ?? '998'
   if (last.kind === 'CALLED_115') {
     const accepted = [...events].reverse().find((e) => e.kind === 'ACCEPTED')
     if (!accepted) return status('calling-000', s('calling000', { num }))
@@ -403,7 +403,7 @@ export function orbitWithHospital(scene: OrbitScene, hospitalName: string | unde
 export const isServerAction = (a: AssignmentAction): a is Exclude<ServerAction, 'CLOSE'> => a !== 'CALL_PERSON' && a !== 'CALL_NEARBY'
 
 export function liveView(id: string, inc: IncidentDoc, people: LivePeople, now: number): LiveView {
-  const tz = people.person?.timezone ?? 'Asia/Ho_Chi_Minh'
+  const tz = people.person?.timezone ?? 'Asia/Dubai'
   const { what, sub } = headline(inc, people, tz)
   const owner = ownerView(inc, people, now, tz)
   const p = inc.handoff?.status === 'RECEIVED' ? inc.handoff.packet : undefined
@@ -428,7 +428,7 @@ export function liveView(id: string, inc: IncidentDoc, people: LivePeople, now: 
     phone: phoneView(inc, people, now, tz),
     orbit: orbitView(inc, now),
     callScript: inc.callScript ?? null,
-    emergencyNumber: people.person?.emergencyNumber ?? '115',
+    emergencyNumber: people.person?.emergencyNumber ?? '998',
     personName: name,
     packet: p
       ? {

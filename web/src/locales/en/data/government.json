@@ -1,0 +1,1048 @@
+{
+  "government": {
+    "context": {
+      "initials": "DH",
+      "color": "#6d4fc0",
+      "sub": "Department of Health · screening programmes · 17 areas · last 90 days",
+      "facts": [
+        {
+          "live": true,
+          "label": "Updated",
+          "value": "15:00"
+        },
+        {
+          "live": false,
+          "label": "Programmes",
+          "value": "6"
+        },
+        {
+          "live": false,
+          "label": "Areas below 70%",
+          "value": "4"
+        },
+        {
+          "live": false,
+          "label": "Groups under 10",
+          "value": "suppressed"
+        }
+      ]
+    },
+    "wellbeing": [
+      {
+        "label": "Healthy life expectancy",
+        "value": "66.8",
+        "unit": "years",
+        "delta": "+0.4 vs 2024",
+        "note": "target 68 by 2030",
+        "tone": "good",
+        "spark": [
+          65.9,
+          66.0,
+          66.2,
+          66.3,
+          66.5,
+          66.6,
+          66.8
+        ]
+      },
+      {
+        "label": "Good mental wellbeing",
+        "value": "71",
+        "unit": "%",
+        "delta": "+2 pts",
+        "note": "WHO-5 score 13+ · target 75%",
+        "tone": "good",
+        "spark": [
+          66,
+          67,
+          68,
+          68,
+          69,
+          70,
+          71
+        ]
+      },
+      {
+        "label": "Active 150 min a week",
+        "value": "38",
+        "unit": "%",
+        "delta": "+3 pts",
+        "note": "adults · target 50%",
+        "tone": "good",
+        "spark": [
+          31,
+          32,
+          33,
+          35,
+          35,
+          36,
+          38
+        ]
+      },
+      {
+        "label": "Obesity",
+        "value": "27",
+        "unit": "%",
+        "delta": "−1 pt",
+        "note": "adults · lower is better",
+        "tone": "good",
+        "spark": [
+          29,
+          29,
+          28,
+          28,
+          28,
+          27,
+          27
+        ]
+      },
+      {
+        "label": "Diabetes",
+        "value": "16",
+        "unit": "%",
+        "delta": "+1 pt",
+        "note": "adults · rising as more are found",
+        "tone": "warn",
+        "spark": [
+          14,
+          14,
+          15,
+          15,
+          15,
+          16,
+          16
+        ]
+      },
+      {
+        "label": "Blood pressure controlled",
+        "value": "52",
+        "unit": "%",
+        "delta": "+4 pts",
+        "note": "of adults on treatment · target 70%",
+        "tone": "warn",
+        "spark": [
+          44,
+          45,
+          47,
+          48,
+          49,
+          51,
+          52
+        ]
+      },
+      {
+        "label": "Early deaths from chronic disease",
+        "value": "14.1",
+        "unit": "%",
+        "delta": "−0.6 pts",
+        "note": "chance of dying aged 30–70 · lower is better",
+        "tone": "good",
+        "spark": [
+          15.2,
+          15.0,
+          14.8,
+          14.6,
+          14.4,
+          14.3,
+          14.1
+        ]
+      },
+      {
+        "label": "Avoidable hospital stays",
+        "value": "9.4",
+        "unit": "per 1,000",
+        "delta": "−0.8",
+        "note": "adults · lower is better",
+        "tone": "good",
+        "spark": [
+          11.0,
+          10.8,
+          10.4,
+          10.1,
+          9.9,
+          9.6,
+          9.4
+        ]
+      }
+    ],
+    "recovery": {
+      "headlines": [
+        {
+          "value": "72%",
+          "label": "recovered at 90 days"
+        },
+        {
+          "value": "81%",
+          "label": "home and independent 30 days after discharge"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Stroke",
+          "note": "independent at 90 days",
+          "value": 64,
+          "target": 70
+        },
+        {
+          "label": "Heart attack",
+          "note": "back to usual activity at 90 days",
+          "value": 78,
+          "target": 80
+        },
+        {
+          "label": "Hip fracture",
+          "note": "walking without help at 90 days",
+          "value": 58,
+          "target": 65
+        },
+        {
+          "label": "Heart failure",
+          "note": "no readmission in 30 days",
+          "value": 82,
+          "target": 85
+        },
+        {
+          "label": "Pneumonia, 65+",
+          "note": "home, no readmission in 30 days",
+          "value": 87,
+          "target": 85
+        }
+      ],
+      "note": "Line = target. Counted from follow-up calls and home data patients chose to share. Illustrative figures."
+    },
+    "kpis": [
+      {
+        "label": "Actionable results",
+        "value": "2,738",
+        "unit": "90 d",
+        "color": "#c88a05",
+        "baseline": "18,170 adults screened",
+        "delta": "+6% qtr",
+        "tone": "good",
+        "spark": [
+          1880,
+          1990,
+          2090,
+          2190,
+          2290,
+          2400,
+          2500,
+          2620,
+          2738
+        ]
+      },
+      {
+        "label": "Told within 1 day",
+        "value": "96",
+        "unit": "%",
+        "color": "#1fb39c",
+        "baseline": "by app, voice or SMS",
+        "delta": "+3 pts",
+        "tone": "good",
+        "spark": [
+          88,
+          89,
+          91,
+          92,
+          93,
+          94,
+          95,
+          95,
+          96
+        ]
+      },
+      {
+        "label": "Reached care in time",
+        "value": "77",
+        "unit": "%",
+        "color": "#d9443f",
+        "baseline": "target 85%",
+        "delta": "+5 pts",
+        "tone": "warn",
+        "spark": [
+          68,
+          69,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77
+        ]
+      },
+      {
+        "label": "Days to treatment",
+        "value": "20",
+        "unit": "median",
+        "color": "#0b7f71",
+        "baseline": "target 30",
+        "delta": "−6 d",
+        "tone": "good",
+        "spark": [
+          29,
+          28,
+          27,
+          26,
+          24,
+          23,
+          22,
+          21,
+          20
+        ]
+      },
+      {
+        "label": "Open past target",
+        "value": "636",
+        "unit": "",
+        "color": "#d9443f",
+        "baseline": "4 areas below 70%",
+        "delta": "−38 qtr",
+        "tone": "warn",
+        "spark": [
+          700,
+          690,
+          676,
+          664,
+          655,
+          648,
+          642,
+          640,
+          636
+        ]
+      },
+      {
+        "label": "Controlled at 3 months",
+        "value": "59",
+        "unit": "%",
+        "color": "#1f8f5f",
+        "baseline": "diabetes and blood pressure",
+        "delta": "+4 pts",
+        "tone": "good",
+        "spark": [
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          58,
+          59
+        ]
+      }
+    ],
+    "areas": [
+      {
+        "name": "Al Bateen",
+        "col": 0,
+        "row": 0,
+        "screened": 820,
+        "actionable": 104,
+        "reached": 90,
+        "coverage": 79,
+        "days": 15,
+        "language": "Arabic"
+      },
+      {
+        "name": "Al Khalidiya",
+        "col": 1,
+        "row": 0,
+        "screened": 1240,
+        "actionable": 168,
+        "reached": 88,
+        "coverage": 77,
+        "days": 16,
+        "language": "Arabic"
+      },
+      {
+        "name": "Al Zahiyah",
+        "col": 2,
+        "row": 0,
+        "screened": 960,
+        "actionable": 142,
+        "reached": 81,
+        "coverage": 70,
+        "days": 19,
+        "language": "Malayalam"
+      },
+      {
+        "name": "Al Reem",
+        "col": 3,
+        "row": 0,
+        "screened": 1380,
+        "actionable": 176,
+        "reached": 86,
+        "coverage": 72,
+        "days": 17,
+        "language": "English"
+      },
+      {
+        "name": "Saadiyat",
+        "col": 4,
+        "row": 0,
+        "screened": 410,
+        "actionable": 48,
+        "reached": 89,
+        "coverage": 74,
+        "days": 15,
+        "language": "English"
+      },
+      {
+        "name": "Al Mushrif",
+        "col": 0,
+        "row": 1,
+        "screened": 880,
+        "actionable": 124,
+        "reached": 85,
+        "coverage": 76,
+        "days": 18,
+        "language": "Arabic"
+      },
+      {
+        "name": "Al Nahyan",
+        "col": 1,
+        "row": 1,
+        "screened": 910,
+        "actionable": 138,
+        "reached": 80,
+        "coverage": 69,
+        "days": 21,
+        "language": "Urdu"
+      },
+      {
+        "name": "Al Muroor",
+        "col": 2,
+        "row": 1,
+        "screened": 760,
+        "actionable": 118,
+        "reached": 78,
+        "coverage": 66,
+        "days": 22,
+        "language": "Hindi"
+      },
+      {
+        "name": "Khalifa City",
+        "col": 3,
+        "row": 1,
+        "screened": 1520,
+        "actionable": 212,
+        "reached": 84,
+        "coverage": 73,
+        "days": 19,
+        "language": "Arabic"
+      },
+      {
+        "name": "MBZ City",
+        "col": 4,
+        "row": 1,
+        "screened": 1310,
+        "actionable": 186,
+        "reached": 80,
+        "coverage": 70,
+        "days": 20,
+        "language": "Hindi"
+      },
+      {
+        "name": "Mussafah",
+        "col": 0,
+        "row": 2,
+        "screened": 2280,
+        "actionable": 412,
+        "reached": 58,
+        "coverage": 52,
+        "days": 34,
+        "language": "Bengali"
+      },
+      {
+        "name": "Baniyas",
+        "col": 1,
+        "row": 2,
+        "screened": 1180,
+        "actionable": 190,
+        "reached": 72,
+        "coverage": 64,
+        "days": 26,
+        "language": "Urdu"
+      },
+      {
+        "name": "Al Shamkha",
+        "col": 2,
+        "row": 2,
+        "screened": 1040,
+        "actionable": 156,
+        "reached": 79,
+        "coverage": 68,
+        "days": 21,
+        "language": "Arabic"
+      },
+      {
+        "name": "Al Wathba",
+        "col": 3,
+        "row": 2,
+        "screened": 460,
+        "actionable": 82,
+        "reached": 70,
+        "coverage": 58,
+        "days": 27,
+        "language": "Arabic"
+      },
+      {
+        "name": "Al Dhafra",
+        "col": 0,
+        "row": 3,
+        "screened": 620,
+        "actionable": 104,
+        "reached": 63,
+        "coverage": 54,
+        "days": 31,
+        "language": "Arabic"
+      },
+      {
+        "name": "Al Ain city",
+        "col": 3,
+        "row": 3,
+        "screened": 1880,
+        "actionable": 286,
+        "reached": 81,
+        "coverage": 71,
+        "days": 20,
+        "language": "Arabic"
+      },
+      {
+        "name": "Al Ain outskirts",
+        "col": 4,
+        "row": 3,
+        "screened": 520,
+        "actionable": 92,
+        "reached": 68,
+        "coverage": 57,
+        "days": 28,
+        "language": "Arabic"
+      }
+    ],
+    "districtKicker": "Abu Dhabi · 17 areas",
+    "screening": {
+      "pill": "Above capacity",
+      "weeks": [
+        {
+          "label": "W36",
+          "value": 176
+        },
+        {
+          "label": "W37",
+          "value": 182
+        },
+        {
+          "label": "W38",
+          "value": 190
+        },
+        {
+          "label": "W39",
+          "value": 201
+        },
+        {
+          "label": "W40",
+          "value": 214
+        },
+        {
+          "label": "W41",
+          "value": 226
+        },
+        {
+          "label": "W42",
+          "value": 238
+        }
+      ],
+      "slots": {
+        "value": 210,
+        "label": "slots 210",
+        "max": 250
+      },
+      "stats": [
+        {
+          "label": "Invites sent",
+          "value": "4,120",
+          "note": "in 7 languages"
+        },
+        {
+          "label": "By voice call",
+          "value": "38%",
+          "note": "no smartphone needed"
+        },
+        {
+          "label": "Mobile clinic days",
+          "value": "3",
+          "note": "4 requested",
+          "tone": "warn"
+        }
+      ],
+      "campaigns": [
+        {
+          "title": "Workplace screening, Mussafah",
+          "detail": "1,800 invited · results back in 5 days",
+          "pill": {
+            "tone": "good",
+            "text": "Running"
+          }
+        },
+        {
+          "title": "Mobile clinic, Al Dhafra",
+          "detail": "Madinat Zayed and Ghayathi · November",
+          "pill": {
+            "tone": "warn",
+            "text": "To approve"
+          }
+        },
+        {
+          "title": "Before-Ramadan diabetes checks",
+          "detail": "1,210 people on diabetes medicines · from January",
+          "pill": {
+            "tone": "plain",
+            "text": "Planned"
+          }
+        }
+      ],
+      "approveToast": "Approved · 4 mobile clinic days added for November"
+    },
+    "facilities": {
+      "average": 75,
+      "rows": [
+        {
+          "name": "Mussafah Family Health Centre",
+          "shortName": "Mussafah FHC",
+          "kind": "fhc",
+          "area": "Mussafah",
+          "capacity": 104,
+          "effectiveness": 62,
+          "inCare": 58,
+          "days": 31,
+          "readmitted": null,
+          "open": 151,
+          "outcome": 48,
+          "outcomeKind": "controlled"
+        },
+        {
+          "name": "Madinat Zayed Health Centre",
+          "shortName": "Madinat Zayed HC",
+          "kind": "fhc",
+          "area": "Al Dhafra",
+          "capacity": 71,
+          "effectiveness": 66,
+          "inCare": 63,
+          "days": 34,
+          "readmitted": null,
+          "open": 29,
+          "outcome": 52,
+          "outcomeKind": "controlled"
+        },
+        {
+          "name": "Mainland Regional Hospital",
+          "shortName": "Mainland Regional",
+          "kind": "hosp",
+          "area": "Baniyas",
+          "capacity": 94,
+          "effectiveness": 71,
+          "inCare": 66,
+          "days": 27,
+          "readmitted": 11.4,
+          "open": 46,
+          "outcome": 58,
+          "outcomeKind": "recovered"
+        },
+        {
+          "name": "Capital General Hospital",
+          "shortName": "Capital General",
+          "kind": "hosp",
+          "area": "Al Zahiyah",
+          "capacity": 82,
+          "effectiveness": 76,
+          "inCare": 74,
+          "days": 22,
+          "readmitted": 9.8,
+          "open": 37,
+          "outcome": 63,
+          "outcomeKind": "recovered"
+        },
+        {
+          "name": "Al Ain Family Health Centre",
+          "shortName": "Al Ain FHC",
+          "kind": "fhc",
+          "area": "Al Ain city",
+          "capacity": 96,
+          "effectiveness": 76,
+          "inCare": 79,
+          "days": 19,
+          "readmitted": null,
+          "open": 41,
+          "outcome": 61,
+          "outcomeKind": "controlled"
+        },
+        {
+          "name": "Al Khalidiya Family Health Centre",
+          "shortName": "Al Khalidiya FHC",
+          "kind": "fhc",
+          "area": "Al Khalidiya",
+          "capacity": 78,
+          "effectiveness": 81,
+          "inCare": 86,
+          "days": 15,
+          "readmitted": null,
+          "open": 12,
+          "outcome": 66,
+          "outcomeKind": "controlled"
+        },
+        {
+          "name": "Al Bateen Family Health Centre",
+          "shortName": "Al Bateen FHC",
+          "kind": "fhc",
+          "area": "Al Bateen",
+          "capacity": 66,
+          "effectiveness": 83,
+          "inCare": 88,
+          "days": 14,
+          "readmitted": null,
+          "open": 9,
+          "outcome": 68,
+          "outcomeKind": "controlled"
+        },
+        {
+          "name": "Corniche Stroke Centre",
+          "shortName": "Corniche Stroke Centre",
+          "kind": "hosp",
+          "area": "Al Bateen",
+          "capacity": 87,
+          "effectiveness": 85,
+          "inCare": 91,
+          "days": 9,
+          "readmitted": 6.1,
+          "open": 4,
+          "outcome": 71,
+          "outcomeKind": "recovered"
+        }
+      ],
+      "note": "Effectiveness = average of in care in time, outcome at 3 months, and readmissions avoided (hospitals) or results confirmed in 7 days (family health centres). Fictional facilities and figures.",
+      "tableNote": "Lowest first · the 8 largest of 34 facilities · last 90 days. Every facility is measured with the same loop rules: an owner, a deadline and evidence that treatment started. Outcome at 3 months: recovered after a hospital stay, or diabetes and blood pressure controlled for family health centres. Fictional facilities and figures."
+    },
+    "balance": {
+      "items": [
+        {
+          "icon": "siren",
+          "tone": "bad",
+          "title": "Mussafah Family Health Centre",
+          "detail": "104% in use and the least effective (62). Results stall when clinics are full."
+        },
+        {
+          "icon": "right",
+          "tone": "good",
+          "title": "Al Bateen Family Health Centre",
+          "detail": "66% in use, effectiveness 83. Room for about 40 more visits a week."
+        }
+      ],
+      "overflowToast": "Approved · evening overflow from Mussafah offered at Al Bateen for 8 weeks"
+    },
+    "stalled": [
+      {
+        "name": "Mohammed I.",
+        "age": 38,
+        "area": "Mussafah",
+        "result": "HbA1c 8.9%",
+        "openDays": 41,
+        "why": "Not reached: SMS only, night shifts",
+        "language": "Bengali",
+        "next": "Voice call after 21:00"
+      },
+      {
+        "name": "Omar S.",
+        "age": 55,
+        "area": "Al Dhafra",
+        "result": "BP 172/108",
+        "openDays": 33,
+        "why": "Specialist clinic 210 km away",
+        "language": "Arabic",
+        "next": "Telehealth first visit"
+      },
+      {
+        "name": "Ahmed R.",
+        "age": 52,
+        "area": "Baniyas",
+        "result": "HbA1c 8.1%",
+        "openDays": 22,
+        "why": "Declined: clinic too far",
+        "language": "Urdu",
+        "next": "Re-refer nearer home"
+      },
+      {
+        "name": "Ana R.",
+        "age": 44,
+        "area": "Khalifa City",
+        "result": "FIT positive",
+        "openDays": 19,
+        "why": "Interpreter slots full",
+        "language": "Tagalog",
+        "next": "Clinician call with interpreter"
+      },
+      {
+        "name": "Suresh K.",
+        "age": 49,
+        "area": "Mussafah",
+        "result": "HbA1c 7.0%",
+        "openDays": 15,
+        "why": "Changed insurer",
+        "language": "Malayalam",
+        "next": "Confirm cover, keep doctor"
+      },
+      {
+        "name": "Fatma D.",
+        "age": 63,
+        "area": "Al Mushrif",
+        "result": "LDL 5.3",
+        "openDays": 12,
+        "why": "No answer to 3 calls",
+        "language": "Arabic",
+        "next": "Nurse home visit"
+      },
+      {
+        "name": "Ravi M.",
+        "age": 57,
+        "area": "Al Muroor",
+        "result": "BP 166/104",
+        "openDays": 9,
+        "why": "Changed provider, no owner",
+        "language": "Malayalam",
+        "next": "Assign a physician"
+      }
+    ],
+    "funnel": [
+      {
+        "label": "Actionable results",
+        "value": 2738,
+        "color": "#5a7fe0"
+      },
+      {
+        "label": "Told within 1 day",
+        "value": 2628,
+        "color": "#2f6fb0"
+      },
+      {
+        "label": "Understood",
+        "value": 2492,
+        "color": "#1fb39c"
+      },
+      {
+        "label": "Confirmed by physician",
+        "value": 2409,
+        "color": "#0b7f71"
+      },
+      {
+        "label": "Referred and booked",
+        "value": 2300,
+        "color": "#c88a05"
+      },
+      {
+        "label": "Attended first visit",
+        "value": 2184,
+        "color": "#e07a3f"
+      },
+      {
+        "label": "Treatment started in time",
+        "value": 2101,
+        "color": "#8f6fd0"
+      },
+      {
+        "label": "Closed with evidence",
+        "value": 2069,
+        "color": "#6d4fc0"
+      }
+    ],
+    "funnelMinis": [
+      {
+        "label": "Told",
+        "value": "0.6 d",
+        "note": "median"
+      },
+      {
+        "label": "Confirmed",
+        "value": "4 d",
+        "note": "median"
+      },
+      {
+        "label": "Treated",
+        "value": "20 d",
+        "note": "median"
+      }
+    ],
+    "referrals": [
+      {
+        "name": "Diabetes education",
+        "slots": 60,
+        "need": 64
+      },
+      {
+        "name": "Eye screening",
+        "slots": 48,
+        "need": 58
+      },
+      {
+        "name": "Colonoscopy",
+        "slots": 18,
+        "need": 26
+      },
+      {
+        "name": "Interpreter-supported",
+        "slots": 14,
+        "need": 27
+      },
+      {
+        "name": "Colposcopy",
+        "slots": 12,
+        "need": 15
+      },
+      {
+        "name": "Dietitian",
+        "slots": 40,
+        "need": 31
+      },
+      {
+        "name": "Cardiology (BP)",
+        "slots": 30,
+        "need": 22
+      },
+      {
+        "name": "Mammogram recall",
+        "slots": 24,
+        "need": 18
+      },
+      {
+        "name": "Kidney clinic",
+        "slots": 16,
+        "need": 12
+      }
+    ],
+    "byLanguage": {
+      "rows": [
+        {
+          "name": "Arabic",
+          "percent": 86
+        },
+        {
+          "name": "English",
+          "percent": 87
+        },
+        {
+          "name": "Hindi",
+          "percent": 76
+        },
+        {
+          "name": "Malayalam",
+          "percent": 79
+        },
+        {
+          "name": "Urdu",
+          "percent": 71
+        },
+        {
+          "name": "Tagalog",
+          "percent": 68
+        },
+        {
+          "name": "Bengali",
+          "percent": 61
+        }
+      ],
+      "note": "Noa speaks Arabic, English, Hindi and Urdu fully; Malayalam, Tagalog and Bengali are in beta."
+    },
+    "byContact": {
+      "rows": [
+        {
+          "name": "Noa app",
+          "percent": 89
+        },
+        {
+          "name": "Voice call",
+          "percent": 83
+        },
+        {
+          "name": "Nurse visit",
+          "percent": 80
+        },
+        {
+          "name": "SMS only",
+          "percent": 62
+        }
+      ],
+      "note": "SMS alone misses people on night shifts. Voice calls in their language close most of the gap."
+    },
+    "programmes": [
+      {
+        "programme": "Diabetes (HbA1c)",
+        "tests": "6,920",
+        "inCare": "82%",
+        "outcome": "HbA1c below 7%: 58%"
+      },
+      {
+        "programme": "High blood pressure",
+        "tests": "7,410",
+        "inCare": "78%",
+        "outcome": "Below 140/90: 64%"
+      },
+      {
+        "programme": "Cholesterol",
+        "tests": "5,880",
+        "inCare": "74%",
+        "outcome": "LDL at goal: 49%"
+      },
+      {
+        "programme": "Bowel cancer (FIT)",
+        "tests": "2,140",
+        "inCare": "69%",
+        "outcome": "Colonoscopy in 30 days: 69%"
+      },
+      {
+        "programme": "Breast (mammogram)",
+        "tests": "1,380",
+        "inCare": "88%",
+        "outcome": "Assessed in 14 days: 88%"
+      },
+      {
+        "programme": "Cervical",
+        "tests": "1,120",
+        "inCare": "71%",
+        "outcome": "Colposcopy in 30 days: 71%"
+      }
+    ],
+    "signalsSummary": [
+      {
+        "icon": "target",
+        "tone": "bad",
+        "title": "Mussafah results not reaching care",
+        "detail": "58% in time · night shifts, SMS-only contact, 6 languages",
+        "pill": {
+          "tone": "bad",
+          "text": "Act"
+        }
+      },
+      {
+        "icon": "clinic",
+        "tone": "warn",
+        "title": "Eye screening near capacity",
+        "detail": "3 centres · Thursday evenings full until December",
+        "pill": {
+          "tone": "warn",
+          "text": "This week"
+        }
+      },
+      {
+        "icon": "people",
+        "tone": "warn",
+        "title": "Interpreter time for colonoscopy",
+        "detail": "Tagalog and Bengali speakers wait 9 days longer",
+        "pill": {
+          "tone": "warn",
+          "text": "Review"
+        }
+      }
+    ],
+    "footnote": "Department staff see aggregated, de-identified figures, with groups under 10 suppressed. Clinicians see named patients only where the person agreed to share. All people and figures are fictional, for illustration."
+  }
+}

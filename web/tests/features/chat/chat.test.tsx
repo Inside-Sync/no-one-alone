@@ -75,7 +75,7 @@ test('chips and greeting follow the mode', async () => {
   path = '/hospital/ed'
   const r = renderWithProviders(<ChatPanel />)
   openChat()
-  expect(within(panel()).getByText('COLLINS, Margaret')).toBeInTheDocument()
+  expect(within(panel()).getByText('AL HAMMADI, Moza')).toBeInTheDocument()
   expect(within(panel()).getByRole('button', { name: 'Patient summary' })).toBeInTheDocument()
   expect(within(panel()).queryByRole('button', { name: 'My tablets' })).toBeNull()
   r.unmount()
@@ -84,7 +84,7 @@ test('chips and greeting follow the mode', async () => {
   renderWithProviders(<ChatPanel />, { who: 'self' })
   openChat()
   await within(panel()).findByRole('button', { name: 'My tablets' })
-  expect(within(panel()).getByText(/^Hello Margaret/)).toBeInTheDocument()
+  expect(within(panel()).getByText(/^Hello Moza/)).toBeInTheDocument()
   expect(within(panel()).queryByRole('button', { name: 'Patient summary' })).toBeNull()
 })
 

@@ -1,8 +1,8 @@
 import type { RecoveryDoc } from '@/data/contract'
 import { CALL_DAYS, dayLabel, deliverySteps, followUpCalls, handoffFacts, localRecovery, medWhy, medsExplained, nextReminder, todayTasks } from '@/domain/recovery'
 import i18n from '@/i18n'
-import en from '@/locales/en/me.json'
-import vi from '@/locales/vi/me.json'
+import en from '@/locales/en/treatment.json'
+import ar from '@/locales/ar/treatment.json'
 
 const R = [
   { time: '08:00', kind: 'MED' as const, text: 'aspirin' },
@@ -102,10 +102,14 @@ test('handoffFacts reads new and stopped medicines, the first slot and the GP fo
   })
 })
 
-test('dayLabel: Fri 23 Oct in English, T6 23/10 in Vietnamese, CN on Sunday; no day shift', () => {
+test('dayLabel: Fri 23 Oct in English, the Arabic weekday and month with Latin digits in Arabic; no day shift', () => {
   expect(dayLabel('2026-10-23', 'en')).toBe('Fri 23 Oct')
-  expect(dayLabel('2026-10-23', 'vi')).toBe('T6 23/10')
-  expect(dayLabel('2026-10-25', 'vi')).toBe('CN 25/10')
+  const friday = dayLabel('2026-10-23', 'ar')
+  const sunday = dayLabel('2026-10-25', 'ar')
+  expect(friday).toMatch(/(^|\D)23(\D|$)/)
+  expect(sunday).toMatch(/(^|\D)25(\D|$)/)
+  expect(friday).not.toBe(sunday)
+  expect(`${friday}${sunday}`).not.toMatch(/[٠-٩]/)
 })
 
 test('the default reminders read naturally and keep their WHY lines', () => {
@@ -114,10 +118,10 @@ test('the default reminders read naturally and keep their WHY lines', () => {
     r('Time for your 20-minute walk.'), r('Time to check your blood pressure. Aim for under 130/80.'),
     r('Time for your speech exercises, 15 minutes.'), r('Time for a glass of water.'),
   ] }))
-  expect(tasks.map((t) => t.why)).toEqual([en.recovery.why.walk, en.recovery.why.bloodPressure, en.recovery.why.speech, en.recovery.why.water])
+  expect(tasks.map((t) => t.why)).toEqual([en.why.walk, en.why.bloodPressure, en.why.speech, en.why.water])
 })
 
-test('localRecovery turns an approved request into the doc Margaret sees: notes as summary, a reminder per ticked time', () => {
+test('localRecovery turns an approved request into the doc the person sees: notes as summary, a reminder per ticked time', () => {
   const r = localRecovery({
     staffName: 'Dr Ross', diagnosis: 'd', notes: 'You had a small stroke.',
     meds: [{ name: 'Apixaban', dose: '5 mg', times: ['18:00', '08:00'], change: 'New' }, { name: 'Aspirin', dose: '100 mg', times: ['08:00'], change: 'Stop' }],
@@ -136,12 +140,12 @@ test('localRecovery turns an approved request into the doc Margaret sees: notes 
 
 test("medWhy shows the hospital's own note as written; a stock note or none reads in the language in use", async () => {
   const own = { name: 'Metformin', dose: '500 mg', times: ['08:00'], change: 'New' as const, note: 'Keeps your sugar steady.' }
-  const stock = { name: 'Apixaban', dose: '5 mg', times: ['08:00'], change: 'New' as const, note: en.recovery.why.apixaban }
+  const stock = { name: 'Apixaban', dose: '5 mg', times: ['08:00'], change: 'New' as const, note: en.why.apixaban }
   expect(medWhy(own)).toBe('Keeps your sugar steady.')
   expect(medWhy({ ...own, note: '  ' })).toBeUndefined()
-  await i18n.changeLanguage('vi')
+  await i18n.changeLanguage('ar')
   try {
-    expect(medWhy(stock)).toBe(vi.recovery.why.apixaban)
+    expect(medWhy(stock)).toBe(ar.why.apixaban)
     expect(medWhy(own)).toBe('Keeps your sugar steady.')
   } finally {
     await i18n.changeLanguage('en')

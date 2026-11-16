@@ -12,7 +12,7 @@
       },
       {
         "device": "Phone",
-        "metrics": "Walking speed, step length, steadiness, daylight · location is off (Margaret can turn on home/out only)",
+        "metrics": "Walking speed, step length, steadiness, daylight · location is off (Moza can turn on home/out only)",
         "frequency": "Passive",
         "status": "Charging",
         "tone": "good",
@@ -61,13 +61,13 @@
     ],
     "phone": {
       "home": {
-        "date": "Wednesday 14 October",
-        "greeting": "Hello, Margaret",
+        "date": "Wednesday 28 October",
+        "greeting": "Hello, Moza",
         "medicine": {
           "title": "Blood pressure tablet",
           "sub": "18:00 · 1 amlodipine",
           "button": "I've taken it",
-          "toast": "Noted · James will see it"
+          "toast": "Noted · Khalid will see it"
         },
         "ok": {
           "label": "I'm OK",
@@ -77,7 +77,7 @@
           "label": "Get help"
         }
       },
-      "heading": "Designed for Margaret",
+      "heading": "Designed for Moza",
       "meta": "No training, no menus",
       "minis": [
         {
@@ -92,13 +92,14 @@
         },
         {
           "label": "Voice",
-          "value": "Aus EN",
+          "value": "Emirati Arabic",
           "note": "slow, warm"
         },
         {
           "label": "Steps per task",
           "value": "1",
-          "note": "always"
+          "note": "always",
+          "explain": "steps"
         },
         {
           "label": "Works on",
@@ -122,7 +123,7 @@
         },
         {
           "icon": "mic",
-          "text": "Voice first, with the names she uses for her family (\"love\", \"Davey\")."
+          "text": "Voice first, with the names she uses for her family (\"habibi\", \"Hamoud\")."
         },
         {
           "icon": "phone",

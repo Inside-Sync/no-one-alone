@@ -70,7 +70,11 @@ export type IconName = DrawnIconName | LucideIconName | DotIconName
 export interface Kpi {
   /** Icon before the label; only the plain-language individual tiles have one. */
   icon?: IconName
+  /** Language-independent id of a tile a stored document overrides (`restingHr`); never shown. */
+  key?: string
   label: string
+  /** Key into `common:explain` for the drawer text; the label is translated, this is not. */
+  explain?: string
   value: string
   unit: string
   /** Sparkline / dot colour (hex). */
@@ -87,6 +91,8 @@ export interface MiniStat {
   /** Icon before the label, where the prototype had an emoji. */
   icon?: IconName
   label: string
+  /** Key into `common:explain` for the drawer text; the label is translated, this is not. */
+  explain?: string
   value: string
   note: string
   /** Colour of `note`; undefined means muted. */
@@ -128,6 +134,8 @@ export interface ProfileRow {
   icon: IconName
   label: string
   value: string
+  /** Language-independent id of a row a stored document overrides (`age`, `gender`); never shown. */
+  key?: string
 }
 
 export interface DayLineEntry {
@@ -193,6 +201,8 @@ export interface HelperLogEntry {
   why: string
   result: string
   tone: PillTone
+  /** The helper only watched (a pill in the quiet tone); set in the data so it holds in any language. */
+  passive?: boolean
   /** Row needs approval: the result cell shows an Approve button. */
   needsApproval: boolean
 }
@@ -285,15 +295,6 @@ export interface HypnogramSegment {
   minutes: number
 }
 
-export interface RhythmCell {
-  /** 0..1 share of peak. */
-  value: number
-  /** Unusual for her (red ring). */
-  anomaly: boolean
-  /** Future cell on the last day ("Not yet"). */
-  future: boolean
-}
-
 export interface HealthData {
   goals: GoalGauge[]
   goalTotals: MiniStat[]
@@ -310,17 +311,6 @@ export interface HealthData {
   steps14: number[]
   stepsGoal: number
   bp14: { morning: number[]; evening: number[]; target: number }
-  rhythm: {
-    dayLabels: string[]
-    days: { label: string; cells: RhythmCell[] }[]
-    notes: { icon: IconName; lead: string; text: string }[]
-  }
-  todayChat: {
-    time: string
-    bubbles: { from: 'family' | 'margaret'; text: string }[]
-    stats: MiniStat[]
-  }
-  homeToday: { pill: { tone: PillTone; text: string }; stats: MiniStat[]; note: string }
 }
 
 /* ---------- Surroundings (around.ts) ---------- */
@@ -446,121 +436,6 @@ export interface Surroundings {
   }
   air: AirDay[]
   airNote: string
-  /** Home page "people and places near her" list. */
-  nearby: { initials: string; color: string; name: string; note: string; pill: { tone: PillTone; text: string } }[]
-}
-
-/* ---------- Forecast (forecast.ts) ---------- */
-
-export interface ForecastModelFact {
-  icon: IconName
-  label: string
-  value: string
-}
-
-export interface RiskRow {
-  name: string
-  level: string
-  tone: Severity
-  trend: '↑' | '↓' | '→'
-  reason: string
-}
-
-export interface ShapDriver {
-  label: string
-  value: number
-}
-
-export interface SignRow {
-  icon: IconName
-  sign: string
-  from: string
-  frequency: string
-  now: string
-  usual: string
-  /** Plain-language comparison ("Much higher"). */
-  comparison: string
-  /** Technical z-score text, kept for reference ("+2.8"). */
-  sigma: string
-  tone: Severity
-}
-
-export interface PlanTask {
-  icon: IconName
-  /** Accent colour of the icon chip, if not the default. */
-  iconColor?: string
-  title: string
-  owner: string
-  note: string
-  status: { tone: PillTone; text: string }
-}
-
-export interface ModeCard {
-  name: 'Hearing' | 'Vision' | 'Memory'
-  icon: IconName
-  title: string
-  description: string
-  /** Initial pressed state. */
-  on: boolean
-  /** Initial text of the toggle tag; after a click the UI shows 'ON' / 'OFF'. */
-  tag: string
-}
-
-export interface SimSlider {
-  id: 'adherence' | 'steps' | 'salt'
-  icon: IconName
-  label: string
-  min: number
-  max: number
-  step: number
-  value: number
-}
-
-export interface Forecast {
-  wellbeing: { score: number; delta: number }
-  wellbeingNote: string
-  /** `#radar` axes: now vs last month. */
-  wellbeingAxes: { icon: IconName; label: string; now: number; lastMonth: number }[]
-  comingUp: {
-    icon: IconName
-    title: string
-    meta: string
-    pill: { tone: PillTone; text: string }
-    headline: string
-    stats: MiniStat[]
-    reasons: { icon: IconName; text: string }[]
-    /** `value` is the toast text for 'toast' and the page key for 'go'. */
-    actions: { label: string; kind: 'toast' | 'go'; value: string; icon?: IconName; soft: boolean }[]
-  }
-  weeklyPlan: PlanTask[]
-  weeklyPlanMeta: string
-  model: ForecastModelFact[]
-  modelMeta: string
-  risks: RiskRow[]
-  shap: ShapDriver[]
-  shapNote: string
-  signs: SignRow[]
-  bp: {
-    observed: number[]
-    projectedNothing: number[]
-    projectedAdherent: number[]
-    target: number
-    weeks: number
-    todayWeek: number
-    lo: number
-    hi: number
-  }
-  /** "Try it: what if…" simulator inputs and baselines. */
-  sim: {
-    sliders: SimSlider[]
-    saltLabels: [string, string, string]
-    hearingLabel: string
-    hearingIcon: IconName
-    hearingAids: boolean
-    base: { stroke: number; fall: number; admission: number; mci: number }
-    note: string
-  }
-  modes: ModeCard[]
 }
 
 /* ---------- Lineage (lineage.ts) ---------- */
@@ -649,6 +524,8 @@ export interface MedicineRow {
   adherence: number
   tone: Severity
   last: string
+  /** Id of the chart entry the row opens ('' for none). */
+  entry: string
 }
 
 export interface LabRow {
@@ -663,29 +540,42 @@ export interface LabRow {
   note: string
 }
 
-export interface HospitalReadiness {
-  name: string
-  capability: string
-  eta: string
-  load: string
-  tone: Severity
-  recommended: boolean
+/** A text that reads differently in Moza's own app (`self`) and for family (`family`). */
+export interface Voiced {
+  self: string
+  family: string
 }
 
-export interface DataSourceRow {
+export type CareStage = 'his' | 'bef' | 'sym' | 'res' | 'tx' | 'rec'
+
+/** One of the 23 chart entries of the whole case, in time order. */
+export interface CareEntryData {
+  id: string
+  stage: CareStage
+  kind: string
+  when: string
+  title: string
+  where: string
+  summary: string
+  findings: [label: string, value: string][]
+  related: string[]
   source: string
-  standard: string
-  records: string
-  lastSync: string
-  status: string
-  tone: PillTone
+}
+
+export interface SourceTime {
+  source: string
+  time: string
 }
 
 export interface CareRecord {
-  kpis: Kpi[]
-  /** The original technical record KPI tiles. */
-  kpisTechnical: Kpi[]
-  encounters: {
+  status: string
+  detail: string
+  kpis: (Kpi & SourceTime)[]
+  home: { title: Voiced; sub: Voiced } & SourceTime
+  journey: SourceTime & {
+    stages: { id: 'before' | 'symptoms' | 'results' | 'treatment' | 'recovery'; when: string; title: string; entry: string; items: string[] }[]
+  }
+  encounters: SourceTime & {
     meta: string
     types: EncounterTrack[]
     now: number
@@ -694,12 +584,47 @@ export interface CareRecord {
   medicines: MedicineRow[]
   allergyNote: { allergen: string; detail: string; checked: string }
   medicinesPill: { tone: PillTone; text: string }
+  medicinesSource: SourceTime
+  history: {
+    episodes: {
+      id: string; when: string; title: string; where: string; badge: string; tone: PillTone
+      detail: string; access: string; entry: string
+    }[]
+    source: string
+    time: string
+    holders: { tone: Severity; name: Voiced; text: Voiced }[]
+    holdersSource: Voiced
+    holdersTime: string
+    family: { relative: string; conditions: string; consent: string; tone: PillTone }[]
+    familySource: string
+    familyTime: string
+  }
+  screening: {
+    meta: string
+    rows: { when: string; check: string; result: string; next: string; entry: string }[]
+    source: string
+    time: string
+    signs: { ok: boolean; title: Voiced; note: string; entry: string }[]
+    note: Voiced
+    signsSource: string
+    signsTime: string
+  }
+  results: SourceTime & {
+    meta: string
+    rows: { test: string; showed: string; when: string; entry: string }[]
+  }
   labs: LabRow[]
-  hospitals: HospitalReadiness[]
-  sources: DataSourceRow[]
-  sourcesTag: string
-  followUp: { day: string; text: string }[]
-  followUpNote: string
+  labsSource: SourceTime
+  followUpReadings: SourceTime & {
+    meta: string
+    tiles: { label: string; value: string; unit: string; note: string; color: string; spark: number[] }[]
+    note: Voiced
+  }
+  followUp: SourceTime & {
+    days: { day: string; text: string; state: 'done' | 'planned'; entry: string }[]
+    note: string
+  }
+  entries: CareEntryData[]
 }
 
 /* ---------- Device feed (device.ts) ---------- */
@@ -850,48 +775,6 @@ export interface PathwayStep {
   doneFromStep: number
 }
 
-export interface PanelRow {
-  name: string
-  age: number
-  sex: 'F' | 'M'
-  suburb: string
-  risk: string
-  tone: PillTone
-  driver: string
-  lastEd: string
-  gp: string
-  signal: string
-}
-
-export interface ScatterPoint {
-  age: number
-  risk: number
-}
-
-export interface BedRow {
-  ward: string
-  used: number
-  total: number
-}
-
-export interface HospitalAction {
-  title: string
-  note: string
-  button: 'Approve' | 'Linked' | 'Review' | 'Auto'
-}
-
-export type FollowUpState = 'ok' | 'fl' | 'es' | 'up'
-
-export interface DischargeRow {
-  patient: string
-  discharged: string
-  diagnosis: string
-  /** Day 1, 3, 7, 14, 30. */
-  days: [FollowUpState, FollowUpState, FollowUpState, FollowUpState, FollowUpState]
-  risk: string
-  tone: PillTone
-}
-
 export interface HospitalData {
   context: ContextBar
   edKpis: Kpi[]
@@ -910,170 +793,6 @@ export interface HospitalData {
   examplePacket: { patient: string; rows: LabelValue[] }
   pathway: PathwayStep[]
   pathwayWindow: { demo: string; idle: string }
-  panel: {
-    kpis: Kpi[]
-    rows: PanelRow[]
-    scatter: ScatterPoint[]
-    scatterMeta: string
-    scatterNote: string
-    highlight: { age: number; risk: number; label: string }
-  }
-  demand: {
-    /** Fourteen days starting Wednesday. */
-    days: string[]
-    forecast: number[]
-    lastYear: number[]
-    comfortLine: number
-    meta: string
-    beds: BedRow[]
-    bedsMinis: MiniStat[]
-    drivers: ShapDriver[]
-    actions: HospitalAction[]
-  }
-  discharge: {
-    kpis: Kpi[]
-    board: DischargeRow[]
-  }
-  /** Patient record & discharge: Margaret's stroke unit stay. */
-  patient: {
-    kpis: Kpi[]
-    summary: LabelValue[]
-    /** Inpatient course: [time, event]. */
-    course: [time: string, text: string][]
-  }
-}
-
-/* ---------- Community (community.ts, watch.ts) ---------- */
-
-/** One Inner West suburb (`SUBS`). Grid position is in 80-unit cells. */
-export interface Suburb {
-  name: string
-  col: number
-  row: number
-  /** Older residents enrolled. */
-  enrolled: number
-  /** Percent living alone. */
-  alonePct: number
-  /** People at high risk. */
-  highRisk: number
-  /** Heat vulnerability index, 0..1. */
-  heat: number
-  /** Active volunteers. */
-  volunteers: number
-  language: string
-}
-
-export interface VisitRow {
-  name: string
-  age: number
-  suburb: string
-  risk: string
-  tone: PillTone
-  reason: string
-  language: string
-  nearestHelp: string
-}
-
-export interface FunnelStage {
-  label: string
-  value: number
-  color: string
-}
-
-export interface LanguageRow {
-  name: string
-  percent: number
-  support: 'Full' | 'Beta' | 'Interpreter'
-}
-
-export interface ProgramRow {
-  program: string
-  regulars: number
-  attendance: string
-  outcome: string
-}
-
-export interface CoolRoom {
-  name: string
-  detail: string
-  left: string
-  tone: PillTone
-}
-
-export interface DayValue {
-  day: string
-  value: number
-}
-
-export interface WatchListItem {
-  icon: IconName
-  /** Colour var name suffix: 'bad' | 'warn'. */
-  tone: 'bad' | 'warn'
-  title: string
-  detail: string
-  pill: { tone: PillTone; text: string }
-}
-
-export interface CommunityData {
-  context: ContextBar
-  kpis: Kpi[]
-  suburbs: Suburb[]
-  districtKicker: string
-  heatwave: {
-    pill: string
-    temps: DayValue[]
-    tempsThreshold: { value: number; label: string; max: number; unit: string }
-    stats: MiniStat[]
-    coolRooms: CoolRoom[]
-    scheduleToast: string
-  }
-  visits: VisitRow[]
-  funnel: FunnelStage[]
-  funnelMinis: MiniStat[]
-  capacity: { name: string; need: number; capacity: number }[]
-  edForecast: {
-    meta: string
-    values: DayValue[]
-    threshold: { value: number; label: string; max: number; unit: string }
-    note: string
-  }
-  languages: LanguageRow[]
-  programs: ProgramRow[]
-  watchSummary: WatchListItem[]
-  footnote: string
-}
-
-export interface WatchReport {
-  title: string
-  suburbs: string
-  type: string
-  typeTone: PillTone
-  affected: string
-  since: string
-  status: string
-}
-
-export interface WatchFeedItem {
-  source: string
-  age: string
-  headline: string
-  body: string
-}
-
-export interface Callout {
-  title: string
-  detail: string
-  button: string
-}
-
-export interface WatchData {
-  kpis: Kpi[]
-  reports: WatchReport[]
-  /** Weekly scam contacts, oldest first: [phone, door-to-door, text/email]. */
-  scams: [number, number, number][]
-  scamLabels: { phone: string; door: string; text: string }
-  feed: WatchFeedItem[]
-  callouts: Callout[]
 }
 
 /* ---------- 3D city model (city.ts) ---------- */
@@ -1127,3 +846,9 @@ export interface CityGeometry {
   /** `street`: the home map drawn from OpenStreetMap (`buildStreets`). */
   views: { home: CityView; watch: CityView; district: CityView; street: CityView }
 }
+
+export * from './government.types'
+export * from './screening.types'
+export * from './treatment.types'
+export * from './patients.types'
+export * from './overview.types'

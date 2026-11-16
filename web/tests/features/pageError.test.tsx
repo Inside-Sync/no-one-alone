@@ -1,27 +1,25 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react'
 import type { ComponentType } from 'react'
 import { vi } from 'vitest'
+import { MemoryRouter } from 'react-router'
 import common from '@/locales/en/common.json'
 import { resetDataSource, setDataSource, type DataSource } from '@/data/repo'
 import { mockSource, resetMockSource } from '@/data/sources/mock'
-import { CommunityPage } from '@/features/community/overview/CommunityPage'
-import { WatchPage } from '@/features/community/watch/WatchPage'
-import { DemandPage } from '@/features/hospital/demand/DemandPage'
-import { DischargePage } from '@/features/hospital/discharge/DischargePage'
+import { PopulationPage } from '@/features/government/population/PopulationPage'
+import { SignalsPage } from '@/features/government/signals/SignalsPage'
+import { OverviewPage } from '@/features/hospital/overview/OverviewPage'
 import { EdPage } from '@/features/hospital/ed/EdPage'
-import { PanelPage } from '@/features/hospital/panel/PanelPage'
+import { PatientsPage } from '@/features/hospital/patients/PatientsPage'
 import { AroundPage } from '@/features/individual/around/AroundPage'
 import { DevicePage } from '@/features/individual/device/DevicePage'
-import { ForecastPage } from '@/features/individual/forecast/ForecastPage'
 import { HealthPage } from '@/features/individual/health/HealthPage'
-import { HomePage } from '@/features/individual/home/HomePage'
 import { LineagePage } from '@/features/individual/lineage/LineagePage'
 import { LivePage } from '@/features/individual/live/LivePage'
 import { RecordPage } from '@/features/individual/record/RecordPage'
 import { mockCanvas, mockLayout, mockRaf } from '../canvas/fakeCtx'
 import { renderWithProviders } from '../helpers/renderWithProviders'
 
-vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/home/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
+vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/health/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
 /** The mock source with some reads rejecting, like an offline Firestore. */
 function failing(...methods: (keyof DataSource)[]): DataSource {
@@ -48,27 +46,23 @@ afterEach(() => {
 
 const settle = () => new Promise((r) => setTimeout(r, 20))
 
-/** One page per view is required (home, ed, community); the rest are cheap to cover too. */
+/** One page per view is required (health, ed, government); the rest are cheap to cover too. */
 const CASES: [name: string, Page: ComponentType, page: string, fail: keyof DataSource, who: 'self' | 'family'][] = [
-  ['individual/home', HomePage, 'home', 'getPerson', 'self'],
-  ['individual/home (a scene)', HomePage, 'home', 'getOrbitScene', 'self'],
   ['individual/health', HealthPage, 'health', 'getHealth', 'self'],
   ['individual/around', AroundPage, 'around', 'getSurroundings', 'self'],
-  ['individual/forecast', ForecastPage, 'forecast', 'getForecast', 'self'],
   ['individual/lineage', LineagePage, 'lineage', 'getLineage', 'self'],
   ['individual/record', RecordPage, 'record', 'getCareRecord', 'self'],
   ['individual/device', DevicePage, 'device', 'getDeviceFeed', 'self'],
   ['hospital/ed', EdPage, 'ed', 'getHospital', 'family'],
-  ['hospital/panel', PanelPage, 'panel', 'getHospital', 'family'],
-  ['hospital/demand', DemandPage, 'demand', 'getHospital', 'family'],
-  ['hospital/discharge', DischargePage, 'discharge', 'getHospital', 'family'],
-  ['community/community', CommunityPage, 'community', 'getCommunity', 'family'],
-  ['community/watch', WatchPage, 'watch', 'getWatch', 'family'],
+  ['hospital/patients', PatientsPage, 'patients', 'getPatients', 'family'],
+  ['hospital/overview', OverviewPage, 'overview', 'getOverview', 'family'],
+  ['government/population', PopulationPage, 'population', 'getGovernment', 'family'],
+  ['government/signals', SignalsPage, 'signals', 'getSignals', 'family'],
 ]
 
 test.each(CASES)('%s: a failed load shows PageError and "Try again" recovers', async (_n, Page, page, fail, who) => {
   setDataSource(failing(fail))
-  renderWithProviders(<Page />, { who })
+  renderWithProviders(<MemoryRouter><Page /></MemoryRouter>, { who })
   const alert = await screen.findByRole('alert')
   expect(alert).toHaveTextContent(common.pageError.text)
   expect(document.querySelector(`main[data-page="${page}"]`)).not.toBeNull()
@@ -111,15 +105,5 @@ test('Device: a failed mini orbit leaves its area empty but the phone screen wor
   await settle()
   expect(screen.queryByRole('alert')).toBeNull()
   expect(document.querySelector('main[data-page="device"] canvas')).toBeNull()
-  expect(unhandled).toEqual([])
-})
-
-test('Record: a failed packet read shows the failure toast instead of doing nothing', async () => {
-  renderWithProviders(<RecordPage />, { who: 'self' })
-  const btn = await screen.findByRole('button', { name: /Preview the pre-arrival packet/ })
-  setDataSource(failing('getHospital'))
-  fireEvent.click(btn)
-  await waitFor(() => expect(document.getElementById('toast')!.textContent).toBe(common.pageError.toast))
-  expect(document.getElementById('drawer')).not.toHaveClass('on')
   expect(unhandled).toEqual([])
 })

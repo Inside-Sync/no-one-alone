@@ -1,0 +1,90 @@
+{
+  "plan": {
+    "title_self": "Your recovery plan",
+    "title_family": "Moza's recovery plan",
+    "dayOf": "Day {{day}} of 30",
+    "doneToday": "{{done}} of {{total}} done today",
+    "stop": "Stop: {{name}}",
+    "play": "Play"
+  },
+  "next": {
+    "title": "Next reminder",
+    "showNow": "Show the reminder now",
+    "toast": "Reminder: {{text}}",
+    "allDone": "All done for today",
+    "tomorrow": "Next, tomorrow: {{time}} {{text}}"
+  },
+  "tasks": {
+    "title": "Today's tablets and tasks",
+    "meta": "Tap when done",
+    "taken": "Taken",
+    "done": "Done",
+    "logged": "Nice one! Logged."
+  },
+  "meds": {
+    "title_self": "Your medicines, explained",
+    "title_family": "Her medicines, explained",
+    "change": {
+      "New": "New",
+      "Increased": "Increased",
+      "Continue": "Continue",
+      "Stop": "Stop"
+    },
+    "slots": {
+      "morning": "morning",
+      "midday": "midday",
+      "evening": "evening",
+      "night": "night"
+    }
+  },
+  "appts": {
+    "title": "Appointments",
+    "add": "Add",
+    "added": "Added",
+    "toast": "Added to the calendar",
+    "coming": "Coming up"
+  },
+  "warning": {
+    "title": "Call 998 straight away if…",
+    "face": "Face",
+    "faceText": "drooping on one side",
+    "arm": "Arm",
+    "armText": "or leg weak or numb",
+    "speech": "Speech",
+    "speechText": "slurred or confused",
+    "time": "Time",
+    "timeText": "matters. Don't wait.",
+    "call": "Call 998",
+    "calling": "Calling 998 · ask for an ambulance"
+  },
+  "calls": {
+    "title": "Helper check-in calls",
+    "meta_self": "A short chat to see how you are",
+    "meta_family": "Short chats with Moza",
+    "day": "Day {{day}}",
+    "done": "Done ✓",
+    "planned": "Planned",
+    "today": "Today",
+    "jump": "Jump to the next day",
+    "topics": {
+      "1": "How are you feeling, any headaches?",
+      "3": "New tablets going OK?",
+      "7": "Ready for the GP visit",
+      "14": "Walking and speech progress",
+      "30": "How is life back to normal?"
+    }
+  },
+  "notes": "Doctor's notes",
+  "why": {
+    "apixaban": "Stops clots forming because of the uneven heartbeat. Replaces aspirin.",
+    "perindopril": "Lowers blood pressure and protects the brain.",
+    "atorvastatin": "Lowers cholesterol. Dose raised from 20 mg.",
+    "amlodipine": "Blood pressure tablet, as before.",
+    "vitaminD": "For bones, as before.",
+    "aspirin": "Stop taking this. Apixaban does its job now.",
+    "walk": "Gentle walking helps the brain heal and keeps blood pressure down.",
+    "bloodPressure": "Sit for 5 minutes first. Aim for under 130/80.",
+    "speech": "Practise the sounds from your speech therapist.",
+    "water": "Aim for 1.5 L today."
+  }
+}

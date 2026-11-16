@@ -28,7 +28,7 @@ beforeEach(() => {
 const toastText = () => document.getElementById('toast')!.textContent
 const clickHelp = async () => {
   const r = renderWithProviders(<DevicePage />, { who: 'self' })
-  await screen.findByRole('heading', { name: 'Designed for Margaret' })
+  await screen.findByRole('heading', { name: 'Designed for Moza' })
   fireEvent.click(within(document.getElementById('devHome')!).getByRole('button', { name: 'Get help' }))
   return r
 }

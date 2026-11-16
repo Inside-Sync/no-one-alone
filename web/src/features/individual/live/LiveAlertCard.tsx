@@ -17,8 +17,8 @@ import { LiveScriptBody } from './LiveScriptBody'
 // The circle card fills the row next to the readings; the actions card, when shown, sits under it.
 const gap16: CSSProperties = { display: 'grid', gap: 16, gridTemplateRows: 'minmax(0,1fr)', gridAutoRows: 'auto' }
 const IDLE_ORBIT = { mode: 'check', app: 0, call: 0, hosp: 0, arrived: 0 } as const
-const endStyle: CSSProperties = { marginLeft: 'auto', display: 'flex', gap: 8 }
-const avSm = { '--c': '#2f6fb0', width: 22, height: 22, fontSize: 10, marginRight: 6 } as CSSProperties
+const endStyle: CSSProperties = { marginInlineStart: 'auto', display: 'flex', gap: 8 }
+const avSm = { '--c': '#2f6fb0', width: 22, height: 22, fontSize: 10, marginInlineEnd: 6 } as CSSProperties
 const initialsOf = (s: string) => s.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('')
 const chips: CSSProperties = { display: 'flex', flexWrap: 'wrap', gap: 8 }
 
@@ -51,7 +51,7 @@ export function LiveAlertCard({ view, incident, people, scene, viewer, act, manu
   const actor = picked && alerted.includes(picked) ? picked : alerted.includes(viewer) ? viewer : alerted[0] ?? null
   const buttons = actor && incident ? memberButtons(incident, people, actor) : null
   const personFirst = (view?.personName ?? people.person?.displayName ?? '').split(' ')[0]
-  const num = view?.emergencyNumber ?? people.person?.emergencyNumber ?? '000'
+  const num = view?.emergencyNumber ?? people.person?.emergencyNumber ?? '998'
   const nearbyName = (incident?.assignments ?? []).find((a) => a.role === 'NEARBY' && a.state !== 'QUEUED')?.memberId
   const hospital = incident?.handoff?.hospitalName
   const orbitScene = useMemo(() => (scene ? orbitWithHospital(scene, hospital) : null), [scene, hospital])
