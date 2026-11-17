@@ -102,7 +102,7 @@ def test_drivers_follow_trend_pill_tree_and_come_from_fhir_and_the_series():
     m = build("margaret")["doc"]
     assert m["drivers"][0].startswith("Morning blood pressure up 15 mmHg over 6 weeks")
     assert m["drivers"][1] == "Evening blood pressure tablet missed 3 times this week"
-    assert m["drivers"][2] == "Father had a stroke at 74"
+    assert m["drivers"][2] == "Father had a stroke at 68"
     assert not any("brother" in d.lower() for d in m["drivers"])
 
 
@@ -120,7 +120,7 @@ def test_valid_model_drivers_are_kept_and_invalid_ones_fall_back_one_by_one():
     out = build("margaret", proposed)
     assert out["driversFromModel"] == 1
     assert out["doc"]["drivers"] == [proposed[0], "Evening blood pressure tablet missed 3 times this week",
-                                     "Father had a stroke at 74"]
+                                     "Father had a stroke at 68"]
 
 
 def test_fallback_drivers_pass_their_own_validation():

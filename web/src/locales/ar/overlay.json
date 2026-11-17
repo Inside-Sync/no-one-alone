@@ -53,10 +53,33 @@
       "weak": "ضعيف"
     },
     "dueNow": "مستحق الآن",
-    "book": "احجز"
+    "book": "احجز",
+    "deceased": "†",
+    "deceasedAge": "†{{n}}",
+    "parentOf": {
+      "father": "والد {{name}}",
+      "mother": "والدة {{name}}"
+    },
+    "toViewer": {
+      "grandfather": "الجد",
+      "grandmother": "الجدة",
+      "father": "الأب",
+      "mother": "الأم",
+      "uncle": "الخال",
+      "aunt": "الخالة",
+      "brother": "الأخ",
+      "sister": "الأخت",
+      "son": "الابن",
+      "daughter": "الابنة"
+    }
   },
   "distance": {
     "m": "{{n}} م",
     "km": "{{n}} كم"
+  },
+  "place": {
+    "Al Bateen": "البطين",
+    "Al Ain": "العين",
+    "London": "لندن"
   }
 }

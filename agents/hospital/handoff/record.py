@@ -10,6 +10,7 @@ COMMUNICATION_BY_SNOMED: dict[str, Communication] = {
     "15188001": "HARD_OF_HEARING",       # Hearing loss
     "386806002": "COGNITIVE_IMPAIRMENT",  # Impaired cognition
 }
+NOT_BLOOD_RELATIVE = {"HUSB", "WIFE", "SPS"}  # a spouse is not hereditary risk, so the packet leaves them out
 STATED_AGE_URL = "https://noonealone.insidesync.ai/fhir/StructureDefinition/synthetic-stated-age"
 
 
@@ -116,7 +117,7 @@ def normalize(resources: list[dict], person_id: str, on: date) -> Record:
                 continue
             allergies.append((label if verification in (None, "confirmed") else f"{label} (unconfirmed)", ref(r)))
         elif kind == "FamilyMemberHistory":
-            if r.get("status") == "entered-in-error":
+            if r.get("status") == "entered-in-error" or _code(r.get("relationship")) in NOT_BLOOD_RELATIVE:
                 continue
             who = _label(r.get("relationship")) or "relative"
             parts = []

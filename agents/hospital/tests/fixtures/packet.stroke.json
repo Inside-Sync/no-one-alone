@@ -48,11 +48,13 @@
     "onScene": true
   },
   "etaMin": 11,
-  "text": "PRE-ARRIVAL · ETA 11 min\nMoza Al Hammadi, 78, F\nStatus: suspected stroke\nLast well: 01:22 16/10 (GST)\nFindings: slurred speech 02:04 · HR 142\nHistory: chronic kidney disease stage 3a, hearing loss, hypertension, osteoarthritis of both knees, prediabetes · family: father: stroke at 74, type 2 diabetes; mother: dementia\nMedicines: amlodipine 5 mg each evening, aspirin 100 mg each morning, atorvastatin 20 mg each night, vitamin D3 1000 IU daily\nAllergy: penicillin\nFunction: Lives alone, independent, walking stick outdoors\nComms: hard of hearing\nContact: Hamad (brother)\nSYNTHETIC DEMO DATA",
+  "text": "PRE-ARRIVAL · ETA 11 min\nMoza Al Hammadi, 78, F\nStatus: suspected stroke\nLast well: 01:22 16/10 (GST)\nFindings: slurred speech 02:04 · HR 142\nHistory: chronic kidney disease stage 3a, hearing loss, hypertension, osteoarthritis of both knees, prediabetes · family: brother: hypertension at 52, stroke at 69; father: hypertension at 55, stroke at 68; mother: glaucoma at 60, hearing loss at 74, dementia at 77; son: hypertension\nMedicines: amlodipine 5 mg each evening, aspirin 100 mg each morning, atorvastatin 20 mg each night, vitamin D3 1000 IU daily\nAllergy: penicillin\nFunction: Lives alone, independent, walking stick outdoors\nComms: hard of hearing\nContact: Hamad (brother)\nSYNTHETIC DEMO DATA",
   "status": "COMPLETED",
   "familyHistory": [
-    "father: stroke at 74, type 2 diabetes",
-    "mother: dementia"
+    "brother: hypertension at 52, stroke at 69",
+    "father: hypertension at 55, stroke at 68",
+    "mother: glaucoma at 60, hearing loss at 74, dementia at 77",
+    "son: hypertension"
   ],
   "withheld": [],
   "warnings": [],
@@ -64,8 +66,10 @@
     "Condition/margaret-knee-oa",
     "Condition/margaret-prediabetes",
     "Consent/margaret-hospital-sharing",
+    "FamilyMemberHistory/margaret-brother",
     "FamilyMemberHistory/margaret-father",
     "FamilyMemberHistory/margaret-mother",
+    "FamilyMemberHistory/margaret-son",
     "MedicationStatement/margaret-amlodipine",
     "MedicationStatement/margaret-aspirin",
     "MedicationStatement/margaret-atorvastatin",

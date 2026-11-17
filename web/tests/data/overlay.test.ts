@@ -78,12 +78,13 @@ describe('in English', () => {
 
   test('lineage labels', async () => {
     const l = overlayLineage(await mockSource.getLineage('margaret'), familyDoc, 'james')
-    expect(l.generations.map((g) => g.label)).toEqual(['Parents', "Margaret's generation", 'Children'])
+    expect(l.generations.map((g) => g.label)).toEqual(['Grandparents', "Margaret's generation", 'Children'])
     expect(l.generations[1].nodes[0].sub).toBe('herself')
     expect(l.generations[2].nodes[0].sub).toBe('son · you')
-    expect(l.matrix.map((m) => m.person)).toEqual(['Arthur (father)', 'Margaret (self)', 'James (son)'])
-    expect(l.strength[0].label).toBe('Moderate')
-    expect(l.screening[0]).toMatchObject({ due: 'Due now', action: 'Book' })
+    expect(l.matrix.map((m) => m.person)).toEqual(['Arthur (grandfather)', 'Margaret (mother)', 'James (you)'])
+    // The designed strength and screening rows stay (the document cannot carry their weighting or intervals)
+    expect(l.strength[0]).toMatchObject({ condition: 'Hypertension', label: 'Strong' })
+    expect(l.screening[0]).toMatchObject({ check: 'Blood pressure check', interval: '12 months' })
   })
 })
 
@@ -127,9 +128,8 @@ describe('in Arabic', () => {
 
   test('lineage labels', async () => {
     const l = overlayLineage(await mockSource.getLineage('margaret'), familyDoc, 'james')
-    expect(l.generations.map((g) => g.label)).toEqual([t('lineage.generation.parents'), t('lineage.generation.self', { name: 'Margaret' }), t('lineage.generation.children')])
+    expect(l.generations.map((g) => g.label)).toEqual([t('lineage.generation.grandparents'), t('lineage.generation.self', { name: 'Margaret' }), t('lineage.generation.children')])
     expect(l.generations[2].nodes[0].sub).toBe(`${t('relation.son')}${t('youSuffix')}`)
-    expect(l.matrix[0].person).toBe(`Arthur (${t('relation.father')})`)
-    expect(l.screening[0]).toMatchObject({ due: t('lineage.dueNow'), action: t('lineage.book') })
+    expect(l.matrix[0].person).toBe(`Arthur (${t('lineage.toViewer.grandfather')})`)
   })
 })

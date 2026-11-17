@@ -89,13 +89,13 @@ def test_resources_for_another_patient_are_dropped():
         return httpx.Response(200, json=body)
     store._search = leaky
     got = asyncio.run(reader(store).read("margaret"))
-    assert other["id"] not in {r["id"] for r in got} and len(got) == 14
+    assert other["id"] not in {r["id"] for r in got} and len(got) == 20
 
 
 def test_every_page_is_followed():
     store = store_with("margaret", page_size=1)
     got = asyncio.run(reader(store).read("margaret"))
-    assert len(got) == 14 and len(store.calls) > CALLS_PER_READ
+    assert len(got) == 20 and len(store.calls) > CALLS_PER_READ
 
 
 @pytest.mark.parametrize("link", ["https://evil.example/v1/" + STORE + "/fhir/Condition?p=1",

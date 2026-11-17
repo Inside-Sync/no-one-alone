@@ -25,7 +25,7 @@ function Node({ node, keys }: { node: LineageNode; keys: Lineage['conditionKeys'
 export function Pedigree({ lineage }: { lineage: Lineage }) {
   const keys = lineage.conditionKeys
   return (
-    <GlassCard span={7} tour="lineage">
+    <GlassCard span={7} tour="lineage" className="ped-card">
       <CardHeader icon="tree" title={lineage.heading} meta={lineage.meta} />
       <div className="ped" id="ped">
         {lineage.generations.map((g, i) => (

@@ -822,7 +822,7 @@
         ],
         "noaUse": [
           "His father had type 2 diabetes, so his plan moved to a yearly HbA1c test.",
-          "Stroke in his mother and grandfather, so blood pressure and cholesterol are checked with each visit."
+          "Stroke in his grandfather and uncle, so blood pressure and cholesterol are checked with each visit."
         ],
         "screening": [
           {
@@ -3006,7 +3006,7 @@
         },
         {
           "label": "Family",
-          "value": "Father and grandfather had type 2 diabetes (Health Lineage)"
+          "value": "His father had type 2 diabetes (Health Lineage)"
         }
       ],
       "suggests": [

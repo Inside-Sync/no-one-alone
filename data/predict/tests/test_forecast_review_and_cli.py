@@ -158,7 +158,7 @@ def test_gemini_drivers_are_saved_only_when_grounded(tmp_path):
     from tests.test_explain_and_run import FakeClient
     from predict.explain import GeminiExplainer
     good = ["Morning blood pressure rose 15 mmHg over 6 weeks, to 144 mmHg",
-            "Her evening tablet was missed 3 times this week", "Her father had a stroke at 74"]
+            "Her evening tablet was missed 3 times this week", "Her father had a stroke at 68"]
     bad = ["Blood pressure is rising", "Doses missed", "Her mother and brother had strokes"]
     g = GeminiExplainer(client=FakeClient([json.dumps({"drivers": good})]))
     path = tmp_path / "f.json"
