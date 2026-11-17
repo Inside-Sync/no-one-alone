@@ -448,6 +448,8 @@ export interface LineageCondition {
 }
 
 export interface LineageNode {
+  /** Family member id (the Firestore `families` member), so a live document can reuse the designed name. */
+  id?: string
   name: string
   sub: string
   /** [condition, age at onset or reading]. */

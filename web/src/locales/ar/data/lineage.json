@@ -38,6 +38,7 @@
         "label": "الأجداد",
         "nodes": [
           {
+            "id": "margaret-father",
             "name": "سعيد الحمادي",
             "sub": "†72 · والد موزة",
             "conditions": [
@@ -53,6 +54,7 @@
             "kind": "dec"
           },
           {
+            "id": "margaret-mother",
             "name": "شمسة الحمادي",
             "sub": "†80 · والدة موزة",
             "conditions": [
@@ -77,6 +79,7 @@
         "label": "جيل موزة",
         "nodes": [
           {
+            "id": "margaret",
             "name": "موزة الحمادي",
             "sub": "78 · البطين",
             "conditions": [
@@ -92,6 +95,7 @@
             "kind": "focus"
           },
           {
+            "id": "margaret-husband",
             "name": "سيف المنصوري",
             "sub": "†75 · الزوج",
             "conditions": [
@@ -111,6 +115,7 @@
             "kind": "dec"
           },
           {
+            "id": "david",
             "name": "حمد الحمادي",
             "sub": "74 · الأخ · البطين",
             "conditions": [
@@ -130,11 +135,13 @@
         "label": "الأبناء",
         "nodes": [
           {
+            "id": "sarah",
             "name": "عالية المنصوري",
             "sub": "49 · لندن",
             "conditions": []
           },
           {
+            "id": "james",
             "name": "خالد المنصوري",
             "sub": "46 · العين · أنت",
             "conditions": [
@@ -151,11 +158,13 @@
         "label": "الأحفاد",
         "nodes": [
           {
+            "id": "margaret-granddaughter",
             "name": "حصة المنصوري",
             "sub": "19 · العين",
             "conditions": []
           },
           {
+            "id": "margaret-grandson",
             "name": "زايد المنصوري",
             "sub": "16 · العين",
             "conditions": []

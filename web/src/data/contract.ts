@@ -249,12 +249,19 @@ export type ConditionCode =
 export interface FamilyMemberDoc {
   id: string
   name: string
+  /** `self`, `father`, `mother`, `brother`, `sister`, `son`, `daughter`, and (contract 2.5) `husband`, `wife`, `grandson`, `granddaughter`. */
   relation: string
   generation: number
   deceased?: boolean
   parentId?: string
   /** `code`: stable condition code from the predict job; absent on older documents or an unrecognised label. */
-  conditions: { label: string; ageAtOnset?: number; code?: ConditionCode }[]
+  conditions: { label: string; ageAtOnset?: number; code?: ConditionCode; note?: string }[]
+  /** Living age in whole years; absent on older documents. */
+  age?: number
+  /** Age at death; absent on older documents. */
+  deceasedAge?: number
+  /** Where they live, plain text ("Al Ain"). */
+  place?: string
 }
 
 export interface FamilyDoc {

@@ -173,7 +173,7 @@ export function renderStatic(bx: CanvasRenderingContext2D, bufW: number, bufH: n
 const NIGHT_DIM = 'brightness(.6) saturate(.85)'
 
 /** A roof label: the value, the name under it, each with a soft halo so it reads over a neighbour's edge too. */
-function surfaceText(c: CanvasRenderingContext2D, x: CityText, q: Projected, fonts: CanvasFonts, night: boolean) {
+function surfaceText(c: CanvasRenderingContext2D, x: CityText, q: Projected, fonts: CanvasFonts, night: boolean, compact = false) {
   const light = x.light || night
   c.textAlign = 'center'
   c.textBaseline = 'middle'
@@ -185,6 +185,10 @@ function surfaceText(c: CanvasRenderingContext2D, x: CityText, q: Projected, fon
     c.strokeText(t, q.x, y)
     c.fillStyle = fill
     c.fillText(t, q.x, y)
+  }
+  if (compact) {
+    line(x.t, '700 12px ' + fonts.sans, light ? '#ffffff' : 'rgba(13,42,42,.92)', q.y)
+    return
   }
   line(x.t, '700 15px ' + fonts.sans, light ? '#ffffff' : 'rgba(13,42,42,.92)', x.sub ? q.y - 5 : q.y)
   if (x.sub) line(x.sub, '600 10px ' + fonts.sans, light ? 'rgba(255,255,255,.88)' : 'rgba(13,42,42,.72)', q.y + 9)
@@ -205,7 +209,7 @@ interface Box {
   h: number
 }
 
-function pill(ctx: CanvasRenderingContext2D, fonts: CanvasFonts, x: number, y: number, t1: string, t2: string, col: string | null, night: boolean, anchor?: 'c'): Box {
+function pillSize(ctx: CanvasRenderingContext2D, fonts: CanvasFonts, t1: string, t2: string): { w: number; h: number } {
   ctx.font = '600 11.5px ' + fonts.sans
   const w1 = ctx.measureText(t1).width
   let w2 = 0
@@ -213,7 +217,12 @@ function pill(ctx: CanvasRenderingContext2D, fonts: CanvasFonts, x: number, y: n
     ctx.font = '400 10.5px ' + fonts.sans
     w2 = ctx.measureText(t2).width
   }
-  const w = Math.max(w1, w2) + 18, h = t2 ? 34 : 20, x0 = anchor === 'c' ? x - w / 2 : x, y0 = y - h / 2
+  return { w: Math.max(w1, w2) + 18, h: t2 ? 34 : 20 }
+}
+
+function pill(ctx: CanvasRenderingContext2D, fonts: CanvasFonts, x: number, y: number, t1: string, t2: string, col: string | null, night: boolean, anchor?: 'c'): Box {
+  const { w, h } = pillSize(ctx, fonts, t1, t2)
+  const x0 = anchor === 'c' ? x - w / 2 : x, y0 = y - h / 2
   ctx.fillStyle = night ? 'rgba(18,22,46,.86)' : 'rgba(255,255,255,.9)'
   ctx.strokeStyle = night ? 'rgba(255,255,255,.18)' : 'rgba(13,42,42,.10)'
   ctx.lineWidth = 1
@@ -255,6 +264,10 @@ export interface OverlayOptions {
   fonts: CanvasFonts
   compassY?: number
 }
+
+const CARD_MIN_WIDTH = 600
+/** Height of a label card's stem above the column top. */
+const CARD_LIFT = 30
 
 /** The per-frame part of `City3D.frame`: rings, routes, labels, pins and compass. Returns tap targets. */
 export function drawOverlay(ctx: CanvasRenderingContext2D, m: CityModel, cam: Camera, o: OverlayOptions): Hit[] {
@@ -310,10 +323,49 @@ export function drawOverlay(ctx: CanvasRenderingContext2D, m: CityModel, cam: Ca
     ctx.textBaseline = 'middle'
     ctx.fillText(l.t, q.x, q.y)
   })
-  ;(m.texts || []).map((x) => ({ x, q: P(x.x, x.y, x.z) })).sort((a, b) => b.q.d - a.q.d).forEach(({ x, q }) => surfaceText(ctx, x, q, fonts, night))
+  // Label cards (district map) need room: below CARD_MIN_WIDTH roofs carry the value alone. Where two cards would
+  // overlap, the one with the smaller column loses its card and keeps the value on its roof.
+  const cardPins = m.pins.filter((p) => p.card)
+  const useCards = cardPins.length > 0 && cam.W >= CARD_MIN_WIDTH
+  const shown = new Set<CityPin>()
+  if (useCards) {
+    const placed: Box[] = []
+    ;[...cardPins].sort((a, b) => (b.rank ?? 0) - (a.rank ?? 0)).forEach((p) => {
+      const q = P(p.x, p.y, p.z || 0), { w, h } = pillSize(ctx, fonts, p.name, p.sub)
+      const box = { x: q.x - w / 2, y: q.y - CARD_LIFT - h / 2, w, h }
+      if (placed.some((b) => box.x < b.x + b.w + 3 && box.x + box.w + 3 > b.x && box.y < b.y + b.h + 3 && box.y + box.h + 3 > b.y)) return
+      placed.push(box)
+      shown.add(p)
+    })
+  }
+  const texts = m.texts || []
+  const paired = texts.length === m.pins.length
+  texts.map((x, i) => ({ x, i, q: P(x.x, x.y, x.z) })).sort((a, b) => b.q.d - a.q.d).forEach(({ x, i, q }) => {
+    if (useCards && paired && shown.has(m.pins[i])) return
+    const compact = cardPins.length > 0
+    surfaceText(ctx, compact ? { ...x, sub: '' } : x, q, fonts, night, compact)
+  })
   const hits: Hit[] = []
   const pins = m.pins.map((p) => ({ p, q: P(p.x, p.y, p.z || 0) })).sort((a, b) => b.q.d - a.q.d)
   pins.forEach(({ p, q: top }) => {
+    if (p.card) {
+      if (!shown.has(p)) {
+        hits.push({ x: top.x - 20, y: top.y - 14, w: 40, h: 28, p })
+        return
+      }
+      ctx.strokeStyle = p.c
+      ctx.lineWidth = 1.6
+      ctx.beginPath()
+      ctx.moveTo(top.x, top.y)
+      ctx.lineTo(top.x, top.y - CARD_LIFT)
+      ctx.stroke()
+      ctx.fillStyle = p.c
+      ctx.beginPath()
+      ctx.arc(top.x, top.y, 2.4, 0, 7)
+      ctx.fill()
+      hits.push({ ...pill(ctx, fonts, top.x, top.y - CARD_LIFT, p.name, p.sub, p.c, night, 'c'), p })
+      return
+    }
     if (p.ghost) {
       hits.push({ x: top.x - 30, y: top.y - 18, w: 60, h: 36, p })
       return
