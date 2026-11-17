@@ -29,7 +29,7 @@ def test_trend_facts_no_longer_contain_a_percent_sign_the_validator_forbids():
 def test_numbering_and_reason_labels_are_formatting_not_content():
     d = diag("margaret", ["1. Morning blood pressure rose 15 mmHg over 6 weeks, to 144 mmHg",
                           "Reason 2: Evening amlodipine missed 3 of 7 times this week",
-                          "- Her father had a stroke at 74"])
+                          "- Her father had a stroke at 68"])
     assert [x["accepted"] for x in d] == [True, True, True]
     assert d[0]["final"] == "Morning blood pressure rose 15 mmHg over 6 weeks, to 144 mmHg"
 
@@ -53,8 +53,8 @@ def test_section_labels_sent_to_gemini_are_names_not_numbers():
     (0, "Systolic may reach 152 mmHg, a 90% interval", "forbidden wording '%'"),
     (0, "Blood pressure is rising, so her risk is higher", "forbidden wording 'risk'"),
     (1, "She took 4 of 7 evening amlodipine doses", "number not in the facts: 4"),
-    (2, "Her brother had a stroke at 74", "relative not in the facts: 'brother'"),
-    (2, "Her father has had a stroke at 74", "present tense for the deceased father"),
+    (2, "Her brother had a stroke at 68", "relative not in the facts: 'brother'"),
+    (2, "Her father has had a stroke at 68", "present tense for the deceased father"),
     (2, "Her father had diabetes", "condition not in the facts: 'diabetes'"),
     (1, "Evening aspirin missed 3 times this week", "medicine not in the facts: 'aspirin'"),
 ])
@@ -112,7 +112,7 @@ def test_reuse_takes_the_reviewed_forecast_points_without_a_new_query(tmp_path, 
     replay = FakeBigQuery(forecast=POINTS)
     replay.forecast_sql = sql
     good = {"margaret": ["Morning blood pressure rose 15 mmHg over 6 weeks, to 144 mmHg",
-                         "Evening amlodipine missed 3 of 7 times this week", "Her father had a stroke at 74"]}
+                         "Evening amlodipine missed 3 of 7 times this week", "Her father had a stroke at 68"]}
     client = FakeClient([json.dumps({"drivers": good[p]}) for p in sources.PEOPLE])
     new, diags = tmp_path / "second.json", tmp_path / "diag.json"
     assert run.main(["forecast", "--reuse", str(first), "--gemini", "--out", str(new), "--diagnostics", str(diags)],

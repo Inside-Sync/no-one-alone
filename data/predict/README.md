@@ -10,13 +10,18 @@ run once from a laptop with Application Default Credentials.
 
 - Medical history comes only from the synthetic FHIR bundles in `agents/hospital/data/fhir/` (FamilyMemberHistory and
   confirmed, active Conditions). Provisional conditions stay out of the tree.
-- Relationships come only from the core-api seed (`circle`). Neighbours are not family.
-- A relative without a documented name keeps a relation label ("Father"). No relative has a documented name now.
+- The tree comes from FHIR FamilyMemberHistory: parents (generation 0), husband, brother and herself (1), children (2) and
+  grandchildren (3), with name, `age` or `deceasedAge`, `place` (residence extension) and each condition's onset age and
+  note. Relatives that are in the core-api seed circle keep their circle id (`margaret-brother` is `david`, `margaret-son`
+  is `james`, `margaret-daughter` is `sarah`). Her own age comes from the Patient (the bundles carry a stated age, no birth
+  date) and her place from `address.district`.
+- Blood relatives in the seed (`circle`) with no FHIR record are still added without age or conditions. Neighbours are not
+  family. A relative without a name in FHIR keeps a relation label ("Father").
 - Each condition carries a stable `code` next to its `label` (`STROKE`, `HYPERTENSION`, `TYPE_2_DIABETES` ...), from
   the SNOMED code or the label's words; a condition in neither list has no `code`. The web reads `code`, not the words.
-- Flags are rules, not diagnoses. A parent or grandparent with stroke or hypertension: blood pressure check.
-  Type 2 diabetes in a grandparent or prediabetes in a parent: blood sugar test. The reason lists only documented
-  facts.
+- Flags are rules, not diagnoses, for her siblings and children. A parent (a child also counts the other parent and
+  the grandparents) with stroke or hypertension: blood pressure check. Type 2 diabetes or prediabetes in a parent or
+  grandparent: blood sugar test. The reason lists only documented facts. Grandchildren get no flags.
 - Gemini (Vertex AI, temperature 0) may add an optional `explanation`. Text that uses a number, relative or
   condition not in the facts, or gives a probability or diagnosis, is dropped.
 

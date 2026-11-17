@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from predict import run
+from predict import family, run
 from predict.explain import GeminiExplainer, validate
 
 FACTS = ["mother: hypertension", "grandfather: stroke at 74"]
@@ -119,7 +119,7 @@ def test_dry_run_writes_nothing_and_checks_both_documents(capsys):
     assert run.main(["family", "--person", "all"]) == 0
     out = capsys.readouterr().out
     assert "DRY RUN: would set families/margaret" in out
-    assert "families/margaret: 6 members, 6 flags, 0 explained" in out
+    assert "families/margaret: 9 members, 5 flags, 0 explained" in out
 
 
 def test_write_sets_whole_documents_only_in_families():
@@ -130,16 +130,17 @@ def test_write_sets_whole_documents_only_in_families():
 
 
 def test_gemini_explanations_are_added_only_when_valid():
-    replies = [json.dumps({"explanation": "Your mother has hypertension and your grandfather had a stroke at 74, "
-                                          "so a blood pressure check is sensible."}),
-               json.dumps({"explanation": "Your cousin has diabetes."})] * 3
+    good = json.dumps({"explanation": "Your mother has hypertension and your grandfather had a stroke at 68, "
+                                      "so a blood pressure check is sensible."})
+    bad = json.dumps({"explanation": "Your cousin has diabetes."})
+    replies = [good, good, bad, good, bad]  # one reply per flag, in flag order
     db = FakeDb()
     assert run.main(["family", "--person", "margaret", "--write"], db=db,
                     explainer=GeminiExplainer(client=FakeClient(replies))) == 0
     flags = db.sets[0][2]["flags"]
-    # Hamad is her brother: "your mother ... grandfather" is not in his facts, so both his flags stay unexplained
-    assert [(f["memberId"], "explanation" in f) for f in flags] == [("james", True), ("james", False), ("david", False),
-                                                                    ("david", False), ("sarah", True), ("sarah", False)]
+    # Hamad is her brother: "your mother ... grandfather" is not in his facts, so his flag stays unexplained
+    assert [(f["memberId"], f["screening"] == family.BP_CHECK, "explanation" in f) for f in flags] == [
+        ("david", True, False), ("sarah", True, True), ("sarah", False, False), ("james", True, True), ("james", False, False)]
 
 
 def test_firestore_writer_refuses_other_collections():
