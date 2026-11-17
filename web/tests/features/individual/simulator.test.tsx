@@ -207,3 +207,36 @@ test("the dial waits for David's ring to finish", async () => {
   await act(async () => { rung[0]() })
   expect(playDial000).toHaveBeenCalledTimes(1)
 })
+
+describe('step 3 brings her phone into view', () => {
+  beforeEach(() => { vi.useFakeTimers({ toFake: TIMERS }) })
+  afterEach(() => { vi.useRealTimers() })
+  const scrolled = () => {
+    const spy = vi.fn()
+    Element.prototype.scrollIntoView = function (this: Element, opts?: ScrollIntoViewOptions | boolean) { spy(this.id, opts) }
+    return spy
+  }
+
+  test('a run this tab started scrolls to the phone once the incident opens, and only once', async () => {
+    const spy = scrolled()
+    const show = mountLive()
+    await act(async () => { await vi.advanceTimersByTimeAsync(0) })
+    act(() => { window.dispatchEvent(new Event(NIGHT_DEMO)) })
+    await beat(4000)
+    expect(start).toHaveBeenCalled()
+    expect(spy).not.toHaveBeenCalled()
+    await show(incidentAt(0, false))
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith('liveC', expect.objectContaining({ block: 'center' }))
+    await show(incidentAt(0, true))
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  test('an incident already open at load does not move the page', async () => {
+    const spy = scrolled()
+    liveValue = incidentAt(0, false)
+    mountLive()
+    await act(async () => { await vi.advanceTimersByTimeAsync(0) })
+    expect(spy).not.toHaveBeenCalled()
+  })
+})
