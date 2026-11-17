@@ -123,10 +123,18 @@ function LiveIncidentPage() {
     setManual(null)
     toast(t('live.starting'))
     start(scenarioFor(), { hr, movementMin, noReplySeconds: NO_REPLY_SECONDS })
-      .then(() => setAuto(true))
+      .then(() => { setAuto(true); toPhone.current = true })
       .catch((e: unknown) => { holdNight(false); toast(apiErrorCode(e) === 'INVALID_STATE' ? t('live.busy') : t('live.failed')) })
       .finally(() => setBusy(false))
   }
+  // Step 3 of the simulator (Noa checks on her): once a run this page started is open, bring her phone into view.
+  const toPhone = useRef(false)
+  useEffect(() => {
+    if (!toPhone.current || !open) return
+    toPhone.current = false
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    document.getElementById('liveC')?.scrollIntoView?.({ behavior: reduced ? 'auto' : 'smooth', block: 'center' })
+  }, [open, incident, auto])
   const onAlert = (w: Watch) => begin(w.hr, alertRun(w.readings))
   const watch = useWatch({ locked: open, onAlert })
   const onReset = () => {
