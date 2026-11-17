@@ -1,0 +1,375 @@
+{
+  "list": {
+    "title": "Patient records",
+    "count": "{{n}} of {{total}}",
+    "search": "Search by name, condition or area",
+    "searchAria": "Search patients",
+    "filtersAria": "Filter patients",
+    "filters": {
+      "all": "All",
+      "act": "Needs action",
+      "dis": "Discharged",
+      "scr": "Outpatient"
+    },
+    "empty": "No patients match.",
+    "nameAge": "{{name}}, {{age}}",
+    "meta": "{{day}} · data {{last}}",
+    "openAria": "Open the record of {{name}}"
+  },
+  "reviewed": "Reviewed",
+  "nav": {
+    "back": "All patient records",
+    "record_f": "Her record",
+    "record_m": "His record",
+    "view": "Clinical view",
+    "whole": "Whole case, start to finish",
+    "stepsAria": "Steps of the patient record",
+    "next": "Next: {{step}}",
+    "prev": "Back: {{step}}",
+    "doc": "{{dept}} · {{doc}}",
+    "steps": {
+      "sum": "Summary",
+      "his": "History",
+      "scr": "Screening",
+      "res": "Results",
+      "tx": "Treatment",
+      "fu": "Follow-up"
+    }
+  },
+  "ctx": {
+    "sub": "Patient record · MRN {{mrn}} · {{sex}} · {{lang}} · {{area}}",
+    "f": "Female",
+    "m": "Male",
+    "setting": "Care setting",
+    "dept": "Department",
+    "doc": "Doctor in charge"
+  },
+  "stages": {
+    "his": "History",
+    "bef": "Before",
+    "sym": "Symptoms",
+    "res": "Results",
+    "tx": "Treatment",
+    "rec": "Recovery"
+  },
+  "entry": {
+    "related": "Related",
+    "position": "{{n}} / {{total}}",
+    "last": "Today",
+    "navAria": "Previous and next entry",
+    "forPatient": "For the patient",
+    "caseTitle": "Whole case, start to finish",
+    "close": "Close",
+    "open": "Open the full entry",
+    "openAria": "Open the chart entry: {{title}}"
+  },
+  "src": {
+    "glance": {
+      "label": "Corniche Stroke Centre record, Malaffi shared record and her app",
+      "time": "Today 15:10"
+    },
+    "journey": {
+      "label": "Corniche Stroke Centre record",
+      "time": "17 Oct"
+    },
+    "summary": {
+      "label": "Hospital record",
+      "time": "Today 15:10"
+    },
+    "shared": {
+      "label": "Patient app settings",
+      "time": "Today"
+    },
+    "adm": {
+      "label": "Corniche Stroke Centre record",
+      "time": "17 Oct 11:20"
+    },
+    "eps": {
+      "label": "Malaffi shared record and this hospital",
+      "time": "Today 15:10"
+    },
+    "access": {
+      "label": "Access rules for this record",
+      "time": "Today"
+    },
+    "family": {
+      "label": "Health Lineage, with each relative's consent",
+      "time": "Today"
+    },
+    "noa": {
+      "label": "Noa screening rules",
+      "time": "Today"
+    },
+    "scrMoza": {
+      "label": "Watch, blood pressure cuff and pill box, via Noa",
+      "time": "14 Oct"
+    },
+    "loop": {
+      "label": "Noa case log",
+      "time": "15 Oct"
+    },
+    "scr": {
+      "label": "Screening programme and lab",
+      "time": "Latest result"
+    },
+    "resMoza": {
+      "label": "Hospital record and lab",
+      "time": "23 Oct"
+    },
+    "res": {
+      "label": "Hospital record and lab",
+      "time": "Latest result"
+    },
+    "course": {
+      "label": "Corniche Stroke Centre record",
+      "time": "17 Oct"
+    },
+    "tx": {
+      "label": "Hospital record",
+      "time": "Today"
+    },
+    "vitals": {
+      "label": "Shared from the patient's app"
+    },
+    "flags": {
+      "label": "Noa, from shared data",
+      "time": "Today"
+    },
+    "tasks": {
+      "label": "Care team tasks",
+      "time": "Today"
+    },
+    "timeline": {
+      "label": "Care team and Noa",
+      "time": "Today"
+    }
+  },
+  "sum": {
+    "title": "Patient summary",
+    "why": "Why under care",
+    "where": "Where in care",
+    "setting": "Care setting",
+    "dept": "Department",
+    "doc": "Doctor in charge",
+    "lang": "Language",
+    "area": "Area",
+    "mrn": "Record number",
+    "sharedTitle": "Shared with this team",
+    "sharedMeta": "From the app, with consent",
+    "sharedFine": "Updated {{last}}. The patient can change this at any time."
+  },
+  "glance": {
+    "title": "Clinical summary",
+    "meta": "Where she is now",
+    "diagnoses": "Diagnoses",
+    "past": "Past",
+    "allergy": "Allergy",
+    "treatment": "Treatment and medicines",
+    "recovery": "Recovery",
+    "todo": "To do",
+    "risks": "Possible complications",
+    "risk": "Risk",
+    "why": "Why",
+    "inPlace": "What is in place"
+  },
+  "banner": {
+    "title": "Discharged 17 Oct · home, day 11",
+    "text": "Treatment plan approved and delivered to her app. Her shared home data is in Follow-up.",
+    "data": "Her data since discharge",
+    "plan": "Discharge plan"
+  },
+  "journey": {
+    "title": "The case: symptoms → results → treatment",
+    "meta": "Ischaemic stroke · Corniche Stroke Centre"
+  },
+  "adm": {
+    "title": "Admission summary",
+    "meta": "Encounter"
+  },
+  "his": {
+    "title_f": "Her care across Abu Dhabi",
+    "title_m": "His care across Abu Dhabi",
+    "countOne": "1 episode",
+    "countMany": "{{n}} episodes",
+    "access": "Access",
+    "accessLine": "{{label}} · {{how}}",
+    "kinds": {
+      "own": {
+        "label": "This hospital",
+        "how": "full record"
+      },
+      "hie": {
+        "label": "Malaffi shared record",
+        "how": "summary"
+      },
+      "notes": {
+        "label": "Malaffi summary",
+        "how": "full notes on request"
+      },
+      "request": {
+        "label": "Not connected",
+        "how": "ask the clinic or the patient"
+      }
+    },
+    "reqNotes": "Request full notes from {{where}}",
+    "reqClinic": "Request from the clinic",
+    "reqPatient": "Ask the patient to share",
+    "requested": "Requested · waiting for a reply",
+    "toastPatient": "Request sent to the patient in their app",
+    "toastRelative": "Request sent through the patient to the relative",
+    "toastHospital": "Request sent to {{where}} · the patient is told",
+    "holdersTitle_f": "Who holds her records",
+    "holdersTitle_m": "Who holds his records",
+    "holders": [
+      {
+        "tone": "good",
+        "title": "This hospital",
+        "text_f": "Full record. Open to her care team.",
+        "text_m": "Full record. Open to his care team."
+      },
+      {
+        "tone": "good",
+        "title": "Malaffi shared record",
+        "text_f": "Summaries, results, medicines and allergies from every connected hospital and clinic. Opened as her treating team; every view is logged.",
+        "text_m": "Summaries, results, medicines and allergies from every connected hospital and clinic. Opened as his treating team; every view is logged."
+      },
+      {
+        "tone": "warn",
+        "title": "Other hospitals' full notes",
+        "text_f": "Request them from that hospital. The patient is told.",
+        "text_m": "Request them from that hospital. The patient is told."
+      },
+      {
+        "tone": "good",
+        "title": "The patient's app",
+        "text_f": "Home readings and check-ins. Shared by the patient; they can stop at any time.",
+        "text_m": "Home readings and check-ins. Shared by the patient; they can stop at any time."
+      },
+      {
+        "tone": "warn",
+        "title": "Family records",
+        "text_f": "Each relative decides. Ask through the patient or the relative.",
+        "text_m": "Each relative decides. Ask through the patient or the relative."
+      }
+    ],
+    "emergency": "Emergency: if the patient cannot answer, the treating doctor can open the shared record by giving a reason, and the access is reviewed. Malaffi is a planned link in this prototype.",
+    "familyTitle": "Family history",
+    "familyMeta": "From Health Lineage · each relative decides",
+    "familyNone": "No family history shared yet.",
+    "head": {
+      "relative": "Relative",
+      "conditions": "Conditions and age at onset",
+      "consent": "Consent"
+    },
+    "ask": "Ask to share",
+    "asked": "Asked",
+    "noaTitle": "How Noa used this history",
+    "noaMeta": "Noa suggests · the care team decides",
+    "noaFine": "Only relatives who agreed are included."
+  },
+  "scr": {
+    "mozaTitle": "Her screening and early signals",
+    "mozaMeta": "Before the stroke",
+    "title_f": "Her screening",
+    "title_m": "His screening",
+    "meta": "What was found and what happened next",
+    "head": {
+      "when": "When",
+      "what": "Screening",
+      "result": "Result",
+      "happened": "What happened"
+    },
+    "loopTitle": "Was the loop closed?",
+    "loopPill": "No, too late",
+    "loopFine": "What changed: two irregular-rhythm alerts now open a case with a 3-day deadline for an ECG, owned by her family doctor."
+  },
+  "res": {
+    "title_f": "Her tests and results",
+    "title_m": "His tests and results",
+    "meta": "Newest last",
+    "head": {
+      "test": "Test",
+      "result": "Result",
+      "when": "When",
+      "status": "Status"
+    },
+    "tone": {
+      "good": "Normal",
+      "warn": "Watch",
+      "bad": "Abnormal",
+      "plain": "Note"
+    }
+  },
+  "tx": {
+    "courseTitle": "Inpatient course",
+    "courseMeta": "Key events",
+    "title_f": "Her treatment",
+    "title_m": "His treatment",
+    "meta": "In order"
+  },
+  "fu": {
+    "call": "Call",
+    "callIn": "Call (in {{lang}})",
+    "msg": "Message via Noa",
+    "book": "Book a visit",
+    "esc": "Escalate",
+    "rev": "Mark reviewed",
+    "sub": "{{sex}} · {{area}} · {{lang}} · owner: {{owner}}",
+    "homeData": "Home data {{last}}",
+    "toasts": {
+      "call": "Calling {{name}}",
+      "callIn": "Calling {{name}} with a {{lang}} interpreter line",
+      "msg": "Noa will send your message in {{lang}} and read it aloud if needed",
+      "book": "Booking options sent to {{first}}, around their usual times",
+      "esc": "Escalated to the on-call doctor with this summary",
+      "rev": "Marked as reviewed · next review in 7 days"
+    },
+    "homeDis": "Since discharge",
+    "homeTx": "Since treatment started",
+    "homeMeta": "Shared by the patient from the app · last 12 days",
+    "shared": "Shared with this team:",
+    "noData_f": "No home data yet. Readings appear here once she connects her app.",
+    "noData_m": "No home data yet. Readings appear here once he connects his app.",
+    "flagsTitle": "What needs attention",
+    "flagsMeta": "Flagged by Noa · the care team decides",
+    "flagTone": {
+      "bad": "Act",
+      "warn": "Review",
+      "good": "Good",
+      "plain": "Note"
+    },
+    "tasksTitle": "Follow-up",
+    "tasksMeta": "{{n}} open",
+    "taskAdd": "Add",
+    "taskPlaceholder": "Add a follow-up task",
+    "taskDone": "Done: {{title}}",
+    "taskAdded": "Added by you · just now",
+    "taskToast": "Task added",
+    "tlTitle": "Timeline and notes",
+    "tlMeta": "Everything is logged with who and when",
+    "notePlaceholder": "Write a clinical note for {{name}}",
+    "noteAria": "Clinical note",
+    "noteSave": "Save note",
+    "noteFine": "Notes stay with the care team. The patient sees only what the care team sends.",
+    "noteToast": "Note saved to the record",
+    "noteEntry": "Note: {{text}}",
+    "justNow": "Just now"
+  },
+  "review": {
+    "title": "Waiting for doctor review",
+    "meta": "{{n}} results",
+    "fine": "Deadline to confirm: 7 days from the result. Overdue cases move to the coordinator.",
+    "nameAge": "{{name}}, {{age}}",
+    "confirmed": "Confirmed",
+    "summaryTitle": "Summary Noa prepared",
+    "summaryTitleOther": "Summary",
+    "suggests": "Noa suggests · the doctor decides",
+    "confirm": "Confirm and send plan",
+    "draft": "Save draft",
+    "draftToast": "Saved as a draft. Nothing sent.",
+    "sentToast": "Plan sent. Referrals are with the clinics and Khalid has been told in Arabic.",
+    "sent": "Plan sent 12 Nov · Noa told Khalid in Arabic · referrals are with the clinics",
+    "other": "Open Khalid's case to see the full summary used in the demo.",
+    "whyTitle": "Why this is faster"
+  }
+}

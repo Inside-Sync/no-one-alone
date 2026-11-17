@@ -1,0 +1,231 @@
+{
+  "tips": {
+    "heading": "On this screen",
+    "try": "Try:",
+    "hide": "Hide tips",
+    "show": "Show tips",
+    "pages": {
+      "me": {
+        "text": "Moza's own home screen, 11 days after her stroke. Large text, voice first, one thing at a time.",
+        "try": "Answer one of the idea cards."
+      },
+      "health": {
+        "text": "Readings from her watch, blood pressure cuff, pill box and daily voice check-ins, compared with her usual.",
+        "try": "Tap a tile to see what it means."
+      },
+      "record": {
+        "text": "Your care record, in the same six steps the hospital uses: summary, history, screening, results, treatment and follow-up. Each card shows where its data came from and when.",
+        "try": "Move through the steps."
+      },
+      "treatment": {
+        "text": "Step 5 of your care record: the plan the hospital sent, with tablets, exercises, appointments and warning signs.",
+        "try": "Tap a task in “Today's tablets and tasks” when it is done."
+      },
+      "around": {
+        "text": "Risks around her home, such as heat, dust, scams and path works, and what Noa planned for each.",
+        "try": "Tap a pin on the map."
+      },
+      "lineage": {
+        "text": "Stroke and high blood pressure run in Moza's family. This sets the screening plan for her son Khalid.",
+        "try": "Look at the family pattern bars."
+      },
+      "device": {
+        "text": "How Moza's phone looks: two big buttons, captions for her hearing, nothing to learn.",
+        "try": "Press “Get help” to start the night alert replay."
+      },
+      "live": {
+        "text": "A replay of the night of 15 October: how Noa noticed the warning signs, checked on Moza and called for help.",
+        "try": "Press Faster, or change who answers the phone."
+      },
+      "patients": {
+        "text": "Every patient this team cares for: inpatient, outpatient and after discharge. Moza is first.",
+        "try": "Open Moza's record."
+      },
+      "overview": {
+        "text": "The hospital at a glance: beds and capacity, each department's doctor in charge and patients per doctor, treatment and recovery, and cases that need a person.",
+        "try": "Find the busiest department."
+      },
+      "loop": {
+        "text": "Every screening result has an owner and a deadline. Only cases that are stuck reach a person.",
+        "try": "Use the action button on a late case."
+      },
+      "review": {
+        "text": "The doctor's queue: Noa's summary, the patient's own words and the suggested next steps on one page.",
+        "try": "Press “Confirm and send plan”."
+      },
+      "referrals": {
+        "text": "The clinic's inbox. Referrals arrive with the patient's preferences and consent.",
+        "try": "Accept and book a slot."
+      },
+      "ed": {
+        "text": "Emergency arrivals. On the night of 15 October, Moza's record reached this screen before the ambulance did.",
+        "try": "Run the night alert demo to watch her packet arrive."
+      },
+      "population": {
+        "text": "Abu Dhabi's population health: wellbeing, recovery after care, screening to care and each hospital's performance.",
+        "try": "Filter the hospital table, or change the map measure."
+      },
+      "signals": {
+        "text": "Signals that need a decision, each with a suggested action.",
+        "try": "Approve one of the decisions."
+      }
+    },
+    "family": {
+      "health": {
+        "text": "What Khalid sees: only the health data Moza chose to share. Anything private shows a lock.",
+        "try": "Switch to “Moza (her own app)” to compare."
+      },
+      "record": {
+        "text": "Moza's care record as her family sees it, in the same six steps the hospital uses, within what she shares.",
+        "try": "Move through the steps."
+      },
+      "treatment": {
+        "text": "Step 5: the same plan Moza sees, so the family can help with tablets, walks and appointments.",
+        "try": "Read the warning signs card."
+      }
+    },
+    "chart": {
+      "sum": {
+        "text": "The first page of the record: why the patient is under care, the care setting, the department and the doctor in charge.",
+        "try": "Move through the steps: History, Screening, Results, Treatment, Follow-up."
+      },
+      "his": {
+        "text": "Past care at every hospital and clinic, who holds each record, family history and how Noa used it in screening.",
+        "try": "Open an older episode, or request notes that are not shared."
+      },
+      "scr": {
+        "text": "What screening found before care began, and whether the loop was closed in time.",
+        "try": "Read “Was the loop closed?”."
+      },
+      "res": {
+        "text": "Every test and result, flagged normal, watch or abnormal.",
+        "try": "Check anything flagged Abnormal."
+      },
+      "tx": {
+        "text": "What was done, in order. For Moza, also the discharge plan sent to her app.",
+        "try": "Follow the steps in order."
+      },
+      "fu": {
+        "text": "How the patient is doing at home, from the data they share: flags, tasks, notes and actions.",
+        "try": "Tick a follow-up task or write a note."
+      }
+    }
+  },
+  "tour": {
+    "open": "Moza's case",
+    "label": "Moza's case walkthrough",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "play": "Play",
+    "try": "Try:",
+    "steps": [
+      {
+        "title": "Meet Moza",
+        "text": "Moza is 78 and lives alone in Al Bateen. Eleven days ago she had a stroke. This is her own app: big text, voice first, one task at a time.",
+        "try": "Answer one of the idea cards."
+      },
+      {
+        "title": "What her devices notice",
+        "text": "Her watch, blood pressure cuff, pill box and voice check-ins are compared with her usual. Before the stroke, rising blood pressure and an uneven heartbeat were the early warning signs.",
+        "try": "Tap any tile to see what it means."
+      },
+      {
+        "title": "Her care record",
+        "text": "Moza's record follows the same six steps as the hospital's: summary, history, screening, results, treatment and follow-up. Every card shows its source and time.",
+        "try": "Move through the steps."
+      },
+      {
+        "title": "Her treatment, in plain words",
+        "text": "Step 5 is the hospital's plan in plain words: tablets with reminders, walks, speech exercises and warning signs.",
+        "try": "Tap a task when it is done."
+      },
+      {
+        "title": "Safe at home",
+        "text": "Heat, dust, scams and path works near her home, each with a plan, because she lives alone.",
+        "try": "Tap a pin on the map."
+      },
+      {
+        "title": "It runs in the family",
+        "text": "Stroke and high blood pressure run in her family. That is why her son Khalid is now being screened too.",
+        "try": "Look at the family pattern bars."
+      },
+      {
+        "title": "What her family sees",
+        "text": "Khalid, in Al Ain, sees only what Moza chose to share. Safety alerts always reach him and her brother Hamad.",
+        "try": "Switch back to Moza (her own app) to compare."
+      },
+      {
+        "title": "The night of 15 October",
+        "text": "A replay of the night of her stroke: her heart rate stayed high while she was not moving, and her speech was slurred. Noa called Khalid, Hamad and then 998.",
+        "try": "Press Play to watch the replay."
+      },
+      {
+        "title": "Her record arrives first",
+        "text": "Her medicines, allergy and the time she was last well reached the emergency team before the ambulance did.",
+        "try": "Look at the incoming ambulances."
+      },
+      {
+        "title": "Patient records",
+        "text": "Every patient this team cares for: inpatient, outpatient and after discharge. Moza is first.",
+        "try": "Open Moza's record."
+      },
+      {
+        "title": "Her patient record",
+        "text": "Moza's record opens on a summary: discharged on 17 October, now an outpatient, under the stroke unit.",
+        "try": "Read the six-step case."
+      },
+      {
+        "title": "Her history, everywhere",
+        "text": "Six episodes at four hospitals and clinics, from the shared record. Notes that are not shared can be requested from the other hospital or from Moza. Her father's and brother's strokes, shared with consent, raised her screening priority.",
+        "try": "Request the 2024 notes from Capital General."
+      },
+      {
+        "title": "Screening: the signals before",
+        "text": "Rising blood pressure and two irregular-rhythm alerts were found before the stroke. Her GP review was booked for 21 October; the stroke came on the 15th. A new rule now gives this kind of signal a 3-day deadline.",
+        "try": "Read “Was the loop closed?”."
+      },
+      {
+        "title": "Results",
+        "text": "The scans showed a blocked brain artery with no bleeding, and heart monitoring found atrial fibrillation, the likely cause.",
+        "try": "Find the heart monitoring row."
+      },
+      {
+        "title": "Treatment",
+        "text": "Clot-busting treatment 28 minutes after she arrived, a blood thinner for the AF, and the discharge plan sent to her app.",
+        "try": "Scroll to the discharge plan."
+      },
+      {
+        "title": "Follow-up at home",
+        "text": "Moza shares her readings with the care team. Her blood pressure has been above target for 5 days, so Noa flagged it and the doctor reviews her dose today.",
+        "try": "Tick “Review perindopril dose”."
+      },
+      {
+        "title": "The hospital at a glance",
+        "text": "Beds in use, each department's doctor in charge and patients per doctor, plus treatment and recovery by condition.",
+        "try": "Find the stroke row."
+      },
+      {
+        "title": "How Abu Dhabi is doing",
+        "text": "The Department tracks the health and wellbeing of the whole population: healthy life expectancy, wellbeing, activity, obesity, diabetes, blood pressure control and avoidable hospital stays.",
+        "try": "Compare each trend with its target."
+      },
+      {
+        "title": "Do people recover?",
+        "text": "Recovery after stroke, heart attack, hip fracture, heart failure and pneumonia. Moza counts here at 90 days.",
+        "try": "Find the stroke bar."
+      },
+      {
+        "title": "Each hospital's performance",
+        "text": "The same measures for every hospital and centre, including the Corniche Stroke Centre that treated Moza.",
+        "try": "Filter to Hospitals."
+      },
+      {
+        "title": "From signal to decision",
+        "text": "Signals become decisions a person approves, such as evening voice calls or extra clinic slots.",
+        "try": "Approve a decision."
+      }
+    ]
+  }
+}

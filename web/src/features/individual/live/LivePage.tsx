@@ -8,6 +8,7 @@ import { PageError } from '@/features/shared/PageError'
 import { useRepo } from '@/features/shared/useRepo'
 import { STEPS } from '@/domain/emergency'
 import { ambulanceStatus, heardLimit } from '@/domain/incident'
+import { isAutoCall, type TimelineLike } from '@/domain/timeline'
 import { agentView } from '@/domain/agent'
 import { ALERT_MIN, NO_REPLY_SECONDS, SIM_DEFAULTS, alertRun, clockText, scenarioFor, type Watch } from '@/domain/simulator'
 import { useToast } from '@/components/ui/Toast'
@@ -55,8 +56,8 @@ function useFlash(on: boolean) {
   }, [on])
 }
 
-type Timeline = readonly { at: string; kind: string; text: string }[]
-const autoCall = (timeline: Timeline) => timeline.find((e) => e.kind === 'CALLED_115' && e.text.startsWith('Calling '))
+type Timeline = readonly TimelineLike[]
+const autoCall = (timeline: Timeline) => timeline.find(isAutoCall)
 
 /** Rings or dials once per new call, one sound after another; returns the calls seen at load and the 000 dial. */
 function useCallRing(timeline: Timeline | undefined, id = '') {
@@ -183,7 +184,7 @@ function LiveIncidentPage() {
   const heardIncident = shown ? { ...shown.incident, timeline: shown.incident.timeline.slice(0, limit) } : null
   const agent = agentView(shown?.incident ?? null, people)
   const name = (people.person?.displayName ?? view?.personName ?? '').split(' ')[0]
-  const num = people.person?.emergencyNumber ?? view?.emergencyNumber ?? '000'
+  const num = people.person?.emergencyNumber ?? view?.emergencyNumber ?? '998'
   const ambulance = shown && dialogueDone?.id === shown.view.id ? { ...ambulanceStatus(shown.view.id), ...(dialogueDone.silent ? { clip: null } : {}) } : null
   // The prototype's sim page: controls, circle and readings, Noa / calls / her phone, then the conversation and the log.
   return (
@@ -200,7 +201,7 @@ function LiveIncidentPage() {
       ) : (
         <IdlePhoneCard name={name} time={clockText(watch.watch.clock)} disabled={busy} onHelp={() => begin(watch.watch.hr > 120 ? watch.watch.hr : 142, ALERT_MIN)} />
       )}
-      <SpeechCheckCard incident={shown?.incident ?? null} name={name} timeZone={people.person?.timezone ?? 'Asia/Ho_Chi_Minh'}
+      <SpeechCheckCard incident={shown?.incident ?? null} name={name} timeZone={people.person?.timezone ?? 'Asia/Dubai'}
         onReplay={() => nightDemo.current()} busy={busy} />
       <ConversationsCard incident={heardIncident} people={people} call={dialogue.lines} dialling={dialogue.dialling} />
       <HandoverCard incident={shown?.incident ?? null} view={shown?.view ?? null} people={people} agent={agent} />

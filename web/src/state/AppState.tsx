@@ -11,6 +11,19 @@ import { useLiveIncident } from './LiveIncident'
 
 export type SharePreset = 'family' | 'safety' | 'all'
 
+export type Theme = 'light' | 'dark'
+
+/** The light/dark choice lives in the browser (`localStorage`), not in the session. */
+const THEME_KEY = 'noa-theme'
+
+function readTheme(): Theme {
+  try {
+    return localStorage.getItem(THEME_KEY) === 'dark' ? 'dark' : 'light'
+  } catch {
+    return 'light'
+  }
+}
+
 export type EmergencyState = EmState
 export type EmergencyAction = EmAction
 
@@ -38,7 +51,7 @@ type Action =
   | { type: 'emergency'; action: EmergencyAction }
 
 const initial: State = {
-  who: 'family',
+  who: 'self',
   viewer: 'james',
   paused: false,
   audit: [],
@@ -96,6 +109,9 @@ export interface AppStateValue {
   holdNight: (on: boolean) => void
   /** Night mode is on: an alert is running or the demo click is holding it. The Night alert demo switch shows this. */
   night: boolean
+  /** The light/dark choice from the top bar switch (`noa-theme`). Dark and the night alert both put `night` on `<body>`. */
+  theme: Theme
+  setTheme: (theme: Theme) => void
   hydrated: boolean
 }
 
@@ -175,10 +191,22 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     return () => clearTimeout(t)
   }, [nightHold])
   const night = alertActive || Boolean(nightHold)
+  // One mechanism for both: the dark theme and a running night alert each put `night` on <body>, so the existing night
+  // variables, photo and glass rules apply, and ending the alert returns to the chosen theme (they never fight).
+  const [theme, setThemeState] = useState<Theme>(readTheme)
+  const setTheme = useCallback((next: Theme) => {
+    setThemeState(next)
+    try {
+      localStorage.setItem(THEME_KEY, next)
+    } catch {
+      /* storage unavailable: the choice lasts until reload */
+    }
+  }, [])
   useEffect(() => {
-    document.body.classList.toggle('night', night)
+    document.body.classList.toggle('night', night || theme === 'dark')
+    document.body.dataset.theme = theme
     return () => document.body.classList.remove('night')
-  }, [night])
+  }, [night, theme])
   useEffect(() => {
     if (!active || !playing) return
     const timer = setInterval(() => commit({ type: 'emergency', action: { type: 'tick' } }), TICK_MS)
@@ -256,9 +284,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     () => ({
       who: s.who, setWho, viewer: s.viewer, setViewer, paused: s.paused, togglePause, toggleShare, applyPreset,
       audit: s.audit, log, share: s.share, people: s.people, emergency: s.emergency, dispatchEmergency, packetNew, alertActive, holdNight, night,
-      hydrated: s.hydrated,
+      theme, setTheme, hydrated: s.hydrated,
     }),
-    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency, packetNew, alertActive, holdNight, night],
+    [s, setWho, setViewer, togglePause, toggleShare, applyPreset, log, dispatchEmergency, packetNew, alertActive, holdNight, night, theme, setTheme],
   )
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

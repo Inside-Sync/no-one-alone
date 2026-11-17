@@ -1,0 +1,334 @@
+{
+  "screening": {
+    "cases": [
+      {
+        "id": "c1",
+        "code": "SC-101",
+        "name": "Fatma Al Dhaheri",
+        "age": 63,
+        "result": "LDL 5.3 mmol/L",
+        "step": "Told",
+        "stepTone": "plain",
+        "why": "No answer to 3 calls at different times · son listed as contact",
+        "due": -93600,
+        "action": "Send community nurse",
+        "done": "A nurse visits tomorrow. Noa tells her in Arabic first."
+      },
+      {
+        "id": "c2",
+        "code": "SC-102",
+        "name": "Ahmed Rashid",
+        "age": 52,
+        "result": "HbA1c 8.1%",
+        "step": "Referral",
+        "stepTone": "plain",
+        "why": "Declined: clinic 40 min away, drives a taxi until 22:00",
+        "due": -79200,
+        "action": "Re-refer nearer home",
+        "done": "Re-referred to Baniyas, Thursday 20:15. New owner: Baniyas clinic."
+      },
+      {
+        "id": "c3",
+        "code": "SC-103",
+        "name": "Joseph Santos",
+        "age": 58,
+        "result": "BP 184/122",
+        "step": "Urgent",
+        "stepTone": "bad",
+        "why": "On-call doctor paged 09:12 · waiting for confirmation of contact",
+        "due": 2520,
+        "action": "Confirm doctor called",
+        "done": "Confirmed. He is being seen today."
+      },
+      {
+        "id": "c4",
+        "code": "SC-104",
+        "name": "Priya Nair",
+        "age": 61,
+        "result": "FIT positive",
+        "step": "Clinician first",
+        "stepTone": "jac",
+        "why": "Possible cancer result: a clinician gives it, not Noa",
+        "due": 18600,
+        "action": "Book clinician call",
+        "done": "Clinician call booked for 16:30 today."
+      },
+      {
+        "id": "c5",
+        "code": "SC-105",
+        "name": "Ravi Menon",
+        "age": 57,
+        "result": "BP 166/104",
+        "step": "Physician",
+        "stepTone": "plain",
+        "why": "Changed provider mid-loop · no owner",
+        "due": 259200,
+        "action": "Assign physician",
+        "done": "Assigned to Dr Fatima Al Ali. History kept."
+      }
+    ],
+    "feed": {
+      "clock": 545,
+      "initial": [
+        {
+          "src": "VOICE · Noura Al Ketbi",
+          "time": "09:05",
+          "text": "Stomach upset in week 2. Nurse call booked for tomorrow."
+        },
+        {
+          "src": "LAB · Al Ain",
+          "time": "08:52",
+          "text": "New result for Layla Hassan: HbA1c 6.9%. Case opened; Noa tells her within 1 day."
+        },
+        {
+          "src": "APP · Khalid Al Mansoori",
+          "time": "08:41",
+          "text": "Took metformin 20:14"
+        }
+      ],
+      "opened": {
+        "src": "APP · Khalid Al Mansoori",
+        "text": "Opened his care plan"
+      },
+      "stream": [
+        {
+          "src": "APP · Khalid Al Mansoori",
+          "text": "Took metformin 20:14"
+        },
+        {
+          "src": "LAB · Al Ain",
+          "text": "New result for Layla Hassan: HbA1c 6.9%. Case opened; Noa tells her within 1 day."
+        },
+        {
+          "src": "VOICE · Noura Al Ketbi",
+          "text": "Stomach upset in week 2. Nurse call booked for tomorrow."
+        },
+        {
+          "src": "CLINIC · Diabetes education",
+          "text": "Accepted Khalid Al Mansoori, Tue 18:30."
+        },
+        {
+          "src": "VOICE · Khalid Al Mansoori",
+          "text": "Explained his result back: next step, urgency and reason all correct."
+        },
+        {
+          "src": "APP · Ahmed Rashid",
+          "text": "Third missed dose. Added to the list."
+        },
+        {
+          "src": "CLINIC · Eye screening",
+          "text": "Thursday 9 of 10 full. 4 extra evening slots suggested."
+        },
+        {
+          "src": "CASE · Maria Lopez",
+          "text": "Closed with evidence: result, plan and sign-off."
+        }
+      ]
+    },
+    "steps": [
+      {
+        "label": "Tell the person",
+        "count": 9,
+        "note": "longest 0 d · deadline 1 d",
+        "late": false
+      },
+      {
+        "label": "Check understanding",
+        "count": 6,
+        "note": "longest 4 d · deadline 3 d",
+        "late": true
+      },
+      {
+        "label": "Physician confirms",
+        "count": 14,
+        "note": "longest 6 d · deadline 7 d",
+        "late": false
+      },
+      {
+        "label": "Referral and booking",
+        "count": 21,
+        "note": "longest 6 d · deadline 5 d",
+        "late": true
+      },
+      {
+        "label": "Treatment starts",
+        "count": 38,
+        "note": "longest 9 d · deadline 14 d",
+        "late": false
+      },
+      {
+        "label": "Closed, care continues",
+        "count": 98,
+        "note": "loops closed with evidence",
+        "late": false
+      }
+    ],
+    "slots": [
+      {
+        "label": "Diabetes education",
+        "booked": 12,
+        "total": 16
+      },
+      {
+        "label": "Eye screening",
+        "booked": 9,
+        "total": 10
+      },
+      {
+        "label": "Dietitian",
+        "booked": 4,
+        "total": 8
+      },
+      {
+        "label": "Colonoscopy",
+        "booked": 6,
+        "total": 6
+      },
+      {
+        "label": "Cardiology",
+        "booked": 5,
+        "total": 12
+      }
+    ],
+    "suggestions": [
+      {
+        "title": "Open 4 evening eye-screening slots on Thursday",
+        "note": "Covers the 30 Nov to 7 Dec peak"
+      },
+      {
+        "title": "Offer colonoscopy at the partner hospital",
+        "note": "Space next week, 2 weeks sooner"
+      }
+    ],
+    "review": {
+      "items": [
+        {
+          "id": "r1",
+          "name": "Khalid Al Mansoori",
+          "age": 46,
+          "result": "HbA1c 7.4% · repeat 7.3%",
+          "tag": "Understood",
+          "tone": "good",
+          "color": "#e07a3f"
+        },
+        {
+          "id": "r2",
+          "name": "Layla Hassan",
+          "age": 41,
+          "result": "HbA1c 6.9%",
+          "tag": "Told today",
+          "tone": "plain",
+          "color": "#7f9a99"
+        },
+        {
+          "id": "r3",
+          "name": "Ravi Menon",
+          "age": 57,
+          "result": "BP 166/104",
+          "tag": "New owner",
+          "tone": "warn",
+          "color": "#7f9a99"
+        }
+      ],
+      "summary": {
+        "id": "r1",
+        "rows": [
+          [
+            "Result",
+            "HbA1c 7.4% (5 Nov) · repeat 7.3% (9 Nov)"
+          ],
+          [
+            "Told",
+            "5 Nov · Arabic · voice call"
+          ],
+          [
+            "Understood",
+            "Next step ✓ · urgency ✓ · reason ✓"
+          ],
+          [
+            "In his words",
+            "\"My sugar is a bit high. I need to repeat the test and see the doctor.\""
+          ],
+          [
+            "Question",
+            "Can he fast in Ramadan?"
+          ],
+          [
+            "Record",
+            "BMI 31 · BP 138/86 · no medicines · works rotating shifts"
+          ],
+          [
+            "Family",
+            "Father and grandfather had type 2 diabetes (Health Lineage)"
+          ]
+        ],
+        "suggests": [
+          {
+            "text": "Confirm type 2 diabetes",
+            "note": "pathway"
+          },
+          {
+            "text": "Kidney function, lipids, urine albumin",
+            "note": "baseline"
+          },
+          {
+            "text": "Refer: diabetes education, eye screening, dietitian",
+            "note": "A2A"
+          },
+          {
+            "text": "Start metformin 500 mg with dinner",
+            "note": "doctor decides"
+          }
+        ],
+        "sent": "Plan sent 12 Nov · Noa told Khalid in Arabic · referrals are with the clinics"
+      },
+      "otherHint": "Open Khalid's case to see the full summary used in the demo."
+    },
+    "referrals": {
+      "understood": "Next step ✓ · urgency ✓ · reason ✓",
+      "consent": "Shared with this clinic for this referral only",
+      "items": [
+        {
+          "id": "f1",
+          "name": "Khalid Al Mansoori, 46",
+          "to": "Diabetes education",
+          "from": "Dr Aisha Al Hosani",
+          "why": "New type 2 diabetes, HbA1c 7.3% confirmed",
+          "pref": "Arabic · after 18:00 · wife may join",
+          "slot": "Tue 18:30 with an Arabic-speaking educator",
+          "tag": "New"
+        },
+        {
+          "id": "f2",
+          "name": "Ahmed Rashid, 52",
+          "to": "Diabetes clinic, Baniyas",
+          "from": "Care coordinator",
+          "why": "Re-referral: first clinic declined because of distance",
+          "pref": "Urdu · after 20:00 · drives a taxi",
+          "slot": "Thu 20:15, 6 km from home",
+          "tag": "Re-referral"
+        },
+        {
+          "id": "f3",
+          "name": "Priya Nair, 61",
+          "to": "Colonoscopy",
+          "from": "Dr Aisha Al Hosani",
+          "why": "FIT positive; result already given by a clinician",
+          "pref": "English · weekday mornings",
+          "slot": "Mon 08:30 at the partner hospital, 2 weeks sooner",
+          "tag": "New"
+        },
+        {
+          "id": "f4",
+          "name": "Ravi Menon, 57",
+          "to": "Family physician (handover)",
+          "from": "Network directory",
+          "why": "Changed provider mid-loop; needs a new owner",
+          "pref": "Malayalam · weekends",
+          "slot": "Dr Fatima Al Ali, Sat 10:00",
+          "tag": "Handover"
+        }
+      ]
+    }
+  }
+}

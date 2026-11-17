@@ -1,9 +1,10 @@
+import { isCallEntry, type TimelineLike } from '@/domain/timeline'
+
 /** One key per call to a nearby member (`NOTIFIED` "Calling ...") or to the emergency number, so each call rings once. */
-export function callKeys(timeline: readonly { at: string; kind: string; text: string }[], incidentId = ''): string[] {
-  return timeline.filter(isCall).map((e) => callKey(e, incidentId))
+export function callKeys(timeline: readonly TimelineLike[], incidentId = ''): string[] {
+  return timeline.filter(isCallEntry).map((e) => callKey(e, incidentId))
 }
 
-const isCall = (e: { kind: string; text: string }) => (e.kind === 'NOTIFIED' || e.kind === 'CALLED_115') && e.text.startsWith('Calling ')
 // Story time restarts each demo run, so the incident id keeps a second run's calls new.
 const callKey = (e: { at: string; text: string }, incidentId: string) => `${incidentId ? incidentId + ' ' : ''}${e.at} ${e.text}`
 
@@ -73,8 +74,8 @@ export const playRing = (totalMs = 4000) => playTones(ringTones(totalMs))
 export const playDial000 = () => playTones(dialSequence(6000))
 
 /** Which sound the newest calls need: `dial` when one of them is the automatic emergency call. Adds them to `seen`. */
-export function freshCallSound(timeline: readonly { at: string; kind: string; text: string }[], seen: Set<string>, incidentId = ''): 'dial' | 'ring' | null {
-  const fresh = timeline.filter((e) => isCall(e) && !seen.has(callKey(e, incidentId)))
+export function freshCallSound(timeline: readonly TimelineLike[], seen: Set<string>, incidentId = ''): 'dial' | 'ring' | null {
+  const fresh = timeline.filter((e) => isCallEntry(e) && !seen.has(callKey(e, incidentId)))
   fresh.forEach((e) => seen.add(callKey(e, incidentId)))
   if (!fresh.length) return null
   return fresh.some((e) => e.kind === 'CALLED_115') ? 'dial' : 'ring'

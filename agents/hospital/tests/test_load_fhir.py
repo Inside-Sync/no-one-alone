@@ -30,24 +30,24 @@ def test_the_shipped_bundles_pass_every_precheck(pid):
     (lambda b: b.update(type="collection"), "transaction"),
 ])
 def test_prechecks_catch_unsafe_bundles(change, expect):
-    b = copy.deepcopy(load_fhir.load_bundle("ba-mai"))
+    b = copy.deepcopy(load_fhir.load_bundle("margaret"))
     change(b)
-    assert any(expect in p for p in load_fhir.problems(b, "ba-mai"))
+    assert any(expect in p for p in load_fhir.problems(b, "margaret"))
 
 
 def test_dry_run_reads_only_and_writes_nothing(capsys):
     store = FakeStore()
     assert run(store) == 0
     assert writes(store) == [] and store.resources == {}
-    assert "DRY RUN: would create 22 of 22 resources" in capsys.readouterr().out
+    assert "DRY RUN: would create 14 of 14 resources" in capsys.readouterr().out
 
 
 def test_write_creates_everything_in_one_transaction_then_verifies(capsys):
     store = FakeStore()
     assert run(store, "--write") == 0
-    assert len(writes(store)) == 1 and len(store.resources) == 22
+    assert len(writes(store)) == 1 and len(store.resources) == 14
     out = capsys.readouterr().out
-    assert "WROTE 22 resources" in out and "VERIFIED live equals fixture for ba-mai, margaret" in out
+    assert "WROTE 14 resources" in out and "VERIFIED live equals fixture for margaret" in out
 
 
 def test_second_run_is_a_no_op_with_no_new_versions(capsys):
@@ -61,12 +61,12 @@ def test_second_run_is_a_no_op_with_no_new_versions(capsys):
 
 
 def test_only_missing_resources_are_sent():
-    store = FakeStore(bundle_resources("ba-mai"))
+    store = FakeStore(bundle_resources("margaret")[:3])
     sent = []
     real = store._transaction
     store._transaction = lambda b: sent.append([e["resource"]["id"] for e in b["entry"]]) or real(b)
     assert run(store, "--write") == 0
-    assert len(sent) == 1 and len(sent[0]) == 14 and all(i.startswith("margaret") for i in sent[0])
+    assert len(sent) == 1 and len(sent[0]) == 11 and all(i.startswith("margaret") for i in sent[0])
 
 
 def test_a_differing_resource_aborts_before_anything_is_written(capsys):
@@ -80,10 +80,10 @@ def test_a_differing_resource_aborts_before_anything_is_written(capsys):
 
 
 def test_dry_run_reports_conflicts_with_a_failing_exit(capsys):
-    changed = bundle_resources("ba-mai")
+    changed = bundle_resources("margaret")
     changed[0]["gender"] = "male"
     assert run(FakeStore(changed[:1])) == 1
-    assert "CONFLICT Patient/ba-mai" in capsys.readouterr().out
+    assert "CONFLICT Patient/margaret" in capsys.readouterr().out
 
 
 def test_store_without_update_create_is_refused():

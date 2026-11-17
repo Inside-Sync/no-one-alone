@@ -126,7 +126,8 @@ describe('watch', () => {
     click('Night emergency')
     await beat(30_000)
     expect(start).not.toHaveBeenCalled()
-    expect(screen.getByText('01:30')).toBeInTheDocument()
+    // Without a loaded person every clock falls back to the same zone (Sydney), so the time shows in each place that has one.
+    expect(screen.getAllByText('01:30').length).toBeGreaterThan(0)
   })
 })
 
@@ -161,7 +162,7 @@ function mountLive() {
 test('000 call already on the timeline at load: transcript only, no dial and no audio', async () => {
   liveValue = incidentAt(0, true)
   mountLive()
-  expect(await screen.findByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
+  expect(await screen.findByText(/Her brother Hamad is on his way with a key/)).toBeInTheDocument()
   expect(playDial000).not.toHaveBeenCalled()
   expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual([])
 })
@@ -171,17 +172,17 @@ test('a new 000 call dials once, then the dialogue starts; a second run in the s
   await show(incidentAt(0, false))
   await show(incidentAt(0, true))
   expect(playDial000).toHaveBeenCalledTimes(1)
-  expect(screen.getByText('Dialling 000…')).toBeInTheDocument()
+  expect(screen.getByText('Dialling 998…')).toBeInTheDocument()
   await act(async () => { dialed[0]() })
   expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual(['/noa/000-1.mp3'])
-  expect(screen.getByText(/Emergency. Police, Fire or Ambulance/)).toBeInTheDocument()
+  expect(screen.getByText(/Ambulance. What is your emergency/)).toBeInTheDocument()
 
   await show(idleValue)
   await show(incidentAt(600, false))
   await show(incidentAt(600, true))
   await show(incidentAt(600, true))
   expect(playDial000).toHaveBeenCalledTimes(2)
-  expect(screen.getByText('Dialling 000…')).toBeInTheDocument()
+  expect(screen.getByText('Dialling 998…')).toBeInTheDocument()
   await act(async () => { dialed[1]() })
   expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual(['/noa/000-1.mp3', '/noa/000-1.mp3'])
 })
@@ -192,7 +193,7 @@ test('an incident that arrives after the empty first snapshot, already holding t
   await show(incidentAt(0, true))
   expect(playDial000).not.toHaveBeenCalled()
   expect(playRing).not.toHaveBeenCalled()
-  expect(screen.getByText(/Her brother David is on his way with a key/)).toBeInTheDocument()
+  expect(screen.getByText(/Her brother Hamad is on his way with a key/)).toBeInTheDocument()
   expect(played.filter((u) => u.startsWith('/noa/000-'))).toEqual([])
 })
 

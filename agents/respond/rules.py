@@ -4,11 +4,11 @@ import re
 ORDER = ["OK", "MONITOR", "COME_NOW", "EMERGENCY"]
 EMERGENCY_SIGNS = ("weakness", "chest pain", "fall")
 # ponytail: word match with a 2-word negation window; Gemini symptoms cover the rest
-SIGN_WORDS = {"weakness": {"arm", "face", "weak", "weakness", "heavy", "numb", "yếu", "tê"},
-              "chest pain": {"chest", "ngực"},
-              "fall": {"fall", "fell", "fallen", "té", "ngã"},
-              "dizziness": {"dizzy", "dizziness", "chóng"}}
-NEGATIONS = {"no", "not", "never", "không", "chưa"}
+SIGN_WORDS = {"weakness": {"arm", "face", "weak", "weakness", "heavy", "numb", "ضعف", "ضعيف", "ضعيفة", "تنميل", "خدر", "ذراع", "وجه"},
+              "chest pain": {"chest", "صدر", "الصدر"},
+              "fall": {"fall", "fell", "fallen", "سقطت", "سقوط", "وقعت"},
+              "dizziness": {"dizzy", "dizziness", "دوخة", "دوار", "دايخة"}}
+NEGATIONS = {"no", "not", "never", "لا", "لم", "ليس", "ليست"}
 
 
 def _words(text: str | None) -> list[str]:
@@ -16,7 +16,7 @@ def _words(text: str | None) -> list[str]:
 
 
 def _signs(text: str | None) -> list[str]:
-    clauses = re.split(r"[.,;!?…]", (text or "").lower().replace("n't", " not").replace("n’t", " not"))
+    clauses = re.split(r"[.,;!?…،؛؟]", (text or "").lower().replace("n't", " not").replace("n’t", " not"))
     return [s for s, words in SIGN_WORDS.items() for w in map(_words, clauses)
             if any(x in words and not NEGATIONS & set(w[max(0, i - 2):i]) for i, x in enumerate(w))]
 
@@ -64,7 +64,7 @@ def triage(body: dict) -> dict:
         raise_to("COME_NOW", "no answer")
     if "FALL" in alert.get("kind", ""):
         raise_to("COME_NOW", "fall detected")
-    if people and _words(people[-1].get("text")) in (["no"], ["không"]):
+    if people and _words(people[-1].get("text")) in (["no"], ["لا"]):
         raise_to("COME_NOW", "answered no")
     if alert["hr"] >= 130 and not any(a.get("clarity") == "CLEAR" for a in assessments):
         raise_to("COME_NOW", f"HR {alert['hr']} without activity")

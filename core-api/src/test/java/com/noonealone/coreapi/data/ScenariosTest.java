@@ -16,6 +16,6 @@ class ScenariosTest {
             assertThat(f.window()).hasSize(15);
             assertThat(f.window().get(0).minutesBefore()).isEqualTo(15);
         }
-        assertThat(new Seed().data().people().get("ba-mai").circle).hasSize(3);
+        assertThat(new Seed().data().people().get("margaret").circle).hasSize(4);
     }
 }

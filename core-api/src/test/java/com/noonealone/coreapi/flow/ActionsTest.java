@@ -45,10 +45,11 @@ import com.noonealone.coreapi.store.IncidentStore;
 import com.noonealone.coreapi.support.FirestoreTestBase;
 import com.noonealone.coreapi.support.FixedClockConfig;
 import com.noonealone.coreapi.support.SyncExecutorConfig;
+import com.noonealone.coreapi.support.TestPeopleConfig;
 import com.noonealone.coreapi.web.ApiException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@Import({FixedClockConfig.class, SyncExecutorConfig.class})
+@Import({FixedClockConfig.class, SyncExecutorConfig.class, TestPeopleConfig.class})
 class ActionsTest extends FirestoreTestBase {
 
     @Autowired IncidentFlow flow;
@@ -65,12 +66,12 @@ class ActionsTest extends FirestoreTestBase {
     void escalate() {
         SeedData data = seed.data();
         CircleEntry neighbour = new CircleEntry();
-        neighbour.memberId = "tuan";
+        neighbour.memberId = "test-extra";
         neighbour.relation = "neighbour";
         neighbour.role = Role.NEARBY;
         neighbour.priority = 5;
         neighbour.criticalAlerts = true;
-        data.people().get("ba-mai").circle.add(neighbour);
+        data.people().get("test-elder").circle.add(neighbour);
         store.seed(data);
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null, null, true, false));
@@ -86,29 +87,29 @@ class ActionsTest extends FirestoreTestBase {
 
     @Test
     void acceptMakesOwnerAndDeletesTimer() {
-        actions.apply(ID, "ong-hung", "ACCEPT");
+        actions.apply(ID, "test-near", "ACCEPT");
 
         Incident inc = store.get(ID);
-        assertThat(inc.ownerId).isEqualTo("ong-hung");
-        assertThat(inc.assignment("ong-hung").orElseThrow().state).isEqualTo(AssignmentState.ACCEPTED);
-        verify(tasks).deleteQuietly("task-ong-hung");
+        assertThat(inc.ownerId).isEqualTo("test-near");
+        assertThat(inc.assignment("test-near").orElseThrow().state).isEqualTo(AssignmentState.ACCEPTED);
+        verify(tasks).deleteQuietly("task-test-near");
         assertThat(inc.timeline).extracting(t -> t.kind).doesNotContain("CALLED_115");
     }
 
     @Test
     void acceptTwiceBySameMemberIsANoOp() {
-        long v1 = actions.apply(ID, "ong-hung", "ACCEPT");
-        long v2 = actions.apply(ID, "ong-hung", "ACCEPT");
+        long v1 = actions.apply(ID, "test-near", "ACCEPT");
+        long v2 = actions.apply(ID, "test-near", "ACCEPT");
 
         assertThat(v2).isEqualTo(v1);
     }
 
     @Test
     void concurrentAcceptHasExactlyOneOwner() throws Exception {
-        actions.timeout(ID, "ong-hung", 1);
+        actions.timeout(ID, "test-near", 1);
         ExecutorService pool = Executors.newFixedThreadPool(2);
         List<Callable<String>> calls = new ArrayList<>();
-        for (String member : List.of("ong-hung", "tuan")) {
+        for (String member : List.of("test-near", "test-extra")) {
             calls.add(() -> {
                 try {
                     actions.apply(ID, member, "ACCEPT");
@@ -125,43 +126,43 @@ class ActionsTest extends FirestoreTestBase {
         pool.shutdown();
 
         assertThat(results).containsExactlyInAnyOrder("OK", "ALREADY_OWNED");
-        assertThat(store.get(ID).ownerId).isIn("ong-hung", "tuan");
+        assertThat(store.get(ID).ownerId).isIn("test-near", "test-extra");
     }
 
     @Test
     void timeoutAfterAcceptChangesNothing() {
-        actions.apply(ID, "ong-hung", "ACCEPT");
+        actions.apply(ID, "test-near", "ACCEPT");
         long before = store.get(ID).version;
 
-        actions.timeout(ID, "ong-hung", 1);
+        actions.timeout(ID, "test-near", 1);
 
         assertThat(store.get(ID).version).isEqualTo(before);
-        verify(tasks, never()).schedule(ID, "tuan", 1, 30);
+        verify(tasks, never()).schedule(ID, "test-extra", 1, 30);
     }
 
     @Test
     void lateAcceptStopsTheNextTimer() {
-        actions.timeout(ID, "ong-hung", 1);
-        actions.apply(ID, "ong-hung", "ACCEPT");
+        actions.timeout(ID, "test-near", 1);
+        actions.apply(ID, "test-near", "ACCEPT");
         long before = store.get(ID).version;
 
-        actions.timeout(ID, "tuan", 1);
+        actions.timeout(ID, "test-extra", 1);
 
         Incident inc = store.get(ID);
-        assertThat(inc.assignment("tuan").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
+        assertThat(inc.assignment("test-extra").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
         assertThat(inc.timeline).extracting(t -> t.kind).doesNotContain("NO_NEARBY");
         assertThat(inc.version).isEqualTo(before);
     }
 
     @Test
     void timeoutExpiresAndNotifiesNext() {
-        actions.timeout(ID, "ong-hung", 1);
+        actions.timeout(ID, "test-near", 1);
 
         Incident inc = store.get(ID);
-        assertThat(inc.assignment("ong-hung").orElseThrow().state).isEqualTo(AssignmentState.EXPIRED);
-        assertThat(inc.assignment("tuan").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
-        assertThat(inc.escalationTaskName).isEqualTo("task-tuan");
-        verify(tasks).schedule(ID, "tuan", 1, 30);
+        assertThat(inc.assignment("test-near").orElseThrow().state).isEqualTo(AssignmentState.EXPIRED);
+        assertThat(inc.assignment("test-extra").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
+        assertThat(inc.escalationTaskName).isEqualTo("task-test-extra");
+        verify(tasks).schedule(ID, "test-extra", 1, 30);
         assertThat(inc.timeline).extracting(t -> t.text)
                 .anyMatch(s -> s.endsWith("did not answer in 30 s"))
                 .anyMatch(s -> s.startsWith("Calling "));
@@ -169,33 +170,33 @@ class ActionsTest extends FirestoreTestBase {
 
     @Test
     void lastTimeoutAppliesNoNearbyRule() {
-        actions.timeout(ID, "ong-hung", 1);
-        actions.timeout(ID, "tuan", 1);
+        actions.timeout(ID, "test-near", 1);
+        actions.timeout(ID, "test-extra", 1);
 
         Incident inc = store.get(ID);
         assertThat(inc.timeline).extracting(t -> t.kind).containsSubsequence("NO_NEARBY", "CALLED_115");
         assertThat(inc.timeline).filteredOn(t -> "CALLED_115".equals(t.kind)).singleElement()
                 .satisfies(t -> assertThat(t.actor).isEqualTo("SYSTEM"));
-        assertThat(inc.assignment("lan").orElseThrow().actions).containsExactly("CALL_NEARBY");
+        assertThat(inc.assignment("test-far").orElseThrow().actions).containsExactly("CALL_NEARBY");
     }
 
     @Test
     void declineNotifiesNextAndDeletesOwnTimer() {
-        actions.apply(ID, "ong-hung", "DECLINE");
+        actions.apply(ID, "test-near", "DECLINE");
 
         Incident inc = store.get(ID);
-        assertThat(inc.assignment("ong-hung").orElseThrow().state).isEqualTo(AssignmentState.DECLINED);
-        assertThat(inc.assignment("tuan").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
+        assertThat(inc.assignment("test-near").orElseThrow().state).isEqualTo(AssignmentState.DECLINED);
+        assertThat(inc.assignment("test-extra").orElseThrow().state).isEqualTo(AssignmentState.NOTIFIED);
         var order = inOrder(tasks);
-        order.verify(tasks).schedule(ID, "tuan", 1, 30);
-        order.verify(tasks).deleteQuietly("task-ong-hung");
+        order.verify(tasks).schedule(ID, "test-extra", 1, 30);
+        order.verify(tasks).deleteQuietly("task-test-near");
     }
 
     @Test
     void ineligibleDeclineIs409AndSchedulesNothing() {
-        assertThatThrownBy(() -> actions.apply(ID, "tuan", "DECLINE"))
+        assertThatThrownBy(() -> actions.apply(ID, "test-extra", "DECLINE"))
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_STATE");
-        assertThatThrownBy(() -> actions.apply(ID, "lan", "DECLINE"))
+        assertThatThrownBy(() -> actions.apply(ID, "test-far", "DECLINE"))
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_STATE");
 
         verify(tasks, times(1)).schedule(anyString(), anyString(), anyInt(), anyInt());
@@ -203,22 +204,22 @@ class ActionsTest extends FirestoreTestBase {
 
     @Test
     void onlyTheOwnerCanArrive() {
-        actions.apply(ID, "ong-hung", "ACCEPT");
+        actions.apply(ID, "test-near", "ACCEPT");
 
-        assertThatThrownBy(() -> actions.apply(ID, "lan", "ARRIVED"))
+        assertThatThrownBy(() -> actions.apply(ID, "test-far", "ARRIVED"))
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_STATE");
 
-        actions.apply(ID, "ong-hung", "ARRIVED");
+        actions.apply(ID, "test-near", "ARRIVED");
         Incident inc = store.get(ID);
         assertThat(inc.status).isEqualTo(Status.ON_SCENE);
-        assertThat(inc.assignment("ong-hung").orElseThrow().arrivedAt).isNotNull();
+        assertThat(inc.assignment("test-near").orElseThrow().arrivedAt).isNotNull();
     }
 
     @Test
     void called115IsLoggedAndCloseWorksOnce() {
-        actions.apply(ID, "lan", "CALLED_115");
+        actions.apply(ID, "test-far", "CALLED_115");
         assertThat(store.get(ID).timeline).filteredOn(t -> "CALLED_115".equals(t.kind))
-                .extracting(t -> t.text).containsExactly("Lan called 115");
+                .extracting(t -> t.text).containsExactly("Test Far called 998");
 
         actions.apply(ID, "console", "CLOSE");
         assertThat(store.get(ID).status).isEqualTo(Status.CLOSED);
@@ -234,38 +235,38 @@ class ActionsTest extends FirestoreTestBase {
         actions.apply("m-1", "james", "CALLED_115");
 
         assertThat(store.get("m-1").timeline).filteredOn(t -> "CALLED_115".equals(t.kind))
-                .extracting(t -> t.text).containsExactly("James called 000");
+                .extracting(t -> t.text).containsExactly("Khalid called 998");
     }
 
     @Test
     void queuedMemberCannotAcceptAndUnknownActionIsBadRequest() {
-        assertThatThrownBy(() -> actions.apply(ID, "tuan", "ACCEPT"))
+        assertThatThrownBy(() -> actions.apply(ID, "test-extra", "ACCEPT"))
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_STATE");
-        assertThatThrownBy(() -> actions.apply(ID, "ong-hung", "DANCE"))
+        assertThatThrownBy(() -> actions.apply(ID, "test-near", "DANCE"))
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_REQUEST");
     }
 
     @Test
     void declineAfterLateAcceptDoesNotEscalate() {
-        actions.timeout(ID, "ong-hung", 1);
-        actions.apply(ID, "ong-hung", "ACCEPT");
+        actions.timeout(ID, "test-near", 1);
+        actions.apply(ID, "test-near", "ACCEPT");
 
-        actions.apply(ID, "tuan", "DECLINE");
+        actions.apply(ID, "test-extra", "DECLINE");
 
         Incident inc = store.get(ID);
-        assertThat(inc.assignment("tuan").orElseThrow().state).isEqualTo(AssignmentState.DECLINED);
+        assertThat(inc.assignment("test-extra").orElseThrow().state).isEqualTo(AssignmentState.DECLINED);
         assertThat(inc.timeline).extracting(t -> t.kind).doesNotContain("NO_NEARBY");
-        assertThat(inc.assignment("lan").orElseThrow().actions).doesNotContain("CALL_NEARBY");
+        assertThat(inc.assignment("test-far").orElseThrow().actions).doesNotContain("CALL_NEARBY");
         verify(tasks, times(2)).schedule(anyString(), anyString(), anyInt(), anyInt());
     }
 
     @Test
     void acceptAfterArrivalIsNoOpForOwnerAndOwnedForOthers() {
-        actions.apply(ID, "ong-hung", "ACCEPT");
-        long v = actions.apply(ID, "ong-hung", "ARRIVED");
+        actions.apply(ID, "test-near", "ACCEPT");
+        long v = actions.apply(ID, "test-near", "ARRIVED");
 
-        assertThat(actions.apply(ID, "ong-hung", "ACCEPT")).isEqualTo(v);
-        assertThatThrownBy(() -> actions.apply(ID, "tuan", "ACCEPT"))
+        assertThat(actions.apply(ID, "test-near", "ACCEPT")).isEqualTo(v);
+        assertThatThrownBy(() -> actions.apply(ID, "test-extra", "ACCEPT"))
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("ALREADY_OWNED");
     }
 }

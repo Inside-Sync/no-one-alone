@@ -23,6 +23,7 @@ import com.noonealone.coreapi.model.Assignment;
 import com.noonealone.coreapi.model.AssignmentState;
 import com.noonealone.coreapi.model.CircleEntry;
 import com.noonealone.coreapi.model.Incident;
+import com.noonealone.coreapi.model.Params;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.PersonInstruction;
 import com.noonealone.coreapi.model.Role;
@@ -118,9 +119,11 @@ public class Escalation {
                 x.personInstruction.audioPath = audioPath;
             }
             if (usedFallback) {
-                x.log(now, "AGENT", "AGENT_FALLBACK", "Plan used fallback");
+                x.log(now, "AGENT", "AGENT_FALLBACK", "Plan used fallback", null, Params.of("step", "PLAN"));
             }
-            x.log(now, "SYSTEM", "ALERTED", alertText(x, person, circle, people));
+            x.log(now, "SYSTEM", "ALERTED", alertText(x, person, circle, people), null,
+                    Params.of("memberIds", circle.stream().sorted(Comparator.comparing((CircleEntry c) -> c.role != Role.DISTANT))
+                            .map(c -> c.memberId).toList(), "suspectedStroke", x.suspectedStroke()));
             for (CircleEntry c : circle) {
                 Assignment a = new Assignment();
                 a.memberId = c.memberId;
@@ -157,8 +160,7 @@ public class Escalation {
                 .map(c -> EscalationRules.name(people, c.memberId)).toList();
         String list = names.size() < 2 ? String.join("", names)
                 : String.join(", ", names.subList(0, names.size() - 1)) + " and " + names.get(names.size() - 1);
-        // Vietnamese display names start with a title (Bà Mai), so keep them whole.
-        String who = person.locale != null && person.locale.startsWith("vi") ? person.displayName : person.displayName.split(" ")[0];
+        String who = person.displayName.split(" ")[0];
         String what = x.suspectedStroke() ? " may be having a stroke" : " needs help";
         return "Alert sent to " + list + ": " + who + what + ". Noa is calling for help now.";
     }
@@ -173,7 +175,7 @@ public class Escalation {
             m.put("displayName", p == null ? c.memberId : p.displayName);
             m.put("relation", c.relation);
             m.put("role", c.role.name());
-            m.put("locale", p == null ? "vi-VN" : p.locale);
+            m.put("locale", p == null ? "en" : p.locale);
             if (eta.containsKey(c.memberId)) {
                 m.put("etaMin", eta.get(c.memberId));
             }

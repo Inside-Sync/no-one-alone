@@ -1,35 +1,17 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { usePathname, useRouter } from '@/app/navigation'
 import { Avatar } from '@/components/ui/Avatar'
-import { Glyph, Icon } from '@/components/ui/Icon'
+import { Glyph } from '@/components/ui/Icon'
 import { WhoSwitch } from './WhoSwitch'
-import * as repo from '@/data/repo'
 import { STEPS } from '@/domain/emergency'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
-import type { ContextBar as Ctx } from '@/data/types'
-import { hasOwnContext, OWN_CONTEXT, PAGE_TITLES, parsePath, VIEW_LABELS } from '@/domain/views'
+import { pageContext, pageTitle, parsePath, VIEW_LABELS } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
+import { useShellOverrides } from './ShellOverrides'
 import s from './shell.module.css'
-
-type Bars = { person: Ctx; lineage: Ctx; hospital: Ctx; community: Ctx }
-
-function useContextBars(): Bars | null {
-  const [bars, setBars] = useState<Bars | null>(null)
-  useEffect(() => {
-    let live = true
-    Promise.all([
-      repo.getPerson('margaret'), repo.getLineage('margaret'), repo.getHospital(), repo.getCommunity(),
-    ]).then(([p, l, h, c]) => {
-      if (live) setBars({ person: p.context, lineage: l.context, hospital: h.context, community: c.context })
-    }, () => {})
-    return () => { live = false }
-  }, [])
-  return bars
-}
 
 export function ContextBar() {
   const { t } = useTranslation(['common', 'live'])
@@ -37,14 +19,11 @@ export function ContextBar() {
   const { view, page } = parsePath(usePathname())
   const { who, setWho, setViewer, viewer, paused, share, people, emergency } = useAppState()
   const { view: liveView, people: livePeople } = useLiveIncident()
-  const bars = useContextBars()
+  const override = useShellOverrides().context
 
-  let ctx: Ctx | undefined
-  const ownIcon = hasOwnContext(page) ? OWN_CONTEXT[page].icon : undefined
-  if (hasOwnContext(page)) ctx = { ...OWN_CONTEXT[page], facts: [...OWN_CONTEXT[page].facts] }
-  else if (view === 'hospital') ctx = bars?.hospital
-  else if (view === 'community') ctx = bars?.community
-  else ctx = page === 'lineage' ? bars?.lineage : bars?.person
+  const base = pageContext(view, who, page)
+  const ctx = base && { ...base, ...override }
+  const title = override?.title ?? (page ? pageTitle(view, page, who) : '')
 
   const individual = view === 'individual'
   const self = who === 'self'
@@ -67,22 +46,22 @@ export function ContextBar() {
   const switchWho = (w: typeof who) => {
     setWho(w)
     if (w === 'family') setViewer('james')
-    router.push(w === 'self' ? '/individual/me' : '/individual/home')
+    router.push(w === 'self' ? '/individual/me' : '/individual/health')
   }
 
   return (
     <>
-      <section className="ctx glass" aria-live="polite">
+      <section className="ctx glass" aria-live="polite" data-tour="context">
         <Avatar
-          name={individual ? 'Margaret' : undefined}
+          name={individual && ctx?.initials === 'MH' ? 'Moza' : undefined}
           id="ctxAv"
           style={{ '--c': ctx?.color ?? '#0b7f71', width: 46, height: 46, fontSize: 15 } as React.CSSProperties}
         >
-          {ownIcon ? <span className="ic"><Icon name={ownIcon} /></span> : ctx?.initials}
+          {ctx?.initials}
         </Avatar>
         <div>
           <span className="vbanner" id="vban">{banner}</span>
-          <h1 id="pgTitle">{page ? PAGE_TITLES[page] : ''}</h1>
+          <h1 id="pgTitle">{title}</h1>
           <div className="sub" id="pgSub">{page === 'live' && liveView?.open ? liveSubtitle(liveView.storyTime, livePeople.person?.addressText) : page === 'live' && emergency.active ? t('live:subtitle', { time: STEPS[emergency.step].t }) : ctx?.sub}</div>
         </div>
         <span className="sp"></span>

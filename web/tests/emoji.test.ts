@@ -12,6 +12,9 @@ const VOICE = new Set([
   'me.json:recovery.noa.welcome', 'data/margaret.json:margaret.ownView.greeting',
 ])
 
+/** The one table of emoji; everything else names an icon and lets `Icon` draw it. */
+const EMOJI_TABLE = /components[\\/]ui[\\/]emoji\.ts$/
+
 function files(dir: string, ext: RegExp): string[] {
   return readdirSync(dir).flatMap((n) => {
     const p = join(dir, n)
@@ -30,14 +33,14 @@ function strings(node: unknown, path: string, out: [string, string][]): [string,
 }
 
 test('UI code draws icons, not emoji', () => {
-  const offenders = files('src', /\.tsx?$/).flatMap((f) =>
+  const offenders = files('src', /\.tsx?$/).filter((f) => !EMOJI_TABLE.test(f)).flatMap((f) =>
     code(f).split('\n').flatMap((line, i) => (hasEmoji(line) ? [`${f}:${i + 1}`] : [])))
   expect(offenders).toEqual([])
 })
 
 test('locale strings carry no emoji outside spoken lines', () => {
   const offenders = files('src/locales', /\.json$/).flatMap((f) => {
-    const rel = relative('src/locales', f).split('/').slice(1).join('/')
+    const rel = relative('src/locales', f).replaceAll(String.fromCharCode(92), '/').split('/').slice(1).join('/')
     return strings(JSON.parse(readFileSync(f, 'utf8')), '', [])
       .filter(([path, s]) => hasEmoji(s) && !VOICE.has(`${rel}:${path}`))
       .map(([path]) => `${f}:${path}`)

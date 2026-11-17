@@ -40,10 +40,11 @@ import com.noonealone.coreapi.store.IncidentStore;
 import com.noonealone.coreapi.support.FirestoreTestBase;
 import com.noonealone.coreapi.support.FixedClockConfig;
 import com.noonealone.coreapi.support.SyncExecutorConfig;
+import com.noonealone.coreapi.support.TestPeopleConfig;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import({FixedClockConfig.class, SyncExecutorConfig.class})
+@Import({FixedClockConfig.class, SyncExecutorConfig.class, TestPeopleConfig.class})
 class StrokeFlowTest extends FirestoreTestBase {
 
     @Autowired MockMvc mvc;
@@ -59,18 +60,18 @@ class StrokeFlowTest extends FirestoreTestBase {
         slurred.clarity = "SLURRED";
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "HR 142 at night", "2026-10-15T18:55:00Z", false));
         when(agent.checkinTurn(any()))
-                .thenReturn(new TurnResult(null, null, new TurnResult.Next("Mạ ơi, mạ có nghe con nói không?", "VOICE", null, null), false, false))
+                .thenReturn(new TurnResult(null, null, new TurnResult.Next("Hello, can you hear me?", "VOICE", null, null), false, false))
                 .thenReturn(new TurnResult("ừ... mạ nghe", slurred, null, true, false));
         when(agent.triage(any())).thenReturn(new TriageResult(Level.EMERGENCY, List.of("slurred speech"), false));
         when(agent.plan(any())).thenReturn(new PlanResult(
-                List.of(new PlanResult.Message("ong-hung", "Chị Mai có thể đang bị đột quỵ."), new PlanResult.Message("lan", "Mẹ có dấu hiệu đột quỵ.")),
-                "Địa chỉ 12 Kiệt 4", new PlanResult.Instruction(List.of("SIT_STILL"), "Mạ ngồi yên.", null, null), false));
+                List.of(new PlanResult.Message("test-near", "Test Elder may be having a stroke."), new PlanResult.Message("test-far", "She shows signs of a stroke.")),
+                "Address 12 Test Street", new PlanResult.Instruction(List.of("SIT_STILL"), "Please sit still.", null, null), false));
         when(agent.handoff(any())).thenReturn(new HandoffResult("RECEIVED", Map.of("text", "PRE-ARRIVAL"), false));
         when(routes.etaMinutes(any(), any())).thenReturn(Optional.of(6));
         when(tasks.schedule(anyString(), anyString(), anyInt(), anyInt())).thenReturn("task");
 
         mvc.perform(post("/api/demo/reset")).andExpect(status().isNoContent());
-        String body = mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON).content("{}"))
+        String body = mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON).content("{\"personId\":\"test-elder\"}"))
                 .andExpect(status().isAccepted()).andReturn().getResponse().getContentAsString();
         String id = json.readTree(body).get("incidentId").asText();
 
@@ -78,9 +79,9 @@ class StrokeFlowTest extends FirestoreTestBase {
                 .file(new MockMultipartFile("audio", "a.webm", "audio/webm", new byte[] {1})))
                 .andExpect(status().isAccepted());
         mvc.perform(post("/api/incidents/" + id + "/actions").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"memberId\":\"ong-hung\",\"action\":\"ACCEPT\"}")).andExpect(status().isOk());
+                .content("{\"memberId\":\"test-near\",\"action\":\"ACCEPT\"}")).andExpect(status().isOk());
         mvc.perform(post("/api/incidents/" + id + "/actions").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"memberId\":\"ong-hung\",\"action\":\"ARRIVED\"}")).andExpect(status().isOk());
+                .content("{\"memberId\":\"test-near\",\"action\":\"ARRIVED\"}")).andExpect(status().isOk());
 
         Incident inc = store.get(id);
         assertThat(inc.status).isEqualTo(Status.ON_SCENE);

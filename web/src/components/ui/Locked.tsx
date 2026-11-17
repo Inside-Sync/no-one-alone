@@ -2,12 +2,16 @@
 
 import type { KeyboardEvent, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { PersonId } from '@/data/types'
 import { lockMessage, sees, type CategoryId } from '@/domain/consent'
 import { useAppState } from '@/state/AppState'
 import { useDrawer } from './Drawer'
 import { Glyph } from './Icon'
 import type { CardSpan } from './GlassCard'
 import { OnceButton } from './OnceButton'
+
+/** The signed-in family member (AppState's default viewer); the sheet says "you" for them, in any language. */
+const SIGNED_IN: PersonId = 'james'
 
 interface Props {
   cat: CategoryId
@@ -32,7 +36,7 @@ export function Locked({ cat, span, className, children }: Props) {
   // Prototype `.locked` click: a "Kept private" sheet. James is the signed-in viewer, so it says "you".
   const name = people.find((p) => p.id === viewer)?.name ?? viewer
   const open = () => {
-    const viewerName = name === 'James' ? t('you') : name
+    const viewerName = viewer === SIGNED_IN ? t('you') : name
     drawer.open(
       t('keptPrivate.title'),
       <>

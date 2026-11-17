@@ -2,25 +2,28 @@
 
 import { useMemo, type CSSProperties, type Ref } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { CityView, Suburb } from '@/data/types'
+import type { Area } from '@/data/government.types'
+import type { CityView } from '@/data/types'
 import { City3D } from './City3D'
 import { buildDistrict } from './city/geometry'
 import type { Canvas3DHandle } from './useCanvas3D'
 
 export interface DistrictMetric {
-  /** One value per suburb, in `suburbs` order (the DM model's `subVal`). */
+  /** One value per area, in `areas` order. */
   values: number[]
-  /** Tag suffix, e.g. " high risk", " % alone", " heat index", " visits short". */
+  /** Tag suffix, e.g. " open", "%", " d". */
   suffix: string
+  /** A tall column is a good one (reached care, coverage): the colour runs the other way. */
+  higherIsBetter?: boolean
 }
 
 interface Props {
-  suburbs: Suburb[]
+  areas: Area[]
   metric: DistrictMetric
   view: CityView
   /** Prototype default for `#district`. */
   ariaLabel?: string
-  /** Suburb drawn with the brand outline and colour. */
+  /** Area drawn with the brand outline and colour. */
   highlight?: string
   onSelect?: (text: string) => void
   night?: boolean
@@ -30,12 +33,11 @@ interface Props {
 }
 
 /**
- * Inner West 3D column map (`#district`, `buildDistrict`, line 1325). Supports
- * all four DM models: the caller computes the per-suburb values (Task 13's
- * `metricFor`), this draws the tiles, columns and tags.
+ * Abu Dhabi 3D column map (`#district`, `buildDistrict`). Supports all four measures: the caller computes the
+ * per-area values (`metricFor`), this draws the tiles, columns and tags.
  */
 export function DistrictMap({
-  suburbs,
+  areas,
   metric,
   view,
   ariaLabel,
@@ -48,8 +50,8 @@ export function DistrictMap({
 }: Props) {
   const { t } = useTranslation()
   const scene = useMemo(
-    () => buildDistrict(suburbs, metric.values, metric.suffix, highlight),
-    [suburbs, metric.values, metric.suffix, highlight],
+    () => buildDistrict(areas, metric.values, metric.suffix, highlight, metric.higherIsBetter),
+    [areas, metric.values, metric.suffix, metric.higherIsBetter, highlight],
   )
   return (
     <City3D

@@ -4,7 +4,7 @@
 .orbname{display:grid;line-height:1.15}
 #agentCard .ch{flex-wrap:nowrap}
 #agentCard .ch .btn{white-space:nowrap}
-.dec{display:grid;gap:3px;padding:12px 14px;border-radius:14px;border-left:5px solid #56706e;background:var(--glass-2)}
+.dec{display:grid;gap:3px;padding:12px 14px;border-radius:14px;border-inline-start:5px solid #56706e;background:var(--glass-2)}
 .dec b{font-size:15px}.dec span{font-size:12.5px;color:var(--ink2)}
 .dec.green{border-color:#1f8f5f}.dec.amber{border-color:#e2a32c}.dec.red{border-color:#ef4e4a}
 .agent-now{font-size:14.5px;font-weight:500;line-height:1.45;min-height:42px}
@@ -18,7 +18,7 @@
 .callcards{display:grid;gap:8px}
 .ccard{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge)}
 .ccard b{font-size:13.5px;display:block}.ccard small{font-size:11.5px;color:var(--muted)}
-.ccard em{font-style:normal;font-size:11.5px;font-weight:600;font-family:var(--mono);text-align:right}
+.ccard em{font-style:normal;font-size:11.5px;font-weight:600;font-family:var(--mono);text-align:end}
 .ccard.ring{box-shadow:inset 0 0 0 1.5px var(--warn);animation:ringp 1s infinite}.ccard.ring em{color:var(--warn)}
 .ccard.miss em{color:var(--bad)}.ccard.ok em{color:var(--good)}
 .ccard .av.sm{font-size:11px}
@@ -44,7 +44,7 @@ body.night{--spk-base:#6f7f90}
 .spk{box-shadow:var(--glass-edge),var(--glass-drop),inset 0 0 0 1.5px rgba(31,179,156,.45)}
 .spk .ch h2{display:flex;align-items:center;gap:8px}
 .spk .ch .spk-tag{background:linear-gradient(90deg,#0b7f71,#1fb39c);color:#fff;letter-spacing:.06em}
-#spkVerdict{margin-left:auto;font-size:12.5px}
+#spkVerdict{margin-inline-start:auto;font-size:12.5px}
 .spk-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
 .spk-waves{display:grid;gap:8px}
 .spk-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;align-items:center;padding:8px 10px;border-radius:14px;background:var(--glass-2);box-shadow:var(--glass-edge)}
@@ -58,7 +58,7 @@ body.night{--spk-base:#6f7f90}
 svg.scan{-webkit-mask-image:linear-gradient(90deg,#000 40%,rgba(0,0,0,.25) 60%);mask-image:linear-gradient(90deg,#000 40%,rgba(0,0,0,.25) 60%);-webkit-mask-size:250% 100%;mask-size:250% 100%;animation:spkScan 1.2s linear infinite}
 @keyframes spkScan{from{-webkit-mask-position:100% 0;mask-position:100% 0}to{-webkit-mask-position:0 0;mask-position:0 0}}
 .spk-metrics table{width:100%;border-collapse:collapse;font-size:13px}
-.spk-metrics th{text-align:left;font-size:11px;font-weight:600;color:var(--muted);padding:4px 6px;border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.04em}
+.spk-metrics th{text-align:start;font-size:11px;font-weight:600;color:var(--muted);padding:4px 6px;border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.04em}
 .spk-metrics td{padding:7px 6px;border-bottom:1px solid var(--line)}
 .spk-metrics td.n{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
 .spk-metrics td.bad{color:var(--bad);font-weight:600}.spk-metrics td.good{color:var(--good);font-weight:600}
@@ -72,9 +72,9 @@ svg.scan{-webkit-mask-image:linear-gradient(90deg,#000 40%,rgba(0,0,0,.25) 60%);
 .tx li{max-width:88%;display:grid;gap:3px}
 .tx .who{font-size:10.5px;font-weight:700;color:var(--muted);font-family:var(--mono)}
 .tx .b{padding:9px 12px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge);font-size:13.5px;line-height:1.45}
-.tx li.ag{align-self:flex-end}.tx li.ag .who{text-align:right}
-.tx li.ag .b{background:linear-gradient(160deg,#0b7f71,#139a86);color:#fff;border-bottom-right-radius:5px;box-shadow:none}
-.tx li.ot .b{border-bottom-left-radius:5px}
+.tx li.ag{align-self:flex-end}.tx li.ag .who{text-align:end}
+.tx li.ag .b{background:linear-gradient(160deg,#0b7f71,#139a86);color:#fff;border-end-end-radius:5px;box-shadow:none}
+.tx li.ot .b{border-end-start-radius:5px}
 .tx li.sys{align-self:center;font-size:12.5px;color:var(--muted);max-width:100%}
 .tx li.new .b{animation:txPop .35s ease}
 @keyframes txPop{from{transform:translateY(6px);opacity:0}}
@@ -92,7 +92,7 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .circ-min span{display:grid}.circ-min small{font-size:12.5px;color:var(--muted)}
 .circ-min em{font-style:normal;font-weight:600;font-size:14px}
 .circ-min em.bad{color:var(--sos)}.circ-min em.warn{color:var(--warn)}.circ-min em.good{color:var(--good)}
-.circ-r{display:grid;text-align:right}.circ-r b{font-size:14px}.circ-r small{font-size:12px;color:var(--muted)}
+.circ-r{display:grid;text-align:end}.circ-r b{font-size:14px}.circ-r small{font-size:12px;color:var(--muted)}
 .circ-now{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:center;padding:10px 12px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge)}
 .circ-now b{display:block;font-size:14px}.circ-now small{font-size:12px;color:var(--muted)}
 .circ-ic{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;color:#fff;font-weight:700;font-size:16px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
@@ -132,9 +132,9 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .ticks>:first-child{transform:none}.ticks>:last-child{transform:translateX(-100%)}
 .ticks b{color:var(--bad);font-weight:600}
 #simCard .btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.sim-lock{margin-left:auto;font-size:12px;font-weight:500;color:var(--warn)}
+.sim-lock{margin-inline-start:auto;font-size:12px;font-weight:500;color:var(--warn)}
 @media (max-width:1000px){.simc{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:600px){.presets,.sliders{grid-template-columns:minmax(0,1fr)}.sim-lock{margin-left:0}}
+@media (max-width:600px){.presets,.sliders{grid-template-columns:minmax(0,1fr)}.sim-lock{margin-inline-start:0}}
 
 /* Circle: the minutes in a box, the owner card with the ETA, a full-width call button. */
 .circ-stat{padding:12px 14px;border-radius:16px;background:var(--glass-2);box-shadow:var(--glass-edge)}
@@ -180,7 +180,7 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .saynow .agent-now{padding:10px 12px;border-radius:4px 14px 14px 14px;background:rgba(31,179,156,.14);font-size:13.5px;min-height:0}
 .steps2{gap:0}
 .steps2 li{position:relative;grid-template-columns:24px minmax(0,1fr) auto;align-items:start;padding:5px 0;border-radius:0;background:none;opacity:1}
-.steps2 li::before{content:"";position:absolute;left:11px;top:28px;bottom:-4px;width:2px;background:var(--line)}
+.steps2 li::before{content:"";position:absolute;inset-inline-start:11px;top:28px;bottom:-4px;width:2px;background:var(--line)}
 .steps2 li:last-child::before{display:none}
 .steps2 .d{position:relative;z-index:1;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--glass-2);box-shadow:var(--glass-edge)}
 .steps2 li>span:nth-child(2){padding-top:2px}
@@ -209,7 +209,7 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .spk-verdict{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
 .spk-verdict .spk-pass{font-size:20px}
 .spk-verdict .spk-num{font-variant-numeric:tabular-nums}
-.spk-verdict .spk-replay{margin-left:auto}
+.spk-verdict .spk-replay{margin-inline-start:auto}
 .spk-verdict small{flex-basis:100%;font-weight:500;opacity:.85}
 .spk-dual{display:grid;gap:3px;margin-top:5px}
 .spk-dual i{display:block;height:4px;border-radius:2px}
@@ -219,13 +219,13 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .spk-how li.red{background:rgba(239,78,74,.12)}
 
 /* Conversations: Noa on the left with her orb, people on the right, a divider where the 000 call starts. */
-.txf .chip em{font-style:normal;font-family:var(--mono);font-size:10.5px;opacity:.7;margin-left:2px}
+.txf .chip em{font-style:normal;font-family:var(--mono);font-size:10.5px;opacity:.7;margin-inline-start:2px}
 .tx li{grid-template-columns:28px minmax(0,1fr);align-items:end;gap:8px;max-width:88%}
 .tx .tx-body{display:grid;gap:3px;min-width:0}
-.tx li.ag{align-self:flex-start}.tx li.ag .who{text-align:left}
+.tx li.ag{align-self:flex-start}.tx li.ag .who{text-align:start}
 .tx li.ag .b{background:rgba(31,179,156,.18);color:var(--ink);border-radius:16px 16px 16px 5px}
 .tx li.ot{align-self:flex-end;grid-template-columns:minmax(0,1fr) 28px}
-.tx li.ot .tx-av{order:2}.tx li.ot .who{text-align:right}
+.tx li.ot .tx-av{order:2}.tx li.ot .who{text-align:end}
 .tx li.ot .b{border-radius:16px 16px 5px 16px}
 .tx-av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:15px;background:var(--glass-2);box-shadow:var(--glass-edge)}
 .tx li.sys{display:block}
@@ -248,7 +248,7 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .loggrid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:20px;align-items:start}
 .alog{max-height:420px}
 .alog li{position:relative;border-top:0;padding:6px 0}
-.alog li::before{content:"";position:absolute;left:64px;top:28px;bottom:-6px;width:2px;background:var(--line)}
+.alog li::before{content:"";position:absolute;inset-inline-start:64px;top:28px;bottom:-6px;width:2px;background:var(--line)}
 .alog li:last-child::before{display:none}
 .sla-col{display:grid;gap:10px}
 .sla-col .eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-text)}
@@ -264,4 +264,4 @@ body.night .circ .c3d{background:radial-gradient(120% 90% at 50% 40%,rgba(120,14
 .ccard .n .ic{font-size:14px;color:var(--bad)}
 .tx-av .ic,.h-ic .ic{color:var(--brand)}
 .spk-how li>b{color:var(--brand)}
-.sim-warn{vertical-align:-.14em;margin-left:.25em}
+.sim-warn{vertical-align:-.14em;margin-inline-start:.25em}

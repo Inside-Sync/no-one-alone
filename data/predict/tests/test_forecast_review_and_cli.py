@@ -40,7 +40,7 @@ def edit(path, change):
 def test_vitals_dry_run_touches_nothing(capsys):
     assert run.main(["vitals"]) == 0
     out = capsys.readouterr().out
-    assert "DRY RUN: would load 180 rows" in out and "MERGE" in out
+    assert "DRY RUN: would load 90 rows" in out and "MERGE" in out
 
 
 def test_vitals_write_bq_writes_bigquery_only():
@@ -97,7 +97,7 @@ def test_from_without_write_is_a_dry_run_with_no_cloud_calls(tmp_path, capsys):
     path, _ = generate(tmp_path)
     replay = FakeBigQuery(forecast=POINTS)
     assert run.main(["forecast", "--from", str(path)], explainer=Boom(), bq_client=replay) == 0
-    assert replay.get_jobs == [] and "DRY RUN: would set forecasts/ba-mai" in capsys.readouterr().out
+    assert replay.get_jobs == [] and "DRY RUN: would set forecasts/margaret" in capsys.readouterr().out
 
 
 def test_stand_in_results_can_never_be_saved_or_written(tmp_path):
@@ -129,9 +129,7 @@ def _driver(p, text):
     (lambda p: p["documents"][0]["doc"]["series"][3].update(systolic=180), "observed series differs"),
     (lambda p: p["documents"][0]["doc"]["series"].insert(48, {"date": "2026-09-05", "systolic": 150}), "observed series"),
     (lambda p: p["documents"][0]["doc"]["series"].pop(-1), "30 days"),
-    (lambda p: p["documents"][0].update(path="forecasts/ba-mai"), "path must be"),
-    (lambda p: p["documents"].__setitem__(0, {**p["documents"][1], "personId": "margaret", "path": "forecasts/margaret"}),
-     "differs"),
+    (lambda p: p["documents"][0].update(path="forecasts/other"), "path must be"),
     (lambda p: p.update(kind="families-review"), "not a forecasts review file"),
 ])
 def test_tampered_files_are_rejected_and_nothing_is_written(tmp_path, capsys, tamper, expect):
@@ -162,13 +160,12 @@ def test_gemini_drivers_are_saved_only_when_grounded(tmp_path):
     good = ["Morning blood pressure rose 15 mmHg over 6 weeks, to 144 mmHg",
             "Her evening tablet was missed 3 times this week", "Her father had a stroke at 74"]
     bad = ["Blood pressure is rising", "Doses missed", "Her mother and brother had strokes"]
-    g = GeminiExplainer(client=FakeClient([json.dumps({"drivers": good}), json.dumps({"drivers": bad})]))
+    g = GeminiExplainer(client=FakeClient([json.dumps({"drivers": good})]))
     path = tmp_path / "f.json"
     assert run.main(["forecast", "--bq-forecast", "--gemini", "--out", str(path)], explainer=g,
                     bq_client=FakeBigQuery(forecast=POINTS)) == 0
     docs = {e["personId"]: e for e in json.loads(path.read_text(encoding="utf-8"))["documents"]}
     assert docs["margaret"]["doc"]["drivers"] == good and docs["margaret"]["driversFromModel"] == 3
-    assert docs["ba-mai"]["driversFromModel"] < 3 and "brother" not in " ".join(docs["ba-mai"]["doc"]["drivers"])
 
 
 def test_write_rejects_forecast_points_that_differ_from_the_bigquery_job_results(tmp_path, capsys):

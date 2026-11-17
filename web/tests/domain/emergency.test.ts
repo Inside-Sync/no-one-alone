@@ -58,36 +58,37 @@ test('actions do nothing while no alert is active', () => {
 })
 
 test('own fields carry forward when a step omits them (null keeps the old value)', () => {
-  expect(resolveStepView(STEPS, 0).own).toEqual(['David · not yet alerted', '450 m away · first to call', '—'])
-  expect(resolveStepView(STEPS, 5).own[0]).toBe('David · on his way')
+  expect(resolveStepView(STEPS, 0).own).toEqual(['Hamad · not yet alerted', '450 m away · first to call', '—'])
+  expect(resolveStepView(STEPS, 5).own[0]).toBe('Hamad · on his way')
   const v6 = resolveStepView(STEPS, 6)
-  expect(v6.own).toEqual(['David · on his way', 'Owns the case', '5′'])
-  expect(resolveStepView(STEPS, 8).own).toEqual(['David · with Margaret', 'On scene since 02:11', '✓'])
-  expect(resolveStepView(STEPS, 9).own[0]).toBe('David · with Margaret')
+  expect(v6.own).toEqual(['Hamad · on his way', 'Owns the case', '5′'])
+  expect(resolveStepView(STEPS, 8).own).toEqual(['Hamad · with Moza', 'On scene since 02:11', '✓'])
+  expect(resolveStepView(STEPS, 9).own[0]).toBe('Hamad · with Moza')
 })
 
 test('what, sub and help carry forward', () => {
   expect(resolveStepView(STEPS, 0)).toMatchObject({ what: 'Heart rate 142, not moving', sub: 'Noa is checking before waking anyone', help: null })
-  expect(resolveStepView(STEPS, 3)).toMatchObject({ what: 'Suspected stroke signs', sub: 'Last known well 01:55' })
+  expect(resolveStepView(STEPS, 3)).toMatchObject({ what: 'Suspected stroke signs', sub: 'Last known well 01:22' })
   expect(resolveStepView(STEPS, 4)).toMatchObject({ what: 'Suspected stroke signs' })
-  expect(resolveStepView(STEPS, 5).help).toBe('David · 6 min away')
-  expect(resolveStepView(STEPS, 7).help).toBe('David · 4 min away')
-  expect(resolveStepView(STEPS, 9)).toMatchObject({ what: 'On the way to Camperdown', sub: '30-day recovery plan starts after discharge', help: 'David is going with you' })
+  expect(resolveStepView(STEPS, 5).help).toBe('Hamad · 6 min away')
+  expect(resolveStepView(STEPS, 7).help).toBe('Hamad · 4 min away')
+  expect(resolveStepView(STEPS, 9)).toMatchObject({ what: 'On the way to Corniche', sub: '30-day recovery plan starts after discharge', help: 'Hamad is going with you' })
 })
 
 test('step text follows the language at call time; timing and structure do not change', async () => {
-  await i18n.changeLanguage('vi')
+  await i18n.changeLanguage('ar')
   try {
-    const vi = emSteps()
-    expect(vi.map((s) => [s.t, s.m])).toEqual(STEPS.map((s) => [s.t, s.m]))
-    expect(vi[0]).toMatchObject({ ph: 'Xác minh', lv: 'Đang kiểm tra', e: { flash: 1 } })
-    expect(vi[0].d).not.toBe(STEPS[0].d)
-    expect(resolveStepView(vi, 6).own[2]).toBe('5′')
-    expect(slaTiles()[0]).toEqual(['Cảnh báo → xác minh', '41 giây', 1])
+    const ar = emSteps()
+    const t = i18n.getFixedT('ar', 'live') as (k: string, o?: object) => string
+    expect(ar.map((s) => [s.t, s.m])).toEqual(STEPS.map((s) => [s.t, s.m]))
+    expect(ar[0]).toMatchObject({ ph: t('phase.verify'), lv: t('level.checking'), e: { flash: 1 } })
+    expect(ar[0].d).toBe((i18n.t('live:steps', { returnObjects: true }) as { d: string }[])[0].d)
+    expect(resolveStepView(ar, 6).own[2]).toBe('5′')
+    expect(slaTiles()[0]).toEqual([t('sla.verified'), t('units.sec', { n: 41 }), 1])
   } finally {
     await i18n.changeLanguage('en')
   }
-  expect(emSteps()[0].d).toBe('Heart rate 142, no movement for 4 min')
+  expect(emSteps()[0].d).toBe('Heart rate 142, no movement for 10 min')
 })
 
 test('resolveStepView does not mutate STEPS', () => {

@@ -18,7 +18,7 @@ POINTS = stand_in_points()
 def test_forecast_sql_reads_only_rows_up_to_story_day_21():
     sql = forecast.forecast_sql(sources.PEOPLE)
     assert "AI.FORECAST(" in sql and "date <= DATE '2026-09-04'" in sql
-    assert "person_id IN ('margaret', 'ba-mai')" in sql
+    assert "person_id IN ('margaret')" in sql
     assert "data_col => 'systolic'" in sql and "timestamp_col => 'date'" in sql and "id_cols => ['person_id']" in sql
     assert "horizon => 30" in sql and "confidence_level => 0.9" in sql
 
@@ -103,13 +103,10 @@ def test_drivers_follow_trend_pill_tree_and_come_from_fhir_and_the_series():
     assert m["drivers"][0].startswith("Morning blood pressure up 15 mmHg over 6 weeks")
     assert m["drivers"][1] == "Evening blood pressure tablet missed 3 times this week"
     assert m["drivers"][2] == "Father had a stroke at 74"
-    b = build("ba-mai")["doc"]
-    assert b["drivers"][1] == "Daily medicine doses missed 3 times this week"
-    assert b["drivers"][2] == "Father had a stroke at 68"
-    assert not any("brother" in d.lower() for d in m["drivers"] + b["drivers"])
+    assert not any("brother" in d.lower() for d in m["drivers"])
 
 
-@pytest.mark.parametrize("pid,owner,name", [("margaret", "david", "David"), ("ba-mai", "ong-hung", "Ông Hùng")])
+@pytest.mark.parametrize("pid,owner,name", [("margaret", "david", "Hamad")])
 def test_action_is_a_rule_for_the_first_nearby_family_member(pid, owner, name):
     action = build(pid)["doc"]["action"]
     assert action == {"text": f"Share the blood pressure trend with the clinic; {name} sets up a weekly pill box",

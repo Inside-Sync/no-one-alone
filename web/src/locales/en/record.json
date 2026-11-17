@@ -1,4 +1,54 @@
 {
+  "stepper": {
+    "aria": "Care record steps",
+    "title_self": "My care record",
+    "title_family": "Moza's care record",
+    "steps": {
+      "sum": "Summary",
+      "his": "History",
+      "scr": "Screening",
+      "res": "Results",
+      "tx": "Treatment",
+      "fu": "Follow-up"
+    }
+  },
+  "nav": {
+    "back": "Back: {{label}}",
+    "next": "Next: {{label}}"
+  },
+  "entry": {
+    "related": "Related",
+    "position": "{{n}} / {{total}}",
+    "last": "Today",
+    "navAria": "Other entries",
+    "startCase": "Whole case, start to finish",
+    "caseTitle": "Whole case, start to finish",
+    "close": "Close"
+  },
+  "stages": {
+    "his": "History",
+    "bef": "Before",
+    "sym": "Symptoms",
+    "res": "Results",
+    "tx": "Treatment",
+    "rec": "Recovery"
+  },
+  "home": {
+    "treatmentPlan": "Treatment plan",
+    "followUp": "Follow-up"
+  },
+  "journey": {
+    "title": "What happened, step by step",
+    "meta": "From warning signs to recovery",
+    "stage": "{{n}} · {{name}}",
+    "names": {
+      "before": "Before",
+      "symptoms": "Symptoms",
+      "results": "Results",
+      "treatment": "Treatment",
+      "recovery": "Recovery"
+    }
+  },
   "enc": {
     "title": "Encounters, 2023–2026",
     "ariaLabel": "46 encounters from 2023 to 2026 across GP, specialist, pathology, emergency and hearing",
@@ -24,32 +74,50 @@
     "title": "Pathology trends",
     "meta": "Last 4 results · reference range shaded"
   },
-  "hospitals": {
-    "title": "Hospital readiness",
-    "meta": "Ranked for a suspected stroke",
-    "head": [
-      "Hospital",
-      "Capability",
-      "ETA",
-      "ED load"
-    ],
-    "recommended": "Recommended",
-    "packet": "Preview the pre-arrival packet",
-    "packetTitle": "Pre-arrival packet"
+  "history": {
+    "episodesTitle_self": "Your past care",
+    "episodesTitle_family": "Moza's past care",
+    "episodesMeta": "{{count}} episodes",
+    "access": "Access",
+    "open": "Open the full entry",
+    "holdersTitle_self": "Who holds your records",
+    "holdersTitle_family": "Who holds Moza's records",
+    "malaffi": "Malaffi is a planned link in this prototype.",
+    "familyTitle_self": "Your family's health",
+    "familyTitle_family": "Moza's family health",
+    "familyMeta": "From Health Lineage · each relative decides",
+    "familyHead": [
+      "Relative",
+      "Conditions and age at onset",
+      "Consent"
+    ]
   },
-  "sources": {
-    "title": "Data sources",
-    "meta": "Provenance for every record",
+  "screening": {
+    "title_self": "Your checks before the stroke",
+    "title_family": "Moza's checks before the stroke",
     "head": [
-      "Source",
-      "Standard",
-      "Records",
-      "Last sync",
-      "Status"
+      "When",
+      "Check",
+      "Result",
+      "What happened next"
+    ],
+    "signsTitle": "What happened with these signs"
+  },
+  "results": {
+    "title": "Hospital test results",
+    "head": [
+      "Test",
+      "What it showed",
+      "When"
     ]
   },
   "followUp": {
-    "title": "After a hospital stay",
-    "meta": "30-day follow-up plan"
+    "readingsTitle_self": "Your readings since you came home",
+    "readingsTitle_family": "Moza's readings since she came home",
+    "afterTitle_self": "After your stroke",
+    "afterTitle_family": "After Moza's stroke",
+    "afterMeta": "30-day follow-up",
+    "done": "Done",
+    "planned": "Planned"
   }
 }

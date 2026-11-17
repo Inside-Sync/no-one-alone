@@ -1,16 +1,16 @@
 {
   "surroundings": {
     "homeMap": {
-      "kicker": "Where Margaret lives",
-      "title": "Marrickville, Sydney",
-      "detail": "Inner West · 5.8 km south-west of the CBD · −33.911, 151.155",
+      "kicker": "Where Moza lives",
+      "title": "Al Bateen, Abu Dhabi",
+      "detail": "Abu Dhabi Island · by the Corniche",
       "lat": -33.911,
       "lng": 151.155,
-      "address": "186 Marrickville Rd, Marrickville NSW 2204",
+      "address": "Villa 12, Street 18, Al Bateen, Abu Dhabi",
       "legend": [
         {
           "color": "#14a08c",
-          "label": "Margaret's home"
+          "label": "Moza's home"
         },
         {
           "color": "#2f6fb0",
@@ -27,14 +27,14 @@
         },
         {
           "color": "#9b7fd4",
-          "label": "Jacaranda in bloom",
+          "label": "Shade trees",
           "round": true
         }
       ],
       "chips": [
         {
           "icon": "people",
-          "text": "David · 450 m · 6 min walk"
+          "text": "Hamad · 450 m · 6 min walk"
         },
         {
           "icon": "clinic",
@@ -46,21 +46,21 @@
         },
         {
           "icon": "hospital",
-          "text": "Stroke centre · 4.2 km · 11 min"
+          "text": "Corniche Stroke Centre · 3.4 km · 11 min"
         },
         {
           "icon": "siren",
-          "text": "Ambulance median 9.4 min (2204)"
+          "text": "Ambulance median 9.4 min (Al Bateen)"
         },
         {
           "icon": "sun",
           "text": "Thursday 38 °C"
         }
       ],
-      "ariaLabel": "3D model of Margaret's streets in Marrickville: her home on Marrickville Road, her brother David 450 metres west, the GP and pharmacy nearby, the library cool room, the park walking group and the Cooks River to the south",
+      "ariaLabel": "3D model of Moza's streets in Al Bateen: her home on Street 18, her brother Hamad 450 metres west, the GP and pharmacy nearby, the community majlis cool room, the park walking group and Khor Al Bateen to the south",
       "pins": [
         {
-          "name": "Margaret's home",
+          "name": "Moza's home",
           "sub": "Home",
           "color": "#14a08c",
           "initials": "M",
@@ -72,7 +72,7 @@
           }
         },
         {
-          "name": "David (brother)",
+          "name": "Hamad (brother)",
           "sub": "",
           "detail": "450 m · 6 min walk",
           "color": "#2f6fb0",
@@ -87,7 +87,7 @@
         {
           "name": "GP",
           "sub": "",
-          "detail": "Illawarra Rd Family Practice · Dr Patel · 350 m",
+          "detail": "Al Bateen Family Health Centre · Dr Fatima Al Ali · 350 m",
           "color": "#ffffff",
           "ink": "#0b7f71",
           "initials": "+",
@@ -123,7 +123,7 @@
           }
         },
         {
-          "name": "Library cool room",
+          "name": "Community majlis cool room",
           "sub": "",
           "detail": "400 m · 120 places",
           "color": "#8f6fd0",
@@ -143,7 +143,7 @@
         {
           "name": "Walking group",
           "sub": "",
-          "detail": "Thu 9:00 · Calvert Reserve",
+          "detail": "Thu 9:00 · Al Bateen Park",
           "color": "#8f6fd0",
           "initials": "W",
           "phase": 0.6,
@@ -159,9 +159,9 @@
           }
         },
         {
-          "name": "→ Stroke centre 4.2 km",
+          "name": "→ Corniche Stroke Centre 3.4 km",
           "sub": "",
-          "detail": "Camperdown Stroke Centre · north-east · 11 min by ambulance",
+          "detail": "Corniche Stroke Centre · north-east · 11 min by ambulance",
           "color": "#ef4e4a",
           "initials": "",
           "tag": true,
@@ -178,39 +178,39 @@
       },
       "labels": [
         {
-          "text": "Marrickville Rd",
+          "text": "Al Khaleej Al Arabi St",
           "x": 345,
           "y": 150,
           "bold": true
         },
         {
-          "text": "Illawarra Rd",
+          "text": "Al Bateen St",
           "x": 110,
           "y": 384,
           "bold": true
         },
         {
-          "text": "Calvert St",
+          "text": "Street 18",
           "x": 52,
           "y": 270
         },
         {
-          "text": "Victoria Rd",
+          "text": "Street 9",
           "x": 250,
           "y": 305
         },
         {
-          "text": "Cooks River",
+          "text": "Khor Al Bateen",
           "x": 300,
           "y": 12
         },
         {
-          "text": "Calvert Reserve",
+          "text": "Al Bateen Park",
           "x": 329,
           "y": 240
         },
         {
-          "text": "Marrickville Station",
+          "text": "Bus stop",
           "x": 220,
           "y": 345
         }
@@ -219,9 +219,9 @@
     },
     "watchMap": {
       "kicker": "Neighbourhood watch",
-      "title": "Around Margaret's home",
+      "title": "Around Moza's home",
       "detail": "What to pay attention to when you live alone · 8 items within 1 km",
-      "ariaLabel": "3D map of Margaret's streets with neighbourhood alerts: footpath works, a reported scam, street light out, swooping magpies, a snake sighting and the heat cool room",
+      "ariaLabel": "3D map of Moza's streets with neighbourhood alerts: footpath works, fake AC-maintenance visitors, a street light out, path resurfacing, a walkway with its lights out and the community majlis cool room",
       "legend": [
         {
           "color": "#d9443f",
@@ -244,7 +244,7 @@
     },
     "pins": [
       {
-        "name": "Margaret",
+        "name": "Moza",
         "sub": "",
         "detail": "Home",
         "color": "#14a08c",
@@ -259,7 +259,7 @@
       {
         "name": "Footpath works",
         "sub": "",
-        "detail": "Marrickville Rd outside the pharmacy · uneven surface until 24 Oct",
+        "detail": "Street 9 outside the pharmacy · uneven surface until 6 Nov",
         "color": "#c88a05",
         "initials": "!",
         "phase": 0.2,
@@ -278,7 +278,7 @@
       {
         "name": "Scam reported",
         "sub": "",
-        "detail": "Door-to-door \"solar rebate\" scam · 3 reports on this street since Monday",
+        "detail": "Fake AC-maintenance visitors · 3 reports on this street since Monday",
         "color": "#d9443f",
         "initials": "!",
         "phase": 0.4,
@@ -297,7 +297,7 @@
       {
         "name": "Street light out",
         "sub": "",
-        "detail": "Calvert St since Sunday · reported to council #IW-48213",
+        "detail": "Street 18 since Sunday · reported to the municipality #AD-48213",
         "color": "#c88a05",
         "initials": "☾",
         "phase": 0.6,
@@ -314,11 +314,11 @@
         }
       },
       {
-        "name": "Swooping magpie",
+        "name": "Path resurfacing",
         "sub": "",
-        "detail": "Calvert Reserve, western path · spring nesting season",
+        "detail": "Al Bateen Park, western path · resurfacing until November",
         "color": "#c88a05",
-        "initials": "M",
+        "initials": "P",
         "phase": 0.8,
         "at": {
           "x": 350,
@@ -333,11 +333,11 @@
         }
       },
       {
-        "name": "Snake sighting",
+        "name": "Walkway lights out",
         "sub": "",
-        "detail": "Cooks River path · keep to the paved track",
+        "detail": "Khor Al Bateen walkway · lights out since Saturday",
         "color": "#c88a05",
-        "initials": "S",
+        "initials": "☾",
         "phase": 0.1,
         "at": {
           "x": 60,
@@ -354,9 +354,9 @@
       {
         "name": "Cool room",
         "sub": "",
-        "detail": "Library · open 9–8 Thursday · 74 places left",
+        "detail": "Community majlis · open 9–8 Thursday · 74 places left",
         "color": "#1fb39c",
-        "initials": "L",
+        "initials": "M",
         "phase": 0.5,
         "at": {
           "x": 305,
@@ -391,16 +391,16 @@
       }
     ],
     "weather": {
-      "heading": "Weather in Marrickville",
+      "heading": "Weather in Al Bateen",
       "meta": "Now · 15:10",
       "temp": "33°",
-      "summary": "Sunny, hot north-easterly",
+      "summary": "Sunny and humid, light north-westerly",
       "feelsLike": "Feels like 35° · indoor 29.5°",
       "stats": [
         {
           "label": "Sunrise",
           "value": "05:47",
-          "note": "sunset 19:14"
+          "note": "sunset 17:52"
         },
         {
           "label": "Humidity",
@@ -418,7 +418,7 @@
           "note": "Thu · hot night"
         },
         {
-          "label": "Fire danger",
+          "label": "Dust",
           "value": "High",
           "note": "Thu–Fri"
         },
@@ -428,7 +428,7 @@
           "note": "clear"
         }
       ],
-      "note": "Heatwave conditions Thursday and Friday. A southerly change is expected Friday evening with gusts to 60 km/h.",
+      "note": "Very hot Thursday and Friday. Shamal winds are expected Friday evening, bringing dust and gusts to 45 km/h.",
       "icon": "cloud-sun"
     },
     "week": [
@@ -532,7 +532,7 @@
         "unit": "km/h",
         "color": "#5a7fe0",
         "baseline": "from the north-east",
-        "delta": "Cool change Fri",
+        "delta": "Shamal Fri",
         "tone": "good",
         "spark": [
           8,
@@ -565,7 +565,8 @@
           10,
           8,
           6
-        ]
+        ],
+        "explain": "sun strength"
       },
       {
         "icon": "cloud-rain",
@@ -595,7 +596,7 @@
         "unit": "",
         "color": "#1f8f5f",
         "baseline": "clean air today",
-        "delta": "Smoky Saturday",
+        "delta": "Dusty Saturday",
         "tone": "good",
         "spark": [
           28,
@@ -615,7 +616,7 @@
         "value": "High",
         "unit": "",
         "color": "#c88a05",
-        "baseline": "grass pollen",
+        "baseline": "dust",
         "delta": "Keep inhaler near",
         "tone": "warn",
         "spark": [
@@ -628,7 +629,8 @@
           5,
           5,
           5
-        ]
+        ],
+        "explain": "pollen"
       },
       {
         "icon": "plane",
@@ -649,7 +651,8 @@
           66,
           68,
           68
-        ]
+        ],
+        "explain": "plane noise"
       },
       {
         "icon": "flame",
@@ -745,43 +748,43 @@
       {
         "severity": "act",
         "icon": "shield",
-        "title": "Scam door-knocks on her street",
-        "text": "\"Solar rebate\" callers, 3 reports since Monday. Noa reminded her not to open the door to unexpected visitors. She can call David with one tap if anyone worries her.",
+        "title": "Fake AC-maintenance visitors on her street",
+        "text": "Fake AC-maintenance visitors, 3 reports since Monday. The helper reminded her not to open the door to unexpected visitors. She can call Hamad with one tap if anyone worries her.",
         "source": "Police + neighbours · 2 d"
       },
       {
         "severity": "act",
         "icon": "sun",
         "title": "Thursday heatwave, 38°",
-        "text": "Indoor predicted 34° without air-con. Lift to the library cool room booked 11:00, extra check-ins 12:00 and 15:00.",
-        "source": "Weather bureau · today"
+        "text": "Indoor predicted 34° while the air-con is broken. Lift to the community majlis cool room booked 11:00, extra check-ins 12:00 and 15:00.",
+        "source": "National Centre of Meteorology · today"
       },
       {
         "severity": "aware",
         "icon": "people",
-        "title": "Key holder away 18–25 Oct",
-        "text": "Aisha is away, so David is the only key holder. Suggest a key lockbox for paramedics.",
+        "title": "Key holder away 4–11 Nov",
+        "text": "Shamma is away, so Hamad is the only key holder. Suggest a key lockbox for paramedics.",
         "source": "Circle · 1 d"
       },
       {
         "severity": "aware",
         "icon": "target",
         "title": "Footpath works outside the pharmacy",
-        "text": "Uneven surface until 24 Oct. Her walking route now goes via Calvert St.",
-        "source": "Council · 6 Oct"
+        "text": "Uneven surface until 6 Nov. Her walking route now goes via Street 18.",
+        "source": "Municipality · 6 Oct"
       },
       {
         "severity": "aware",
         "icon": "moon",
-        "title": "Street light out on Calvert St",
-        "text": "Reported to council. Evening check-in moved earlier so she isn't walking home in the dark.",
-        "source": "Noa · Sun"
+        "title": "Street light out on Street 18",
+        "text": "Reported to the municipality. Evening check-in moved earlier so she isn't walking home in the dark.",
+        "source": "Agent · Sun"
       },
       {
         "severity": "aware",
         "icon": "eye",
-        "title": "Swooping magpies at Calvert Reserve",
-        "text": "Walking group moved to the eastern path until November.",
+        "title": "Path resurfacing at Al Bateen Park",
+        "text": "Walking group meets on the Corniche track until November.",
         "source": "Residents · Sep"
       },
       {
@@ -794,7 +797,7 @@
     ],
     "newsHeading": {
       "title": "News that matters to her",
-      "meta": "Filtered for a 78-year-old living alone in 2204",
+      "meta": "Filtered for a 78-year-old living alone in Al Bateen",
       "icon": "news"
     },
     "newsCategories": [
@@ -808,43 +811,43 @@
     "news": [
       {
         "category": "Health",
-        "source": "State health department",
+        "source": "Department of Health",
         "age": "2 h",
-        "headline": "Heat health warning for Sydney, Thursday and Friday",
+        "headline": "Heat advisory for Abu Dhabi, Thursday and Friday",
         "body": "Older people with heart conditions should stay cool, drink water and check in with family twice a day.",
-        "shownBecause": "Shown because: heart condition, no air-con at home"
+        "shownBecause": "Shown because: heart condition, air-con broken at home"
       },
       {
         "category": "Safety",
-        "source": "Local police",
+        "source": "Abu Dhabi Police",
         "age": "5 h",
-        "headline": "Door-knock scam offering solar rebates targets older residents",
-        "body": "Callers ask for bank details to \"pre-approve\" a rebate. Police advise not to open the door.",
+        "headline": "Fake AC-maintenance visitors target older residents",
+        "body": "They ask for a cash deposit and bank details before any work. Police advise not to open the door.",
         "shownBecause": "Shown because: lives alone, 3 reports on her street"
       },
       {
         "category": "Weather",
-        "source": "Weather bureau",
+        "source": "National Centre of Meteorology",
         "age": "6 h",
-        "headline": "Southerly change Friday evening, gusts to 60 km/h",
+        "headline": "Shamal winds Friday evening, dust and gusts to 45 km/h",
         "body": "Temperatures drop 12° within an hour. Secure outdoor furniture.",
         "shownBecause": "Shown because: garden furniture, bedroom tree"
       },
       {
         "category": "Community",
-        "source": "Inner West Council",
+        "source": "Abu Dhabi City Municipality",
         "age": "1 d",
-        "headline": "Seniors festival: free morning tea at Marrickville Town Hall, Tue 20 Oct",
-        "body": "Live music, health checks and a lift service from the library.",
+        "headline": "Seniors' morning at the community majlis, Tue 3 Nov",
+        "body": "Arabic coffee, free health checks and a lift service.",
         "shownBecause": "Shown because: social contacts below her normal"
       },
       {
         "category": "Transport",
-        "source": "Transport update",
+        "source": "Integrated Transport Centre",
         "age": "1 d",
-        "headline": "No trains at Marrickville this weekend; buses replace trains",
-        "body": "Buses leave from Illawarra Rd every 10 minutes.",
-        "shownBecause": "Shown because: Sunday church in Sydenham"
+        "headline": "Corniche Road closed on Saturday for a sports event",
+        "body": "Her usual taxi takes longer; the helper books it 20 minutes earlier.",
+        "shownBecause": "Shown because: Friday Quran circle at the women's majlis"
       },
       {
         "category": "Health",
@@ -856,9 +859,9 @@
       },
       {
         "category": "Safety",
-        "source": "Council",
+        "source": "Municipality",
         "age": "2 d",
-        "headline": "Hazard-reduction burns may bring smoke on Saturday",
+        "headline": "Dust expected on Saturday with the shamal",
         "body": "Keep windows closed and medicines for breathing close by.",
         "shownBecause": "Shown because: occasional asthma"
       },
@@ -913,7 +916,7 @@
       "coolRoom": {
         "from": 5,
         "to": 10,
-        "label": "at library cool room"
+        "label": "at community majlis cool room"
       },
       "plan": [
         {
@@ -940,11 +943,11 @@
         },
         {
           "color": "#d9443f",
-          "label": "Inside her home (no air-con)"
+          "label": "Inside her home (air-con broken)"
         },
         {
           "color": "rgba(143,111,208,.2)",
-          "label": "Noa's plan"
+          "label": "Helper's plan"
         }
       ]
     },
@@ -973,7 +976,7 @@
         "pm25": "16",
         "pollen": "Extreme",
         "smoke": "None",
-        "advice": "Asthma alert with southerly",
+        "advice": "Asthma alert with the shamal",
         "tone": "bad"
       },
       {
@@ -1013,48 +1016,6 @@
         "tone": "good"
       }
     ],
-    "airNote": "Spring grass pollen is high, and hazard-reduction burns south of Sydney may bring smoke on Saturday. Her inhaler reminder is on for those days.",
-    "nearby": [
-      {
-        "initials": "W",
-        "color": "#8f6fd0",
-        "name": "Walking group · Calvert Reserve",
-        "note": "Thu 9:00 · she came 3 of the last 4 weeks",
-        "pill": {
-          "tone": "good",
-          "text": "Going"
-        }
-      },
-      {
-        "initials": "A",
-        "color": "#c2611f",
-        "name": "Aisha · neighbour, 2 doors down",
-        "note": "Verified volunteer · key holder",
-        "pill": {
-          "tone": "brand",
-          "text": "Backup"
-        }
-      },
-      {
-        "initials": "M",
-        "color": "#5a7fe0",
-        "name": "Meals delivery",
-        "note": "Tue and Fri · next Fri 11:30",
-        "pill": {
-          "tone": "plain",
-          "text": "Booked"
-        }
-      },
-      {
-        "initials": "L",
-        "color": "#22a593",
-        "name": "Library tech help",
-        "note": "Mondays 10:00 · video calls with Sarah",
-        "pill": {
-          "tone": "plain",
-          "text": "Optional"
-        }
-      }
-    ]
+    "airNote": "Dust is likely on Saturday with the shamal. Her inhaler reminder is on for those days."
   }
 }

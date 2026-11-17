@@ -1,6 +1,7 @@
 import type {
-  AuditEntry, SharePerson, CareRecord, CategoryId, CircleMember, CityGeometry, OrbitScene, CommunityData, DeviceFeed, Forecast, HealthData,
-  HospitalData, Lineage, Person, PersonId, ShareMatrix, SubjectId, Surroundings, WatchData,
+  AuditEntry, SharePerson, CareRecord, CategoryId, CircleMember, CityGeometry, OrbitScene, DeviceFeed, HealthData,
+  HospitalData, Lineage, Person, PersonId, ShareMatrix, SubjectId, Surroundings, GovernmentData, ScreeningData, SignalsData,
+  TreatmentData, PatientsData, OverviewData,
 } from '../types'
 
 /**
@@ -12,7 +13,6 @@ export interface DataSource {
   getPerson(id: SubjectId): Promise<Person>
   getHealth(id: SubjectId): Promise<HealthData>
   getSurroundings(id: SubjectId): Promise<Surroundings>
-  getForecast(id: SubjectId): Promise<Forecast>
   getLineage(id: SubjectId): Promise<Lineage>
   getCareRecord(id: SubjectId): Promise<CareRecord>
   getDeviceFeed(id: SubjectId): Promise<DeviceFeed>
@@ -20,8 +20,15 @@ export interface DataSource {
   /** Everyone Margaret can share with (PEOPLE2 in the prototype). */
   getSharePeople(): Promise<SharePerson[]>
   getHospital(): Promise<HospitalData>
-  getCommunity(): Promise<CommunityData>
-  getWatch(): Promise<WatchData>
+  getGovernment(): Promise<GovernmentData>
+  getSignals(): Promise<SignalsData>
+  getScreening(): Promise<ScreeningData>
+  /** The treatment page (Moza's plan: tablets, exercises, appointments, warning signs). */
+  getTreatment(): Promise<TreatmentData>
+  /** The hospital patient records (the list and the clinical record of each patient). */
+  getPatients(): Promise<PatientsData>
+  /** The hospital overview (KPIs, capacity, departments, conditions; the screening loop cards sit at its bottom). */
+  getOverview(): Promise<OverviewData>
   /** Inputs of the procedural 3D Marrickville model and the camera presets. */
   getCityScene(): Promise<CityGeometry>
   /** The 3D care-circle orbit (balls, rings, centre). */

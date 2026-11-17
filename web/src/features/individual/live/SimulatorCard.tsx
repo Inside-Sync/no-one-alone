@@ -23,7 +23,7 @@ export function SimulatorCard({ watch: api, locked, onReset }: { watch: WatchApi
   // The how-to steps tick themselves off as the sliders reach the alert rule; step 3 runs while the alert is open.
   const stepState = (k: number) => (k === 0 ? w.hr > ALERT_HR : k === 1 ? w.stillMin >= ALERT_MIN : false) ? 'done' : k === 2 && locked ? 'cur' : ''
   return (
-    <GlassCard span={12} id="simCard">
+    <GlassCard span={12} id="simCard" tour="live">
       <Head icon="sliders-horizontal" title={t('sim.title')} meta={t('sim.meta')} />
       <div className="simc">
         <ol className="howto2">

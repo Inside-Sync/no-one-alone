@@ -6,13 +6,14 @@ run once from a laptop with Application Default Credentials.
 
 ## Family screening
 
-`families/{personId}` for `margaret` and `ba-mai`:
+`families/{personId}` for `margaret` (Moza Al Hammadi):
 
 - Medical history comes only from the synthetic FHIR bundles in `agents/hospital/data/fhir/` (FamilyMemberHistory and
   confirmed, active Conditions). Provisional conditions stay out of the tree.
 - Relationships come only from the core-api seed (`circle`). Neighbours are not family.
-- A relative without a documented name keeps a relation label ("Father"). The one documented name is Bà Mai's
-  father, "Ông Tư" (contract 2.5).
+- A relative without a documented name keeps a relation label ("Father"). No relative has a documented name now.
+- Each condition carries a stable `code` next to its `label` (`STROKE`, `HYPERTENSION`, `TYPE_2_DIABETES` ...), from
+  the SNOMED code or the label's words; a condition in neither list has no `code`. The web reads `code`, not the words.
 - Flags are rules, not diagnoses. A parent or grandparent with stroke or hypertension: blood pressure check.
   Type 2 diabetes in a grandparent or prediabetes in a parent: blood sugar test. The reason lists only documented
   facts.
@@ -36,7 +37,7 @@ and `forecasts`; core-api's demo reset does not touch them.
 
 ## AI Predict: the day-21 forecast
 
-`forecasts/{personId}` for `margaret` and `ba-mai`:
+`forecasts/{personId}` for `margaret`:
 
 - `vitals.py` generates 90 days of synthetic daily vitals per person (story day -26 to 63, 2026-07-19 to 2026-10-16),
   deterministic from a fixed seed, in the contract 5 `vitals_daily` schema. Systolic pressure drifts up after day

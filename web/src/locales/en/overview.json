@@ -1,0 +1,62 @@
+{
+  "capacity": {
+    "title": "Capacity and effectiveness",
+    "meta": "Corniche Stroke Centre · now",
+    "label": "Capacity",
+    "inUse": "{{used}} of {{total}} beds in use",
+    "meter": "Capacity meter: {{pct}}% in use",
+    "zones": {
+      "under": "Under",
+      "right": "Right amount",
+      "over": "Over"
+    },
+    "bands": {
+      "under": "Under capacity",
+      "right": "Right amount",
+      "over": "Over capacity"
+    },
+    "note": "Under capacity: below 70% in use. Right amount: 70–89%. Over capacity: 90% or more. Thursday's heatwave is expected to push beds over capacity."
+  },
+  "effectiveness": {
+    "label": "Overall effectiveness",
+    "context": "out of 100 · Abu Dhabi average {{average}} · highest of the {{n}} largest facilities",
+    "note": "Effectiveness is the average of these three measures. The Department of Health uses the same score for every facility."
+  },
+  "departments": {
+    "title": "Departments and capacity",
+    "meta": "Now · 15:10",
+    "head": [
+      "Department",
+      "Capacity",
+      "In use",
+      "Doctor in charge",
+      "Doctors on shift",
+      "Patients per doctor",
+      "Flow",
+      "Capacity status"
+    ],
+    "status": {
+      "under": "Under",
+      "right": "Right amount",
+      "over": "Over"
+    },
+    "note": "Patients per doctor = patients in the department now ÷ doctors on shift. Outpatient clinics count today's visits."
+  },
+  "conditions": {
+    "title": "By condition",
+    "meta": "Same rules the Department uses",
+    "head": [
+      "Condition",
+      "Patients",
+      "Treated in time",
+      "Recovered at 90 days",
+      "Readmitted in 30 days"
+    ],
+    "note": "Recovery is counted from follow-up calls and the home data patients choose to share. Fictional figures."
+  },
+  "sections": {
+    "today": "Today",
+    "outcomes": "Treatment and recovery · last 90 days",
+    "loops": "Open care loops"
+  }
+}

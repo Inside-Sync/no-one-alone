@@ -1,7 +1,7 @@
 import i18n from '@/i18n'
-import type { FamilyDoc, ForecastDoc, PersonDoc } from '@/data/contract'
+import type { FamilyDoc, PersonDoc } from '@/data/contract'
 import { mockSource } from '@/data/sources/mock'
-import { overlayCircle, overlayForecast, overlayLineage, overlayPerson, type Seed } from '@/data/sources/overlay'
+import { overlayCircle, overlayLineage, overlayPerson, type Seed } from '@/data/sources/overlay'
 
 const person: PersonDoc = {
   displayName: 'Margaret Collins',
@@ -26,19 +26,6 @@ const seed: Seed = {
     sarah: { displayName: 'Sarah', timezone: 'Europe/London' },
   },
   hospitals: {},
-}
-
-const forecastDoc: ForecastDoc = {
-  asOf: '2026-10-14',
-  storyDay: 0,
-  method: 'Example method',
-  risks: [
-    { condition: 'STROKE', horizonDays: 90, level: 'MEDIUM' },
-    { condition: 'FALL', horizonDays: 90, level: 'LOW' },
-  ],
-  drivers: [],
-  action: { text: 'Book a BP review', ownerMemberId: 'david' },
-  series: [],
 }
 
 const familyDoc: FamilyDoc = {
@@ -73,15 +60,6 @@ describe('in English', () => {
     expect(sarah.role.text).toBe('Updates')
   })
 
-  test('forecast replaces the mock Stroke / Fall rows and their level', async () => {
-    const f = overlayForecast(await mockSource.getForecast('margaret'), forecastDoc, seed)
-    const before = await mockSource.getForecast('margaret')
-    expect(f.risks).toHaveLength(before.risks.length)
-    expect(f.risks.find((r) => r.name === 'Stroke')).toMatchObject({ level: 'Medium', tone: 'warn' })
-    expect(f.risks.find((r) => r.name === 'Fall with injury')).toMatchObject({ level: 'Low', tone: 'good' })
-    expect(f.comingUp.actions[0].value).toBe('Sent to David')
-  })
-
   test('person age and gender rows', async () => {
     const p = overlayPerson(await mockSource.getPerson('margaret'), person)
     expect(p.gender).toBe('Female')
@@ -109,43 +87,37 @@ describe('in English', () => {
   })
 })
 
-describe('in Vietnamese', () => {
+describe('in Arabic', () => {
+  // Expected words come from the Arabic overlay file, so the tests follow its translation.
+  const t = i18n.getFixedT('ar', 'overlay') as (k: string, o?: object) => string
+
   beforeEach(async () => {
-    await i18n.changeLanguage('vi')
+    await i18n.changeLanguage('ar')
   })
 
   test('circle roles, notes and relations', async () => {
     const circle = overlayCircle(await mockSource.getCareCircle('margaret'), seed, 'james')
     const david = circle.find((m) => m.id === 'david')!
-    expect(david.role.text).toBe('Trực')
-    expect(david.note).toMatch(/^Cách .* · người gọi đầu tiên$/)
-    expect(david.technicalName).toBe('David · con trai')
-    expect(circle.find((m) => m.id === 'aisha')!.technicalName).toBe('Aisha · hàng xóm')
+    expect(david.role.text).toBe(t('circle.onCall'))
+    expect(david.note.endsWith(` · ${t('circle.firstToCall')}`)).toBe(true)
+    expect(david.technicalName).toBe(`David · ${t('relation.son')}`)
+    expect(circle.find((m) => m.id === 'aisha')!.technicalName).toBe(`Aisha · ${t('relation.neighbour')}`)
     const james = circle.find((m) => m.id === 'james')!
-    expect(james.name).toMatch(/James · bạn$/)
-    expect(james.note).toBe('Melbourne · gọi 000 nếu cần')
-    expect(circle.find((m) => m.id === 'sarah')!.note).toBe('London · nhận cập nhật')
+    expect(james.name.endsWith(t('youSuffix'))).toBe(true)
+    expect(james.note).toBe(t('circle.noteCalls', { place: 'Melbourne', num: '000' }))
+    expect(circle.find((m) => m.id === 'sarah')!.note).toBe(t('circle.noteUpdates', { place: 'London' }))
   })
 
-  test('forecast finds the Vietnamese rows (no duplicate English rows) and writes Vietnamese levels', async () => {
-    const before = await mockSource.getForecast('margaret')
-    const f = overlayForecast(await mockSource.getForecast('margaret'), forecastDoc, seed)
-    expect(f.risks).toHaveLength(before.risks.length)
-    expect(f.risks.find((r) => r.name === 'Đột quỵ')).toMatchObject({ level: 'Trung bình', tone: 'warn' })
-    expect(f.risks.find((r) => r.name === 'Té ngã có chấn thương')).toMatchObject({ level: 'Thấp', tone: 'good' })
-    expect(f.comingUp.actions[0].value).toBe('Đã gửi cho David')
-  })
-
-  test('person rows are matched by their Vietnamese labels', async () => {
+  test('person rows are matched by their Arabic labels', async () => {
     const p = overlayPerson(await mockSource.getPerson('margaret'), person)
-    expect(p.gender).toBe('Nữ')
-    expect(p.profile.rows.find((r) => r.label === 'Tuổi')!.value).toBe('79')
-    expect(p.profile.rows.find((r) => r.label === 'Giới tính')!.value).toBe('Nữ')
+    expect(p.gender).toBe(t('person.female'))
+    expect(p.profile.rows.find((r) => r.key === 'age')!.value).toBe('79')
+    expect(p.profile.rows.find((r) => r.key === 'gender')!.value).toBe(t('person.female'))
   })
 
   test('resting HR baseline comes from the person doc', async () => {
     const p = overlayPerson(await mockSource.getPerson('margaret'), { ...person, baseline: { restingHr: 60, nightHr: 55 } })
-    expect(p.kpisTechnical.find((k) => k.label === 'Nhịp tim lúc nghỉ')!.baseline).toBe('nền 60')
+    expect(p.kpisTechnical.find((k) => k.key === 'restingHr')!.baseline).toBe(t('person.restingHrBase', { n: 60 }))
   })
 
   test('no baseline keeps the mock', async () => {
@@ -155,9 +127,9 @@ describe('in Vietnamese', () => {
 
   test('lineage labels', async () => {
     const l = overlayLineage(await mockSource.getLineage('margaret'), familyDoc, 'james')
-    expect(l.generations.map((g) => g.label)).toEqual(['Cha mẹ', 'Thế hệ của Margaret', 'Con'])
-    expect(l.generations[2].nodes[0].sub).toBe('con trai · bạn')
-    expect(l.matrix[0].person).toBe('Arthur (cha)')
-    expect(l.screening[0]).toMatchObject({ due: 'Đến hạn', action: 'Đặt lịch' })
+    expect(l.generations.map((g) => g.label)).toEqual([t('lineage.generation.parents'), t('lineage.generation.self', { name: 'Margaret' }), t('lineage.generation.children')])
+    expect(l.generations[2].nodes[0].sub).toBe(`${t('relation.son')}${t('youSuffix')}`)
+    expect(l.matrix[0].person).toBe(`Arthur (${t('relation.father')})`)
+    expect(l.screening[0]).toMatchObject({ due: t('lineage.dueNow'), action: t('lineage.book') })
   })
 })

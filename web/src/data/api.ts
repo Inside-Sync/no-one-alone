@@ -80,7 +80,8 @@ export function recovery(incidentId: string, body: RecoveryRequest) {
 
 export type ChatMode = 'hosp' | 'self' | 'fam'
 export interface ChatTurn { by: 'me' | 'noa'; text: string }
-export interface ChatRequest { question: string; mode: ChatMode; viewer?: string; history?: ChatTurn[] }
+/** `lang`: the language of the answer; core-api answers in English when it is missing and rejects anything but `en` or `ar`. */
+export interface ChatRequest { question: string; mode: ChatMode; viewer?: string; history?: ChatTurn[]; lang?: 'en' | 'ar' }
 
 /** Asks Noa about Margaret; `502 CHAT_UNAVAILABLE` when the agent fails. */
 export function chat(body: ChatRequest) {

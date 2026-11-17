@@ -3,22 +3,23 @@
 import i18n from '@/i18n'
 import type { IconName } from '@/data/types'
 
-export type ViewId = 'individual' | 'hospital' | 'community'
+export type ViewId = 'individual' | 'hospital' | 'government'
 export type Who = 'family' | 'self'
-export type Tab = { id: string; label: string; icon?: IconName }
+/** `emoji`: the tab shows its colour emoji (the Individual tabs); otherwise a line icon. */
+export type Tab = { id: string; label: string; icon?: IconName; emoji?: boolean }
 
-export const VIEW_IDS: readonly ViewId[] = ['individual', 'hospital', 'community']
+export const VIEW_IDS: readonly ViewId[] = ['individual', 'hospital', 'government']
 
 /** Header view switcher: label (translated at read time) and icon per view. */
 export const VIEW_BUTTONS: readonly { id: ViewId; readonly label: string; icon: 'heart' | 'hospital' | 'people' }[] = (
-  [['individual', 'heart'], ['hospital', 'hospital'], ['community', 'people']] as const
+  [['individual', 'heart'], ['hospital', 'hospital'], ['government', 'people']] as const
 ).map(([id, icon]) => ({ id, icon, get label() { return i18n.t(`common:views.buttons.${id}`) } }))
 
 /** `vbanner` text per view (VIEWS[v].label in the prototype); translated at read time. */
 export const VIEW_LABELS: Readonly<Record<ViewId, string>> = {
   get individual() { return i18n.t('common:views.banners.individual') },
   get hospital() { return i18n.t('common:views.banners.hospital') },
-  get community() { return i18n.t('common:views.banners.community') },
+  get government() { return i18n.t('common:views.banners.government') },
 }
 
 type ViewUser = { readonly initials: string; readonly color: string; readonly name: string; readonly toast: string }
@@ -31,50 +32,80 @@ const viewUser = (id: ViewId, initials: string, color: string): ViewUser => ({
 
 /** Who is signed in per view (VIEWS[v].me); name and toast translated at read time. */
 export const VIEW_USERS: Readonly<Record<ViewId, ViewUser>> = {
-  individual: viewUser('individual', 'JC', '#2f6fb0'),
-  hospital: viewUser('hospital', 'AT', '#2563a8'),
-  community: viewUser('community', 'PS', '#6d4fc0'),
+  individual: viewUser('individual', 'K', '#e07a3f'),
+  hospital: viewUser('hospital', 'OH', '#2563a8'),
+  government: viewUser('government', 'DH', '#6d4fc0'),
 }
 
-type TabGroup = 'family' | 'self' | 'hospital' | 'community'
+type TabGroup = 'family' | 'self' | 'hospital' | 'government'
 /** A tab whose label is looked up in `common:tabs.<group>.<id>` each time it is read. */
 const tab = (group: TabGroup, id: string, icon?: IconName): Tab => ({
   id,
   ...(icon ? { icon } : {}),
-  get label() { return i18n.t(`common:tabs.${group}.${id}` as 'common:tabs.family.home') },
+  ...(group === 'family' || group === 'self' ? { emoji: true } : {}),
+  get label() { return i18n.t(`common:tabs.${group}.${id}` as 'common:tabs.family.health') },
 })
 
+/** Family and carers: Moza's health, care record and treatment within what she shares. */
 export const TABS_FAM: Tab[] = ([
-  ['home', 'home'], ['health', 'heart'], ['around', 'cloud-sun'], ['forecast', 'telescope'], ['lineage', 'tree'],
-  ['record', 'clipboard-list'], ['live', 'siren'], ['recovery', 'sprout'], ['device', 'smartphone'],
+  ['health', 'heart'], ['record', 'clipboard-list'], ['treatment', 'pill'],
 ] as const).map(([id, icon]) => tab('family', id, icon))
 
+/** Moza's own app. */
 export const TABS_SELF: Tab[] = ([
-  ['me', 'sun'], ['recovery', 'sprout'], ['health', 'heart'], ['live', 'siren'], ['privacy', 'lock'],
+  ['me', 'sun'], ['health', 'heart'], ['record', 'clipboard-list'], ['treatment', 'pill'],
   ['around', 'cloud-sun'], ['lineage', 'tree'], ['device', 'smartphone'],
 ] as const).map(([id, icon]) => tab('self', id, icon))
 
 const TABS_HOSPITAL: Tab[] = [
+  tab('hospital', 'overview', 'grid'),
+  tab('hospital', 'patients', 'file'),
+  tab('hospital', 'referrals', 'clinic'),
   tab('hospital', 'ed', 'siren'),
-  tab('hospital', 'panel', 'people'),
-  tab('hospital', 'demand', 'trend'),
-  tab('hospital', 'discharge', 'check'),
-  tab('hospital', 'patient', 'file'),
 ]
 
-const TABS_COMMUNITY: Tab[] = [
-  tab('community', 'community', 'grid'),
-  tab('community', 'watch', 'eye'),
+const TABS_GOVERNMENT: Tab[] = [
+  tab('government', 'population', 'grid'),
+  tab('government', 'signals', 'eye'),
 ]
+
+/** The night alert replay: a tab only while its page is open (family and carers), reached from the demo switch or Moza's phone. */
+const TAB_LIVE: Tab = tab('family', 'live', 'siren')
+
+/** Routed pages that have no tab of their own: `review` opens from "Open results to review"; `live` from the demo. */
+const ROUTED_ONLY: Readonly<Record<ViewId, readonly string[]>> = {
+  individual: ['live'],
+  hospital: ['review'],
+  government: [],
+}
+
+/** Routes that existed before and where they live now (the role-independent ones; see `ROLE_REDIRECT_PAGES` for the rest). */
+export const LEGACY_ROUTES: Readonly<Record<string, string>> = {
+  '/community': '/government/population',
+  '/community/community': '/government/population',
+  '/community/population': '/government/population',
+  '/community/watch': '/government/signals',
+  '/community/signals': '/government/signals',
+  '/hospital/panel': '/hospital/patients',
+  '/hospital/patient': '/hospital/patients',
+  '/hospital/demand': '/hospital/overview',
+  '/hospital/discharge': '/hospital/overview',
+  '/hospital/loop': '/hospital/overview',
+}
+
+/** Individual pages that were removed: they open the first tab of the current role (`firstPage('individual', who)`). */
+export const ROLE_REDIRECT_PAGES: readonly string[] = ['home', 'forecast', 'recovery', 'privacy']
 
 export function isViewId(v: string): v is ViewId {
   return (VIEW_IDS as readonly string[]).includes(v)
 }
 
-export function tabsFor(view: ViewId, who: Who): Tab[] {
+/** The tabs of a view; with `page` set, the night alert tab is added while that page is open. */
+export function tabsFor(view: ViewId, who: Who, page?: string): Tab[] {
   if (view === 'hospital') return TABS_HOSPITAL
-  if (view === 'community') return TABS_COMMUNITY
-  return who === 'self' ? TABS_SELF : TABS_FAM
+  if (view === 'government') return TABS_GOVERNMENT
+  const base = who === 'self' ? TABS_SELF : TABS_FAM
+  return page === 'live' ? [...base, TAB_LIVE] : base
 }
 
 export function firstPage(view: ViewId, who: Who): string {
@@ -88,7 +119,7 @@ export type PageResolution =
 
 export function resolvePage(view: string, page: string, who: Who): PageResolution {
   if (!isViewId(view)) return { kind: 'notFound' }
-  if (tabsFor(view, who).some((t) => t.id === page)) return { kind: 'ok' }
+  if (tabsFor(view, who).some((t) => t.id === page) || ROUTED_ONLY[view].includes(page)) return { kind: 'ok' }
   const other: Who = who === 'self' ? 'family' : 'self'
   if (view === 'individual' && tabsFor(view, other).some((t) => t.id === page)) {
     return { kind: 'redirect', to: `/individual/${firstPage(view, who)}` }
@@ -104,12 +135,13 @@ export function whoForPage(view: string, page: string | undefined): Who | undefi
   return self === fam ? undefined : self ? 'self' : 'family'
 }
 
-/** Every valid view x page pair: the routes App.tsx accepts (anything else is a 404). */
+/** Every valid view x page pair: the routes App.tsx accepts (anything else is a 404). Tabs of both roles, then the routed-only pages. */
 export function allRoutes(): { view: ViewId; page: string }[] {
   const out: { view: ViewId; page: string }[] = []
   for (const view of VIEW_IDS) {
     const ids = new Set<string>()
     for (const who of ['family', 'self'] as const) for (const t of tabsFor(view, who)) ids.add(t.id)
+    for (const id of ROUTED_ONLY[view]) ids.add(id)
     for (const page of ids) out.push({ view, page })
   }
   return out
@@ -121,36 +153,47 @@ export function parsePath(pathname: string | null): { view: ViewId; page: string
   return { view: v && isViewId(v) ? v : 'individual', page: p }
 }
 
-const PAGE_IDS = [
-  'home', 'health', 'around', 'forecast', 'lineage', 'record', 'live', 'device', 'me', 'privacy', 'recovery',
-  'ed', 'panel', 'demand', 'discharge', 'patient', 'community', 'watch',
+export const PAGE_IDS = [
+  'me', 'health', 'record', 'treatment', 'around', 'lineage', 'device', 'live',
+  'overview', 'patients', 'referrals', 'ed', 'review', 'population', 'signals',
 ] as const
 
-/** Page titles (PG in the prototype, after the later overrides); translated at read time. */
+/**
+ * Page titles (PG in the prototype, after the later overrides); translated at read time. This is Moza's own title;
+ * the family role differs on `record` and `treatment` (`pageTitle(page, who)`).
+ */
 export const PAGE_TITLES: Readonly<Record<string, string>> = Object.defineProperties(
   {},
   Object.fromEntries(PAGE_IDS.map((id) => [id, { enumerable: true, get: () => i18n.t(`common:pageTitles.${id}`) }])),
 )
 
-type OwnPage = 'me' | 'privacy' | 'patient'
-type OwnFact = { readonly live: boolean; readonly label: string; readonly value: string }
-/** `icon` stands in for the initials (the prototype's privacy bar showed an emoji there). */
-const ownContext = (page: OwnPage, initials: string, live: readonly boolean[], icon?: IconName, color = '#0b7f71') => ({
-  initials,
-  icon,
-  color,
-  get sub() { return i18n.t(`common:ownContext.${page}.sub`) },
-  get facts(): readonly OwnFact[] {
-    const rows = i18n.t(`common:ownContext.${page}.facts`, { returnObjects: true }) as readonly (readonly string[])[]
-    return rows.map(([label, value], i) => ({ live: live[i] ?? false, label, value }))
-  },
-})
+/** The `h1` of a page for a role: family and carers read "Care record · Moza Al Hammadi" where Moza reads "My care record". */
+export function pageTitle(view: string, page: string, who: Who): string {
+  if (view === 'individual' && who === 'family' && (page === 'record' || page === 'treatment')) {
+    return i18n.t(`common:pageTitlesFamily.${page}`)
+  }
+  return i18n.t(`common:pageTitles.${page as (typeof PAGE_IDS)[number]}`)
+}
 
-/** Pages with their own context bar (PG.me, PG.privacy, PG.patient: Margaret's hospital record); text translated at read time. */
-export const OWN_CONTEXT = {
-  me: ownContext('me', 'MC', [true, false, false]),
-  privacy: ownContext('privacy', '', [true, false], 'lock'),
-  patient: ownContext('patient', 'MC', [true, false, false, false], undefined, '#2563a8'),
-} as const
+export type ContextFact = { readonly live: boolean; readonly label: string; readonly value: string }
+export type PageContext = { readonly initials: string; readonly color: string; readonly sub: string; readonly facts: readonly ContextFact[] }
 
-export const hasOwnContext = (page: string | undefined): page is keyof typeof OWN_CONTEXT => !!page && page in OWN_CONTEXT
+/** The context bar of a page (`common:pageContext.<group>.<page>`): avatar, subtitle and facts; the first fact carries the live dot. */
+export function pageContext(view: string, who: Who, page: string | undefined): PageContext | undefined {
+  if (!page || !isViewId(view)) return undefined
+  const group = view === 'individual' ? who : view
+  const key = `common:pageContext.${group}.${page}`
+  if (!i18n.exists(key)) {
+    // `live` and the shared pages exist for the other role only when it is reached from there; fall back to Moza's.
+    if (view !== 'individual') return undefined
+    const alt = `common:pageContext.${who === 'self' ? 'family' : 'self'}.${page}`
+    if (!i18n.exists(alt)) return undefined
+    return readContext(alt)
+  }
+  return readContext(key)
+}
+
+function readContext(key: string): PageContext {
+  const c = (i18n.t as (k: string, o: object) => unknown)(key, { returnObjects: true }) as { initials: string; color: string; sub: string; facts: readonly (readonly string[])[] }
+  return { initials: c.initials, color: c.color, sub: c.sub, facts: c.facts.map(([label, value], i) => ({ live: i === 0, label, value })) }
+}

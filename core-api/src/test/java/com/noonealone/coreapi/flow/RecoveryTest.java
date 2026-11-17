@@ -26,6 +26,7 @@ import com.noonealone.coreapi.agent.AgentException;
 import com.noonealone.coreapi.agent.RecoveryResult;
 import com.noonealone.coreapi.agent.RespondAgentClient;
 import com.noonealone.coreapi.data.Seed;
+import com.noonealone.coreapi.data.SeedData;
 import com.noonealone.coreapi.gcp.AudioStore;
 import com.noonealone.coreapi.gcp.EscalationTimers;
 import com.noonealone.coreapi.gcp.RoutesClient;
@@ -39,10 +40,11 @@ import com.noonealone.coreapi.store.IncidentStore;
 import com.noonealone.coreapi.support.FirestoreTestBase;
 import com.noonealone.coreapi.support.FixedClockConfig;
 import com.noonealone.coreapi.support.SyncExecutorConfig;
+import com.noonealone.coreapi.support.TestPeopleConfig;
 import com.noonealone.coreapi.web.ApiException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@Import({FixedClockConfig.class, SyncExecutorConfig.class})
+@Import({FixedClockConfig.class, SyncExecutorConfig.class, TestPeopleConfig.class})
 class RecoveryTest extends FirestoreTestBase {
 
     static final String ID = "r-1";
@@ -68,7 +70,7 @@ class RecoveryTest extends FirestoreTestBase {
         inc.escalationTaskName = "task-1";
         if (withHandoff) {
             inc.handoff = new HandoffInfo();
-            inc.handoff.hospitalName = "Sydney Stroke Center";
+            inc.handoff.hospitalName = "Corniche Stroke Centre";
             inc.handoff.status = "RECEIVED";
         }
         store.createIfAbsent(inc);
@@ -105,8 +107,8 @@ class RecoveryTest extends FirestoreTestBase {
         assertThat(inc.recovery.reminders).extracting(r -> r.time()).containsExactly("08:00", "10:00");
         assertThat(inc.recovery.reminders.get(0).audioPath()).isEqualTo("audio/r-1/recovery-0.mp3");
         assertThat(inc.recovery.reminders.get(1).audioPath()).isNull();
-        // Sydney is UTC+11 at that instant, so the local date is already the 18th.
-        assertThat(inc.recovery.followUps.get(0).date()).isEqualTo("2026-10-25");
+        // Abu Dhabi is UTC+4 at that instant, so the local date is still the 17th.
+        assertThat(inc.recovery.followUps.get(0).date()).isEqualTo("2026-10-24");
         assertThat(inc.timeline.get(inc.timeline.size() - 1)).satisfies(t -> {
             assertThat(t.actor).isEqualTo("HOSPITAL");
             assertThat(t.kind).isEqualTo("DISCHARGED");
@@ -184,15 +186,49 @@ class RecoveryTest extends FirestoreTestBase {
     }
 
     @Test
-    void vietnameseFallbackUsesMaVoice() {
-        incident(ID, "ba-mai", true);
+    void arabicFallbackSpeaksArabic() {
+        SeedData data = seed.data();
+        data.people().get("margaret").locale = "ar-AE";
+        store.seed(data);
+        incident(ID, "margaret", true);
         when(agent.recovery(any())).thenThrow(new AgentException("down", null));
 
         recovery.discharge(ID, plan(List.of(new Med("aspirin", "100 mg", List.of("08:00"), null)),
-                List.of(new Activity("Đi bộ 15 phút", List.of("10:00")))));
+                List.of(new Activity("المشي 15 دقيقة", List.of("10:00")))));
 
         assertThat(store.get(ID).recovery.reminders).extracting(r -> r.text()).containsExactly(
-                "Mạ ơi, tới giờ uống aspirin 100 mg rồi.", "Mạ ơi, tới giờ đi bộ 15 phút rồi.");
+                "حان وقت دوائكِ aspirin 100 mg.", "حان وقت المشي 15 دقيقة.");
+    }
+
+    @Test
+    void knownMedicinesAndActivitiesGetKeysTheirRemindersCarryAndOtherItemsGetNone() {
+        incident(ID, "margaret", true);
+        when(agent.recovery(any())).thenThrow(new AgentException("down", null));
+
+        recovery.discharge(ID, plan(
+                List.of(new Med("Apixaban", "5 mg", List.of("08:00"), "New"), new Med("Cod liver oil", "1 tsp", List.of("09:00"), null)),
+                List.of(new Activity("Walk for 15 minutes", List.of("10:00")), new Activity("Do the crossword", List.of("11:00")))));
+
+        var info = store.get(ID).recovery;
+        assertThat(info.meds).extracting(m -> m.key()).containsExactly("apixaban", null);
+        assertThat(info.activities).extracting(a -> a.key()).containsExactly("walk", null);
+        assertThat(info.reminders).extracting(r -> r.time() + " " + r.key()).containsExactly(
+                "08:00 apixaban", "09:00 null", "10:00 walk", "11:00 null");
+        verify(agent).recovery(argThat(b -> ((Map<?, ?>) ((List<?>) ((Map<?, ?>) b.get("plan")).get("meds")).get(0))
+                .get("key").equals("apixaban")));
+    }
+
+    @Test
+    void aKeyThePlanFormSendsIsKeptAndABadOneIsRejected() {
+        incident(ID, "margaret", true);
+        when(agent.recovery(any())).thenThrow(new AgentException("down", null));
+
+        assertThatThrownBy(() -> recovery.discharge(ID, plan(
+                List.of(new Med("Aspirin", "100 mg", List.of("08:00"), null, null, "Not A Key")), List.of())))
+                .isInstanceOf(ApiException.class);
+        recovery.discharge(ID, plan(List.of(new Med("Aspirin", "100 mg", List.of("08:00"), null, null, "blood_thinner")), List.of()));
+
+        assertThat(store.get(ID).recovery.meds.get(0).key()).isEqualTo("blood_thinner");
     }
 
     @Test

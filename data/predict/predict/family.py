@@ -11,11 +11,23 @@ KIND_BY_SNOMED = {"230690007": STROKE, "38341003": HTN, "44054006": T2D, "714628
 KIND_BY_TEXT = [(re.compile(r"stroke|cerebrovascular", re.I), STROKE), (re.compile(r"hypertens", re.I), HTN),
                 (re.compile(r"type 2 diabetes|diabetes mellitus type 2", re.I), T2D), (re.compile(r"prediabet", re.I), PREDIABETES)]
 
+# The `code` the web reads next to each condition label, so it need not match words in any language. SNOMED first, then
+# the label's words; a condition that is in neither list gets no code.
+CODE_BY_SNOMED = {"230690007": "STROKE", "38341003": "HYPERTENSION", "44054006": "TYPE_2_DIABETES", "714628002": "PREDIABETES",
+                  "52448006": "DEMENTIA", "15188001": "HEARING_LOSS", "700378005": "CHRONIC_KIDNEY_DISEASE",
+                  "239873007": "OSTEOARTHRITIS"}
+CODE_BY_TEXT = [(re.compile(r"stroke|cerebrovascular", re.I), "STROKE"), (re.compile(r"hypertens|blood pressure", re.I), "HYPERTENSION"),
+                (re.compile(r"atrial|fibrillation", re.I), "ATRIAL_FIBRILLATION"),
+                (re.compile(r"type 2 diabetes|diabetes mellitus type 2", re.I), "TYPE_2_DIABETES"), (re.compile(r"prediabet", re.I), "PREDIABETES"),
+                (re.compile(r"glaucoma", re.I), "GLAUCOMA"), (re.compile(r"dementia|alzheimer", re.I), "DEMENTIA"),
+                (re.compile(r"hearing", re.I), "HEARING_LOSS"), (re.compile(r"kidney", re.I), "CHRONIC_KIDNEY_DISEASE"),
+                (re.compile(r"osteoarthritis", re.I), "OSTEOARTHRITIS")]
+
 PARENT_ROLE = {"FTH": "father", "MTH": "mother"}
 SIBLINGS = {"brother", "sister"}
 CHILDREN = {"son", "daughter"}
-# Named relatives; any other relative without a name keeps its relation label.
-CONTRACT_NAMES = {"ba-mai-father": ("ong-tu", "Ông Tư")}
+# Named relatives (record id -> (member id, name)); none for now, so every relative without a name keeps its relation label.
+CONTRACT_NAMES: dict[str, tuple[str, str]] = {}
 
 BP_CHECK, SUGAR_TEST = "Blood pressure check", "Blood sugar test"
 SCREENINGS = [(BP_CHECK, {STROKE, HTN}), (SUGAR_TEST, {T2D, PREDIABETES})]
@@ -34,6 +46,14 @@ def _kind(cc: dict | None) -> str | None:
     return next((k for rx, k in KIND_BY_TEXT if rx.search(label)), None)
 
 
+def _condition_code(cc: dict | None) -> str | None:
+    for c in (cc or {}).get("coding") or []:
+        if c.get("system") == SNOMED and c.get("code") in CODE_BY_SNOMED:
+            return CODE_BY_SNOMED[c["code"]]
+    label = _label(cc) or ""
+    return next((code for rx, code in CODE_BY_TEXT if rx.search(label)), None)
+
+
 def _code(cc: dict | None) -> str | None:
     coding = (cc or {}).get("coding") or []
     return coding[0].get("code") if coding else None
@@ -50,7 +70,8 @@ def _self_conditions(resources: list[dict], person_id: str) -> list[dict]:
         if _code(r.get("verificationStatus")) != "confirmed":
             continue
         if label := _label(r.get("code")):
-            out.append({"label": label, "kind": _kind(r.get("code")), "ref": f'Condition/{r["id"]}'})
+            out.append({"label": label, "kind": _kind(r.get("code")), "code": _condition_code(r.get("code")),
+                        "ref": f'Condition/{r["id"]}'})
     return out
 
 
@@ -71,7 +92,7 @@ def _parents(resources: list[dict], person_id: str) -> list[dict]:
         conditions = []
         for c in r.get("condition") or []:
             if label := _label(c.get("code")):
-                item = {"label": label, "kind": _kind(c.get("code"))}
+                item = {"label": label, "kind": _kind(c.get("code")), "code": _condition_code(c.get("code"))}
                 if isinstance((c.get("onsetAge") or {}).get("value"), int):
                     item["ageAtOnset"] = c["onsetAge"]["value"]
                 conditions.append(item)
@@ -82,7 +103,7 @@ def _parents(resources: list[dict], person_id: str) -> list[dict]:
 
 
 def _public(c: dict) -> dict:
-    return {k: c[k] for k in ("label", "ageAtOnset") if k in c}
+    return {k: c[k] for k in ("label", "ageAtOnset", "code") if c.get(k) is not None}
 
 
 def _fmt(c: dict) -> str:

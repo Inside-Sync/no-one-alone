@@ -38,9 +38,10 @@ import com.noonealone.coreapi.store.IncidentStore;
 import com.noonealone.coreapi.support.FirestoreTestBase;
 import com.noonealone.coreapi.support.FixedClockConfig;
 import com.noonealone.coreapi.support.SyncExecutorConfig;
+import com.noonealone.coreapi.support.TestPeopleConfig;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@Import({FixedClockConfig.class, SyncExecutorConfig.class})
+@Import({FixedClockConfig.class, SyncExecutorConfig.class, TestPeopleConfig.class})
 class HandoffTest extends FirestoreTestBase {
 
     @Autowired IncidentFlow flow;
@@ -59,8 +60,8 @@ class HandoffTest extends FirestoreTestBase {
         slurred.clarity = "SLURRED";
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
         when(agent.checkinTurn(any()))
-                .thenReturn(new TurnResult(null, null, new TurnResult.Next("Mạ nhắc lại?", "VOICE", null, null), false, false))
-                .thenReturn(new TurnResult("ừ... trời... đẹp", slurred, null, true, false));
+                .thenReturn(new TurnResult(null, null, new TurnResult.Next("Please repeat?", "VOICE", null, null), false, false))
+                .thenReturn(new TurnResult("mm... the sky... blue", slurred, null, true, false));
         when(agent.triage(any())).thenReturn(new TriageResult(Level.EMERGENCY, List.of("slurred speech"), false));
         when(agent.plan(any())).thenThrow(new AgentException("fallback plan", null));
         when(tasks.schedule(anyString(), anyString(), anyInt(), anyInt())).thenReturn("task");
@@ -76,7 +77,7 @@ class HandoffTest extends FirestoreTestBase {
         CheckInInput answer = CheckInInput.ofAudio(new byte[] {1}, "audio/webm");
         flow.acceptCheckIn(id, answer);
         flow.processCheckIn(id, answer);
-        actions.apply(id, "ong-hung", "ACCEPT");
+        actions.apply(id, "test-near", "ACCEPT");
     }
 
     @Test
@@ -86,7 +87,7 @@ class HandoffTest extends FirestoreTestBase {
         runStroke("h-1");
 
         Incident inc = store.get("h-1");
-        assertThat(inc.handoff.hospitalId).isEqualTo("stroke-center-a");
+        assertThat(inc.handoff.hospitalId).isEqualTo("test-stroke-center");
         assertThat(inc.handoff.etaMin).isEqualTo(14);
         assertThat(inc.handoff.status).isEqualTo("RECEIVED");
         assertThat(inc.handoff.packet).containsEntry("text", "PRE-ARRIVAL");
@@ -106,12 +107,12 @@ class HandoffTest extends FirestoreTestBase {
 
         runStroke("h-w");
 
-        assertThat(store.get("h-w").handoff.hospitalId).isEqualTo("stroke-center-a");
+        assertThat(store.get("h-w").handoff.hospitalId).isEqualTo("test-stroke-center");
         verify(agent).handoff(argThat(b -> "STROKE".equals(b.get("suspected"))));
     }
 
     @Test
-    void margaretGoesToSydneyStrokeCenterNotTheCloserClinic() {
+    void mozaGoesToCornicheStrokeCentreNotTheCloserClinic() {
         when(agent.handoff(any())).thenReturn(new HandoffResult("RECEIVED", Map.of("text", "PRE-ARRIVAL"), false));
 
         flow.create(IncidentFlowAlertTest.stroke("h-m", "margaret"));
@@ -125,15 +126,14 @@ class HandoffTest extends FirestoreTestBase {
         Incident inc = store.get("h-m");
         assertThat(inc.handoff.hospitalId).isEqualTo("sydney-stroke-center");
         assertThat(inc.handoff.etaMin).isEqualTo(12);
-        verify(agent).handoff(argThat(b -> String.valueOf(b.get("lastKnownWellAt")).equals(
-                java.time.Instant.parse(inc.lastKnownWellAt).atZone(java.time.ZoneId.of("Australia/Sydney"))
-                        .withHour(1).withMinute(30).toInstant().toString())));
+        verify(agent).handoff(argThat(b -> "2026-10-14T21:22:00Z".equals(String.valueOf(b.get("lastKnownWellAt")))));
         assertThat(inc.timeline).filteredOn(t -> t.kind.startsWith("HANDOFF_")).extracting(t -> t.text).containsExactly(
-                "This is Noa from No One Alone. Margaret Collins, 78, female. Suspected stroke. Last seen well 01:30. "
-                        + "Slurred speech found 01:40. Heart rate up to 137. On amlodipine, aspirin, atorvastatin, not on blood thinners. "
-                        + "Allergy: penicillin. ETA 12 min. Next of kin: James (son).",
+                "This is Noa from No One Alone. Moza Al Hammadi, 78, female. Suspected stroke. Last seen well 01:22. "
+                        + "Slurred speech found 02:04. Heart rate up to 142. On amlodipine, aspirin, atorvastatin, not on blood thinners. "
+                        + "Allergy: penicillin. ETA 12 min. Next of kin: Khalid (son).",
                 "Received. Stroke call activated, CT scanner on standby.");
-        verify(routes, never()).etaMinutes(any(), argThat(to -> to.lat > 0));
+        // The test stroke centre is in another country, so it never gets a Routes call.
+        verify(routes, never()).etaMinutes(any(), argThat(to -> to.lat < 20));
     }
 
     @Test

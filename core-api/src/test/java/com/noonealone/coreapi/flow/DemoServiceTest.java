@@ -27,10 +27,11 @@ import com.noonealone.coreapi.store.IncidentStore;
 import com.noonealone.coreapi.support.FirestoreTestBase;
 import com.noonealone.coreapi.support.FixedClockConfig;
 import com.noonealone.coreapi.support.SyncExecutorConfig;
+import com.noonealone.coreapi.support.TestPeopleConfig;
 import com.noonealone.coreapi.web.ApiException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@Import({FixedClockConfig.class, SyncExecutorConfig.class})
+@Import({FixedClockConfig.class, SyncExecutorConfig.class, TestPeopleConfig.class})
 class DemoServiceTest extends FirestoreTestBase {
 
     @Autowired DemoService demo;
@@ -45,9 +46,9 @@ class DemoServiceTest extends FirestoreTestBase {
         demo.reset();
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", "2026-10-15T18:55:00Z", false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Mạ ơi?", "VOICE", null, null), false, false));
+                new TurnResult.Next("Hello?", "VOICE", null, null), false, false));
 
-        String id = demo.trigger(Scenario.STROKE, "ba-mai", 30, 15);
+        String id = demo.trigger(Scenario.STROKE, "test-elder", 30, 15);
 
         Incident inc = store.get(id);
         assertThat(id).startsWith("alert-").endsWith("-stroke");
@@ -55,7 +56,7 @@ class DemoServiceTest extends FirestoreTestBase {
         assertThat(inc.demo.clockOffsetMs).isEqualTo(-151020000L);
         assertThat(inc.status).isEqualTo(Status.CHECKING_IN);
         assertThat(store.current().orElseThrow().incidentId).isEqualTo(id);
-        assertThat(store.current().orElseThrow().personId).isEqualTo("ba-mai");
+        assertThat(store.current().orElseThrow().personId).isEqualTo("test-elder");
     }
 
     @Test
@@ -63,24 +64,24 @@ class DemoServiceTest extends FirestoreTestBase {
         demo.reset();
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", null, false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Mạ ơi?", "VOICE", null, null), false, false));
-        demo.trigger(Scenario.STROKE, "ba-mai", 30, 15);
+                new TurnResult.Next("Hello?", "VOICE", null, null), false, false));
+        demo.trigger(Scenario.STROKE, "test-elder", 30, 15);
 
-        assertThatThrownBy(() -> demo.trigger(Scenario.FALL, "ba-mai", 30, 15)).isInstanceOf(ApiException.class);
+        assertThatThrownBy(() -> demo.trigger(Scenario.FALL, "test-elder", 30, 15)).isInstanceOf(ApiException.class);
     }
 
     @Test
     void resetDeletesIncidentAndReseeds() {
         demo.reset();
         when(agent.verify(any())).thenReturn(new VerifyResult(false, "stairs", null, false));
-        String id = demo.trigger(Scenario.FALSE_ALARM, "ba-mai", 30, 15);
+        String id = demo.trigger(Scenario.FALSE_ALARM, "test-elder", 30, 15);
 
         demo.reset();
 
         assertThat(store.find(id)).isEmpty();
         assertThat(store.current()).isEmpty();
-        assertThat(store.person("ba-mai").displayName).isEqualTo("Bà Mai");
-        assertThat(store.person("margaret").emergencyNumber).isEqualTo("000");
+        assertThat(store.person("margaret").displayName).isEqualTo("Moza Al Hammadi");
+        assertThat(store.person("margaret").emergencyNumber).isEqualTo("998");
         assertThat(store.hospitals()).extracting(h -> h.id).contains("sydney-stroke-center", "marrickville-clinic");
     }
 
@@ -89,7 +90,7 @@ class DemoServiceTest extends FirestoreTestBase {
         demo.reset();
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", null, false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Mạ ơi?", "VOICE", null, null), false, false));
+                new TurnResult.Next("Hello?", "VOICE", null, null), false, false));
         AlertMessage msg = IncidentFlowAlertTest.stroke("alert-redelivered");
 
         intake.receive(msg);
@@ -106,24 +107,24 @@ class DemoServiceTest extends FirestoreTestBase {
         c.incidentId = "alert-not-yet-pushed";
         store.setCurrent(c);
 
-        assertThatThrownBy(() -> demo.trigger(Scenario.FALL, "ba-mai", 30, 15)).isInstanceOf(ApiException.class)
+        assertThatThrownBy(() -> demo.trigger(Scenario.FALL, "test-elder", 30, 15)).isInstanceOf(ApiException.class)
                 .hasMessageContaining("still running");
     }
 
     @Test
-    void triggerForMargaretRunsInSydneyStoryTime() {
+    void triggerForMargaretRunsInAbuDhabiStoryTime() {
         demo.reset();
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", null, false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Margaret, are you okay?", "VOICE", null, null), false, false));
+                new TurnResult.Next("Moza, are you okay?", "VOICE", null, null), false, false));
 
         String id = demo.trigger(Scenario.STROKE, "margaret", 30, 15);
 
         Incident inc = store.get(id);
         assertThat(inc.personId).isEqualTo("margaret");
-        assertThat(inc.alert.at).isEqualTo("2026-10-15T15:03:00Z");
+        assertThat(inc.alert.at).isEqualTo("2026-10-15T22:03:00Z");
         assertThat(store.current().orElseThrow().personId).isEqualTo("margaret");
-        assertThat(store.current().orElseThrow().startedAt).isEqualTo("2026-10-15T15:03:00Z");
+        assertThat(store.current().orElseThrow().startedAt).isEqualTo("2026-10-15T22:03:00Z");
     }
 
     @Test
@@ -150,29 +151,29 @@ class DemoServiceTest extends FirestoreTestBase {
     }
 
     @Test
-    void margaretCannotStartWhileBaMaiIsRunning() {
+    void margaretCannotStartWhileAnotherPersonIsRunning() {
         demo.reset();
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", null, false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Mạ ơi?", "VOICE", null, null), false, false));
-        demo.trigger(Scenario.STROKE, "ba-mai", 30, 15);
+                new TurnResult.Next("Hello?", "VOICE", null, null), false, false));
+        demo.trigger(Scenario.STROKE, "test-elder", 30, 15);
 
         assertThatThrownBy(() -> demo.trigger(Scenario.STROKE, "margaret", 30, 15))
                 .isInstanceOf(ApiException.class).extracting("code").isEqualTo("INVALID_STATE");
     }
 
     @Test
-    void personWithoutTimezoneUsesHueTime() {
+    void personWithoutTimezoneUsesAbuDhabiTime() {
         demo.reset();
         SeedData data = seed.data();
         data.people().get("margaret").timezone = null;
         store.seed(data);
         when(agent.verify(any())).thenReturn(new VerifyResult(true, "real", null, false));
         when(agent.checkinTurn(any())).thenReturn(new TurnResult(null, null,
-                new TurnResult.Next("Margaret?", "VOICE", null, null), false, false));
+                new TurnResult.Next("Moza?", "VOICE", null, null), false, false));
 
         String id = demo.trigger(Scenario.STROKE, "margaret", 30, 15);
 
-        assertThat(store.get(id).alert.at).isEqualTo("2026-10-15T19:03:00Z");
+        assertThat(store.get(id).alert.at).isEqualTo("2026-10-15T22:03:00Z");
     }
 }

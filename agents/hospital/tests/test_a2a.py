@@ -48,5 +48,5 @@ def test_a2a_invalid_request_returns_contract_error(server_url, request_body):
 def test_http_invalid_request_is_400(server_url):
     r = httpx.post(server_url + "/handoff", content=b"not json", headers={"content-type": "application/json"})
     assert r.status_code == 400 and r.json()["error"]["code"] == "INVALID_REQUEST"
-    r = httpx.post(server_url + "/handoff", json={"personId": "ba-mai"})
+    r = httpx.post(server_url + "/handoff", json={"personId": "margaret"})
     assert r.status_code == 400 and r.json()["error"]["code"] == "INVALID_REQUEST"

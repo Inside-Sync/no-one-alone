@@ -26,3 +26,12 @@ test('chat posts the question body to /api/chat and returns the answer', async (
   expect((fetchMock.mock.calls[0] as unknown as [string])[0]).toBe('/api/chat')
   expect(sentBody()).toEqual(body)
 })
+
+test('chat sends lang when given and leaves it out when not', async () => {
+  fetchMock.mockImplementation(async () => new Response('{"answer":"ok"}', { status: 200 }))
+  await chat({ question: 'q', mode: 'self', lang: 'ar' })
+  expect(sentBody()).toEqual({ question: 'q', mode: 'self', lang: 'ar' })
+  fetchMock.mockClear()
+  await chat({ question: 'q', mode: 'self' })
+  expect(sentBody()).toEqual({ question: 'q', mode: 'self' })
+})

@@ -12,17 +12,17 @@
     "time with people": "Calls, visits and outings with other people.",
     "home temperature": "From the sensor in her living room. Above 28° the body works harder, especially with heart conditions.",
     "weight": "From her bathroom scale. Sudden gain of 2 kg in 3 days can mean fluid build-up.",
-    "pollen": "Spring grass pollen. On windy, stormy days it can trigger asthma, even in people who rarely have it.",
+    "pollen": "Dust and sand. On windy, stormy days it can trigger asthma, even in people who rarely have it.",
     "sun strength": "The UV index. 11 is extreme: skin can burn in under 10 minutes.",
-    "plane noise": "Marrickville is under the airport flight path. Flights stop between 11 pm and 6 am, so her sleep is not affected.",
+    "plane noise": "Al Bateen is next to the executive airport. Flights stop at night, so her sleep is not affected.",
     "pre-arrival packets": "FHIR R4 bundles (Patient, Condition, MedicationStatement, AllergyIntolerance, Observation) pushed to the ED on escalation, with consent on file.",
     "door to ct": "Median minutes from ED arrival to first CT head for suspected stroke, packet-enabled arrivals vs historical baseline.",
     "notice before arrival": "Median interval between packet receipt and ambulance arrival at triage."
   },
   "explainFallback": {
     "hospital": "Rolling metric computed from enrolled-patient feeds and ED information system extracts; refreshed every 15 minutes.",
-    "community": "Aggregated across enrolled residents in the 15 Inner West suburbs. Groups under 10 are suppressed.",
-    "individual": "Compared with Margaret's own usual over the last 30 days, so it reflects what is normal for her."
+    "individual": "Compared with Moza's own usual over the last 30 days, so it reflects what is normal for her.",
+    "government": "Aggregated across adults screened in the 17 Abu Dhabi areas. Groups under 10 are suppressed."
   },
   "chatIntro": "Mum is steady today. One thing to act on: her blood pressure has drifted up for 6 weeks, and Thursday will be 38 °C.",
   "chatQa": [
@@ -36,24 +36,24 @@
     ],
     [
       "What about Thursday's heat?",
-      "I'll add a midday check-in, remind her about fluids every 2 hours and offer a lift to the library cool room. Aisha next door can check on her at 15:00."
+      "I'll add a midday check-in, remind her about fluids every 2 hours and offer a lift to the community majlis cool room. Shamma next door can check on her at 15:00."
     ],
     [
       "What should I do this week?",
-      "Approve the pill box task for David and book her GP review. Both are one tap. I can also draft a message to Sarah."
+      "Approve the pill box task for Hamad and book her GP review. Both are one tap. I can also draft a message to Alia."
     ]
   ],
   "sosScript": {
     "intro": "Ask for ambulance. Read this aloud.",
-    "address": "186 Marrickville Rd, Marrickville NSW 2204",
+    "address": "Villa 12, Street 18, Al Bateen, Abu Dhabi",
     "rows": [
       [
         "Address",
-        "186 Marrickville Rd, Marrickville NSW 2204"
+        "Villa 12, Street 18, Al Bateen, Abu Dhabi"
       ],
       [
         "Patient",
-        "Margaret Collins, 78, lives alone"
+        "Moza Al Hammadi, 78, lives alone"
       ],
       [
         "Symptoms",
@@ -61,7 +61,7 @@
       ],
       [
         "Last well",
-        "01:55"
+        "01:22"
       ],
       [
         "Medicines",
@@ -69,7 +69,7 @@
       ],
       [
         "Access",
-        "Brother arriving 02:11 with key · neighbour Aisha holds a spare"
+        "Brother arriving 02:11 with key · neighbour Shamma holds a spare"
       ]
     ],
     "note": "The agent prepares this. A person makes the call."
@@ -78,7 +78,7 @@
   "notifications": [
     [
       "triangle-alert",
-      "Needs your OK: weekly pill box by David",
+      "Needs your OK: weekly pill box by Hamad",
       "Yesterday 21:40",
       "warn"
     ],
@@ -90,19 +90,19 @@
     ],
     [
       "shield",
-      "Scam door-knocks reported on her street",
+      "Fake AC-maintenance visits reported on her street",
       "5 h ago",
       "bad"
     ],
     [
       "circle-check",
-      "Blood pressure report read by Dr Patel",
+      "Blood pressure report read by Dr Fatima Al Ali",
       "Yesterday 16:42",
       "good"
     ],
     [
       "smile",
-      "Margaret had a cheerful chat at 13:02",
+      "Moza had a cheerful chat at 13:02",
       "2 h ago",
       "good"
     ]
@@ -114,15 +114,15 @@
       "Added"
     ],
     [
-      "Raise with Dr Patel",
+      "Raise with Dr Fatima Al Ali",
       "Added to the GP visit agenda",
       "Added"
     ]
   ],
   "onceLabels": {
     "Approve": "✓ Approved",
-    "Ask David to set up a pill box": "✓ David asked",
-    "Send BP report to Dr Patel": "✓ Sent",
+    "Ask Hamad to set up a pill box": "✓ Hamad asked",
+    "Send BP report to Dr Fatima Al Ali": "✓ Sent",
     "Call Mum": "Calling…",
     "Review": "✓ Reviewed",
     "Page stroke team": "✓ Paged",
@@ -143,13 +143,13 @@
     ],
     "alert": [
       [
-        "Tell Margaret by voice",
-        "Margaret will hear this in her next call",
+        "Tell Moza by voice",
+        "Moza will hear this in her next call",
         "Will tell her"
       ],
       [
-        "Share with David",
-        "Sent to David",
+        "Share with Hamad",
+        "Sent to Hamad",
         "Sent"
       ],
       [
@@ -160,7 +160,7 @@
     ],
     "news": [
       [
-        "Read it to Margaret",
+        "Read it to Moza",
         "She will hear a short version at 18:00",
         "Queued"
       ],
@@ -180,13 +180,13 @@
   "saveFailed": "Couldn't save that change · it has been undone",
   "keptPrivate": {
     "title": "Kept private",
-    "body": "Margaret has chosen not to share this with {{viewerName}}. That's her choice, and she can change it any time.",
+    "body": "Moza has chosen not to share this with {{viewerName}}. That's her choice, and she can change it any time.",
     "action": {
-      "label": "Ask Margaret kindly",
-      "toast": "Margaret will get a gentle request she can say yes or no to",
+      "label": "Ask Moza kindly",
+      "toast": "Moza will get a gentle request she can say yes or no to",
       "done": "Request sent"
     },
-    "bodyPaused": "Margaret has chosen not to share this with {{viewerName}} right now. She paused sharing until 9 am tomorrow. Safety alerts still reach you."
+    "bodyPaused": "Moza has chosen not to share this with {{viewerName}} right now. She paused sharing until 9 am tomorrow. Safety alerts still reach you."
   },
   "noa": "Noa",
   "hearingMode": "Hearing mode",
@@ -201,160 +201,106 @@
     "chooseView": "Choose a view",
     "brandBy": "by InsideSync",
     "whose": "Whose view",
-    "whoSelf": "Margaret (her own app)",
+    "whoSelf": "Moza (her own app)",
     "whoFamily": "Family & carers",
     "search": {
-      "placeholder": "Search people, suburbs…",
+      "placeholder": "Search people, areas…",
       "label": "Search",
       "results": "Search results",
       "person": "Person",
-      "suburb": "Suburb · Inner West"
-    }
+      "suburb": "Area · Abu Dhabi"
+    },
+    "languageEn": "English",
+    "languageAr": "Arabic",
+    "brand": "No One Alone",
+    "selfName": "Moza Al Hammadi",
+    "selfInitials": "MH",
+    "liveBadge": "LIVE",
+    "themeDark": "Dark mode",
+    "themeLight": "Light mode",
+    "tour": "Moza's case"
   },
   "views": {
     "buttons": {
       "individual": "Individual",
       "hospital": "Hospital",
-      "community": "Community"
+      "government": "Government"
     },
     "banners": {
-      "individual": "Individual view · Margaret and her family",
-      "hospital": "Hospital view · Camperdown Stroke Centre",
-      "community": "Community view · Inner West Community Health"
+      "individual": "Individual view · Moza and her family",
+      "hospital": "Hospital and clinics · Corniche Stroke Centre and family health centres",
+      "government": "Government view · Department of Health, Abu Dhabi"
     },
     "users": {
       "individual": {
-        "name": "James Collins",
-        "toast": "Signed in as James Collins · son · Melbourne"
+        "name": "Khalid Al Mansoori",
+        "toast": "Signed in as Khalid"
       },
       "hospital": {
-        "name": "Dr Amelia Tran",
-        "toast": "Signed in as Dr Amelia Tran · ED consultant"
+        "name": "Dr Omar Haddad",
+        "toast": "Signed in as Dr Omar Haddad · ED consultant"
       },
-      "community": {
-        "name": "Priya Sharma",
-        "toast": "Signed in as Priya Sharma · community nurse"
+      "government": {
+        "name": "Programme manager",
+        "toast": "Signed in as a programme manager · Department of Health (demo)"
       }
     }
   },
   "tabs": {
     "family": {
-      "home": "Home",
       "health": "Health",
-      "around": "Around her",
-      "forecast": "What's ahead",
-      "lineage": "Health Lineage",
       "record": "Care record",
-      "live": "Emergency",
-      "recovery": "Recovery",
-      "device": "Her phone"
+      "treatment": "Treatment",
+      "live": "Night alert (replay)"
     },
     "self": {
       "me": "My day",
-      "recovery": "My recovery",
       "health": "My health",
-      "live": "Emergency",
-      "privacy": "Who sees what",
+      "record": "My care record",
+      "treatment": "My treatment",
       "around": "Around me",
       "lineage": "My family health",
       "device": "My phone"
     },
     "hospital": {
-      "ed": "Pre-arrivals",
-      "panel": "Patient panel",
-      "demand": "Demand & beds",
-      "discharge": "Discharge follow-up",
-      "patient": "Patient record & discharge"
+      "overview": "Overview",
+      "patients": "Patient records",
+      "referrals": "Referrals",
+      "ed": "Emergency arrivals"
     },
-    "community": {
-      "community": "Community overview",
-      "watch": "Neighbourhood watch"
+    "government": {
+      "population": "Population health",
+      "signals": "Programme signals"
     }
   },
   "pageTitles": {
-    "home": "Margaret Collins, 78",
-    "health": "Health · Margaret Collins",
-    "around": "Around her · Margaret Collins",
-    "forecast": "What's ahead · Margaret Collins",
-    "lineage": "Health Lineage · Collins and Hughes families",
-    "record": "Care record · Margaret Collins",
-    "live": "Emergency · Margaret Collins",
-    "device": "Margaret's phone",
-    "me": "Hello, Margaret",
-    "privacy": "Who sees what",
-    "recovery": "Recovery plan · Margaret Collins",
-    "ed": "Pre-arrivals · Camperdown Stroke Centre",
-    "panel": "Patient panel · older patients",
-    "demand": "Demand and beds · next 14 days",
-    "discharge": "Discharge follow-up · last 30 days",
-    "patient": "Patient record · COLLINS, Margaret (F, 78)",
-    "community": "Inner West community",
-    "watch": "Neighbourhood watch · Inner West"
-  },
-  "ownContext": {
-    "me": {
-      "sub": "Your own space · only you see this page",
-      "facts": [
-        [
-          "You're sharing with",
-          "6 people"
-        ],
-        [
-          "Cameras",
-          "none"
-        ],
-        [
-          "Location",
-          "off"
-        ]
-      ]
-    },
-    "privacy": {
-      "sub": "You decide what each person can see. Change it any time.",
-      "facts": [
-        [
-          "Safety alerts",
-          "always to David and James"
-        ],
-        [
-          "Location",
-          "off"
-        ]
-      ]
-    },
-    "patient": {
-      "sub": "MRN 0048213 · Stroke unit bed 4 · admitted 15 Oct 02:24 via ambulance · day 3",
-      "facts": [
-        [
-          "Status",
-          "fit for discharge"
-        ],
-        [
-          "NIHSS",
-          "6 → 1"
-        ],
-        [
-          "Allergy",
-          "penicillin"
-        ],
-        [
-          "Consent",
-          "portal + family (per patient settings)"
-        ]
-      ]
-    }
+    "me": "Hello, Moza",
+    "health": "Health · Moza Al Hammadi",
+    "record": "My care record",
+    "treatment": "My treatment",
+    "around": "Around her · Moza Al Hammadi",
+    "lineage": "Health Lineage · Al Mansoori and Al Hammadi families",
+    "device": "Moza's phone",
+    "live": "Night alert · replay of 15 October",
+    "overview": "Overview · Corniche Stroke Centre",
+    "patients": "Patient records",
+    "referrals": "Referral inbox · diabetes, eye and colonoscopy clinics",
+    "ed": "Emergency arrivals · Corniche Stroke Centre",
+    "review": "Results to review · Dr Aisha Al Hosani",
+    "population": "Population health · Abu Dhabi",
+    "signals": "Programme signals · Abu Dhabi"
   },
   "context": {
-    "selfBanner": "Margaret's own view · she controls her information",
-    "familyBanner": "Family & carers view · {{viewerName}} sees only what Margaret shares",
-    "sees": "{{viewerName}} sees <b>{{seen}} of {{total}}</b> things Margaret shares",
-    "pausedBold": "Margaret paused sharing until 9 am tomorrow.",
+    "selfBanner": "Moza's own view · she controls her information",
+    "familyBanner": "Family & carers view · {{viewerName}} sees only what Moza shares",
+    "sees": "{{viewerName}} sees <b>{{seen}} of {{total}}</b> things Moza shares",
+    "pausedBold": "Moza paused sharing until 9 am tomorrow.",
     "pausedRest": "You'll still get safety alerts straight away."
   },
   "lock": {
-    "paused": "Margaret paused sharing until tomorrow",
-    "keeps": "Margaret keeps her {{name}} private",
-    "checking": "Checking what Margaret shares"
+    "paused": "Moza paused sharing until tomorrow",
+    "keeps": "Moza keeps her {{name}} private",
+    "checking": "Checking what Moza shares"
   },
   "drawer": {
     "close": "Close",
@@ -382,7 +328,496 @@
     "lineSeries": "{{name}} from {{from}} to {{to}}",
     "projected": " (dashed part is projected)",
     "threshold": "; threshold {{label}}",
-    "district": "3D column map of 15 Inner West suburbs",
+    "district": "3D column map of 17 Abu Dhabi areas",
     "north": "N"
+  },
+  "avatarNames": [
+    [
+      "margaret",
+      "margaret"
+    ],
+    [
+      "david",
+      "david"
+    ],
+    [
+      "aisha",
+      "aisha"
+    ],
+    [
+      "james",
+      "james"
+    ],
+    [
+      "sarah",
+      "sarah"
+    ],
+    [
+      "priya",
+      "priya"
+    ],
+    [
+      "moza",
+      "margaret"
+    ],
+    [
+      "khalid",
+      "james"
+    ],
+    [
+      "alia",
+      "sarah"
+    ],
+    [
+      "hamad",
+      "david"
+    ],
+    [
+      "fatima",
+      "dr-patel"
+    ]
+  ],
+  "pageTitlesFamily": {
+    "record": "Care record · Moza Al Hammadi",
+    "treatment": "Treatment · Moza Al Hammadi"
+  },
+  "pageContext": {
+    "self": {
+      "me": {
+        "initials": "MH",
+        "color": "#0b7f71",
+        "sub": "Your own space · only you see this page",
+        "facts": [
+          [
+            "You're sharing with",
+            "6 people"
+          ],
+          [
+            "Cameras",
+            "none"
+          ],
+          [
+            "Location",
+            "off"
+          ]
+        ]
+      },
+      "health": {
+        "initials": "MH",
+        "color": "#0b7f71",
+        "sub": "Al Bateen · Abu Dhabi Island · Wednesday 28 October, 15:10 GST",
+        "facts": [
+          [
+            "Female",
+            "78"
+          ],
+          [
+            "Born",
+            "3 Mar 1948"
+          ],
+          [
+            "Conditions",
+            "8"
+          ],
+          [
+            "Allergy",
+            "penicillin"
+          ],
+          [
+            "Mode",
+            "hearing"
+          ],
+          [
+            "Care team",
+            "5 people"
+          ]
+        ]
+      },
+      "record": {
+        "initials": "MH",
+        "color": "#0b7f71",
+        "sub": "Your record from Corniche Stroke Centre, your family doctor and your devices",
+        "facts": [
+          [
+            "Care setting",
+            "outpatient follow-up"
+          ],
+          [
+            "Doctor in charge",
+            "Dr Sara Al Mazrouei"
+          ],
+          [
+            "Family doctor",
+            "Dr Fatima Al Ali"
+          ]
+        ]
+      },
+      "treatment": {
+        "initials": "MH",
+        "color": "#0b7f71",
+        "sub": "Your record from Corniche Stroke Centre, your family doctor and your devices",
+        "facts": [
+          [
+            "Care setting",
+            "outpatient follow-up"
+          ],
+          [
+            "Doctor in charge",
+            "Dr Sara Al Mazrouei"
+          ],
+          [
+            "Family doctor",
+            "Dr Fatima Al Ali"
+          ]
+        ]
+      },
+      "around": {
+        "initials": "MH",
+        "color": "#0b7f71",
+        "sub": "Al Bateen · Abu Dhabi Island · Wednesday 28 October, 15:10 GST",
+        "facts": [
+          [
+            "Female",
+            "78"
+          ],
+          [
+            "Born",
+            "3 Mar 1948"
+          ],
+          [
+            "Conditions",
+            "8"
+          ],
+          [
+            "Allergy",
+            "penicillin"
+          ],
+          [
+            "Mode",
+            "hearing"
+          ],
+          [
+            "Care team",
+            "5 people"
+          ]
+        ]
+      },
+      "lineage": {
+        "initials": "HL",
+        "color": "#8f6fd0",
+        "sub": "4 generations · 11 people · Family Connect",
+        "facts": [
+          [
+            "Consented",
+            "9 of 11"
+          ],
+          [
+            "Conditions",
+            "7"
+          ],
+          [
+            "Your plan",
+            "2 due"
+          ]
+        ]
+      },
+      "device": {
+        "initials": "MH",
+        "color": "#0b7f71",
+        "sub": "Al Bateen · Abu Dhabi Island · Wednesday 28 October, 15:10 GST",
+        "facts": [
+          [
+            "Female",
+            "78"
+          ],
+          [
+            "Born",
+            "3 Mar 1948"
+          ],
+          [
+            "Conditions",
+            "8"
+          ],
+          [
+            "Allergy",
+            "penicillin"
+          ],
+          [
+            "Mode",
+            "hearing"
+          ],
+          [
+            "Care team",
+            "5 people"
+          ]
+        ]
+      },
+      "live": {
+        "initials": "MH",
+        "color": "#c0392b",
+        "sub": "How Noa responded on the night of her stroke · demo replay",
+        "facts": [
+          [
+            "Started",
+            "01:22"
+          ],
+          [
+            "Ambulance",
+            "called by Noa"
+          ],
+          [
+            "Hospital",
+            "record sent ahead"
+          ]
+        ]
+      }
+    },
+    "family": {
+      "health": {
+        "initials": "MH",
+        "color": "#0b7f71",
+        "sub": "Al Bateen · Abu Dhabi Island · Wednesday 28 October, 15:10 GST",
+        "facts": [
+          [
+            "Female",
+            "78"
+          ],
+          [
+            "Born",
+            "3 Mar 1948"
+          ],
+          [
+            "Conditions",
+            "8"
+          ],
+          [
+            "Allergy",
+            "penicillin"
+          ],
+          [
+            "Mode",
+            "hearing"
+          ],
+          [
+            "Care team",
+            "5 people"
+          ]
+        ]
+      },
+      "record": {
+        "initials": "MH",
+        "color": "#0b7f71",
+        "sub": "What Moza shares from her record",
+        "facts": [
+          [
+            "Care setting",
+            "outpatient follow-up"
+          ],
+          [
+            "Doctor in charge",
+            "Dr Sara Al Mazrouei"
+          ],
+          [
+            "Family doctor",
+            "Dr Fatima Al Ali"
+          ]
+        ]
+      },
+      "treatment": {
+        "initials": "MH",
+        "color": "#0b7f71",
+        "sub": "What Moza shares from her record",
+        "facts": [
+          [
+            "Care setting",
+            "outpatient follow-up"
+          ],
+          [
+            "Doctor in charge",
+            "Dr Sara Al Mazrouei"
+          ],
+          [
+            "Family doctor",
+            "Dr Fatima Al Ali"
+          ]
+        ]
+      },
+      "live": {
+        "initials": "MH",
+        "color": "#c0392b",
+        "sub": "How Noa responded on the night of her stroke · demo replay",
+        "facts": [
+          [
+            "Started",
+            "01:22"
+          ],
+          [
+            "Ambulance",
+            "called by Noa"
+          ],
+          [
+            "Hospital",
+            "record sent ahead"
+          ]
+        ]
+      }
+    },
+    "hospital": {
+      "overview": {
+        "initials": "CS",
+        "color": "#2563a8",
+        "sub": "Today 15:10 · capacity, departments, doctors on shift and outcomes",
+        "facts": [
+          [
+            "Beds",
+            "156 of 180"
+          ],
+          [
+            "In ED",
+            "26"
+          ],
+          [
+            "Doctors on shift",
+            "39"
+          ],
+          [
+            "Recovered at 90 days",
+            "71%"
+          ]
+        ]
+      },
+      "patients": {
+        "initials": "OH",
+        "color": "#2563a8",
+        "sub": "Patients cared for by this team · open a record to see screening, results, treatment and follow-up",
+        "facts": [
+          [
+            "Synced",
+            "2 min ago"
+          ],
+          [
+            "Patients",
+            "8"
+          ],
+          [
+            "Need action",
+            "4"
+          ],
+          [
+            "Sharing home data",
+            "7 of 8"
+          ]
+        ]
+      },
+      "referrals": {
+        "initials": "RX",
+        "color": "#2563a8",
+        "sub": "Specialist clinics · referrals arrive with the patient's understanding and preferences",
+        "facts": [
+          [
+            "New",
+            "3"
+          ],
+          [
+            "Handover",
+            "1"
+          ],
+          [
+            "Accept within",
+            "2 working days"
+          ]
+        ]
+      },
+      "ed": {
+        "initials": "CS",
+        "color": "#2563a8",
+        "sub": "Emergency department · stroke unit · catchment 1,846 enrolled older residents",
+        "facts": [
+          [
+            "Live",
+            "15:10"
+          ],
+          [
+            "ED",
+            "38/42"
+          ],
+          [
+            "Stroke unit",
+            "11/12"
+          ],
+          [
+            "Heatwave",
+            "Thursday"
+          ]
+        ]
+      },
+      "review": {
+        "initials": "AH",
+        "color": "#2563a8",
+        "sub": "Family physician · Al Ain family health centre",
+        "facts": [
+          [
+            "To review",
+            "3"
+          ],
+          [
+            "Oldest",
+            "4 days"
+          ],
+          [
+            "Deadline",
+            "7 days"
+          ]
+        ]
+      }
+    },
+    "government": {
+      "population": {
+        "initials": "DH",
+        "color": "#6d4fc0",
+        "sub": "Department of Health · screening programmes · 17 areas · last 90 days",
+        "facts": [
+          [
+            "Updated",
+            "15:00"
+          ],
+          [
+            "Programmes",
+            "6"
+          ],
+          [
+            "Areas below 70%",
+            "4"
+          ],
+          [
+            "Groups under 10",
+            "suppressed"
+          ]
+        ]
+      },
+      "signals": {
+        "initials": "DH",
+        "color": "#6d4fc0",
+        "sub": "Department of Health · screening programmes · 17 areas · last 90 days",
+        "facts": [
+          [
+            "Updated",
+            "15:00"
+          ],
+          [
+            "Programmes",
+            "6"
+          ],
+          [
+            "Areas below 70%",
+            "4"
+          ],
+          [
+            "Groups under 10",
+            "suppressed"
+          ]
+        ]
+      }
+    }
   }
 }

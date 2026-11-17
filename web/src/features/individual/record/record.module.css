@@ -1,0 +1,63 @@
+.click { cursor: pointer; }
+.click:hover { background: rgba(255, 255, 255, .35); }
+.click:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.home { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 14px; }
+.home b { font-size: 16px; display: block; }
+.home small { color: var(--muted-text, var(--muted)); font-size: 13px; }
+.homeBtns { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.journey { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.stage { border-radius: 14px; padding: 12px; background: rgba(255, 255, 255, .72); box-shadow: var(--glass-edge); border-block-start: 3px solid var(--stage, var(--brand)); display: grid; gap: 4px; align-content: start; }
+.stage h3 { margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--stage-text, var(--muted-text, var(--muted))); }
+.stage b { font-size: 15px; font-weight: 600; }
+.stage small { color: var(--muted-text, var(--muted)); font-size: 12.5px; }
+.stage ul { margin: 6px 0 0; padding-inline-start: 18px; display: grid; gap: 4px; font-size: 13px; }
+@media (max-width: 1100px) { .journey { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .journey { grid-template-columns: 1fr; } }
+
+.eps { display: grid; gap: 8px; }
+.ep { border-radius: 12px; background: var(--glass-2); box-shadow: var(--glass-edge); }
+.ep summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 10px 12px; }
+.ep summary::-webkit-details-marker { display: none; }
+.ep[open] summary { border-block-end: 1px dashed var(--line); }
+.epDate { font-size: 12px; color: var(--muted-text, var(--muted)); font-family: var(--mono); }
+.epMain b { display: block; font-weight: 500; font-size: 13.5px; }
+.epMain small { color: var(--muted-text, var(--muted)); font-size: 12px; }
+.epBody { padding: 10px 12px; display: grid; gap: 8px; font-size: 13px; justify-items: start; }
+.epBody p { margin: 0; }
+.epOpen { justify-self: stretch; justify-content: center; text-align: center; }
+@media (max-width: 640px) { .ep summary { grid-template-columns: 1fr; } }
+
+.holders { margin: 0; padding: 0; list-style: none; }
+.holders li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; padding: 8px 0; border-block-start: 1px solid var(--line); }
+.holders li:first-child { border-block-start: 0; }
+.holders b { font-size: 13px; font-weight: 500; display: block; }
+.holders small { font-size: 11.5px; color: var(--muted-text, var(--muted)); }
+.dot { font-size: 14px; line-height: 1.2; }
+.dotgood { color: var(--good-text, var(--good)); }
+.dotwarn { color: var(--warn-text, var(--warn)); }
+
+.signs { margin: 0; padding: 0; list-style: none; }
+.signs li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 8px; padding: 8px 0; border-block-start: 1px solid var(--line); align-items: start; }
+.signs li:first-child { border-block-start: 0; }
+.signs b { font-size: 13px; font-weight: 500; display: block; }
+.signs small { font-size: 11.5px; color: var(--muted-text, var(--muted)); }
+.yes { color: var(--good-text, var(--good)); font-weight: 700; }
+.no { color: var(--bad-text, var(--bad)); font-weight: 700; }
+
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.tile { padding: 12px; border-radius: 14px; background: var(--glass-2); box-shadow: var(--glass-edge); display: grid; gap: 4px; min-width: 0; }
+.tile small { color: var(--muted-text, var(--muted)); font-size: 12px; }
+.tile .val { display: flex; align-items: baseline; gap: 6px; }
+.tile .val b { font-size: 24px; font-weight: 600; font-family: var(--mono); }
+.tile .val span { font-size: 12px; color: var(--muted-text, var(--muted)); }
+.tile .note { font-size: 12px; color: var(--ink2); }
+.spark { block-size: 34px; inline-size: 100%; }
+
+.days { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.days li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 12px; background: var(--glass-2); }
+.days b { font-size: 13px; font-weight: 500; display: block; }
+.days small { font-size: 12px; color: var(--muted-text, var(--muted)); }
+.spark svg { display: block; inline-size: 100%; block-size: 100%; }
+:global(body.night) .stage { background: rgba(255, 255, 255, .08); }

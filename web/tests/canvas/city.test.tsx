@@ -2,22 +2,37 @@ import { render } from '@testing-library/react'
 import { createRef } from 'react'
 import { buildDistrict, buildStreets, buildSuburb, homeScene, streetHomeScene, streetWatchScene, watchScene } from '@/components/canvas/city/geometry'
 import { cityHit, drawCityFrame, pinText } from '@/components/canvas/city/draw'
-import { DEFAULT_FONTS } from '@/components/canvas/fonts'
+import type { CanvasFonts } from '@/components/canvas/fonts'
 import { City3D } from '@/components/canvas/City3D'
 import { DistrictMap } from '@/components/canvas/DistrictMap'
 import type { Canvas3DHandle } from '@/components/canvas/useCanvas3D'
 import { cityScene } from '@/data/fixtures/city'
 import aroundData from '@/locales/en/data/around.json'
-import communityData from '@/locales/en/data/community.json'
-import type { CommunityData, Surroundings } from '@/data/types'
+import communityData from '@/locales/en/data/government.json'
+import type { GovernmentData } from '@/data/government.types'
+import type { Surroundings } from '@/data/types'
+
+/** The families the prototype writes into `ctx.font`. The app's own stack adds an Arabic face after them; the frame geometry is what is compared here. */
+const PROTOTYPE_FONTS: CanvasFonts = { sans: '"Be Vietnam Pro",system-ui', mono: '"JetBrains Mono",monospace' }
 
 const surroundings = aroundData.surroundings as unknown as Surroundings
-const community = communityData.community as unknown as CommunityData
+const government = communityData.government as unknown as GovernmentData
 import { loadPrototype } from './prototype'
 import { fakeCtx, mockCanvas, mockLayout, mockRaf, setReducedMotion, type FakeCtx } from './fakeCtx'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const P = loadPrototype()
+const P0 = loadPrototype()
+/** The old Sydney prototype draws the geometry this app keeps; its place names are now the Abu Dhabi ones, so they are mapped before comparing. */
+const NAMES: Record<string, string> = {
+  "Margaret's home": "Moza's home", 'David (brother)': 'Hamad (brother)', 'Margaret': 'Moza', 'Library cool room': 'Community majlis cool room',
+  '→ Stroke centre 4.2 km': '→ Corniche Stroke Centre 3.4 km', 'Marrickville Rd': 'Al Khaleej Al Arabi St', 'Illawarra Rd': 'Al Bateen St',
+  'Calvert St': 'Street 18', 'Victoria Rd': 'Street 9', 'Cooks River': 'Khor Al Bateen', 'Calvert Reserve': 'Al Bateen Park',
+  'Marrickville Station': 'Bus stop', 'Thu 9:00 · Calvert Reserve': 'Thu 9:00 · Al Bateen Park',
+  'Illawarra Rd Family Practice · Dr Patel · 350 m': 'Al Bateen Family Health Centre · Dr Fatima Al Ali · 350 m',
+  'Camperdown Stroke Centre · north-east · 11 min by ambulance': 'Corniche Stroke Centre · north-east · 11 min by ambulance',
+}
+const localize = (o: any): any => (typeof o === 'string' ? (NAMES[o] ?? o) : Array.isArray(o) ? o.map(localize) : o && typeof o === 'object' ? Object.fromEntries(Object.entries(o).map(([k, v]) => [k, localize(v)])) : o)
+const P = new Proxy(P0, { get: (t, k) => (k === 'buildSuburb' ? (...a: any[]) => localize((t as any).buildSuburb(...a)) : (t as any)[k]) })
 const flags = (o: any) => {
   const r = { ...o }
   for (const k of ['big', 'tag', 'b']) if (k in r) r[k] = !!r[k]
@@ -52,44 +67,44 @@ test('home scene places pins, the 5-minute ring, the walk route and street label
 test('watch scene matches the prototype surroundings map', () => {
   const proto = P.buildSuburb(), home = proto.pins[0]
   const m = watchScene(buildSuburb(cityScene), surroundings.pins, surroundings.watchMap.ring, surroundings.homeMap.labels)
-  expect(m.pins[0]).toMatchObject({ x: home.x, y: home.y, z: 12, name: 'Margaret', d: 'Home', big: true })
+  expect(m.pins[0]).toMatchObject({ x: home.x, y: home.y, z: 12, name: 'Moza', d: 'Home', big: true })
   expect(m.pins.map((p) => [p.x, p.y, p.z, p.name, p.c, p.ini, p.ph])).toEqual([
-    [home.x, home.y, 12, 'Margaret', '#14a08c', 'M', undefined],
+    [home.x, home.y, 12, 'Moza', '#14a08c', 'M', undefined],
     [225, 146, 2, 'Footpath works', '#c88a05', '!', 0.2],
     [70, 205, 8, 'Scam reported', '#d9443f', '!', 0.4],
     [160, 270, 6, 'Street light out', '#c88a05', '☾', 0.6],
-    [350, 235, 6, 'Swooping magpie', '#c88a05', 'M', 0.8],
-    [60, 36, 2, 'Snake sighting', '#c88a05', 'S', 0.1],
-    [305, 301, 21, 'Cool room', '#1fb39c', 'L', 0.5],
+    [350, 235, 6, 'Path resurfacing', '#c88a05', 'P', 0.8],
+    [60, 36, 2, 'Walkway lights out', '#c88a05', '☾', 0.1],
+    [305, 301, 21, 'Cool room', '#1fb39c', 'M', 0.5],
     [127, 133, 9, 'Vaccines', '#1fb39c', '+', 0.7],
   ])
   expect(m.routes).toEqual([{ pts: [[home.x, 158], [home.x, 270], [60, 270]], c: '#c88a05' }])
   expect(m.rings).toEqual([{ x: home.x, y: home.y, r: 150, c: 'rgba(217,68,63,.6)', label: 'WATCH AREA' }])
 })
 
-test('buildDistrict: one block per suburb, its value and name printed on its roof, the tallest for the biggest value', () => {
-  const values = community.suburbs.map((s) => s.highRisk)
-  const m = buildDistrict(community.suburbs, values, ' high risk')
-  expect(m.texts).toHaveLength(community.suburbs.length)
-  expect(m.pins).toHaveLength(community.suburbs.length)
+test('buildDistrict: one block per area, its value and name printed on its roof, the tallest for the biggest value', () => {
+  const values = government.areas.map((a) => a.actionable)
+  const m = buildDistrict(government.areas, values, ' open')
+  expect(m.texts).toHaveLength(government.areas.length)
+  expect(m.pins).toHaveLength(government.areas.length)
   m.pins.forEach((p, i) => {
-    expect(p).toMatchObject({ name: community.suburbs[i].name, sub: values[i] + ' high risk', ghost: true })
+    expect(p).toMatchObject({ name: government.areas[i].name, sub: values[i] + ' open', ghost: true })
     expect(m.texts![i]).toMatchObject({ t: String(values[i]), z: p.z })
-    // Roofs too small for a name (Enmore, Lewisham, Sydenham) carry the value alone.
-    expect(m.texts![i].sub).toBe(['Enmore', 'Lewisham', 'Sydenham'].includes(p.name) ? '' : p.name)
+    // Every column's roof is big enough for its name.
+    expect(m.texts![i].sub).toBe(p.name)
   })
   const top = values.indexOf(Math.max(...values))
   expect(Math.max(...m.pins.map((p) => p.z))).toBe(m.pins[top].z)
 })
 
-test('district map: every suburb is tappable on its roof', () => {
+test('district map: every area is tappable on its roof', () => {
   const view = cityScene.views.district
-  const values = community.suburbs.map((s) => s.highRisk)
-  const m = buildDistrict(community.suburbs, values, ' high risk')
+  const values = government.areas.map((a) => a.actionable)
+  const m = buildDistrict(government.areas, values, ' open')
   const buf = document.createElement('canvas')
   buf.width = 800; buf.height = 600
   const hits = drawCityFrame(fakeCtx(), { canvas: buf, ctx: fakeCtx(), key: '' }, m, view, {
-    width: 400, height: 300, dpr: 2, yaw: view.yaw, now: 0, night: false, reduced: true, fonts: DEFAULT_FONTS,
+    width: 400, height: 300, dpr: 2, yaw: view.yaw, now: 0, night: false, reduced: true, fonts: PROTOTYPE_FONTS,
   })
   expect(new Set(hits.map((h) => h.p))).toEqual(new Set(m.pins))
 })
@@ -118,7 +133,7 @@ function ourFrame(view: any, model: any, opts: { yaw?: number; now: number; nigh
   const buf = document.createElement('canvas')
   buf.width = 800; buf.height = 600
   drawCityFrame(ctx, { canvas: buf, ctx: bx, key: '' }, model, view, {
-    width: 400, height: 300, dpr: 2, yaw: opts.yaw ?? view.yaw, now: opts.now, night: !!opts.night, reduced: false, fonts: DEFAULT_FONTS,
+    width: 400, height: 300, dpr: 2, yaw: opts.yaw ?? view.yaw, now: opts.now, night: !!opts.night, reduced: false, fonts: PROTOTYPE_FONTS,
   })
   return { ctx, bx }
 }
@@ -148,8 +163,8 @@ describe('City3D frame is drawn call for call like the prototype', () => {
 
 test('tap text and hit testing follow the prototype toast', () => {
   const m = homeScene(buildSuburb(cityScene), surroundings.homeMap)
-  expect(pinText(m.pins[0])).toBe("Margaret's home · Home")
-  expect(pinText(m.pins[1])).toBe('David (brother) · 450 m · 6 min walk')
+  expect(pinText(m.pins[0])).toBe("Moza's home · Home")
+  expect(pinText(m.pins[1])).toBe('Hamad (brother) · 450 m · 6 min walk')
   const hits = [{ x: 0, y: 0, w: 10, h: 10, p: m.pins[0] }, { x: 5, y: 5, w: 10, h: 10, p: m.pins[1] }]
   expect(cityHit(hits, 7, 7)).toBe(m.pins[1]) // last drawn wins
   expect(cityHit(hits, 2, 2)).toBe(m.pins[0])
@@ -177,21 +192,33 @@ describe('components', () => {
   })
 
   test('DistrictMap uses the prototype aria-label by default', () => {
-    const values = community.suburbs.map((s) => s.highRisk)
+    const values = government.areas.map((a) => a.actionable)
     const { container } = render(
-      <DistrictMap suburbs={community.suburbs} metric={{ values, suffix: ' high risk' }} view={cityScene.views.district} />,
+      <DistrictMap areas={government.areas} metric={{ values, suffix: ' open' }} view={cityScene.views.district} />,
     )
-    expect(container.querySelector('.c3d')).toHaveAttribute('aria-label', '3D column map of 15 Inner West suburbs')
+    expect(container.querySelector('.c3d')).toHaveAttribute('aria-label', '3D column map of 17 Abu Dhabi areas')
   })
 })
 
-test('buildDistrict: every suburb is drawn from its real boundary, north up', () => {
-  const values = community.suburbs.map((s) => s.highRisk)
-  const m = buildDistrict(community.suburbs, values, ' high risk')
+test('buildDistrict: the 17 areas stand on the design layout, row 0 nearest, column 0 on the left', () => {
+  const values = government.areas.map((a) => a.actionable)
+  const m = buildDistrict(government.areas, values, ' open')
   const at = (name: string) => m.pins.find((p) => p.name === name)!
-  expect(m.faces.filter((f) => f.last)).toHaveLength(community.suburbs.length)
-  expect(at('Leichhardt').y).toBeGreaterThan(at('Marrickville').y) // Leichhardt lies north of Marrickville
-  expect(at('Camperdown').x).toBeGreaterThan(at('Ashfield').x) // and Camperdown east of Ashfield
+  expect(government.areas).toHaveLength(17)
+  expect(m.faces.filter((f) => f.last)).toHaveLength(17)
+  expect(at('Mussafah').y).toBeGreaterThan(at('Al Bateen').y) // Mussafah is in row 2, Al Bateen in row 0
+  expect(at('Saadiyat').x).toBeGreaterThan(at('Al Bateen').x) // Saadiyat is in column 4, Al Bateen in column 0
+  // No two areas share a cell.
+  expect(new Set(government.areas.map((a) => `${a.col},${a.row}`)).size).toBe(17)
+})
+
+test('buildDistrict: a good measure runs the colour the other way', () => {
+  const values = government.areas.map((a) => a.reached)
+  const bad = buildDistrict(government.areas, values, '%')
+  const good = buildDistrict(government.areas, values, '%', undefined, true)
+  const hi = values.indexOf(Math.max(...values))
+  expect(good.pins[hi].c).not.toBe(bad.pins[hi].c)
+  expect(good.pins[hi].z).toBe(bad.pins[hi].z)
 })
 
 test('streetHomeScene: the real streets, her house and David\'s marked, pins at their lat/lng, his walk ending at her door', () => {

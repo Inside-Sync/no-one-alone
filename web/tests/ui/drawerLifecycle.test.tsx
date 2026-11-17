@@ -5,7 +5,7 @@ import { vi } from 'vitest'
 import { DrawerReset } from '@/components/shell/DrawerReset'
 import { DRAWER_SLIDE_MS, DrawerProvider, useDrawer } from '@/components/ui/Drawer'
 import { ToastProvider } from '@/components/ui/Toast'
-import { HomePage } from '@/features/individual/home/HomePage'
+import { HealthPage } from '@/features/individual/health/HealthPage'
 import { KpiDrawerBody } from '@/features/individual/home/drawers'
 import type { Kpi } from '@/data/types'
 import { resetMockSource } from '@/data/sources/mock'
@@ -34,7 +34,7 @@ const app = new Proxy({} as AppStateValue, { get: (_, k) => captured.app![k as k
 function renderApp(ui: React.ReactElement, viewer = 'james') {
   sessionStorage.setItem('noa-app-state', JSON.stringify({ who: 'family', viewer }))
   return render(
-    <MemoryRouter initialEntries={['/individual/home']}>
+    <MemoryRouter initialEntries={['/individual/health']}>
       <AppStateProvider>
         <ToastProvider>
           <DrawerProvider>
@@ -50,21 +50,21 @@ function renderApp(ui: React.ReactElement, viewer = 'james') {
 
 const drBody = () => document.getElementById('drBody')!.textContent ?? ''
 const isOpen = () => document.getElementById('drawer')!.classList.contains('on')
-const ready = () => screen.findByText('What Noa did today')
+const ready = () => screen.findByText("Today's goals")
 
 test('closed BP drawer: pausing sharing drops its value from the DOM at once', async () => {
-  renderApp(<HomePage />)
+  renderApp(<HealthPage />)
   await ready()
   await waitFor(() => expect(app.share).not.toBeNull())
-  fireEvent.click(screen.getByText('Blood pressure'))
+  fireEvent.click(screen.getByText('At rest'))
   expect(isOpen()).toBe(true)
-  expect(drBody()).toContain('146/88')
+  expect(drBody()).toContain('68 bpm')
   fireEvent.click(screen.getByRole('button', { name: 'Close', hidden: true }))
   expect(isOpen()).toBe(false)
   act(() => { app.togglePause() })
   // Well before the slide-out timer: the reset, not the timer, cleared it.
-  expect(drBody()).not.toContain('146/88')
-  expect(document.body.innerHTML).not.toMatch(/146\/88/)
+  expect(drBody()).not.toContain('68 bpm')
+  expect(document.body.innerHTML).not.toMatch(/68 bpm/)
 })
 
 test('a closed drawer drops its body once the slide-out has finished', () => {
@@ -72,13 +72,13 @@ test('a closed drawer drops its body once the slide-out has finished', () => {
   try {
     function Opener() {
       const d = useDrawer()
-      return <><button onClick={() => d.open('BP', <p>146/88</p>)}>open</button><button onClick={d.close}>shut</button></>
+      return <><button onClick={() => d.open('BP', <p>68 bpm</p>)}>open</button><button onClick={d.close}>shut</button></>
     }
     render(<DrawerProvider><Opener /></DrawerProvider>)
     fireEvent.click(screen.getByText('open'))
     fireEvent.click(screen.getByText('shut'))
     // Still there while it slides out.
-    expect(drBody()).toContain('146/88')
+    expect(drBody()).toContain('68 bpm')
     act(() => { vi.advanceTimersByTime(DRAWER_SLIDE_MS) })
     expect(drBody()).toBe('')
     expect(document.getElementById('drawer')!.querySelector('h3')!.textContent).toBe('')
@@ -93,7 +93,7 @@ test('under reduced motion the body is dropped as soon as the drawer closes', ()
   try {
     function Opener() {
       const d = useDrawer()
-      return <><button onClick={() => d.open('BP', <p>146/88</p>)}>open</button><button onClick={d.close}>shut</button></>
+      return <><button onClick={() => d.open('BP', <p>68 bpm</p>)}>open</button><button onClick={d.close}>shut</button></>
     }
     render(<DrawerProvider><Opener /></DrawerProvider>)
     fireEvent.click(screen.getByText('open'))
@@ -105,24 +105,24 @@ test('under reduced motion the body is dropped as soon as the drawer closes', ()
 })
 
 test('an open drawer closes and empties when heart is revoked for the viewer', async () => {
-  renderApp(<HomePage />)
+  renderApp(<HealthPage />)
   await ready()
   await waitFor(() => expect(app.share).not.toBeNull())
-  fireEvent.click(screen.getByText('Blood pressure'))
+  fireEvent.click(screen.getByText('At rest'))
   expect(isOpen()).toBe(true)
-  expect(drBody()).toContain('146/88')
+  expect(drBody()).toContain('68 bpm')
   act(() => { app.toggleShare('james', 'heart') })
   expect(isOpen()).toBe(false)
   expect(drBody()).toBe('')
-  expect(document.body.innerHTML).not.toMatch(/146\/88/)
+  expect(document.body.innerHTML).not.toMatch(/68 bpm/)
 })
 
 test('switching viewer (Preview as) closes and empties an open drawer', async () => {
-  renderApp(<HomePage />)
+  renderApp(<HealthPage />)
   await ready()
   await waitFor(() => expect(app.share).not.toBeNull())
-  fireEvent.click(screen.getByText('Blood pressure'))
-  expect(drBody()).toContain('146/88')
+  fireEvent.click(screen.getByText('At rest'))
+  expect(drBody()).toContain('68 bpm')
   act(() => { app.setViewer('sarah') })
   expect(isOpen()).toBe(false)
   expect(drBody()).toBe('')
@@ -134,8 +134,8 @@ test('a route change (including browser Back) closes and empties the drawer', ()
     const nav = useNavigate()
     return (
       <>
-        <button onClick={() => d.open('BP', <p>146/88</p>)}>open</button>
-        <button onClick={() => nav('/individual/health')}>go</button>
+        <button onClick={() => d.open('BP', <p>68 bpm</p>)}>open</button>
+        <button onClick={() => nav('/individual/around')}>go</button>
         <button onClick={() => nav(-1)}>back</button>
       </>
     )
@@ -162,7 +162,7 @@ test('each opening starts fresh: "Ask her about it" is not already "Added" in th
     const d = useDrawer()
     return (
       <>
-        <button onClick={() => d.open('A', <KpiDrawerBody kpi={kpi('Blood pressure', '146/88')} />)}>openA</button>
+        <button onClick={() => d.open('A', <KpiDrawerBody kpi={kpi('Blood pressure', '68 bpm')} />)}>openA</button>
         <button onClick={() => d.open('B', <KpiDrawerBody kpi={kpi('Sleep', '6.2')} />)}>openB</button>
         <button onClick={() => d.close()}>shut</button>
       </>

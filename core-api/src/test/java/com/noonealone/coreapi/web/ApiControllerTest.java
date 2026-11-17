@@ -47,7 +47,7 @@ class ApiControllerTest {
 
     @Test
     void triggerReturns202WithIncidentId() throws Exception {
-        when(demo.trigger(Scenario.STROKE, "ba-mai", 30, 15, null, null)).thenReturn("alert-1-stroke");
+        when(demo.trigger(Scenario.STROKE, "margaret", 30, 15, null, null)).thenReturn("alert-1-stroke");
 
         mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isAccepted())
@@ -64,8 +64,8 @@ class ApiControllerTest {
     }
 
     @Test
-    void timersWithoutPersonIdDefaultToBaMai() throws Exception {
-        when(demo.trigger(Scenario.STROKE, "ba-mai", 10, 5, null, null)).thenReturn("alert-3-stroke");
+    void timersWithoutPersonIdDefaultToMargaret() throws Exception {
+        when(demo.trigger(Scenario.STROKE, "margaret", 10, 5, null, null)).thenReturn("alert-3-stroke");
 
         mvc.perform(post("/api/demo/stroke").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"timerSeconds\":10,\"noReplySeconds\":5}"))
@@ -74,8 +74,8 @@ class ApiControllerTest {
     }
 
     @Test
-    void triggerWithNoBodyDefaultsToBaMai() throws Exception {
-        when(demo.trigger(Scenario.STROKE, "ba-mai", 30, 15, null, null)).thenReturn("alert-4-stroke");
+    void triggerWithNoBodyDefaultsToMargaret() throws Exception {
+        when(demo.trigger(Scenario.STROKE, "margaret", 30, 15, null, null)).thenReturn("alert-4-stroke");
 
         mvc.perform(post("/api/demo/stroke"))
                 .andExpect(status().isAccepted())
@@ -132,10 +132,10 @@ class ApiControllerTest {
 
     @Test
     void actionReturnsVersion() throws Exception {
-        when(actions.apply("i-1", "ong-hung", "ACCEPT")).thenReturn(10L);
+        when(actions.apply("i-1", "david", "ACCEPT")).thenReturn(10L);
 
         mvc.perform(post("/api/incidents/i-1/actions").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"memberId\":\"ong-hung\",\"action\":\"ACCEPT\"}"))
+                .content("{\"memberId\":\"david\",\"action\":\"ACCEPT\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.version").value(10));
     }
@@ -143,7 +143,7 @@ class ApiControllerTest {
     @Test
     void pubSubEnvelopeIsDecoded() throws Exception {
         String data = Base64.getEncoder().encodeToString(
-                "{\"alertId\":\"a-1\",\"personId\":\"ba-mai\",\"scenario\":\"STROKE\",\"kind\":\"HR_HIGH_NO_MOVEMENT\",\"hr\":142,\"movementMin\":4,\"demo\":{\"timerSeconds\":30,\"noReplySeconds\":15,\"clockOffsetMs\":-1}}"
+                "{\"alertId\":\"a-1\",\"personId\":\"margaret\",\"scenario\":\"STROKE\",\"kind\":\"HR_HIGH_NO_MOVEMENT\",\"hr\":142,\"movementMin\":4,\"demo\":{\"timerSeconds\":30,\"noReplySeconds\":15,\"clockOffsetMs\":-1}}"
                         .getBytes());
 
         mvc.perform(post("/alerts").contentType(MediaType.APPLICATION_JSON)
@@ -156,16 +156,16 @@ class ApiControllerTest {
     @Test
     void timeoutRouteCallsActions() throws Exception {
         mvc.perform(post("/tasks/escalation-timeout").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"incidentId\":\"i-1\",\"memberId\":\"ong-hung\",\"attempt\":1}"))
+                .content("{\"incidentId\":\"i-1\",\"memberId\":\"david\",\"attempt\":1}"))
                 .andExpect(status().isOk());
 
-        verify(actions).timeout("i-1", "ong-hung", 1);
+        verify(actions).timeout("i-1", "david", 1);
     }
 
     @Test
     void alertWithoutRequiredFieldIsRejected() throws Exception {
         String data = Base64.getEncoder().encodeToString(
-                "{\"alertId\":\"a-1\",\"personId\":\"ba-mai\",\"scenario\":\"STROKE\"}".getBytes());
+                "{\"alertId\":\"a-1\",\"personId\":\"margaret\",\"scenario\":\"STROKE\"}".getBytes());
 
         mvc.perform(post("/alerts").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"message\":{\"data\":\"" + data + "\"}}"))

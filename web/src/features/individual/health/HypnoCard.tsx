@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { SourceLine } from '@/features/shared/SourceLine'
 import { Locked } from '@/components/ui/Locked'
 import type { HealthData } from '@/data/types'
 import { Head } from '../home/parts'
@@ -17,6 +18,7 @@ export function HypnoCard({ hypnogram }: { hypnogram: HealthData['hypnogram'] })
         <Head icon="bed" title={t('hypno.title')} meta={hypnogram.title} />
         <div id="hypno"><Hypnogram hypnogram={hypnogram} ariaLabel={t('hypno.ariaLabel')} /></div>
         <Legend items={hypnogram.legend.map((label, i) => ({ label, color: STAGE_COLOURS[i] }))} />
+        <SourceLine source={t('src.hypno.source')} time={t('src.hypno.time')} />
       </GlassCard>
     </Locked>
   )

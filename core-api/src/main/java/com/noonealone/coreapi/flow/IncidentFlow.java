@@ -23,6 +23,7 @@ import com.noonealone.coreapi.gcp.AudioStore;
 import com.noonealone.coreapi.model.Alert;
 import com.noonealone.coreapi.model.Incident;
 import com.noonealone.coreapi.model.Level;
+import com.noonealone.coreapi.model.Params;
 import com.noonealone.coreapi.model.Pending;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.PersonInstruction;
@@ -75,7 +76,8 @@ public class IncidentFlow {
         inc.alert.hr = msg.hr();
         inc.alert.movementMin = msg.movementMin();
         inc.demo = msg.demo();
-        inc.log(now, "SYSTEM", "ALERT", "HR " + msg.hr() + ", no movement " + msg.movementMin() + " min");
+        inc.log(now, "SYSTEM", "ALERT", "HR " + msg.hr() + ", no movement " + msg.movementMin() + " min", null,
+                Params.of("hr", msg.hr(), "movementMin", msg.movementMin()));
         return store.createIfAbsent(inc);
     }
 
@@ -100,18 +102,20 @@ public class IncidentFlow {
             x.verify.isReal = result.isReal();
             x.verify.reason = result.reason();
             x.verify.fallback = result.fallback();
-            // Margaret's 000 audio says 01:30, so every screen and agent reads that time.
+            // Moza's 998 audio says 01:22, so every screen and agent reads that time.
             x.lastKnownWellAt = Handoff.SCRIPT_PERSON.equals(x.personId) && result.lastKnownWellAt() != null
                     ? Handoff.scriptLastWell(result.lastKnownWellAt(), person) : result.lastKnownWellAt();
             if (down) {
-                x.log(now, "AGENT", "AGENT_FALLBACK", "Verify used fallback");
+                x.log(now, "AGENT", "AGENT_FALLBACK", "Verify used fallback", null, Params.of("step", "VERIFY"));
             }
             if (result.isReal()) {
                 x.status = Status.CHECKING_IN;
-                x.log(now, "AGENT", "VERIFIED", result.reason());
+                x.log(now, "AGENT", "VERIFIED", result.reason(), null,
+                        Params.of("hr", x.alert.hr, "movementMin", x.alert.movementMin));
             } else {
                 x.status = Status.CLOSED;
-                x.log(now, "AGENT", "FALSE_ALARM", result.reason());
+                x.log(now, "AGENT", "FALSE_ALARM", result.reason(), null,
+                        Params.of("hr", x.alert.hr, "movementMin", x.alert.movementMin));
             }
             return true;
         });
@@ -129,6 +133,7 @@ public class IncidentFlow {
         } catch (AgentException e) {
             r = null;
         }
+        // Yes and No in her own language; the timeline line carries the answer as a code too.
         int index = inc.checkIn.turns.size();
         boolean personTurn = input != null && input.hasPersonTurn();
         String personAudio = personTurn && input.audio() != null
@@ -157,17 +162,18 @@ public class IncidentFlow {
                 t.at = now;
                 t.audioPath = personAudio;
                 if (input.yesNo() != null) {
-                    boolean en = person.locale != null && person.locale.startsWith("en");
-                    t.text = "YES".equals(input.yesNo()) ? (en ? "Yes" : "Có") : (en ? "No" : "Không");
+                    boolean ar = "ar".equals(person.language());
+                    t.text = "YES".equals(input.yesNo()) ? (ar ? "نعم" : "Yes") : (ar ? "لا" : "No");
                 } else if (result != null) {
                     t.text = result.transcript();
                     t.assessment = result.assessment();
                 }
                 x.checkIn.turns.add(t);
-                x.log(now, "PERSON", "ANSWERED", t.text == null ? "No speech" : t.text);
+                Map<String, Object> answered = Params.of("answer", input.yesNo(), "noSpeech", t.text == null ? true : null);
+                x.log(now, "PERSON", "ANSWERED", t.text == null ? "No speech" : t.text, null, answered);
             }
             if (result == null) {
-                x.log(now, "AGENT", "AGENT_FALLBACK", "Check-in used fallback");
+                x.log(now, "AGENT", "AGENT_FALLBACK", "Check-in used fallback", null, Params.of("step", "CHECKIN"));
             }
             if (finish) {
                 x.checkIn.pending = null;
@@ -178,15 +184,18 @@ public class IncidentFlow {
                 t.at = now;
                 t.text = result.next().text();
                 t.audioPath = savedAgentAudio;
+                t.kind = result.next().step();
                 x.checkIn.turns.add(t);
                 x.checkIn.pending = new Pending();
                 x.checkIn.pending.text = t.text;
                 x.checkIn.pending.kind = result.next().kind();
+                x.checkIn.pending.step = result.next().step();
                 x.checkIn.pending.audioPath = savedAgentAudio;
                 if ("YES_NO".equals(result.next().kind())) {
                     x.checkIn.mode = "LARGE_TEXT";
                 }
-                x.log(now, "AGENT", "ASKED", t.text);
+                x.log(now, "AGENT", "ASKED", t.text, null,
+                        Params.of("step", result.next().step()));
             }
             x.checkIn.busy = false;
             return true;
@@ -213,7 +222,7 @@ public class IncidentFlow {
             x.checkIn.pending = null;
             if (input.noReply()) {
                 x.checkIn.noReplyCount++;
-                x.log(now, "PERSON", "NO_REPLY", "No reply");
+                x.log(now, "PERSON", "NO_REPLY", "No reply", null, Params.of("count", x.checkIn.noReplyCount));
             }
             return true;
         });
@@ -274,9 +283,10 @@ public class IncidentFlow {
             x.triage.reasons = result.reasons();
             x.triage.fallback = result.fallback();
             if (result.fallback()) {
-                x.log(now, "AGENT", "AGENT_FALLBACK", "Triage used fallback");
+                x.log(now, "AGENT", "AGENT_FALLBACK", "Triage used fallback", null, Params.of("step", "TRIAGE"));
             }
-            x.log(now, "AGENT", "TRIAGED", "Level " + result.level() + ": " + String.join(", ", result.reasons()));
+            x.log(now, "AGENT", "TRIAGED", "Level " + result.level() + ": " + String.join(", ", result.reasons()), null,
+                    Params.of("level", result.level().name(), "reasons", result.reasons()));
             if (closing != null && closing.text() != null) {
                 x.personInstruction = new PersonInstruction();
                 x.personInstruction.scriptIds = List.of();
@@ -285,7 +295,7 @@ public class IncidentFlow {
             }
             if (calm) {
                 x.status = Status.CLOSED;
-                x.log(now, "SYSTEM", "CLOSED", "Closed after check-in");
+                x.log(now, "SYSTEM", "CLOSED", "Closed after check-in", null, Params.of("by", "CHECKIN"));
             }
             return true;
         });

@@ -1,6 +1,5 @@
 import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
-import { GlassCard } from '@/components/ui/GlassCard'
 import { Icon } from '@/components/ui/Icon'
 import { Pill } from '@/components/ui/Pill'
 import type { IncomingRow, InboxMessage } from '@/data/types'
@@ -10,7 +9,7 @@ import { TableScroll } from '@/components/ui/TableScroll'
 const plain = { fontWeight: 500 } as const
 
 export interface InboxItem extends InboxMessage {
-  /** True for Margaret's packet, which arrives during the demo. */
+  /** True for Moza's packet, which arrives during the demo. */
   fresh: boolean
 }
 
@@ -27,7 +26,7 @@ export function InboxCard({ items, incoming, showNew, onSelect }: Props) {
   const { t } = useTranslation('hospital')
   const head = t('ed.incoming.head', { returnObjects: true })
   return (
-    <GlassCard span={7}>
+    <article className="glass card c7" data-tour="ed">
       <div className="ch">
         <span className="li"><span className="ic"><Icon name="siren" /></span></span>
         <h2>{t('ed.inbox.title')}</h2>
@@ -53,7 +52,7 @@ export function InboxCard({ items, incoming, showNew, onSelect }: Props) {
           <tbody id="incoming">
             {incoming.map((r) => {
               const mark = r.packet ? '✓' : '—'
-              const markStyle = { color: r.packet ? 'var(--good-text)' : 'var(--muted-text)' }
+              const markStyle = { color: r.packet ? 'var(--good)' : 'var(--muted-text)' }
               return (
                 <HospitalRow
                   key={r.eta + r.patient}
@@ -79,6 +78,6 @@ export function InboxCard({ items, incoming, showNew, onSelect }: Props) {
           </tbody>
         </table>
       </TableScroll>
-    </GlassCard>
+    </article>
   )
 }

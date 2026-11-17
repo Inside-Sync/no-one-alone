@@ -26,7 +26,7 @@ def test_day_21_cutoff_keeps_48_days_and_nothing_after_the_forecast_date(pid):
     assert all(date.fromisoformat(r["date"]) <= vitals.AS_OF for r in hist)
 
 
-@pytest.mark.parametrize("pid,low,high", [("margaret", 142, 147), ("ba-mai", 142, 148)])
+@pytest.mark.parametrize("pid,low,high", [("margaret", 142, 147)])
 def test_blood_pressure_rises_to_day_21_and_three_doses_are_missed_that_week(pid, low, high):
     rows = vitals.generate(pid)
     week = vitals.window(rows, 15, 21)
@@ -47,7 +47,7 @@ def rows():
 
 def test_dry_run_makes_no_client_calls():
     out = bq.load_scoped(None, rows())
-    assert out["dryRun"] and out["rows"] == 180 and out["people"] == ["ba-mai", "margaret"]
+    assert out["dryRun"] and out["rows"] == 90 and out["people"] == ["margaret"]
 
 
 def test_write_runs_create_stage_check_merge_drop_readback_in_order():
@@ -55,8 +55,8 @@ def test_write_runs_create_stage_check_merge_drop_readback_in_order():
     out = bq.load_scoped(fake, rows(), write=True)
     kinds = [s.split()[0] + (" conflicts" if "conflicts" in s else "") for s in fake.sql]
     assert kinds == ["CREATE", "SELECT conflicts", "MERGE", "DROP", "SELECT"]
-    assert fake.loads == [(bq.STAGING, 180, "WRITE_TRUNCATE")], "only the staging table is truncated"
-    assert out["inserted"] == 180 and [r["n"] for r in out["readback"]] == [90, 90]
+    assert fake.loads == [(bq.STAGING, 90, "WRITE_TRUNCATE")], "only the staging table is truncated"
+    assert out["inserted"] == 90 and [r["n"] for r in out["readback"]] == [90]
 
 
 def test_no_statement_can_delete_or_overwrite_rows_in_vitals_daily():

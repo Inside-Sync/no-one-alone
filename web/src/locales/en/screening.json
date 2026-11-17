@@ -1,0 +1,103 @@
+{
+  "loop": {
+    "cases": {
+      "title": "Needs a person now",
+      "meta": "Sorted by deadline · Noa handles routine steps",
+      "head": [
+        "Patient",
+        "Result",
+        "Step",
+        "Why it is here",
+        "Due"
+      ],
+      "actionHead": "Action",
+      "fine": "Cases appear here only when Noa cannot move them on: no answer, a declined referral, a missing owner or a result a clinician must give first.",
+      "done": "Done",
+      "dueDone": "done"
+    },
+    "due": {
+      "in": "in {{t}}",
+      "late": "{{t}} late",
+      "dh": "{{d}}d {{h}}h",
+      "hm": "{{h}}h {{m}}m",
+      "ms": "{{m}}m {{s}}s"
+    },
+    "caseMeta": "{{age}} · {{code}}",
+    "feed": {
+      "title": "From patients and labs",
+      "meta": "Simulated feed",
+      "you": "YOU",
+      "yourAction": "{{action}} · {{name}}"
+    },
+    "steps": {
+      "title": "Where every case is",
+      "meta": "Cases · longest wait vs deadline",
+      "open": "Open results to review"
+    },
+    "slots": {
+      "title": "Clinic slots this week",
+      "meta": "Booked of available",
+      "count": "{{booked}} / {{total}}",
+      "approve": "Approve",
+      "approved": "✓ Approved",
+      "toast": "Approved · Noa updates the booking options"
+    },
+    "foot": "Owners and deadlines are set by programme rules. Noa informs, explains and books; it never diagnoses, refers or closes a case. Fictional patients."
+  },
+  "review": {
+    "list": {
+      "title": "Waiting for doctor review",
+      "meta": "{{n}} results",
+      "fine": "Deadline to confirm: 7 days from the result. Overdue cases move to the coordinator."
+    },
+    "nameAge": "{{name}}, {{age}}",
+    "confirmed": "Confirmed",
+    "summary": {
+      "title": "Summary Noa prepared",
+      "titleOther": "Summary",
+      "metaFull": "{{name}}, {{age}}",
+      "suggests": "Noa suggests · the doctor decides",
+      "confirm": "Confirm and send plan",
+      "draft": "Save draft",
+      "draftToast": "Saved as a draft. Nothing sent.",
+      "sentToast": "Plan sent. Referrals are with the clinics and Khalid has been told in Arabic."
+    },
+    "why": {
+      "title": "Why this is faster",
+      "items": [
+        "He already understands the result before the visit.",
+        "His question and record are on one page.",
+        "Tests and referrals are pre-filled from the pathway.",
+        "One click sends referrals and tells him in Arabic.",
+        "Nothing is sent until the doctor decides."
+      ]
+    },
+    "back": "Back to Overview"
+  },
+  "referrals": {
+    "list": {
+      "title": "Referral inbox",
+      "meta": "From physicians, over A2A",
+      "fine": "A referral not accepted within 2 working days goes back to the coordinator with the reason.",
+      "line": "{{to}} · from {{from}}",
+      "accepted": "Accepted",
+      "declined": "Declined"
+    },
+    "detail": {
+      "meta": "FHIR ServiceRequest · demo",
+      "to": "To",
+      "from": "From",
+      "why": "Why",
+      "understood": "Understood",
+      "preferences": "Preferences",
+      "consent": "Consent",
+      "suggests": "Noa suggests",
+      "accept": "Accept and book",
+      "decline": "Decline with a reason",
+      "acceptedNote": "Accepted. You own the next step. Noa tells the patient and books the slot.",
+      "declinedNote": "Declined with a reason. Back to the coordinator today.",
+      "acceptedToast": "Accepted · booking deadline started",
+      "declinedToast": "Declined · the coordinator has it today"
+    }
+  }
+}

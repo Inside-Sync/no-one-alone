@@ -1,76 +1,4 @@
 {
-  "today": {
-    "title": "Margaret today",
-    "soFar": "Today so far",
-    "soFarMeta": "What Margaret shares with you",
-    "askAgent": "Ask Noa"
-  },
-  "profile": {
-    "title": "About Margaret",
-    "share": {
-      "label": "Share profile",
-      "done": "Shared"
-    },
-    "conditionsTitle": "Health conditions",
-    "conditionsMeta": "Tap one for detail",
-    "born": "Born {{born}} · prefers \"{{nickname}}\""
-  },
-  "wellbeing": {
-    "title": "Overall wellbeing",
-    "meta": "Compared with her usual month",
-    "ariaLabel": "Overall wellbeing 72 out of 100: body 61, medicines 68, moving 74, sleep 70, social 82, memory 88, home 58",
-    "legend": [
-      "Now",
-      "Last month"
-    ]
-  },
-  "rhythm": {
-    "title": "Daily rhythm",
-    "meta": "When she is up and about, each hour of the week",
-    "legend": [
-      "Less",
-      "More",
-      "Unusual for her"
-    ]
-  },
-  "plan": {
-    "title": "This week's plan",
-    "approve": {
-      "label": "Approve",
-      "toast": "Approved · David has been asked",
-      "done": "Approved"
-    }
-  },
-  "circle": {
-    "title": "Her care circle",
-    "meta": "Drag to turn · tap a person",
-    "ariaLabel": "Care circle around Margaret: David and the community nurse nearby, Sarah and James far away, the stroke centre on the care ring"
-  },
-  "chat": {
-    "title": "Today's chat with her"
-  },
-  "home": {
-    "title": "Her home today"
-  },
-  "near": {
-    "title": "People and places near her",
-    "meta": "Within 1 km"
-  },
-  "helper": {
-    "title": "What Noa did today",
-    "meta": "Every step is recorded so the family can check it",
-    "columns": [
-      "Time",
-      "What it did",
-      "How",
-      "Why",
-      "Result"
-    ],
-    "approve": {
-      "label": "Approve",
-      "toast": "Approved · David has been asked"
-    }
-  },
   "mapControls": {
     "left": "Rotate left",
     "right": "Rotate right",
@@ -101,9 +29,10 @@
       ],
       [
         "Share with family",
-        "Shared with David and Sarah",
+        "Shared with Hamad and Alia",
         "Shared"
       ]
     ]
-  }
+  },
+  "mapAttribution": "© OpenStreetMap contributors"
 }

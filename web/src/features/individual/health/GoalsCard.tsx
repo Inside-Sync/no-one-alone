@@ -2,6 +2,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { SourceLine } from '@/features/shared/SourceLine'
 import type { GoalGauge, HealthData } from '@/data/types'
 import { Head, MiniGrid } from '../home/parts'
 
@@ -29,10 +30,11 @@ function Gauge({ g }: { g: GoalGauge }) {
 export function GoalsCard({ health }: { health: HealthData }) {
   const { t } = useTranslation('health')
   return (
-    <GlassCard span={4}>
+    <GlassCard span={4} tour="health">
       <Head icon="target" title={t('goals.title')} meta={t('goals.meta')} />
       <div className="gauges">{health.goals.map((g) => <Gauge key={g.label} g={g} />)}</div>
       <MiniGrid stats={health.goalTotals} />
+      <SourceLine source={t('src.goals.source')} time={t('src.goals.time')} />
     </GlassCard>
   )
 }

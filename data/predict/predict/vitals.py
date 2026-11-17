@@ -27,12 +27,10 @@ class Profile:
         return len(self.tracked_meds)
 
 
-# Margaret: one evening amlodipine; Bà Mai: amlodipine and aspirin daily (FHIR). 3 missed doses in days 15-21.
+# Moza: one evening amlodipine (FHIR). 3 missed doses in days 15-21.
 PROFILES = {
     "margaret": Profile(129.0, -14, 0.47, 0.32, 63, 3600, ("amlodipine",),
                         {2: 1, 9: 1, 12: 1, 16: 1, 18: 1, 20: 1, 25: 1, 29: 1, 33: 1, 38: 1, 44: 1, 51: 1, 58: 1}),
-    "ba-mai": Profile(131.0, -14, 0.44, 0.30, 64, 2900, ("amlodipine", "aspirin"),
-                      {4: 1, 10: 1, 13: 1, 15: 1, 17: 1, 21: 1, 26: 1, 31: 1, 37: 1, 43: 1, 50: 1, 57: 1}),
 }
 
 

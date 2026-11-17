@@ -20,6 +20,7 @@ import com.noonealone.coreapi.gcp.AudioStore;
 import com.noonealone.coreapi.gcp.EscalationTimers;
 import com.noonealone.coreapi.model.Docs;
 import com.noonealone.coreapi.model.Incident;
+import com.noonealone.coreapi.model.Params;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.RecoveryInfo;
 import com.noonealone.coreapi.model.RecoveryInfo.Activity;
@@ -43,6 +44,7 @@ public class Recovery {
     }
 
     private static final Pattern TIME = Pattern.compile("^([01]\\d|2[0-3]):[0-5]\\d$");
+    private static final Pattern KEY = Pattern.compile("^[a-z0-9_]{1,40}$");
     private static final int MAX_TEXT = 300;
 
     private final IncidentStore store;
@@ -57,8 +59,9 @@ public class Recovery {
         this.tasks = tasks;
     }
 
-    public long discharge(String incidentId, Plan plan) {
-        validate(plan);
+    public long discharge(String incidentId, Plan given) {
+        validate(given);
+        Plan plan = withKeys(given);
         Incident inc = store.get(incidentId);
         requireOpen(inc);
         Person person = store.person(inc.personId);
@@ -69,17 +72,17 @@ public class Recovery {
                     "person", Map.of("displayName", person.displayName, "locale", person.locale, "timezone", person.timezone),
                     "plan", Docs.toMap(plan)));
         } catch (AgentException e) {
-            result = new RecoveryResult(plan.notes(), null, fallbackReminders(plan, isEnglish(person)), true);
+            result = new RecoveryResult(plan.notes(), null, fallbackReminders(plan, person.language()), true);
         }
         if (malformed(result)) {
-            result = new RecoveryResult(plan.notes(), null, fallbackReminders(plan, isEnglish(person)), true);
+            result = new RecoveryResult(plan.notes(), null, fallbackReminders(plan, person.language()), true);
         }
         List<RecoveryResult.Reminder> sorted = result.reminders().stream()
                 .sorted(Comparator.comparing(RecoveryResult.Reminder::time)).toList();
         List<Reminder> reminders = new ArrayList<>();
         for (int i = 0; i < sorted.size(); i++) {
             RecoveryResult.Reminder r = sorted.get(i);
-            reminders.add(new Reminder(r.time(), r.kind(), r.text(), saveAudio(incidentId, "recovery-" + i + ".mp3", r.audioBase64())));
+            reminders.add(new Reminder(r.time(), r.kind(), r.text(), saveAudio(incidentId, "recovery-" + i + ".mp3", r.audioBase64()), r.key()));
         }
         String summaryAudio = saveAudio(incidentId, "recovery-summary.mp3", result.summaryAudioBase64());
 
@@ -102,7 +105,8 @@ public class Recovery {
             info.fallback = r.fallback();
             x.recovery = info;
             x.status = Status.CLOSED;
-            x.log(now, "HOSPITAL", "DISCHARGED", "Discharged home with a recovery plan by " + plan.staffName());
+            x.log(now, "HOSPITAL", "DISCHARGED", "Discharged home with a recovery plan by " + plan.staffName(), null,
+                    Params.of("staffName", plan.staffName()));
             return true;
         });
         tasks.deleteQuietly(m.incident().escalationTaskName);
@@ -133,19 +137,26 @@ public class Recovery {
         }
     }
 
-    private static boolean isEnglish(Person p) {
-        return p.locale != null && p.locale.toLowerCase().startsWith("en");
+    // The keys the plan form's items carry: one the caller sent is kept, else it comes from the known list, else none.
+    private static Plan withKeys(Plan p) {
+        List<Med> meds = p.meds().stream().map(m -> new Med(m.name(), m.dose(), m.times(), m.change(), m.note(),
+                blank(m.key()) ? RecoveryKeys.med(m.name()) : m.key())).toList();
+        List<Activity> activities = p.activities().stream().map(a -> new Activity(a.text(), a.times(), a.reminder(),
+                blank(a.key()) ? RecoveryKeys.activity(a.text()) : a.key())).toList();
+        return new Plan(p.staffName(), p.diagnosis(), meds, activities, p.followUps(), p.notes());
     }
 
-    private static List<RecoveryResult.Reminder> fallbackReminders(Plan plan, boolean en) {
+    // Same lines as respond-agent's scripts.json, used only when respond-agent is down.
+    private static List<RecoveryResult.Reminder> fallbackReminders(Plan plan, String language) {
+        boolean en = !"ar".equals(language);
         Stream<RecoveryResult.Reminder> meds = plan.meds().stream().flatMap(m -> m.times().stream()
                 .map(t -> new RecoveryResult.Reminder(t, "MED", en
                         ? "Time for your " + m.name() + ", " + m.dose() + "."
-                        : "Mạ ơi, tới giờ uống " + m.name() + " " + m.dose() + " rồi.", null)));
+                        : "حان وقت دوائكِ " + m.name() + " " + m.dose() + ".", null, m.key())));
         Stream<RecoveryResult.Reminder> activities = plan.activities().stream().flatMap(a -> a.times().stream()
                 .map(t -> new RecoveryResult.Reminder(t, "ACTIVITY", !blank(a.reminder()) ? a.reminder() : en
                         ? "Time to " + lowerFirst(a.text()) + "."
-                        : "Mạ ơi, tới giờ " + lowerFirst(a.text()) + " rồi.", null)));
+                        : "حان وقت " + lowerFirst(a.text()) + ".", null, a.key())));
         return Stream.concat(meds, activities).toList();
     }
 
@@ -169,6 +180,7 @@ public class Recovery {
                 throw ApiException.badRequest("Each medicine needs a name and a dose");
             }
             text(m.name(), m.dose(), m.note());
+            key(m.key());
             times(m.times());
         }
         for (Activity a : p.activities()) {
@@ -176,6 +188,7 @@ public class Recovery {
                 throw ApiException.badRequest("Each activity needs text");
             }
             text(a.text(), a.reminder());
+            key(a.key());
             times(a.times());
         }
         for (FollowUp f : p.followUps()) {
@@ -183,6 +196,12 @@ public class Recovery {
                 throw ApiException.badRequest("Each follow-up needs text and inDays from 1 to 365");
             }
             text(f.text());
+        }
+    }
+
+    private static void key(String key) {
+        if (key != null && !key.isEmpty() && !KEY.matcher(key).matches()) {
+            throw ApiException.badRequest("key must be lowercase letters, digits and underscores");
         }
     }
 

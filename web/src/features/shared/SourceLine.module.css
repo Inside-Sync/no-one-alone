@@ -1,0 +1,23 @@
+.src {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-block-start: 12px;
+  padding-block-start: 8px;
+  border-block-start: 1px dashed var(--line);
+  font-size: 11.5px;
+  color: var(--muted-text, var(--muted));
+}
+.src i {
+  flex: none;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: var(--good, #1f9d57);
+}
+.src time {
+  margin-inline-start: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+}

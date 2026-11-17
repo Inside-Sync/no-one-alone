@@ -7,8 +7,8 @@ import recovery
 from tests.test_routes import Voice
 
 client = TestClient(main.app)
-EN = {"displayName": "Margaret", "locale": "en-AU", "timezone": "Australia/Sydney"}
-VI = {"displayName": "Mai", "locale": "vi-VN", "timezone": "Asia/Ho_Chi_Minh"}
+EN = {"displayName": "Moza", "locale": "en-AE", "timezone": "Asia/Dubai"}
+AR = {"displayName": "Moza", "locale": "ar-AE", "timezone": "Asia/Dubai"}
 PLAN = {
     "staffName": "Dr Nguyen", "diagnosis": "Ischaemic stroke", "notes": "No driving for 4 weeks.",
     "meds": [{"name": "atorvastatin", "dose": "40 mg", "times": ["20:00"]},
@@ -35,16 +35,16 @@ def test_stopped_medicines_get_no_reminder():
 
 def test_templates_follow_locale():
     assert recovery.reminders(EN, PLAN)[1]["text"] == "Time to walk for 15 minutes."
-    vi = recovery.reminders(VI, PLAN)
-    assert vi[0]["text"] == "Mạ ơi, tới giờ uống aspirin 100 mg rồi."
-    assert vi[1]["text"] == "Mạ ơi, tới giờ walk for 15 minutes rồi."
+    ar = recovery.reminders(AR, PLAN)
+    assert ar[0]["text"] == "حان وقت دوائكِ aspirin 100 mg."
+    assert ar[1]["text"] == "حان وقت walk for 15 minutes."
 
 
 def test_activity_reminder_wording_is_used_as_is():
     plan = {**PLAN, "activities": [{"text": "Walk 20 minutes daily", "times": ["10:00"],
                                     "reminder": "Time for your 20-minute walk."}]}
     assert recovery.reminders(EN, plan)[1]["text"] == "Time for your 20-minute walk."
-    assert recovery.reminders(VI, plan)[1]["text"] == "Time for your 20-minute walk."
+    assert recovery.reminders(AR, plan)[1]["text"] == "Time for your 20-minute walk."
 
 
 def test_summary_rejects_unlisted_medicine():
@@ -64,7 +64,14 @@ def test_writer_none_gives_notes_and_fallback():
 def test_summary_prompt_has_only_plan_facts():
     seen = []
     recovery.summary(EN, PLAN, lambda p: seen.append(p) or "ok")
-    assert "Margaret" in seen[0] and "Ischaemic stroke" in seen[0] and "No driving" in seen[0]
+    assert "Moza" in seen[0] and "Ischaemic stroke" in seen[0] and "No driving" in seen[0]
+
+
+def test_arabic_summary_prompt_asks_for_arabic_and_english_one_does_not():
+    seen = []
+    recovery.summary(AR, PLAN, lambda p: seen.append(p) or "ok")
+    recovery.summary(EN, PLAN, lambda p: seen.append(p) or "ok")
+    assert "Modern Standard Arabic" in seen[0] and "Modern Standard Arabic" not in seen[1]
 
 
 class Writer:
@@ -99,3 +106,13 @@ def test_route_survives_voice_none(monkeypatch):
 
 def test_route_crash_is_503(monkeypatch):
     assert client.post("/recovery", json={}).status_code == 503
+
+
+def test_reminders_carry_the_plan_items_key_and_items_without_one_get_none():
+    plan = {**PLAN, "meds": [{**PLAN["meds"][0], "key": "atorvastatin"}, PLAN["meds"][1]],
+            "activities": [{**PLAN["activities"][0], "key": "walk"}]}
+    out = recovery.reminders(EN, plan)
+    by_text = {r["text"]: r for r in out}
+    assert by_text["Time for your atorvastatin, 40 mg."]["key"] == "atorvastatin"
+    assert "key" not in by_text["Time for your aspirin, 100 mg."]
+    assert {r["key"] for r in out if r["kind"] == "ACTIVITY"} == {"walk"}

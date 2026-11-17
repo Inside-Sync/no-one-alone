@@ -58,8 +58,8 @@ class ChatTest extends FirestoreTestBase {
         inc.level = Level.EMERGENCY;
         inc.createdAt = "2026-10-15T19:00:00Z";
         inc.handoff = new HandoffInfo();
-        inc.handoff.hospitalName = "Camperdown Stroke Centre";
-        inc.log("2026-10-15T19:01:00Z", "SYSTEM", "ACCEPTED", "David accepted");
+        inc.handoff.hospitalName = "Corniche Stroke Centre";
+        inc.log("2026-10-15T19:01:00Z", "SYSTEM", "ACCEPTED", "Hamad accepted");
         store.createIfAbsent(inc);
         DemoCurrent current = new DemoCurrent();
         current.incidentId = "c-1";
@@ -69,20 +69,34 @@ class ChatTest extends FirestoreTestBase {
 
     @Test
     void chatForwardsQuestionAndSnapshotAndReturnsAnswer() throws Exception {
-        when(agent.chat(any())).thenReturn(new RespondAgentClient.ChatResult("David is on his way."));
+        when(agent.chat(any())).thenReturn(new RespondAgentClient.ChatResult("Hamad is on his way."));
 
         mvc.perform(post("/api/chat").contentType(MediaType.APPLICATION_JSON).content(BODY))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.answer").value("David is on his way."));
+                .andExpect(jsonPath("$.answer").value("Hamad is on his way."));
 
         verify(agent).chat(argThat(b -> {
             Map<?, ?> snap = (Map<?, ?>) b.get("snapshot");
             return snap != null && "Who is with her?".equals(b.get("question")) && "fam".equals(b.get("mode"))
                     && "james".equals(b.get("viewer")) && ((List<?>) b.get("history")).size() == 2
                     && "ESCALATING".equals(snap.get("status")) && "EMERGENCY".equals(snap.get("level"))
-                    && "Camperdown Stroke Centre".equals(snap.get("hospital"))
-                    && snap.get("timeline").toString().contains("David accepted");
+                    && "Corniche Stroke Centre".equals(snap.get("hospital"))
+                    && snap.get("timeline").toString().contains("Hamad accepted");
         }));
+    }
+
+    @Test
+    void chatLangArabicIsForwardedAndAnyOtherLangIs400() throws Exception {
+        when(agent.chat(any())).thenReturn(new RespondAgentClient.ChatResult("نعم"));
+
+        mvc.perform(post("/api/chat").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"question\":\"Hi\",\"mode\":\"self\",\"lang\":\"ar\"}"))
+                .andExpect(status().isOk());
+        verify(agent).chat(argThat(b -> "ar".equals(b.get("lang"))));
+
+        mvc.perform(post("/api/chat").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"question\":\"Hi\",\"mode\":\"self\",\"lang\":\"vi\"}"))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
