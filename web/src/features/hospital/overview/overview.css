@@ -1,0 +1,31 @@
+/* Overview: bars with a value, the capacity meter and the two-column capacity card. */
+.hp-bar{display:flex;align-items:center;gap:8px;min-width:0}
+.hp-bar>span{position:relative;flex:1;min-width:48px;height:8px;border-radius:4px;background:var(--track);overflow:hidden}
+.hp-bar>span>i{position:absolute;inset-block:0;inset-inline-start:0;border-radius:4px}
+.hp-bar>b{font-family:var(--mono);font-size:12px;font-weight:500;min-width:3ch;text-align:end}
+.hp-note{display:block;font-size:11.5px;color:var(--muted-text);margin-top:3px}
+table.dep{min-width:860px}
+.capm{position:relative;margin:10px 0 4px}
+.capz{display:flex;height:12px;border-radius:6px;overflow:hidden}
+.capz span{display:block;height:100%}
+.capz .u{background:rgba(90,127,224,.35)}
+.capz .r{background:rgba(31,157,87,.45)}
+.capz .o{flex:1;background:rgba(217,68,63,.45)}
+.capm>i{position:absolute;top:-4px;width:4px;height:20px;border-radius:2px;background:var(--ink);transform:translateX(-2px)}
+[dir="rtl"] .capm>i{transform:translateX(2px)}
+.capl{display:flex;justify-content:space-between;font-size:11px;color:var(--muted-text);margin-top:6px}
+.ce{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ce .ck{font-size:12.5px;color:var(--ink2)}
+.ce-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.ce-h b{font-size:30px;font-weight:600}
+.ce-h small{color:var(--muted-text);font-size:12px}
+.ce-rows{list-style:none;display:grid;gap:8px;margin:10px 0 0;padding:0}
+.ce-rows li{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr) auto;gap:10px;align-items:center;font-size:13px;min-height:22px}
+.ce-note{font-size:12.5px;color:var(--ink2);margin-top:10px}
+@media (max-width:900px){.ce{grid-template-columns:1fr}}
+@media (max-width:520px){.ce-rows li{grid-template-columns:minmax(0,1fr) auto}.ce-rows li>.hp-bar{grid-column:1/-1;grid-row:2}}
+
+/* Section labels above groups of cards: a pill so the small text stays readable on the photo backdrop, in both themes. */
+.ov-sec{font-size:13px;font-weight:600;color:var(--muted-text);text-transform:uppercase;letter-spacing:.06em;margin:6px 4px -6px;justify-self:start;padding:3px 11px;border-radius:999px;background:rgba(255,255,255,.82)}
+html[lang='ar'] .ov-sec{text-transform:none;letter-spacing:0}
+body.night .ov-sec{background:rgba(20,24,48,.86)}

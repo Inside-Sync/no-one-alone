@@ -5,7 +5,7 @@ import type { Lineage, LineageNode } from '@/data/types'
 import { fillForWhiteText } from '@/lib/color'
 
 /** `.node.dec` fades the whole node to .82, so its chips need extra contrast to stay at AA once blended. */
-const DEC_MIN_CONTRAST = 6.5
+const DEC_MIN_CONTRAST = 8.5
 
 function Node({ node, keys }: { node: LineageNode; keys: Lineage['conditionKeys'] }) {
   return (
@@ -25,7 +25,7 @@ function Node({ node, keys }: { node: LineageNode; keys: Lineage['conditionKeys'
 export function Pedigree({ lineage }: { lineage: Lineage }) {
   const keys = lineage.conditionKeys
   return (
-    <GlassCard span={7}>
+    <GlassCard span={7} tour="lineage">
       <CardHeader icon="tree" title={lineage.heading} meta={lineage.meta} />
       <div className="ped" id="ped">
         {lineage.generations.map((g, i) => (

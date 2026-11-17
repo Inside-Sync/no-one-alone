@@ -23,7 +23,7 @@ export function PhoneCard({ step }: { step: number }) {
         flash={Boolean(s.e.flash)}
         listen={Boolean(s.e.listen)}
         help={help}
-        helpName="David"
+        helpName={t('phone.helpName')}
         yn={Boolean(s.e.yn)}
         onAnswer={(a) => toast(t('phone.answered', { a }))}
       />

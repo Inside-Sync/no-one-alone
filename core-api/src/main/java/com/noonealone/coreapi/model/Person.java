@@ -21,4 +21,9 @@ public class Person {
     public List<CircleEntry> circle;
     public List<String> meds;
     public List<String> allergies;
+
+    /** The language this person is spoken to in: "ar" for an Arabic locale, otherwise "en". */
+    public String language() {
+        return locale != null && locale.toLowerCase().startsWith("ar") ? "ar" : "en";
+    }
 }

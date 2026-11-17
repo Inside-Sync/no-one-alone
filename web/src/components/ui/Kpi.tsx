@@ -19,12 +19,14 @@ interface Props {
   tone?: KpiTone
   /** Plain-language tile: an icon replaces the colour dot and the footer uses the body font (`kpiE`). */
   icon?: IconName
+  /** Rendered last, under the sub-line (the care record's source footer). */
+  foot?: ReactNode
   /** Makes the tile a keyboard-reachable button (the prototype's `markClickable`). */
   onOpen?: () => void
 }
 
 /** Prototype `kpiHTML`: `.glass.kpi` with `.k`, `.v`, spark, `.d`. */
-export function Kpi({ label, value, unit, color, children, sub, delta, tone = 'good', icon, onOpen }: Props) {
+export function Kpi({ label, value, unit, color, children, sub, delta, tone = 'good', icon, onOpen, foot }: Props) {
   const open = onOpen
     ? {
         role: 'button',
@@ -52,6 +54,7 @@ export function Kpi({ label, value, unit, color, children, sub, delta, tone = 'g
           <b style={{ color: toneVar(tone) }}>{delta}</b>
         </span>
       )}
+      {foot}
     </div>
   )
 }

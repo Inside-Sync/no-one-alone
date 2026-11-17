@@ -10,7 +10,7 @@ import s from './shell.module.css'
 
 interface Entry { key: string; label: string; note: string; to: string }
 
-/** Filters people and suburbs from fixtures; Enter or a click navigates. */
+/** Filters people and Abu Dhabi areas from fixtures; Enter or a click navigates. */
 export function SearchBox() {
   const { t } = useTranslation()
   const router = useRouter()
@@ -22,14 +22,14 @@ export function SearchBox() {
 
   useEffect(() => {
     let live = true
-    Promise.all([repo.getPerson('margaret'), repo.getCommunity()]).then(([person, community]) => {
+    Promise.all([repo.getPerson('margaret'), repo.getGovernment()]).then(([person, gov]) => {
       if (!live) return
       const people: Entry[] = [
-        { key: 'p-margaret', label: person.name, note: t('nav.search.person'), to: '/individual/home' },
-        ...sharePeople.map((p) => ({ key: `p-${p.id}`, label: p.name, note: p.role, to: '/individual/home' })),
+        { key: 'p-margaret', label: person.name, note: t('nav.search.person'), to: '/individual/health' },
+        ...sharePeople.map((p) => ({ key: `p-${p.id}`, label: p.name, note: p.role, to: '/individual/health' })),
       ]
-      const subs: Entry[] = community.suburbs.map((sb) => ({
-        key: `s-${sb.name}`, label: sb.name, note: t('nav.search.suburb'), to: '/community/community',
+      const subs: Entry[] = gov.areas.map((a) => ({
+        key: `s-${a.name}`, label: a.name, note: t('nav.search.suburb'), to: '/government/population',
       }))
       setEntries([...people, ...subs])
     }, () => {})

@@ -6,7 +6,8 @@ import { NoaOrb } from '@/components/noa/NoaOrb'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import type { IncidentDoc } from '@/data/contract'
-import { clockTime, memberName, type LivePeople } from '@/domain/incident'
+import { clockTime, memberName, timelineLine, type LivePeople } from '@/domain/incident'
+import { isMemberCall } from '@/domain/timeline'
 import type { CallLine } from './useCallDialogue'
 
 /** One thing said: by Noa (`agent`) to a channel, or by the person on that channel. */
@@ -28,16 +29,18 @@ function conversation(inc: IncidentDoc, people: LivePeople, call: CallLine[], t:
   const idByName = (name: string) => Object.keys(people.members).find((id) => people.members[id].displayName === name) ?? null
   for (const e of inc.timeline) {
     if (e.kind === 'NO_REPLY') out.push({ at: ms(e.at), ch: 'mg', agent: false, who: her, text: t('talk.noReply') })
-    if (e.kind === 'NOTIFIED' && e.text.startsWith('Calling ')) {
+    if (isMemberCall(e)) {
+      // The words after the colon are what Noa said; the member is `memberId`, else the name before the colon.
       const colon = e.text.indexOf(': ')
-      const id = idByName(e.text.slice('Calling '.length, colon < 0 ? undefined : colon))
+      const id = e.memberId ?? idByName(e.text.slice('Calling '.length, colon < 0 ? undefined : colon))
       if (id && colon >= 0) out.push({ at: ms(e.at), ch: id, agent: true, who: first(memberName(people, id)), text: quote(e.text.slice(colon + 2)) })
     }
-    if ((e.kind === 'ACCEPTED' || e.kind === 'DECLINED' || e.kind === 'ARRIVED') && people.members[e.actor]) {
-      out.push({ at: ms(e.at), ch: e.actor, agent: false, who: first(memberName(people, e.actor)), text: t(`talk.${e.kind}`) })
+    const member = e.memberId ?? e.actor
+    if ((e.kind === 'ACCEPTED' || e.kind === 'DECLINED' || e.kind === 'ARRIVED') && people.members[member]) {
+      out.push({ at: ms(e.at), ch: member, agent: false, who: first(memberName(people, member)), text: t(`talk.${e.kind}`) })
     }
     if (e.kind === 'HANDOFF_SENT') out.push({ at: ms(e.at), ch: 'hosp', agent: true, who: t('talk.hospital'), text: quote(e.text) })
-    if (e.kind === 'HANDOFF_RECEIVED') out.push({ at: ms(e.at), ch: 'hosp', agent: false, who: t('talk.strokeTeam'), text: quote(e.text) })
+    if (e.kind === 'HANDOFF_RECEIVED') out.push({ at: ms(e.at), ch: 'hosp', agent: false, who: t('talk.strokeTeam'), text: quote(timelineLine(inc, people, e)) })
     if (e.kind === 'FAMILY_UPDATE') {
       for (const a of inc.assignments ?? []) {
         if (people.members[a.memberId] && a.memberId !== inc.ownerId) out.push({ at: ms(e.at), ch: a.memberId, agent: true, who: first(memberName(people, a.memberId)), text: quote(e.text) })
@@ -57,8 +60,8 @@ export function ConversationsCard({ incident, people, call, dialling }: {
 }) {
   const { t } = useTranslation('live')
   const [filter, setFilter] = useState('all')
-  const tz = people.person?.timezone ?? 'Asia/Ho_Chi_Minh'
-  const num = people.person?.emergencyNumber ?? '000'
+  const tz = people.person?.timezone ?? 'Asia/Dubai'
+  const num = people.person?.emergencyNumber ?? '998'
   const all = incident ? conversation(incident, people, call, t as unknown as (k: string, o?: object) => string) : []
   const channel = (ch: string): [icon: IconName, name: string] => {
     if (ch === 'mg') return ['user-round', first(people.person?.displayName ?? t('agent.her'))]

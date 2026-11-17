@@ -1,22 +1,22 @@
 {
   "idle": {
     "title": "No active alert",
-    "body": "When an alert comes in, this page shows the response minute by minute: who is on the way, what Margaret's screen shows and when the hospital has her record. 37 alerts in the community this week, 29 filtered as false alarms without waking anyone.",
+    "body": "When an alert comes in, this page shows the response minute by minute: who is on the way, what Moza's screen shows and when the hospital has her record. 37 alerts in the community this week, 29 filtered as false alarms without waking anyone.",
     "run": "Run the 02:03 night alert demo"
   },
   "endDemo": "End demo",
-  "orbitLabel": "Care circle in emergency: help moving toward Margaret",
+  "orbitLabel": "Care circle in emergency: help moving toward Moza",
   "since": "since alert",
-  "subtitle": "Live · {{time}} AEDT · 186 Marrickville Rd",
+  "subtitle": "Live · {{time}} GST · Villa 12, Street 18",
   "actions": {
-    "call000": "Call 000",
+    "call000": "Call 998",
     "callMum": {
       "label": "Call Mum",
       "toast": "Calling Mum · captions on"
     },
     "callDavid": {
-      "label": "Call David",
-      "toast": "Calling David"
+      "label": "Call Hamad",
+      "toast": "Calling Hamad"
     }
   },
   "timeline": {
@@ -30,13 +30,14 @@
     "play": "Play"
   },
   "phone": {
-    "title": "Margaret's screen",
+    "title": "Moza's screen",
     "meta": "Same moment",
     "note": "Hearing mode is on, so every question is also shown in large text with yes/no buttons.",
     "header": "{{time}} · Hearing mode",
     "yes": "Yes",
     "no": "No",
-    "answered": "Margaret: {{a}}"
+    "answered": "Moza: {{a}}",
+    "helpName": "Hamad"
   },
   "liveSubtitle": "Live · {{time}} · {{address}}",
   "live": {
@@ -69,23 +70,23 @@
     "sending": "Sending…",
     "noMic": "Microphone isn't available here · use the buttons",
     "noReplyIn": "No answer in {{s}} s counts as no reply",
-    "answered": "Margaret: {{a}}",
+    "answered": "Moza: {{a}}",
     "failed": "That didn't go through · please try again",
     "busy": "Still working on the last answer",
     "scriptTitle": "Script for {{num}}",
     "scriptPending": "Noa writes this script once she is triaged."
   },
   "sos": {
-    "title": "Script for 000",
+    "title": "Script for 998",
     "intro": "Ask for ambulance. Read this aloud.",
     "rows": [
       [
         "Address",
-        "186 Marrickville Rd, Marrickville NSW 2204"
+        "Villa 12, Street 18, Al Bateen, Abu Dhabi"
       ],
       [
         "Patient",
-        "Margaret Collins, 78, lives alone"
+        "Moza Al Hammadi, 78, lives alone"
       ],
       [
         "Symptoms",
@@ -93,7 +94,7 @@
       ],
       [
         "Last well",
-        "01:55"
+        "01:22"
       ],
       [
         "Medicines",
@@ -101,11 +102,11 @@
       ],
       [
         "Access",
-        "Brother arriving 02:11 with key · neighbour Aisha holds a spare"
+        "Brother arriving 02:11 with key · neighbour Shamma holds a spare"
       ]
     ],
-    "call": "Call 000",
-    "callToast": "Dialling 000 · ask for ambulance",
+    "call": "Call 998",
+    "callToast": "Dialling 998 · ask for ambulance",
     "copy": "Copy address",
     "copied": "Address copied",
     "note": "Noa prepares this. A person makes the call."
@@ -146,21 +147,21 @@
   },
   "steps": [
     {
-      "d": "Heart rate 142, no movement for 4 min",
+      "d": "Heart rate 142, no movement for 10 min",
       "s": "Night baseline 61. Not explained by activity.",
       "own": [
-        "David · not yet alerted",
+        "Hamad · not yet alerted",
         "450 m away · first to call",
         "—"
       ],
       "what": "Heart rate 142, not moving",
       "sub": "Noa is checking before waking anyone",
-      "q": "Margaret…",
+      "q": "Moza…",
       "small": "Phone rings, screen flashes",
       "help": ""
     },
     {
-      "d": "Calls Margaret by voice. She answers slowly",
+      "d": "Calls Moza by voice. She answers slowly",
       "s": "Large-text questions on her screen too",
       "own": [
         "",
@@ -169,7 +170,7 @@
       ],
       "what": "Answering slowly",
       "sub": "Noa is talking with her now",
-      "q": "Margaret, it's your check-in. Can you hear me?",
+      "q": "Moza, it's your check-in. Can you hear me?",
       "small": "",
       "help": ""
     },
@@ -183,54 +184,54 @@
       ],
       "what": "Slurred speech",
       "sub": "Possible stroke sign",
-      "q": "Please say after me: \"The sky is blue in Sydney.\"",
+      "q": "Please say after me: \"The sky is blue in Abu Dhabi.\"",
       "small": "",
       "help": ""
     },
     {
       "d": "Level: emergency now",
-      "s": "Last known well 01:55",
+      "s": "Last known well 01:22",
       "own": [
         "",
         "",
         ""
       ],
       "what": "Suspected stroke signs",
-      "sub": "Last known well 01:55",
-      "q": "Sit still, love. Don't try to stand up.",
+      "sub": "Last known well 01:22",
+      "q": "Sit still, Umm Khalid. Don't try to stand up.",
       "small": "",
       "help": ""
     },
     {
-      "d": "David and you are alerted",
-      "s": "Sarah in London gets updates",
+      "d": "Hamad and you are alerted",
+      "s": "Alia in London gets updates",
       "own": [
-        "David · alerted",
+        "Hamad · alerted",
         "Waiting for him to accept",
         "5:00"
       ],
       "what": "",
       "sub": "",
-      "q": "I've called David.",
+      "q": "I've called Hamad.",
       "small": "",
       "help": ""
     },
     {
-      "d": "David: \"I'm on my way\"",
+      "d": "Hamad: \"I'm on my way\"",
       "s": "He owns the case. Everyone sees it.",
       "own": [
-        "David · on his way",
+        "Hamad · on his way",
         "Owns the case",
         "6′"
       ],
       "what": "",
       "sub": "",
-      "q": "David is on his way.",
+      "q": "Hamad is on his way.",
       "small": "",
-      "help": "David · 6 min away"
+      "help": "Hamad · 6 min away"
     },
     {
-      "d": "You call 000 with the prepared script",
+      "d": "You call 998 with the prepared script",
       "s": "Address, age, symptoms, medicines, access",
       "own": [
         "",
@@ -239,12 +240,12 @@
       ],
       "what": "",
       "sub": "",
-      "q": "James is calling an ambulance.",
+      "q": "Khalid is calling an ambulance.",
       "small": "",
-      "help": "David · 5 min away"
+      "help": "Hamad · 5 min away"
     },
     {
-      "d": "Camperdown Stroke Centre received her record",
+      "d": "Corniche Stroke Centre received her record",
       "s": "Chosen for 24/7 stroke care · 11 min",
       "own": [
         "",
@@ -255,21 +256,21 @@
       "sub": "",
       "q": "The hospital has your details.",
       "small": "",
-      "help": "David · 4 min away"
+      "help": "Hamad · 4 min away"
     },
     {
-      "d": "David is with Margaret",
+      "d": "Hamad is with Moza",
       "s": "Door unlocked, she is sitting, alert",
       "own": [
-        "David · with Margaret",
+        "Hamad · with Moza",
         "On scene since 02:11",
         "✓"
       ],
-      "what": "David is with her",
+      "what": "Hamad is with her",
       "sub": "Ambulance on the way",
-      "q": "David is here, love.",
+      "q": "Hamad is here, Umm Khalid.",
       "small": "",
-      "help": "David is with you"
+      "help": "Hamad is with you"
     },
     {
       "d": "Ambulance arrives · stroke team ready",
@@ -279,11 +280,11 @@
         "",
         ""
       ],
-      "what": "On the way to Camperdown",
+      "what": "On the way to Corniche",
       "sub": "30-day recovery plan starts after discharge",
       "q": "The ambulance is here. You're in good hands.",
       "small": "",
-      "help": "David is going with you"
+      "help": "Hamad is going with you"
     }
   ],
   "script": {
@@ -355,7 +356,7 @@
         "onTheWay": "{{name}} is on the way. Help is coming.",
         "calling000": "I'm calling {{num}} for an ambulance now. Stay where you are. Help is coming.",
         "onTheWayCalling": "{{name}} is on his way. He has a key. I'm calling {{num}} now.",
-        "ambulance": "Help is on the way, Margaret. The ambulance is 12 minutes away. Stay sitting. I'm right here with you."
+        "ambulance": "Help is on the way, Umm Khalid. The ambulance is 12 minutes away. Stay sitting. I'm right here with you."
       }
     },
     "packet": {
@@ -405,8 +406,8 @@
     "howto": [
       "Drag **heart rate** above 120",
       "Drag **not moving** to 10 minutes",
-      "Noa steps in by itself, talks to Margaret and works out what is wrong",
-      "Optional: tap Margaret's replies on her phone to change the story"
+      "Noa steps in by itself, talks to Moza and works out what is wrong",
+      "Optional: tap Moza's replies on her phone to change the story"
     ],
     "preset": {
       "night": "Night emergency",
@@ -428,7 +429,7 @@
       "slurred": "Slurred (auto)",
       "mic": "I'll answer (mic)"
     },
-    "david": "David picks up",
+    "david": "Hamad picks up",
     "yes": "Yes",
     "no": "No",
     "pause": "Pause",
@@ -468,11 +469,11 @@
     "locked": "Locked while the alert runs"
   },
   "call": {
-    "title": "000 call · demo call",
-    "operator": "000 operator",
+    "title": "998 call · demo call",
+    "operator": "998 operator",
     "noa": "Noa",
-    "dialling": "Dialling 000…",
-    "fine": "In a real service, 000 calls go through an approved emergency relay and a human operator always takes over. The script is fixed and checked by clinicians, not made up by AI."
+    "dialling": "Dialling 998…",
+    "fine": "In a real service, 998 calls go through an approved emergency relay and a human operator always takes over. The script is fixed and checked by clinicians, not made up by AI."
   },
   "speech": {
     "title": "Noa Speech Check",
@@ -494,7 +495,7 @@
     "normal": "Her normal",
     "baseline": "baseline · 30 days",
     "tonight": "Tonight",
-    "repeating": "{{name}} is repeating “The sky is blue in Sydney”",
+    "repeating": "{{name}} is repeating “The sky is blue in Abu Dhabi”",
     "idle": "Runs when Noa needs to check on her. {{name}} repeats one short sentence.",
     "measure": "Measure",
     "normalCol": "Her normal",
@@ -524,7 +525,36 @@
         "Noa skips questions and calls for help"
       ]
     ],
-    "fine": "Hearing aids and accent are part of her baseline, so they do not cause false alarms. Only the scores are kept, not the recordings. In the demo the numbers are illustrative."
+    "fine": "Hearing aids and accent are part of her baseline, so they do not cause false alarms. Only the scores are kept, not the recordings. In the demo the numbers are illustrative.",
+    "phrase": "the sky is blue in",
+    "words": "The sky is blue in Abu Dhabi",
+    "metricValues": [
+      [
+        "0.94",
+        "0.93",
+        "0.41"
+      ],
+      [
+        "152 wpm",
+        "148 wpm",
+        "74 wpm"
+      ],
+      [
+        "0.22 s",
+        "0.25 s",
+        "0.90 s"
+      ],
+      [
+        "6 of 6",
+        "6 of 6",
+        "2 of 6"
+      ],
+      [
+        "steady",
+        "steady",
+        "shaky"
+      ]
+    ]
   },
   "agent": {
     "title": "Noa",
@@ -728,5 +758,53 @@
     "packet": "Pre-arrival record (FHIR)",
     "status": "Status",
     "fine": "Shared under {{name}}'s own settings. Every hand-over is logged and she can see it later."
+  },
+  "owner": {
+    "name": "Hamad",
+    "initial": "D"
+  },
+  "deviceCircleLabel": "Moza's family circle",
+  "line": {
+    "sep": ", ",
+    "ALERT": "HR {{hr}}, no movement {{min}} min",
+    "fallback": {
+      "VERIFY": "Verify used fallback",
+      "CHECKIN": "Check-in used fallback",
+      "TRIAGE": "Triage used fallback",
+      "PLAN": "Plan used fallback",
+      "HANDOFF": "Handoff used fallback"
+    },
+    "answered": {
+      "YES": "Yes",
+      "NO": "No",
+      "noSpeech": "No speech"
+    },
+    "NO_REPLY": "No reply",
+    "level": {
+      "OK": "OK",
+      "MONITOR": "Monitor",
+      "COME_NOW": "Come now",
+      "EMERGENCY": "Emergency"
+    },
+    "TRIAGED": "Level {{level}}: {{reasons}}",
+    "ALERTED": "Alerted {{names}}",
+    "ALERTED_STROKE": "Alerted {{names}}: possible stroke",
+    "NOTIFIED": "Calling {{name}}",
+    "NOTIFIED_ETA": "Calling {{name}}, {{eta}} min away",
+    "EXPIRED": "{{name}} did not answer in {{seconds}} s",
+    "EXPIRED_VOICEMAIL": "{{name}} did not answer in {{seconds}} s · voicemail and text sent",
+    "ACCEPTED": "{{name}} accepted",
+    "DECLINED": "{{name}} cannot go",
+    "ARRIVED": "{{name}} arrived",
+    "NO_NEARBY": "No one nearby accepted",
+    "CALLED_115_AUTO": "Calling {{number}} automatically with the call script (demo call)",
+    "CALLED_115_MEMBER": "{{name}} called {{number}}",
+    "HANDOFF_RECEIVED": "Received. Stroke call activated, CT scanner on standby.",
+    "HANDOFF_FAILED": "Could not reach {{hospital}}",
+    "closed": {
+      "CHECKIN": "Closed after check-in",
+      "CONSOLE": "Closed from the demo console"
+    },
+    "DISCHARGED": "Discharged home with a recovery plan by {{name}}"
   }
 }

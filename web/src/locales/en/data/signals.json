@@ -1,0 +1,253 @@
+{
+  "signals": {
+    "kpis": [
+      {
+        "label": "Areas below 70%",
+        "value": "4",
+        "unit": "of 17",
+        "color": "#d9443f",
+        "baseline": "Mussafah lowest",
+        "delta": "−1 qtr",
+        "tone": "good",
+        "spark": [
+          6,
+          6,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "label": "Open past target",
+        "value": "636",
+        "unit": "",
+        "color": "#d9443f",
+        "baseline": "by reason, right",
+        "delta": "−38 qtr",
+        "tone": "warn",
+        "spark": [
+          700,
+          690,
+          676,
+          664,
+          655,
+          648,
+          642,
+          640,
+          636
+        ]
+      },
+      {
+        "label": "Need an interpreter",
+        "value": "96",
+        "unit": "cases",
+        "color": "#c88a05",
+        "baseline": "Tagalog, Bengali",
+        "delta": "+11",
+        "tone": "warn",
+        "spark": [
+          61,
+          66,
+          70,
+          74,
+          79,
+          83,
+          88,
+          92,
+          96
+        ]
+      },
+      {
+        "label": "Decisions approved",
+        "value": "3",
+        "unit": "this qtr",
+        "color": "#1f8f5f",
+        "baseline": "evening slots, telehealth",
+        "delta": "+2",
+        "tone": "good",
+        "spark": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          2,
+          3
+        ]
+      }
+    ],
+    "signals": [
+      {
+        "title": "Night-shift workers not reached by SMS",
+        "areas": "Mussafah, Baniyas",
+        "type": "Reach",
+        "affected": "312 results",
+        "since": "5 weeks",
+        "status": "Active",
+        "tone": "bad"
+      },
+      {
+        "title": "Interpreter time for colonoscopy",
+        "areas": "All areas",
+        "type": "Fairness",
+        "affected": "41 people",
+        "since": "3 weeks",
+        "status": "Active",
+        "tone": "bad"
+      },
+      {
+        "title": "Eye screening near capacity",
+        "areas": "Khalifa City, Al Ain city, Al Mushrif",
+        "type": "Capacity",
+        "affected": "58 referrals a week",
+        "since": "2 weeks",
+        "status": "Watching",
+        "tone": "warn"
+      },
+      {
+        "title": "Long travel to specialist clinics",
+        "areas": "Al Dhafra, Al Ain outskirts",
+        "type": "Access",
+        "affected": "63 people",
+        "since": "Ongoing",
+        "status": "Plan",
+        "tone": "warn"
+      },
+      {
+        "title": "Referrals lost at provider change",
+        "areas": "Al Muroor, Al Nahyan",
+        "type": "Ownership",
+        "affected": "23 cases",
+        "since": "4 weeks",
+        "status": "Rule fixed",
+        "tone": "plain"
+      },
+      {
+        "title": "Ramadan from mid-February",
+        "areas": "All areas",
+        "type": "Calendar",
+        "affected": "1,210 on diabetes medicines",
+        "since": "in 3 months",
+        "status": "Planned",
+        "tone": "plain"
+      },
+      {
+        "title": "Workplace screening drive",
+        "areas": "Mussafah",
+        "type": "Programme",
+        "affected": "1,800 invited",
+        "since": "1 week",
+        "status": "Running",
+        "tone": "good"
+      }
+    ],
+    "weekly": [
+      [
+        34,
+        22,
+        12
+      ],
+      [
+        33,
+        23,
+        12
+      ],
+      [
+        31,
+        24,
+        11
+      ],
+      [
+        30,
+        26,
+        11
+      ],
+      [
+        29,
+        27,
+        10
+      ],
+      [
+        27,
+        28,
+        10
+      ],
+      [
+        25,
+        28,
+        9
+      ],
+      [
+        23,
+        27,
+        9
+      ]
+    ],
+    "weeklyLabels": {
+      "notReached": "Not reached",
+      "waiting": "Waiting for a slot",
+      "declined": "Declined or no owner"
+    },
+    "feed": [
+      {
+        "source": "LAB FEED · Abu Dhabi labs",
+        "age": "Today",
+        "headline": "HbA1c volume up 22% after the Mussafah workplace drive",
+        "body": "Noa scheduled voice calls after 21:00 in Bengali, Urdu, Hindi and Malayalam."
+      },
+      {
+        "source": "CAPACITY · Family health centres",
+        "age": "2 d",
+        "headline": "Eye screening near capacity at 3 centres",
+        "body": "4 extra Thursday evening slots suggested. Waiting for approval."
+      },
+      {
+        "source": "FAIRNESS · Programme analytics",
+        "age": "5 d",
+        "headline": "Tagalog speakers wait 9 days longer for colonoscopy",
+        "body": "Interpreter time is the bottleneck, not procedure slots."
+      },
+      {
+        "source": "CALENDAR · Programme team",
+        "age": "1 w",
+        "headline": "Ramadan expected from mid-February",
+        "body": "Fasting-plan talks will be prompted for 1,210 people on diabetes medicines from early January."
+      },
+      {
+        "source": "QUALITY · Primary care",
+        "age": "1 w",
+        "headline": "Yearly eye checks for people with diabetes at 64%",
+        "body": "Below the 70% standard in 9 of 17 areas."
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Evening voice calls in 4 languages",
+        "detail": "Mussafah and Baniyas · 8 weeks"
+      },
+      {
+        "title": "4 Thursday evening eye-screening slots",
+        "detail": "3 centres · from 23 Oct"
+      },
+      {
+        "title": "2 interpreter-supported colonoscopy lists",
+        "detail": "Partner hospital · November"
+      },
+      {
+        "title": "Telehealth first visits for Al Dhafra",
+        "detail": "Specialist referrals · pilot rule"
+      },
+      {
+        "title": "Mobile clinic days in Al Wathba",
+        "detail": "2 days in November · Arabic and Urdu"
+      }
+    ],
+    "footnote": "Suggestions come from the programme rules and Noa's case data. A person approves every change. Illustrative figures."
+  }
+}

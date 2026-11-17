@@ -1,38 +1,41 @@
-import type { PillTone, Suburb, VisitRow } from '@/data/types'
+import type { Area, StalledResult } from '@/data/government.types'
 import i18n from '@/i18n'
 
-export type DistrictModel = 'high' | 'alone' | 'heat' | 'gap'
+/** The four measures of the district map: results open past target, reached care in time, coverage, days to treatment. */
+export type DistrictModel = 'open' | 'reach' | 'cov' | 'days'
 
-export const DISTRICT_MODEL_IDS: readonly DistrictModel[] = ['high', 'alone', 'heat', 'gap']
+export const DISTRICT_MODEL_IDS: readonly DistrictModel[] = ['open', 'reach', 'cov', 'days']
 
-/** `DM` (prototype line 1324): title, subtitle and the tag suffix of a map model, in the current language. */
+/** Measures where a tall column is a good one, so the colour runs the other way. */
+export const HIGHER_IS_BETTER: Readonly<Record<DistrictModel, boolean>> = { open: false, reach: true, cov: true, days: false }
+
+/** `DM` of the design: title, subtitle and the tag suffix of a map measure, in the current language. */
 export function districtModel(model: DistrictModel): { title: string; subtitle: string; unit: string } {
   return {
-    title: i18n.t(`community:overview.district.models.${model}.title`),
-    subtitle: i18n.t(`community:overview.district.models.${model}.subtitle`),
-    unit: i18n.t(`community:overview.district.models.${model}.unit`),
+    title: i18n.t(`government:population.district.models.${model}.title`),
+    subtitle: i18n.t(`government:population.district.models.${model}.subtitle`),
+    unit: i18n.t(`government:population.district.models.${model}.unit`),
   }
 }
 
-/** Visits a high-risk resident needs per week, and visits one volunteer covers per week (`subVal`, line 1323). */
-export const VISITS_NEEDED_PER_HIGH_RISK = 2
-export const VISITS_PER_VOLUNTEER = 4
 const PERCENT = 100
 
-/** `subVal`: the column height of one suburb under a model. */
-export function metricFor(s: Suburb, model: DistrictModel): number {
+/** `subOpen`: actionable results not yet in care, from the share that reached care in time. */
+export function openPastTarget(a: Area): number {
+  return Math.round(a.actionable * (1 - a.reached / PERCENT))
+}
+
+/** `subVal`: the column height of one area under a measure. */
+export function metricFor(a: Area, model: DistrictModel): number {
   switch (model) {
-    case 'high': return s.highRisk
-    case 'alone': return s.alonePct
-    case 'heat': return Math.round(s.heat * PERCENT)
-    case 'gap': return Math.max(0, s.highRisk * VISITS_NEEDED_PER_HIGH_RISK - s.volunteers * VISITS_PER_VOLUNTEER)
+    case 'open': return openPastTarget(a)
+    case 'reach': return a.reached
+    case 'cov': return a.coverage
+    case 'days': return a.days
   }
 }
 
-/** Risk level by its pill tone (High = bad, Medium = warn, Watch = plain); the `risk` text is translated, the tone is not. */
-const RISK_RANK: Partial<Record<PillTone, number>> = { bad: 3, warn: 2, plain: 1 }
-
-/** Highest risk first; people at the same level keep the order they were given. */
-export function rankVisits(rows: readonly VisitRow[]): VisitRow[] {
-  return [...rows].sort((a, b) => (RISK_RANK[b.tone] ?? 0) - (RISK_RANK[a.tone] ?? 0))
+/** Longest open first; results open for the same time keep the order they were given. */
+export function longestOpenFirst(rows: readonly StalledResult[]): StalledResult[] {
+  return [...rows].sort((a, b) => b.openDays - a.openDays)
 }

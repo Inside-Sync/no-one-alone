@@ -7,7 +7,7 @@ REPO = Path(__file__).resolve().parents[3]
 FHIR_DIR = REPO / "agents" / "hospital" / "data" / "fhir"
 SEED = REPO / "core-api" / "src" / "main" / "resources" / "data" / "seed.json"
 PERSON_ID = re.compile(r"[a-z0-9]+(-[a-z0-9]+)*")  # same guard as agents/hospital/handoff/fhir.py
-PEOPLE = ("margaret", "ba-mai")
+PEOPLE = ("margaret",)
 
 
 def load_bundle(person_id: str) -> list[dict]:

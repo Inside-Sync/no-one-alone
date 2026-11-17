@@ -14,7 +14,7 @@ import plan
 import recovery
 import rules
 from hospital_client import send_handoff
-from lang import is_en, load_scripts
+from lang import lang_of, load_scripts
 
 log = logging.getLogger("respond")
 app = FastAPI(title="respond-agent")
@@ -67,7 +67,7 @@ def triage(body: dict):
     if out["level"] in ("OK", "MONITOR"):
         try:
             person = body["person"]
-            own = load_scripts()["en" if is_en(person) else "vi"]
+            own = load_scripts()[lang_of(person)]
             closing = {"text": own["goodbye"].format(name=person["displayName"].split(" ")[0])}
             add_audio(closing, gcp.locale_for(person))
             out["closing"] = closing
@@ -121,6 +121,7 @@ class ChatLine(BaseModel):
 class ChatIn(BaseModel):
     question: str = Field(min_length=1, max_length=500)
     mode: Literal["hosp", "self", "fam"]
+    lang: Literal["en", "ar"] = "en"
     viewer: str | None = Field(default=None, max_length=100)
     history: list[ChatLine] = Field(default=[], max_length=10)
     snapshot: dict | None = None

@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 
 public final class StoryClock {
 
-    public static final ZoneId DEFAULT_ZONE = ZoneId.of("Asia/Ho_Chi_Minh");
+    public static final ZoneId DEFAULT_ZONE = ZoneId.of("Asia/Dubai");
 
     private StoryClock() {}
 

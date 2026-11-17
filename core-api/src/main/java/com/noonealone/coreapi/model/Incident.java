@@ -2,6 +2,7 @@ package com.noonealone.coreapi.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,6 +42,18 @@ public class Incident {
         entry.actor = actor;
         entry.kind = kind;
         entry.text = text;
+        timeline.add(entry);
+    }
+
+    /** Same as `log`, with the circle member the line is about (may be null) and the values behind the text (may be null). */
+    public void log(String at, String actor, String kind, String text, String memberId, Map<String, Object> params) {
+        TimelineEntry entry = new TimelineEntry();
+        entry.at = at;
+        entry.actor = actor;
+        entry.kind = kind;
+        entry.text = text;
+        entry.memberId = memberId;
+        entry.params = params == null || params.isEmpty() ? null : params;
         timeline.add(entry);
     }
 

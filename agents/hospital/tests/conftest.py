@@ -11,7 +11,7 @@ import uvicorn
 
 HERE = Path(__file__).parent
 ROOT = HERE.parent
-BUNDLE = ROOT / "data" / "fhir" / "ba-mai.json"
+BUNDLE = ROOT / "data" / "fhir" / "margaret.json"
 sys.path.insert(0, str(ROOT))
 sys.path.insert(1, str(ROOT.parent / "respond"))
 

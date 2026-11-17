@@ -20,18 +20,17 @@ export type ActionList = readonly (readonly [label: string, toast: string, done:
 /** What differs between the views' tile drawers: the buttons, and which `explainFor` fallback applies. */
 export interface DrawerConfig {
   actions: ActionList
-  fallback: 'hospital' | 'community' | 'individual'
+  fallback: 'hospital' | 'government' | 'individual'
 }
 
 /**
- * Prototype `explainFor`: first `common:explain` key found in the label, else the view's fallback. Keys are tried in the
- * JSON's order, so the Vietnamese file lists its own fragments first and the English ones after (labels from live data
- * may still be English). Read at call time, so it follows the current language.
+ * Prototype `explainFor`, by id: `key` is the `explain` field of the tile's data (a key of `common:explain`), the same in
+ * every language, so the lookup never depends on the translated label. A tile without a known key gets the view's fallback.
+ * Read at call time, so it follows the current language.
  */
-export function explainFor(label: string, fallback: DrawerConfig['fallback']): string {
-  const text = label.toLowerCase()
+export function explainFor(key: string | undefined, fallback: DrawerConfig['fallback']): string {
   const explain = i18n.t('common:explain', { returnObjects: true }) as Record<string, string>
-  for (const k of Object.keys(explain)) if (text.includes(k)) return explain[k]
+  if (key && Object.hasOwn(explain, key)) return explain[key]
   return i18n.t(`common:explainFallback.${fallback}`)
 }
 
@@ -73,19 +72,17 @@ export function Kv({ rows }: { rows: readonly (readonly [label: string, value: R
 
 interface KpiBodyProps extends DrawerConfig {
   kpi: KpiData
-  /** Text matched against EXPLAIN. */
-  explainLabel?: string
 }
 
 /** KPI tile drawer body (prototype `.kpi` click handler): value, trend, comparison, explanation, actions. */
-export function KpiDrawerBody({ kpi, actions, fallback, explainLabel = kpi.label }: KpiBodyProps) {
+export function KpiDrawerBody({ kpi, actions, fallback }: KpiBodyProps) {
   const { t } = useTranslation()
   return (
     <>
       <div className="dr-big"><b>{kpi.value}{kpi.unit !== '' && <small>{kpi.unit}</small>}</b></div>
       <div className="dr-chart"><Sparkline values={kpi.spark} color={kpi.color} decorative /></div>
       <Kv rows={[[t('drawer.compared'), kpi.baseline], [t('drawer.change'), kpi.delta]]} />
-      <p style={para}>{explainFor(explainLabel, fallback)}</p>
+      <p style={para}>{explainFor(kpi.explain, fallback)}</p>
       <Actions list={actions} />
     </>
   )
@@ -95,7 +92,7 @@ export function KpiDrawerBody({ kpi, actions, fallback, explainLabel = kpi.label
 export function KpiRow({ id, kpis, ...config }: DrawerConfig & { id: string; kpis: KpiData[] }) {
   const drawer = useDrawer()
   return (
-    <div className="c12 kpis" id={id}>
+    <div className="c12 kpis" id={id} data-cols={kpis.length === 4 ? 4 : undefined}>
       {kpis.map((k) => (
         <Kpi key={k.label} label={k.label} value={k.value} unit={k.unit} color={k.color} sub={k.baseline} delta={k.delta} tone={k.tone}
           onOpen={() => drawer.open(k.label, <KpiDrawerBody kpi={k} {...config} />)}>
@@ -111,7 +108,7 @@ function MiniDrawerBody({ stat, actions, fallback }: DrawerConfig & { stat: Mini
   return (
     <>
       <div className="dr-big"><b>{stat.value}</b><span className="muted">{stat.note}</span></div>
-      <p style={para}>{explainFor(stat.label, fallback)}</p>
+      <p style={para}>{explainFor(stat.explain, fallback)}</p>
       <Actions list={actions} />
     </>
   )

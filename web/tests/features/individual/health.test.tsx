@@ -6,7 +6,7 @@ import { renderWithProviders } from '../../helpers/renderWithProviders'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/health/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
-const ready = () => screen.findByText('Where this comes from')
+const ready = () => screen.findByText("Today's goals")
 const svgByLabel = (re: RegExp) => screen.getByRole('img', { name: re })
 
 test('is registered for individual/health', () => {
@@ -21,7 +21,7 @@ test('shows every section heading in prototype order', async () => {
     "Today's goals", 'Heartbeat over the last day',
     'Heart', 'Heartbeat and breathing', 'Moving and energy', 'Walking and balance', 'Sleep', 'Mood and company',
     'Body and food', 'Hearing and senses', 'Tablets and blood pressure',
-    "Last night's sleep", 'Mood, last 2 weeks', 'Steps, last 2 weeks', 'Blood pressure, last 2 weeks', 'Where this comes from',
+    "Last night's sleep", 'Mood, last 2 weeks', 'Steps, last 2 weeks', 'Blood pressure, last 2 weeks',
   ])
   expect(screen.getByText('22:41 – 05:58 · 6 h 12 min asleep')).toBeInTheDocument()
   expect(screen.getByText('Goal 3,500')).toBeInTheDocument()
@@ -48,18 +48,29 @@ test('goal gauges, totals and mood notes render', async () => {
   expect(screen.getByText('Most mentioned: family, garden, weather')).toHaveClass('pill', 'plain')
 })
 
-test('devices table lists all seven sources and a row opens its drawer', async () => {
+test('every data card ends with where its numbers come from and when', async () => {
   renderWithProviders(<HealthPage />, { who: 'self' })
   await ready()
-  const row = screen.getByText('Bluetooth BP cuff').closest('tr')!
-  expect(row.closest('tbody')!.querySelectorAll('tr')).toHaveLength(7)
-  expect(screen.getByText('64% · on wrist')).toHaveClass('pill', 'good')
-  fireEvent.click(row)
-  const drawer = document.getElementById('drawer')!
-  expect(within(drawer).getByRole('heading', { name: 'Bluetooth BP cuff' })).toBeInTheDocument()
-  expect(within(drawer).getByText('Morning + evening')).toBeInTheDocument()
-  fireEvent.click(within(drawer).getByRole('button', { name: 'Share with family' }))
-  expect(document.getElementById('toast')!.textContent).toBe('Shared')
+  const lines = Array.from(document.querySelectorAll('main article time')).map((t) => `${t.previousElementSibling!.textContent} | ${t.textContent}`)
+  expect(lines).toHaveLength(15)
+  expect(lines[0]).toBe('Watch | Today 15:08')
+  expect(lines).toContain('Pill box and blood pressure cuff | Today 08:05')
+  expect(lines).toContain('Blood pressure cuff | Today 07:12')
+  expect(lines).toContain('Smart scale and voice check-ins | Today 07:40')
+})
+
+test('there is no device table any more and the goals card is the walkthrough target', async () => {
+  renderWithProviders(<HealthPage />, { who: 'self' })
+  await ready()
+  expect(screen.queryByText('Where this comes from')).toBeNull()
+  expect(document.querySelector('[data-tour="health"]')).toHaveTextContent("Today's goals")
+})
+
+test('the karak tile replaces the tea tile', async () => {
+  renderWithProviders(<HealthPage />, { who: 'self' })
+  await ready()
+  expect(screen.getByRole('button', { name: /Cups of karak/ })).toBeInTheDocument()
+  expect(screen.queryByText('Cups of tea')).toBeNull()
 })
 
 test('a metric tile opens its info drawer', async () => {
@@ -92,7 +103,7 @@ test('viewer without mood access gets no mood card or mood group in the DOM', as
   await ready()
   absent(MOOD)
   present([...SLEEP, ...HEART])
-  expect(screen.getAllByText('Margaret keeps her mood and feelings private').length).toBe(2)
+  expect(screen.getAllByText('Moza keeps her mood and feelings private').length).toBe(2)
 })
 
 test('heart off removes the heartbeat, blood pressure and both heart group cards', async () => {
@@ -129,7 +140,6 @@ test('pausing sharing removes every category card but keeps the untagged ones', 
   act(() => r.app().togglePause())
   await waitFor(() => expect(screen.queryByText('Heartbeat over the last day')).toBeNull())
   absent([...HEART, ...SLEEP, ...ACTIVITY, ...MOOD, ...MEDS, ...SPEECH])
-  expect(screen.getAllByText('Margaret paused sharing until tomorrow').length).toBe(9 + 5)
+  expect(screen.getAllByText('Moza paused sharing until tomorrow').length).toBe(9 + 5)
   expect(screen.getByText("Today's goals")).toBeInTheDocument()
-  expect(screen.getByText('Where this comes from')).toBeInTheDocument()
 })

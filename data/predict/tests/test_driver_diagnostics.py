@@ -66,9 +66,11 @@ def test_rejections_report_the_exact_reason(i, text, reason):
 
 
 def test_aspirin_is_never_called_a_blood_pressure_medicine():
-    d = diag("ba-mai", [None, "Blood pressure tablets amlodipine and aspirin missed 3 times this week", None])[1]
+    f = facts("margaret")
+    f["adherence_facts"] = [*f["adherence_facts"], "aspirin each morning"]   # as if aspirin were tracked too
+    d = fd.diagnose_drivers(f, [None, "Blood pressure tablets amlodipine and aspirin missed 3 times this week", None])[1]
     assert d["reason"] == "describes aspirin as a blood-pressure medicine"
-    ok = diag("ba-mai", [None, "Daily medicines amlodipine and aspirin: 3 of 14 doses missed this week", None])[1]
+    ok = fd.diagnose_drivers(f, [None, "Daily medicines amlodipine and aspirin: 3 of 7 doses missed this week", None])[1]
     assert ok["accepted"], ok["reason"]
 
 
@@ -110,9 +112,7 @@ def test_reuse_takes_the_reviewed_forecast_points_without_a_new_query(tmp_path, 
     replay = FakeBigQuery(forecast=POINTS)
     replay.forecast_sql = sql
     good = {"margaret": ["Morning blood pressure rose 15 mmHg over 6 weeks, to 144 mmHg",
-                         "Evening amlodipine missed 3 of 7 times this week", "Her father had a stroke at 74"],
-            "ba-mai": ["Morning blood pressure rose 14 mmHg over 6 weeks, to 145 mmHg",
-                       "Daily medicines: 3 of 14 doses missed this week", "Her brother had a stroke"]}
+                         "Evening amlodipine missed 3 of 7 times this week", "Her father had a stroke at 74"]}
     client = FakeClient([json.dumps({"drivers": good[p]}) for p in sources.PEOPLE])
     new, diags = tmp_path / "second.json", tmp_path / "diag.json"
     assert run.main(["forecast", "--reuse", str(first), "--gemini", "--out", str(new), "--diagnostics", str(diags)],
@@ -122,14 +122,12 @@ def test_reuse_takes_the_reviewed_forecast_points_without_a_new_query(tmp_path, 
     assert b["source"] == a["source"] and b["reusedForecastFrom"]["sha256"] == forecast_review.sha256(first)
     for x, y in zip(a["documents"], b["documents"]):
         assert {k: v for k, v in x["doc"].items() if k != "drivers"} == {k: v for k, v in y["doc"].items() if k != "drivers"}
-    m, bm = (e for e in b["documents"])
+    m, = (e for e in b["documents"])
     assert m["doc"]["drivers"] == good["margaret"] and m["driversFromModel"] == 3
-    assert bm["driversFromModel"] == 2 and bm["doc"]["drivers"][2] == "Father had a stroke at 68"
     d = json.loads(diags.read_text())
-    assert d["people"]["ba-mai"]["raw"] == good["ba-mai"]
-    assert d["people"]["ba-mai"]["drivers"][2]["reason"] == "relative not in the facts: 'brother'"
+    assert d["people"]["margaret"]["raw"] == good["margaret"]
     out = capsys.readouterr().out
-    assert "no new forecast query" in out and "ba-mai family: rejected: relative not in the facts" in out
+    assert "no new forecast query" in out and "margaret family: accepted" in out
     assert run.main(["forecast", "--from", str(new)], bq_client=FakeBigQuery()) == 0
 
 

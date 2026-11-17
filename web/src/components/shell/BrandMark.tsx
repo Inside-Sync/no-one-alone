@@ -7,7 +7,7 @@ export function BrandMark() {
     <div className="brand">
       <span className="logo"><AgentOrb size={44} /></span>
       <span>
-        <b>No One Alone</b>
+        <b>{t('nav.brand')}</b>
         <small>{t('nav.brandBy')}</small>
       </span>
     </div>

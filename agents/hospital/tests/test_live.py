@@ -17,9 +17,9 @@ from tests.conftest import HERE, load_json
 from tests.fake_store import BASE, STORE, TOKEN, FakeStore, bundle_resources
 
 NOW = datetime(2026, 10, 15, 19, 7, tzinfo=timezone.utc)
-PEOPLE = ("ba-mai", "margaret")
-REQUESTS = {"ba-mai": "request.stroke.json", "margaret": "request.stroke.margaret.json"}
-GOLDEN = {"ba-mai": "packet.stroke.json", "margaret": "packet.stroke.margaret.json"}
+PEOPLE = ("margaret",)
+REQUESTS = {"margaret": "request.stroke.json"}
+GOLDEN = {"margaret": "packet.stroke.json"}
 CALLS_PER_READ = 1 + len(live.SEARCHES)
 
 
@@ -65,18 +65,19 @@ def test_live_and_fixture_reads_normalize_identically(pid, kw):
 
 def test_reads_are_patient_scoped_and_include_consent():
     store = store_with(*PEOPLE)
-    asyncio.run(reader(store).read("ba-mai"))
+    asyncio.run(reader(store).read("margaret"))
     urls = [httpx.URL(u) for _, u in store.calls]
     assert all(m == "GET" for m, _ in store.calls) and len(urls) == CALLS_PER_READ
-    assert urls[0].path.endswith("/fhir/Patient/ba-mai")
+    assert urls[0].path.endswith("/fhir/Patient/margaret")
     searched = {u.path.rsplit("/", 1)[-1]: u.params["patient"] for u in urls[1:]}
-    assert searched == {k: "Patient/ba-mai" for k, _ in live.SEARCHES} and "Consent" in searched
+    assert searched == {k: "Patient/margaret" for k, _ in live.SEARCHES} and "Consent" in searched
     assert not any("$everything" in u.path for u in urls)
 
 
 def test_resources_for_another_patient_are_dropped():
-    store = store_with("ba-mai")
-    other = next(r for r in bundle_resources("margaret") if r["resourceType"] == "Condition")
+    store = store_with("margaret")
+    other = copy.deepcopy(next(r for r in bundle_resources("margaret") if r["resourceType"] == "Condition"))
+    other["id"], other["subject"] = "someone-else-ckd", {"reference": "Patient/someone-else"}
     real = store._search
 
     def leaky(kind, query):  # a store that wrongly returns another patient's Condition
@@ -87,8 +88,8 @@ def test_resources_for_another_patient_are_dropped():
         body["entry"].append({"resource": copy.deepcopy(other), "search": {"mode": "match"}})
         return httpx.Response(200, json=body)
     store._search = leaky
-    got = asyncio.run(reader(store).read("ba-mai"))
-    assert other["id"] not in {r["id"] for r in got} and len(got) == 8
+    got = asyncio.run(reader(store).read("margaret"))
+    assert other["id"] not in {r["id"] for r in got} and len(got) == 14
 
 
 def test_every_page_is_followed():
@@ -109,10 +110,10 @@ def test_a_paging_link_outside_the_store_is_refused(link):
 
 
 def test_endless_paging_stops_at_the_page_cap():
-    store = store_with("ba-mai")
+    store = store_with("margaret")
     store.endless = True
     with pytest.raises(RecordUnavailable, match="too many"):
-        asyncio.run(reader(store).read("ba-mai"))
+        asyncio.run(reader(store).read("margaret"))
 
 
 class NoFixtures(FixtureReader):
@@ -127,30 +128,30 @@ def test_any_failed_call_gives_record_unavailable_with_no_record_data(where, fai
     store = store_with(*PEOPLE)
     store.fail[where] = failure
     caplog.set_level(logging.INFO, logger="hospital_agent")
-    status, out = handle("ba-mai", reader(store))
+    status, out = handle("margaret", reader(store))
     assert status == 200 and out["status"] == "PARTIAL" and out["warnings"] == ["RECORD_UNAVAILABLE"]
     for key in ("patient", "conditions", "medications", "allergies", "familyHistory", "communication", "baseline"):
         assert key not in out
     assert out["sources"] == []
     blob = json.dumps(out, ensure_ascii=False) + caplog.text
-    for value in ("penicillin", "amlodipine", "hypertension", "Bà Mai", TOKEN):
+    for value in ("penicillin", "amlodipine", "hypertension", "Moza Al Hammadi", TOKEN):
         assert value not in blob
 
 
 def test_failed_consent_search_never_yields_a_packet_with_record_data():
-    store = store_with("ba-mai")
+    store = store_with("margaret")
     store.fail["Consent"] = 500
-    _, out = handle("ba-mai", reader(store))
+    _, out = handle("margaret", reader(store))
     assert out["status"] == "PARTIAL" and "conditions" not in out and out["withheld"] == []
 
 
 def test_credentials_failure_is_record_unavailable():
     def no_creds():
         raise RuntimeError("no ADC")
-    store = store_with("ba-mai")
+    store = store_with("margaret")
     rdr = HealthcareReader(STORE, token_provider=no_creds, transport=store.transport())
     with pytest.raises(RecordUnavailable, match="credentials"):
-        asyncio.run(rdr.read("ba-mai"))
+        asyncio.run(rdr.read("margaret"))
     assert store.calls == []
 
 
@@ -160,11 +161,11 @@ def test_slow_store_hits_the_deadline():
         return httpx.Response(200, json={})
     rdr = HealthcareReader(STORE, token_provider=lambda: TOKEN, transport=httpx.MockTransport(slow), deadline=0.05)
     with pytest.raises(RecordUnavailable, match="timeout"):
-        asyncio.run(rdr.read("ba-mai"))
+        asyncio.run(rdr.read("margaret"))
 
 
 def test_search_outcome_error_and_wrong_types_fail_closed():
-    store = store_with("ba-mai")
+    store = store_with("margaret")
     real = store._search
 
     def outcome(kind, query):
@@ -177,22 +178,22 @@ def test_search_outcome_error_and_wrong_types_fail_closed():
         return r
     store._search = outcome
     with pytest.raises(RecordUnavailable, match="outcome"):
-        asyncio.run(reader(store).read("ba-mai"))
+        asyncio.run(reader(store).read("margaret"))
 
 
 def test_log_line_names_the_error_without_patient_data(caplog):
-    store = store_with("ba-mai")
+    store = store_with("margaret")
     store.fail["Consent"] = 403
     caplog.set_level(logging.INFO, logger="hospital_agent")
-    handle("ba-mai", reader(store))
+    handle("margaret", reader(store))
     lines = [json.loads(r.getMessage()) for r in caplog.records]
     assert {"stage": "fhir", "source": "live", "error": "live: HTTP 403"} in lines
-    assert "ba-mai" not in caplog.text and TOKEN not in caplog.text
+    assert "margaret" not in caplog.text and TOKEN not in caplog.text
 
 
 def test_live_without_consent_is_blocked():
-    store = FakeStore([r for r in bundle_resources("ba-mai") if r["resourceType"] != "Consent"])
-    _, out = handle("ba-mai", reader(store))
+    store = FakeStore([r for r in bundle_resources("margaret") if r["resourceType"] != "Consent"])
+    _, out = handle("margaret", reader(store))
     assert out["status"] == "BLOCKED_CONSENT" and "conditions" not in out and len(out["withheld"]) == 6
 
 
@@ -203,20 +204,20 @@ def test_live_without_consent_is_blocked():
     lambda c: c["provision"].update(period={"start": "not a date"}),
 ])
 def test_live_expired_denied_or_malformed_consent_is_blocked(change):
-    resources = bundle_resources("ba-mai")
+    resources = bundle_resources("margaret")
     change(next(r for r in resources if r["resourceType"] == "Consent"))
-    _, out = handle("ba-mai", reader(FakeStore(resources)))
+    _, out = handle("margaret", reader(FakeStore(resources)))
     assert out["status"] == "BLOCKED_CONSENT" and "medications" not in out
 
 
 def test_live_unknown_patient_is_patient_not_found():
-    _, out = handle("ba-mai", reader(FakeStore()))
+    _, out = handle("margaret", reader(FakeStore()))
     assert out["status"] == "PARTIAL" and out["warnings"] == ["PATIENT_NOT_FOUND"]
 
 
-@pytest.mark.parametrize("pid", ["Margaret", "../ba-mai", "", "ba_mai"])
+@pytest.mark.parametrize("pid", ["Margaret", "../margaret", "", "moza_x"])
 def test_ids_that_are_not_kebab_case_make_no_call(pid):
-    store = store_with("ba-mai")
+    store = store_with("margaret")
     assert asyncio.run(reader(store).read(pid)) == [] and store.calls == []
 
 

@@ -2,14 +2,14 @@ import { expect, test } from '@playwright/test'
 
 /**
  * Ruling R21: jsdom cannot measure CSS Module styles, so the 28 pt / 92 px rule for
- * Margaret's screen is checked here against the real dev server.
+ * Moza's screen is checked here against the real dev server.
  */
 const MIN_TEXT_PX = 37.33 // 28 pt
 const MIN_TARGET_PX = 92
 
-test('Margaret\'s screen: text is at least 28 pt and buttons at least 92 px tall', async ({ page }) => {
-  await page.goto('/individual/home')
-  await page.getByRole('button', { name: /Night alert demo/ }).click()
+test("Moza's screen: text is at least 28 pt and buttons at least 92 px tall", async ({ page }) => {
+  await page.goto('/individual/me')
+  await page.getByRole('switch', { name: /Night alert demo/ }).click()
   // Pause the 2800 ms autoplay at once, so every assertion below sees the step it expects.
   await page.getByRole('button', { name: 'Pause', exact: true }).click()
   await expect(page).toHaveURL(/\/individual\/live$/)
@@ -19,7 +19,7 @@ test('Margaret\'s screen: text is at least 28 pt and buttons at least 92 px tall
 
   // Step 2 has the Yes / No buttons.
   await page.getByRole('button', { name: 'Next step' }).click()
-  await expect(phone.getByText("Margaret, it's your check-in. Can you hear me?")).toBeVisible()
+  await expect(phone.getByText("Moza, it's your check-in. Can you hear me?")).toBeVisible()
 
   const sizes = await phone.locator('.dev-h, .dev-q, .dev-b').evaluateAll((els) => els.map((e) => parseFloat(getComputedStyle(e).fontSize)))
   expect(sizes.length).toBeGreaterThanOrEqual(4)
@@ -35,7 +35,7 @@ test('Margaret\'s screen: text is at least 28 pt and buttons at least 92 px tall
 
   // The help line (step 6) is text too.
   for (let i = 0; i < 4; i++) await page.getByRole('button', { name: 'Next step' }).click()
-  await expect(phone.getByText('David · 6 min away')).toBeVisible()
+  await expect(phone.getByText('Hamad · 6 min away')).toBeVisible()
   const help = await phone.locator('.dev-help').evaluate((e) => parseFloat(getComputedStyle(e).fontSize))
   expect(help).toBeGreaterThanOrEqual(MIN_TEXT_PX)
 })
@@ -47,7 +47,7 @@ test('the demo is operable by keyboard and End removes the night theme', async (
   await expect(page.locator('body')).toHaveClass(/night/)
   await page.getByRole('button', { name: 'Next step' }).focus()
   await page.keyboard.press('Enter')
-  await expect(page.getByText(/Calls Margaret by voice/)).toBeVisible()
+  await expect(page.getByText(/Calls Moza by voice/)).toBeVisible()
   await page.getByRole('button', { name: 'End demo' }).focus()
   await page.keyboard.press('Enter')
   await expect(page.locator('body')).not.toHaveClass(/night/)
@@ -87,8 +87,8 @@ test('reduced motion turns off the flash, the pulse and the listening bars', asy
 
 test('full night demo plays to "Help arrived" and the hospital inbox shows 1 new', async ({ page }) => {
   test.setTimeout(90_000)
-  await page.goto('/individual/home')
-  await page.getByRole('button', { name: /Night alert demo/ }).click()
+  await page.goto('/individual/me')
+  await page.getByRole('switch', { name: /Night alert demo/ }).click()
   await expect(page).toHaveURL(/\/individual\/live$/)
   await expect(page.locator('#emTag')).toHaveText('Checking')
   // Autoplay: 10 steps, one every 2.8 s.
@@ -96,9 +96,11 @@ test('full night demo plays to "Help arrived" and the hospital inbox shows 1 new
   await expect(page.locator('#devLive').getByText("The ambulance is here. You're in good hands.")).toBeVisible()
 
   await page.getByRole('button', { name: 'Hospital' }).click()
+  await expect(page).toHaveURL(/\/hospital\/overview$/)
+  await page.getByRole('button', { name: /Emergency arrivals/ }).click()
   await expect(page).toHaveURL(/\/hospital\/ed$/)
   await expect(page.locator('.ch', { hasText: 'Pre-arrival inbox' }).getByText('1 new')).toBeVisible()
-  await expect(page.getByRole('button', { name: /Pre-arrivals/ }).locator('.badge')).toHaveText('1')
+  await expect(page.getByRole('button', { name: /Emergency arrivals/ }).locator('.badge')).toHaveText('1')
 })
 
 /** Hash of the canvas backing store, to tell a still frame from a moving one. */
@@ -118,7 +120,7 @@ async function canvasFrames(page: import('@playwright/test').Page, sel: string, 
 
 test('reduced motion: canvases still draw a frame but do not rotate on their own', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  for (const path of ['/individual/home', '/community/community']) {
+  for (const path of ['/individual/around', '/government/population']) {
     await page.goto(path)
     const canvas = page.locator('canvas').first()
     await expect(canvas).toBeVisible()
@@ -132,7 +134,7 @@ test('reduced motion: canvases still draw a frame but do not rotate on their own
 
 test('without reduced motion the city canvas animates (control for the test above)', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
-  await page.goto('/individual/home')
+  await page.goto('/individual/around')
   await expect(page.locator('canvas').first()).toBeVisible()
   await page.waitForTimeout(500)
   const { a, b } = await canvasFrames(page, 'canvas', 1200)

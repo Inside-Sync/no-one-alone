@@ -1984,20 +1984,20 @@ document.addEventListener('click',function(e){
   var pr=e.target.closest('[data-preset]');if(pr){var k=pr.dataset.preset;['james','sarah','david'].forEach(function(id){CATS.forEach(function(c){SHARE[id][c[0]]=k==='safety'?(c[0]==='safety'?1:0):k==='all'?1:(c[0]==='mood'||c[0]==='location'?0:1);});});renderShare();applyLocks();toast(k==='safety'?'Family now sees safety alerts only':k==='all'?'Family now sees everything':'Family sees most things, not your mood');}
   if(e.target.closest('#pauseBtn,#pauseBtn2')){X.paused=!X.paused;renderShare();applyLocks();toast(X.paused?'Sharing paused until 9 am tomorrow · safety alerts still on':'Sharing resumed');}
   var pv=e.target.closest('[data-preview]');if(pv){X.viewer=pv.dataset.preview;state.who='family';state.page='home';render();window.scrollTo({top:0});toast('Previewing what '+PEOPLE2.filter(function(p){return p.id===X.viewer})[0].n+' sees');}
-  var lk=e.target.closest('.locked');if(lk){var nm=viewerName();setTimeout(function(){openInfo('🔒 Kept private','<p style="font-size:14px;line-height:1.55">Margaret has chosen not to share this with '+(nm==='James'?'you':nm)+(X.paused?' right now. She paused sharing until 9 am tomorrow. Safety alerts still reach you.':'. That\'s her choice, and she can change it any time.')+'</p>'+actions([['💬 Ask Margaret kindly','Margaret will get a gentle request she can say yes or no to','Request sent']]));},5);}
+  var lk=e.target.closest('.locked');if(lk){var nm=viewerName();setTimeout(function(){openInfo('🔒 Kept private','<p style="font-size:14px;line-height:1.55">Moza has chosen not to share this with '+(nm==='James'?'you':nm)+(X.paused?' right now. She paused sharing until 9 am tomorrow. Safety alerts still reach you.':'. That\'s her choice, and she can change it any time.')+'</p>'+actions([['💬 Ask Moza kindly','Moza will get a gentle request she can say yes or no to','Request sent']]));},5);}
   var bt=e.target.closest('.bt');if(bt)toast(bt.querySelector('b').textContent+' · '+bt.querySelector('small').textContent);
 },true);
 X.viewer='james';
 function viewerName(){return PEOPLE2.filter(function(p){return p.id===X.viewer})[0].n}
 function applyLocks(){var fam=state.view==='individual'&&state.who==='family';
   document.querySelectorAll('[data-scat]').forEach(function(el){var c=el.dataset.scat,ok=!fam||sees(X.viewer,c);el.classList.toggle('locked',!ok);
-    if(!ok){var nm=CATS.filter(function(x){return x[0]===c})[0];el.dataset.lockmsg=X.paused?'Margaret paused sharing until tomorrow':'Margaret keeps her '+nm[2].toLowerCase()+' private';}});
+    if(!ok){var nm=CATS.filter(function(x){return x[0]===c})[0];el.dataset.lockmsg=X.paused?'Moza paused sharing until tomorrow':'Moza keeps her '+nm[2].toLowerCase()+' private';}});
   $('pauseBanner').hidden=!(fam&&X.paused);}
 /* who switch in context bar */
 var who=document.createElement('div');who.className='seg whoseg';who.id='whoSeg';who.setAttribute('role','group');who.setAttribute('aria-label','Whose view');
 who.innerHTML='<button data-who="self">👵 Margaret (her own app)</button><button data-who="family">👨‍👩‍👧 Family &amp; carers</button>';
 document.querySelector('.ctx .sp').after(who);
-var pb=document.createElement('div');pb.id='pauseBanner';pb.className='glass pause-banner';pb.hidden=true;pb.innerHTML='⏸️ <b>Margaret paused sharing until 9 am tomorrow.</b> You\'ll still get safety alerts straight away.';
+var pb=document.createElement('div');pb.id='pauseBanner';pb.className='glass pause-banner';pb.hidden=true;pb.innerHTML='⏸️ <b>Moza paused sharing until 9 am tomorrow.</b> You\'ll still get safety alerts straight away.';
 document.querySelector('.ctx').after(pb);
 who.addEventListener('click',function(e){var b=e.target.closest('[data-who]');if(!b)return;state.who=b.dataset.who;if(state.who==='family')X.viewer='james';state.page=state.who==='self'?'me':'home';render();window.scrollTo({top:0});});
 var TABS_FAM=VIEWS.individual.tabs.slice(),TABS_SELF=[['me','','🌞 My day'],['health','','❤️ My health'],['privacy','','🔐 Who sees what'],['around','','🌤️ Around me'],['lineage','','🌳 My family health'],['device','','📱 My phone']];
@@ -2010,7 +2010,7 @@ var _r2=render;render=function(){
   document.querySelectorAll('#whoSeg button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.who===state.who?'true':'false')});
   if(ind){var self=state.who==='self';$('vban').textContent=self?'Margaret\'s own view · she controls her information':'Family & carers view · '+viewerName()+' sees only what Margaret shares';
     $('meAv').textContent=self?'MC':PEOPLE2.filter(function(p){return p.id===X.viewer})[0].ini;$('meAv').style.setProperty('--c',self?'#0b7f71':PEOPLE2.filter(function(p){return p.id===X.viewer})[0].c);$('meAv').dataset.toast=self?'Signed in as Margaret Collins':'Signed in as '+viewerName();
-    if(!self){$('facts').insertAdjacentHTML('afterbegin','<span class="fact"><i></i>'+viewerName()+' sees <b>'+countSees(X.viewer)+' of '+CATS.length+'</b> things Margaret shares</span>');}}
+    if(!self){$('facts').insertAdjacentHTML('afterbegin','<span class="fact"><i></i>'+viewerName()+' sees <b>'+countSees(X.viewer)+' of '+CATS.length+'</b> things Moza shares</span>');}}
   renderShare();applyLocks();};
 /* the demo always runs in the family view */
 var _se2=startEm;startEm=function(){state.who='family';_se2();};

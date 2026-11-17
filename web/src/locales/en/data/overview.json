@@ -1,0 +1,312 @@
+{
+  "overview": {
+    "kpis": [
+      {
+        "label": "Patients today",
+        "value": "396",
+        "unit": "",
+        "color": "#2563a8",
+        "baseline": "156 inpatient · 26 in ED · 214 clinic",
+        "delta": "+4% wk",
+        "tone": "good",
+        "spark": [
+          352,
+          360,
+          371,
+          368,
+          380,
+          388,
+          396
+        ]
+      },
+      {
+        "label": "Beds in use",
+        "value": "87",
+        "unit": "%",
+        "color": "#c88a05",
+        "baseline": "156 of 180 beds",
+        "delta": "+3 pts",
+        "tone": "warn",
+        "spark": [
+          80,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87
+        ]
+      },
+      {
+        "label": "Doctors on shift",
+        "value": "39",
+        "unit": "",
+        "color": "#5a7fe0",
+        "baseline": "10.2 patients each",
+        "delta": "steady",
+        "tone": "good",
+        "spark": [
+          38,
+          39,
+          40,
+          39,
+          38,
+          39,
+          39
+        ]
+      },
+      {
+        "label": "Treated in time",
+        "value": "86",
+        "unit": "%",
+        "color": "#0b7f71",
+        "baseline": "all conditions · target 85%",
+        "delta": "+2 pts",
+        "tone": "good",
+        "spark": [
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86
+        ]
+      },
+      {
+        "label": "Recovered at 90 days",
+        "value": "71",
+        "unit": "%",
+        "color": "#1f9d57",
+        "baseline": "after a hospital stay",
+        "delta": "+3 pts",
+        "tone": "good",
+        "spark": [
+          64,
+          65,
+          67,
+          68,
+          69,
+          70,
+          71
+        ]
+      },
+      {
+        "label": "Readmitted in 30 days",
+        "value": "6.1",
+        "unit": "%",
+        "color": "#2f6fb0",
+        "baseline": "target under 8%",
+        "delta": "−1.2 pts",
+        "tone": "good",
+        "spark": [
+          8.1,
+          7.6,
+          7.2,
+          6.9,
+          6.6,
+          6.3,
+          6.1
+        ]
+      }
+    ],
+    "capacity": {
+      "used": 156,
+      "total": 180,
+      "lines": [
+        {
+          "label": "Inpatient beds",
+          "used": 156,
+          "total": 180
+        },
+        {
+          "label": "Emergency",
+          "used": 26,
+          "total": 30
+        },
+        {
+          "label": "Outpatient clinics",
+          "used": 214,
+          "total": 236
+        },
+        {
+          "label": "Forecast Thursday (heatwave)",
+          "used": 169,
+          "total": 180
+        }
+      ]
+    },
+    "effectiveness": {
+      "average": 75,
+      "ofFacilities": 8,
+      "measures": [
+        {
+          "label": "In care in time",
+          "value": 91
+        },
+        {
+          "label": "Recovered at 90 days",
+          "value": 71
+        },
+        {
+          "label": "Not readmitted in 30 days",
+          "value": 93.9
+        }
+      ]
+    },
+    "departments": [
+      {
+        "name": "Emergency",
+        "capacity": "30 cubicles",
+        "used": 26,
+        "total": 30,
+        "doctor": "Dr Omar Haddad",
+        "onShift": 4,
+        "flow": "4 waiting over 4 hours"
+      },
+      {
+        "name": "Stroke unit",
+        "capacity": "12 beds",
+        "used": 11,
+        "total": 12,
+        "doctor": "Dr Sara Al Mazrouei",
+        "onShift": 2,
+        "flow": "1 bed free"
+      },
+      {
+        "name": "Cardiology",
+        "capacity": "28 beds",
+        "used": 25,
+        "total": 28,
+        "doctor": "Dr Rashid Al Nuaimi",
+        "onShift": 3,
+        "flow": "—"
+      },
+      {
+        "name": "Internal medicine",
+        "capacity": "60 beds",
+        "used": 54,
+        "total": 60,
+        "doctor": "Dr Hind Al Marzooqi",
+        "onShift": 5,
+        "flow": "3 waiting for a bed"
+      },
+      {
+        "name": "Geriatrics",
+        "capacity": "24 beds",
+        "used": 22,
+        "total": 24,
+        "doctor": "Dr Yousef Al Hashimi",
+        "onShift": 2,
+        "flow": "2 ready to go home"
+      },
+      {
+        "name": "Orthopaedics",
+        "capacity": "30 beds",
+        "used": 23,
+        "total": 30,
+        "doctor": "Dr Khalifa Al Romaithi",
+        "onShift": 3,
+        "flow": "—"
+      },
+      {
+        "name": "Rehabilitation",
+        "capacity": "26 beds",
+        "used": 21,
+        "total": 26,
+        "doctor": "Dr Mariam Al Kaabi",
+        "onShift": 2,
+        "flow": "—"
+      },
+      {
+        "name": "Outpatient clinics",
+        "capacity": "236 slots today",
+        "used": 214,
+        "total": 236,
+        "doctor": "Dr Aisha Al Hosani",
+        "onShift": 18,
+        "flow": "22 slots free"
+      }
+    ],
+    "conditions": [
+      {
+        "name": "Stroke",
+        "patients": 142,
+        "inTime": {
+          "pct": 88,
+          "note": "Clot-busting within 60 minutes"
+        },
+        "recovered": {
+          "pct": 71,
+          "note": "independent"
+        },
+        "readmitted": "5.6%"
+      },
+      {
+        "name": "Heart attack",
+        "patients": 118,
+        "inTime": {
+          "pct": 90,
+          "note": "Artery opened within 90 minutes"
+        },
+        "recovered": {
+          "pct": 80,
+          "note": "back to usual activity"
+        },
+        "readmitted": "6.8%"
+      },
+      {
+        "name": "Hip fracture",
+        "patients": 64,
+        "inTime": {
+          "pct": 84,
+          "note": "Surgery within 36 hours"
+        },
+        "recovered": {
+          "pct": 61,
+          "note": "walking without help"
+        },
+        "readmitted": "7.8%"
+      },
+      {
+        "name": "Heart failure",
+        "patients": 96,
+        "inTime": {
+          "pct": 79,
+          "note": "Clinic visit within 14 days"
+        },
+        "recovered": {
+          "pct": 84,
+          "note": "no readmission"
+        },
+        "readmitted": "9.4%"
+      },
+      {
+        "name": "Pneumonia",
+        "patients": 131,
+        "inTime": {
+          "pct": 92,
+          "note": "Antibiotics within 4 hours"
+        },
+        "recovered": {
+          "pct": 88,
+          "note": "home"
+        },
+        "readmitted": "5.3%"
+      },
+      {
+        "name": "New diabetes (outpatient)",
+        "patients": 214,
+        "inTime": {
+          "pct": 81,
+          "note": "Treatment within 30 days"
+        },
+        "recovered": {
+          "pct": 64,
+          "note": "controlled"
+        },
+        "readmitted": null
+      }
+    ]
+  }
+}

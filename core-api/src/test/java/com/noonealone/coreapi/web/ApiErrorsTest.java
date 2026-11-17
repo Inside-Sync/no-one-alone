@@ -17,7 +17,7 @@ class ApiErrorsTest {
     static class Thrower {
         @GetMapping("/boom")
         String boom() {
-            throw ApiException.conflict("ALREADY_OWNED", "Ông Hùng is already on the way");
+            throw ApiException.conflict("ALREADY_OWNED", "Hamad is already on the way");
         }
     }
 
@@ -29,6 +29,6 @@ class ApiErrorsTest {
         mvc.perform(get("/boom"))
                 .andExpect(status().is(HttpStatus.CONFLICT.value()))
                 .andExpect(jsonPath("$.error.code").value("ALREADY_OWNED"))
-                .andExpect(jsonPath("$.error.message").value("Ông Hùng is already on the way"));
+                .andExpect(jsonPath("$.error.message").value("Hamad is already on the way"));
     }
 }

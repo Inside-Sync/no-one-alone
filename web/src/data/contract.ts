@@ -63,10 +63,15 @@ export interface Assessment {
   confidence?: number
 }
 
+/** Which question of the check-in an agent turn is; also `pending.step`. */
+export type CheckinStep = 'OPENING' | 'SPEECH_CHECK' | 'SYMPTOMS' | 'YES_NO'
+
 export interface TurnDoc {
   by: 'AGENT' | 'PERSON'
   at: string
   text: string
+  /** Agent turns only; absent on older documents. */
+  kind?: CheckinStep
   audioPath?: string
   assessment?: Assessment
 }
@@ -74,6 +79,8 @@ export interface TurnDoc {
 export interface PendingDoc {
   text: string
   kind: 'VOICE' | 'YES_NO'
+  /** Same values as `TurnDoc.kind`; absent on older documents. */
+  step?: CheckinStep
   audioPath?: string
 }
 
@@ -91,12 +98,51 @@ export interface AssignmentDoc {
   arrivedAt?: string
 }
 
+/** The values behind a timeline line's text, by `kind`; only the keys core-api wrote for that kind are present. */
+export interface TimelineParams {
+  /** `ALERT`, `VERIFIED`, `FALSE_ALARM`. */
+  hr?: number
+  movementMin?: number
+  /** `AGENT_FALLBACK`: `VERIFY` | `CHECKIN` | `TRIAGE` | `PLAN` | `HANDOFF`; `ASKED`: a `CheckinStep`. */
+  step?: string
+  /** `ANSWERED`: the button pressed, or `noSpeech` when the reply had no words. */
+  answer?: 'YES' | 'NO'
+  noSpeech?: boolean
+  /** `NO_REPLY`. */
+  count?: number
+  /** `TRIAGED`. */
+  level?: Level
+  reasons?: string[]
+  /** `ALERTED`: DISTANT members first. */
+  memberIds?: string[]
+  suspectedStroke?: boolean
+  /** `NOTIFIED`. */
+  etaMin?: number
+  attempt?: number
+  /** `EXPIRED`. */
+  seconds?: number
+  voicemail?: boolean
+  /** `CALLED_115`: the number called (`998`). */
+  number?: string
+  /** `HANDOFF_*`, `FAMILY_UPDATE`. */
+  hospitalId?: string
+  ownerId?: string
+  /** `CLOSED`: `CHECKIN` | `CONSOLE`. */
+  by?: 'CHECKIN' | 'CONSOLE'
+  /** `DISCHARGED`. */
+  staffName?: string
+}
+
 export interface TimelineDoc {
   at: string
   /** `SYSTEM` | `AGENT` | `PERSON` | a memberId. */
   actor: string
   kind: TimelineKind
   text: string
+  /** The circle member the line is about; absent on older documents and on lines about no one. */
+  memberId?: string
+  /** Absent on older documents. */
+  params?: TimelineParams
 }
 
 /** 4.4: categories hospital-agent can withhold from a packet. */
@@ -196,6 +242,10 @@ export interface ForecastDoc {
 
 /* ---------- 2.5 families/{personId} ---------- */
 
+export type ConditionCode =
+  | 'STROKE' | 'HYPERTENSION' | 'TYPE_2_DIABETES' | 'PREDIABETES' | 'DEMENTIA' | 'HEARING_LOSS'
+  | 'CHRONIC_KIDNEY_DISEASE' | 'OSTEOARTHRITIS' | 'ATRIAL_FIBRILLATION' | 'GLAUCOMA'
+
 export interface FamilyMemberDoc {
   id: string
   name: string
@@ -203,7 +253,8 @@ export interface FamilyMemberDoc {
   generation: number
   deceased?: boolean
   parentId?: string
-  conditions: { label: string; ageAtOnset?: number }[]
+  /** `code`: stable condition code from the predict job; absent on older documents or an unrecognised label. */
+  conditions: { label: string; ageAtOnset?: number; code?: ConditionCode }[]
 }
 
 export interface FamilyDoc {
@@ -235,9 +286,9 @@ export interface RecoveryRequest {
   staffName: string
   diagnosis: string
   /** `note`: one line for the person on why they take it, written by the hospital and stored as is. */
-  meds: { name: string; dose: string; times: string[]; change?: MedChange; note?: string }[]
+  meds: { name: string; dose: string; times: string[]; change?: MedChange; note?: string; key?: string }[]
   /** `reminder`: what Noa says at each time, as written; else core-api's template. */
-  activities: { text: string; times: string[]; reminder?: string }[]
+  activities: { text: string; times: string[]; reminder?: string; key?: string }[]
   followUps: { text: string; inDays: number }[]
   notes: string
 }
@@ -248,6 +299,6 @@ export interface RecoveryDoc extends RecoveryRequest {
   followUps: { text: string; inDays: number; date: string }[]
   summary: string
   summaryAudioPath?: string
-  reminders: { time: string; kind: 'MED' | 'ACTIVITY'; text: string; audioPath?: string }[]
+  reminders: { time: string; kind: 'MED' | 'ACTIVITY'; text: string; audioPath?: string; key?: string }[]
   fallback: boolean
 }

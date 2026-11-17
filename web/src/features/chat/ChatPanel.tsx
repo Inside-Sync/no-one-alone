@@ -4,6 +4,7 @@ import { usePathname } from '@/app/navigation'
 import { AgentOrb } from '@/components/noa/AgentOrb'
 import { NoaOrb } from '@/components/noa/NoaOrb'
 import type { ChatMode, ChatTurn } from '@/data/api'
+import { currentLanguage } from '@/i18n'
 import { parsePath } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
@@ -71,7 +72,7 @@ export function ChatPanel() {
     let reply: Msg = { by: 'noa', text: t('offline'), local: true }
     if (live) {
       try {
-        reply = { by: 'noa', text: (await (await import('@/data/api')).chat({ question, mode, viewer: mode === 'fam' ? viewer : undefined, history })).answer }
+        reply = { by: 'noa', text: (await (await import('@/data/api')).chat({ question, mode, viewer: mode === 'fam' ? viewer : undefined, history, lang: currentLanguage() })).answer }
       } catch (e) {
         reply = { by: 'noa', text: t((e as { status?: number }).status === 429 ? 'busy' : 'failed'), local: true }
       }

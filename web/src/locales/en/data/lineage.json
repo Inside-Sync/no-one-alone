@@ -38,8 +38,8 @@
         "label": "Grandparents",
         "nodes": [
           {
-            "name": "Arthur Hughes",
-            "sub": "†72 · Margaret's father",
+            "name": "Saeed Al Hammadi",
+            "sub": "†72 · Moza's father",
             "conditions": [
               [
                 "HTN",
@@ -53,8 +53,8 @@
             "kind": "dec"
           },
           {
-            "name": "Edith Hughes",
-            "sub": "†80 · Margaret's mother",
+            "name": "Shamsa Al Hammadi",
+            "sub": "†80 · Moza's mother",
             "conditions": [
               [
                 "GLA",
@@ -74,11 +74,11 @@
         ]
       },
       {
-        "label": "Margaret's generation",
+        "label": "Moza's generation",
         "nodes": [
           {
-            "name": "Margaret Collins",
-            "sub": "78 · Marrickville",
+            "name": "Moza Al Hammadi",
+            "sub": "78 · Al Bateen",
             "conditions": [
               [
                 "HTN",
@@ -92,7 +92,7 @@
             "kind": "focus"
           },
           {
-            "name": "Robert Collins",
+            "name": "Saif Al Mansoori",
             "sub": "†75 · husband",
             "conditions": [
               [
@@ -111,8 +111,8 @@
             "kind": "dec"
           },
           {
-            "name": "David Hughes",
-            "sub": "74 · brother · Marrickville",
+            "name": "Hamad Al Hammadi",
+            "sub": "74 · brother · Al Bateen",
             "conditions": [
               [
                 "HTN",
@@ -130,13 +130,13 @@
         "label": "Children",
         "nodes": [
           {
-            "name": "Sarah Collins",
+            "name": "Alia Al Mansoori",
             "sub": "49 · London",
             "conditions": []
           },
           {
-            "name": "James Collins",
-            "sub": "46 · Melbourne · you",
+            "name": "Khalid Al Mansoori",
+            "sub": "46 · Al Ain · you",
             "conditions": [
               [
                 "HTN",
@@ -151,19 +151,19 @@
         "label": "Grandchildren",
         "nodes": [
           {
-            "name": "Lily Collins",
-            "sub": "19 · Melbourne",
+            "name": "Hessa Al Mansoori",
+            "sub": "19 · Al Ain",
             "conditions": []
           },
           {
-            "name": "Noah Collins",
-            "sub": "16 · Melbourne",
+            "name": "Zayed Al Mansoori",
+            "sub": "16 · Al Ain",
             "conditions": []
           }
         ]
       }
     ],
-    "strengthHeading": "Family pattern strength for you, James",
+    "strengthHeading": "Family pattern strength for you, Khalid",
     "strength": [
       {
         "condition": "Hypertension",
@@ -204,7 +204,7 @@
     "strengthNote": "Strength reflects how many relatives were affected, how closely related they are and how young. It guides screening, it does not predict genes.",
     "screeningHeading": {
       "title": "Your screening plan",
-      "meta": "James Collins · 46"
+      "meta": "Khalid Al Mansoori · 46"
     },
     "screening": [
       {
@@ -222,9 +222,9 @@
         "action": "Book"
       },
       {
-        "check": "Diabetes risk (AUSDRISK) + HbA1c",
-        "interval": "3 years",
-        "due": "Jan 2027",
+        "check": "Diabetes check (HbA1c)",
+        "interval": "3 years, yearly with family history",
+        "due": "In progress",
         "tone": "plain",
         "action": ""
       },
@@ -250,7 +250,7 @@
         "action": ""
       }
     ],
-    "screeningToast": "Booking request sent to your GP in Melbourne",
+    "screeningToast": "Booking request sent to your GP in Al Ain",
     "matrixColumns": [
       "HTN",
       "STR",
@@ -262,14 +262,14 @@
     ],
     "matrix": [
       {
-        "person": "Arthur (grandfather)",
+        "person": "Saeed (grandfather)",
         "onset": {
           "HTN": 55,
           "STR": 68
         }
       },
       {
-        "person": "Edith (grandmother)",
+        "person": "Shamsa (grandmother)",
         "onset": {
           "GLA": 60,
           "DEM": 77,
@@ -277,7 +277,7 @@
         }
       },
       {
-        "person": "Robert (father)",
+        "person": "Saif (father)",
         "onset": {
           "HTN": 60,
           "T2D": 58,
@@ -285,25 +285,25 @@
         }
       },
       {
-        "person": "Margaret (mother)",
+        "person": "Moza (mother)",
         "onset": {
           "HTN": 61,
           "HEAR": 72
         }
       },
       {
-        "person": "David (uncle)",
+        "person": "Hamad (uncle)",
         "onset": {
           "HTN": 52,
           "STR": 69
         }
       },
       {
-        "person": "Sarah (sister)",
+        "person": "Alia (sister)",
         "onset": {}
       },
       {
-        "person": "James (you)",
+        "person": "Khalid (you)",
         "onset": {
           "HTN": "↑"
         }
@@ -319,7 +319,7 @@
       ],
       "rows": [
         {
-          "person": "Margaret",
+          "person": "Moza",
           "shares": [
             true,
             true,
@@ -329,7 +329,7 @@
           ]
         },
         {
-          "person": "David",
+          "person": "Hamad",
           "shares": [
             true,
             false,
@@ -339,7 +339,7 @@
           ]
         },
         {
-          "person": "Sarah",
+          "person": "Alia",
           "shares": [
             true,
             true,
@@ -349,7 +349,7 @@
           ]
         },
         {
-          "person": "James (you)",
+          "person": "Khalid (you)",
           "shares": [
             true,
             true,
@@ -359,7 +359,7 @@
           ]
         },
         {
-          "person": "Robert (estate)",
+          "person": "Saif (estate)",
           "shares": [
             true,
             false,

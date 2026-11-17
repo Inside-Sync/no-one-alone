@@ -10,6 +10,7 @@ import com.noonealone.coreapi.model.Assignment;
 import com.noonealone.coreapi.model.AssignmentState;
 import com.noonealone.coreapi.model.Incident;
 import com.noonealone.coreapi.model.Level;
+import com.noonealone.coreapi.model.Params;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.Role;
 import com.noonealone.coreapi.model.Status;
@@ -62,7 +63,8 @@ public class Actions {
             Assignment a = x.assignment(memberId).orElseThrow();
             a.state = AssignmentState.EXPIRED;
             x.log(now, "SYSTEM", "EXPIRED", EscalationRules.name(people, memberId)
-                    + " did not answer in " + x.demo.timerSeconds + " s" + (a.role == Role.DISTANT ? " · voicemail and text sent" : ""));
+                    + " did not answer in " + x.demo.timerSeconds + " s" + (a.role == Role.DISTANT ? " · voicemail and text sent" : ""),
+                    memberId, Params.of("seconds", x.demo.timerSeconds, "voicemail", a.role == Role.DISTANT));
             notifyNextOrGiveUp(x, now, nextTask, people);
             return true;
         });
@@ -87,7 +89,7 @@ public class Actions {
             a.state = AssignmentState.ACCEPTED;
             a.respondedAt = now;
             x.ownerId = memberId;
-            x.log(now, memberId, "ACCEPTED", EscalationRules.name(people, memberId) + " accepted");
+            x.log(now, memberId, "ACCEPTED", EscalationRules.name(people, memberId) + " accepted", memberId, null);
             if (x.level == Level.EMERGENCY && x.timeline.stream()
                     .noneMatch(t -> "SYSTEM".equals(t.actor) && "CALLED_115".equals(t.kind))) {
                 EscalationRules.autoCall(x, now, people);
@@ -118,7 +120,7 @@ public class Actions {
                     .orElseThrow(() -> ApiException.invalidState(memberId + " cannot decline now"));
             a.state = AssignmentState.DECLINED;
             a.respondedAt = now;
-            x.log(now, memberId, "DECLINED", EscalationRules.name(people, memberId) + " cannot go");
+            x.log(now, memberId, "DECLINED", EscalationRules.name(people, memberId) + " cannot go", memberId, null);
             if (x.ownerId == null) {
                 notifyNextOrGiveUp(x, now, nextTask, people);
             }
@@ -140,7 +142,7 @@ public class Actions {
             a.state = AssignmentState.ARRIVED;
             a.arrivedAt = now;
             x.status = Status.ON_SCENE;
-            x.log(now, memberId, "ARRIVED", EscalationRules.name(people, memberId) + " arrived");
+            x.log(now, memberId, "ARRIVED", EscalationRules.name(people, memberId) + " arrived", memberId, null);
             return true;
         }).incident().version;
     }
@@ -151,8 +153,9 @@ public class Actions {
             x.assignment(memberId).filter(a -> a.state != AssignmentState.QUEUED)
                     .orElseThrow(() -> ApiException.invalidState(memberId + " has not been notified"));
             Person older = people.get(x.personId);
-            String number = older != null && older.emergencyNumber != null ? older.emergencyNumber : "115";
-            x.log(now, memberId, "CALLED_115", EscalationRules.name(people, memberId) + " called " + number);
+            String number = EscalationRules.emergencyNumber(older);
+            x.log(now, memberId, "CALLED_115", EscalationRules.name(people, memberId) + " called " + number, memberId,
+                    Params.of("number", number));
             return true;
         }).incident().version;
     }
@@ -166,7 +169,7 @@ public class Actions {
                 throw ApiException.invalidState("Incident is already closed");
             }
             x.status = Status.CLOSED;
-            x.log(now, "SYSTEM", "CLOSED", "Closed from the demo console");
+            x.log(now, "SYSTEM", "CLOSED", "Closed from the demo console", null, Params.of("by", "CONSOLE"));
             return true;
         });
         tasks.deleteQuietly(m.incident().escalationTaskName);

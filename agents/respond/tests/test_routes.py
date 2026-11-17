@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 import gcp
 import main
 import rules
-from tests.test_plan import MAI, VI_MEMBERS, mk
+from tests.test_plan import AR, AR_MEMBERS, mk
 from tests.test_rules import fixture
 
 client = TestClient(main.app)
@@ -20,7 +20,7 @@ class Voice:
 
 
 def turn_body():
-    return {"person": MAI, "turns": [], "noReplyCount": 0}
+    return {"person": AR, "turns": [], "noReplyCount": 0}
 
 
 def test_turn_adds_audio(monkeypatch):
@@ -45,11 +45,11 @@ def test_turn_crash_hands_back_to_core_api(monkeypatch):
 
 def test_plan_speaks_person_instruction(monkeypatch):
     monkeypatch.setattr(main, "voice", Voice(b"mp3"))
-    out = client.post("/plan", json=mk(MAI, VI_MEMBERS)).json()
+    out = client.post("/plan", json=mk(AR, AR_MEMBERS)).json()
     assert out["personInstruction"]["audioBase64"] == base64.b64encode(b"mp3").decode()
     assert out["fallback"] is False
     monkeypatch.setattr(main, "voice", Voice(None))
-    out = client.post("/plan", json=mk(MAI, VI_MEMBERS)).json()
+    out = client.post("/plan", json=mk(AR, AR_MEMBERS)).json()
     assert out["personInstruction"]["text"] and "audioBase64" not in out["personInstruction"]
     assert out["fallback"] is True
 
@@ -81,7 +81,7 @@ def test_plan_crash_is_503_so_core_api_uses_its_fallback(monkeypatch):
     def boom(body):
         raise ValueError("x")
     monkeypatch.setattr(main.plan, "plan", boom)
-    assert client.post("/plan", json=mk(MAI, VI_MEMBERS)).status_code == 503
+    assert client.post("/plan", json=mk(AR, AR_MEMBERS)).status_code == 503
 
 
 def test_gemini_strips_mime_parameters():
@@ -94,13 +94,13 @@ def test_gemini_strips_mime_parameters():
 
     a = gcp.GeminiAssessor()
     a._client = type("C", (), {"models": Models()})()
-    assert a(b"x", "audio/webm;codecs=opus", {"locale": "vi-VN"})["clarity"] == "CLEAR"
+    assert a(b"x", "audio/webm;codecs=opus", {"locale": "ar-AE"})["clarity"] == "CLEAR"
     assert seen["mime"] == "audio/webm"
 
 
-def test_vi_findings_cover_symptoms():
+def test_ar_findings_cover_symptoms():
     from lang import load_scripts
-    assert set(gcp.SYMPTOMS) <= set(load_scripts()["vi"]["findings"])
+    assert set(gcp.SYMPTOMS) <= set(load_scripts()["ar"]["findings"])
 
 
 def test_validate_keeps_only_a_short_plain_ack():
@@ -119,28 +119,35 @@ def triage_body(person, clarity):
 
 
 def test_triage_monitor_says_goodbye_by_name(monkeypatch):
-    from tests.test_plan import MARGARET
+    from tests.test_plan import MOZA
     monkeypatch.setattr(main, "voice", Voice(b"mp3"))
-    out = client.post("/triage", json=triage_body(MARGARET, "CLEAR")).json()
+    out = client.post("/triage", json=triage_body(MOZA, "CLEAR")).json()
     assert out["level"] == "MONITOR"
-    assert out["closing"]["text"].startswith("That's all right, Margaret.")
+    assert out["closing"]["text"].startswith("That's all right, Moza.")
     assert out["closing"]["audioBase64"] == base64.b64encode(b"mp3").decode()
 
 
 def test_triage_goodbye_without_tts_keeps_text(monkeypatch):
     monkeypatch.setattr(main, "voice", Voice(None))
-    out = client.post("/triage", json=triage_body(MAI, "CLEAR")).json()
+    out = client.post("/triage", json=triage_body(AR, "CLEAR")).json()
     assert out["level"] == "MONITOR" and out["closing"]["text"] and "audioBase64" not in out["closing"]
 
 
 def test_triage_emergency_has_no_goodbye(monkeypatch):
     monkeypatch.setattr(main, "voice", Voice(b"mp3"))
-    out = client.post("/triage", json=triage_body(MAI, "SLURRED")).json()
+    out = client.post("/triage", json=triage_body(AR, "SLURRED")).json()
     assert out["level"] == "EMERGENCY" and "closing" not in out
 
 
 def test_triage_without_person_keeps_level(monkeypatch):
     monkeypatch.setattr(main, "voice", Voice(b"mp3"))
-    body = {k: v for k, v in triage_body(MAI, "CLEAR").items() if k != "person"}
+    body = {k: v for k, v in triage_body(AR, "CLEAR").items() if k != "person"}
     out = client.post("/triage", json=body).json()
     assert out["level"] == "MONITOR" and "closing" not in out
+
+
+def test_tts_locale_follows_the_persons_language():
+    assert gcp.locale_for({"locale": "ar-AE"}) == "ar-XA"
+    assert gcp.locale_for({"locale": "en-AE"}) == "en-AU"
+    assert gcp.locale_for({"locale": "fr-FR"}) == "en-AU", "unknown languages speak English"
+    assert gcp.locale_for({}) == "en-AU"

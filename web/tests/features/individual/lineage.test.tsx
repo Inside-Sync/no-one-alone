@@ -14,11 +14,17 @@ test('is registered for individual/lineage', () => {
   expect(PAGE_REGISTRY['individual/lineage']).toBe(LineagePage)
 })
 
+test('the pedigree card is the walkthrough target', async () => {
+  renderWithProviders(<LineagePage />, { who: 'self' })
+  await ready()
+  expect(document.querySelector('[data-tour="lineage"]')).toContainElement(document.getElementById('ped'))
+})
+
 test('shows every section heading in prototype order', async () => {
   renderWithProviders(<LineagePage />, { who: 'self' })
   await ready()
   expect(Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)).toEqual([
-    'Four generations', 'Family pattern strength for you, James', 'Your screening plan', 'Condition matrix', 'Sharing and consent',
+    'Four generations', 'Family pattern strength for you, Khalid', 'Your screening plan', 'Condition matrix', 'Sharing and consent',
   ])
   expect(screen.getByText('From Family Connect · 11 people · 9 consented')).toBeInTheDocument()
   const cards = Array.from(document.querySelectorAll('main > article, main > div > article'))
@@ -29,14 +35,14 @@ test('pedigree lists four generations of nodes with condition chips', async () =
   renderWithProviders(<LineagePage />, { who: 'self' })
   await ready()
   const ped = document.getElementById('ped')!
-  expect(Array.from(ped.querySelectorAll('.gen-l')).map((e) => e.textContent)).toEqual(['Grandparents', "Margaret's generation", 'Children', 'Grandchildren'])
+  expect(Array.from(ped.querySelectorAll('.gen-l')).map((e) => e.textContent)).toEqual(['Grandparents', "Moza's generation", 'Children', 'Grandchildren'])
   expect(ped.querySelectorAll('.lk')).toHaveLength(3)
   expect(ped.querySelectorAll('.node')).toHaveLength(9)
-  const james = screen.getByText('James Collins').closest('.node')!
-  expect(james).toHaveClass('you')
-  expect(within(james as HTMLElement).getByText('HTN 138/86')).toHaveStyle({ background: fillForWhiteText('#c88a05') })
-  expect(screen.getByText('Margaret Collins').closest('.node')).toHaveClass('focus')
-  expect(screen.getByText('Arthur Hughes').closest('.node')).toHaveClass('dec')
+  const khalid = screen.getByText('Khalid Al Mansoori').closest('.node')!
+  expect(khalid).toHaveClass('you')
+  expect(within(khalid as HTMLElement).getByText('HTN 138/86')).toHaveStyle({ background: fillForWhiteText('#c88a05') })
+  expect(screen.getByText('Moza Al Hammadi').closest('.node')).toHaveClass('focus')
+  expect(screen.getByText('Saeed Al Hammadi').closest('.node')).toHaveClass('dec')
   expect(within(document.getElementById('cxLegend')!).getByText('Number = age at onset')).toBeInTheDocument()
   expect(document.getElementById('cxLegend')!.querySelectorAll('i')).toHaveLength(7)
 })
@@ -63,7 +69,7 @@ test('screening plan: six checks, Book buttons are one-shot and also open the ro
   expect(screen.getByText('Done Aug 2025')).toHaveClass('pill', 'good')
   expect(body.querySelectorAll('button')).toHaveLength(2)
   fireEvent.click(screen.getByRole('button', { name: 'Book GP' }))
-  expect(toastText()).toBe('Booking request sent to your GP in Melbourne')
+  expect(toastText()).toBe('Booking request sent to your GP in Al Ain')
   const done = screen.getByRole('button', { name: '✓ Requested' })
   expect(done).toBeDisabled()
   const drawer = document.getElementById('drawer')!
@@ -80,11 +86,11 @@ test('condition matrix colours affected cells and leaves the rest blank', async 
   ])
   const rows = mx.querySelectorAll('tbody tr')
   expect(rows).toHaveLength(7)
-  const arthur = rows[0].querySelectorAll('td')
-  expect(arthur[1]).toHaveTextContent('55')
-  expect(arthur[1]).toHaveStyle({ background: fillForWhiteText('#c88a05'), color: '#fff' })
-  expect(arthur[3]).toHaveTextContent('')
-  expect(arthur[3]).toHaveStyle({ background: 'var(--track)' })
+  const saeed = rows[0].querySelectorAll('td')
+  expect(saeed[1]).toHaveTextContent('55')
+  expect(saeed[1]).toHaveStyle({ background: fillForWhiteText('#c88a05'), color: '#fff' })
+  expect(saeed[3]).toHaveTextContent('')
+  expect(saeed[3]).toHaveStyle({ background: 'var(--track)' })
   expect(rows[6].querySelectorAll('td')[1]).toHaveTextContent('↑')
   // Matrix rows are not clickable (the prototype skips `.mx`).
   fireEvent.click(rows[0])
@@ -96,10 +102,10 @@ test('consent switches are local toggles: no toast, no audit entry, no share cha
   await ready()
   const cm = document.getElementById('cm')!
   expect(within(cm).getAllByRole('switch')).toHaveLength(25)
-  const sw = within(cm).getByRole('switch', { name: 'David shares Medicines' })
+  const sw = within(cm).getByRole('switch', { name: 'Hamad shares Medicines' })
   expect(sw).toHaveAttribute('aria-checked', 'false')
-  expect(within(cm).getByRole('switch', { name: 'Margaret shares Location' })).toHaveAttribute('aria-checked', 'true')
-  expect(within(cm).getByRole('switch', { name: 'Margaret shares Genetic' })).toHaveAttribute('aria-checked', 'false')
+  expect(within(cm).getByRole('switch', { name: 'Moza shares Location' })).toHaveAttribute('aria-checked', 'true')
+  expect(within(cm).getByRole('switch', { name: 'Moza shares Genetic' })).toHaveAttribute('aria-checked', 'false')
   const before = toastText()
   fireEvent.click(sw)
   expect(sw).toHaveAttribute('aria-checked', 'true')

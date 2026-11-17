@@ -1,0 +1,305 @@
+{
+  "careCircle": [
+    {
+      "id": "david",
+      "initials": "H",
+      "color": "#2f6fb0",
+      "name": "حمد · أخوها",
+      "note": "450 م · أول من يُتصل به",
+      "role": {
+        "tone": "good",
+        "text": "مناوب"
+      },
+      "technicalName": "حمد · أخوها",
+      "technicalNote": "450 م · أول من يُتصل به",
+      "icon": "user-round"
+    },
+    {
+      "id": "james",
+      "initials": "K",
+      "color": "#e07a3f",
+      "name": "خالد · أنت",
+      "note": "العين · يتصل بـ 998 عند الحاجة",
+      "role": {
+        "tone": "brand",
+        "text": "الثاني"
+      },
+      "technicalName": "خالد · أنت",
+      "technicalNote": "العين · يتصل بـ 998",
+      "icon": "user-round"
+    },
+    {
+      "id": "sarah",
+      "initials": "A",
+      "color": "#c2417a",
+      "name": "عالية · ابنتها",
+      "note": "لندن · تتلقى التحديثات",
+      "role": {
+        "tone": "plain",
+        "text": "تحديثات"
+      },
+      "technicalName": "عالية · ابنتها",
+      "technicalNote": "لندن · تحديثات فقط",
+      "icon": "user-round"
+    },
+    {
+      "id": "priya",
+      "initials": "ب",
+      "color": "#8a6bd1",
+      "name": "بريا · ممرضة المجتمع",
+      "note": "أيام الأسبوع",
+      "role": {
+        "tone": "plain",
+        "text": "احتياطي"
+      },
+      "technicalName": "بريا شارما",
+      "technicalNote": "ممرضة المجتمع · أيام الأسبوع",
+      "icon": "stethoscope"
+    },
+    {
+      "id": "aisha",
+      "initials": "S",
+      "color": "#c2611f",
+      "name": "شمّا · جارة",
+      "note": "بعد بابين · لديها مفتاح",
+      "role": {
+        "tone": "plain",
+        "text": "احتياطي"
+      },
+      "technicalName": "شمّا · جارة",
+      "technicalNote": "بعد بابين · تحمل المفتاح",
+      "icon": "home"
+    }
+  ],
+  "circleOrbit": [
+    {
+      "id": "david",
+      "name": "حمد",
+      "sub": "الأخ · 450 م",
+      "initials": "H",
+      "ring": 0,
+      "angle": 0.5,
+      "colors": [
+        "#cfe0fb",
+        "#2f6fb0",
+        "#173a66"
+      ]
+    },
+    {
+      "id": "nurse",
+      "name": "بريا",
+      "sub": "ممرضة المجتمع",
+      "initials": "ب",
+      "ring": 0,
+      "angle": 3.6,
+      "colors": [
+        "#ddd0ff",
+        "#8a6bd1",
+        "#45308a"
+      ]
+    },
+    {
+      "id": "james",
+      "name": "خالد",
+      "sub": "الابن · العين (أنت)",
+      "initials": "K",
+      "ring": 1,
+      "angle": 1.4,
+      "colors": [
+        "#ffd2b0",
+        "#e07a3f",
+        "#8f3e14"
+      ]
+    },
+    {
+      "id": "sarah",
+      "name": "عالية",
+      "sub": "الابنة · لندن",
+      "initials": "A",
+      "ring": 1,
+      "angle": 4.4,
+      "colors": [
+        "#ffd0e4",
+        "#c2417a",
+        "#6e1d43"
+      ]
+    },
+    {
+      "id": "hosp",
+      "name": "مركز الكورنيش للسكتة",
+      "sub": "البطين · 3.4 كم",
+      "initials": "+",
+      "ring": 2,
+      "angle": 2.5,
+      "colors": [
+        "#ffffff",
+        "#eef5f4",
+        "#a9bdba"
+      ],
+      "ink": "#e0413d"
+    }
+  ],
+  "orbitRings": [
+    {
+      "radius": 78,
+      "y": -2,
+      "speed": 0.18
+    },
+    {
+      "radius": 126,
+      "y": 2,
+      "speed": 0.1
+    },
+    {
+      "radius": 172,
+      "y": 8,
+      "speed": 0.055,
+      "dashed": true
+    }
+  ],
+  "orbitScene": {
+    "nodes": [
+      {
+        "id": "david",
+        "name": "حمد",
+        "sub": "الأخ · 450 م",
+        "initials": "H",
+        "ring": 0,
+        "angle": 0.5,
+        "colors": [
+          "#cfe0fb",
+          "#2f6fb0",
+          "#173a66"
+        ]
+      },
+      {
+        "id": "nurse",
+        "name": "بريا",
+        "sub": "ممرضة المجتمع",
+        "initials": "ب",
+        "ring": 0,
+        "angle": 3.6,
+        "colors": [
+          "#ddd0ff",
+          "#8a6bd1",
+          "#45308a"
+        ]
+      },
+      {
+        "id": "james",
+        "name": "خالد",
+        "sub": "الابن · العين (أنت)",
+        "initials": "K",
+        "ring": 1,
+        "angle": 1.4,
+        "colors": [
+          "#ffd2b0",
+          "#e07a3f",
+          "#8f3e14"
+        ]
+      },
+      {
+        "id": "sarah",
+        "name": "عالية",
+        "sub": "الابنة · لندن",
+        "initials": "A",
+        "ring": 1,
+        "angle": 4.4,
+        "colors": [
+          "#ffd0e4",
+          "#c2417a",
+          "#6e1d43"
+        ]
+      },
+      {
+        "id": "hosp",
+        "name": "مركز الكورنيش للسكتة",
+        "sub": "البطين · 3.4 كم",
+        "initials": "+",
+        "ring": 2,
+        "angle": 2.5,
+        "colors": [
+          "#ffffff",
+          "#eef5f4",
+          "#a9bdba"
+        ],
+        "ink": "#e0413d"
+      }
+    ],
+    "rings": [
+      {
+        "radius": 78,
+        "y": -2,
+        "speed": 0.18
+      },
+      {
+        "radius": 126,
+        "y": 2,
+        "speed": 0.1
+      },
+      {
+        "radius": 172,
+        "y": 8,
+        "speed": 0.055,
+        "dashed": true
+      }
+    ],
+    "centre": {
+      "initials": "م",
+      "label": "موزة، 78",
+      "name": "موزة",
+      "calmSub": "بأمان في المنزل",
+      "alertSub": "تحتاج مساعدة الآن"
+    }
+  },
+  "sharePeople": [
+    {
+      "id": "james",
+      "name": "خالد",
+      "role": "الابن · العين",
+      "color": "#e07a3f",
+      "initials": "K",
+      "emergency": true
+    },
+    {
+      "id": "sarah",
+      "name": "عالية",
+      "role": "الابنة · لندن",
+      "color": "#c2417a",
+      "initials": "A",
+      "emergency": false
+    },
+    {
+      "id": "david",
+      "name": "حمد",
+      "role": "الأخ · 450 م",
+      "color": "#2f6fb0",
+      "initials": "H",
+      "emergency": true
+    },
+    {
+      "id": "priya",
+      "name": "بريا",
+      "role": "ممرضة المجتمع",
+      "color": "#8a6bd1",
+      "initials": "ب",
+      "emergency": false
+    },
+    {
+      "id": "gp",
+      "name": "د. فاطمة العلي",
+      "role": "طبيب أسرتها",
+      "color": "#0b7f71",
+      "initials": "طب",
+      "emergency": false
+    },
+    {
+      "id": "hosp",
+      "name": "المستشفى",
+      "role": "في الطوارئ فقط",
+      "color": "#2563a8",
+      "initials": "م",
+      "emergency": false
+    }
+  ]
+}

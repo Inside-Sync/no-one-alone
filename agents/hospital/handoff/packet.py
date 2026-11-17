@@ -16,25 +16,6 @@ WARNING_CATEGORY: dict[str, Category] = {
 }
 COMMS_TEXT = {"HARD_OF_HEARING": "hard of hearing", "COGNITIVE_IMPAIRMENT": "cognitive impairment"}
 
-VI = {
-    "withheld": "không chia sẻ (withheld: no consent)",
-    "none_recorded": "chưa ghi nhận (none recorded)",
-    "unavailable": "không đọc được hồ sơ (record unavailable)",
-    "not_found": "không có hồ sơ (record not found)",
-    "patient": "Bệnh nhân (patient): ",
-    "stroke": "nghi đột quỵ (suspected stroke)",
-    "emergency": "cấp cứu, chưa rõ nguyên nhân (emergency, cause unknown)",
-    "unknown": "không rõ (unknown)",
-    "no_findings": "không có (none reported)",
-    "family": " · gia đình (family): ",
-    "allergy_unknown": "chưa ghi nhận, cần hỏi (not recorded, ask)",
-    "no_allergy": "không dị ứng đã biết (no known allergy, recorded)",
-    "no_contact": "không có (none)",
-    "status": "Tình trạng (Status)", "last_well": "Bình thường lần cuối (Last well)",
-    "findings": "Dấu hiệu (Findings)", "history": "Bệnh sử (History)", "meds": "Thuốc (Medicines)",
-    "allergy": "Dị ứng (Allergy)", "function": "Chức năng (Function)", "comms": "Giao tiếp (Comms)",
-    "contact": "Người nhà (Contact)", "footer": "DỮ LIỆU MÔ PHỎNG · SYNTHETIC DEMO DATA",
-}
 EN = {
     "withheld": "withheld: no consent",
     "none_recorded": "none recorded",
@@ -58,19 +39,18 @@ EN = {
 @dataclass(frozen=True)
 class Profile:
     zone: ZoneInfo
-    zone_label: str | None  # None: use the zone's abbreviation (AEDT/AEST)
+    zone_label: str | None  # None: use the zone's own abbreviation, which some zones (Asia/Dubai) do not have
     labels: dict[str, str]
     baseline: str  # Contract 4.4: a constant in the agent prompt, FHIR has no source for it
 
 
 PROFILES = {
-    "ba-mai": Profile(ZoneInfo("Asia/Ho_Chi_Minh"), "UTC+7", VI, "Lives alone, independent"),
-    "margaret": Profile(ZoneInfo("Australia/Sydney"), None, EN, "Lives alone, independent, walking stick outdoors"),
+    "margaret": Profile(ZoneInfo("Asia/Dubai"), "GST", EN, "Lives alone, independent, walking stick outdoors"),
 }
 
 
 def profile(person_id: str) -> Profile:
-    return PROFILES.get(person_id, PROFILES["ba-mai"])
+    return PROFILES.get(person_id, PROFILES["margaret"])
 
 
 def _local(ts: str, pr: Profile) -> str:

@@ -30,7 +30,7 @@ export function WatchMapCard({ s, geometry }: { s: Surroundings; geometry: CityG
   const reset = () => (gmaps ? setHeading(DEFAULT_HEADING) : city.current?.reset())
   const { t } = useTranslation(['around', 'home'])
   return (
-    <article className="glass map-card c8">
+    <article className="glass map-card c8" data-tour="around">
       <div className="map-top">
         <div className="loc"><span className="k"><Glyph name={map.icon} />{map.kicker}</span><b>{map.title}</b><small>{map.detail}</small></div>
         <div className="map-ctrl">
@@ -47,7 +47,7 @@ export function WatchMapCard({ s, geometry }: { s: Surroundings; geometry: CityG
         tilt={DEFAULT_TILT}
         fallback={<City3D ref={city} scene={scene} view={geometry.views.street} ariaLabel={map.ariaLabel} onSelect={toast} />}
       />
-      {!gmaps && <small className="map-attr">© OpenStreetMap contributors</small>}
+      {!gmaps && <small className="map-attr">{t('home:mapAttribution')}</small>}
       {!gmaps && <MapZoom map={city} />}
       <div className="map-bottom">
         {map.legend.map((l) => (

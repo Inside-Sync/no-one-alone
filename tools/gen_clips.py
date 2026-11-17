@@ -16,22 +16,26 @@ NOA = "en-AU-Chirp3-HD-Aoede"
 OPERATOR = "en-AU-Chirp3-HD-Charon"
 
 # (file under web/public, voice, speaking rate, text)
+HEART = " Heart rate 142. Not on blood thinners. Allergic to penicillin."
 CLIPS = [
-    ("noa/calling-james.mp3", NOA, 0.9, "I'm calling James now. Please stay sitting."),
-    ("noa/no-answer-james-calling-david.mp3", NOA, 0.9, "James didn't answer, so I've left him a message. I'm calling David now."),
-    ("noa/on-the-way-david.mp3", NOA, 0.9, "David is on his way. He has a key. I'm calling 000 now."),
-    ("noa/ambulance-coming.mp3", NOA, 0.9, "Help is on the way, Margaret. The ambulance is 12 minutes away. Stay sitting. I'm right here with you."),
-    ("noa/000-1.mp3", OPERATOR, 1.0, "Emergency. Police, Fire or Ambulance?"),
-    ("noa/000-2.mp3", NOA, 0.9, "Ambulance. This is Noa from No One Alone, calling for Margaret Collins, 78, female, who lives alone. Possible stroke."),
+    ("noa/calling-khalid.mp3", NOA, 0.9, "I'm calling Khalid now. Please stay sitting."),
+    ("noa/no-answer-khalid-calling-hamad.mp3", NOA, 0.9, "Khalid didn't answer, so I've left him a message. I'm calling Hamad now."),
+    ("noa/on-the-way-hamad.mp3", NOA, 0.9, "Hamad is on his way. He has a key. I'm calling 998 now."),
+    ("noa/ambulance-coming.mp3", NOA, 0.9, "Help is on the way, Umm Khalid. The ambulance is 12 minutes away. Stay sitting. I'm right here with you."),
+    ("noa/000-1.mp3", OPERATOR, 1.0, "Ambulance. What is your emergency?"),
+    ("noa/000-2.mp3", NOA, 0.9, "This is Noa from No One Alone, calling for Moza Al Hammadi, 78, female, who lives alone. Possible stroke."),
     ("noa/000-3.mp3", OPERATOR, 1.0, "What's the address?"),
-    ("noa/000-4-david.mp3", NOA, 0.9, "186 Marrickville Road, Marrickville 2204. Her brother David is on his way with a key."),
-    ("noa/000-4-alone.mp3", NOA, 0.9, "186 Marrickville Road, Marrickville 2204. Nobody is with her. Key lockbox by the front door."),
+    ("noa/000-4-david.mp3", NOA, 0.9, "Villa 12, Street 18, Al Bateen, Abu Dhabi. Her brother Hamad is on his way with a key."),
+    ("noa/000-4-alone.mp3", NOA, 0.9, "Villa 12, Street 18, Al Bateen, Abu Dhabi. Nobody is with her. Her neighbour Shamma holds a spare key."),
     ("noa/000-5.mp3", OPERATOR, 1.0, "Tell me exactly what happened."),
-    ("noa/000-6.mp3", NOA, 0.9, "Slurred speech at 01:40, last seen well at 01:30. She is awake and breathing, but confused. Heart rate 137. Not on blood thinners. Allergic to penicillin."),
+    ("noa/000-6.mp3", NOA, 0.9, "Slurred speech at 02:04, last seen well at 01:22. She is awake and breathing, but confused." + HEART),
+    ("noa/000-6-weakness.mp3", NOA, 0.9, "Sudden weakness at 02:04, last seen well at 01:22. She says she cannot move properly. She is awake and breathing." + HEART),
+    ("noa/000-6-chest-pain.mp3", NOA, 0.9, "Chest pain at 02:04, last seen well at 01:22. She is awake and breathing." + HEART),
+    ("noa/000-6-fall.mp3", NOA, 0.9, "She had a fall at 02:04, last seen well at 01:22. She is awake and breathing." + HEART),
     ("noa/000-7.mp3", OPERATOR, 1.0, "An ambulance is on its way, about 12 minutes. Don't give her anything to eat or drink."),
-    ("noa/000-8.mp3", NOA, 0.9, "Thank you. Her details are going to Camperdown Stroke Centre, and I'm staying with her."),
+    ("noa/000-8.mp3", NOA, 0.9, "Thank you. Her details are going to Corniche Stroke Centre, and I'm staying with her."),
     ("sim/red-0.mp3", MARGARET, 0.6, "Mmm... yeahh... yes..."),
-    ("sim/red-1.mp3", MARGARET, 0.5, "Thuh... sgyyh... izh... bwuuh... in... Zhid... neh..."),
+    ("sim/red-1.mp3", MARGARET, 0.5, "Thuh... sgyyh... izh... bwuuh... in... Ahh... buu... dah..."),
 ]
 
 

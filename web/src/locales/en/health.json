@@ -47,7 +47,8 @@
     "title": "Steps, last 2 weeks",
     "meta": "Goal 3,500",
     "ariaLabel": "Steps over 14 days, goal met on 7 days",
-    "goal": "goal 3,500"
+    "goal": "goal 3,500",
+    "axisK": "{{n}}k"
   },
   "bp": {
     "title": "Blood pressure, last 2 weeks",
@@ -68,18 +69,72 @@
       }
     ]
   },
-  "devices": {
-    "title": "Where this comes from",
-    "columns": [
-      "Device",
-      "Metrics",
-      "Frequency",
-      "Battery / status",
-      "Shared with"
-    ]
-  },
   "days": {
     "today": "today",
     "ago": "{{n}}d"
+  },
+  "src": {
+    "goals": {
+      "source": "Watch",
+      "time": "Today 15:08"
+    },
+    "hr": {
+      "source": "Watch",
+      "time": "Today 15:08"
+    },
+    "hypno": {
+      "source": "Watch",
+      "time": "Today 06:02"
+    },
+    "mood": {
+      "source": "Voice check-ins and app",
+      "time": "Today 13:02"
+    },
+    "steps": {
+      "source": "Watch and phone",
+      "time": "Today 15:08"
+    },
+    "bp": {
+      "source": "Blood pressure cuff",
+      "time": "Today 07:12"
+    },
+    "groups": [
+      {
+        "source": "Watch",
+        "time": "Today 15:08"
+      },
+      {
+        "source": "Watch and ECG app",
+        "time": "Today 15:08"
+      },
+      {
+        "source": "Watch and phone",
+        "time": "Today 15:08"
+      },
+      {
+        "source": "Phone and home sensors",
+        "time": "Today 15:00"
+      },
+      {
+        "source": "Watch",
+        "time": "Today 06:02"
+      },
+      {
+        "source": "Noa voice check-ins and phone",
+        "time": "Today 13:02"
+      },
+      {
+        "source": "Smart scale and voice check-ins",
+        "time": "Today 07:40"
+      },
+      {
+        "source": "Watch, TV and voice check-ins",
+        "time": "Today 15:00"
+      },
+      {
+        "source": "Pill box and blood pressure cuff",
+        "time": "Today 08:05"
+      }
+    ]
   }
 }

@@ -22,6 +22,7 @@ import com.noonealone.coreapi.model.HandoffInfo;
 import com.noonealone.coreapi.model.Hospital;
 import com.noonealone.coreapi.model.Incident;
 import com.noonealone.coreapi.model.Level;
+import com.noonealone.coreapi.model.Params;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.Role;
 import com.noonealone.coreapi.model.StoryClock;
@@ -35,6 +36,10 @@ public class Handoff {
     private static final Logger log = LoggerFactory.getLogger(Handoff.class);
     static final String SCRIPT_PERSON = "margaret";
     private static final int SCRIPT_ETA_MIN = 12;
+    // The numbers Moza's recorded 998 call says; her notice and screens say the same ones.
+    private static final String SCRIPT_LAST_WELL = "01:22";
+    private static final String SCRIPT_SLURRED_AT = "02:04";
+    private static final int SCRIPT_HR = 142;
     private static final List<String> BLOOD_THINNERS = List.of("apixaban", "rivaroxaban", "dabigatran", "edoxaban", "warfarin", "heparin", "enoxaparin");
     private static final DateTimeFormatter HH_MM = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -50,7 +55,7 @@ public class Handoff {
         this.tasks = tasks;
     }
 
-    // Starts the hand-off once the automatic 000 call is logged, after the 000 dialogue when Cloud Tasks runs.
+    // Starts the hand-off once the automatic emergency call is logged, after the call dialogue when Cloud Tasks runs.
     public void afterCall(String incidentId) {
         try {
             Incident inc = store.get(incidentId);
@@ -107,7 +112,8 @@ public class Handoff {
             x.handoff.etaMin = SCRIPT_PERSON.equals(x.personId) ? SCRIPT_ETA_MIN : eta.get(chosen.id);
             x.handoff.status = "PENDING";
             x.handoff.sentAt = now;
-            x.log(now, "AGENT", "HANDOFF_SENT", notice(x, person, eta.get(chosen.id)));
+            x.log(now, "AGENT", "HANDOFF_SENT", notice(x, person, eta.get(chosen.id)), null,
+                    Params.of("hospitalId", chosen.id, "etaMin", x.handoff.etaMin));
             return true;
         }).changed();
         if (!started) {
@@ -125,20 +131,22 @@ public class Handoff {
             x.handoff.status = "RECEIVED".equals(r.status()) ? "RECEIVED" : "FAILED";
             x.handoff.packet = r.packet();
             if (r.fallback()) {
-                x.log(now, "AGENT", "AGENT_FALLBACK", "Handoff used fallback");
+                x.log(now, "AGENT", "AGENT_FALLBACK", "Handoff used fallback", null, Params.of("step", "HANDOFF"));
             }
             if ("RECEIVED".equals(x.handoff.status)) {
-                x.log(now, "SYSTEM", "HANDOFF_RECEIVED", "Received. Stroke call activated, CT scanner on standby.");
-                x.log(now, "AGENT", "FAMILY_UPDATE", familyUpdate(x, person, chosen));
+                x.log(now, "SYSTEM", "HANDOFF_RECEIVED", "Received. Stroke call activated, CT scanner on standby.", null,
+                        Params.of("hospitalId", chosen.id));
+                x.log(now, "AGENT", "FAMILY_UPDATE", familyUpdate(x, person, chosen), x.ownerId,
+                        Params.of("hospitalId", chosen.id, "ownerId", x.ownerId));
             } else {
-                x.log(now, "SYSTEM", "HANDOFF_FAILED", "Could not reach " + chosen.name);
+                x.log(now, "SYSTEM", "HANDOFF_FAILED", "Could not reach " + chosen.name, null, Params.of("hospitalId", chosen.id));
             }
             return true;
         });
     }
 
     private String notice(Incident x, Person person, Integer etaMin) {
-        // ponytail: Margaret's 000 call is recorded audio with the script's numbers, so her notice says the same ones
+        // ponytail: Moza's 998 call is recorded audio with the script's numbers, so her notice says the same ones
         boolean script = SCRIPT_PERSON.equals(x.personId);
         ZoneId zone = person.timezone == null ? StoryClock.DEFAULT_ZONE : ZoneId.of(person.timezone);
         List<String> parts = new ArrayList<>();
@@ -149,16 +157,16 @@ public class Handoff {
             parts.add("Suspected stroke");
         }
         if (script) {
-            parts.add("Last seen well 01:30");
+            parts.add("Last seen well " + SCRIPT_LAST_WELL);
         } else if (x.lastKnownWellAt != null) {
             parts.add("Last seen well " + hhmm(x.lastKnownWellAt, zone));
         }
         Optional<String> slurred = x.checkIn.turns.stream().filter(t -> t.assessment != null && "SLURRED".equals(t.assessment.clarity))
                 .findFirst().map(t -> t.at != null ? t.at
                         : x.timeline.stream().filter(e -> "TRIAGED".equals(e.kind)).map(e -> e.at).findFirst().orElse(null));
-        slurred.ifPresent(at -> parts.add("Slurred speech found " + (script ? "01:40" : hhmm(at, zone))));
+        slurred.ifPresent(at -> parts.add("Slurred speech found " + (script ? SCRIPT_SLURRED_AT : hhmm(at, zone))));
         if (script) {
-            parts.add("Heart rate up to 137");
+            parts.add("Heart rate up to " + SCRIPT_HR);
         } else if (x.alert != null && x.alert.hr != null) {
             parts.add("Heart rate up to " + x.alert.hr);
         }
@@ -187,18 +195,14 @@ public class Handoff {
                 + h.name + " has her details. " + (owner == null ? "I'm staying with her." : owner + " is on his way.");
     }
 
-    // Vietnamese display names start with a title (Bà Mai), so keep them whole.
     private static String firstName(Person p, String fallback) {
-        if (p == null) {
-            return fallback;
-        }
-        return p.locale != null && p.locale.startsWith("vi") ? p.displayName : p.displayName.split(" ")[0];
+        return p == null ? fallback : p.displayName.split(" ")[0];
     }
 
-    // Same story day as the live value, at the script's 01:30.
+    // Same story day as the live value, at the script's 01:22.
     static String scriptLastWell(String iso, Person person) {
         ZoneId zone = person.timezone == null ? StoryClock.DEFAULT_ZONE : ZoneId.of(person.timezone);
-        return Instant.parse(iso).atZone(zone).withHour(1).withMinute(30).withSecond(0).withNano(0).toInstant().toString();
+        return Instant.parse(iso).atZone(zone).withHour(1).withMinute(22).withSecond(0).withNano(0).toInstant().toString();
     }
 
     private static String hhmm(String iso, ZoneId zone) {

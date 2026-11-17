@@ -1,15 +1,15 @@
 {
   "margaret": {
     "id": "margaret",
-    "name": "Margaret Collins",
-    "initials": "MC",
+    "name": "Moza Al Hammadi",
+    "initials": "MH",
     "color": "#0b7f71",
-    "nickname": "Maggie",
+    "nickname": "Umm Khalid",
     "born": "3 March 1948",
     "age": 78,
     "gender": "Female",
-    "suburb": "Marrickville",
-    "postcode": "2204",
+    "suburb": "Al Bateen",
+    "postcode": "",
     "heightCm": 162,
     "weightKg": 61.2,
     "bmi": 23.4,
@@ -100,12 +100,14 @@
         {
           "icon": "user-round",
           "label": "Gender",
-          "value": "Female"
+          "value": "Female",
+          "key": "gender"
         },
         {
           "icon": "cake",
           "label": "Age",
-          "value": "78"
+          "value": "78",
+          "key": "age"
         },
         {
           "icon": "ruler",
@@ -207,7 +209,7 @@
         },
         {
           "label": "Call Mum",
-          "toast": "Calling Margaret · captions on",
+          "toast": "Calling Moza · captions on",
           "kind": "call"
         }
       ]
@@ -258,9 +260,9 @@
       }
     ],
     "context": {
-      "initials": "MC",
+      "initials": "MH",
       "color": "#0b7f71",
-      "sub": "Marrickville NSW 2204 · Inner West · Wednesday 14 October, 15:10 AEDT",
+      "sub": "Al Bateen · Abu Dhabi Island · Wednesday 28 October, 15:10 GST",
       "facts": [
         {
           "live": true,
@@ -314,7 +316,8 @@
           66,
           64,
           68
-        ]
+        ],
+        "explain": "heart rate"
       },
       {
         "icon": "stethoscope",
@@ -335,7 +338,8 @@
           140,
           143,
           146
-        ]
+        ],
+        "explain": "blood pressure"
       },
       {
         "icon": "leaf",
@@ -356,7 +360,8 @@
           27,
           27,
           26
-        ]
+        ],
+        "explain": "calm score"
       },
       {
         "icon": "bed",
@@ -377,7 +382,8 @@
           6.5,
           6,
           6.2
-        ]
+        ],
+        "explain": "sleep"
       },
       {
         "icon": "footprints",
@@ -398,7 +404,8 @@
           3700,
           3100,
           3240
-        ]
+        ],
+        "explain": "steps"
       },
       {
         "icon": "footprints",
@@ -419,7 +426,8 @@
           0.85,
           0.83,
           0.82
-        ]
+        ],
+        "explain": "walking speed"
       },
       {
         "icon": "pill",
@@ -440,7 +448,8 @@
           89,
           87,
           86
-        ]
+        ],
+        "explain": "tablets"
       },
       {
         "icon": "phone",
@@ -461,7 +470,8 @@
           97,
           98,
           97
-        ]
+        ],
+        "explain": "calls answered"
       },
       {
         "icon": "speech",
@@ -482,7 +492,8 @@
           135,
           134,
           132
-        ]
+        ],
+        "explain": "speaking pace"
       },
       {
         "icon": "handshake",
@@ -503,7 +514,8 @@
           5,
           5,
           5
-        ]
+        ],
+        "explain": "time with people"
       },
       {
         "icon": "thermometer",
@@ -524,7 +536,8 @@
           28,
           29,
           29.5
-        ]
+        ],
+        "explain": "home temperature"
       },
       {
         "icon": "scale",
@@ -545,7 +558,8 @@
           61,
           61.3,
           61.2
-        ]
+        ],
+        "explain": "weight"
       }
     ],
     "kpisTechnical": [
@@ -567,7 +581,9 @@
           66,
           64,
           68
-        ]
+        ],
+        "explain": "heart rate",
+        "key": "restingHr"
       },
       {
         "label": "Blood pressure (7 d)",
@@ -587,7 +603,8 @@
           140,
           143,
           146
-        ]
+        ],
+        "explain": "blood pressure"
       },
       {
         "label": "HRV (RMSSD)",
@@ -627,7 +644,8 @@
           6.5,
           6,
           6.2
-        ]
+        ],
+        "explain": "sleep"
       },
       {
         "label": "Steps",
@@ -647,7 +665,8 @@
           3700,
           3100,
           3240
-        ]
+        ],
+        "explain": "steps"
       },
       {
         "label": "Gait speed",
@@ -787,7 +806,8 @@
           61,
           61.3,
           61.2
-        ]
+        ],
+        "explain": "weight"
       }
     ],
     "helperLog": [
@@ -814,7 +834,7 @@
         "what": "Reminded her to put the fan on and drink water",
         "how": "Did it",
         "why": "Home is 29.5°",
-        "result": "She said \"will do, love\"",
+        "result": "She said \"will do, thank you\"",
         "tone": "good",
         "needsApproval": false
       },
@@ -847,7 +867,7 @@
       },
       {
         "time": "Yesterday 21:40",
-        "what": "Suggested David sets up a weekly pill box",
+        "what": "Suggested Hamad sets up a weekly pill box",
         "how": "Needs your OK",
         "why": "Missed tablets + rising BP",
         "result": "Waiting for you",
@@ -856,7 +876,7 @@
       },
       {
         "time": "Yesterday 16:00",
-        "what": "Sent her blood pressure report to Dr Patel",
+        "what": "Sent her blood pressure report to Dr Fatima Al Ali",
         "how": "You approved",
         "why": "Weekly summary",
         "result": "Delivered · read 4:42 pm",
@@ -899,7 +919,8 @@
         "why": "Geofence",
         "result": "Normal routine",
         "tone": "plain",
-        "needsApproval": false
+        "needsApproval": false,
+        "passive": true
       },
       {
         "time": "09:31",
@@ -921,17 +942,17 @@
       },
       {
         "time": "Yesterday 21:40",
-        "what": "Suggested pill box set-up by David",
+        "what": "Suggested pill box set-up by Hamad",
         "how": "Needs approval",
         "why": "BP trend + missed doses",
-        "result": "Waiting for James",
+        "result": "Waiting for Khalid",
         "tone": "warn",
         "needsApproval": true
       },
       {
         "time": "Yesterday 16:00",
-        "what": "BP report sent to Dr Patel",
-        "how": "Approved by James",
+        "what": "BP report sent to Dr Fatima Al Ali",
+        "how": "Approved by Khalid",
         "why": "Weekly summary",
         "result": "Delivered · read 16:42",
         "tone": "good",
@@ -939,7 +960,7 @@
       }
     ],
     "ownView": {
-      "greeting": "Good afternoon, Maggie 🌞",
+      "greeting": "Good afternoon, Umm Khalid 🌞",
       "sub": "You're doing well today. Here's your day, just for you.",
       "tiles": [
         {
@@ -971,15 +992,15 @@
         },
         {
           "icon": "phone",
-          "title": "James calls",
+          "title": "Khalid calls",
           "note": "tonight at 8 pm"
         }
       ],
       "ideas": [
         {
           "icon": "flame",
-          "title": "Thursday will be 38°. Would you like a lift to the library cool room?",
-          "note": "Tom, a volunteer, can pick you up at 11.",
+          "title": "Thursday will be 38°. Would you like a lift to the community majlis cool room?",
+          "note": "Saeed, a volunteer, can pick you up at 11.",
           "yes": {
             "label": "Yes please",
             "toast": "Lift booked for Thursday 11:00",
@@ -994,10 +1015,10 @@
         {
           "icon": "pill",
           "title": "Would a weekly pill box help with the evening tablet?",
-          "note": "David offered to set it up on Saturday.",
+          "note": "Hamad offered to set it up on Saturday.",
           "yes": {
             "label": "Yes please",
-            "toast": "David will come Saturday 10:00",
+            "toast": "Hamad will come Saturday 10:00",
             "done": "Yes"
           },
           "no": {
@@ -1046,25 +1067,25 @@
         {
           "icon": "siren",
           "lead": "Emergencies only:",
-          "text": "David and James always get safety alerts, so help can come."
+          "text": "Hamad and Khalid always get safety alerts, so help can come."
         }
       ],
       "accessLog": [
         {
           "when": "Today 09:12",
-          "who": "James",
+          "who": "Khalid",
           "what": "Your heart and blood pressure summary",
           "why": "Weekly look"
         },
         {
           "when": "Today 08:40",
-          "who": "David",
+          "who": "Hamad",
           "what": "\"I'm OK\" check-in",
           "why": "Morning check"
         },
         {
           "when": "Yesterday 16:42",
-          "who": "Dr Patel",
+          "who": "Dr Fatima Al Ali",
           "what": "Blood pressure report",
           "why": "You agreed to send it"
         },
@@ -1076,7 +1097,7 @@
         },
         {
           "when": "Mon 19:30",
-          "who": "Sarah",
+          "who": "Alia",
           "what": "Sleep and steps",
           "why": "Called you afterwards"
         }
@@ -1111,7 +1132,7 @@
             },
             {
               "label": "Emergency contacts",
-              "toast": "Emergency contacts: David and James",
+              "toast": "Emergency contacts: Hamad and Khalid",
               "done": "Checked"
             }
           ]

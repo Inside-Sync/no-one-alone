@@ -3,7 +3,7 @@ import json
 import logging
 import os
 
-from lang import is_en
+from lang import lang_of
 
 log = logging.getLogger("gcp")
 
@@ -29,8 +29,12 @@ SCHEMA = {
 }
 
 
+# Chirp 3 HD locale per script language; "ar-XA" is unverified by ear.
+TTS_LOCALE = {"en": "en-AU", "ar": "ar-XA"}
+
+
 def locale_for(person: dict) -> str:
-    return "en-AU" if is_en(person) else "vi-VN"
+    return TTS_LOCALE[lang_of(person)]
 
 
 def validate(data) -> dict | None:
@@ -82,8 +86,8 @@ class GeminiAssessor:
                        "acknowledges what they said. No medical advice, no instructions, no questions, and never say "
                        "that help is coming. Leave ack empty if there is no speech."
                        " In feeling, say how the speaker says she is: GOOD if fine, UNSURE if not sure or so-so, BAD if unwell.")
-            if not str(ctx.get("locale") or "").startswith("en"):
-                prompt += ' In Vietnamese, call the speaker "mạ" and yourself "con".'
+            if str(ctx.get("locale") or "").lower().startswith("ar"):
+                prompt += " Write ack in plain Modern Standard Arabic and speak to the speaker respectfully, in the feminine."
             resp = self._get_client().models.generate_content(
                 model=os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"),
                 contents=[types.Part.from_bytes(data=audio, mime_type=mime.split(";")[0].strip() or "audio/webm"), prompt],
@@ -117,7 +121,7 @@ class GeminiChat(GeminiAssessor):
             resp = self._get_client().models.generate_content(
                 model=os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"), contents=[user],
                 config=types.GenerateContentConfig(
-                    system_instruction=system, temperature=0.2, max_output_tokens=200,
+                    system_instruction=system, temperature=0.2, max_output_tokens=400,
                     thinking_config=types.ThinkingConfig(thinking_budget=0)))
             return resp.text
         except Exception as e:

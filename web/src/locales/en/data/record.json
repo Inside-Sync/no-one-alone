@@ -1,5 +1,7 @@
 {
   "careRecord": {
+    "status": "Discharged · outpatient follow-up",
+    "detail": "Corniche Stroke Centre · Dr Sara Al Mazrouei",
     "kpis": [
       {
         "icon": "folder",
@@ -20,7 +22,9 @@
           1250,
           1270,
           1284
-        ]
+        ],
+        "source": "6 sources",
+        "time": "2 min ago"
       },
       {
         "icon": "hospital",
@@ -41,17 +45,19 @@
           43,
           45,
           46
-        ]
+        ],
+        "source": "Clinic, hospital, lab",
+        "time": "23 Oct"
       },
       {
         "icon": "pill",
         "label": "Medicines",
-        "value": "4",
+        "value": "5",
         "unit": "",
         "color": "#c88a05",
-        "baseline": "no clashes found",
-        "delta": "Unchanged",
-        "tone": "good",
+        "baseline": "checked 17 Oct",
+        "delta": "3 changed after the stroke",
+        "tone": "warn",
         "spark": [
           4,
           4,
@@ -60,9 +66,11 @@
           4,
           4,
           4,
-          4,
-          4
-        ]
+          5,
+          5
+        ],
+        "source": "Pill box",
+        "time": "Today 08:05"
       },
       {
         "icon": "flask-conical",
@@ -70,7 +78,7 @@
         "value": "212",
         "unit": "",
         "color": "#5a7fe0",
-        "baseline": "latest 12 Oct",
+        "baseline": "latest 23 Oct",
         "delta": "9 this month",
         "tone": "good",
         "spark": [
@@ -83,7 +91,9 @@
           204,
           210,
           212
-        ]
+        ],
+        "source": "Lab",
+        "time": "23 Oct"
       },
       {
         "icon": "circle-check",
@@ -104,152 +114,106 @@
           92,
           93,
           94
-        ]
+        ],
+        "source": "Noa check",
+        "time": "Today 15:00"
       },
       {
         "icon": "calendar",
         "label": "Days since GP",
-        "value": "32",
+        "value": "5",
         "unit": "days",
         "color": "#2f6fb0",
-        "baseline": "last 12 Sep",
-        "delta": "Due by 7 Nov",
+        "baseline": "last 23 Oct",
+        "delta": "Next 23 Nov",
         "tone": "warn",
         "spark": [
           2,
           10,
           18,
           25,
-          1,
-          8,
-          15,
-          24,
-          32
-        ]
-      }
-    ],
-    "kpisTechnical": [
-      {
-        "label": "FHIR resources",
-        "value": "1,284",
-        "unit": "",
-        "color": "#0b7f71",
-        "baseline": "6 sources",
-        "delta": "+38 wk",
-        "tone": "good",
-        "spark": [
-          1100,
-          1130,
-          1160,
-          1190,
-          1210,
-          1230,
-          1250,
-          1270,
-          1284
-        ]
-      },
-      {
-        "label": "Encounters",
-        "value": "46",
-        "unit": "since 2023",
-        "color": "#1fb39c",
-        "baseline": "GP 18 · path 14",
-        "delta": "+2 mo",
-        "tone": "good",
-        "spark": [
-          30,
           32,
-          35,
-          37,
-          39,
-          41,
-          43,
-          45,
-          46
-        ]
-      },
-      {
-        "label": "Active medicines",
-        "value": "4",
-        "unit": "",
-        "color": "#c88a05",
-        "baseline": "0 interactions",
-        "delta": "stable",
-        "tone": "good",
-        "spark": [
-          4,
-          4,
-          4,
-          4,
-          4,
-          4,
-          4,
-          4,
-          4
-        ]
-      },
-      {
-        "label": "Pathology results",
-        "value": "212",
-        "unit": "",
-        "color": "#5a7fe0",
-        "baseline": "last 12 Oct",
-        "delta": "+9 mo",
-        "tone": "good",
-        "spark": [
-          150,
-          160,
-          170,
-          180,
-          190,
-          198,
-          204,
-          210,
-          212
-        ]
-      },
-      {
-        "label": "Record completeness",
-        "value": "94",
-        "unit": "%",
-        "color": "#8f6fd0",
-        "baseline": "target 90",
-        "delta": "+6 pts",
-        "tone": "good",
-        "spark": [
-          80,
-          82,
-          85,
-          87,
-          89,
-          90,
-          92,
-          93,
-          94
-        ]
-      },
-      {
-        "label": "Days since GP visit",
-        "value": "32",
-        "unit": "days",
-        "color": "#2f6fb0",
-        "baseline": "12 Sep",
-        "delta": "due 7 Nov",
-        "tone": "warn",
-        "spark": [
-          2,
-          10,
-          18,
-          25,
-          1,
-          8,
-          15,
-          24,
-          32
-        ]
+          40,
+          12,
+          3,
+          5
+        ],
+        "source": "Al Bateen Family Health Centre",
+        "time": "23 Oct"
       }
     ],
+    "home": {
+      "title": {
+        "self": "You're home · day 11 after your stroke",
+        "family": "Moza is home · day 11 after her stroke"
+      },
+      "sub": {
+        "self": "Discharged from Corniche Stroke Centre on 17 Oct. Your treatment plan is step 5.",
+        "family": "Discharged from Corniche Stroke Centre on 17 Oct. Her treatment plan is step 5."
+      },
+      "source": "Corniche Stroke Centre discharge summary",
+      "time": "17 Oct 11:20"
+    },
+    "journey": {
+      "source": "Corniche Stroke Centre discharge summary",
+      "time": "17 Oct",
+      "stages": [
+        {
+          "id": "before",
+          "when": "Sep – 14 Oct",
+          "title": "Early signs",
+          "entry": "s1",
+          "items": [
+            "Blood pressure crept up over 6 weeks",
+            "The watch noticed an uneven heartbeat twice",
+            "Some evening tablets were missed"
+          ]
+        },
+        {
+          "id": "symptoms",
+          "when": "Night of 15 Oct",
+          "title": "Signs of a stroke",
+          "entry": "y1",
+          "items": [
+            "Heart racing while lying still",
+            "Words came out slurred",
+            "Noa called the family and an ambulance"
+          ]
+        },
+        {
+          "id": "results",
+          "when": "15–16 Oct",
+          "title": "What the hospital found",
+          "entry": "r1",
+          "items": [
+            "A small clot in a blood vessel in the brain, no bleeding",
+            "An uneven heartbeat (atrial fibrillation) that can cause clots"
+          ]
+        },
+        {
+          "id": "treatment",
+          "when": "15–17 Oct",
+          "title": "What the hospital did",
+          "entry": "t1",
+          "items": [
+            "Clot-busting medicine within 28 minutes of arriving",
+            "A new blood thinner instead of aspirin",
+            "A new blood pressure tablet and a stronger cholesterol tablet"
+          ]
+        },
+        {
+          "id": "recovery",
+          "when": "Since 17 Oct",
+          "title": "At home now",
+          "entry": "f1",
+          "items": [
+            "A daily plan with reminders, below",
+            "Physio and speech therapy",
+            "Next stroke clinic visit Mon 30 Nov"
+          ]
+        }
+      ]
+    },
     "encounters": {
       "meta": "46 encounters from 6 sources",
       "types": [
@@ -345,46 +309,371 @@
           "month": 33,
           "label": "dizziness"
         }
-      ]
+      ],
+      "source": "Clinic, hospital and lab records",
+      "time": "23 Oct"
     },
     "medicines": [
+      {
+        "name": "Apixaban 5 mg",
+        "timing": "Morning + evening",
+        "adherence": 100,
+        "tone": "good",
+        "last": "Today 08:05",
+        "entry": "t3"
+      },
+      {
+        "name": "Perindopril 4 mg",
+        "timing": "Morning",
+        "adherence": 100,
+        "tone": "good",
+        "last": "Today 08:05",
+        "entry": "t3"
+      },
       {
         "name": "Amlodipine 5 mg",
         "timing": "Evening",
         "adherence": 82,
         "tone": "warn",
-        "last": "Today 09:33 (late)"
+        "last": "Yesterday 18:41 (late)",
+        "entry": "h2"
       },
       {
-        "name": "Aspirin 100 mg",
-        "timing": "Morning",
-        "adherence": 96,
-        "tone": "good",
-        "last": "Today 08:31"
-      },
-      {
-        "name": "Atorvastatin 20 mg",
+        "name": "Atorvastatin 40 mg",
         "timing": "Night",
-        "adherence": 88,
-        "tone": "warn",
-        "last": "Yesterday 21:02"
+        "adherence": 91,
+        "tone": "good",
+        "last": "Yesterday 21:02",
+        "entry": "t3"
       },
       {
         "name": "Vitamin D 1000 IU",
         "timing": "Morning",
         "adherence": 90,
         "tone": "good",
-        "last": "Today 08:31"
+        "last": "Today 08:05",
+        "entry": ""
       }
     ],
-    "allergyNote": {
-      "allergen": "penicillin",
-      "detail": "rash, 1998",
-      "checked": "Interaction check run 14 Oct against all active medicines."
-    },
     "medicinesPill": {
       "tone": "good",
       "text": "No interactions"
+    },
+    "allergyNote": {
+      "allergen": "penicillin",
+      "detail": "rash, 1998",
+      "checked": "Interaction check run 17 Oct against all active medicines."
+    },
+    "medicinesSource": {
+      "source": "Pill box and discharge plan",
+      "time": "Today 08:05"
+    },
+    "history": {
+      "episodes": [
+        {
+          "id": "moza:0",
+          "when": "15–17 Oct 2026",
+          "title": "Ischaemic stroke, clot-busting treatment; new atrial fibrillation",
+          "where": "Corniche Stroke Centre · Inpatient",
+          "badge": "This hospital",
+          "tone": "good",
+          "detail": "NIHSS 6 → 1 · apixaban started, aspirin stopped · home on day 3",
+          "access": "This hospital · full record",
+          "entry": "t4"
+        },
+        {
+          "id": "moza:1",
+          "when": "12 Oct 2026",
+          "title": "Blood pressure report from home readings; review booked for 21 Oct",
+          "where": "Al Bateen Family Health Centre · Outpatient",
+          "badge": "Malaffi shared record",
+          "tone": "good",
+          "detail": "Morning average 146 · amlodipine 5 mg continued",
+          "access": "Malaffi shared record · summary",
+          "entry": "s4"
+        },
+        {
+          "id": "moza:2",
+          "when": "14 Mar 2025",
+          "title": "Fall at home, left wrist fracture",
+          "where": "Capital General Hospital · Emergency",
+          "badge": "Malaffi shared record",
+          "tone": "good",
+          "detail": "Cast for 6 weeks · bone density scan advised, not done",
+          "access": "Malaffi shared record · summary",
+          "entry": "h4"
+        },
+        {
+          "id": "moza:3",
+          "when": "Aug 2024",
+          "title": "Dehydration during a heatwave",
+          "where": "Capital General Hospital · Inpatient · 2 days",
+          "badge": "Malaffi summary",
+          "tone": "warn",
+          "detail": "Fluids · amlodipine paused for 3 days · only the discharge letter is shared",
+          "access": "Malaffi summary · full notes on request",
+          "entry": "h3"
+        },
+        {
+          "id": "moza:4",
+          "when": "2023",
+          "title": "High blood pressure diagnosed",
+          "where": "Al Bateen Family Health Centre · Outpatient",
+          "badge": "Malaffi shared record",
+          "tone": "good",
+          "detail": "Amlodipine 5 mg started · target under 140/90",
+          "access": "Malaffi shared record · summary",
+          "entry": "h2"
+        },
+        {
+          "id": "moza:5",
+          "when": "2021",
+          "title": "Cataract surgery, right eye",
+          "where": "Corniche Eye Clinic · Outpatient",
+          "badge": "Not connected",
+          "tone": "plain",
+          "detail": "This clinic is not yet connected to Malaffi",
+          "access": "Not connected · ask the clinic or the patient",
+          "entry": "h1"
+        }
+      ],
+      "source": "Malaffi shared record",
+      "time": "Today 15:10",
+      "holders": [
+        {
+          "tone": "good",
+          "name": {
+            "self": "Corniche Stroke Centre",
+            "family": "Corniche Stroke Centre"
+          },
+          "text": {
+            "self": "Your full record from your stay.",
+            "family": "Her full record from her stay."
+          }
+        },
+        {
+          "tone": "good",
+          "name": {
+            "self": "Malaffi shared record",
+            "family": "Malaffi shared record"
+          },
+          "text": {
+            "self": "Doctors treating you in Abu Dhabi can see your summaries. Every view is logged.",
+            "family": "Doctors treating Moza in Abu Dhabi can see her summaries. Every view is logged."
+          }
+        },
+        {
+          "tone": "warn",
+          "name": {
+            "self": "Full notes from other hospitals",
+            "family": "Full notes from other hospitals"
+          },
+          "text": {
+            "self": "A hospital asks you or the other hospital first.",
+            "family": "A hospital asks Moza or the other hospital first."
+          }
+        },
+        {
+          "tone": "good",
+          "name": {
+            "self": "Your app",
+            "family": "Moza's app"
+          },
+          "text": {
+            "self": "You decide who sees your home readings.",
+            "family": "Moza decides who sees her home readings."
+          }
+        }
+      ],
+      "holdersSource": {
+        "self": "Your sharing settings",
+        "family": "Moza's sharing settings"
+      },
+      "holdersTime": "Today",
+      "family": [
+        {
+          "relative": "Father · Saeed Al Hammadi, †72",
+          "conditions": "High blood pressure at 55 · stroke at 68",
+          "consent": "Recorded by family",
+          "tone": "good"
+        },
+        {
+          "relative": "Mother · Shamsa Al Hammadi, †80",
+          "conditions": "Glaucoma at 60 · hearing loss at 74 · dementia at 77",
+          "consent": "Recorded by family",
+          "tone": "good"
+        },
+        {
+          "relative": "Brother · Hamad Al Hammadi, 74",
+          "conditions": "High blood pressure at 52 · stroke at 69",
+          "consent": "Shared by Hamad",
+          "tone": "good"
+        },
+        {
+          "relative": "Son · Khalid Al Mansoori, 46",
+          "conditions": "Type 2 diabetes at 46",
+          "consent": "Shared by Khalid",
+          "tone": "good"
+        },
+        {
+          "relative": "Daughter · Alia Al Mansoori, 49",
+          "conditions": "—",
+          "consent": "Not shared",
+          "tone": "plain"
+        }
+      ],
+      "familySource": "Health Lineage, with each relative's consent",
+      "familyTime": "Today"
+    },
+    "screening": {
+      "meta": "1 Sep – 14 Oct",
+      "rows": [
+        {
+          "when": "3 Sep",
+          "check": "Blood pressure at home",
+          "result": "134/84",
+          "next": "Check again in 4 weeks",
+          "entry": "s1"
+        },
+        {
+          "when": "1–14 Oct",
+          "check": "Morning blood pressure",
+          "result": "Rose from 128 to 146",
+          "next": "Report sent to Dr Fatima Al Ali on 12 Oct",
+          "entry": "s2"
+        },
+        {
+          "when": "8–14 Oct",
+          "check": "Heartbeat, from the watch",
+          "result": "Uneven twice",
+          "next": "Shown in the app · no heart test booked",
+          "entry": "s3"
+        },
+        {
+          "when": "1–14 Oct",
+          "check": "Tablets, from the pill box",
+          "result": "3 evening doses missed",
+          "next": "Reminder moved earlier",
+          "entry": "s2"
+        },
+        {
+          "when": "Family history",
+          "check": "Health Lineage",
+          "result": "Stroke and high blood pressure in the family",
+          "next": "Checked more often",
+          "entry": ""
+        }
+      ],
+      "source": "Watch, blood pressure cuff and pill box",
+      "time": "14 Oct",
+      "signs": [
+        {
+          "ok": true,
+          "title": {
+            "self": "Noa noticed",
+            "family": "Noa noticed"
+          },
+          "note": "8–14 Oct",
+          "entry": "s3"
+        },
+        {
+          "ok": true,
+          "title": {
+            "self": "You were told",
+            "family": "Moza was told"
+          },
+          "note": "12 Oct · by voice, in Arabic",
+          "entry": "s4"
+        },
+        {
+          "ok": true,
+          "title": {
+            "self": "Sent to your family doctor",
+            "family": "Sent to her family doctor"
+          },
+          "note": "12 Oct · Dr Fatima Al Ali",
+          "entry": "s4"
+        },
+        {
+          "ok": false,
+          "title": {
+            "self": "Doctor review",
+            "family": "Doctor review"
+          },
+          "note": "Booked for 21 Oct",
+          "entry": "s4"
+        },
+        {
+          "ok": false,
+          "title": {
+            "self": "The stroke came first",
+            "family": "The stroke came first"
+          },
+          "note": "15 Oct",
+          "entry": "y1"
+        }
+      ],
+      "note": {
+        "self": "Now, if the watch notices an uneven heartbeat twice, your doctor books a heart test within 3 days.",
+        "family": "Now, if the watch notices an uneven heartbeat twice, her doctor books a heart test within 3 days."
+      },
+      "signsSource": "Noa case log",
+      "signsTime": "15 Oct"
+    },
+    "results": {
+      "meta": "15–23 Oct",
+      "rows": [
+        {
+          "test": "Stroke score (NIHSS)",
+          "showed": "6 on arrival, 1 at discharge",
+          "when": "15–17 Oct",
+          "entry": "r1"
+        },
+        {
+          "test": "Brain scan (CT)",
+          "showed": "No bleeding",
+          "when": "15 Oct",
+          "entry": "r2"
+        },
+        {
+          "test": "Scan of the brain's arteries",
+          "showed": "A blocked artery on the left side, treated",
+          "when": "15 Oct",
+          "entry": "r2"
+        },
+        {
+          "test": "Heart monitoring",
+          "showed": "Uneven heartbeat (atrial fibrillation)",
+          "when": "15–16 Oct",
+          "entry": "r3"
+        },
+        {
+          "test": "MRI",
+          "showed": "A small area of stroke on the left side",
+          "when": "16 Oct",
+          "entry": "r4"
+        },
+        {
+          "test": "Heart ultrasound",
+          "showed": "The heart is pumping normally",
+          "when": "16 Oct",
+          "entry": "r4"
+        },
+        {
+          "test": "Cholesterol (LDL)",
+          "showed": "2.4 · aim under 1.8",
+          "when": "16 Oct",
+          "entry": "r5"
+        },
+        {
+          "test": "Kidney test",
+          "showed": "Stable",
+          "when": "23 Oct",
+          "entry": "f2"
+        }
+      ],
+      "source": "Corniche Stroke Centre record",
+      "time": "23 Oct"
     },
     "labs": [
       {
@@ -464,113 +753,727 @@
         "note": "Normal, drifting down"
       }
     ],
-    "hospitals": [
+    "labsSource": {
+      "source": "Abu Dhabi lab results",
+      "time": "23 Oct"
+    },
+    "followUpReadings": {
+      "meta": "Last 12 days",
+      "tiles": [
+        {
+          "label": "Morning BP",
+          "value": "147",
+          "unit": "mmHg",
+          "note": "target under 130",
+          "color": "#c88a05",
+          "spark": [
+            158,
+            154,
+            152,
+            150,
+            149,
+            148,
+            147,
+            146,
+            147,
+            148,
+            147,
+            147
+          ]
+        },
+        {
+          "label": "Heart rate",
+          "value": "71",
+          "unit": "bpm",
+          "note": "regular rhythm",
+          "color": "#1f8f5f",
+          "spark": [
+            88,
+            84,
+            82,
+            80,
+            78,
+            76,
+            75,
+            74,
+            73,
+            72,
+            72,
+            71
+          ]
+        },
+        {
+          "label": "Steps",
+          "value": "3,100",
+          "unit": "/day",
+          "note": "goal 3,000",
+          "color": "#1f8f5f",
+          "spark": [
+            900,
+            1200,
+            1500,
+            1800,
+            2000,
+            2300,
+            2500,
+            2700,
+            2800,
+            2900,
+            3000,
+            3100
+          ]
+        },
+        {
+          "label": "Apixaban taken",
+          "value": "100",
+          "unit": "%",
+          "note": "22 of 22 doses",
+          "color": "#1f8f5f",
+          "spark": [
+            96,
+            96,
+            98,
+            98,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100
+          ]
+        }
+      ],
+      "note": {
+        "self": "Your blood pressure has been above target for 5 days. Your care team is reviewing the dose today.",
+        "family": "Her blood pressure has been above target for 5 days. Her care team is reviewing the dose today."
+      },
+      "source": "Watch and blood pressure cuff",
+      "time": "12 min ago"
+    },
+    "followUp": {
+      "source": "Noa follow-up calls",
+      "time": "Today 08:10",
+      "days": [
+        {
+          "day": "Day 1 · 18 Oct",
+          "text": "Voice call: no pain, confusion settled",
+          "state": "done",
+          "entry": "f1"
+        },
+        {
+          "day": "Day 3 · 20 Oct",
+          "text": "New medicines matched; aspirin taken out of the pill box",
+          "state": "done",
+          "entry": "f1"
+        },
+        {
+          "day": "Day 7 · 23 Oct",
+          "text": "GP review with Dr Fatima Al Ali · BP 144/86",
+          "state": "done",
+          "entry": "f2"
+        },
+        {
+          "day": "Day 14 · 31 Oct",
+          "text": "Mobility and falls check",
+          "state": "planned",
+          "entry": ""
+        },
+        {
+          "day": "Day 30 · 16 Nov",
+          "text": "Readmission risk re-scored",
+          "state": "planned",
+          "entry": ""
+        }
+      ],
+      "note": "Warning signs go to the discharge nurse as well as the family."
+    },
+    "entries": [
       {
-        "name": "Camperdown Stroke Centre",
-        "capability": "Stroke unit 24/7 · clot retrieval",
-        "eta": "11 min",
-        "load": "24/28",
-        "tone": "warn",
-        "recommended": true
+        "id": "h1",
+        "stage": "his",
+        "kind": "Procedure",
+        "when": "2021",
+        "title": "Cataract operation, right eye",
+        "where": "Corniche Eye Clinic",
+        "summary": "An operation to replace the cloudy lens in the right eye.",
+        "findings": [
+          [
+            "Access",
+            "Not connected to Malaffi · notes on request"
+          ]
+        ],
+        "related": [],
+        "source": "Health Lineage and patient report"
       },
       {
-        "name": "Inner West General",
-        "capability": "ED · no stroke unit",
-        "eta": "9 min",
-        "load": "14/30",
-        "tone": "good",
-        "recommended": false
+        "id": "h2",
+        "stage": "his",
+        "kind": "Diagnosis",
+        "when": "2023",
+        "title": "High blood pressure found",
+        "where": "Al Bateen Family Health Centre · Dr Fatima Al Ali",
+        "summary": "Blood pressure was found to be high and a daily tablet was started.",
+        "findings": [
+          [
+            "Blood pressure",
+            "152/94 average over 2 visits"
+          ],
+          [
+            "Started",
+            "Amlodipine 5 mg"
+          ],
+          [
+            "Target",
+            "Under 140/90"
+          ]
+        ],
+        "related": [
+          "s2",
+          "f3"
+        ],
+        "source": "Malaffi shared record"
       },
       {
-        "name": "Kogarah Regional",
-        "capability": "Stroke unit 24/7",
-        "eta": "17 min",
-        "load": "31/28",
-        "tone": "bad",
-        "recommended": false
+        "id": "h3",
+        "stage": "his",
+        "kind": "Admission",
+        "when": "Aug 2024",
+        "title": "Two nights in hospital in a heatwave",
+        "where": "Capital General Hospital",
+        "summary": "Two nights in hospital after not drinking enough during a heatwave.",
+        "findings": [
+          [
+            "Treatment",
+            "Fluids through a drip"
+          ],
+          [
+            "Medicines",
+            "Amlodipine paused for 3 days"
+          ],
+          [
+            "Shared",
+            "Discharge letter only · full notes requested"
+          ]
+        ],
+        "related": [],
+        "source": "Malaffi shared record"
+      },
+      {
+        "id": "h4",
+        "stage": "his",
+        "kind": "Emergency visit",
+        "when": "14 Mar 2025",
+        "title": "A fall that broke the left wrist",
+        "where": "Capital General Hospital",
+        "summary": "A fall at home broke the left wrist. A bone scan was advised but never booked.",
+        "findings": [
+          [
+            "X-ray",
+            "Distal radius fracture"
+          ],
+          [
+            "Treatment",
+            "Cast for 6 weeks"
+          ],
+          [
+            "Advice",
+            "Bone density scan · not done"
+          ]
+        ],
+        "related": [],
+        "source": "Malaffi shared record"
+      },
+      {
+        "id": "s1",
+        "stage": "bef",
+        "kind": "Screening",
+        "when": "3 Sep 2026",
+        "title": "Blood pressure check at home",
+        "where": "Home · Blood pressure cuff via Noa",
+        "summary": "A routine blood pressure check at home was a little high.",
+        "findings": [
+          [
+            "Reading",
+            "134/84 mmHg"
+          ],
+          [
+            "Action",
+            "Recheck in 4 weeks"
+          ]
+        ],
+        "related": [
+          "h2",
+          "s2"
+        ],
+        "source": "Blood pressure cuff"
+      },
+      {
+        "id": "s2",
+        "stage": "bef",
+        "kind": "Trend",
+        "when": "1–14 Oct 2026",
+        "title": "Morning blood pressure going up",
+        "where": "Home · Blood pressure cuff and pill box via Noa",
+        "summary": "Morning blood pressure crept up for six weeks, and some evening tablets were missed.",
+        "findings": [
+          [
+            "Trend",
+            "128 → 146 mmHg over 6 weeks"
+          ],
+          [
+            "Doses missed",
+            "3 evening doses in 2 weeks"
+          ]
+        ],
+        "related": [
+          "s4"
+        ],
+        "source": "Blood pressure cuff and pill box"
+      },
+      {
+        "id": "s3",
+        "stage": "bef",
+        "kind": "Alert",
+        "when": "8 and 13 Oct 2026",
+        "title": "The watch noticed an uneven heartbeat",
+        "where": "Home · Watch",
+        "summary": "The watch twice noticed an uneven heartbeat, but no heart test was booked. The new 3-day rule closes this gap.",
+        "findings": [
+          [
+            "8 Oct 23:40",
+            "Irregular rhythm, 6 min"
+          ],
+          [
+            "13 Oct 02:10",
+            "Irregular rhythm, 11 min"
+          ],
+          [
+            "Action",
+            "Shown in the app · no ECG booked"
+          ]
+        ],
+        "related": [
+          "r3"
+        ],
+        "source": "Watch"
+      },
+      {
+        "id": "s4",
+        "stage": "bef",
+        "kind": "Letter",
+        "when": "12 Oct 2026",
+        "title": "Readings sent to the family doctor",
+        "where": "Al Bateen Family Health Centre · Noa to Dr Fatima Al Ali",
+        "summary": "Noa sent the readings to the family doctor, who booked a review for 21 October.",
+        "findings": [
+          [
+            "Sent",
+            "Morning average 146 mmHg"
+          ],
+          [
+            "Reply",
+            "Review booked for 21 Oct"
+          ]
+        ],
+        "related": [
+          "s2"
+        ],
+        "source": "Noa case log"
+      },
+      {
+        "id": "y1",
+        "stage": "sym",
+        "kind": "Alert",
+        "when": "15 Oct 2026 · 01:22",
+        "title": "Heart racing in the night",
+        "where": "Home · Watch and home sensors via Noa",
+        "summary": "During the night the heart raced while lying still, so Noa started checking.",
+        "findings": [
+          [
+            "Heart rate",
+            "120–144 for 10 min"
+          ],
+          [
+            "Movement",
+            "None"
+          ],
+          [
+            "Last known well",
+            "01:22"
+          ]
+        ],
+        "related": [
+          "y2"
+        ],
+        "source": "Watch and home sensors"
+      },
+      {
+        "id": "y2",
+        "stage": "sym",
+        "kind": "Check",
+        "when": "15 Oct 2026 · 01:34",
+        "title": "Slurred answer to Noa",
+        "where": "Home · Noa",
+        "summary": "Noa asked a simple question. The answer came out slurred, a sign of stroke.",
+        "findings": [
+          [
+            "Speech score",
+            "0.41 (usual 0.94)"
+          ],
+          [
+            "Answer",
+            "Slurred and slow"
+          ],
+          [
+            "Action",
+            "Possible stroke · call list started"
+          ]
+        ],
+        "related": [
+          "y3"
+        ],
+        "source": "Noa voice check"
+      },
+      {
+        "id": "y3",
+        "stage": "sym",
+        "kind": "Calls",
+        "when": "15 Oct 2026 · 01:36",
+        "title": "Ambulance called, hospital told",
+        "where": "Home to Corniche Stroke Centre · Noa",
+        "summary": "Khalid did not answer, Hamad came, and Noa called an ambulance and sent her details to the hospital.",
+        "findings": [
+          [
+            "Khalid",
+            "No answer"
+          ],
+          [
+            "Hamad",
+            "On his way, 450 m"
+          ],
+          [
+            "Ambulance",
+            "Called 01:36"
+          ],
+          [
+            "Hospital packet",
+            "Sent 02:07, 17 min before arrival"
+          ]
+        ],
+        "related": [
+          "r1"
+        ],
+        "source": "Noa case log"
+      },
+      {
+        "id": "r1",
+        "stage": "res",
+        "kind": "Emergency note",
+        "when": "15 Oct 2026 · 02:24",
+        "title": "Arrival at the stroke centre",
+        "where": "Corniche Stroke Centre, emergency · Dr Omar Haddad",
+        "summary": "At the hospital the stroke team scored the stroke as moderate.",
+        "findings": [
+          [
+            "NIHSS",
+            "6: right arm weakness, slurred speech, right face droop"
+          ],
+          [
+            "Blood pressure",
+            "168/96"
+          ],
+          [
+            "Glucose",
+            "6.8 mmol/L"
+          ],
+          [
+            "Blood thinners",
+            "None"
+          ]
+        ],
+        "related": [
+          "r2",
+          "t1"
+        ],
+        "source": "Corniche Stroke Centre record"
+      },
+      {
+        "id": "r2",
+        "stage": "res",
+        "kind": "Imaging",
+        "when": "15 Oct 2026 · 02:31",
+        "title": "Brain scans",
+        "where": "Corniche Stroke Centre, radiology · Reported 02:38",
+        "summary": "The scans showed no bleeding and a blocked artery on the left side of the brain, so clot-busting medicine was safe.",
+        "findings": [
+          [
+            "CT head",
+            "No bleeding"
+          ],
+          [
+            "CT angiogram",
+            "Left M2 occlusion"
+          ]
+        ],
+        "related": [
+          "t1"
+        ],
+        "source": "Corniche Stroke Centre record"
+      },
+      {
+        "id": "t1",
+        "stage": "tx",
+        "kind": "Medicine",
+        "when": "15 Oct 2026 · 02:52",
+        "title": "Clot-busting medicine",
+        "where": "Corniche Stroke Centre, stroke unit · Dr Sara Al Mazrouei",
+        "summary": "Clot-busting medicine was given 28 minutes after arrival, and the stroke score improved within the hour.",
+        "findings": [
+          [
+            "Door to needle",
+            "28 min"
+          ],
+          [
+            "Onset to needle",
+            "90 min"
+          ],
+          [
+            "After",
+            "NIHSS 3 at 03:40"
+          ]
+        ],
+        "related": [
+          "r1",
+          "r2"
+        ],
+        "source": "Corniche Stroke Centre record"
+      },
+      {
+        "id": "t2",
+        "stage": "tx",
+        "kind": "Assessment",
+        "when": "15 Oct 2026 · 09:10",
+        "title": "Swallowing checked",
+        "where": "Corniche Stroke Centre, stroke unit · Speech pathology",
+        "summary": "Swallowing was checked and was safe. Speech was a little slurred.",
+        "findings": [
+          [
+            "Result",
+            "Safe for a normal diet"
+          ],
+          [
+            "Speech",
+            "Mild dysarthria"
+          ]
+        ],
+        "related": [],
+        "source": "Corniche Stroke Centre record"
+      },
+      {
+        "id": "r3",
+        "stage": "res",
+        "kind": "Monitoring",
+        "when": "15–16 Oct 2026",
+        "title": "Uneven heartbeat found",
+        "where": "Corniche Stroke Centre, stroke unit · Heart monitoring",
+        "summary": "Heart monitoring found an uneven heartbeat (atrial fibrillation), the likely cause of the clot.",
+        "findings": [
+          [
+            "Episodes",
+            "3, longest 4 h"
+          ],
+          [
+            "CHA₂DS₂-VASc",
+            "6"
+          ],
+          [
+            "HAS-BLED",
+            "2"
+          ]
+        ],
+        "related": [
+          "s3",
+          "t3"
+        ],
+        "source": "Corniche Stroke Centre record"
+      },
+      {
+        "id": "r4",
+        "stage": "res",
+        "kind": "Imaging",
+        "when": "16 Oct 2026",
+        "title": "MRI and heart ultrasound",
+        "where": "Corniche Stroke Centre, radiology",
+        "summary": "The MRI showed a small area of stroke. The heart is pumping normally.",
+        "findings": [
+          [
+            "MRI",
+            "Small left frontal infarct"
+          ],
+          [
+            "Echocardiogram",
+            "LVEF 58%, mild left atrial dilatation"
+          ]
+        ],
+        "related": [],
+        "source": "Corniche Stroke Centre record"
+      },
+      {
+        "id": "r5",
+        "stage": "res",
+        "kind": "Lab",
+        "when": "16 Oct 2026",
+        "title": "Blood tests",
+        "where": "Abu Dhabi lab",
+        "summary": "Cholesterol is above the new target, blood sugar is a little high and the kidneys work a little below normal.",
+        "findings": [
+          [
+            "LDL cholesterol",
+            "2.4 mmol/L · target under 1.8"
+          ],
+          [
+            "HbA1c",
+            "6.1%"
+          ],
+          [
+            "eGFR",
+            "58 mL/min"
+          ]
+        ],
+        "related": [
+          "t3"
+        ],
+        "source": "Abu Dhabi lab results"
+      },
+      {
+        "id": "t3",
+        "stage": "tx",
+        "kind": "Medicines",
+        "when": "17 Oct 2026 · 10:45",
+        "title": "New medicines",
+        "where": "Corniche Stroke Centre · Dr Sara Al Mazrouei",
+        "summary": "A blood thinner replaced aspirin, a blood pressure tablet was added and the cholesterol tablet was raised.",
+        "findings": [
+          [
+            "Started",
+            "Apixaban 5 mg twice a day · perindopril 4 mg"
+          ],
+          [
+            "Changed",
+            "Atorvastatin 20 → 40 mg"
+          ],
+          [
+            "Stopped",
+            "Aspirin 100 mg"
+          ]
+        ],
+        "related": [
+          "r3",
+          "r5",
+          "f3"
+        ],
+        "source": "Discharge plan"
+      },
+      {
+        "id": "t4",
+        "stage": "tx",
+        "kind": "Letter",
+        "when": "17 Oct 2026 · 11:20",
+        "title": "Going home",
+        "where": "Corniche Stroke Centre · Dr Sara Al Mazrouei",
+        "summary": "Home on day 3, with the plan in the app.",
+        "findings": [
+          [
+            "At discharge",
+            "NIHSS 1 · mRS 1 · walking with a stick"
+          ],
+          [
+            "Plan",
+            "Physio · speech therapy ×6 · stroke clinic 30 Nov"
+          ],
+          [
+            "Sent to",
+            "Her app · family doctor · Malaffi"
+          ]
+        ],
+        "related": [
+          "f1"
+        ],
+        "source": "Corniche Stroke Centre discharge summary"
+      },
+      {
+        "id": "f1",
+        "stage": "rec",
+        "kind": "Calls",
+        "when": "18–20 Oct 2026",
+        "title": "Check-in calls",
+        "where": "Home · Noa",
+        "summary": "Noa checked in by voice and made sure the new medicines were right.",
+        "findings": [
+          [
+            "Day 1",
+            "No pain · confusion settled"
+          ],
+          [
+            "Day 3",
+            "Medicines matched · aspirin removed from the pill box"
+          ]
+        ],
+        "related": [],
+        "source": "Noa voice calls"
+      },
+      {
+        "id": "f2",
+        "stage": "rec",
+        "kind": "Visit",
+        "when": "23 Oct 2026",
+        "title": "Family doctor visit",
+        "where": "Al Bateen Family Health Centre · Dr Fatima Al Ali",
+        "summary": "The family doctor checked blood pressure and kidneys a week after going home.",
+        "findings": [
+          [
+            "Blood pressure",
+            "144/86"
+          ],
+          [
+            "Kidneys",
+            "eGFR 58, stable on apixaban"
+          ]
+        ],
+        "related": [
+          "f3"
+        ],
+        "source": "Malaffi shared record"
+      },
+      {
+        "id": "f3",
+        "stage": "rec",
+        "kind": "Alert",
+        "when": "23–28 Oct 2026",
+        "title": "Blood pressure still high",
+        "where": "Home · Blood pressure cuff via Noa",
+        "summary": "Blood pressure stayed above target even with every tablet taken, so the dose is being reviewed today.",
+        "findings": [
+          [
+            "Morning average",
+            "146 mmHg · target under 130"
+          ],
+          [
+            "Doses",
+            "All taken"
+          ],
+          [
+            "Action",
+            "Perindopril review today · Dr Omar Haddad"
+          ]
+        ],
+        "related": [
+          "t3"
+        ],
+        "source": "Blood pressure cuff"
       }
-    ],
-    "sources": [
-      {
-        "source": "Wrist wearable",
-        "standard": "Vendor API → FHIR Observation",
-        "records": "18,402",
-        "lastSync": "2 min ago",
-        "status": "Live",
-        "tone": "good"
-      },
-      {
-        "source": "Home hub · 6 sensors",
-        "standard": "MQTT → Pub/Sub → FHIR",
-        "records": "52,110",
-        "lastSync": "1 min ago",
-        "status": "Live",
-        "tone": "good"
-      },
-      {
-        "source": "Voice check-ins",
-        "standard": "Gemini → QuestionnaireResponse",
-        "records": "612",
-        "lastSync": "13:04",
-        "status": "Live",
-        "tone": "good"
-      },
-      {
-        "source": "Illawarra Rd Family Practice",
-        "standard": "FHIR R4",
-        "records": "386",
-        "lastSync": "06:00",
-        "status": "Daily",
-        "tone": "good"
-      },
-      {
-        "source": "Pathology lab",
-        "standard": "HL7 v2 → FHIR R4",
-        "records": "212",
-        "lastSync": "12 Oct",
-        "status": "On result",
-        "tone": "good"
-      },
-      {
-        "source": "Scanned letters and reports",
-        "standard": "Gemini OCR → FHIR DocumentReference",
-        "records": "74",
-        "lastSync": "3 Sep",
-        "status": "Done",
-        "tone": "plain"
-      },
-      {
-        "source": "My Health Record",
-        "standard": "FHIR (planned)",
-        "records": "—",
-        "lastSync": "—",
-        "status": "Planned",
-        "tone": "plain"
-      }
-    ],
-    "sourcesTag": "FHIR R4",
-    "followUp": [
-      {
-        "day": "DAY 1",
-        "text": "Voice call, pain and confusion check"
-      },
-      {
-        "day": "DAY 3",
-        "text": "New medicines matched to old"
-      },
-      {
-        "day": "DAY 7",
-        "text": "GP visit booked, BP review"
-      },
-      {
-        "day": "DAY 14",
-        "text": "Mobility and falls check"
-      },
-      {
-        "day": "DAY 30",
-        "text": "Readmission risk re-scored"
-      }
-    ],
-    "followUpNote": "Warning signs go to the discharge nurse as well as the family."
+    ]
   }
 }

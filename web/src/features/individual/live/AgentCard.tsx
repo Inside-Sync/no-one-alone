@@ -19,7 +19,7 @@ export function AgentCard({ agent, num }: { agent: AgentView; num: string }) {
       <div className="ch">
         <h2 className="orbh"><AgentOrb size={40} talk={active} alert={active} /><span className="orbname">{t('agent.title')}<small className="orbsub">{t('agent.sub')}</small></span></h2>
         <span className={`pill ${agent.pill}`} id="agentState">{agent.label}</span>
-        <button type="button" className="btn sm soft" style={{ marginLeft: 8 }} onClick={openChat}>{t('agent.ask')}</button>
+        <button type="button" className="btn sm soft" style={{ marginInlineStart: 8 }} onClick={openChat}>{t('agent.ask')}</button>
       </div>
       <div className="light" aria-hidden="true">
         {LIGHTS.map((tone) => (

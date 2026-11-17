@@ -1,9 +1,9 @@
-import type { CircleEntryDoc, FamilyDoc, ForecastDoc, HospitalDoc, LatLng, PersonDoc, RiskLevel } from '../contract'
+import type { CircleEntryDoc, ConditionCode, FamilyDoc, HospitalDoc, LatLng, PersonDoc } from '../contract'
 import type {
-  CircleMember, ConditionKey, Forecast, IconName, Lineage, LineageGeneration, LineageMatrixRow, OrbitScene, Person,
-  ScreeningRow, Severity, SharePerson, StrengthRow,
+  CircleMember, ConditionKey, Lineage, LineageGeneration, LineageMatrixRow, OrbitScene, Person,
+  ScreeningRow, SharePerson, StrengthRow,
 } from '../types'
-import i18n, { currentLanguage } from '@/i18n'
+import i18n from '@/i18n'
 
 /**
  * Firestore wins: every field the contract stores replaces the prototype's value; everything else (copy, the
@@ -34,9 +34,8 @@ export function distanceM(a: LatLng, b: LatLng): number {
 }
 
 export const distanceLabel = (m: number) => {
-  if (m < 1000) return `${Math.round(m / 10) * 10} m`
-  const km = (m / 1000).toFixed(1)
-  return `${currentLanguage() === 'vi' ? km.replace('.', ',') : km} km` // the other languages keep the dot
+  if (m < 1000) return i18n.t('overlay:distance.m', { n: Math.round(m / 10) * 10 })
+  return i18n.t('overlay:distance.km', { n: (m / 1000).toFixed(1) }) // Latin digits with a dot in both languages
 }
 
 /** `Australia/Melbourne` → `Melbourne`. */
@@ -64,10 +63,6 @@ const byPriority = (seed: Seed) => [...(seed.person.circle ?? [])].sort((a, b) =
 export function overlayPerson(p: Person, doc: PersonDoc): Person {
   const addr = parseAddress(doc.addressText)
   const gender = doc.sex === 'F' ? i18n.t('overlay:person.female') : doc.sex === 'M' ? i18n.t('overlay:person.male') : p.gender
-  // The mock's row labels are in the language in use, so match them in that language.
-  const ageLabel = i18n.t('overlay:person.ageLabel')
-  const genderLabel = i18n.t('overlay:person.genderLabel')
-  const restingHrLabel = i18n.t('overlay:person.restingHrLabel')
   const age = doc.age ?? p.age
   return {
     ...p,
@@ -79,10 +74,10 @@ export function overlayPerson(p: Person, doc: PersonDoc): Person {
     postcode: addr?.postcode ?? p.postcode,
     profile: {
       ...p.profile,
-      rows: p.profile.rows.map((r) => (r.label === ageLabel ? { ...r, value: String(age) } : r.label === genderLabel ? { ...r, value: gender } : r)),
+      rows: p.profile.rows.map((r) => (r.key === 'age' ? { ...r, value: String(age) } : r.key === 'gender' ? { ...r, value: gender } : r)),
     },
     kpisTechnical: doc.baseline
-      ? p.kpisTechnical.map((k) => (k.label === restingHrLabel ? { ...k, baseline: i18n.t('overlay:person.restingHrBase', { n: doc.baseline!.restingHr }) } : k))
+      ? p.kpisTechnical.map((k) => (k.key === 'restingHr' ? { ...k, baseline: i18n.t('overlay:person.restingHrBase', { n: doc.baseline!.restingHr }) } : k))
       : p.kpisTechnical,
   }
 }
@@ -99,7 +94,7 @@ const PALETTE = ['#2f6fb0', '#e07a3f', '#c2417a', '#8a6bd1', '#c2611f', '#0b7f71
  */
 export function overlayCircle(mock: CircleMember[], seed: Seed, viewer: string): CircleMember[] {
   const entries = byPriority(seed)
-  const num = seed.person.emergencyNumber ?? '000'
+  const num = seed.person.emergencyNumber ?? '998'
   const firstNearby = entries.find((e) => e.role === 'NEARBY')?.memberId
   const fromDoc = entries.filter((e) => CIRCLE_IDS.has(e.memberId)).map((e, i): CircleMember => {
     const base = mock.find((m) => m.id === e.memberId)
@@ -172,80 +167,6 @@ export function overlayOrbit(mock: OrbitScene, seed: Seed, viewer: string): Orbi
   }
 }
 
-/* ---------- Forecast ---------- */
-
-/**
- * The mock row a stored risk replaces, by its display name in the language in use (the mock data is localised, so
- * `Stroke` is `Đột quỵ` in Vietnamese); conditions without a row get a new one under their own name.
- */
-const riskRowName = (condition: string) =>
-  (i18n.t('overlay:forecast.risk', { returnObjects: true }) as Record<string, string>)[condition] ?? cap(condition.toLowerCase().replace(/_/g, ' '))
-const LEVEL_TONE: Record<RiskLevel, Severity> = { HIGH: 'bad', MEDIUM: 'warn', LOW: 'good' }
-const levelOf = (l: RiskLevel): [string, Severity] => [i18n.t(`overlay:forecast.level.${l}`), LEVEL_TONE[l]]
-const REASON_ICONS: IconName[] = ['trend', 'pill', 'tree']
-
-/** Weekly means of the daily points (last `weeks` full or partial weeks ending at the last point). */
-function weekly(values: number[], weeks: number): number[] {
-  const out: number[] = []
-  for (let end = values.length; end > 0 && out.length < weeks; end -= 7) {
-    const chunk = values.slice(Math.max(0, end - 7), end)
-    out.unshift(Math.round((chunk.reduce((a, b) => a + b, 0) / chunk.length) * 10) / 10)
-  }
-  return out
-}
-
-function overlayBp(bp: Forecast['bp'], doc: ForecastDoc): Forecast['bp'] {
-  const observedDaily = doc.series.flatMap((p) => (p.systolic !== undefined ? [p.systolic] : []))
-  const forecastDaily = doc.series.flatMap((p) => (p.systolicForecast !== undefined ? [p.systolicForecast] : []))
-  if (observedDaily.length === 0) return bp
-  const observed = weekly(observedDaily, bp.observed.length)
-  const today = observed[observed.length - 1]
-  const ahead = bp.projectedNothing.length - 1
-  const projectedNothing = forecastDaily.length
-    ? [today, ...weekly(forecastDaily, Math.ceil(forecastDaily.length / 7)).slice(0, ahead)]
-    : bp.projectedNothing
-  // 100% adherence is not stored: keep the prototype's relative drop, anchored at today's value.
-  const shift = today - bp.projectedAdherent[0]
-  const projectedAdherent = bp.projectedAdherent.map((v) => Math.round((v + shift) * 10) / 10)
-  const all = [...observed, ...projectedNothing, ...projectedAdherent, ...doc.series.flatMap((p) => (p.upper !== undefined ? [p.upper] : []))]
-  return {
-    ...bp,
-    observed,
-    projectedNothing,
-    projectedAdherent,
-    weeks: observed.length + projectedNothing.length - 1,
-    todayWeek: observed.length,
-    lo: Math.min(bp.lo, Math.floor(Math.min(...all) / 5) * 5 - 5),
-    hi: Math.max(bp.hi, Math.ceil(Math.max(...all) / 5) * 5 + 5),
-  }
-}
-
-export function overlayForecast(f: Forecast, doc: ForecastDoc, seed: Seed | null): Forecast {
-  const risks = [...f.risks]
-  for (const r of doc.risks) {
-    const [level, tone] = levelOf(r.level)
-    const name = riskRowName(r.condition)
-    const i = risks.findIndex((x) => x.name === name)
-    if (i >= 0) risks[i] = { ...risks[i], level, tone }
-    else risks.push({ name, level, tone, trend: '→', reason: i18n.t('overlay:forecast.horizon', { n: r.horizonDays }) })
-  }
-  const owner = doc.action?.ownerMemberId && seed ? nameOf(seed, doc.action.ownerMemberId) : null
-  const actions = doc.action
-    ? [{ ...f.comingUp.actions[0], label: doc.action.text, value: owner ? i18n.t('overlay:forecast.sentTo', { name: owner }) : i18n.t('overlay:forecast.shared') }, ...f.comingUp.actions.slice(1)]
-    : f.comingUp.actions
-  return {
-    ...f,
-    risks,
-    comingUp: {
-      ...f.comingUp,
-      reasons: doc.drivers.length ? doc.drivers.map((text, i) => ({ icon: REASON_ICONS[i % REASON_ICONS.length], text })) : f.comingUp.reasons,
-      actions,
-    },
-    modelMeta: doc.method,
-    bp: overlayBp(f.bp, doc),
-  }
-}
-
 /* ---------- Lineage ---------- */
 
 const CONDITION_KEY: [RegExp, ConditionKey][] = [
@@ -258,7 +179,15 @@ const CONDITION_KEY: [RegExp, ConditionKey][] = [
   [/hearing/i, 'HEAR'],
 ]
 
-const keyOf = (label: string) => CONDITION_KEY.find(([re]) => re.test(label))?.[1]
+/** The predict job's `code` for each condition the lineage has a column for; `null` is a known condition with no column. */
+const CODE_KEY: Record<ConditionCode, ConditionKey | null> = {
+  STROKE: 'STR', HYPERTENSION: 'HTN', TYPE_2_DIABETES: 'T2D', PREDIABETES: 'T2D', DEMENTIA: 'DEM', HEARING_LOSS: 'HEAR',
+  ATRIAL_FIBRILLATION: 'AF', GLAUCOMA: 'GLA', CHRONIC_KIDNEY_DISEASE: null, OSTEOARTHRITIS: null,
+}
+
+/** `code` first; the English label's wording only for a document without a code (or one this app does not know). */
+const keyOf = (c: { label: string; code?: string }): ConditionKey | undefined =>
+  c.code !== undefined && c.code in CODE_KEY ? CODE_KEY[c.code as ConditionCode] ?? undefined : CONDITION_KEY.find(([re]) => re.test(c.label))?.[1]
 
 function generationLabel(diff: number, self: string): string {
   if (diff === -2) return i18n.t('overlay:lineage.generation.grandparents')
@@ -275,7 +204,7 @@ export function overlayLineage(l: Lineage, doc: FamilyDoc, viewer: string): Line
   const selfName = firstName(self.name)
   const conds = (m: FamilyDoc['members'][number]) =>
     m.conditions.flatMap((c): [ConditionKey, number | string][] => {
-      const k = keyOf(c.label)
+      const k = keyOf(c)
       return k ? [[k, c.ageAtOnset ?? '✓']] : []
     })
   const gens = [...new Set(doc.members.map((m) => m.generation))].sort((a, b) => a - b)

@@ -1,8 +1,8 @@
 import { collection, doc, getDoc, getDocs, onSnapshot } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
-import type { DemoCurrentDoc, FamilyDoc, ForecastDoc, HospitalDoc, IncidentDoc, PersonDoc } from '../contract'
+import type { DemoCurrentDoc, FamilyDoc, HospitalDoc, IncidentDoc, PersonDoc } from '../contract'
 import { mockSource } from './mock'
-import { overlayCircle, overlayForecast, overlayLineage, overlayOrbit, overlayPerson, overlaySharePeople, type Seed } from './overlay'
+import { overlayCircle, overlayLineage, overlayOrbit, overlayPerson, overlaySharePeople, type Seed } from './overlay'
 import type { DataSource } from './source'
 
 /** The older person every page is about (contract seed id), and the family viewer the prototype speaks to. */
@@ -64,10 +64,6 @@ export const firebaseSource: DataSource = {
   async getOrbitScene() {
     const [o, seed] = await Promise.all([mockSource.getOrbitScene(), getSeed()])
     return seed ? overlayOrbit(o, seed, VIEWER) : o
-  },
-  async getForecast(id) {
-    const [f, d, seed] = await Promise.all([mockSource.getForecast(id), read<ForecastDoc>('forecasts', id), getSeed()])
-    return d ? overlayForecast(f, d, seed) : f
   },
   async getLineage(id) {
     const [l, d] = await Promise.all([mockSource.getLineage(id), read<FamilyDoc>('families', id)])

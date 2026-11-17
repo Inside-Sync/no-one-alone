@@ -17,8 +17,11 @@ export function RoutedPage({ view, page }: { view: string; page: string }) {
   const to = res.kind === 'redirect' ? res.to : null
 
   useEffect(() => {
-    if (hydrated && kind === 'redirect' && to) router.replace(to)
-  }, [hydrated, kind, to, router])
+    if (!hydrated || kind !== 'redirect' || !to) return
+    // A push that is already on its way elsewhere (the night demo switches role, then opens its page) must not be undone by this redirect.
+    if (typeof window !== 'undefined' && window.location.pathname.replace(/\/$/, '') !== `/${view}/${page}`) return
+    router.replace(to)
+  }, [hydrated, kind, to, router, view, page])
 
   if (!hydrated || res.kind === 'redirect') return <PageSkeleton page={page} />
   if (res.kind !== 'ok') return null

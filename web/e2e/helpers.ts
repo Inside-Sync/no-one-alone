@@ -1,17 +1,29 @@
 import { expect, type Page } from '@playwright/test'
-import { PAGE_TITLES, tabsFor, VIEW_IDS, type ViewId, type Who } from '../src/domain/views'
+import { pageTitle, tabsFor, VIEW_IDS, type ViewId, type Who } from '../src/domain/views'
 
-export type RouteCase = { view: ViewId; page: string; who: Who }
+export type RouteCase = { view: ViewId; page: string; who: Who; /** Query string of the route, e.g. `?step=res` (care-record step) or `?patient=moza&step=tx` (an opened patient). */ query?: string }
 
-/** Every page each role can open: the family sees all three views, Margaret (self) her own individual tabs. */
+/**
+ * Every page each role can open: the family sees all three views, Moza (self) her own individual tabs, plus the two
+ * routed pages that have no tab of their own (the night alert replay and Results to review).
+ */
 export function routeCases(): RouteCase[] {
   const out: RouteCase[] = []
   for (const view of VIEW_IDS) for (const t of tabsFor(view, 'family')) out.push({ view, page: t.id, who: 'family' })
   for (const t of tabsFor('individual', 'self')) out.push({ view: 'individual', page: t.id, who: 'self' })
+  out.push({ view: 'individual', page: 'live', who: 'family' }, { view: 'hospital', page: 'review', who: 'family' })
+  // States the stepper and an opened patient add to a page: one step of each record, Moza's clinical record, another patient.
+  out.push(
+    { view: 'individual', page: 'record', who: 'self', query: '?step=res' },
+    { view: 'individual', page: 'record', who: 'family', query: '?step=his' },
+    { view: 'hospital', page: 'patients', who: 'family', query: '?patient=moza&step=sum' },
+    { view: 'hospital', page: 'patients', who: 'family', query: '?patient=moza&step=tx' },
+    { view: 'hospital', page: 'patients', who: 'family', query: '?patient=khalid&step=res' },
+  )
   return out
 }
 
-export const caseName = (c: RouteCase) => `${c.who === 'self' ? 'self' : c.view}-${c.page}`
+export const caseName = (c: RouteCase) => `${c.who === 'self' ? 'self' : c.view}-${c.page}${c.query ?? ''}`
 
 /** Seed the role before any app script runs (AppState reads sessionStorage `noa-app-state`). */
 export async function seedWho(page: Page, who: Who) {
@@ -21,11 +33,15 @@ export async function seedWho(page: Page, who: Who) {
 }
 
 /** Open a page as a role and wait until its title and data have rendered. */
-export async function openPage(page: Page, c: RouteCase) {
+export async function openPage(page: Page, c: RouteCase, lng: 'en' | 'ar' = 'en', theme: 'light' | 'dark' = 'light') {
   await seedWho(page, c.who)
-  await page.goto(`/${c.view}/${c.page}`)
-  await expect(page).toHaveURL(new RegExp(`/${c.view}/${c.page}$`))
-  await expect(page.locator('#pgTitle')).toHaveText(PAGE_TITLES[c.page])
+  if (theme === 'dark') await page.addInitScript(() => { try { localStorage.setItem('noa-theme', 'dark') } catch { /* ignore */ } })
+  if (lng !== 'en') await page.addInitScript((l) => { try { localStorage.setItem('noa-locale', l) } catch { /* ignore */ } }, lng)
+  await page.goto(`/${c.view}/${c.page}${c.query ?? ''}`)
+  await expect(page).toHaveURL((u) => u.pathname + u.search === `/${c.view}/${c.page}${c.query ?? ''}`)
+  // Page titles are asserted in English only; in another language the title just has to be there. An opened patient is titled with the patient.
+  if (lng === 'en' && !c.query?.includes('patient=')) await expect(page.locator('#pgTitle')).toHaveText(pageTitle(c.view, c.page, c.who))
+  else await expect(page.locator('#pgTitle')).not.toBeEmpty()
   await page.waitForLoadState('networkidle')
   await page.evaluate(() => document.fonts.ready)
 }
@@ -50,11 +66,13 @@ export const TONE_TEXT_COLOURS: Record<string, string> = {
   'rgb(232, 172, 46)': '--warn-text (night)', 'rgb(79, 195, 140)': '--good-text (night)', 'rgb(255, 123, 116)': '--bad-text (night)',
   // R40: the prototype's muted, brand (per view), teal and jac tones, and their text variables (day and night).
   'rgb(86, 112, 110)': '--muted', 'rgb(11, 127, 113)': '--brand', 'rgb(37, 99, 168)': '--brand (hospital)',
-  'rgb(109, 79, 192)': '--brand (community)', 'rgb(31, 179, 156)': 'teal #1fb39c', 'rgb(143, 111, 208)': '--jac',
+  'rgb(109, 79, 192)': '--brand (government)', 'rgb(31, 179, 156)': 'teal #1fb39c', 'rgb(143, 111, 208)': '--jac',
   'rgb(53, 69, 68)': '--muted-text', 'rgb(6, 74, 66)': '--brand-text', 'rgb(25, 67, 114)': '--brand-text (hospital)',
-  'rgb(73, 49, 138)': '--brand-text (community)', 'rgb(13, 74, 64)': '--teal-text', 'rgb(77, 46, 141)': '--jac-text',
+  'rgb(73, 49, 138)': '--brand-text (government)', 'rgb(13, 74, 64)': '--teal-text', 'rgb(77, 46, 141)': '--jac-text',
   'rgb(168, 162, 182)': '--muted (night)', 'rgb(218, 216, 224)': '--muted-text (night)', 'rgb(14, 165, 146)': '--brand-text (night)', 'rgb(160, 133, 215)': '--jac-text (night)',
-  'rgb(88, 150, 218)': '--brand-text (hospital, night)', 'rgb(155, 135, 212)': '--brand-text (community, night)',
+  'rgb(88, 150, 218)': '--brand-text (hospital, night)', 'rgb(155, 135, 212)': '--brand-text (government, night)',
+  // WP-F: the night text tones lightened to reach 4.5:1 on the dark per-view tint.
+  'rgb(255, 145, 139)': '--bad-text (night)', 'rgb(44, 200, 180)': '--brand-text (night)', 'rgb(133, 186, 240)': '--brand-text (hospital, night)', 'rgb(189, 174, 240)': '--brand-text (government, night)',
 }
 
 export type ToneHit = { text: string; tone: string; color: string; bg: string; ratio: number }
@@ -96,7 +114,7 @@ export async function measureToneText(page: Page, extraColours: Record<string, s
     return out
   }, tones)
   if (!found.length) return []
-  const style = await page.addStyleTag({ content: '[data-tone-probe]{color:transparent!important;text-shadow:none!important}[data-tone-probe]::before{background:transparent!important}' })
+  const style = await page.addStyleTag({ content: '.chat-fab{visibility:hidden!important}[data-tone-probe]{color:transparent!important;text-shadow:none!important}[data-tone-probe]::before{background:transparent!important}' })
   const png = PNG.sync.read(await page.screenshot({ fullPage: true, animations: 'disabled' }))
   await style.evaluate((s) => (s as Element).remove())
   const hits: ToneHit[] = []

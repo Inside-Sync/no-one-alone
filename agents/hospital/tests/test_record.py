@@ -28,14 +28,17 @@ def allergy(id_, text=None, snomed=None, verification="confirmed"):
 PATIENT = {"resourceType": "Patient", "id": "p", "name": [{"text": "Test"}], "gender": "male"}
 
 
-def test_ba_mai_bundle_normalizes(resources):
-    rec = normalize(resources, "ba-mai", ON)
-    assert (rec.name, rec.age, rec.sex) == ("Bà Mai", 78, "F")
-    assert [c for c, _ in rec.conditions] == ["hearing loss", "hypertension"]
-    assert [(m.name, m.dose) for m, _ in rec.medications] == [("amlodipine", "5 mg daily"), ("aspirin", "81 mg daily")]
+def test_moza_bundle_normalizes(resources):
+    rec = normalize(resources, "margaret", ON)
+    assert (rec.name, rec.age, rec.sex) == ("Moza Al Hammadi", 78, "F")
+    assert [c for c, _ in rec.conditions] == ["chronic kidney disease stage 3a", "hearing loss", "hypertension",
+                                              "osteoarthritis of both knees", "prediabetes"]
+    assert [(m.name, m.dose) for m, _ in rec.medications] == [
+        ("amlodipine", "5 mg each evening"), ("aspirin", "100 mg each morning"),
+        ("atorvastatin", "20 mg each night"), ("vitamin D3", "1000 IU daily")]
     assert [a for a, _ in rec.allergies] == ["penicillin"]
     assert [c for c, _ in rec.communication] == ["HARD_OF_HEARING"]
-    assert [f for f, _ in rec.family_history] == ["father: stroke at 68, hypertension"]
+    assert [f for f, _ in rec.family_history] == ["father: stroke at 74, type 2 diabetes", "mother: dementia"]
     assert len(rec.consents) == 1 and rec.warnings == []
 
 
@@ -74,7 +77,7 @@ def test_age_from_full_birth_date_only():
 
 
 def test_output_does_not_depend_on_resource_order(resources):
-    assert normalize(resources, "ba-mai", ON) == normalize(list(reversed(resources)), "ba-mai", ON)
+    assert normalize(resources, "margaret", ON) == normalize(list(reversed(resources)), "margaret", ON)
 
 
 async def _read(reader, pid):
@@ -84,7 +87,7 @@ async def _read(reader, pid):
 def test_fixture_reader_returns_patient_compartment_and_empty_for_unknown(bundle):
     import asyncio
     reader = FixtureReader()
-    assert len(asyncio.run(_read(reader, "ba-mai"))) == len(bundle["entry"])
+    assert len(asyncio.run(_read(reader, "margaret"))) == len(bundle["entry"])
     assert asyncio.run(_read(reader, "nobody")) == []
 
 
@@ -97,10 +100,10 @@ def test_fixture_reader_never_reads_outside_the_data_dir(tmp_path):
     assert asyncio.run(_read(FixtureReader(tmp_path / "data"), "../outside")) == []
 
 
-@pytest.mark.parametrize("pid", ["ba_mai", "Ba-Mai", "..", ""])
+@pytest.mark.parametrize("pid", ["moza_x", "Moza-X", "..", ""])
 def test_fixture_reader_rejects_ids_that_are_not_kebab_case(pid, tmp_path):
     import asyncio, json
-    for stem in ("ba_mai", "Ba-Mai"):
+    for stem in ("moza_x", "Moza-X"):
         bundle = {"entry": [{"resource": {"resourceType": "Patient", "id": stem}}]}
         (tmp_path / f"{stem}.json").write_text(json.dumps(bundle), encoding="utf-8")
     assert asyncio.run(_read(FixtureReader(tmp_path), pid)) == []
@@ -108,14 +111,14 @@ def test_fixture_reader_rejects_ids_that_are_not_kebab_case(pid, tmp_path):
 
 def test_fixture_reader_unreadable_file_is_record_unavailable(tmp_path):
     import asyncio
-    (tmp_path / "ba-mai.json").write_text("{not json", encoding="utf-8")
+    (tmp_path / "margaret.json").write_text("{not json", encoding="utf-8")
     with pytest.raises(RecordUnavailable):
-        asyncio.run(_read(FixtureReader(tmp_path), "ba-mai"))
+        asyncio.run(_read(FixtureReader(tmp_path), "margaret"))
 
 
 def test_bundles_live_inside_the_service_dir():
     from handoff.fhir import DEFAULT_DIR
     assert DEFAULT_DIR.resolve().is_relative_to(ROOT.resolve())
-    assert (DEFAULT_DIR / "ba-mai.json").is_file()
+    assert (DEFAULT_DIR / "margaret.json").is_file()
     lines = (ROOT / ".dockerignore").read_text(encoding="utf-8").splitlines()
     assert "data" not in [ln.strip().strip("/*") for ln in lines if not ln.lstrip().startswith("#")]

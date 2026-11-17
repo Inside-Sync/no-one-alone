@@ -1,5 +1,6 @@
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { vi } from 'vitest'
+import i18n from '@/i18n'
 import { ChatPanel } from '@/features/chat/ChatPanel'
 import type { LiveIncidentValue } from '@/state/LiveIncident'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
@@ -40,7 +41,7 @@ test('asking posts question, mode, viewer and the last 10 messages, then renders
     ask(q)
     expect(await within(panel()).findByText(`A:${q}`)).toBeInTheDocument()
   }
-  expect(chat).toHaveBeenNthCalledWith(2, { question: 'q2', mode: 'fam', viewer: 'james', history: [{ by: 'me', text: 'q1' }, { by: 'noa', text: 'A:q1' }] })
+  expect(chat).toHaveBeenNthCalledWith(2, { question: 'q2', mode: 'fam', viewer: 'james', history: [{ by: 'me', text: 'q1' }, { by: 'noa', text: 'A:q1' }], lang: 'en' })
   const last = chat.mock.calls[6][0] as { history: { text: string }[] }
   expect(last.history).toHaveLength(10)
   expect(last.history[0].text).toBe('q2')
@@ -75,7 +76,7 @@ test('chips and greeting follow the mode', async () => {
   path = '/hospital/ed'
   const r = renderWithProviders(<ChatPanel />)
   openChat()
-  expect(within(panel()).getByText('COLLINS, Margaret')).toBeInTheDocument()
+  expect(within(panel()).getByText('AL HAMMADI, Moza')).toBeInTheDocument()
   expect(within(panel()).getByRole('button', { name: 'Patient summary' })).toBeInTheDocument()
   expect(within(panel()).queryByRole('button', { name: 'My tablets' })).toBeNull()
   r.unmount()
@@ -84,7 +85,7 @@ test('chips and greeting follow the mode', async () => {
   renderWithProviders(<ChatPanel />, { who: 'self' })
   openChat()
   await within(panel()).findByRole('button', { name: 'My tablets' })
-  expect(within(panel()).getByText(/^Hello Margaret/)).toBeInTheDocument()
+  expect(within(panel()).getByText(/^Hello Moza/)).toBeInTheDocument()
   expect(within(panel()).queryByRole('button', { name: 'Patient summary' })).toBeNull()
 })
 
@@ -93,7 +94,22 @@ test('a fam chip asks its text with the viewer', async () => {
   renderWithProviders(<ChatPanel />, { who: 'family', viewer: 'james' })
   openChat()
   fireEvent.click(await within(panel()).findByRole('button', { name: 'How is Mum right now?' }))
-  await waitFor(() => expect(chat).toHaveBeenCalledWith({ question: 'How is Mum right now?', mode: 'fam', viewer: 'james', history: [] }))
+  await waitFor(() => expect(chat).toHaveBeenCalledWith({ question: 'How is Mum right now?', mode: 'fam', viewer: 'james', history: [], lang: 'en' }))
+})
+
+test('the question carries the language of the UI', async () => {
+  chat.mockResolvedValue({ answer: 'ok' })
+  await act(() => i18n.changeLanguage('ar'))
+  try {
+    renderWithProviders(<ChatPanel />, { who: 'family', viewer: 'james' })
+    fireEvent.click(screen.getByRole('button', { name: 'اسأل نوا' }))
+    const box = within(screen.getByRole('complementary', { name: 'الدردشة مع نوا' }))
+    fireEvent.change(box.getByRole('textbox', { name: 'سؤالك' }), { target: { value: 'كيف حالها؟' } })
+    fireEvent.click(box.getByRole('button', { name: 'إرسال' }))
+    await waitFor(() => expect(chat).toHaveBeenCalledWith({ question: 'كيف حالها؟', mode: 'fam', viewer: 'james', history: [], lang: 'ar' }))
+  } finally {
+    await act(() => i18n.changeLanguage('en'))
+  }
 })
 
 test('opening focuses the input and Escape closes', () => {

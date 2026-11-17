@@ -3,8 +3,9 @@ import { cityScene } from '../fixtures/city'
 import { defaultShare } from '../fixtures/share'
 import type { DataSource } from './source'
 import type {
-  AuditEntry, CareRecord, CircleMember, CommunityData, DeviceFeed, Forecast, HealthData, HospitalData, Lineage, OrbitScene,
-  Person, SharePerson, ShareMatrix, Surroundings, WatchData,
+  AuditEntry, CareRecord, CircleMember, DeviceFeed, HealthData, HospitalData, Lineage, OrbitScene,
+  Person, SharePerson, ShareMatrix, GovernmentData, ScreeningData, SignalsData, Surroundings,
+  TreatmentData, PatientsData, OverviewData,
 } from '../types'
 
 /**
@@ -45,9 +46,6 @@ export const mockSource: DataSource = {
   async getSurroundings() {
     return clone(data<Surroundings>('around', 'surroundings'))
   },
-  async getForecast() {
-    return clone(data<Forecast>('forecast', 'forecast'))
-  },
   async getLineage() {
     return clone(data<Lineage>('lineage', 'lineage'))
   },
@@ -66,11 +64,23 @@ export const mockSource: DataSource = {
   async getHospital() {
     return clone(data<HospitalData>('hospital', 'hospital'))
   },
-  async getCommunity() {
-    return clone(data<CommunityData>('community', 'community'))
+  async getGovernment() {
+    return clone(data<GovernmentData>('government', 'government'))
   },
-  async getWatch() {
-    return clone(data<WatchData>('watch', 'watch'))
+  async getSignals() {
+    return clone(data<SignalsData>('signals', 'signals'))
+  },
+  async getScreening() {
+    return clone(data<ScreeningData>('screening', 'screening'))
+  },
+  async getTreatment() {
+    return clone(data<TreatmentData>('treatment', 'treatment'))
+  },
+  async getPatients() {
+    return clone(data<PatientsData>('patients', 'patients'))
+  },
+  async getOverview() {
+    return clone(data<OverviewData>('overview', 'overview'))
   },
   async getCityScene() {
     return clone(cityScene)

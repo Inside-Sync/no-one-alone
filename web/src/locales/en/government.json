@@ -1,0 +1,265 @@
+{
+  "population": {
+    "sections": {
+      "health": "Health and recovery",
+      "screening": "Screening to care"
+    },
+    "wellbeing": {
+      "title": "Health and wellbeing",
+      "meta": "Abu Dhabi adults · yearly trend · illustrative"
+    },
+    "recovery": {
+      "title": "Recovery after care",
+      "meta": "Last 12 months",
+      "target": "target {{value}}%"
+    },
+    "district": {
+      "ariaLabel": "3D column map of 17 Abu Dhabi areas",
+      "group": "Area measure",
+      "buttons": {
+        "open": "Open past target",
+        "reach": "Reached care",
+        "cov": "Coverage",
+        "days": "Days to treatment"
+      },
+      "chips": [
+        "Drag to turn",
+        "Tap a column for detail",
+        "Last 90 days · updated 15:00"
+      ],
+      "models": {
+        "open": {
+          "title": "Results open past target",
+          "subtitle": "Column height = actionable results not yet in care · tile colour = share reached in time",
+          "unit": " open"
+        },
+        "reach": {
+          "title": "Reached care in time",
+          "subtitle": "Share of actionable results where treatment started within the target · taller is better",
+          "unit": "%"
+        },
+        "cov": {
+          "title": "Screening coverage",
+          "subtitle": "Adults 40+ screened in the last 3 years · taller is better",
+          "unit": "%"
+        },
+        "days": {
+          "title": "Days from result to treatment",
+          "subtitle": "Median days · taller is slower",
+          "unit": " d"
+        }
+      }
+    },
+    "screening": {
+      "title": "Screening this quarter",
+      "approve": "Approve mobile clinic days",
+      "approved": "✓ Approved"
+    },
+    "scatter": {
+      "title": "Capacity and effectiveness by facility",
+      "meta": "Large dot = hospital",
+      "ariaLabel": "Capacity used against effectiveness for 8 facilities",
+      "average": "Abu Dhabi average {{value}}",
+      "axis": "Capacity in use",
+      "bands": {
+        "under": "Under",
+        "right": "Right amount",
+        "over": "Over"
+      }
+    },
+    "balance": {
+      "title": "Where capacity is out of balance",
+      "meta": "Now",
+      "over": "over capacity",
+      "right": "right amount",
+      "under": "under capacity",
+      "send": "Send Mussafah overflow to Al Bateen",
+      "sent": "✓ Sent"
+    },
+    "facilities": {
+      "title": "Performance by hospital and centre",
+      "group": "Facility type",
+      "filters": {
+        "all": "All",
+        "hosp": "Hospitals",
+        "fhc": "Family health centres"
+      },
+      "head": [
+        "Facility",
+        "Capacity",
+        "Effectiveness",
+        "In care in time",
+        "Days to treatment",
+        "Readmitted in 30 days",
+        "Open past target",
+        "Outcome at 3 months",
+        ""
+      ],
+      "kinds": {
+        "hosp": "Hospital",
+        "fhc": "Family health centre"
+      },
+      "bands": {
+        "under": "Under capacity",
+        "right": "Right amount",
+        "over": "Over capacity"
+      },
+      "outcomeKinds": {
+        "controlled": "controlled",
+        "recovered": "recovered"
+      },
+      "outOf": "of 100",
+      "status": {
+        "target": "On target",
+        "watch": "Watch",
+        "below": "Below 70%"
+      },
+      "empty": "—"
+    },
+    "stalled": {
+      "title": "Results open past target",
+      "meta": "Longest first · named only for clinicians with consent",
+      "head": [
+        "Person",
+        "Area",
+        "Result",
+        "Open",
+        "Why it stalled",
+        "Language",
+        "Next step",
+        ""
+      ],
+      "assign": "Assign",
+      "assigned": "✓ Assigned",
+      "toast": "Assigned · {{name}} is on the regional coordinator list",
+      "days": "{{n}} d"
+    },
+    "funnel": {
+      "title": "Screening to care",
+      "meta": "Last 90 days"
+    },
+    "referrals": {
+      "title": "Referral capacity vs need",
+      "meta": "Per week",
+      "legend": [
+        {
+          "color": "rgba(31,179,156,.35)",
+          "label": "Slots"
+        },
+        {
+          "color": "#ef4e4a",
+          "label": "Need over slots"
+        },
+        {
+          "color": "#0b7f71",
+          "label": "Need covered"
+        }
+      ]
+    },
+    "byLanguage": {
+      "title": "In care in time, by language",
+      "meta": "Target 85%"
+    },
+    "byContact": {
+      "title": "In care in time, by contact",
+      "meta": "How people were told"
+    },
+    "programmes": {
+      "title": "Programmes and outcomes",
+      "meta": "Last 90 days",
+      "head": [
+        "Programme",
+        "Tests",
+        "In care in time",
+        "Outcome at 3 months"
+      ]
+    },
+    "signals": {
+      "title": "Programme signals",
+      "meta": "This week",
+      "open": "Open programme signals"
+    }
+  },
+  "signals": {
+    "table": {
+      "title": "Signals across Abu Dhabi",
+      "meta": "From labs, clinics, Noa case data and programme teams",
+      "head": [
+        "Signal",
+        "Areas",
+        "Type",
+        "People affected",
+        "Since",
+        "Status"
+      ]
+    },
+    "weekly": {
+      "title": "Results passing their target each week",
+      "meta": "By reason · last 8 weeks",
+      "ariaLabel": "Results open past target each week over 8 weeks, falling from 68 to 59; not reached is the biggest reason but is shrinking, waiting for a slot is growing",
+      "thisWeek": "this wk",
+      "weeksAgo": "w-{{n}}"
+    },
+    "feed": {
+      "title": "Feed for programme staff",
+      "meta": "Summarised · source shown"
+    },
+    "decisions": {
+      "title": "Decisions waiting for you",
+      "meta": "Suggested from the signals",
+      "approve": "Approve",
+      "done": "✓ Approved",
+      "toast": "Approved and logged · the programme team is notified"
+    }
+  },
+  "actions": {
+    "row": [
+      [
+        "Assign a coordinator",
+        "Assigned to the regional coordinator",
+        "Assigned"
+      ],
+      [
+        "Call in their language",
+        "Call scheduled with interpreter voice",
+        "Scheduled"
+      ]
+    ],
+    "kpi": [
+      [
+        "Add to watchlist",
+        "Added to your watchlist",
+        "Watching"
+      ],
+      [
+        "Export CSV",
+        "Export queued",
+        "Exported"
+      ]
+    ],
+    "mini": [
+      [
+        "Flag for review",
+        "Flagged",
+        "Flagged"
+      ],
+      [
+        "Assign to me",
+        "Assigned to you",
+        "Assigned"
+      ]
+    ],
+    "news": [
+      [
+        "Share with the programme team",
+        "Queued for the programme team",
+        "Queued"
+      ],
+      [
+        "Dismiss",
+        "Dismissed",
+        "Dismissed"
+      ]
+    ]
+  }
+}

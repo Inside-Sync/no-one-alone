@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import type { LabelValue } from '@/data/types'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
-import { HospitalKpis, ReadyBanner } from '../shared'
+import { HospitalKpis } from '../shared'
 import { PageError } from '@/features/shared/PageError'
 import { PageSkeleton } from '@/features/shared/PageSkeleton'
 import { useHospital } from '../useHospital'
@@ -47,7 +47,6 @@ export function EdPage() {
 
   return (
     <main className="grid" data-page="ed">
-      <ReadyBanner />
       <HospitalKpis id="edKpis" kpis={h.edKpis} />
       <InboxCard items={items} incoming={incoming} showNew={packetNew} onSelect={(m) => setPick({ name: m.name, inbox: packetNew })} />
       <PacketCard

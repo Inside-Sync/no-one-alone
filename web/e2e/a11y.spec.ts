@@ -17,16 +17,16 @@ for (const vp of VIEWPORTS) for (const c of routeCases()) {
 }
 
 test('axe: the open drawer has no serious or critical violations', async ({ page }) => {
-  await openPage(page, { view: 'individual', page: 'home', who: 'family' })
-  await page.locator('.kpi[role="button"]').first().click()
+  await openPage(page, { view: 'individual', page: 'around', who: 'self' })
+  await page.locator('main li[role="button"]').first().click()
   await expect(page.locator('.drawer.on')).toBeVisible()
   const { violations } = await new AxeBuilder({ page }).include('.drawer').analyze()
   expect(violations.filter((v) => v.impact === 'serious' || v.impact === 'critical').map((v) => v.id)).toEqual([])
 })
 
 test('keyboard: the drawer closes with Esc and gives focus back to its opener', async ({ page }) => {
-  await openPage(page, { view: 'individual', page: 'home', who: 'family' })
-  const opener = page.locator('.kpi[role="button"]').first()
+  await openPage(page, { view: 'individual', page: 'around', who: 'self' })
+  const opener = page.locator('main li[role="button"]').first()
   await opener.focus()
   await page.keyboard.press('Enter')
   await expect(page.locator('.drawer.on')).toBeVisible()
@@ -36,11 +36,11 @@ test('keyboard: the drawer closes with Esc and gives focus back to its opener', 
 })
 
 test('keyboard: tabs are reachable and switch pages with Enter', async ({ page }) => {
-  await openPage(page, { view: 'individual', page: 'home', who: 'family' })
-  const tab = page.getByRole('button', { name: /Health Lineage/ })
+  await openPage(page, { view: 'individual', page: 'health', who: 'family' })
+  const tab = page.getByRole('button', { name: /Care record/ })
   await tab.focus()
   await page.keyboard.press('Enter')
-  await expect(page).toHaveURL(/\/individual\/lineage$/)
+  await expect(page).toHaveURL(/\/individual\/record$/)
 })
 
 test('every 3D canvas has an accessible name', async ({ page }) => {
@@ -74,6 +74,7 @@ test('axe: the night demo (live page, then the hospital inbox with the new packe
   const live = await serious()
   expect(live, live.join('\n')).toEqual([])
   await page.getByRole('button', { name: 'Hospital' }).click()
+  await page.getByRole('button', { name: /Emergency arrivals/ }).click() // Overview is the hospital's landing page; the inbox is on Emergency arrivals
   await expect(page.locator('.ch', { hasText: 'Pre-arrival inbox' }).getByText('1 new')).toBeVisible()
   const ed = await serious()
   expect(ed, ed.join('\n')).toEqual([])
@@ -104,6 +105,7 @@ test('status-tone text reaches 4.5:1 in the night theme (live page and hospital 
   const live = lowTone(await measureToneText(page))
   expect(live, live.join('\n')).toEqual([])
   await page.getByRole('button', { name: 'Hospital' }).click()
+  await page.getByRole('button', { name: /Emergency arrivals/ }).click() // Overview is the hospital's landing page; the inbox is on Emergency arrivals
   await expect(page.locator('body')).toHaveClass(/night/)
   await expect(page.locator('.ch', { hasText: 'Pre-arrival inbox' }).getByText('1 new')).toBeVisible()
   const hits = await measureToneText(page)
@@ -111,3 +113,25 @@ test('status-tone text reaches 4.5:1 in the night theme (live page and hospital 
   const ed = lowTone(hits)
   expect(ed, ed.join('\n')).toEqual([])
 })
+
+/** The dark theme (`noa-theme` dark) puts light text on dark glass: the same measurements, at desktop width. */
+for (const c of routeCases()) {
+  test(`dark theme: status-tone text reaches 4.5:1 on ${caseName(c)}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await openPage(page, c, 'en', 'dark')
+    await expect(page.locator('body')).toHaveClass(/night/)
+    const low = lowTone(await measureToneText(page))
+    expect(low, low.join('\n')).toEqual([])
+  })
+}
+
+for (const c of routeCases()) {
+  test(`dark theme: axe has no serious or critical violations on ${caseName(c)}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await openPage(page, c, 'en', 'dark')
+    const { violations } = await new AxeBuilder({ page }).analyze()
+    const bad = violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')
+      .map((v) => `${v.impact} ${v.id}: ${v.help}\n${v.nodes.slice(0, 6).map((n) => `   ${n.target.join(' ')} ${n.failureSummary?.split('\n')[1] ?? ''}`).join('\n')}`)
+    expect(bad, bad.join('\n')).toEqual([])
+  })
+}

@@ -1,7 +1,8 @@
 import { luminance, ramp, rgbHex, shade } from '@/lib/color'
 import { rng } from '@/lib/rng'
-import type { CityGeometry, MapPin, Suburb, Surroundings } from '@/data/types'
-import { INNER_WEST_BOUNDARIES, INNER_WEST_CONTEXT, INNER_WEST_PLATE } from '@/domain/innerWestBoundaries'
+import type { CityGeometry, MapPin, Surroundings } from '@/data/types'
+import type { Area } from '@/data/government.types'
+import { areaColumn, areaLand, areaTile, DISTRICT_SIZE } from '@/domain/areaGeometry'
 import { MARRICKVILLE_MAP, streetPoint } from '@/domain/marrickvilleMap'
 import type { MapIcon } from './icons'
 import type { CityLabel, CityLine, CityModel, CityPin, CityText, Face, Pt3, Tree } from './types'
@@ -255,15 +256,7 @@ const LIGHT = -Math.PI / 4
 /** Column colour from the lowest (0) to the highest (1) value; the Google 3D map uses it too. */
 export const DISTRICT_RAMP = ['#ffe3c2', '#f9b26e', '#ef7350', '#d63f3f'] as const
 
-/** Map units: 20 m each, origin at the plate's south-west corner, +y north (away from the camera). */
-const UNIT = 20
-const [W0, S0, E0, N0] = INNER_WEST_PLATE
-const COS = Math.cos((((S0 + N0) / 2) * Math.PI) / 180)
-const toMap = ([lng, lat]: [number, number]): [number, number] => [((lng - W0) * COS * 111320) / UNIT, ((lat - S0) * 110540) / UNIT]
-/** Plate size in map units (the `district` camera's `size`). */
-export const DISTRICT_SIZE = toMap([E0, N0]).map(Math.round) as [number, number]
-
-/** Footprint (map units²) below which a roof carries only its value: Enmore, Lewisham and Sydenham. */
+/** Footprint (map units²) below which a roof carries only its value. */
 const SMALL_ROOF = 2000
 
 /** Area centroid of a ring (falls back to the vertex mean for a degenerate one). */
@@ -278,26 +271,37 @@ function centroid(r: [number, number][]): [number, number] {
 }
 
 /**
- * Inner West district map: every suburb's real boundary (ABS SAL 2021) extruded to its value and tinted by it, with
- * the value and name printed on its roof. Faces sort by the suburb's own footprint (`key`) so each suburb paints as
- * one block, walls first. Each suburb also gets a hit-only tag pin for the tap toast. The metric
- * (high/alone/heat/gap) comes from the caller.
+ * Column position of a value on its scale, 0..1: the lowest value stands at the foot of the scale (the design's
+ * `mn * .6` offset keeps the smallest column visible). Shared by the canvas map and the Google 3D map.
  */
-export function buildDistrict(suburbs: Suburb[], values: number[], suffix: string, highlight = 'Marrickville'): CityModel {
+export function districtScale(values: readonly number[]): number[] {
+  const mx = Math.max(...values) || 1, floor = Math.min(...values) * 0.6, span = mx - floor || 1
+  return values.map((v) => (v - floor) / span)
+}
+
+/** Share of results that reached care in time, as the tile colour under a column (design `buildDistrict`). */
+const TILE_RAMP = ['#e6f1ee', '#f6deb8', '#f0a681'] as const
+export const tileColour = (reached: number) => ramp(1 - (reached - 55) / 40, TILE_RAMP)
+
+/**
+ * District map of the 17 Abu Dhabi areas: each area is a column on a tile, extruded to its value and tinted by it,
+ * with the value and name printed on its roof. Faces sort by the area's own footprint (`key`) so each column paints
+ * as one block, walls first. Each area also gets a hit-only tag pin for the tap toast. The measure comes from the
+ * caller; when `higherIsBetter` the colour runs the other way (a tall column is a good one).
+ */
+export function buildDistrict(areas: Area[], values: number[], suffix: string, highlight?: string, higherIsBetter = false): CityModel {
   const F: Face[] = [], G: Face[] = [], P: CityPin[] = [], X: CityText[] = []
-  const mx = Math.max(...values) || 1
-  const rings = suburbs.map((s) => (INNER_WEST_BOUNDARIES[s.name] ?? []).map(toMap))
-  // A water-blue plate; the surrounding suburbs flat on it as land, so the bays show where there is none.
-  // No walls: the map fades out before the plate's edge (cover view).
+  const scale = districtScale(values)
+  // Sea round the island; land under the grid. No walls: the map fades out before the plate's edge (cover view).
   G.push({ pts: rect(0, 0, DISTRICT_SIZE[0], DISTRICT_SIZE[1]), fill: '#d6e9f0' })
-  INNER_WEST_CONTEXT.forEach((r) => G.push({ pts: r.map((p) => [...toMap(p), 0] as Pt3), fill: '#eef0ea', stroke: '#ffffff', lw: 0.8 }))
-  // A soft shadow under each suburb.
-  rings.forEach((r) => r.length && G.push({ pts: r.map(([x, y]) => [x + 3, y + 5, 0] as Pt3), fill: 'rgba(28,52,50,.14)' }))
-  suburbs.forEach((s, i) => {
-    const r = rings[i]
-    if (!r.length) return
-    const v = values[i], t = v / mx, h = 2 + t * 22, mine = s.name === highlight
-    const col = rgbHex(ramp(t, DISTRICT_RAMP)), [cx, cy] = centroid(r), key: Pt3 = [cx, cy, 0]
+  G.push({ pts: areaLand().map(([x, y]) => [x, y, 0] as Pt3), fill: '#eef0ea', stroke: '#ffffff', lw: 0.8 })
+  areas.forEach((a) => G.push({ pts: areaTile(a).map(([x, y]) => [x, y, 0] as Pt3), fill: tileColour(a.reached), stroke: '#ffffff', lw: 0.8 }))
+  // A soft shadow under each column.
+  areas.forEach((a) => G.push({ pts: areaColumn(a).map(([x, y]) => [x + 3, y + 5, 0] as Pt3), fill: 'rgba(28,52,50,.14)' }))
+  areas.forEach((s, i) => {
+    const r = areaColumn(s)
+    const v = values[i], t = Math.max(0, Math.min(1, scale[i])), h = 2 + t * 22, mine = s.name === highlight
+    const col = rgbHex(ramp(higherIsBetter ? 1 - t : t, DISTRICT_RAMP)), [cx, cy] = centroid(r), key: Pt3 = [cx, cy, 0]
     // Outward wall normals need the ring's winding.
     let area = 0
     for (let k = 0; k < r.length; k++) area += r[k][0] * r[(k + 1) % r.length][1] - r[(k + 1) % r.length][0] * r[k][1]

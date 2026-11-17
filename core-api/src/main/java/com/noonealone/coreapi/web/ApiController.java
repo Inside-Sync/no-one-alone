@@ -60,7 +60,7 @@ public class ApiController {
                 .orElseThrow(() -> ApiException.badRequest("Unknown scenario " + scenario));
         int timer = body != null && body.timerSeconds() != null ? body.timerSeconds() : 30;
         int noReply = body != null && body.noReplySeconds() != null ? body.noReplySeconds() : 15;
-        String personId = body != null && body.personId() != null ? body.personId() : "ba-mai";
+        String personId = body != null && body.personId() != null ? body.personId() : "margaret";
         Integer hr = body == null ? null : body.hr();
         Integer movementMin = body == null ? null : body.movementMin();
         if (hr != null && (hr < 30 || hr > 220)) {

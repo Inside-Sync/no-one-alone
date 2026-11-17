@@ -1,5 +1,5 @@
 """Messages, call script and safety instruction for respond-agent (contract 4.3)."""
-from lang import fmt_local, is_en, load_scripts
+from lang import fmt_local, lang_of, load_scripts
 
 SAFETY_IDS = {"EMERGENCY": ["GET_HELP"], "COME_NOW": ["SIT_STILL", "HELP_COMING"]}
 
@@ -7,14 +7,14 @@ SAFETY_IDS = {"EMERGENCY": ["GET_HELP"], "COME_NOW": ["SIT_STILL", "HELP_COMING"
 def plan(body: dict) -> dict:
     person, level, ctx, members = body["person"], body["level"], body.get("context") or {}, body["members"]
     scripts = load_scripts()
-    own = scripts["en" if is_en(person) else "vi"]
+    own = scripts[lang_of(person)]
     name, address = person["displayName"], person.get("addressText") or ""
     nearby = next((m for m in members if m["role"] == "NEARBY"), None)
     helper = nearby["displayName"] if nearby else own["caller_default"]
 
     messages = []
     for m in members:
-        s = scripts["en" if is_en(m) else "vi"]
+        s = scripts[lang_of(m)]
         key = "DISTANT" if m["role"] != "NEARBY" else "NEARBY" if m.get("etaMin") is not None else "NEARBY_NO_ETA"
         text = s["messages"][key].format(
             name=name, problem=s["problems"].get(level, s["problems"]["COME_NOW"]),

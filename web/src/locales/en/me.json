@@ -1,5 +1,5 @@
 {
-  "hello": "Good afternoon, Maggie 🌞",
+  "hello": "Good afternoon, Umm Khalid 🌞",
   "sub": "You're doing well today. Here's your day, just for you.",
   "tiles": [
     {
@@ -34,7 +34,7 @@
     },
     {
       "icon": "phone",
-      "title": "James calls",
+      "title": "Khalid calls",
       "note": "tonight at 8 pm",
       "warn": false
     }
@@ -42,7 +42,6 @@
   "people": {
     "title": "Your people",
     "meta": "You choose what each sees",
-    "change": "Change who sees what",
     "paused": "Paused",
     "sees": "Sees {{seen}} of {{total}}"
   },
@@ -51,8 +50,8 @@
   "ideas": [
     {
       "icon": "flame",
-      "title": "Thursday will be 38°. Would you like a lift to the library cool room?",
-      "note": "Tom, a volunteer, can pick you up at 11.",
+      "title": "Thursday will be 38°. Would you like a lift to the community majlis cool room?",
+      "note": "Saeed, a volunteer, can pick you up at 11.",
       "yes": [
         "Yes please",
         "Lift booked for Thursday 11:00",
@@ -67,10 +66,10 @@
     {
       "icon": "pill",
       "title": "Would a weekly pill box help with the evening tablet?",
-      "note": "David offered to set it up on Saturday.",
+      "note": "Hamad offered to set it up on Saturday.",
       "yes": [
         "Yes please",
-        "David will come Saturday 10:00",
+        "Hamad will come Saturday 10:00",
         "Yes"
       ],
       "no": [
@@ -122,10 +121,9 @@
       {
         "icon": "siren",
         "bold": "Emergencies only:",
-        "text": "David and James always get safety alerts, so help can come."
+        "text": "Hamad and Khalid always get safety alerts, so help can come."
       }
-    ],
-    "settings": "See all settings"
+    ]
   },
   "access": {
     "title": "Who looked at your information",
@@ -139,19 +137,19 @@
     "rows": [
       [
         "Today 09:12",
-        "James",
+        "Khalid",
         "Your heart and blood pressure summary",
         "Weekly look"
       ],
       [
         "Today 08:40",
-        "David",
+        "Hamad",
         "\"I'm OK\" check-in",
         "Morning check"
       ],
       [
         "Yesterday 16:42",
-        "Dr Patel",
+        "Dr Fatima Al Ali",
         "Blood pressure report",
         "You agreed to send it"
       ],
@@ -163,144 +161,10 @@
       ],
       [
         "Mon 19:30",
-        "Sarah",
+        "Alia",
         "Sleep and steps",
         "Called you afterwards"
       ]
     ]
-  },
-  "recovery": {
-    "title": "Your recovery plan",
-    "title_family": "Margaret's recovery plan",
-    "home": "You are home",
-    "play": "Play",
-    "next": "Next: {{time}} {{text}}",
-    "nextTomorrow": "Next, tomorrow: {{time}} {{text}}",
-    "done": "I've done it",
-    "today": "Today",
-    "followUps": "Coming up",
-    "followUp": "{{text}} · {{date}}",
-    "notes": "Doctor's notes",
-    "why": {
-      "apixaban": "Stops clots forming because of the uneven heartbeat. Replaces aspirin.",
-      "perindopril": "Lowers blood pressure and protects the brain.",
-      "atorvastatin": "Lowers cholesterol. Dose raised from 20 mg.",
-      "amlodipine": "Blood pressure tablet, as before.",
-      "vitaminD": "For bones, as before.",
-      "aspirin": "Stop taking this. Apixaban does its job now.",
-      "walk": "Gentle walking helps the brain heal and keeps blood pressure down.",
-      "bloodPressure": "Sit for 5 minutes first. Aim for under 130/80.",
-      "speech": "Practise the sounds from your speech therapist.",
-      "water": "Aim for 1.5 L today."
-    },
-    "taken": "Taken",
-    "tick": "Done",
-    "idle": "Your recovery plan will appear here",
-    "idle_family": "Margaret's recovery plan will appear here",
-    "openHospital": "Open the hospital view to send the plan",
-    "stop": "Stop: {{name}}",
-    "meds": "Your medicines, explained",
-    "meds_family": "Her medicines, explained",
-    "slots": {
-      "morning": "morning",
-      "midday": "midday",
-      "evening": "evening",
-      "night": "night"
-    },
-    "change": {
-      "New": "New",
-      "Increased": "Increased",
-      "Continue": "Continue",
-      "Stop": "Stop"
-    },
-    "noa": {
-      "title": "From Noa",
-      "title_family": "What Noa told Margaret",
-      "meta": "After the hospital approved the plan",
-      "noa": "Noa",
-      "margaret": "Margaret",
-      "welcome": "Welcome home, Margaret. It's Noa 💙 The hospital has sent your recovery plan, and I've put it in your app in plain English.",
-      "newMeds_one": "You have 1 new tablet: {{names}}.",
-      "newMeds_other": "You have {{count}} new tablets: {{names}}.",
-      "stopMeds": "Please stop taking {{names}}.",
-      "pharmacy": "I've told the pharmacy and updated your pill box.",
-      "thanks": "Thank you, love. That's a lot to remember.",
-      "next": "Don't worry, I'll remind you every time, out loud and on the screen. Your next one is at {{time}}: {{items}}.",
-      "also": "I'll also remind you about your walk at 10:00, blood pressure checks and speech exercises at 14:00.",
-      "followUp": "Your {{text}} is {{date}}. David can drive you.",
-      "call": "I'll call you tomorrow at 17:00 to see how you're going. If your face drops, an arm feels weak or your speech goes funny, press Help and I'll call 000.",
-      "bye": "Lovely. Thank you, dear."
-    },
-    "calls": {
-      "title": "Your check-in calls",
-      "title_family": "Her check-in calls",
-      "meta": "First 30 days at home",
-      "when": "Day {{day}} · {{date}}",
-      "planned": "Planned",
-      "topics": {
-        "1": "How are you feeling, any headaches?",
-        "3": "Are the new medicines going OK?",
-        "7": "GP visit and blood pressure review",
-        "14": "Walking and falls check",
-        "30": "How is the month going?"
-      }
-    },
-    "self": {
-      "layout": {
-        "label": "Layout",
-        "detailed": "Detailed",
-        "simple": "Simple"
-      },
-      "happened": "What happened",
-      "happenedMeta": "In plain English",
-      "dayOf": "Day {{day}} of 30",
-      "doneToday": "{{done}} of {{total}} done today",
-      "nextTitle": "Next reminder",
-      "allDone": "All done for today",
-      "tasksTitle": "Today's tablets and tasks",
-      "tasksMeta": "Tap when done",
-      "appts": "Appointments",
-      "callsMeta": "Short chats to see how you are",
-      "callToday": "Today",
-      "logged": "Nice one! Logged.",
-      "fast": {
-        "title": "Call 000 straight away if…",
-        "face": "Face",
-        "faceText": "drooping on one side",
-        "arm": "Arm",
-        "armText": "or leg weak or numb",
-        "speech": "Speech",
-        "speechText": "slurred or confused",
-        "time": "Time",
-        "timeText": "matters. Don't wait.",
-        "call": "Call 000",
-        "calling": "Calling 000 · ask for an ambulance"
-      },
-      "simple": {
-        "hello_morning": "Good morning, Margaret",
-        "hello_afternoon": "Good afternoon, Margaret",
-        "hello_evening": "Good evening, Margaret",
-        "sub": "Day {{day}} of 30 at home · Noa is with you",
-        "now": "Now",
-        "tookThem": "✓ I took them",
-        "didIt": "✓ I did it",
-        "snooze": "Remind me in 10 minutes",
-        "snoozed": "OK, I'll remind you again in 10 minutes",
-        "later": "Later today",
-        "laterMeta": "You will get a reminder",
-        "nothingLater": "Nothing else today.",
-        "tabs": {
-          "meds": "Tablets",
-          "appts": "Visits",
-          "calls": "Calls",
-          "help": "Warning signs"
-        },
-        "tablets": "Your tablets",
-        "visits": "Visits and tests",
-        "noaCalls": "Noa will call you",
-        "noaCallsMeta": "A short chat each time",
-        "happened": "What happened"
-      }
-    }
   }
 }

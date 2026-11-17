@@ -39,7 +39,7 @@ class FakeBigQuery:
             return FakeJob(affected=sum(n for _, n, _ in self.loads))
         if sql.startswith("SELECT person_id, COUNT(*)"):
             return FakeJob([{"person_id": p, "n": 90, "first": "2026-07-19", "last": "2026-10-16"}
-                            for p in ("ba-mai", "margaret") if f"'{p}'" in sql])
+                            for p in ("margaret",) if f"'{p}'" in sql])
         if "AI.FORECAST" in sql:
             self.forecast_sql = sql
             return FakeJob(forecast_rows(self.forecast), job_id="bqjob_r1234abcd_0001")

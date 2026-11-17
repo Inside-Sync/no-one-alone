@@ -7,9 +7,7 @@ from predict.explain import GeminiExplainer
 from tests.test_explain_and_run import FakeClient, FakeDb
 
 GOOD = {"margaret": "Your mother has hypertension and your grandfather had a stroke at 74, so a blood pressure "
-                    "check is suggested.",
-        "ba-mai": "Your mother has hypertension and your grandfather had a stroke at 68, so a blood pressure "
-                  "check is suggested."}
+                    "check is suggested."}
 
 
 class Boom:
@@ -81,10 +79,7 @@ def test_review_files_are_never_saved_inside_the_repo(capsys):
 @pytest.mark.parametrize("tamper,expect", [
     (lambda p: p["documents"][0]["doc"]["flags"][0].update(explanation="Your aunt had a stroke at 50."), "not grounded"),
     (lambda p: p["documents"][0]["doc"]["members"][0]["conditions"].append({"label": "cancer"}), "differ"),
-    (lambda p: p["documents"][0].update(path="families/ba-mai"), "path must be"),
-    (lambda p: p["documents"][0].update(personId="ba-mai"), "each person may appear once"),
-    (lambda p: p["documents"].__setitem__(0, {**p["documents"][1], "personId": "margaret", "path": "families/margaret"}),
-     "wrong person"),
+    (lambda p: p["documents"][0].update(path="families/other"), "path must be"),
     (lambda p: p["documents"][0].update(personId="lan", path="families/lan"), "unknown personId"),
     (lambda p: p["documents"][0]["doc"]["flags"][0].update(explanation=None), "never null"),
     (lambda p: p.update(kind="forecast-review"), "not a families review file"),
@@ -96,14 +91,6 @@ def test_tampered_or_mismatched_files_are_rejected_and_nothing_is_written(tmp_pa
     assert run.main(["family", "--from", str(path), "--write"], db=db, explainer=Boom()) == 1
     assert db.sets == []
     assert expect in capsys.readouterr().err
-
-
-def test_person_filter_must_be_present_in_the_file(tmp_path, capsys):
-    path = tmp_path / "one.json"
-    assert run.main(["family", "--person", "margaret", "--out", str(path)]) == 0
-    capsys.readouterr()
-    assert run.main(["family", "--person", "ba-mai", "--from", str(path), "--write"], db=FakeDb()) == 1
-    assert "does not hold every requested person" in capsys.readouterr().err
 
 
 def test_unreadable_file_is_rejected(tmp_path, capsys):

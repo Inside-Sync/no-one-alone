@@ -21,7 +21,7 @@
     "packet": {
       "title": "Packet",
       "meta": "Select a patient",
-      "demoMeta": "Margaret C., 78",
+      "demoMeta": "Moza H., 78",
       "statusLabel": "Status",
       "noteLabel": "Note"
     },
@@ -40,7 +40,7 @@
     },
     "recovery": {
       "title": "Discharge and recovery plan",
-      "meta": "Edit, approve, and the agent delivers it to Margaret's portal in plain English",
+      "meta": "Edit, approve, and the agent delivers it to Moza's portal in plain language",
       "staff": "Doctor",
       "diagnosis": "Diagnosis",
       "meds": "Medicines",
@@ -81,9 +81,9 @@
       "signed": "Finalised by {{name}} · {{time}}",
       "editAgain": "Edit again",
       "approve": "Approve and hand off to Noa",
-      "approveNote": "The agent translates the plan into plain English, sets reminders and shares it with her care circle according to Margaret's own settings.",
+      "approveNote": "The agent translates the plan into plain language, sets reminders and shares it with her care circle according to Moza's own settings.",
       "toastFinal": "Plan finalised and signed. Now approve to hand it to the agent.",
-      "toastSent": "Recovery plan delivered to Margaret's portal",
+      "toastSent": "Recovery plan delivered to Moza's portal",
       "steps": {
         "summary": "Summary written in plain words",
         "summaryFallback": "Doctor's notes used as the summary",
@@ -91,10 +91,10 @@
         "calls": "Check-in call dates added to her plan: Day {{days}}",
         "appointments": "Appointments: {{list}}",
         "circle": "Visible to {{names}}",
-        "delivered": "Plan is on Margaret's screen"
+        "delivered": "Plan is on Moza's screen"
       },
       "stepsTitle": "What the agent did",
-      "remindersTitle": "Margaret's day, as Noa will remind her",
+      "remindersTitle": "Moza's day, as Noa will remind her",
       "actHead": "Instruction",
       "timesHead": "Reminder times",
       "fuHead": "Appointment",
@@ -125,151 +125,144 @@
       "inDays_one": "in {{count}} day",
       "inDays_other": "in {{count}} days",
       "addTimeShort": "Add time",
-      "noReminder": "No reminder"
-    },
-    "discharge": {
-      "title": "Ready for discharge: Margaret Collins, 78",
-      "sub": "Ischaemic stroke, thrombolysed · new paroxysmal AF · recovery plan waiting for approval",
-      "open": "Open her record and recovery plan"
-    }
-  },
-  "panel": {
-    "table": {
-      "title": "Older patients in the catchment",
-      "meta": "Enrolled in No One Alone · ranked by 30-day admission risk",
-      "head": [
-        "Patient",
-        "Suburb",
-        "30-day admission",
-        "Main driver",
-        "Last ED",
-        "GP",
-        "Signal"
-      ],
-      "sex": {
-        "F": "F",
-        "M": "M"
-      }
-    },
-    "scatter": {
-      "title": "Risk vs age",
-      "ariaLabel": "Scatter of 30-day admission risk against age; risk rises with age; Margaret at 22% aged 78",
-      "legend": [
-        {
-          "color": "#d9443f",
-          "label": "High"
-        },
-        {
-          "color": "#c88a05",
-          "label": "Medium"
-        },
-        {
-          "color": "#1fb39c",
-          "label": "Low"
-        }
-      ],
-      "axis": "age"
-    }
-  },
-  "demand": {
-    "forecast": {
-      "title": "Presentations aged 75+, next 14 days",
-      "tag": "FORECAST",
-      "ariaLabel": "Forecast presentations aged 75 plus: 34 on Thursday and 31 on Friday, above the 28 comfort line",
-      "legend": [
-        {
-          "color": "#2f6fb0",
-          "label": "Forecast"
-        },
-        {
-          "color": "rgba(47,111,176,.15)",
-          "label": "80% interval"
-        },
-        {
-          "color": "#56706e",
-          "label": "Last year"
-        },
-        {
-          "color": "#d9443f",
-          "label": "Above comfort line"
-        }
-      ],
-      "heatwave": "heatwave",
-      "secondSpell": "2nd hot spell?"
-    },
-    "beds": {
-      "title": "Beds right now",
-      "meta": "15:00"
-    },
-    "shap": {
-      "title": "What drives Thursday's spike",
-      "meta": "Contribution to forecast"
-    },
-    "actions": {
-      "title": "Suggested actions",
-      "meta": "Generated from the forecast",
-      "buttons": {
-        "Approve": "Approve",
-        "Linked": "Linked",
-        "Review": "Review",
-        "Auto": "Auto"
+      "noReminder": "No reminder",
+      "defaultPlan": {
+        "staffName": "Dr Sara Al Mazrouei, stroke consultant",
+        "diagnosis": "Ischaemic stroke, thrombolysed · new paroxysmal AF",
+        "meds": [
+          {
+            "name": "Apixaban",
+            "dose": "5 mg",
+            "times": [
+              "08:00",
+              "18:00"
+            ],
+            "change": "New",
+            "note": "Stops clots forming because of the uneven heartbeat. Replaces aspirin.",
+            "key": "apixaban"
+          },
+          {
+            "name": "Perindopril",
+            "dose": "4 mg",
+            "times": [
+              "08:00"
+            ],
+            "change": "New",
+            "note": "Lowers blood pressure and protects the brain.",
+            "key": "perindopril"
+          },
+          {
+            "name": "Atorvastatin",
+            "dose": "40 mg",
+            "times": [
+              "21:00"
+            ],
+            "change": "Increased",
+            "note": "Lowers cholesterol. Dose raised from 20 mg.",
+            "key": "atorvastatin"
+          },
+          {
+            "name": "Amlodipine",
+            "dose": "5 mg",
+            "times": [
+              "18:00"
+            ],
+            "change": "Continue",
+            "note": "Blood pressure tablet, as before.",
+            "key": "amlodipine"
+          },
+          {
+            "name": "Vitamin D",
+            "dose": "1000 IU",
+            "times": [
+              "08:00"
+            ],
+            "change": "Continue",
+            "note": "For bones, as before.",
+            "key": "vitamin_d"
+          },
+          {
+            "name": "Aspirin",
+            "dose": "100 mg",
+            "times": [],
+            "change": "Stop",
+            "note": "Stop taking this. Apixaban does its job now.",
+            "key": "aspirin"
+          }
+        ],
+        "activities": [
+          {
+            "text": "Walk 20 minutes daily",
+            "times": [
+              "10:00"
+            ],
+            "reminder": "Time for your 20-minute walk.",
+            "key": "walk"
+          },
+          {
+            "text": "Check blood pressure morning and evening, target under 130/80",
+            "times": [
+              "08:15",
+              "18:15"
+            ],
+            "reminder": "Time to check your blood pressure. Aim for under 130/80.",
+            "key": "blood_pressure"
+          },
+          {
+            "text": "Speech exercises 15 minutes",
+            "times": [
+              "14:00"
+            ],
+            "reminder": "Time for your speech exercises, 15 minutes.",
+            "key": "speech"
+          },
+          {
+            "text": "Drink 1.5 L of water a day",
+            "times": [
+              "11:00",
+              "16:00"
+            ],
+            "reminder": "Time for a glass of water.",
+            "key": "water"
+          },
+          {
+            "text": "Low-salt food, under 5 g a day",
+            "times": []
+          },
+          {
+            "text": "No driving for 1 month",
+            "times": []
+          },
+          {
+            "text": "Call 998 straight away if face drooping, arm weakness or speech trouble",
+            "times": []
+          }
+        ],
+        "followUps": [
+          {
+            "text": "GP review with Dr Fatima Al Ali at 10:30",
+            "inDays": 7
+          },
+          {
+            "text": "Physio home visit",
+            "inDays": 4
+          },
+          {
+            "text": "Speech pathology, weekly for 6 weeks",
+            "inDays": 6
+          },
+          {
+            "text": "Stroke clinic, Corniche at 09:00",
+            "inDays": 45
+          },
+          {
+            "text": "Blood test (kidneys, on apixaban)",
+            "inDays": 7
+          }
+        ],
+        "notes": "You had a small stroke on 15 October. The hospital treated it quickly and you are recovering well. They also found your heartbeat is sometimes uneven, so there is a new tablet to stop clots."
       },
-      "toastApproved": "{{title}} · approved",
-      "toastNoted": "{{title}} · noted"
-    }
-  },
-  "discharge": {
-    "board": {
-      "title": "30-day follow-up board",
-      "meta": "Agent calls each patient in their language · warning signs go to the discharge nurse",
-      "head": [
-        "Patient",
-        "Discharged",
-        "Diagnosis",
-        "Day 1",
-        "Day 3",
-        "Day 7",
-        "Day 14",
-        "Day 30",
-        "Readmission risk"
-      ],
-      "legend": [
-        {
-          "color": "#1fb39c",
-          "label": "Done, fine"
-        },
-        {
-          "color": "#c88a05",
-          "label": "Done, flag raised"
-        },
-        {
-          "color": "#d9443f",
-          "label": "Escalated to nurse"
-        },
-        {
-          "color": "var(--track)",
-          "label": "Upcoming"
-        }
-      ],
-      "new": "New"
-    }
-  },
-  "patient": {
-    "banner": {
-      "title": "Margaret Collins is fit for discharge",
-      "sub": "Review the plan below, then approve. The agent delivers it to Margaret's portal with reminders.",
-      "approve": "Approve and send to Margaret",
-      "review": "Review the plan",
-      "portal": "Open Margaret's portal",
-      "sent": "Sent to Margaret · {{time}}"
-    },
-    "summary": {
-      "title": "Admission summary",
-      "tag": "ENCOUNTER"
-    },
-    "course": {
-      "title": "Inpatient course",
-      "meta": "Key events"
+      "dosePlaceholder": "5 mg"
     }
   },
   "actions": {

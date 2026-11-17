@@ -25,7 +25,7 @@ class IncidentStoreTest extends FirestoreTestBase {
     private Incident incident(String id) {
         Incident i = new Incident();
         i.id = id;
-        i.personId = "ba-mai";
+        i.personId = "margaret";
         i.status = Status.VERIFYING;
         i.version = 1;
         i.demo.clockOffsetMs = -151020000L;
@@ -77,8 +77,8 @@ class IncidentStoreTest extends FirestoreTestBase {
     void seedLoadsPeopleAndHospitals() {
         store.seed(seed.data());
 
-        assertThat(store.person("ba-mai").displayName).isEqualTo("Bà Mai");
-        assertThat(store.person("ba-mai").id).isEqualTo("ba-mai");
-        assertThat(store.hospitals()).hasSize(4);
+        assertThat(store.person("margaret").displayName).isEqualTo("Moza Al Hammadi");
+        assertThat(store.person("margaret").id).isEqualTo("margaret");
+        assertThat(store.hospitals()).hasSize(2);
     }
 }

@@ -5,11 +5,10 @@ import { NoaOrb } from '@/components/noa/NoaOrb'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
 import type { IncidentDoc, TurnDoc } from '@/data/contract'
+import { isSpeechCheckTurn } from '@/domain/agent'
 import { clockTime } from '@/domain/incident'
 import { rng } from '@/lib/rng'
 
-const SPEECH_CHECK = /sky is blue in sydney|trời sydney hôm nay xanh/i
-const WORDS = ['The', 'sky', 'is', 'blue', 'in', 'Sydney']
 
 type Kind = 'base' | 'clear' | 'slurred'
 type State = 'ready' | 'listen' | 'analyse' | 'clear' | 'slurred'
@@ -20,7 +19,7 @@ function speechState(turns: readonly TurnDoc[], busy: boolean): { state: State; 
   let state: State = 'ready'
   for (const turn of turns) {
     if (turn.by === 'AGENT') {
-      if (SPEECH_CHECK.test(turn.text)) { at = turn.at; state = 'listen' }
+      if (isSpeechCheckTurn(turn)) { at = turn.at; state = 'listen' }
       else if (state === 'listen') state = 'ready'
       continue
     }
@@ -32,14 +31,14 @@ function speechState(turns: readonly TurnDoc[], busy: boolean): { state: State; 
 }
 
 /** Deterministic bars per word (prototype `spkWave`): slurred speech is slower, quieter and gappier. */
-function wave(kind: Kind, dim: boolean) {
+function wave(kind: Kind, dim: boolean, words: readonly string[]) {
   const r = rng(kind === 'base' ? 11 : kind === 'clear' ? 23 : 37)
   const H = 56, mid = 34
   const col = kind === 'base' ? 'var(--spk-base)' : kind === 'clear' ? 'var(--good)' : 'var(--bad)'
   const bars: { x: number; h: number }[] = []
   const labels: { x: number; w: string }[] = []
   let x = 8
-  WORDS.forEach((w, i) => {
+  words.forEach((w, i) => {
     const n = kind === 'slurred' ? Math.round(w.length * 2.6 + 4) : Math.round(w.length * 1.6 + 3)
     const gap = kind === 'slurred' ? (i === 2 || i === 4 ? 26 : 16) : 7
     const x0 = x
@@ -61,13 +60,13 @@ function wave(kind: Kind, dim: boolean) {
   return { svg, w: x }
 }
 
-/** Her normal, tonight clear, tonight slurred, and the bar fractions for each (the demo's illustrative numbers). */
-const METRICS: [normal: string, clear: string, slurred: string, n: number, c: number, s: number][] = [
-  ['0.94', '0.93', '0.41', 0.94, 0.93, 0.41],
-  ['152 wpm', '148 wpm', '74 wpm', 152 / 160, 148 / 160, 74 / 160],
-  ['0.22 s', '0.25 s', '0.90 s', 0.22, 0.25, 0.9],
-  ['6 of 6', '6 of 6', '2 of 6', 1, 1, 1 / 3],
-  ['steady', 'steady', 'shaky', 0.9, 0.88, 0.35],
+/** The bar fractions of the five measures (her normal, tonight clear, tonight slurred); their texts are `live:speech.metricValues` (the demo's illustrative numbers). */
+const FRACTIONS: [n: number, c: number, s: number][] = [
+  [0.94, 0.93, 0.41],
+  [152 / 160, 148 / 160, 74 / 160],
+  [0.22, 0.25, 0.9],
+  [1, 1, 1 / 3],
+  [0.9, 0.88, 0.35],
 ]
 
 const HOW_ICONS: IconName[] = ['headphones', 'message-circle', 'chart-column', 'dot-red']
@@ -86,8 +85,10 @@ export function SpeechCheckCard({ incident, name, timeZone, onReplay, busy = fal
   const { t } = useTranslation('live')
   const { state, at } = speechState(incident?.checkIn?.turns ?? [], incident?.checkIn?.busy ?? false)
   const heard = state === 'clear' || state === 'slurred' || state === 'analyse'
-  const base = wave('base', false)
-  const now = heard ? wave(state === 'slurred' ? 'slurred' : 'clear', false) : null
+  const words = t('speech.words').split(' ')
+  const values = t('speech.metricValues', { returnObjects: true }) as [string, string, string][]
+  const base = wave('base', false, words)
+  const now = heard ? wave(state === 'slurred' ? 'slurred' : 'clear', false, words) : null
   const W = Math.max(base.w, now?.w ?? 0) + 8
   const show = state === 'clear' || state === 'slurred'
   const pill = { ready: 'plain', listen: 'warn', analyse: 'warn', clear: 'good', slurred: 'bad' }[state]
@@ -104,7 +105,7 @@ export function SpeechCheckCard({ incident, name, timeZone, onReplay, busy = fal
       {show && (
         <div className={`spk-verdict ${state}`} role="status">
           <b className="spk-pass"><Glyph name={state === 'clear' ? 'check' : 'x'} />{t(state === 'clear' ? 'speech.pass' : 'speech.fail')}</b>
-          <span className="spk-num">{t('speech.clarity', { x: state === 'clear' ? METRICS[0][1] : METRICS[0][2], normal: METRICS[0][0] })}</span>
+          <span className="spk-num">{t('speech.clarity', { x: state === 'clear' ? values[0][1] : values[0][2], normal: values[0][0] })}</span>
           {onReplay && <button type="button" className="btn sm soft spk-replay" onClick={onReplay} disabled={busy}>{t('speech.replay')}</button>}
           <small>{STATE_ICON[state] && <Glyph name={STATE_ICON[state]} />}{t(`speech.state.${state}`, { name })}</small>
         </div>
@@ -130,20 +131,20 @@ export function SpeechCheckCard({ incident, name, timeZone, onReplay, busy = fal
           <table>
             <thead><tr><th>{t('speech.measure')}</th><th>{t('speech.normalCol')}</th><th>{t('speech.tonightCol')}</th></tr></thead>
             <tbody>
-              {METRICS.map((m, k) => {
+              {FRACTIONS.map((m, k) => {
                 const slurred = state === 'slurred'
-                const v = show ? (slurred ? m[2] : m[1]) : '—'
-                const f = slurred ? m[5] : m[4]
+                const v = show ? (slurred ? values[k][2] : values[k][1]) : '—'
+                const f = slurred ? m[2] : m[1]
                 return (
                   <tr key={k}>
                     <td>{labels[k]}</td>
-                    <td className="n">{m[0]}</td>
+                    <td className="n">{values[k][0]}</td>
                     <td className={`n ${show ? (slurred ? 'bad' : 'good') : ''}`}>
                       {v}
                       {show && (
                         <span className="spk-dual" aria-hidden="true">
-                          <i className="n" style={{ width: `${Math.min(100, (m[3] / Math.max(m[3], m[4], m[5])) * 100)}%` }}></i>
-                          <i className="t" style={{ width: `${Math.min(100, (f / Math.max(m[3], m[4], m[5])) * 100)}%` }}></i>
+                          <i className="n" style={{ width: `${Math.min(100, (m[0] / Math.max(m[0], m[1], m[2])) * 100)}%` }}></i>
+                          <i className="t" style={{ width: `${Math.min(100, (f / Math.max(m[0], m[1], m[2])) * 100)}%` }}></i>
                         </span>
                       )}
                     </td>
