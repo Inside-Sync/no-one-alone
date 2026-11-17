@@ -81,8 +81,8 @@ export function City3D({ scene, view, ariaLabel, onSelect, night, className, sty
 
   // autoRotate = keep the frame loop running for the marching dashes and pin pulses;
   // like the prototype, the city itself only turns on drag or the rotate buttons.
-  // Cover views (the plate fills the card) can zoom in; the others keep the prototype's fixed framing.
-  const handle = useCanvas3D(canvasRef, draw, { autoRotate: true, initialAngle: view.yaw, dragFactor: -0.008, onTap, zoom: view.cover ? ZOOM : undefined })
+  // Cover views (the plate fills the card) and views marked zoomable can zoom in; the others keep a fixed framing.
+  const handle = useCanvas3D(canvasRef, draw, { autoRotate: true, initialAngle: view.yaw, dragFactor: -0.008, onTap, zoom: view.cover || view.zoomable ? ZOOM : undefined })
   useImperativeHandle(ref, () => handle, [handle])
 
   // New scene or palette: draw again even when no loop is running (reduced motion).

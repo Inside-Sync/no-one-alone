@@ -816,6 +816,8 @@ export interface CityView {
   zoom?: number
   /** Scale so the footprint covers the whole canvas (cropped at the edges) instead of fitting inside it. */
   cover?: boolean
+  /** Allow the user zoom (+/− buttons, pinch, ctrl + wheel) on a view that is not a cover view. */
+  zoomable?: boolean
 }
 
 /** Inputs of the procedural Marrickville model (`buildSuburb`, line 1270). */
