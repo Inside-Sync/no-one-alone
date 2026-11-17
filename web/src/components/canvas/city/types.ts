@@ -64,6 +64,10 @@ export interface CityPin {
   icon?: MapIcon
   /** Hit-only: nothing is drawn, the tap target sits on the point (its label is a `CityText`). */
   ghost?: boolean
+  /** District label card on a stem above the column top (wide canvases); narrow ones show the roof value alone. */
+  card?: boolean
+  /** Card priority when two overlap: the higher one keeps its card. */
+  rank?: number
 }
 
 /** Dashed marching circle on the ground (e.g. "5 MIN WALK"). */

@@ -25,6 +25,11 @@ def allergy(id_, text=None, snomed=None, verification="confirmed"):
             "verificationStatus": {"coding": [{"code": verification}]}}
 
 
+def fam(id_, code, who, condition):
+    return {"resourceType": "FamilyMemberHistory", "id": id_, "patient": {"reference": "Patient/p"},
+            "relationship": {"coding": [{"code": code}], "text": who}, "condition": [{"code": {"text": condition}}]}
+
+
 PATIENT = {"resourceType": "Patient", "id": "p", "name": [{"text": "Test"}], "gender": "male"}
 
 
@@ -38,8 +43,16 @@ def test_moza_bundle_normalizes(resources):
         ("atorvastatin", "20 mg each night"), ("vitamin D3", "1000 IU daily")]
     assert [a for a, _ in rec.allergies] == ["penicillin"]
     assert [c for c, _ in rec.communication] == ["HARD_OF_HEARING"]
-    assert [f for f, _ in rec.family_history] == ["father: stroke at 74, type 2 diabetes", "mother: dementia"]
+    assert [f for f, _ in rec.family_history] == [
+        "brother: hypertension at 52, stroke at 69", "father: hypertension at 55, stroke at 68",
+        "mother: glaucoma at 60, hearing loss at 74, dementia at 77", "son: hypertension"]
     assert len(rec.consents) == 1 and rec.warnings == []
+
+
+def test_family_history_lists_blood_relatives_only():
+    rec = normalize([PATIENT, fam("h", "HUSB", "husband", "atrial fibrillation"), fam("f", "FTH", "father", "stroke"),
+                     fam("w", "WIFE", "wife", "diabetes")], "p", ON)
+    assert rec.family_history == [("father: stroke", "FamilyMemberHistory/f")]
 
 
 def test_provisional_condition_stays_provisional():

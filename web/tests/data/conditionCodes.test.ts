@@ -25,10 +25,10 @@ describe("lineage conditions: the predict job's code first, the English label as
     expect(await onset(doc([{ label: 'hypertension', ageAtOnset: 50, code: 'STROKE' }]))).toEqual({ STR: 50 })
   })
 
-  test('prediabetes shares the diabetes column; codes with no column add none, whatever the label', async () => {
+  test('prediabetes is not a family diabetes; codes with no column add none, whatever the label', async () => {
     expect(await onset(doc([
       { label: 'x', code: 'PREDIABETES' }, { label: 'stroke', code: 'CHRONIC_KIDNEY_DISEASE' }, { label: 'x', code: 'OSTEOARTHRITIS' },
-    ]))).toEqual({ T2D: '✓' })
+    ]))).toEqual({})
   })
 
   test('without a code the English label is matched as before', async () => {

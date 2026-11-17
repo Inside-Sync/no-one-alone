@@ -92,6 +92,8 @@ If the caller sends no key, core-api finds one by looking for a lowercase word i
 
 - `code` is one of `STROKE`, `HYPERTENSION`, `TYPE_2_DIABETES`, `PREDIABETES`, `DEMENTIA`, `HEARING_LOSS`, `CHRONIC_KIDNEY_DISEASE`, `OSTEOARTHRITIS`, `ATRIAL_FIBRILLATION`, `GLAUCOMA`. It is absent when the label is not recognised.
 - The web maps `code` to its own `ConditionKey` (HTN, STR, AF, T2D, GLA, DEM, HEAR).
+- Optional member fields, absent when unknown and never null: `age` (living, whole years), `deceasedAge` (age at death) and `place` (where they live, plain text, for example `Al Ain`). A condition may carry `note` (for example `138/86`). Old documents have none of them.
+- `relation` is one of `self`, `father`, `mother`, `husband`, `wife`, `brother`, `sister`, `son`, `daughter`, `grandson`, `granddaughter`. Generations run from 0 (parents) to 3 (grandchildren).
 - `handoff.packet.conditions` is still an array of English labels, with no codes.
 
 ## Other

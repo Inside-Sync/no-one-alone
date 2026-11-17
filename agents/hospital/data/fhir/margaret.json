@@ -55,7 +55,8 @@
           {
             "text": "Villa 12, Street 18, Al Bateen, Abu Dhabi (fictional)",
             "city": "Abu Dhabi",
-            "country": "AE"
+            "country": "AE",
+            "district": "Al Bateen"
           }
         ]
       }
@@ -106,6 +107,12 @@
         },
         "subject": {
           "reference": "Patient/margaret"
+        },
+        "onsetAge": {
+          "value": 61,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
         }
       }
     },
@@ -155,6 +162,12 @@
         },
         "subject": {
           "reference": "Patient/margaret"
+        },
+        "onsetAge": {
+          "value": 72,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
         }
       }
     },
@@ -525,6 +538,7 @@
         "patient": {
           "reference": "Patient/margaret"
         },
+        "name": "Saeed Al Hammadi",
         "relationship": {
           "coding": [
             {
@@ -535,8 +549,39 @@
           ],
           "text": "father"
         },
-        "deceasedBoolean": true,
+        "sex": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "code": "male"
+            }
+          ]
+        },
+        "deceasedAge": {
+          "value": 72,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
+        },
         "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "38341003",
+                  "display": "Hypertensive disorder"
+                }
+              ],
+              "text": "hypertension"
+            },
+            "onsetAge": {
+              "value": 55,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          },
           {
             "code": {
               "coding": [
@@ -549,22 +594,10 @@
               "text": "stroke"
             },
             "onsetAge": {
-              "value": 74,
+              "value": 68,
               "unit": "a",
               "system": "http://unitsofmeasure.org",
               "code": "a"
-            }
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "system": "http://snomed.info/sct",
-                  "code": "44054006",
-                  "display": "Diabetes mellitus type 2"
-                }
-              ],
-              "text": "type 2 diabetes"
             }
           }
         ]
@@ -592,6 +625,7 @@
         "patient": {
           "reference": "Patient/margaret"
         },
+        "name": "Shamsa Al Hammadi",
         "relationship": {
           "coding": [
             {
@@ -602,7 +636,57 @@
           ],
           "text": "mother"
         },
+        "sex": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "code": "female"
+            }
+          ]
+        },
+        "deceasedAge": {
+          "value": 80,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
+        },
         "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "23986001",
+                  "display": "Glaucoma"
+                }
+              ],
+              "text": "glaucoma"
+            },
+            "onsetAge": {
+              "value": 60,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "15188001",
+                  "display": "Hearing loss"
+                }
+              ],
+              "text": "hearing loss"
+            },
+            "onsetAge": {
+              "value": 74,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          },
           {
             "code": {
               "coding": [
@@ -613,7 +697,450 @@
                 }
               ],
               "text": "dementia"
+            },
+            "onsetAge": {
+              "value": 77,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
             }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "FamilyMemberHistory/margaret-husband",
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/margaret-husband"
+      },
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "margaret-husband",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/margaret"
+        },
+        "name": "Saif Al Mansoori",
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "HUSB",
+              "display": "husband"
+            }
+          ],
+          "text": "husband"
+        },
+        "sex": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "code": "male"
+            }
+          ]
+        },
+        "deceasedAge": {
+          "value": 75,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
+        },
+        "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "38341003",
+                  "display": "Hypertensive disorder"
+                }
+              ],
+              "text": "hypertension"
+            },
+            "onsetAge": {
+              "value": 60,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "44054006",
+                  "display": "Diabetes mellitus type 2"
+                }
+              ],
+              "text": "type 2 diabetes"
+            },
+            "onsetAge": {
+              "value": 58,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "49436004",
+                  "display": "Atrial fibrillation"
+                }
+              ],
+              "text": "atrial fibrillation"
+            },
+            "onsetAge": {
+              "value": 70,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "FamilyMemberHistory/margaret-brother",
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/margaret-brother"
+      },
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "margaret-brother",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/margaret"
+        },
+        "name": "Hamad Al Hammadi",
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "BRO",
+              "display": "brother"
+            }
+          ],
+          "text": "brother"
+        },
+        "sex": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "code": "male"
+            }
+          ]
+        },
+        "ageAge": {
+          "value": 74,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
+        },
+        "extension": [
+          {
+            "url": "https://noonealone.insidesync.ai/fhir/StructureDefinition/residence",
+            "valueString": "Al Bateen"
+          }
+        ],
+        "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "38341003",
+                  "display": "Hypertensive disorder"
+                }
+              ],
+              "text": "hypertension"
+            },
+            "onsetAge": {
+              "value": 52,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "230690007",
+                  "display": "Cerebrovascular accident"
+                }
+              ],
+              "text": "stroke"
+            },
+            "onsetAge": {
+              "value": 69,
+              "unit": "a",
+              "system": "http://unitsofmeasure.org",
+              "code": "a"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "FamilyMemberHistory/margaret-daughter",
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/margaret-daughter"
+      },
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "margaret-daughter",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/margaret"
+        },
+        "name": "Alia Al Mansoori",
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "DAU",
+              "display": "daughter"
+            }
+          ],
+          "text": "daughter"
+        },
+        "sex": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "code": "female"
+            }
+          ]
+        },
+        "ageAge": {
+          "value": 49,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
+        },
+        "extension": [
+          {
+            "url": "https://noonealone.insidesync.ai/fhir/StructureDefinition/residence",
+            "valueString": "London"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "FamilyMemberHistory/margaret-son",
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/margaret-son"
+      },
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "margaret-son",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/margaret"
+        },
+        "name": "Khalid Al Mansoori",
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "SON",
+              "display": "son"
+            }
+          ],
+          "text": "son"
+        },
+        "sex": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "code": "male"
+            }
+          ]
+        },
+        "ageAge": {
+          "value": 46,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
+        },
+        "extension": [
+          {
+            "url": "https://noonealone.insidesync.ai/fhir/StructureDefinition/residence",
+            "valueString": "Al Ain"
+          }
+        ],
+        "condition": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "38341003",
+                  "display": "Hypertensive disorder"
+                }
+              ],
+              "text": "hypertension"
+            },
+            "note": [
+              {
+                "text": "138/86"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "FamilyMemberHistory/margaret-granddaughter",
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/margaret-granddaughter"
+      },
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "margaret-granddaughter",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/margaret"
+        },
+        "name": "Hessa Al Mansoori",
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "GRNDDAU",
+              "display": "granddaughter"
+            }
+          ],
+          "text": "granddaughter"
+        },
+        "sex": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "code": "female"
+            }
+          ]
+        },
+        "ageAge": {
+          "value": 19,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
+        },
+        "extension": [
+          {
+            "url": "https://noonealone.insidesync.ai/fhir/StructureDefinition/residence",
+            "valueString": "Al Ain"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "FamilyMemberHistory/margaret-grandson",
+      "request": {
+        "method": "PUT",
+        "url": "FamilyMemberHistory/margaret-grandson"
+      },
+      "resource": {
+        "resourceType": "FamilyMemberHistory",
+        "id": "margaret-grandson",
+        "meta": {
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+              "code": "HTEST",
+              "display": "test health data"
+            }
+          ]
+        },
+        "status": "completed",
+        "patient": {
+          "reference": "Patient/margaret"
+        },
+        "name": "Zayed Al Mansoori",
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+              "code": "GRNDSON",
+              "display": "grandson"
+            }
+          ],
+          "text": "grandson"
+        },
+        "sex": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "code": "male"
+            }
+          ]
+        },
+        "ageAge": {
+          "value": 16,
+          "unit": "a",
+          "system": "http://unitsofmeasure.org",
+          "code": "a"
+        },
+        "extension": [
+          {
+            "url": "https://noonealone.insidesync.ai/fhir/StructureDefinition/residence",
+            "valueString": "Al Ain"
           }
         ]
       }

@@ -88,7 +88,7 @@ test('buildDistrict: one block per area, its value and name printed on its roof,
   expect(m.texts).toHaveLength(government.areas.length)
   expect(m.pins).toHaveLength(government.areas.length)
   m.pins.forEach((p, i) => {
-    expect(p).toMatchObject({ name: government.areas[i].name, sub: values[i] + ' open', ghost: true })
+    expect(p).toMatchObject({ name: government.areas[i].name, sub: values[i] + ' open', card: true })
     expect(m.texts![i]).toMatchObject({ t: String(values[i]), z: p.z })
     // Every column's roof is big enough for its name.
     expect(m.texts![i].sub).toBe(p.name)

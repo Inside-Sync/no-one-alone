@@ -6,7 +6,7 @@ from predict import review, run, sources
 from predict.explain import GeminiExplainer
 from tests.test_explain_and_run import FakeClient, FakeDb
 
-GOOD = {"margaret": "Your mother has hypertension and your grandfather had a stroke at 74, so a blood pressure "
+GOOD = {"margaret": "Your mother has hypertension and your grandfather had a stroke at 68, so a blood pressure "
                     "check is suggested."}
 
 

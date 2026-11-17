@@ -2,7 +2,7 @@ import { luminance, ramp, rgbHex, shade } from '@/lib/color'
 import { rng } from '@/lib/rng'
 import type { CityGeometry, MapPin, Surroundings } from '@/data/types'
 import type { Area } from '@/data/government.types'
-import { areaColumn, areaLand, areaTile, DISTRICT_SIZE } from '@/domain/areaGeometry'
+import { areaColumn, areaLand, areaTile } from '@/domain/areaGeometry'
 import { MARRICKVILLE_MAP, streetPoint } from '@/domain/marrickvilleMap'
 import type { MapIcon } from './icons'
 import type { CityLabel, CityLine, CityModel, CityPin, CityText, Face, Pt3, Tree } from './types'
@@ -292,15 +292,16 @@ export const tileColour = (reached: number) => ramp(1 - (reached - 55) / 40, TIL
 export function buildDistrict(areas: Area[], values: number[], suffix: string, highlight?: string, higherIsBetter = false): CityModel {
   const F: Face[] = [], G: Face[] = [], P: CityPin[] = [], X: CityText[] = []
   const scale = districtScale(values)
-  // Sea round the island; land under the grid. No walls: the map fades out before the plate's edge (cover view).
-  G.push({ pts: rect(0, 0, DISTRICT_SIZE[0], DISTRICT_SIZE[1]), fill: '#d6e9f0' })
+  // A slab of sea round the island, land under the grid, like the design's board.
+  const land = areaLand(), seaX = [land[0][0] - 34, land[1][0] + 34], seaY = [land[0][1] - 34, land[2][1] + 34]
+  G.push({ pts: rect(seaX[0], seaY[0], seaX[1], seaY[1]), fill: '#d6e9f0', stroke: '#ffffff', lw: 1.2 })
   G.push({ pts: areaLand().map(([x, y]) => [x, y, 0] as Pt3), fill: '#eef0ea', stroke: '#ffffff', lw: 0.8 })
   areas.forEach((a) => G.push({ pts: areaTile(a).map(([x, y]) => [x, y, 0] as Pt3), fill: tileColour(a.reached), stroke: '#ffffff', lw: 0.8 }))
   // A soft shadow under each column.
   areas.forEach((a) => G.push({ pts: areaColumn(a).map(([x, y]) => [x + 3, y + 5, 0] as Pt3), fill: 'rgba(28,52,50,.14)' }))
   areas.forEach((s, i) => {
     const r = areaColumn(s)
-    const v = values[i], t = Math.max(0, Math.min(1, scale[i])), h = 2 + t * 22, mine = s.name === highlight
+    const v = values[i], t = Math.max(0, Math.min(1, scale[i])), h = 8 + t * 150, mine = s.name === highlight
     const col = rgbHex(ramp(higherIsBetter ? 1 - t : t, DISTRICT_RAMP)), [cx, cy] = centroid(r), key: Pt3 = [cx, cy, 0]
     // Outward wall normals need the ring's winding.
     let area = 0
@@ -315,7 +316,7 @@ export function buildDistrict(areas: Area[], values: number[], suffix: string, h
     F.push({ pts: r.map(([x, y]) => [x, y, h] as Pt3), fill: shade(col, 1.08), stroke: mine ? '#0b7f71' : 'rgba(255,255,255,.95)', lw: mine ? 2.5 : 1.2, key, last: true })
     // A roof too small for its name shows the value alone (the tap toast still names it).
     X.push({ x: cx, y: cy, z: h, t: String(v), sub: Math.abs(area) / 2 < SMALL_ROOF ? '' : s.name, light: luminance(col) < 0.3 })
-    P.push({ x: cx, y: cy, z: h, name: s.name, sub: v + suffix, c: mine ? '#14a08c' : col, ini: '', tag: true, ghost: true })
+    P.push({ x: cx, y: cy, z: h, name: s.name, sub: (v + suffix).trim(), c: mine ? '#14a08c' : col, ini: '', tag: true, card: true, rank: t })
   })
   return { faces: F, ground: G, trees: [], pins: P, labels: [], texts: X }
 }

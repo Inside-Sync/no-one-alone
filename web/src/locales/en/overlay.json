@@ -53,10 +53,33 @@
       "weak": "Weak"
     },
     "dueNow": "Due now",
-    "book": "Book"
+    "book": "Book",
+    "deceased": "†",
+    "deceasedAge": "†{{n}}",
+    "parentOf": {
+      "father": "{{name}}'s father",
+      "mother": "{{name}}'s mother"
+    },
+    "toViewer": {
+      "grandfather": "grandfather",
+      "grandmother": "grandmother",
+      "father": "father",
+      "mother": "mother",
+      "uncle": "uncle",
+      "aunt": "aunt",
+      "brother": "brother",
+      "sister": "sister",
+      "son": "son",
+      "daughter": "daughter"
+    }
   },
   "distance": {
     "m": "{{n}} m",
     "km": "{{n}} km"
+  },
+  "place": {
+    "Al Bateen": "Al Bateen",
+    "Al Ain": "Al Ain",
+    "London": "London"
   }
 }

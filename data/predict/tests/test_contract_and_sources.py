@@ -26,6 +26,9 @@ def valid():
     (lambda d: d["flags"][0].update(memberId="zz"), "unknown member"),
     (lambda d: d["members"][0].update(generation=True), "expected int"),
     (lambda d: d["members"][1]["conditions"][0].update(ageAtOnset="3"), "expected int"),
+    (lambda d: d["members"][1].update(age="46"), "expected int"),
+    (lambda d: d["members"][1].update(place=None), "never null"),
+    (lambda d: d["members"][1]["conditions"][0].update(note=5), "expected str"),
     (lambda d: d["members"][1].update(relation="self"), "exactly one"),
     (lambda d: d.update(updatedAt="x"), "keys must be"),
 ])
@@ -34,6 +37,13 @@ def test_contract_check_catches_shape_errors(mutate, expect):
     assert check_family_doc(d) == []
     mutate(d)
     assert any(expect in p for p in check_family_doc(d))
+
+
+def test_contract_accepts_the_optional_age_deceased_age_place_and_note():
+    d = copy.deepcopy(valid())
+    d["members"][1].update(age=46, deceasedAge=72, place="Al Ain", relation="grandson")
+    d["members"][1]["conditions"][0]["note"] = "138/86"
+    assert check_family_doc(d) == []
 
 
 @pytest.mark.parametrize("pid", ["../margaret", "Margaret", "moza_x", "", "margaret/../x"])

@@ -63,6 +63,9 @@ export function contrastRgb(a: number[], b: number[]): number {
 export const TONE_TEXT_COLOURS: Record<string, string> = {
   'rgb(185, 127, 4)': '--warn', 'rgb(31, 143, 95)': '--good', 'rgb(217, 68, 63)': '--bad', 'rgb(200, 138, 5)': 'amber #c88a05',
   'rgb(89, 61, 2)': '--warn-text', 'rgb(16, 74, 49)': '--good-text', 'rgb(119, 37, 35)': '--bad-text',
+  // Tone fix: saturated pill/drawer tones and the deeper glass tones.
+  'rgb(102, 71, 0)': '--warn-text (glass)', 'rgb(11, 92, 60)': '--good-text (glass)', 'rgb(149, 31, 29)': '--bad-text (glass)',
+  'rgb(149, 101, 3)': '--warn-text (pill)', 'rgb(23, 122, 80)': '--good-text (pill)', 'rgb(192, 48, 44)': '--bad-text (pill)',
   'rgb(232, 172, 46)': '--warn-text (night)', 'rgb(79, 195, 140)': '--good-text (night)', 'rgb(255, 123, 116)': '--bad-text (night)',
   // R40: the prototype's muted, brand (per view), teal and jac tones, and their text variables (day and night).
   'rgb(86, 112, 110)': '--muted', 'rgb(11, 127, 113)': '--brand', 'rgb(37, 99, 168)': '--brand (hospital)',

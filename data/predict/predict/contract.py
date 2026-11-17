@@ -1,7 +1,7 @@
 """Shape checks for the Firestore documents, mirroring web/src/data/contract.ts (FamilyDoc). Returns a list of problems."""
 
 MEMBER_REQUIRED = {"id": str, "name": str, "relation": str, "generation": int, "conditions": list}
-MEMBER_OPTIONAL = {"deceased": bool, "parentId": str}
+MEMBER_OPTIONAL = {"deceased": bool, "parentId": str, "age": int, "deceasedAge": int, "place": str}
 FLAG_REQUIRED = {"memberId": str, "screening": str, "reason": str}
 FLAG_OPTIONAL = {"explanation": str}
 
@@ -33,7 +33,7 @@ def check_family_doc(doc: dict) -> list[str]:
         problems += _fields(m, MEMBER_REQUIRED, MEMBER_OPTIONAL, f"members[{i}]")
         ids.add(m.get("id"))
         for j, c in enumerate(m.get("conditions") or []):
-            problems += _fields(c, {"label": str}, {"ageAtOnset": int, "code": str}, f"members[{i}].conditions[{j}]")
+            problems += _fields(c, {"label": str}, {"ageAtOnset": int, "code": str, "note": str}, f"members[{i}].conditions[{j}]")
     if len(ids) != len(doc["members"]):
         problems.append("member ids must be unique")
     if sum(m.get("relation") == "self" for m in doc["members"]) != 1:

@@ -38,6 +38,7 @@
         "label": "Grandparents",
         "nodes": [
           {
+            "id": "margaret-father",
             "name": "Saeed Al Hammadi",
             "sub": "†72 · Moza's father",
             "conditions": [
@@ -53,6 +54,7 @@
             "kind": "dec"
           },
           {
+            "id": "margaret-mother",
             "name": "Shamsa Al Hammadi",
             "sub": "†80 · Moza's mother",
             "conditions": [
@@ -77,6 +79,7 @@
         "label": "Moza's generation",
         "nodes": [
           {
+            "id": "margaret",
             "name": "Moza Al Hammadi",
             "sub": "78 · Al Bateen",
             "conditions": [
@@ -92,6 +95,7 @@
             "kind": "focus"
           },
           {
+            "id": "margaret-husband",
             "name": "Saif Al Mansoori",
             "sub": "†75 · husband",
             "conditions": [
@@ -111,6 +115,7 @@
             "kind": "dec"
           },
           {
+            "id": "david",
             "name": "Hamad Al Hammadi",
             "sub": "74 · brother · Al Bateen",
             "conditions": [
@@ -130,11 +135,13 @@
         "label": "Children",
         "nodes": [
           {
+            "id": "sarah",
             "name": "Alia Al Mansoori",
             "sub": "49 · London",
             "conditions": []
           },
           {
+            "id": "james",
             "name": "Khalid Al Mansoori",
             "sub": "46 · Al Ain · you",
             "conditions": [
@@ -151,11 +158,13 @@
         "label": "Grandchildren",
         "nodes": [
           {
+            "id": "margaret-granddaughter",
             "name": "Hessa Al Mansoori",
             "sub": "19 · Al Ain",
             "conditions": []
           },
           {
+            "id": "margaret-grandson",
             "name": "Zayed Al Mansoori",
             "sub": "16 · Al Ain",
             "conditions": []

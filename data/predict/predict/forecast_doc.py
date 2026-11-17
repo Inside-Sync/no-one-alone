@@ -30,7 +30,9 @@ DRIVER_PROMPT = (
 
 
 def _parent_stroke(resources: list[dict], person_id: str) -> dict | None:
-    for p in family._parents(resources, person_id):
+    for p in family._relatives(resources, person_id):
+        if p["relation"] not in family.PARENTS:
+            continue
         for c in p["conditions"]:
             if c["kind"] == family.STROKE:
                 return {"relation": p["relation"], "deceased": p["deceased"], "age": c.get("ageAtOnset")}

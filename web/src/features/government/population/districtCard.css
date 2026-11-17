@@ -1,0 +1,14 @@
+/* Narrow screens: the title and measure buttons stack above the board instead of covering it. */
+@media (max-width: 700px) {
+  .map-card.district-card { display: flex; flex-direction: column; min-height: 700px !important; }
+  .map-card.district-card .map-top { position: relative; inset: auto; flex-direction: column; gap: 8px; padding: 14px 14px 0; }
+  .district-card .map-ctrl { margin-inline-start: 0; }
+  .district-card .map-ctrl .seg { flex-wrap: wrap; }
+  .map-card.district-card .c3d { position: relative; inset: auto; flex: 1; min-height: 360px; }
+  .map-card.district-card .map-hint { position: relative; inset: auto; padding: 0 14px 14px; }
+}
+
+/* The compass is drawn in the canvas corner, above the hint line: keep the zoom buttons clear of it. */
+@media (max-width: 700px) {
+  .map-card.district-card .map-zoom { bottom: 175px; }
+}

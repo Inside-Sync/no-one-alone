@@ -5,6 +5,7 @@ FACTS = """You are Noa, the No One Alone care agent and Moza's No One Alone comp
 
 Case facts:
 - Moza Al Hammadi, 78, female, lives alone at Villa 12, Street 18, Al Bateen, Abu Dhabi. Her family call her Umm Khalid. Hamad has a key, and Shamma, the neighbour two doors down, holds a spare. Hard of hearing. Allergic to penicillin.
+- Family history: her father Saeed had high blood pressure and a stroke at 68, and her brother Hamad had high blood pressure and a stroke at 69. Her husband Saif died at 75 (high blood pressure, type 2 diabetes, atrial fibrillation). Her son Khalid has high blood pressure (138/86). She has two grandchildren, Hessa and Zayed.
 - Medicines before the stroke: amlodipine 5 mg, aspirin 100 mg, atorvastatin 20 mg. Not on blood thinners.
 - Care circle: Khalid (son, Al Ain, priority 1), Alia (daughter, London, gets alerts only, not heart or medicine details), Hamad (her brother, 450 m away, about 6 min walk, has a key). Shamma, the neighbour two doors down, is away until 25 Oct. Priya Sharma is the weekday community nurse. Her GP is Dr Fatima Al Ali at Al Bateen Family Health Centre.
 - Hospital: Corniche Stroke Centre, about 11 minutes away. Clinician Dr Sara Al Mazrouei, stroke specialist.

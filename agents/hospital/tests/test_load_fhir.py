@@ -39,15 +39,15 @@ def test_dry_run_reads_only_and_writes_nothing(capsys):
     store = FakeStore()
     assert run(store) == 0
     assert writes(store) == [] and store.resources == {}
-    assert "DRY RUN: would create 14 of 14 resources" in capsys.readouterr().out
+    assert "DRY RUN: would create 20 of 20 resources" in capsys.readouterr().out
 
 
 def test_write_creates_everything_in_one_transaction_then_verifies(capsys):
     store = FakeStore()
     assert run(store, "--write") == 0
-    assert len(writes(store)) == 1 and len(store.resources) == 14
+    assert len(writes(store)) == 1 and len(store.resources) == 20
     out = capsys.readouterr().out
-    assert "WROTE 14 resources" in out and "VERIFIED live equals fixture for margaret" in out
+    assert "WROTE 20 resources" in out and "VERIFIED live equals fixture for margaret" in out
 
 
 def test_second_run_is_a_no_op_with_no_new_versions(capsys):
@@ -66,7 +66,7 @@ def test_only_missing_resources_are_sent():
     real = store._transaction
     store._transaction = lambda b: sent.append([e["resource"]["id"] for e in b["entry"]]) or real(b)
     assert run(store, "--write") == 0
-    assert len(sent) == 1 and len(sent[0]) == 11 and all(i.startswith("margaret") for i in sent[0])
+    assert len(sent) == 1 and len(sent[0]) == 17 and all(i.startswith("margaret") for i in sent[0])
 
 
 def test_a_differing_resource_aborts_before_anything_is_written(capsys):
