@@ -208,6 +208,7 @@
       "label": "Search",
       "results": "Search results",
       "person": "Person",
+      "patient": "Patient record · {{why}}",
       "suburb": "Area · Abu Dhabi"
     },
     "languageEn": "English",
