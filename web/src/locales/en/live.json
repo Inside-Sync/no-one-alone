@@ -480,6 +480,7 @@
     "pass": "Passed · speech is clear",
     "fail": "Failed · slurred speech",
     "clarity": "clarity {{x}} · her normal {{normal}}",
+    "azure": "Azure AI Speech · pronunciation {{overall}} / 100 · fluency {{fluency}}",
     "replay": "↺ Run the speech check again",
     "tag": "OUR CORE TECHNOLOGY",
     "meta": "Compares tonight's voice with {{name}}'s own voice, not an average",

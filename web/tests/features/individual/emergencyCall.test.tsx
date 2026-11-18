@@ -123,6 +123,15 @@ test('speech check: a clear verdict says Passed, a slurred one Failed, with the 
   expect(screen.getByText('clarity 0.41 · her normal 0.94')).toBeInTheDocument()
 })
 
+test('speech check: the Azure pronunciation line shows beside the verdict, and only when Azure scored', () => {
+  const scored = { by: 'PERSON', at: '', text: 'the sky iz', assessment: { clarity: 'SLURRED', pronunciation: { accuracy: 40, fluency: 30.2, completeness: 100, overall: 41.4 } } } as TurnDoc
+  const { rerender } = renderWithProviders(card([q1, turn('PERSON', 'yes', 'CLEAR'), q2, scored]))
+  expect(screen.getByText('Azure AI Speech · pronunciation 41 / 100 · fluency 30')).toBeInTheDocument()
+  expect(screen.getByText('clarity 0.41 · her normal 0.94')).toBeInTheDocument()
+  rerender(card([q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', 'the sky iz', 'SLURRED')]))
+  expect(screen.queryByText(/Azure AI Speech/)).toBeNull()
+})
+
 test('speech check: replay runs only once there is a verdict and not while busy', () => {
   const onReplay = vi.fn()
   const turns = [q1, turn('PERSON', 'yes', 'CLEAR'), q2, turn('PERSON', 'the sky iz', 'SLURRED')]

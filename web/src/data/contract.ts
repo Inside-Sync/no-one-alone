@@ -61,6 +61,8 @@ export interface Assessment {
   coherent?: boolean
   symptoms?: string[]
   confidence?: number
+  /** Azure AI Speech scores on the speech-check repeat; absent when Azure did not score it. */
+  pronunciation?: { accuracy: number; fluency: number; completeness: number; overall: number }
 }
 
 /** Which question of the check-in an agent turn is; also `pending.step`. */

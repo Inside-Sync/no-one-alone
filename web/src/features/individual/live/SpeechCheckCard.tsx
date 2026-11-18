@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { NoaOrb } from '@/components/noa/NoaOrb'
 import { GlassCard } from '@/components/ui/GlassCard'
 import { Glyph, Icon, type IconName } from '@/components/ui/Icon'
-import type { IncidentDoc, TurnDoc } from '@/data/contract'
+import type { Assessment, IncidentDoc, TurnDoc } from '@/data/contract'
 import { isSpeechCheckTurn } from '@/domain/agent'
 import { clockTime } from '@/domain/incident'
 import { rng } from '@/lib/rng'
@@ -14,9 +14,10 @@ type Kind = 'base' | 'clear' | 'slurred'
 type State = 'ready' | 'listen' | 'analyse' | 'clear' | 'slurred'
 
 /** The speech check question, its time and the verdict on the reply (asked again or not), from the check-in turns. */
-function speechState(turns: readonly TurnDoc[], busy: boolean): { state: State; at: string | null } {
+function speechState(turns: readonly TurnDoc[], busy: boolean): { state: State; at: string | null; azure: Assessment['pronunciation'] } {
   let at: string | null = null
   let state: State = 'ready'
+  let azure: Assessment['pronunciation']
   for (const turn of turns) {
     if (turn.by === 'AGENT') {
       if (isSpeechCheckTurn(turn)) { at = turn.at; state = 'listen' }
@@ -24,10 +25,10 @@ function speechState(turns: readonly TurnDoc[], busy: boolean): { state: State; 
       continue
     }
     const clarity = turn.assessment?.clarity
-    if (state === 'listen' && clarity) state = clarity === 'CLEAR' ? 'clear' : 'slurred'
+    if (state === 'listen' && clarity) { state = clarity === 'CLEAR' ? 'clear' : 'slurred'; azure = turn.assessment?.pronunciation }
   }
   if (state === 'listen' && busy) state = 'analyse'
-  return { state, at }
+  return { state, at, azure }
 }
 
 /** Deterministic bars per word (prototype `spkWave`): slurred speech is slower, quieter and gappier. */
@@ -83,7 +84,7 @@ export function SpeechCheckCard({ incident, name, timeZone, onReplay, busy = fal
   busy?: boolean
 }) {
   const { t } = useTranslation('live')
-  const { state, at } = speechState(incident?.checkIn?.turns ?? [], incident?.checkIn?.busy ?? false)
+  const { state, at, azure } = speechState(incident?.checkIn?.turns ?? [], incident?.checkIn?.busy ?? false)
   const heard = state === 'clear' || state === 'slurred' || state === 'analyse'
   const words = t('speech.words').split(' ')
   const values = t('speech.metricValues', { returnObjects: true }) as [string, string, string][]
@@ -106,6 +107,7 @@ export function SpeechCheckCard({ incident, name, timeZone, onReplay, busy = fal
         <div className={`spk-verdict ${state}`} role="status">
           <b className="spk-pass"><Glyph name={state === 'clear' ? 'check' : 'x'} />{t(state === 'clear' ? 'speech.pass' : 'speech.fail')}</b>
           <span className="spk-num">{t('speech.clarity', { x: state === 'clear' ? values[0][1] : values[0][2], normal: values[0][0] })}</span>
+          {azure && <small className="spk-azure">{t('speech.azure', { overall: Math.round(azure.overall), fluency: Math.round(azure.fluency) })}</small>}
           {onReplay && <button type="button" className="btn sm soft spk-replay" onClick={onReplay} disabled={busy}>{t('speech.replay')}</button>}
           <small>{STATE_ICON[state] && <Glyph name={STATE_ICON[state]} />}{t(`speech.state.${state}`, { name })}</small>
         </div>
