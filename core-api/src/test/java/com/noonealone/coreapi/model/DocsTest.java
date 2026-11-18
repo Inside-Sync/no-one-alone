@@ -92,4 +92,14 @@ class DocsTest {
         assertThat(loaded.meds.get(0).key()).isNull();
         assertThat(loaded.reminders.get(0).key()).isNull();
     }
+
+    @Test
+    void pronunciationScoresSurviveStorageAndAreAbsentWhenNotScored() {
+        Assessment a = new Assessment();
+        a.pronunciation = new Assessment.Pronunciation();
+        a.pronunciation.overall = 61.2;
+
+        assertThat(Docs.fromMap(Docs.toMap(a), Assessment.class).pronunciation.overall).isEqualTo(61.2);
+        assertThat(Docs.toMap(new Assessment())).doesNotContainKey("pronunciation");
+    }
 }

@@ -89,6 +89,21 @@ class RespondAgentClientTest {
     }
 
     @Test
+    void checkinTurnParsesThePronunciationScores() {
+        server.expect(requestTo("http://agent/checkin/turn"))
+                .andRespond(withSuccess("{\"done\":true,\"fallback\":false,\"assessment\":{\"clarity\":\"SLURRED\",\"pronunciation\":"
+                        + "{\"accuracy\":62.5,\"fluency\":48.0,\"completeness\":100.0,\"overall\":61.2}}}",
+                        MediaType.APPLICATION_JSON));
+
+        var p = client.checkinTurn(Map.of()).assessment().pronunciation;
+
+        assertThat(p.accuracy).isEqualTo(62.5);
+        assertThat(p.fluency).isEqualTo(48.0);
+        assertThat(p.completeness).isEqualTo(100.0);
+        assertThat(p.overall).isEqualTo(61.2);
+    }
+
+    @Test
     void recoveryParsesTheKeyOfEachReminder() {
         server.expect(requestTo("http://agent/recovery"))
                 .andRespond(withSuccess("{\"summary\":\"s\",\"fallback\":false,\"reminders\":["
