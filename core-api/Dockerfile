@@ -5,6 +5,6 @@ RUN mvn -q -B dependency:go-offline
 COPY src src
 RUN mvn -q -B package -DskipTests
 
-FROM eclipse-temurin:17-jre
+FROM amazoncorretto:17-al2023-headless
 COPY --from=build /src/target/core-api.jar /app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
