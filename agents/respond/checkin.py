@@ -10,7 +10,8 @@ STEPS = ["OPENING", "SPEECH_CHECK", "SYMPTOMS"]
 NO_SPEECH = {"clarity": "NO_SPEECH", "coherent": False, "symptoms": [], "confidence": 0.0}
 
 
-def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
+def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None],
+         score: Callable[[bytes, str], dict | None] | None = None) -> dict:
     person, turns, inp = body["person"], body.get("turns") or [], body.get("input") or {}
     s = load_scripts()[lang_of(person)]
     asked = sum(1 for t in turns if t.get("by") == "AGENT")
@@ -35,6 +36,10 @@ def turn(body: dict, assess: Callable[[bytes, str, dict], dict | None]) -> dict:
             # A repeat that is not clear and coherent fails the speech check like slurring does.
             if expected and (res.get("clarity") != "CLEAR" or not res.get("coherent", True)):
                 out["assessment"]["clarity"] = "SLURRED"
+            if expected and score and lang_of(person) == "en":
+                scores = score(audio, expected)
+                if scores:
+                    out["assessment"]["pronunciation"] = scores
             slurred = slurred or out["assessment"]["clarity"] == "SLURRED"
 
     out["done"] = asked >= len(s["questions"]) or "yesNo" in inp or (slurred and asked >= 2)

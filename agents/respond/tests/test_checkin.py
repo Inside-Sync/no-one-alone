@@ -145,3 +145,31 @@ def test_each_scripted_question_says_which_step_it_is():
         {"transcript": "x", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 1}))["next"]["step"]
         for n in range(3)]
     assert steps == ["OPENING", "SPEECH_CHECK", "SYMPTOMS"]
+
+
+SCORES = {"accuracy": 40.0, "fluency": 30.2, "completeness": 100.0, "overall": 41.4}
+
+
+def test_speech_check_adds_pronunciation_and_keeps_clarity():
+    res = {"transcript": "the sky", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 0.9}
+    seen = []
+    out = checkin.turn(body(MOZA, turns=agent(2), input=audio()), fake(res), lambda a, ref: seen.append(ref) or SCORES)
+    assert out["assessment"]["pronunciation"] == SCORES
+    assert out["assessment"]["clarity"] == "CLEAR"
+    assert seen == ["the sky is blue in abu dhabi"]
+
+
+def test_opening_turn_never_scores():
+    def boom(a, ref):
+        raise AssertionError("score called")
+    res = {"transcript": "fine", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 0.9}
+    out = checkin.turn(body(MOZA, turns=agent(1), input=audio()), fake(res), boom)
+    assert "pronunciation" not in out["assessment"]
+
+
+def test_arabic_speech_check_never_scores():
+    def boom(a, ref):
+        raise AssertionError("score called")
+    res = {"transcript": "x", "clarity": "CLEAR", "coherent": True, "symptoms": [], "confidence": 0.9}
+    out = checkin.turn(body(AR, turns=agent(2), input=audio()), fake(res), boom)
+    assert "pronunciation" not in out["assessment"]

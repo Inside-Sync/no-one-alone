@@ -7,6 +7,7 @@ from typing import Literal
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
+import azure
 import chat
 import checkin
 import gcp
@@ -48,7 +49,7 @@ def verify(body: dict):
 @app.post("/checkin/turn")
 def checkin_turn(body: dict):
     try:
-        out = checkin.turn(body, assessor)
+        out = checkin.turn(body, assessor, azure.pronunciation)
         if out.get("next"):
             out["fallback"] = out["fallback"] or not add_audio(out["next"], gcp.locale_for(body["person"]))
         return out
