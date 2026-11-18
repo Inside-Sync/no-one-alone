@@ -34,7 +34,7 @@ if ($Target -in "all", "respond") {
     gcloud secrets describe azure-speech-key --project $ProjectId *> $null
     if ($LASTEXITCODE -eq 0) { $updateArgs += @("--update-secrets", "AZURE_SPEECH_KEY=azure-speech-key:latest") }
     gcloud run services update respond-agent --region $Region --project $ProjectId @updateArgs --quiet
-    if ($LASTEXITCODE -ne 0) { throw "Setting HOSPITAL_AGENT_URL on respond-agent failed" }
+    if ($LASTEXITCODE -ne 0) { throw "Updating respond-agent (HOSPITAL_AGENT_URL, Azure key) failed" }
 }
 # core-api is public for Hosting rewrites and checks tokens itself; the org blocks allUsers, hence --no-invoker-iam-check.
 if ($Target -in "all", "core-api") {

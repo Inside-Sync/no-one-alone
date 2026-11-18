@@ -107,8 +107,8 @@ export function SpeechCheckCard({ incident, name, timeZone, onReplay, busy = fal
         <div className={`spk-verdict ${state}`} role="status">
           <b className="spk-pass"><Glyph name={state === 'clear' ? 'check' : 'x'} />{t(state === 'clear' ? 'speech.pass' : 'speech.fail')}</b>
           <span className="spk-num">{t('speech.clarity', { x: state === 'clear' ? values[0][1] : values[0][2], normal: values[0][0] })}</span>
-          {azure && <small className="spk-azure">{t('speech.azure', { overall: Math.round(azure.overall), fluency: Math.round(azure.fluency) })}</small>}
           {onReplay && <button type="button" className="btn sm soft spk-replay" onClick={onReplay} disabled={busy}>{t('speech.replay')}</button>}
+          {azure && <small className="spk-azure">{t('speech.azure', { overall: Math.round(azure.overall), fluency: Math.round(azure.fluency) })}</small>}
           <small>{STATE_ICON[state] && <Glyph name={STATE_ICON[state]} />}{t(`speech.state.${state}`, { name })}</small>
         </div>
       )}
