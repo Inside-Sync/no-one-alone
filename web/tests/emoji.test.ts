@@ -1,9 +1,9 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
-/** Colour emoji (pictographs, dingbats, misc technical, ℹ). `✓ ✕ ☾` are monochrome text glyphs and stay allowed. */
-const EMOJI = /[\u{1F000}-\u{1FAFF}\u{2300}-\u{23FF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2139}]/u
-const TEXT_GLYPHS = new Set(['✓', '✕', '☾'])
+/** Colour emoji (pictographs, dingbats, misc technical, ℹ). `✓ ✕ ☾ ●` are monochrome text glyphs and stay allowed. */
+const EMOJI = /[\u{1F000}-\u{1FAFF}\u{2300}-\u{23FF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2139}\u{25A0}-\u{25FF}]/u
+const TEXT_GLYPHS = new Set(['✓', '✕', '☾', '●'])
 const hasEmoji = (s: string) => [...s].some((c) => EMOJI.test(c) && !TEXT_GLYPHS.has(c))
 
 /** Speech and chat lines in Noa's or Margaret's own voice, where an emoji is part of the message. */

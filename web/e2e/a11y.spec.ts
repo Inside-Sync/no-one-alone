@@ -44,6 +44,8 @@ test('keyboard: tabs are reachable and switch pages with Enter', async ({ page }
 })
 
 test('every 3D canvas has an accessible name', async ({ page }) => {
+  // ~23 full page loads at ~1.2 s each (goto + networkidle + fonts.ready) measure 30.7 s: right on the 30 s default.
+  test.setTimeout(120_000)
   let total = 0
   for (const c of routeCases()) {
     await openPage(page, c)

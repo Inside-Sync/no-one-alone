@@ -1,0 +1,4167 @@
+{
+  "people": {
+    "moza": {
+      "n": "Moza",
+      "nar": "موزة",
+      "nen": "Moza",
+      "full": "Moza Al Hammadi",
+      "call": "Umm Khalid",
+      "home": "Al Bateen",
+      "f1s": "Khalid",
+      "f1": "Khalid (son, Al Ain)",
+      "f2s": "Hamad",
+      "f2": "Hamad (brother)",
+      "f2d": "450 m",
+      "meds": "Amlodipine 5 mg · aspirin 100 mg · atorvastatin 20 mg",
+      "hist": "High blood pressure (2023) · dehydration admission (2024) · wrist fracture (2025)",
+      "usual": "Heart 58–64 asleep · speech score 0.94",
+      "hosp": "Corniche Stroke Centre"
+    },
+    "hessa": {
+      "n": "Hessa",
+      "nar": "حصة",
+      "nen": "Hessa",
+      "full": "Hessa Al Ketbi",
+      "call": "Umm Saif",
+      "home": "Khalifa City",
+      "f1s": "Saif",
+      "f1": "Saif (son, night shifts)",
+      "f2s": "Noura",
+      "f2": "Noura (neighbour, has a key)",
+      "f2d": "60 m",
+      "meds": "Apixaban 5 mg twice a day · amlodipine 5 mg · alendronate weekly",
+      "hist": "Atrial fibrillation (2022) · cataract surgery (2023) · osteoporosis (2024)",
+      "usual": "1 bathroom trip a night · speech score 0.92",
+      "hosp": "Capital General Hospital"
+    },
+    "saeed": {
+      "n": "Saeed",
+      "nar": "سعيد",
+      "nen": "Saeed",
+      "full": "Saeed Al Nuaimi",
+      "call": "Abu Rashid",
+      "home": "Al Mushrif",
+      "f1s": "Shamsa",
+      "f1": "Shamsa (wife, asleep next door)",
+      "f2s": "Rashid",
+      "f2": "Rashid (son)",
+      "f2d": "2 km",
+      "meds": "Insulin glargine 24 units at night · metformin 1 g twice a day",
+      "hist": "Type 2 diabetes (2011) · insulin since 2021 · kidney function mildly reduced (eGFR 52)",
+      "usual": "Night glucose 5–8 mmol/L · speech score 0.95",
+      "hosp": "Capital General Hospital"
+    },
+    "mariam": {
+      "n": "Mariam",
+      "nar": "مريم",
+      "nen": "Mariam",
+      "full": "Mariam Al Shamsi",
+      "call": "Umm Ahmed",
+      "home": "Al Khalidiya",
+      "f1s": "Ahmed",
+      "f1": "Ahmed (son)",
+      "f2s": "Latifa",
+      "f2": "Latifa (daughter)",
+      "f2d": "1 km",
+      "meds": "Furosemide 40 mg morning · bisoprolol 2.5 mg · ramipril 5 mg",
+      "hist": "Heart failure (2024, pumping 35%) · admission for fluid build-up (Mar 2026)",
+      "usual": "Dry weight 61.0 kg · oxygen 95–97% · speech score 0.93",
+      "hosp": "Capital General Hospital"
+    },
+    "hind": {
+      "n": "Hind",
+      "nar": "هند",
+      "nen": "Hind",
+      "full": "Hind Al Mansoori",
+      "call": "Hind",
+      "f1s": "Maitha",
+      "f1ar": "ميثاء",
+      "f1": "Maitha (mother, nurse on shifts)",
+      "f2s": "Amna",
+      "f2": "Amna (grandmother)",
+      "meds": "None",
+      "hist": "Born at term · 15-month visit done · 18-month visit overdue",
+      "usual": "Growing on the 50th centile",
+      "hosp": "Al Khalidiya Family Health Centre",
+      "age": "18 months"
+    },
+    "khalid": {
+      "n": "Khalid",
+      "nar": "خالد",
+      "nen": "Khalid",
+      "full": "Khalid Al Mansoori",
+      "call": "Abu Maitha",
+      "f1s": "Amna",
+      "f1ar": "آمنة",
+      "f1": "Amna (wife)",
+      "f2s": "Moza",
+      "f2": "Moza (mother)",
+      "meds": "None",
+      "hist": "No check-up in 4 years, IFHAS never done · mother: stroke and atrial fibrillation · father: heart attack at 62 · smokes medwakh",
+      "usual": "Logistics supervisor, long shifts; feels fine",
+      "hosp": "Al Khalidiya Family Health Centre"
+    },
+    "arjun": {
+      "n": "Arjun",
+      "nar": "أرجون",
+      "nen": "Arjun",
+      "full": "Arjun Nair",
+      "call": "Arjun",
+      "f1s": "Priya",
+      "f1ar": "بريا",
+      "f1": "Priya (mother, moved to Abu Dhabi 2 months ago)",
+      "f2s": "Vikram",
+      "f2": "Vikram (father)",
+      "meds": "None",
+      "hist": "Born in Kochi · 2-month vaccines given in India",
+      "usual": "Feeding well",
+      "hosp": "Mussafah Family Health Centre",
+      "age": "4 months"
+    },
+    "hamad": {
+      "n": "Hamad",
+      "nar": "حمد",
+      "nen": "Hamad",
+      "full": "Hamad Al Hammadi",
+      "call": "Abu Saeed",
+      "f1s": "Khalid",
+      "f1ar": "خالد",
+      "f1": "Khalid (nephew)",
+      "f2s": "Moza",
+      "f2": "Moza (sister, 450 m)",
+      "f2d": "450 m",
+      "meds": "Amlodipine 5 mg",
+      "hist": "High blood pressure · stopped driving in 2025 · IFHAS screening last done 2019",
+      "usual": "Walks to the mosque every day",
+      "hosp": "Al Bateen Family Health Centre"
+    },
+    "amna": {
+      "n": "Amna",
+      "nar": "آمنة",
+      "nen": "Amna",
+      "full": "Amna Al Mansoori",
+      "call": "Umm Maitha",
+      "f1s": "Khalid",
+      "f1ar": "خالد",
+      "f1": "Khalid (husband)",
+      "f2s": "Maitha",
+      "f2": "Maitha (daughter)",
+      "meds": "None",
+      "hist": "Diabetes in pregnancy (2001, 2005) · HbA1c 5.9% in March 2026",
+      "usual": "Teacher",
+      "hosp": "Al Khalidiya Family Health Centre"
+    }
+  },
+  "questions": {
+    "fall": {
+      "q": "{{n}}, I felt a hard fall. Can you get up on your own?",
+      "a": [
+        "“I’m fine, I can get up”",
+        "“I can’t get up, my hip hurts”",
+        "No answer"
+      ]
+    },
+    "hypo": {
+      "q": "{{n}}, your sugar is low. Can you drink the juice by your bed?",
+      "a": [
+        "“Yes, drinking it now”",
+        "Confused, mixed-up answer",
+        "No answer"
+      ]
+    },
+    "hf": {
+      "q": "{{n}}, your weight is up. Are you more breathless than usual?",
+      "a": [
+        "“A bit. I needed 3 pillows last night”",
+        "“Very breathless, even sitting still”",
+        "“I feel fine”"
+      ]
+    },
+    "hr": {
+      "q": "{{n}}, are you all right? I noticed your heart racing.",
+      "a": [
+        "“I’m fine, I couldn’t sleep”",
+        "No answer"
+      ]
+    }
+  },
+  "rules": {
+    "R1": {
+      "when": "Heart rate above 120 for 10 minutes while not moving",
+      "then": "Voice check within 1 minute"
+    },
+    "R2": {
+      "when": "Fall detected and still on the floor after 2 minutes",
+      "then": "Voice check now"
+    },
+    "R3": {
+      "when": "Glucose below 4.0 mmol/L (below 3.0 is severe)",
+      "then": "Voice check now, fast sugar first"
+    },
+    "R4": {
+      "when": "Weight up 2 kg or more in 3 days, or oxygen 92% or lower",
+      "then": "Voice check this morning"
+    },
+    "R5": {
+      "when": "Speech check score below 0.6, or no answer to a check",
+      "then": "Treat as a possible stroke: 998 now (low sugar checked first)"
+    },
+    "R6": {
+      "when": "Low sugar plus no answer or a confused answer",
+      "then": "998 now, family guided to the glucagon pen"
+    },
+    "R7": {
+      "when": "Fall plus “can’t get up” or no answer",
+      "then": "998 now; head CT flagged if on a blood thinner"
+    },
+    "R8": {
+      "when": "Breathless at rest, or oxygen below 90%",
+      "then": "998 now"
+    },
+    "R9": {
+      "when": "Low sugar, answering clearly",
+      "then": "Fast sugar at home, recheck in 15 minutes, doctor in the morning"
+    },
+    "R10": {
+      "when": "Weight up, breathless only lying flat",
+      "then": "Heart failure nurse the same day (not 998)"
+    },
+    "R11": {
+      "when": "Got up after a fall, speech normal",
+      "then": "No ambulance; fall-risk review within 7 days"
+    },
+    "R12": {
+      "when": "Nothing above",
+      "then": "No action. Nobody is woken."
+    }
+  },
+  "prevention": {
+    "rules": {
+      "P1": {
+        "when": "Eligible and due or overdue",
+        "then": "Find the barrier first: one question, not another reminder"
+      },
+      "P2": {
+        "when": "Not eligible for this programme, or nothing due",
+        "then": "Say nothing; the passport shows only what applies"
+      },
+      "P3": {
+        "when": "“I didn’t know it was due”",
+        "then": "Know what is due: explain in plain words, one-tap booking"
+      },
+      "P4": {
+        "when": "Times or travel don’t work",
+        "then": "Easy access: slot near home outside work hours, transport, one trip for the family"
+      },
+      "P5": {
+        "when": "Unsure, or wants a female doctor or another language",
+        "then": "Trusted, culturally appropriate engagement"
+      },
+      "P6": {
+        "when": "“I feel fine, so why test?”",
+        "then": "Personalised outreach: what it means for them and their family"
+      },
+      "P7": {
+        "when": "Just forgot, no other barrier",
+        "then": "One reminder and one-tap booking is enough"
+      },
+      "P8": {
+        "when": "Doesn’t want it now",
+        "then": "Respect the choice: no more nudges for 3 months, door stays open"
+      },
+      "P9": {
+        "when": "A result outside the healthy range",
+        "then": "Route to the right team within 2 weeks; healthy results go to the passport"
+      },
+      "F1": {
+        "when": "Heart risk 20% or more in 10 years (Framingham, ages 30–74, no heart attack or stroke)",
+        "then": "Doctor review within 2 weeks; the doctor decides on treatment"
+      },
+      "F2": {
+        "when": "Heart risk 10–20%, cholesterol not measured",
+        "then": "Measure cholesterol at the next check; show the what-if plan"
+      }
+    },
+    "barriers": {
+      "awareness": "“I didn’t know it was due”",
+      "access": "“The times or the travel don’t work for us”",
+      "trust": "“I’m not sure about it / I’d like a female doctor”",
+      "value": "“I feel fine, so why test?”",
+      "forgot": "“I just forgot”",
+      "decline": "“I don’t want it right now”"
+    },
+    "enablers": {
+      "awareness": {
+        "name": "Know what is due",
+        "tag": "Connected journey"
+      },
+      "access": {
+        "name": "Easy access and booking",
+        "tag": "Participation enabler"
+      },
+      "trust": {
+        "name": "Trusted, culturally appropriate engagement",
+        "tag": "Personalised outreach"
+      },
+      "value": {
+        "name": "Personalised outreach",
+        "tag": "Why it matters for them"
+      },
+      "forgot": {
+        "name": "One reminder is enough",
+        "tag": "No barrier"
+      },
+      "decline": {
+        "name": "Respect the choice",
+        "tag": "Preserve meaningful choice"
+      }
+    },
+    "pv": {
+      "wellchild": {
+        "family": [
+          {
+            "name": "Hamdan, 5",
+            "what": "5-year visit",
+            "state": "done ✓"
+          },
+          {
+            "name": "Maitha, 25 (mother)",
+            "what": "IFHAS screening",
+            "state": "due"
+          },
+          {
+            "name": "Khalid, 47 (grandfather)",
+            "what": "IFHAS screening",
+            "state": "never done"
+          },
+          {
+            "name": "Moza, 78",
+            "what": "Outside the IFHAS age range; her stroke clinic follows her",
+            "state": "—"
+          }
+        ],
+        "slot": {
+          "access": "Saturday 09:00 at Al Khalidiya Family Health Centre, 2 km from home, with Maitha’s screening at 09:15 and grandfather Khalid’s at 09:30: one trip for the family",
+          "awareness": "Saturday 09:00 near home; Noa explains the 14 visits and what this one checks",
+          "trust": "Thursday 17:30 with a female doctor, Dr Aisha Al Hosani, in Arabic",
+          "value": "Saturday 09:00; this visit checks growth, speech and vaccines at an age when early help matters most",
+          "forgot": "Wednesday 16:00, the slot Maitha usually picks"
+        },
+        "visit": [
+          {
+            "title": "Check-in",
+            "detail": "Weighed and measured: growing on the 50th centile."
+          },
+          {
+            "title": "Development check",
+            "detail": "Walking well. The doctor records the words she says."
+          },
+          {
+            "title": "Vaccines",
+            "detail": "Given as per the schedule. No reaction after 15 minutes."
+          },
+          {
+            "title": "Passport updated",
+            "detail": "Next: the 2-year visit."
+          }
+        ],
+        "result": {
+          "label": "Words besides “mama” and “dada”",
+          "unit": "words",
+          "rule": "At 18 months most children try to say 3 or more words besides mama or dada (demo threshold)"
+        },
+        "refer": "Hearing test booked for next week; speech assessment after.",
+        "follow": {
+          "refer": [
+            {
+              "title": "Hearing test",
+              "detail": "Normal hearing."
+            },
+            {
+              "title": "Speech assessment",
+              "detail": "Mild speech delay: 6 sessions of speech therapy on Saturdays near home."
+            },
+            {
+              "title": "Therapy",
+              "detail": "5 of 6 sessions attended. Hind now says 15 words."
+            },
+            {
+              "title": "Passport",
+              "detail": "2-year visit booked; one reminder 3 days before."
+            }
+          ],
+          "ok": [
+            {
+              "title": "Passport",
+              "detail": "2-year visit added for March; one reminder 3 days before."
+            },
+            {
+              "title": "Family",
+              "detail": "Hamdan’s 6-year visit added to the same morning."
+            }
+          ]
+        }
+      },
+      "ifhas": {
+        "family": [
+          {
+            "name": "Hind, 18 months (granddaughter)",
+            "what": "18-month visit",
+            "state": "booked Saturday ✓"
+          },
+          {
+            "name": "Amna, 45",
+            "what": "IFHAS screening",
+            "state": "done Mar 2026 ✓"
+          },
+          {
+            "name": "Moza, 78",
+            "what": "Outside the IFHAS age range; her stroke clinic follows her",
+            "state": "—"
+          }
+        ],
+        "slot": {
+          "value": "Saturday 09:30 at Al Khalidiya Family Health Centre, right after Hind’s visit: 15 minutes, fasting blood test",
+          "access": "Saturday 07:30, before work, 10 minutes from home",
+          "trust": "Thursday 18:00 with Dr Omar, in Arabic",
+          "awareness": "Saturday 09:30; Noa lists which checks are due at 47 and why",
+          "forgot": "Saturday 09:30, after Hind’s visit"
+        },
+        "why": "Your blood pressure has been creeping up on your cuff, you smoke, your mother had a stroke and your father a heart attack at 62. Noa Forecast puts your heart risk at about 1 in 5 over 10 years, rising if nothing changes. These checks find problems years before you feel anything. 15 minutes, right after Hind’s visit.",
+        "visit": [
+          {
+            "title": "Check-in",
+            "detail": "Blood pressure 138/86. Waist 104 cm."
+          },
+          {
+            "title": "Blood tests",
+            "detail": "HbA1c and cholesterol (fasting)."
+          },
+          {
+            "title": "Bowel screening",
+            "detail": "Home test kit given, instructions in Arabic."
+          },
+          {
+            "title": "Heart risk",
+            "detail": "Family history recorded: mother’s stroke, father’s heart attack at 62. Cholesterol goes to Noa Forecast."
+          }
+        ],
+        "result": {
+          "label": "HbA1c",
+          "unit": "%",
+          "rule": "6.5% or above is in the diabetes range (a second test confirms); 5.7–6.4% is prediabetes"
+        },
+        "refer": "Second HbA1c and doctor review booked in 2 weeks.",
+        "follow": {
+          "refer": [
+            {
+              "title": "Second HbA1c",
+              "detail": "Confirmed by Dr Aisha Al Hosani; care plan agreed. The doctor decides the treatment."
+            },
+            {
+              "title": "Care plan",
+              "detail": "Diet support in Arabic; eye and foot checks booked."
+            },
+            {
+              "title": "Bowel test",
+              "detail": "Kit returned: normal."
+            },
+            {
+              "title": "3 months",
+              "detail": "HbA1c rechecked; next IFHAS items added to the passport."
+            }
+          ],
+          "ok": [
+            {
+              "title": "Bowel test",
+              "detail": "Kit returned: normal."
+            },
+            {
+              "title": "Passport",
+              "detail": "Next IFHAS check in 3 years; one reminder before."
+            }
+          ]
+        }
+      },
+      "expat": {
+        "family": [
+          {
+            "name": "Priya, 31",
+            "what": "IFHAS is for Emiratis aged 18–75, so Noa does not nudge her",
+            "state": "—"
+          },
+          {
+            "name": "Vikram, 34",
+            "what": "IFHAS is for Emiratis aged 18–75",
+            "state": "—"
+          }
+        ],
+        "slot": {
+          "awareness": "Tuesday 10:00 at Mussafah Family Health Centre, 1 km away; Noa explains the 14 visits in English",
+          "access": "Saturday 10:00, when Vikram is off work",
+          "trust": "Tuesday 10:00 with a female doctor; Priya can bring her own records from India",
+          "value": "Tuesday 10:00; this visit checks growth and gives the 4-month vaccines",
+          "forgot": "Tuesday 10:00"
+        },
+        "visit": [
+          {
+            "title": "Check-in",
+            "detail": "Weighed and measured."
+          },
+          {
+            "title": "Check",
+            "detail": "Feeding well, smiling, holding his head up."
+          },
+          {
+            "title": "Vaccines",
+            "detail": "4-month vaccines given; records from India added to the passport."
+          },
+          {
+            "title": "Passport",
+            "detail": "Next: the 6-month visit."
+          }
+        ],
+        "result": {
+          "label": "Weight-for-age centile",
+          "unit": "centile",
+          "rule": "Below the 2nd or above the 98th centile needs a feeding and growth review (demo threshold)"
+        },
+        "refer": "Feeding review booked in 1 week.",
+        "follow": {
+          "refer": [
+            {
+              "title": "Feeding review",
+              "detail": "Feeding plan agreed; weight check in 2 weeks."
+            },
+            {
+              "title": "Weight check",
+              "detail": "Back on track."
+            },
+            {
+              "title": "Passport",
+              "detail": "6-month visit booked."
+            }
+          ],
+          "ok": [
+            {
+              "title": "Passport",
+              "detail": "6-month visit booked; one reminder 3 days before."
+            },
+            {
+              "title": "Passport",
+              "detail": "All 14 visits listed in English, with what each checks."
+            }
+          ]
+        }
+      },
+      "bone": {
+        "family": [
+          {
+            "name": "Moza, 78",
+            "what": "Outside the IFHAS age range; her stroke clinic follows her",
+            "state": "—"
+          },
+          {
+            "name": "Khalid, 47",
+            "what": "IFHAS screening",
+            "state": "booked ✓"
+          }
+        ],
+        "slot": {
+          "access": "Monday 10:00 at Al Bateen Family Health Centre; Noa books a taxi both ways and tells Khalid",
+          "awareness": "Monday 10:00; Noa explains the bone and memory checks at 74",
+          "trust": "Monday 10:00 with Dr Fatima Al Ali, whom he knows",
+          "value": "Monday 10:00: a bone scan can show weak bones before a fall breaks one",
+          "forgot": "Monday 10:00"
+        },
+        "visit": [
+          {
+            "title": "Check-in",
+            "detail": "Blood pressure 142/84."
+          },
+          {
+            "title": "Bone density scan",
+            "detail": "Hip and spine scanned."
+          },
+          {
+            "title": "Memory check",
+            "detail": "Normal for his age."
+          },
+          {
+            "title": "Blood tests",
+            "detail": "Kidney function, vitamin D, HbA1c."
+          }
+        ],
+        "result": {
+          "label": "Bone density T-score",
+          "rule": "−2.5 or lower is osteoporosis; between −1 and −2.5 is low bone density (WHO definitions)"
+        },
+        "refer": "Doctor review booked this week; home safety check arranged.",
+        "follow": {
+          "refer": [
+            {
+              "title": "Doctor review",
+              "detail": "Bone-strengthening treatment agreed. The doctor decides."
+            },
+            {
+              "title": "Home safety check",
+              "detail": "Loose rug removed; grab rail fitted in the bathroom."
+            },
+            {
+              "title": "Daily walks",
+              "detail": "Guardian sees his walks to the mosque continue."
+            },
+            {
+              "title": "Passport",
+              "detail": "Next bone scan in 2 years."
+            }
+          ],
+          "ok": [
+            {
+              "title": "Passport",
+              "detail": "Next IFHAS check added; one reminder before."
+            }
+          ]
+        }
+      }
+    },
+    "steps": [
+      {
+        "title": "Booked in one tap",
+        "hold": "Navigator → family",
+        "btn": "Book it",
+        "text": "Noa Voice: “{{voice}}”",
+        "done": "Booked: {{slot}}",
+        "decides": "{{addr}} chooses: book, change or say no.",
+        "agents": {
+          "navigator": [
+            "Finds the slot that removes the barrier",
+            "Adds it to the family calendar, with one reminder only"
+          ],
+          "voice": [
+            "Says it in Arabic or English, the way the family prefers"
+          ]
+        },
+        "phone": {
+          "title": "Booked",
+          "text": "{{slot}}"
+        },
+        "fam": {
+          "who": "{{f1s}}",
+          "text": "Booked: {{slot}}"
+        },
+        "packet": [
+          {
+            "title": "For",
+            "detail": "{{n}} · {{item}}"
+          },
+          {
+            "title": "Slot",
+            "detail": "{{slot}}"
+          },
+          {
+            "title": "Support",
+            "detail": "{{enabler}}"
+          },
+          {
+            "title": "Reminders",
+            "detail": "One, 3 days before"
+          }
+        ]
+      },
+      {
+        "title": "The visit",
+        "hold": "Clinic",
+        "text": "The clinic already has {{poss}} passport and history, so the visit starts with what matters.",
+        "done": "Visit done.",
+        "decides": "The clinicians do the checks.",
+        "agents": {
+          "courier": [
+            "Sent the passport and history before the visit",
+            "Files each result into the record"
+          ]
+        },
+        "phone": {
+          "title": "At {{hosp}}",
+          "text": "Noa updates the passport as you go."
+        },
+        "fam": {
+          "who": "{{f1s}}",
+          "text": "At the clinic now."
+        }
+      },
+      {
+        "title": "Result routed",
+        "hold": "Insight → team",
+        "text": "Enter the result yourself and see where Noa Insight sends it.",
+        "decides": "A clinician confirms what the result means.",
+        "agents": {
+          "insight": [
+            "Reads the result against the threshold",
+            "Routes it to the right team, or to the passport if all is well"
+          ]
+        }
+      },
+      {
+        "title": "From result to care",
+        "hold": "Navigator → team",
+        "decides": "The team decides the plan.",
+        "agents": {
+          "navigator": [
+            "Puts the referral on the team’s worklist with the result"
+          ],
+          "courier": [
+            "Sends the record"
+          ]
+        },
+        "textRefer": "A result outside the healthy range only helps if it reaches care. Noa makes sure it does.",
+        "textOk": "Nothing to refer: the result is healthy."
+      },
+      {
+        "title": "Noa explains",
+        "hold": "Coach → {{addr}}",
+        "text": "One thing at a time, in the family’s language.",
+        "decides": "{{addr}} decides who in the family sees it.",
+        "agents": {
+          "coach": [
+            "Explains the result out loud, in Arabic or English",
+            "Checks understanding; simpler words if needed"
+          ]
+        },
+        "phone": {
+          "title": "Noa Coach"
+        }
+      },
+      {
+        "title": "Until it’s done",
+        "hold": "Navigator → passport",
+        "text": "A screening loop is only closed when the care happens and the next check is in the passport.",
+        "done": "Loop closed. Next check in the passport.",
+        "decides": "The family keeps control of every booking.",
+        "agents": {
+          "navigator": [
+            "Follows up until the care is done",
+            "Adds the next due items to the passport"
+          ],
+          "guardian": [
+            "Watches the passport for the next due date"
+          ]
+        },
+        "phone": {
+          "title": "All done",
+          "text": "Next check is in your passport."
+        }
+      },
+      {
+        "title": "Report to the Department",
+        "hold": "Analyst → DoH",
+        "decides": "The health centre signs off the report.",
+        "agents": {
+          "analyst": [
+            "Counts participation, barriers and reminders per visit",
+            "Removes names: this family is one anonymous case"
+          ]
+        }
+      }
+    ],
+    "route": {
+      "wellchild": {
+        "refer": {
+          "t": "fewer than 3 words: a hearing test and speech assessment",
+          "tcap": "Fewer than 3 words: a hearing test and speech assessment",
+          "team": "Child speech and hearing clinic"
+        },
+        "ok": {
+          "t": "on track",
+          "tcap": "On track",
+          "next": "the 2-year visit in March"
+        }
+      },
+      "ifhas": {
+        "dm": {
+          "t": "HbA1c in the diabetes range: a second test and a family doctor review",
+          "tcap": "HbA1c in the diabetes range: a second test and a family doctor review",
+          "team": "Family doctor · Dr Aisha Al Hosani"
+        },
+        "pre": {
+          "t": "prediabetes: the healthy lifestyle programme",
+          "tcap": "Prediabetes: the healthy lifestyle programme",
+          "team": "Healthy lifestyle programme"
+        },
+        "ok": {
+          "t": "healthy range",
+          "tcap": "Healthy range",
+          "next": "the next IFHAS check in 3 years"
+        }
+      },
+      "expat": {
+        "refer": {
+          "t": "weight outside the usual range: a feeding and growth review",
+          "tcap": "Weight outside the usual range: a feeding and growth review",
+          "team": "Child health nurse"
+        },
+        "ok": {
+          "t": "growing well",
+          "tcap": "Growing well",
+          "next": "the 6-month visit"
+        }
+      },
+      "bone": {
+        "osteo": {
+          "t": "osteoporosis: treatment and falls prevention",
+          "tcap": "Osteoporosis: treatment and falls prevention",
+          "team": "Family doctor · Dr Fatima Al Ali"
+        },
+        "low": {
+          "t": "low bone density: vitamin D, exercise and a recheck in 2 years",
+          "tcap": "Low bone density: vitamin D, exercise and a recheck in 2 years",
+          "team": "Family doctor · Dr Fatima Al Ali"
+        },
+        "ok": {
+          "t": "normal bone density",
+          "tcap": "Normal bone density",
+          "next": "the next check in 5 years"
+        }
+      }
+    },
+    "ifhas": {
+      "metabolic": "Metabolic: HbA1c, cholesterol",
+      "heart": "Heart: blood pressure, risk score",
+      "bowel": "Cancer: bowel test",
+      "breast": "Cancer: breast",
+      "cervical": "Cancer: cervical",
+      "bone": "Bone: density scan",
+      "memory": "Memory check"
+    },
+    "wcMonth": "{{m}}-month visit",
+    "wcYear": "{{y}}-year visit",
+    "itemChild": "{{visit}} ({{i}} of 14)",
+    "listChild": "{{visit}} · growth, development, vaccines",
+    "itemAdult": "IFHAS screening ({{count}} groups due)",
+    "why": {
+      "tooOld": "Well-child visits run from 1 month to 6 years, and {{n}} is older, so there is nothing to nudge.",
+      "tooYoung": "The first well-child visit is at 1 month. Nothing is due yet.",
+      "notEmirati": "IFHAS screening is for Emiratis aged 18 to 75, so Noa does not nudge {{n}} for it. The passport shows only what applies.",
+      "outsideAge": "IFHAS screening is for ages 18 to 75, so Noa does not nudge {{n}} for it. {{Her}} own doctor follows {{her}} care."
+    },
+    "forecast": {
+      "label": "Noa Forecast · with today’s results",
+      "top": "{{pct}} 10-year heart risk ({{cat}}) · heart age {{ha}}",
+      "detail": "Clinic BP 142, cholesterol 6.4, HDL 0.9, smoker{{dm}}. {{r5}} in 5 years if trends continue; {{p5}} with the plan.",
+      "dmNote": ", diabetes range",
+      "dropDm": "Set HbA1c below 6.5 and the score drops diabetes.",
+      "addDm": "Set HbA1c to 6.5 or more and the score adds diabetes."
+    }
+  },
+  "teach": {
+    "stroke": {
+      "facts": "Heart monitoring found paroxysmal atrial fibrillation, the likely cause of the clot. New blood thinner apixaban 5 mg twice a day replaces aspirin. Never stop it on your own. Call the care team for black stools, blood in urine or bad bruising. Call 998 for new face, arm or speech symptoms.",
+      "en": {
+        "explain": "{{n}}, the heart monitor in hospital found an uneven heartbeat called atrial fibrillation. It most likely caused the clot in your brain. Your new tablet, apixaban, stops new clots forming. Take it twice a day, morning and evening, and never stop it on your own. If you see black stools, blood in your urine or bad bruising, call your care team.",
+        "q": "How will you take your new blood thinner?",
+        "opts": [
+          "Only when I feel unwell",
+          "Twice a day, every day, and never stop it on my own",
+          "Once a week"
+        ],
+        "simpler": "One tablet in the morning and one in the evening, every day. It stops new clots.",
+        "wrong": [
+          "This tablet only protects you if you take it every day, even when you feel well.",
+          "Once a week is not enough to protect you. It is twice a day."
+        ]
+      },
+      "ar": {
+        "explain": "يا {{nar}}، وجد جهاز مراقبة القلب في المستشفى نبضًا غير منتظم يسمى الرجفان الأذيني، وهو على الأرجح سبب الجلطة في الدماغ. الدواء الجديد، أبيكسابان، يمنع تكوّن جلطات جديدة. يؤخذ مرتين يوميًا، صباحًا ومساءً، ولا يجوز إيقافه دون الطبيب. عند ملاحظة براز أسود أو دم في البول أو كدمات شديدة، يجب الاتصال بفريق الرعاية.",
+        "q": "كيف سيؤخذ دواء سيولة الدم الجديد؟",
+        "opts": [
+          "فقط عند الشعور بالتعب",
+          "مرتين يوميًا كل يوم، دون إيقافه",
+          "مرة في الأسبوع"
+        ],
+        "simpler": "قرص في الصباح وقرص في المساء، كل يوم. هذا الدواء يمنع الجلطات الجديدة.",
+        "wrong": [
+          "هذا الدواء يحمي فقط إذا أُخذ كل يوم، حتى عند الشعور بالتحسن.",
+          "مرة في الأسبوع لا تكفي للحماية. الجرعة مرتين يوميًا."
+        ]
+      }
+    },
+    "fall": {
+      "facts": "The fall was caused by blood pressure dropping on standing. Sit on the bed edge for a minute before standing, then use the walking frame. Motion lights were fitted on the way to the bathroom. Apixaban restarted after hip surgery; do not stop it.",
+      "en": {
+        "explain": "{{n}}, you fell because your blood pressure drops when you stand up quickly. When you wake at night, sit on the edge of the bed for a minute, then stand slowly with your frame. Motion lights now light the way to the bathroom. Your blood thinner, apixaban, has restarted after the operation, so don’t stop it.",
+        "q": "What will you do when you get up at night?",
+        "opts": [
+          "Stand up quickly",
+          "Sit on the edge of the bed for a minute, then stand with my frame",
+          "Walk in the dark so I don’t wake anyone"
+        ],
+        "simpler": "Sit for one minute first, then stand slowly with your frame.",
+        "wrong": [
+          "Standing up quickly drops your blood pressure and can cause another fall.",
+          "Walking in the dark is risky. The lights come on by themselves when you move."
+        ]
+      },
+      "ar": {
+        "explain": "يا {{nar}}، كان السقوط بسبب انخفاض ضغط الدم عند الوقوف بسرعة. عند الاستيقاظ في الليل، يجب الجلوس على حافة السرير دقيقة كاملة، ثم الوقوف ببطء باستخدام المشّاية. أضواء تعمل بالحركة تنير الآن الطريق إلى الحمّام. دواء سيولة الدم أبيكسابان أُعيد بعد العملية، فلا يجوز إيقافه.",
+        "q": "ماذا يجب أن يحدث عند الاستيقاظ في الليل؟",
+        "opts": [
+          "الوقوف بسرعة",
+          "الجلوس على حافة السرير دقيقة، ثم الوقوف بالمشّاية",
+          "المشي في الظلام حتى لا يستيقظ أحد"
+        ],
+        "simpler": "الجلوس دقيقة أولًا، ثم الوقوف ببطء بالمشّاية.",
+        "wrong": [
+          "الوقوف بسرعة يخفض الضغط وقد يسبب سقوطًا آخر.",
+          "المشي في الظلام خطر. الأضواء تعمل تلقائيًا عند الحركة."
+        ]
+      }
+    },
+    "hypo": {
+      "facts": "Night glucose went too low because the insulin dose was a little high for reduced kidney function. The doctor lowered night insulin glargine from 24 to 20 units. If shaky, sweaty or confused, take 15 g of fast sugar such as juice, then recheck in 15 minutes. Noa watches the glucose sensor every night.",
+      "en": {
+        "explain": "{{n}}, your sugar went too low in the night because your insulin dose was a little high for your kidneys. Your doctor lowered your night insulin to 20 units. If you feel shaky, sweaty or confused, take 15 g of fast sugar, like the juice by your bed, and check again after 15 minutes. Noa watches your sugar sensor every night.",
+        "q": "If your sugar is low at night, what do you do first?",
+        "opts": [
+          "Go back to sleep",
+          "Take 15 g of fast sugar, like juice, then check again in 15 minutes",
+          "Take more insulin"
+        ],
+        "simpler": "Low sugar: drink the juice first, then check again in 15 minutes.",
+        "wrong": [
+          "Sleeping with low sugar is dangerous. Take the juice first.",
+          "More insulin makes sugar go even lower. Take sugar, not insulin."
+        ]
+      },
+      "ar": {
+        "explain": "يا {{nar}}، انخفض السكر كثيرًا في الليل لأن جرعة الإنسولين كانت أعلى قليلًا مما تحتمله الكليتان. خفّض الطبيب جرعة إنسولين الليل إلى 20 وحدة. عند الشعور برجفة أو تعرّق أو ارتباك، يجب تناول 15 غرامًا من السكر السريع، مثل العصير بجانب السرير، ثم الفحص مرة أخرى بعد 15 دقيقة. يراقب نوا جهاز قياس السكر كل ليلة.",
+        "q": "عند انخفاض السكر في الليل، ما الخطوة الأولى؟",
+        "opts": [
+          "العودة إلى النوم",
+          "تناول 15 غرامًا من السكر السريع مثل العصير، ثم الفحص بعد 15 دقيقة",
+          "أخذ المزيد من الإنسولين"
+        ],
+        "simpler": "عند انخفاض السكر: العصير أولًا، ثم الفحص بعد 15 دقيقة.",
+        "wrong": [
+          "النوم مع انخفاض السكر خطر. العصير أولًا.",
+          "الإنسولين الإضافي يخفض السكر أكثر. السكر، لا الإنسولين."
+        ]
+      }
+    },
+    "hf": {
+      "facts": "Extra fluid is building up because the heart is under strain. For 3 days take furosemide 80 mg in the morning instead of 40 mg, then return to 40 mg. Weigh every morning after the toilet, before breakfast. If weight rises more than 1 kg or she cannot lie flat, Noa tells the heart failure nurse.",
+      "en": {
+        "explain": "{{n}}, extra fluid is building up because your heart is under strain. For the next 3 days, take two water tablets (furosemide 80 mg) in the morning, then go back to one. Weigh yourself every morning after the toilet, before breakfast. If your weight goes up by more than 1 kg, or you can’t lie flat, Noa will tell your nurse.",
+        "q": "When do you weigh yourself?",
+        "opts": [
+          "Only when I feel unwell",
+          "Every morning after the toilet, before breakfast",
+          "Once a week"
+        ],
+        "simpler": "Weigh every morning, before breakfast. Noa watches the numbers.",
+        "wrong": [
+          "Weight goes up days before you feel unwell, so weigh every day.",
+          "Once a week is too late to catch fluid building up."
+        ]
+      },
+      "ar": {
+        "explain": "يا {{nar}}، تتجمّع سوائل زائدة لأن القلب متعب. خلال الأيام الثلاثة القادمة، يؤخذ قرصان من مدرّ البول (فوروسيميد 80 ملغ) في الصباح، ثم العودة إلى قرص واحد. يجب الوزن كل صباح بعد الحمّام وقبل الفطور. إذا زاد الوزن أكثر من كيلوغرام واحد، أو صعب الاستلقاء، فسيخبر نوا الممرضة.",
+        "q": "متى يكون الوزن اليومي؟",
+        "opts": [
+          "فقط عند الشعور بالتعب",
+          "كل صباح بعد الحمّام وقبل الفطور",
+          "مرة في الأسبوع"
+        ],
+        "simpler": "الوزن كل صباح قبل الفطور. نوا يراقب الأرقام.",
+        "wrong": [
+          "الوزن يزيد قبل الشعور بالتعب بأيام، لذلك يجب الوزن كل يوم.",
+          "مرة في الأسبوع متأخرة جدًا لاكتشاف تجمّع السوائل."
+        ]
+      }
+    },
+    "child_speech": {
+      "facts": "At the 18-month visit the child said fewer than 3 words besides mama and dada. Many children catch up, but checking hearing and speech early is worthwhile. A hearing test is booked next week. Talk and read with her every day and name what she points at.",
+      "en": {
+        "explain": "{{addr}}, at {{n}}’s visit she said {{val}} words besides mama and dada. Many children catch up, but it’s worth checking her hearing and speech early. Noa booked a hearing test for next week. Talk and read with her every day, and name the things she points at.",
+        "q": "What helps {{n}}’s speech most at home?",
+        "opts": [
+          "Waiting for her to start on her own",
+          "Talking and reading with her every day, and naming what she points at",
+          "More time with cartoons"
+        ],
+        "simpler": "Talk and read with her every day.",
+        "wrong": [
+          "Waiting can delay help that works best early.",
+          "Screens don’t teach talking as well as you do."
+        ]
+      },
+      "ar": {
+        "explain": "يا {{addrar}}، في زيارة {{nar}} قالت {{val}} كلمات فقط إلى جانب ماما وبابا. كثير من الأطفال يلحقون بغيرهم، لكن من المفيد فحص السمع والنطق مبكرًا. حجز نوا فحص سمع للأسبوع القادم. التحدث معها والقراءة لها كل يوم، وتسمية الأشياء التي تشير إليها، يساعدها كثيرًا.",
+        "q": "ما أكثر ما يساعد نطق {{nar}} في البيت؟",
+        "opts": [
+          "انتظار أن تبدأ وحدها",
+          "التحدث والقراءة معها كل يوم وتسمية ما تشير إليه",
+          "مشاهدة المزيد من الرسوم المتحركة"
+        ],
+        "simpler": "التحدث والقراءة معها كل يوم.",
+        "wrong": [
+          "الانتظار قد يؤخر مساعدة تنفع أكثر في وقت مبكر.",
+          "الشاشات لا تعلّم الكلام كما يعلّمه الأهل."
+        ]
+      }
+    },
+    "dm": {
+      "facts": "The HbA1c is in the diabetes range. One test is not enough: a second test in 2 weeks confirms it. It is not an emergency. Starting early protects heart, eyes and kidneys, and the family history makes that more important.",
+      "en": {
+        "explain": "{{n}}, your HbA1c is {{val}}%. That is in the diabetes range, but one test isn’t enough: a second test in 2 weeks will confirm it. It is not an emergency. If it is diabetes, starting early protects your heart, eyes and kidneys, and your family history makes that more important.",
+        "q": "What happens next?",
+        "opts": [
+          "Nothing, I feel fine",
+          "A second test in 2 weeks, then the doctor explains the plan",
+          "Start insulin today"
+        ],
+        "simpler": "One more test in 2 weeks. Then the doctor explains.",
+        "wrong": [
+          "Feeling fine is common with high sugar; the second test matters.",
+          "No medicine starts today. The doctor decides after the second test."
+        ]
+      },
+      "ar": {
+        "explain": "يا {{nar}}، نتيجة HbA1c لديك {{val}}٪، وهي في نطاق السكري، لكن فحصًا واحدًا لا يكفي: فحص ثانٍ بعد أسبوعين سيؤكد ذلك. هذه ليست حالة طارئة. إذا كان سكريًا، فالبدء المبكر يحمي القلب والعينين والكليتين، وتاريخ العائلة يجعل ذلك أهم.",
+        "q": "ما الخطوة التالية؟",
+        "opts": [
+          "لا شيء، أشعر أنني بخير",
+          "فحص ثانٍ بعد أسبوعين، ثم يشرح الطبيب الخطة",
+          "البدء بالإنسولين اليوم"
+        ],
+        "simpler": "فحص آخر بعد أسبوعين، ثم يشرح الطبيب.",
+        "wrong": [
+          "الشعور بالراحة شائع مع ارتفاع السكر؛ الفحص الثاني مهم.",
+          "لا يبدأ أي دواء اليوم. يقرر الطبيب بعد الفحص الثاني."
+        ]
+      }
+    },
+    "bone": {
+      "facts": "The bone scan shows osteoporosis, so a fall could break a bone more easily. The doctor will discuss a bone-strengthening medicine. Noa helps with vitamin D, a daily walk and a home check for trip hazards.",
+      "en": {
+        "explain": "{{n}}, your bone scan shows thin bones (osteoporosis), so a fall could break a bone more easily. Your doctor will talk with you about a bone-strengthening medicine. Noa will help with vitamin D, your daily walk, and a home check for trip hazards.",
+        "q": "What lowers your risk of a broken bone?",
+        "opts": [
+          "Staying in bed more",
+          "The medicine your doctor agrees, daily walks and removing trip hazards",
+          "Stopping all exercise"
+        ],
+        "simpler": "Medicine from your doctor, a daily walk, and a safe home.",
+        "wrong": [
+          "Resting more weakens bones and muscles.",
+          "Gentle exercise keeps bones and balance strong."
+        ]
+      },
+      "ar": {
+        "explain": "يا {{nar}}، يُظهر فحص العظام أن العظام رقيقة (هشاشة العظام)، لذلك قد يكسر السقوط عظمة بسهولة أكبر. سيتحدث الطبيب عن دواء يقوّي العظام. وسيساعد نوا: فيتامين د، والمشي اليومي، وفحص المنزل لإزالة ما قد يسبب التعثر.",
+        "q": "ما الذي يقلل خطر كسر العظام؟",
+        "opts": [
+          "البقاء في السرير أكثر",
+          "الدواء الذي يقرره الطبيب، والمشي اليومي، وإزالة ما يسبب التعثر",
+          "التوقف عن كل الرياضة"
+        ],
+        "simpler": "دواء من الطبيب، ومشي يومي، وبيت آمن.",
+        "wrong": [
+          "الراحة الزائدة تُضعف العظام والعضلات.",
+          "الرياضة الخفيفة تحافظ على قوة العظام والتوازن."
+        ]
+      }
+    },
+    "prev_ok": {
+      "facts": "The results are in the healthy range. The next check is added to the Family Health Passport with one reminder before it, and can be changed or cancelled.",
+      "en": {
+        "explain": "{{addr}}, {{poss}} results are in the healthy range. Noa added {{next}} to the Family Health Passport and will send one reminder before it. You can change or cancel it any time.",
+        "q": "When will Noa remind you?",
+        "opts": [
+          "Every day until the visit",
+          "Once, a few days before the next check",
+          "Never"
+        ],
+        "simpler": "One reminder before the next check.",
+        "wrong": [
+          "Noa doesn’t nag: one reminder is enough when nothing stands in the way.",
+          "Noa sends one reminder, and you can turn it off."
+        ]
+      },
+      "ar": {
+        "explain": "يا {{addrar}}، النتائج في النطاق الصحي. أضاف نوا الفحص التالي إلى جواز صحة العائلة، وسيرسل تذكيرًا واحدًا قبله. يمكن تغييره أو إلغاؤه في أي وقت.",
+        "q": "متى سيرسل نوا التذكير؟",
+        "opts": [
+          "كل يوم حتى الزيارة",
+          "مرة واحدة قبل الفحص التالي بأيام قليلة",
+          "أبدًا"
+        ],
+        "simpler": "تذكير واحد قبل الفحص التالي.",
+        "wrong": [
+          "نوا لا يُلحّ: تذكير واحد يكفي عندما لا يوجد عائق.",
+          "يرسل نوا تذكيرًا واحدًا، ويمكن إيقافه."
+        ]
+      }
+    },
+    "prev_ref": {
+      "facts": "The result needs a closer look. It is not an emergency. An appointment is booked and added to the Family Health Passport.",
+      "en": {
+        "explain": "{{addr}}, {{poss}} result needs a closer look: {{finding}}. It is not an emergency. Noa booked it with {{team}} and added it to the Family Health Passport.",
+        "q": "What happens next?",
+        "opts": [
+          "Nothing, it can wait a year",
+          "Go to the appointment Noa booked and ask any questions",
+          "Stop all medicines"
+        ],
+        "simpler": "Go to the appointment Noa booked.",
+        "wrong": [
+          "Waiting may miss the best time to act.",
+          "Don’t stop anything; the appointment is to check and advise."
+        ]
+      },
+      "ar": {
+        "explain": "يا {{addrar}}، النتيجة تحتاج إلى نظرة أدق. هذه ليست حالة طارئة. حجز نوا موعدًا وأضافه إلى جواز صحة العائلة.",
+        "q": "ما الخطوة التالية؟",
+        "opts": [
+          "لا شيء، يمكن الانتظار سنة",
+          "حضور الموعد الذي حجزه نوا وطرح الأسئلة",
+          "إيقاف كل الأدوية"
+        ],
+        "simpler": "حضور الموعد الذي حجزه نوا.",
+        "wrong": [
+          "الانتظار قد يفوّت أفضل وقت للتصرف.",
+          "لا يجب إيقاف أي شيء؛ الموعد للفحص والنصيحة."
+        ]
+      }
+    }
+  },
+  "daily": {
+    "stroke": {
+      "label": "Morning blood pressure, 5-day average",
+      "target": "under 130",
+      "finding": "Blood pressure above target for 5 days: average {{v}} mmHg, with every dose taken",
+      "team": "Stroke clinic · Dr Omar Haddad",
+      "act": "Review the perindopril dose"
+    },
+    "fall": {
+      "label": "Blood pressure drop on standing",
+      "target": "under 20",
+      "finding": "Blood pressure drops {{v}} mmHg when {{she}} stands, still the likely cause of falls",
+      "team": "Family doctor · Dr Fatima Al Ali",
+      "act": "Review amlodipine (may stop it)"
+    },
+    "hypo": {
+      "label": "Lowest night glucose, last 7 nights",
+      "target": "4.0 or above",
+      "finding": "Night glucose fell to {{v}} mmol/L this week, even on the lower insulin dose",
+      "team": "Diabetes clinic · Dr Aisha Al Hosani",
+      "act": "Review the insulin dose again"
+    },
+    "hf": {
+      "label": "Morning weight vs dry weight",
+      "target": "up to +1.0",
+      "finding": "Weight is {{v}} kg above dry weight for 3 mornings",
+      "team": "Heart failure nurse Rania",
+      "act": "Adjust the water tablet dose"
+    }
+  },
+  "report": {
+    "stroke": {
+      "title": "Stroke pathway",
+      "kpi": [
+        {
+          "label": "Arrived with a pre-alert",
+          "value": "64%",
+          "note": "+ this case"
+        },
+        {
+          "label": "Median door to needle",
+          "value": "41 min",
+          "note": "target ≤ 60"
+        },
+        {
+          "label": "AF found → blood thinner at discharge",
+          "value": "92%"
+        },
+        {
+          "label": "Home alerts acted on in 24 h",
+          "value": "88%"
+        },
+        {
+          "label": "30-day readmission",
+          "value": "6.1%",
+          "note": "target < 8%"
+        },
+        {
+          "label": "Recovered (mRS 0–2) at 90 days",
+          "value": "71%",
+          "note": "reported in January"
+        }
+      ]
+    },
+    "fall": {
+      "title": "Falls pathway",
+      "kpi": [
+        {
+          "label": "Median time on the floor",
+          "value": "14 min",
+          "note": "this case: {{floor}} min"
+        },
+        {
+          "label": "Hip surgery within 36 h",
+          "value": "87%",
+          "note": "target 90%"
+        },
+        {
+          "label": "Head CT if on a blood thinner",
+          "value": "96%",
+          "note": "this case: yes"
+        },
+        {
+          "label": "Falls with a home safety fix",
+          "value": "64%",
+          "note": "this case: motion lights"
+        },
+        {
+          "label": "30-day readmission",
+          "value": "8.2%"
+        },
+        {
+          "label": "Home within 30 days",
+          "value": "71%"
+        }
+      ]
+    },
+    "fallm": {
+      "title": "Falls pathway",
+      "kpi": [
+        {
+          "label": "Got up with Noa’s guidance",
+          "value": "58%",
+          "note": "+ this case"
+        },
+        {
+          "label": "Fall-risk review within 7 days",
+          "value": "83%",
+          "note": "this case: booked"
+        },
+        {
+          "label": "Ambulance calls avoided",
+          "value": "212",
+          "note": "this month"
+        },
+        {
+          "label": "Repeat fall within 30 days",
+          "value": "11%",
+          "note": "target < 15%"
+        }
+      ]
+    },
+    "hypo": {
+      "title": "Diabetes: night hypoglycaemia",
+      "kpi": [
+        {
+          "label": "Night hypos treated at home",
+          "value": "74%",
+          "note": "+ this case"
+        },
+        {
+          "label": "Insulin reviewed within 24 h",
+          "value": "88%",
+          "note": "this case: yes"
+        },
+        {
+          "label": "Hypos needing an ambulance",
+          "value": "19",
+          "note": "this month"
+        },
+        {
+          "label": "Repeat severe hypo in 30 days",
+          "value": "4%"
+        }
+      ]
+    },
+    "hypoe": {
+      "title": "Diabetes: night hypoglycaemia",
+      "kpi": [
+        {
+          "label": "Severe hypos with glucagon at home",
+          "value": "61%",
+          "note": "this case: yes"
+        },
+        {
+          "label": "Insulin reviewed before discharge",
+          "value": "93%",
+          "note": "this case: yes"
+        },
+        {
+          "label": "Hypos needing an ambulance",
+          "value": "19",
+          "note": "+ this case"
+        },
+        {
+          "label": "Repeat severe hypo in 30 days",
+          "value": "4%"
+        }
+      ]
+    },
+    "hf": {
+      "title": "Heart failure",
+      "kpi": [
+        {
+          "label": "Fluid warnings seen the same day",
+          "value": "91%",
+          "note": "this case: same day"
+        },
+        {
+          "label": "Admissions avoided (estimate)",
+          "value": "37",
+          "note": "this month"
+        },
+        {
+          "label": "Weight logged 6+ days a week",
+          "value": "79%"
+        },
+        {
+          "label": "30-day readmission",
+          "value": "14.5%",
+          "note": "target < 18%"
+        }
+      ]
+    },
+    "hfe": {
+      "title": "Heart failure",
+      "kpi": [
+        {
+          "label": "Arrived with a pre-alert",
+          "value": "71%",
+          "note": "+ this case"
+        },
+        {
+          "label": "Warnings missed before admission",
+          "value": "22%",
+          "note": "this case: weight rose 3 days early"
+        },
+        {
+          "label": "30-day readmission",
+          "value": "14.5%",
+          "note": "target < 18%"
+        },
+        {
+          "label": "Weight logged 6+ days a week",
+          "value": "79%"
+        }
+      ]
+    },
+    "wc": {
+      "title": "Well-child visits (1 month to 6 years)",
+      "kpi": [
+        {
+          "label": "Visits on time",
+          "value": "78%",
+          "note": "+ this child"
+        },
+        {
+          "label": "Completed after barrier-matched support",
+          "value": "64%",
+          "note": "vs 31% after reminders alone"
+        },
+        {
+          "label": "Reminders per completed visit",
+          "value": "1.4",
+          "note": "down from 3.2"
+        },
+        {
+          "label": "Expatriate families on schedule",
+          "value": "69%",
+          "note": "all nationalities"
+        },
+        {
+          "label": "Most common barrier",
+          "value": "Clinic hours",
+          "note": "41% of overdue visits"
+        },
+        {
+          "label": "Development concerns seen within 2 weeks",
+          "value": "86%"
+        }
+      ]
+    },
+    "ifhas": {
+      "title": "IFHAS screening (Emiratis 18–75)",
+      "kpi": [
+        {
+          "label": "Uptake",
+          "value": "47%",
+          "note": "+ this person"
+        },
+        {
+          "label": "Never-screened adults reached",
+          "value": "2,140",
+          "note": "this month"
+        },
+        {
+          "label": "Results outside range seen within 2 weeks",
+          "value": "91%",
+          "note": "this case: yes"
+        },
+        {
+          "label": "Most common barrier",
+          "value": "“I feel fine”",
+          "note": "38%"
+        },
+        {
+          "label": "Family visits combined in one trip",
+          "value": "23%"
+        },
+        {
+          "label": "Declined, choice recorded",
+          "value": "6%",
+          "note": "no repeat nudges"
+        }
+      ]
+    },
+    "ifhas2": {
+      "title": "IFHAS screening (Emiratis 18–75)",
+      "kpi": [
+        {
+          "label": "Uptake, age 65–75",
+          "value": "39%",
+          "note": "+ this person"
+        },
+        {
+          "label": "Transport arranged",
+          "value": "312",
+          "note": "this month"
+        },
+        {
+          "label": "Osteoporosis started on treatment",
+          "value": "84%"
+        },
+        {
+          "label": "Most common barrier, age 65+",
+          "value": "Transport",
+          "note": "44%"
+        },
+        {
+          "label": "Falls after a bone result, 12 months",
+          "value": "down 18%",
+          "note": "estimate"
+        },
+        {
+          "label": "Declined, choice recorded",
+          "value": "5%",
+          "note": "no repeat nudges"
+        }
+      ]
+    },
+    "fam": {
+      "title": "Family Health Passport",
+      "kpi": [
+        {
+          "label": "Families fully up to date",
+          "value": "41%",
+          "note": "+ this family"
+        },
+        {
+          "label": "Checks done in one family trip",
+          "value": "2.6",
+          "note": "per trip"
+        },
+        {
+          "label": "Screenings triggered by a relative’s diagnosis",
+          "value": "1,180",
+          "note": "this month"
+        },
+        {
+          "label": "Adults with a heart forecast",
+          "value": "64%",
+          "note": "home signals + labs"
+        },
+        {
+          "label": "High heart risk seen by a doctor within 2 weeks",
+          "value": "82%",
+          "note": "this family: yes"
+        },
+        {
+          "label": "Reminders per completed check",
+          "value": "1.3",
+          "note": "down from 3.2"
+        },
+        {
+          "label": "Passports covering 3+ generations",
+          "value": "18%",
+          "note": "life-long coverage"
+        }
+      ]
+    }
+  },
+  "cases": {
+    "stroke": {
+      "title": "Stroke at night",
+      "teaser": "Racing heart while still, then slurred speech"
+    },
+    "fall": {
+      "title": "Fall in the night",
+      "teaser": "A hard fall on the way to the bathroom, on a blood thinner"
+    },
+    "hypo": {
+      "title": "Low sugar at night",
+      "teaser": "Glucose sensor drops to 2.7 while asleep"
+    },
+    "hf": {
+      "title": "Fluid build-up",
+      "teaser": "Weight up 2.4 kg in 3 days, a little breathless"
+    },
+    "own": {
+      "title": "Enter your own",
+      "teaser": "Choose a person and set any readings"
+    },
+    "wellchild": {
+      "title": "Well-child visit overdue",
+      "teaser": "18-month visit 3 weeks late after 3 reminders"
+    },
+    "ifhas": {
+      "title": "Adult screening never done",
+      "teaser": "IFHAS due; “I feel fine, why test?”"
+    },
+    "expat": {
+      "title": "New to Abu Dhabi",
+      "teaser": "Expat baby: 4-month visit due, parents unsure what’s due"
+    },
+    "bone": {
+      "title": "Bone and memory check",
+      "teaser": "IFHAS overdue since 2019; no longer drives"
+    },
+    "family": {
+      "title": "The whole family",
+      "teaser": "4 generations, 6 hospitals, 1 passport · edit anyone"
+    }
+  },
+  "agents": {
+    "guardian": {
+      "n": "Guardian",
+      "role": "Monitoring agent",
+      "can": "Watch readings, apply the rules, raise alerts",
+      "cannot": "Diagnose, or call 998 itself",
+      "story": "Guardian watches each person’s own normal, not an average. It knows Moza’s heart rests at 58–64 asleep, Saeed’s sugar usually sits at 5–8 overnight, and Mariam’s dry weight is 61 kg. One spike from climbing the stairs never wakes anyone."
+    },
+    "voice": {
+      "n": "Voice",
+      "role": "Check-in and speech agent",
+      "can": "Talk with the person, run the speech check",
+      "cannot": "Decide treatment",
+      "story": "Voice speaks Emirati Arabic and English and calls people what their family calls them: Umm Khalid, Abu Rashid. It knows each person’s usual speech score, so it can hear when tonight is different."
+    },
+    "responder": {
+      "n": "Responder",
+      "role": "Emergency coordination agent",
+      "can": "Call family and 998, stay on the line",
+      "cannot": "Change the script or give medical advice",
+      "story": "Responder follows the call list each family agreed in advance: who first, who has a key, who is nearest. It reads a fixed script that clinicians approved and hands every 998 call to a human operator. It never improvises."
+    },
+    "courier": {
+      "n": "Courier",
+      "role": "Records and handover agent",
+      "can": "Build packets, file notes, turn summaries into plans",
+      "cannot": "Edit what a clinician wrote",
+      "story": "Courier speaks FHIR, the language hospital systems use. It pulls a person’s history from several places into one page a team can read in two minutes, and carries the hospital’s notes back into the record."
+    },
+    "insight": {
+      "n": "Insight",
+      "role": "Clinical context agent",
+      "can": "Link results with home history, suggest screening",
+      "cannot": "Make a diagnosis",
+      "story": "Insight connects what the hospital finds with what happened at home: watch alerts before a stroke, extra bathroom trips before a fall, kidney results that explain a low sugar."
+    },
+    "forecast": {
+      "n": "Forecast",
+      "role": "Risk prediction agent",
+      "can": "Combine signals into a validated risk score and a what-if forecast",
+      "cannot": "Diagnose, or score someone the model was not built for",
+      "story": "Forecast turns scattered signals into one number a family can act on: blood pressure from the cuff, weight from the scale, smoking from a check-in, cholesterol from the lab. It uses the Framingham 10-year heart risk, shows which signals it used and which are missing, and draws what may happen in 5 years if today’s trends continue. It refuses to score people under 30, over 74, or after a heart attack or stroke, and says why."
+    },
+    "coach": {
+      "n": "Coach",
+      "role": "Education and teach-back agent",
+      "can": "Explain, guide, check understanding, set reminders",
+      "cannot": "Change doses",
+      "story": "Coach explains one thing at a time, out loud, in the person’s language, and doesn’t move on until they can say it back. If they get it wrong, it uses simpler words, never more words."
+    },
+    "navigator": {
+      "n": "Navigator",
+      "role": "Follow-up agent",
+      "can": "Book, track tasks, route alerts with evidence",
+      "cannot": "Prescribe",
+      "story": "Navigator keeps the loop closed: a referral isn’t finished until the person is in care. It knows the difference between a missed dose (a reminder) and a dose that isn’t working (a question for the doctor)."
+    },
+    "analyst": {
+      "n": "Analyst",
+      "role": "Population reporting agent",
+      "can": "Count measures, draft reports",
+      "cannot": "See who anyone is",
+      "story": "Analyst never sees names; it only counts. Its job is to show the Department of Health whether screening turns into care, and where the loop still breaks."
+    }
+  },
+  "modes": {
+    "ind": "Individual",
+    "hosp": "Hospital",
+    "gov": "Government"
+  },
+  "nodes": [
+    {
+      "who": "Individual",
+      "name": "Sensors and voice"
+    },
+    {
+      "who": "Individual",
+      "name": "Phone app"
+    },
+    {
+      "who": "Individual",
+      "name": "Cloud"
+    },
+    {
+      "who": "Consent",
+      "name": "Their rules"
+    },
+    {
+      "who": "Noa",
+      "name": "Agent team"
+    },
+    {
+      "who": "Hospital",
+      "name": "Care team"
+    },
+    {
+      "who": "Government",
+      "name": "Department of Health"
+    }
+  ],
+  "journeys": {
+    "stroke_em": {
+      "name": "Emergency: possible stroke",
+      "steps": [
+        {
+          "title": "Noa calls for help",
+          "hold": "Responder → 998",
+          "text": "Noa follows the call list {{n}} and {{her}} family agreed when {{she}} joined. {{Her}} emergency rule says: always share.",
+          "done": "Help is on the way.",
+          "decides": "The 998 operator sends the ambulance.",
+          "agents": {
+            "responder": [
+              "Runs the agreed call list: {{f1s}} first, then the nearest person",
+              "Calls 998 with the fixed script; a human operator takes over"
+            ],
+            "voice": [
+              "Stays on the line: “Stay seated, help is coming”"
+            ]
+          },
+          "items": [
+            {
+              "title": "Responder calls {{f1}}",
+              "detail": "No answer"
+            },
+            {
+              "title": "Responder calls {{f2}}, {{f2d}} away",
+              "detail": "On the way"
+            },
+            {
+              "title": "Responder calls 998 · operator takes over",
+              "detail": "Ambulance dispatched"
+            },
+            {
+              "title": "Voice to {{n}}",
+              "detail": "“Help is coming. Stay seated. Don’t eat or drink.”"
+            }
+          ],
+          "phone": {
+            "title": "Help is coming",
+            "text": "Stay seated. Don’t eat or drink. {{f2s}} is on the way."
+          },
+          "fam": {
+            "who": "{{f2s}}",
+            "text": "“I’m on my way.” ({{f2d}})"
+          }
+        },
+        {
+          "title": "Packet sent ahead",
+          "hold": "Courier → ED",
+          "btn": "Activate the stroke team",
+          "text": "While the ambulance drives, Noa Courier sends {{her}} details ahead. Nobody at the door has to guess {{her}} medicines or when it started.",
+          "done": "Stroke team activated. CT room held.",
+          "decides": "The emergency doctor activates the stroke team.",
+          "agents": {
+            "courier": [
+              "Builds the packet from {{her}} shared record",
+              "Flags blood thinners, so the team knows what is safe",
+              "Sends it 17 minutes before arrival"
+            ]
+          },
+          "packet": [
+            {
+              "title": "Last known well",
+              "detail": "{{lkw}} (heart rate above 120 while still)"
+            },
+            {
+              "title": "Symptoms",
+              "detail": "Speech check failed at {{chk}}"
+            },
+            {
+              "title": "Blood thinners",
+              "detail": "None",
+              "anticoag": {
+                "detail": "Apixaban: clot-busting medicine not safe, consider clot retrieval"
+              }
+            },
+            {
+              "title": "Medicines",
+              "detail": "{{meds}}"
+            },
+            {
+              "title": "History",
+              "detail": "{{hist}}"
+            },
+            {
+              "title": "Family",
+              "detail": "{{f2s}} with {{herO}} · {{f1s}} informed"
+            },
+            {
+              "title": "Sharing",
+              "detail": "Emergency rule: always share"
+            }
+          ],
+          "phone": {
+            "title": "On the way to {{hosp}}",
+            "text": "The stroke team is ready for you."
+          },
+          "fam": {
+            "who": "Family",
+            "text": "The hospital has {{n}}’s details. Ambulance arriving soon."
+          }
+        },
+        {
+          "title": "Emergency treatment",
+          "hold": "Stroke team",
+          "text": "The hospital’s own notes flow back into {{her}} shared record as they happen.",
+          "done": "Treated within the hour.",
+          "decides": "Clinicians lead. The doctor decides on scans and medicine.",
+          "agents": {
+            "courier": [
+              "Files the hospital’s notes into {{her}} record as they happen"
+            ],
+            "voice": [
+              "Tells {{f1s}} and {{f2s}} in plain words: “Treated, improving”"
+            ]
+          },
+          "items": [
+            {
+              "title": "Arrival · NIHSS 6",
+              "detail": "Right arm weakness, slurred speech. BP 168/96, glucose {{glu}}."
+            },
+            {
+              "title": "CT head and CT angiogram",
+              "detail": "No bleeding. Left M2 occlusion."
+            },
+            {
+              "title": "Tenecteplase",
+              "detail": "Clot-busting medicine, the doctor’s decision. Door to needle 28 min.",
+              "anticoag": {
+                "title": "Clot retrieval (thrombectomy)",
+                "detail": "On apixaban, so no clot-busting medicine. The interventional team removes the clot. The doctor’s decision."
+              }
+            },
+            {
+              "title": "NIHSS 3",
+              "detail": "The stroke score improved. Noa Voice tells the family."
+            }
+          ],
+          "phone": {
+            "title": "Stroke unit",
+            "text": "Noa keeps {{f1s}} and {{f2s}} updated."
+          },
+          "fam": {
+            "who": "Family",
+            "text": "Treated and improving. Stroke unit."
+          }
+        },
+        {
+          "title": "Hospital screening",
+          "hold": "Stroke unit + Insight",
+          "text": "The hospital screens for the cause and for what comes next, including the family.",
+          "done": "Cause found and treated.",
+          "decides": "The doctor makes the diagnosis.",
+          "agents": {
+            "courier": [
+              "Files each result into {{her}} record"
+            ],
+            "insight": [
+              "Links the results with {{her}} home history",
+              "Prepares a screening offer for {{her}} family (with consent)"
+            ]
+          },
+          "items": [
+            {
+              "title": "Swallow screen",
+              "detail": "Passed: safe for a normal diet."
+            },
+            {
+              "title": "Heart monitoring",
+              "detail": "Paroxysmal atrial fibrillation found. Stroke-risk score (CHA₂DS₂-VASc) {{chads}}.",
+              "anticoag": {
+                "detail": "Known atrial fibrillation; apixaban levels checked."
+              }
+            },
+            {
+              "title": "MRI brain and heart ultrasound",
+              "detail": "Small infarct. Heart pumping normally."
+            },
+            {
+              "title": "Family screening",
+              "detail": "Noa Insight offers {{f1s}} a blood pressure and rhythm check in his own app."
+            }
+          ],
+          "phone": {
+            "title": "Stroke unit",
+            "text": "Noa keeps your family updated."
+          }
+        },
+        {
+          "title": "Home with a plan",
+          "hold": "Coach → {{n}}",
+          "text": "New medicines: apixaban 5 mg twice a day, perindopril 4 mg, atorvastatin 40 mg. Physio, speech therapy ×6, stroke clinic in 6 weeks.",
+          "decides": "The doctor chose the medicines. {{n}} decides who sees {{her}} plan.",
+          "agents": {
+            "courier": [
+              "Turns the discharge summary into a plan in {{her}} app"
+            ],
+            "coach": [
+              "Explains the blood thinner out loud, in Arabic or English",
+              "Checks {{she}} understood; simpler words if needed"
+            ]
+          },
+          "phone": {
+            "title": "Noa Coach"
+          }
+        },
+        {
+          "title": "Recovery at home",
+          "hold": "Navigator → clinic",
+          "text": "Day 11 at home. Enter today’s reading yourself and see what Noa Navigator does with it.",
+          "decides": "Navigator sends evidence. It never changes medicines.",
+          "agents": {
+            "guardian": [
+              "Reads {{her}} BP cuff and pill box every morning"
+            ],
+            "voice": [
+              "Runs the daily speech check, the same test that caught the stroke"
+            ],
+            "navigator": [
+              "Compares the reading with {{her}} target",
+              "Routes it to the clinic only if it needs a doctor"
+            ]
+          }
+        },
+        {
+          "title": "Hospital acts",
+          "hold": "Clinic → Coach",
+          "decides": "Dr Omar Haddad decides the new dose.",
+          "agents": {
+            "navigator": [
+              "Puts the alert on the clinic worklist with the evidence"
+            ],
+            "coach": [
+              "After the doctor’s change: tells {{n}} and checks {{she}} understood"
+            ]
+          }
+        },
+        {
+          "title": "Report to the Department",
+          "hold": "Analyst → DoH",
+          "decides": "The hospital signs off the report before it is sent.",
+          "agents": {
+            "analyst": [
+              "Counts the pathway measures from the hospital’s records",
+              "Removes names: {{n}} is one anonymous case"
+            ]
+          }
+        }
+      ]
+    },
+    "fall_em": {
+      "name": "Emergency: fall, can’t get up",
+      "steps": [
+        {
+          "title": "Noa calls for help",
+          "hold": "Responder → 998",
+          "text": "{{n}} can’t get up. Every minute on the floor matters, so Noa Responder calls for help at once.",
+          "done": "Help is on the way.",
+          "decides": "The 998 operator sends the ambulance.",
+          "agents": {
+            "responder": [
+              "Runs the call list: {{f1s}}, then the nearest person with a key",
+              "Calls 998 with the fixed script; a human operator takes over"
+            ],
+            "voice": [
+              "Stays with {{n}}: “Don’t try to get up. Stay warm.”"
+            ]
+          },
+          "items": [
+            {
+              "title": "Responder calls {{f1}}",
+              "detail": "No answer"
+            },
+            {
+              "title": "Responder calls {{f2}}, {{f2d}} away",
+              "detail": "Coming with the key"
+            },
+            {
+              "title": "Responder calls 998 · operator takes over",
+              "detail": "Ambulance dispatched"
+            },
+            {
+              "title": "Voice to {{n}}",
+              "detail": "“Don’t try to get up. {{f2s}} is coming. Stay warm.”"
+            }
+          ],
+          "phone": {
+            "title": "Help is coming",
+            "text": "Don’t try to get up. {{f2s}} is coming."
+          },
+          "fam": {
+            "who": "{{f2s}}",
+            "text": "“Coming now, I have the key.”"
+          }
+        },
+        {
+          "title": "Packet sent ahead",
+          "hold": "Courier → ED",
+          "btn": "Prepare a head CT and hip X-ray",
+          "text": "Noa Courier tells the hospital what matters before {{she}} arrives: the time of the fall, the time on the floor, and the blood thinner.",
+          "done": "Head CT and hip X-ray ready on arrival.",
+          "decides": "The emergency doctor orders the scans.",
+          "agents": {
+            "courier": [
+              "Builds the packet from {{her}} record and tonight’s data",
+              "Flags the blood thinner: a head CT is needed after any fall"
+            ]
+          },
+          "packet": [
+            {
+              "title": "Fall",
+              "detail": "{{t0}}, detected by the watch"
+            },
+            {
+              "title": "Time on the floor",
+              "detail": "{{floor}} min before Noa acted · {{f2s}} arrived 4 min later"
+            },
+            {
+              "title": "Blood thinner",
+              "detail": "None",
+              "anticoag": {
+                "detail": "Apixaban: head CT needed"
+              }
+            },
+            {
+              "title": "Symptoms",
+              "detail": "Can’t get up, right hip pain"
+            },
+            {
+              "title": "Speech check",
+              "detail": "{{speech}}"
+            },
+            {
+              "title": "Medicines",
+              "detail": "{{meds}}"
+            },
+            {
+              "title": "History",
+              "detail": "{{hist}}"
+            }
+          ],
+          "phone": {
+            "title": "On the way to {{hosp}}",
+            "text": "The team knows about your fall."
+          },
+          "fam": {
+            "who": "Family",
+            "text": "The hospital has {{n}}’s details."
+          }
+        },
+        {
+          "title": "Emergency treatment",
+          "hold": "Emergency team",
+          "text": "The hospital’s notes flow back into {{her}} record.",
+          "done": "Hip fracture found; surgery planned.",
+          "decides": "The doctors decide on scans, pain relief and surgery.",
+          "agents": {
+            "courier": [
+              "Files the scan reports into {{her}} record"
+            ],
+            "voice": [
+              "Tells {{f1s}} in plain words what was found"
+            ]
+          },
+          "items": [
+            {
+              "title": "Arrival",
+              "detail": "Right leg short and turned out. Pain 8 out of 10."
+            },
+            {
+              "title": "CT head",
+              "detail": "No bleeding (important on a blood thinner)."
+            },
+            {
+              "title": "Hip X-ray",
+              "detail": "Fractured right hip."
+            },
+            {
+              "title": "Pain relief and plan",
+              "detail": "Nerve block for pain. Surgery within 36 hours; the surgeon decides. Apixaban paused."
+            }
+          ],
+          "phone": {
+            "title": "Orthopaedic ward",
+            "text": "Noa keeps {{f1s}} updated."
+          },
+          "fam": {
+            "who": "Family",
+            "text": "Broken hip. Surgery planned; no bleeding on the head scan."
+          }
+        },
+        {
+          "title": "Hospital screening",
+          "hold": "Ward + Insight",
+          "text": "The hospital looks for why {{she}} fell, so it doesn’t happen again.",
+          "done": "Cause found: blood pressure drops on standing.",
+          "decides": "The doctors decide the cause and treatment.",
+          "agents": {
+            "courier": [
+              "Files each result"
+            ],
+            "insight": [
+              "Links the fall with home data: 3 bathroom trips a night this week (usual 1)",
+              "Suggests motion lights and a standing blood pressure check"
+            ]
+          },
+          "items": [
+            {
+              "title": "Hip surgery",
+              "detail": "Done on day 1. Walking with a frame on day 2."
+            },
+            {
+              "title": "Confusion screen",
+              "detail": "Clear."
+            },
+            {
+              "title": "Lying and standing blood pressure",
+              "detail": "Drops 24 mmHg on standing: the likely cause of the fall."
+            },
+            {
+              "title": "Bone health and home",
+              "detail": "Osteoporosis treatment reviewed. Noa Insight books motion lights for the bathroom route."
+            }
+          ],
+          "phone": {
+            "title": "Orthopaedic ward",
+            "text": "Physio twice a day."
+          }
+        },
+        {
+          "title": "Home with a plan",
+          "hold": "Coach → {{n}}",
+          "text": "Home with a walking frame, physio at home 3 times a week, apixaban restarted, motion lights fitted.",
+          "decides": "The doctors chose the plan. {{n}} decides who sees it.",
+          "agents": {
+            "courier": [
+              "Turns the discharge summary into a plan in {{her}} app"
+            ],
+            "coach": [
+              "Explains how to get up safely, out loud",
+              "Checks {{she}} understood"
+            ]
+          },
+          "phone": {
+            "title": "Noa Coach"
+          }
+        },
+        {
+          "title": "Recovery at home",
+          "hold": "Navigator → doctor",
+          "text": "Two weeks at home. Enter today’s standing blood pressure drop and see what Noa does.",
+          "decides": "Navigator sends evidence. It never changes medicines.",
+          "agents": {
+            "guardian": [
+              "Watches movement and night bathroom trips"
+            ],
+            "voice": [
+              "Runs the daily speech check"
+            ],
+            "navigator": [
+              "Checks the standing blood pressure reading",
+              "Routes it only if it needs a doctor"
+            ]
+          }
+        },
+        {
+          "title": "Doctor acts",
+          "hold": "Doctor → Coach",
+          "decides": "Dr Fatima Al Ali decides on the medicine.",
+          "agents": {
+            "navigator": [
+              "Puts the alert on the family doctor’s worklist"
+            ],
+            "coach": [
+              "Explains the change to {{n}} and checks {{she}} understood"
+            ]
+          }
+        },
+        {
+          "title": "Report to the Department",
+          "hold": "Analyst → DoH",
+          "decides": "The hospital signs off the report.",
+          "agents": {
+            "analyst": [
+              "Counts the falls pathway measures",
+              "Removes names"
+            ]
+          }
+        }
+      ]
+    },
+    "fall_minor": {
+      "name": "Fall, got up safely",
+      "steps": [
+        {
+          "title": "Noa guides {{herO}} up",
+          "hold": "Voice → {{n}}",
+          "text": "{{n}} can get up and {{her}} speech is normal, so Noa does not call 998. It guides {{herO}} instead.",
+          "done": "Safe, and nobody was woken needlessly.",
+          "decides": "No ambulance: {{n}} is up, talking clearly and has no pain.",
+          "agents": {
+            "voice": [
+              "Talks {{herO}} through getting up safely",
+              "Repeats the speech check once {{she}} is sitting"
+            ],
+            "guardian": [
+              "Watches movement closely for the rest of the night"
+            ]
+          },
+          "items": [
+            {
+              "title": "Voice guides {{n}}",
+              "detail": "“Roll onto your side, crawl to the chair, rest, then sit.”"
+            },
+            {
+              "title": "{{n}} is sitting",
+              "detail": "No pain. Speech check normal."
+            },
+            {
+              "title": "{{f1s}} gets a note",
+              "detail": "Fell, got up with Noa’s help, fine. No need to come now."
+            },
+            {
+              "title": "Guardian watches closely",
+              "detail": "Checks movement every 15 minutes until morning."
+            }
+          ],
+          "phone": {
+            "title": "You’re safe",
+            "text": "Noa is watching the rest of the night."
+          },
+          "fam": {
+            "who": "{{f1s}}",
+            "text": "Fell, got up with Noa’s help, fine."
+          }
+        },
+        {
+          "title": "Fall-risk review",
+          "hold": "Navigator → clinic",
+          "btn": "Book the fall-risk review",
+          "text": "Even without an injury, a fall is a warning. Noa makes sure someone looks into why.",
+          "done": "Review booked for next week.",
+          "decides": "The clinic decides what to change.",
+          "agents": {
+            "navigator": [
+              "Books a fall-risk review within 7 days",
+              "Sends last night’s data: time on the floor, bathroom trips"
+            ],
+            "insight": [
+              "Suggests a standing blood pressure check"
+            ]
+          },
+          "packet": [
+            {
+              "title": "Fall",
+              "detail": "{{t0}}, got up in 4 minutes"
+            },
+            {
+              "title": "Blood thinner",
+              "detail": "None",
+              "anticoag": {
+                "detail": "Apixaban (no head symptoms, speech normal)"
+              }
+            },
+            {
+              "title": "Pattern",
+              "detail": "3 bathroom trips a night this week (usual 1)"
+            },
+            {
+              "title": "Request",
+              "detail": "Fall-risk review and standing blood pressure"
+            }
+          ],
+          "phone": {
+            "title": "Fall-risk review",
+            "text": "Booked for next Tuesday, 10:00."
+          }
+        },
+        {
+          "title": "At home",
+          "hold": "Navigator → doctor",
+          "text": "Enter today’s standing blood pressure drop and see what Noa does.",
+          "decides": "Navigator sends evidence. It never changes medicines.",
+          "agents": {
+            "guardian": [
+              "Watches night movement"
+            ],
+            "voice": [
+              "Runs the daily speech check"
+            ],
+            "navigator": [
+              "Checks the standing blood pressure reading"
+            ]
+          }
+        },
+        {
+          "title": "Doctor acts",
+          "hold": "Doctor → Coach",
+          "decides": "The family doctor decides on the medicine.",
+          "agents": {
+            "navigator": [
+              "Puts the alert on the family doctor’s worklist"
+            ],
+            "coach": [
+              "Explains the change to {{n}}"
+            ]
+          }
+        },
+        {
+          "title": "Report to the Department",
+          "hold": "Analyst → DoH",
+          "decides": "The health centre signs off the report.",
+          "agents": {
+            "analyst": [
+              "Counts falls managed at home",
+              "Removes names"
+            ]
+          }
+        }
+      ]
+    },
+    "hypo_home": {
+      "name": "Low sugar, treated at home",
+      "steps": [
+        {
+          "title": "Treat at home",
+          "hold": "Coach → {{n}}",
+          "text": "{{n}} answered clearly, so Noa treats the low sugar at home first. You enter the glucose 15 minutes later.",
+          "decides": "{{n}} is answering clearly, so no ambulance yet. If two rechecks fail, Responder calls 998.",
+          "agents": {
+            "coach": [
+              "Tells {{herO}} exactly what to take: 15 g of fast sugar",
+              "Rechecks after 15 minutes"
+            ],
+            "guardian": [
+              "Watches the glucose sensor every minute"
+            ],
+            "responder": [
+              "On standby: calls 998 if the sugar doesn’t come up after two tries"
+            ]
+          },
+          "phone": {
+            "title": "Noa Coach",
+            "text": "Drink the juice by your bed now. I’ll check again in 15 minutes."
+          },
+          "fam": {
+            "who": "{{f1s}}",
+            "text": "Noa woke {{n}}: low sugar, drinking juice. Noa is watching."
+          }
+        },
+        {
+          "title": "Doctor reviews insulin",
+          "hold": "Navigator → doctor",
+          "btn": "Review the insulin dose",
+          "text": "A night hypo is a sign the dose is wrong. Noa makes sure a doctor sees it the same morning.",
+          "done": "Night insulin lowered from 24 to 20 units.",
+          "decides": "The doctor decides the new insulin dose.",
+          "agents": {
+            "navigator": [
+              "Sends the night’s glucose curve to the family doctor before clinic opens"
+            ],
+            "insight": [
+              "Points out that kidney function is reduced, so insulin lasts longer"
+            ]
+          },
+          "packet": [
+            {
+              "title": "Last night",
+              "detail": "Glucose {{glu}} at {{t0}}; recovered after fast sugar"
+            },
+            {
+              "title": "Insulin",
+              "detail": "{{meds}}"
+            },
+            {
+              "title": "Kidneys",
+              "detail": "eGFR 52: insulin lasts longer"
+            },
+            {
+              "title": "Request",
+              "detail": "Review night insulin today"
+            }
+          ],
+          "phone": {
+            "title": "Your doctor has your readings",
+            "text": "Expect a call this morning."
+          }
+        },
+        {
+          "title": "Noa explains the change",
+          "hold": "Coach → {{n}}",
+          "text": "Night insulin glargine lowered to 20 units.",
+          "decides": "The doctor chose the dose. {{n}} decides who sees it.",
+          "agents": {
+            "coach": [
+              "Explains the new dose and the warning signs, out loud",
+              "Checks {{he}} understood"
+            ]
+          },
+          "phone": {
+            "title": "Noa Coach"
+          }
+        },
+        {
+          "title": "Nights at home",
+          "hold": "Navigator → clinic",
+          "text": "One week later. Enter the lowest night glucose and see whether Noa needs to act.",
+          "decides": "Navigator sends evidence. It never changes insulin.",
+          "agents": {
+            "guardian": [
+              "Watches the glucose sensor every night"
+            ],
+            "voice": [
+              "Runs the daily speech check"
+            ],
+            "navigator": [
+              "Checks the lowest night glucose this week"
+            ]
+          }
+        },
+        {
+          "title": "Clinic acts",
+          "hold": "Clinic → Coach",
+          "decides": "The diabetes doctor decides the dose.",
+          "agents": {
+            "navigator": [
+              "Puts the alert on the diabetes clinic worklist"
+            ],
+            "coach": [
+              "Explains any change to {{n}}"
+            ]
+          }
+        },
+        {
+          "title": "Report to the Department",
+          "hold": "Analyst → DoH",
+          "decides": "The health centre signs off the report.",
+          "agents": {
+            "analyst": [
+              "Counts night hypos treated at home",
+              "Removes names"
+            ]
+          }
+        }
+      ]
+    },
+    "hypo_em": {
+      "name": "Emergency: severe low sugar",
+      "steps": [
+        {
+          "title": "Noa calls for help",
+          "hold": "Responder → 998",
+          "text": "Low sugar and no clear answer: this is an emergency. Noa wakes the person next door first.",
+          "done": "Glucagon given; ambulance on the way.",
+          "decides": "The 998 operator sends the ambulance. {{f1s}} gives the glucagon.",
+          "agents": {
+            "responder": [
+              "Wakes {{f1s}} with a loud alarm on her phone",
+              "Calls 998 with the fixed script; a human operator takes over"
+            ],
+            "coach": [
+              "Guides {{f1s}} to use the glucagon pen in the drawer"
+            ]
+          },
+          "items": [
+            {
+              "title": "Responder wakes {{f1}}",
+              "detail": "“He won’t wake properly.”"
+            },
+            {
+              "title": "Coach guides {{f1s}}",
+              "detail": "“Don’t give food or drink if he can’t swallow. Use the glucagon pen in the drawer.”"
+            },
+            {
+              "title": "Responder calls 998 · operator takes over",
+              "detail": "Ambulance dispatched"
+            },
+            {
+              "title": "{{f1s}} gives glucagon",
+              "detail": "Noa logs the time for the paramedics."
+            }
+          ],
+          "phone": {
+            "title": "Help is coming",
+            "text": "{{f1s}} is with you."
+          },
+          "fam": {
+            "who": "{{f2s}}",
+            "text": "Noa: your father’s sugar is very low; ambulance called, your mother is with him."
+          }
+        },
+        {
+          "title": "Packet sent ahead",
+          "hold": "Courier → ED",
+          "btn": "Ready IV glucose",
+          "text": "The team knows the cause before {{he}} arrives, so nobody wastes time on a stroke work-up.",
+          "done": "IV glucose ready on arrival.",
+          "decides": "The emergency doctor decides treatment.",
+          "agents": {
+            "courier": [
+              "Sends the glucose curve, the insulin dose and the glucagon time"
+            ]
+          },
+          "packet": [
+            {
+              "title": "Glucose",
+              "detail": "{{glu}} mmol/L at {{t0}}, falling for 3 hours"
+            },
+            {
+              "title": "Glucagon",
+              "detail": "Given by {{f1s}}, 6 min after the alert"
+            },
+            {
+              "title": "Insulin",
+              "detail": "{{meds}}"
+            },
+            {
+              "title": "Kidneys",
+              "detail": "eGFR 52: insulin lasts longer"
+            },
+            {
+              "title": "Speech check",
+              "detail": "{{speech}}"
+            }
+          ],
+          "phone": {
+            "title": "On the way to {{hosp}}",
+            "text": "The team knows your sugar is low."
+          }
+        },
+        {
+          "title": "Emergency treatment",
+          "hold": "Emergency team",
+          "text": "The hospital’s notes flow back into {{her}} record.",
+          "done": "Recovered; insulin lowered.",
+          "decides": "The doctors decide treatment.",
+          "agents": {
+            "courier": [
+              "Files the hospital’s notes"
+            ],
+            "voice": [
+              "Updates {{f1s}} and {{f2s}}"
+            ]
+          },
+          "items": [
+            {
+              "title": "Arrival",
+              "detail": "Glucose 3.4 after glucagon. Drowsy."
+            },
+            {
+              "title": "IV glucose",
+              "detail": "Glucose 7.8. Awake and talking."
+            },
+            {
+              "title": "Cause",
+              "detail": "Insulin dose too high for his kidney function."
+            },
+            {
+              "title": "Observed for 6 hours",
+              "detail": "Stable. Night insulin lowered to 20 units by the doctor."
+            }
+          ],
+          "phone": {
+            "title": "Emergency department",
+            "text": "Your family has been updated."
+          },
+          "fam": {
+            "who": "Family",
+            "text": "Awake and talking. Home later today."
+          }
+        },
+        {
+          "title": "Home with a plan",
+          "hold": "Coach → {{n}}",
+          "text": "Night insulin lowered to 20 units. Glucagon pen replaced.",
+          "decides": "The doctor chose the dose. {{n}} decides who sees it.",
+          "agents": {
+            "courier": [
+              "Turns the discharge letter into a plan in {{her}} app"
+            ],
+            "coach": [
+              "Explains the new dose and the warning signs",
+              "Checks {{he}} understood"
+            ]
+          },
+          "phone": {
+            "title": "Noa Coach"
+          }
+        },
+        {
+          "title": "Nights at home",
+          "hold": "Navigator → clinic",
+          "text": "Enter the lowest night glucose this week.",
+          "decides": "Navigator sends evidence. It never changes insulin.",
+          "agents": {
+            "guardian": [
+              "Watches the glucose sensor every night"
+            ],
+            "voice": [
+              "Runs the daily speech check"
+            ],
+            "navigator": [
+              "Checks the lowest night glucose this week"
+            ]
+          }
+        },
+        {
+          "title": "Clinic acts",
+          "hold": "Clinic → Coach",
+          "decides": "The diabetes doctor decides the dose.",
+          "agents": {
+            "navigator": [
+              "Puts the alert on the diabetes clinic worklist"
+            ],
+            "coach": [
+              "Explains any change to {{n}}"
+            ]
+          }
+        },
+        {
+          "title": "Report to the Department",
+          "hold": "Analyst → DoH",
+          "decides": "The hospital signs off the report.",
+          "agents": {
+            "analyst": [
+              "Counts severe hypos and how they were handled",
+              "Removes names"
+            ]
+          }
+        }
+      ]
+    },
+    "hf_clinic": {
+      "name": "Fluid build-up: same-day nurse",
+      "steps": [
+        {
+          "title": "Same-day nurse",
+          "hold": "Navigator → nurse",
+          "btn": "Accept the same-day slot",
+          "text": "Weight up and breathless only lying flat: an early warning. Treated today, it usually avoids a hospital stay.",
+          "done": "Seen at 11:30 today.",
+          "decides": "The nurse decides whether to change treatment.",
+          "agents": {
+            "navigator": [
+              "Books the heart failure nurse today, not 998"
+            ],
+            "courier": [
+              "Sends 7 days of weight, oxygen and {{her}} answer"
+            ]
+          },
+          "packet": [
+            {
+              "title": "Weight",
+              "detail": "Up {{wt}} kg in 3 days"
+            },
+            {
+              "title": "Oxygen",
+              "detail": "{{spo2}}%"
+            },
+            {
+              "title": "{{n}} says",
+              "detail": "{{answer}}"
+            },
+            {
+              "title": "Medicines",
+              "detail": "{{meds}}"
+            },
+            {
+              "title": "History",
+              "detail": "{{hist}}"
+            }
+          ],
+          "phone": {
+            "title": "Nurse visit today",
+            "text": "Rania will see you at 11:30."
+          },
+          "fam": {
+            "who": "{{f1s}}",
+            "text": "Noa booked a nurse visit for {{n}} today at 11:30."
+          }
+        },
+        {
+          "title": "Seen the same day",
+          "hold": "Nurse",
+          "text": "The nurse’s notes flow back into {{her}} record.",
+          "done": "Treated at home.",
+          "decides": "The nurse and cardiologist decide the dose.",
+          "agents": {
+            "courier": [
+              "Files the nurse’s notes"
+            ],
+            "voice": [
+              "Tells {{f1s}} the plan in plain words"
+            ]
+          },
+          "items": [
+            {
+              "title": "Nurse visit",
+              "detail": "Swollen ankles, crackles at the lung bases, weight up {{wt}} kg."
+            },
+            {
+              "title": "Plan with the cardiologist",
+              "detail": "Furosemide 40 → 80 mg for 3 days."
+            },
+            {
+              "title": "Blood tests",
+              "detail": "Kidney function and potassium; recheck in 3 days."
+            },
+            {
+              "title": "Home the same day",
+              "detail": "No hospital admission."
+            }
+          ],
+          "phone": {
+            "title": "Seen today",
+            "text": "Double water tablet for 3 days."
+          },
+          "fam": {
+            "who": "Family",
+            "text": "Treated at home: extra water tablet for 3 days."
+          }
+        },
+        {
+          "title": "Noa explains the plan",
+          "hold": "Coach → {{n}}",
+          "text": "Furosemide 80 mg for 3 days, then back to 40 mg. Weigh every morning.",
+          "decides": "The nurse chose the dose. {{n}} decides who sees it.",
+          "agents": {
+            "coach": [
+              "Explains the double dose and daily weighing, out loud",
+              "Checks {{she}} understood"
+            ]
+          },
+          "phone": {
+            "title": "Noa Coach"
+          }
+        },
+        {
+          "title": "Mornings at home",
+          "hold": "Navigator → nurse",
+          "text": "Four days later. Enter today’s weight compared with dry weight.",
+          "decides": "Navigator sends evidence. It never changes medicines.",
+          "agents": {
+            "guardian": [
+              "Reads the scale and oxygen every morning"
+            ],
+            "voice": [
+              "Runs the daily speech check"
+            ],
+            "navigator": [
+              "Checks weight against dry weight"
+            ]
+          }
+        },
+        {
+          "title": "Nurse acts",
+          "hold": "Nurse → Coach",
+          "decides": "The nurse decides the dose.",
+          "agents": {
+            "navigator": [
+              "Puts the alert on the nurse’s worklist"
+            ],
+            "coach": [
+              "Explains any change to {{n}}"
+            ]
+          }
+        },
+        {
+          "title": "Report to the Department",
+          "hold": "Analyst → DoH",
+          "decides": "The hospital signs off the report.",
+          "agents": {
+            "analyst": [
+              "Counts warnings seen the same day and admissions avoided",
+              "Removes names"
+            ]
+          }
+        }
+      ]
+    },
+    "hf_em": {
+      "name": "Emergency: breathless at rest",
+      "steps": [
+        {
+          "title": "Noa calls for help",
+          "hold": "Responder → 998",
+          "text": "Breathless at rest is an emergency. Noa calls 998 straight away.",
+          "done": "Help is on the way.",
+          "decides": "The 998 operator sends the ambulance.",
+          "agents": {
+            "responder": [
+              "Calls 998 with the fixed script; a human operator takes over",
+              "Calls {{f1s}}"
+            ],
+            "voice": [
+              "“Sit upright with your feet down. Help is coming.”"
+            ]
+          },
+          "items": [
+            {
+              "title": "Voice to {{n}}",
+              "detail": "“Sit upright with your feet down. Help is coming.”"
+            },
+            {
+              "title": "Responder calls 998 · operator takes over",
+              "detail": "Ambulance dispatched"
+            },
+            {
+              "title": "Responder calls {{f1}}",
+              "detail": "On the way"
+            },
+            {
+              "title": "Courier prepares the packet",
+              "detail": "Weight up {{wt}} kg in 3 days, oxygen {{spo2}}%"
+            }
+          ],
+          "phone": {
+            "title": "Help is coming",
+            "text": "Sit upright with your feet down."
+          },
+          "fam": {
+            "who": "{{f1s}}",
+            "text": "“On my way.”"
+          }
+        },
+        {
+          "title": "Packet sent ahead",
+          "hold": "Courier → ED",
+          "btn": "Alert the cardiology team",
+          "text": "The team sees the fluid building up over 3 days before {{she}} arrives.",
+          "done": "Cardiology team alerted.",
+          "decides": "The emergency doctor decides treatment.",
+          "agents": {
+            "courier": [
+              "Sends 7 days of weight and oxygen, medicines and history"
+            ]
+          },
+          "packet": [
+            {
+              "title": "Weight",
+              "detail": "Up {{wt}} kg in 3 days"
+            },
+            {
+              "title": "Oxygen",
+              "detail": "{{spo2}}%"
+            },
+            {
+              "title": "{{n}} says",
+              "detail": "{{answer}}"
+            },
+            {
+              "title": "Medicines",
+              "detail": "{{meds}}"
+            },
+            {
+              "title": "History",
+              "detail": "{{hist}}"
+            }
+          ],
+          "phone": {
+            "title": "On the way to {{hosp}}",
+            "text": "The team knows you’re coming."
+          }
+        },
+        {
+          "title": "Emergency treatment",
+          "hold": "Emergency team",
+          "text": "The hospital’s notes flow back into {{her}} record.",
+          "done": "Treated and admitted.",
+          "decides": "The doctors decide treatment.",
+          "agents": {
+            "courier": [
+              "Files the hospital’s notes"
+            ],
+            "voice": [
+              "Updates the family"
+            ]
+          },
+          "items": [
+            {
+              "title": "Arrival",
+              "detail": "Oxygen low, fluid on the lungs."
+            },
+            {
+              "title": "Treatment",
+              "detail": "Oxygen and a water tablet through a drip. The doctor’s decision."
+            },
+            {
+              "title": "Chest X-ray",
+              "detail": "Fluid on both lungs."
+            },
+            {
+              "title": "Admitted",
+              "detail": "Cardiology ward for 3 days."
+            }
+          ],
+          "phone": {
+            "title": "Cardiology ward",
+            "text": "Your family has been updated."
+          },
+          "fam": {
+            "who": "Family",
+            "text": "Admitted to cardiology for 3 days."
+          }
+        },
+        {
+          "title": "Home with a plan",
+          "hold": "Coach → {{n}}",
+          "text": "Water tablet adjusted, weigh every morning, nurse call in 48 hours.",
+          "decides": "The doctor chose the plan. {{n}} decides who sees it.",
+          "agents": {
+            "courier": [
+              "Turns the discharge letter into a plan in {{her}} app"
+            ],
+            "coach": [
+              "Explains the dose and daily weighing",
+              "Checks {{she}} understood"
+            ]
+          },
+          "phone": {
+            "title": "Noa Coach"
+          }
+        },
+        {
+          "title": "Mornings at home",
+          "hold": "Navigator → nurse",
+          "text": "Enter today’s weight compared with dry weight.",
+          "decides": "Navigator sends evidence. It never changes medicines.",
+          "agents": {
+            "guardian": [
+              "Reads the scale and oxygen every morning"
+            ],
+            "voice": [
+              "Runs the daily speech check"
+            ],
+            "navigator": [
+              "Checks weight against dry weight"
+            ]
+          }
+        },
+        {
+          "title": "Nurse acts",
+          "hold": "Nurse → Coach",
+          "decides": "The nurse decides the dose.",
+          "agents": {
+            "navigator": [
+              "Puts the alert on the nurse’s worklist"
+            ],
+            "coach": [
+              "Explains any change to {{n}}"
+            ]
+          }
+        },
+        {
+          "title": "Report to the Department",
+          "hold": "Analyst → DoH",
+          "decides": "The hospital signs off the report.",
+          "agents": {
+            "analyst": [
+              "Counts admissions and missed early warnings",
+              "Removes names"
+            ]
+          }
+        }
+      ]
+    },
+    "fam": {
+      "name": "Family Health Passport"
+    }
+  },
+  "stepLabel": {
+    "help": "Help",
+    "pre_arrival": "Pre-arrival",
+    "treatment": "Treatment",
+    "screening": "Screening",
+    "discharge": "Discharge",
+    "monitor": "Monitor",
+    "hospital": "Hospital",
+    "department": "Department",
+    "doctor": "Doctor",
+    "guide": "Guide",
+    "review": "Review",
+    "treat": "Treat",
+    "explain": "Explain",
+    "clinic": "Clinic",
+    "same_day": "Same day",
+    "nurse": "Nurse",
+    "alert": "Alert",
+    "passport": "Passport",
+    "book": "Book",
+    "visit": "Visit",
+    "result": "Result",
+    "care": "Care",
+    "follow_up": "Follow up",
+    "visits": "Visits",
+    "results": "Results"
+  },
+  "flow": {
+    "998_operator": "998 operator",
+    "f2s": "{{f2s}}",
+    "emergency_stroke_team": "Emergency stroke team",
+    "stroke_team": "Stroke team",
+    "family": "Family",
+    "stroke_unit": "Stroke unit",
+    "family_screening": "Family screening",
+    "hospital": "Hospital",
+    "n": "{{n}}",
+    "stroke_clinic": "Stroke clinic",
+    "department_of_health": "Department of Health",
+    "emergency_team": "Emergency team",
+    "ward": "Ward",
+    "home_safety": "Home safety",
+    "family_doctor": "Family doctor",
+    "falls_clinic": "Falls clinic",
+    "health_centre": "Health centre",
+    "doctor": "Doctor",
+    "diabetes_clinic": "Diabetes clinic",
+    "f1s": "{{f1s}}",
+    "heart_failure_nurse": "Heart failure nurse",
+    "nurse": "Nurse",
+    "sensors": "Sensors",
+    "passport": "Passport",
+    "addr": "{{addr}}",
+    "clinic_team": "Clinic team",
+    "clinic": "Clinic",
+    "team_or_passport": "Team or passport",
+    "team": "{{team}}",
+    "signals": "Signals",
+    "clinics": "Clinics",
+    "teams_and_family": "Teams and family",
+    "khalid": "Khalid",
+    "sultan": "Sultan",
+    "teams": "Teams",
+    "health_centres": "Health centres"
+  },
+  "pipe": {
+    "emergency_always_share": "emergency: always share",
+    "call_list_run": "call list run",
+    "packet_built": "packet built",
+    "pre_alert_sent": "pre-alert sent",
+    "stroke_team": "stroke team",
+    "stroke_unit_results": "stroke unit results",
+    "record_updated": "record updated",
+    "plan_app": "plan → app",
+    "routine_clinic_family": "routine: clinic + family",
+    "plan_received": "plan received",
+    "bp_cuff_pill_box": "BP cuff, pill box",
+    "speech_check": "speech check",
+    "reading_checked": "reading checked",
+    "clinic_acts": "clinic acts",
+    "monthly_report": "monthly report",
+    "report_received": "report received",
+    "ed_results": "ED results",
+    "ward_results": "ward results",
+    "bp_cuff_motion_sensors": "BP cuff, motion sensors",
+    "doctor_acts": "doctor acts",
+    "routine_family_note": "routine: family note",
+    "guided_at_home": "guided at home",
+    "review_booked": "review booked",
+    "bp_cuff": "BP cuff",
+    "treat_at_home": "treat at home",
+    "doctor_reviews": "doctor reviews",
+    "glucose_sensor": "glucose sensor",
+    "routine_shared": "routine: shared",
+    "routed": "routed",
+    "same_day_slot": "same-day slot",
+    "nurse_notes": "nurse notes",
+    "scale_oxygen": "scale, oxygen",
+    "nurse_acts": "nurse acts",
+    "family_consent": "family consent",
+    "slot_found": "slot found",
+    "booking_sent": "booking sent",
+    "visit_recorded": "visit recorded",
+    "result_routed": "result routed",
+    "referral_accepted": "referral accepted",
+    "explained": "explained",
+    "loop_closed": "loop closed",
+    "visits_recorded": "visits recorded",
+    "results_routed": "results routed",
+    "loops_closed": "loops closed",
+    "working": "working…",
+    "ruleMet": "rule {{rule}} met",
+    "voiceCheck": "voice check",
+    "stored": "stored",
+    "decided": "decided: {{rule}}"
+  },
+  "stepZero": {
+    "home": {
+      "title": "At home",
+      "hold": "Guardian → Voice",
+      "decides": "At home, the agents only decide how to respond. They never diagnose.",
+      "agents": {
+        "guardian": [
+          "Watches heart rate, movement, falls, glucose, weight and oxygen against {{her}} own normal",
+          "Applies rules R1 to R4 and starts a voice check only when one is met"
+        ],
+        "voice": [
+          "Calls {{n}} and runs the speech check",
+          "Asks one question about what Guardian found"
+        ]
+      }
+    },
+    "passport": {
+      "title": "Family Health Passport",
+      "hold": "Guardian → Voice",
+      "decides": "The family decides: book, change or say no.",
+      "agents": {
+        "guardian": [
+          "Watches the Family Health Passport: what is due, for whom, how late",
+          "Checks eligibility first: age, nationality, life stage"
+        ],
+        "voice": [
+          "Asks one question to find the barrier, instead of sending another reminder"
+        ],
+        "insight": [
+          "Brings in what makes this check matter for this family"
+        ]
+      }
+    }
+  },
+  "family": {
+    "members": {
+      "moza": {
+        "n": "Moza",
+        "rel": "Grandma",
+        "relLower": "grandma",
+        "sub": "Khalid’s mother",
+        "src": [
+          "Corniche Stroke Centre",
+          "Al Bateen FHC"
+        ],
+        "how": "Arabic voice call; calls her Umm Khalid",
+        "dev": "Watch and BP cuff; Noa Voice calls",
+        "fh": "Her brother Hamad: osteoporosis"
+      },
+      "saeed": {
+        "n": "Saeed",
+        "rel": "Grandpa",
+        "relLower": "grandpa",
+        "sub": "Amna’s father",
+        "src": [
+          "Capital General Hospital"
+        ],
+        "how": "Phone call; his son Rashid helps",
+        "dev": "Glucose sensor, BP cuff",
+        "fh": "No family history recorded"
+      },
+      "khalid": {
+        "n": "Khalid",
+        "rel": "Dad",
+        "relLower": "dad",
+        "sub": "logistics supervisor",
+        "src": [
+          "Al Khalidiya FHC"
+        ],
+        "how": "Short message: what it means for him",
+        "dev": "InsideSync app: watch, BP cuff, scale",
+        "fh": "Mother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62"
+      },
+      "amna": {
+        "n": "Amna",
+        "rel": "Mum",
+        "relLower": "mum",
+        "sub": "teacher",
+        "src": [
+          "Al Khalidiya FHC",
+          "Capital Women’s Hospital"
+        ],
+        "how": "In the app, one tap, family calendar",
+        "dev": "InsideSync app: watch",
+        "fh": "Father (Saeed): type 2 diabetes · her own diabetes in pregnancy"
+      },
+      "maitha": {
+        "n": "Maitha",
+        "rel": "Daughter",
+        "relLower": "daughter",
+        "sub": "nurse on shifts",
+        "src": [
+          "Al Khalidiya FHC",
+          "Capital Women’s Hospital"
+        ],
+        "how": "In the app, after night shifts",
+        "dev": "Phone only",
+        "fh": "Grandfather Saeed: type 2 diabetes · mother: diabetes in pregnancy"
+      },
+      "sultan": {
+        "n": "Sultan",
+        "rel": "Son",
+        "relLower": "son",
+        "sub": "university student",
+        "src": [
+          "Al Khalidiya FHC",
+          "University clinic"
+        ],
+        "how": "Short message only, evenings",
+        "dev": "Phone only",
+        "fh": "Grandfather Abdullah: heart attack at 62 · grandfather Saeed: type 2 diabetes"
+      },
+      "hind": {
+        "n": "Hind",
+        "rel": "Granddaughter",
+        "relLower": "granddaughter",
+        "sub": "Maitha’s daughter",
+        "src": [
+          "Al Khalidiya FHC",
+          "Capital Women’s Hospital"
+        ],
+        "how": "Through Maitha",
+        "dev": "—",
+        "fh": "—"
+      },
+      "hamdan": {
+        "n": "Hamdan",
+        "rel": "Grandson",
+        "relLower": "grandson",
+        "sub": "Maitha’s son",
+        "src": [
+          "Al Khalidiya FHC",
+          "School health"
+        ],
+        "how": "Through Maitha",
+        "dev": "—",
+        "fh": "—"
+      }
+    },
+    "sources": [
+      {
+        "name": "Corniche Stroke Centre",
+        "note": "Moza: stroke, discharge plan"
+      },
+      {
+        "name": "Al Bateen Family Health Centre",
+        "note": "Moza: blood pressure, past screening"
+      },
+      {
+        "name": "Capital General Hospital",
+        "note": "Saeed: diabetes clinic, glucose sensor"
+      },
+      {
+        "name": "Al Khalidiya Family Health Centre",
+        "note": "Khalid, Amna, Maitha, Sultan, Hind, Hamdan: visits, vaccines, IFHAS"
+      },
+      {
+        "name": "Capital Women’s Hospital",
+        "note": "Amna and Maitha: pregnancies and births"
+      },
+      {
+        "name": "School health",
+        "note": "Hamdan: vision and growth checks"
+      }
+    ],
+    "connections": {
+      "C1": {
+        "from": "Moza",
+        "t": "Stroke and atrial fibrillation in his mother",
+        "a": "Blood pressure and heart rhythm added to Khalid’s checks"
+      },
+      "C7": {
+        "from": "Late Abdullah",
+        "t": "Heart attack at 62 in Khalid’s father",
+        "a": "Not part of the Framingham score, so Noa Insight shows it next to the forecast"
+      },
+      "C2": {
+        "from": "Saeed",
+        "t": "Type 2 diabetes in the grandfather",
+        "a": "HbA1c moved up for Amna; first HbA1c for Maitha and Sultan"
+      },
+      "C3": {
+        "from": "Amna (2001, 2005)",
+        "t": "Diabetes in pregnancy in her mother",
+        "a": "Maitha’s sugar checked in any pregnancy; Hind’s growth watched"
+      },
+      "C6": {
+        "from": "Al Khalidiya FHC",
+        "t": "Four checks at the same clinic",
+        "a": "One Saturday trip instead of four"
+      },
+      "C8": {
+        "from": "Khalid",
+        "t": "Father and son both smoke (medwakh, vape)",
+        "a": "Quit support offered to both, together if they want"
+      },
+      "C4": {
+        "from": "Khalid",
+        "t": "Very high cholesterol in their father",
+        "a": "Cholesterol test for his children: possible inherited high cholesterol"
+      },
+      "C5": {
+        "from": "Khalid",
+        "t": "Father’s new HbA1c result",
+        "a": "A family eating and activity plan; Amna joins the lifestyle programme"
+      }
+    },
+    "results": {
+      "hind": {
+        "label": "Hind: words besides mama and dada",
+        "unit": "words"
+      },
+      "maitha_a1c": {
+        "label": "Maitha: HbA1c",
+        "unit": "%"
+      },
+      "khalid_a1c": {
+        "label": "Khalid: HbA1c",
+        "unit": "%"
+      },
+      "khalid_tc": {
+        "label": "Khalid: total cholesterol",
+        "unit": "mmol/L"
+      },
+      "khalid_hdl": {
+        "label": "Khalid: HDL (“good”) cholesterol",
+        "unit": "mmol/L"
+      },
+      "khalid_sbp": {
+        "label": "Khalid: clinic blood pressure (top number)",
+        "unit": "mmHg"
+      },
+      "amna_a1c": {
+        "label": "Amna: HbA1c",
+        "unit": "%"
+      },
+      "saeed_acr": {
+        "label": "Saeed: urine albumin (ACR)",
+        "unit": "mg/mmol"
+      },
+      "sultan_sbp": {
+        "label": "Sultan: blood pressure (top number)",
+        "unit": "mmHg"
+      }
+    },
+    "badges": {
+      "hamdan": "Hamdan is up to date",
+      "trip": "One trip, four checks",
+      "first": "Khalid’s first screening",
+      "sultan": "Sultan’s first screening",
+      "hind8": "Hind: 8 of 14 visits",
+      "bp": "Moza’s blood pressure plan updated",
+      "plan": "Family plan started",
+      "heart": "Every adult’s heart risk known"
+    },
+    "alerts": {
+      "moza": {
+        "t": "Blood pressure above target for 5 days",
+        "why": "Morning average 146 mmHg with every dose taken. Noa Navigator sent it to her stroke clinic at 08:12.",
+        "acts": [
+          "Clinic accepted (hospital)"
+        ]
+      },
+      "hind": {
+        "overdueN": "{{visit}} is {{n}} weeks overdue",
+        "why": "3 reminders were ignored, so Noa Voice asked Maitha why instead of sending a 4th: “Clinic hours clash with my shifts.”",
+        "acts": [
+          "Book Saturday 09:00 (family trip)",
+          "Not now"
+        ],
+        "done": "All 14 visits done",
+        "due": "{{visit}} is due",
+        "overdue1": "{{visit}} is {{n}} week overdue"
+      },
+      "maitha": {
+        "t": "IFHAS screening due (last done 2021)",
+        "why": "She is bringing Hind on Saturday anyway: 15 minutes at the same clinic. Her grandfather’s diabetes moves her first HbA1c up.",
+        "acts": [
+          "Add to Saturday 09:15",
+          "Not now"
+        ]
+      },
+      "khalid": {
+        "t": "No check-up in 4 years; IFHAS never done",
+        "why": "He feels fine. Noa Forecast estimated his heart risk from home signals, and both parents’ history raises it further.",
+        "acts": [
+          "Add to Saturday 09:30",
+          "Not now"
+        ]
+      },
+      "amna": {
+        "t": "HbA1c recheck due in 6 weeks",
+        "why": "Prediabetes (5.9%) in March, and her father Saeed has type 2 diabetes.",
+        "acts": [
+          "Do it early, Saturday 09:45",
+          "Keep the date"
+        ]
+      },
+      "saeed": {
+        "t": "Eye and kidney checks 14 months overdue",
+        "why": "He goes to his diabetes clinic on Tuesday anyway, so Noa Navigator asks the clinic to add them: no extra trip.",
+        "acts": [
+          "Add to Tuesday’s diabetes visit",
+          "Not now"
+        ]
+      },
+      "sultan": {
+        "t": "Never screened; vapes every day",
+        "why": "Three reminders unopened. Noa Voice asked once, by short message: “I’m 21, I’m fine.” So Noa offers an evening slot and quit support, not another reminder.",
+        "acts": [
+          "Wednesday 19:00 + quit support",
+          "Not now"
+        ]
+      },
+      "hamdan": {
+        "t": "5-year visit done",
+        "why": "Up to date. Next: the 6-year visit in March, one reminder before."
+      },
+      "fc": {
+        "t": "High heart risk: {{pct}} in 10 years",
+        "review": "Heart risk review",
+        "why": "Noa Forecast combined the signals in the forecast panel. A doctor review within 2 weeks is suggested; the doctor decides on any treatment.",
+        "acts": [
+          "Book a doctor review",
+          "Not now"
+        ],
+        "doneRouted": "Noa Navigator sent it to {{team}} with the signals used. The doctor decides on treatment."
+      },
+      "fcb": {
+        "done": "Doctor review booked: Sunday 10:00 with Dr Aisha Al Hosani. The signals go with it.",
+        "task": "heart risk review"
+      },
+      "fcn": {
+        "done": "Choice respected: no reminders for 3 months; the forecast stays in the passport."
+      }
+    },
+    "visits": {
+      "hind": [
+        {
+          "title": "Hind · {{visit}}",
+          "detail": "Weighed, measured, vaccines given. The doctor records the words she says.",
+          "titleNone": "Hind · visit"
+        }
+      ],
+      "maitha": [
+        {
+          "title": "Maitha · IFHAS",
+          "detail": "Blood pressure 114/72, HbA1c taken. Her mother’s diabetes in pregnancy noted for any future pregnancy."
+        }
+      ],
+      "khalid": [
+        {
+          "title": "Khalid · IFHAS screening",
+          "detail": "Blood pressure taken. HbA1c and cholesterol (fasting). Bowel test kit given. Quit support offered. Family history recorded: mother’s stroke, father’s heart attack at 62."
+        }
+      ],
+      "amna": [
+        {
+          "title": "Amna · HbA1c, 6 weeks early",
+          "detail": "5 minutes while the grandchildren wait with Khalid."
+        }
+      ],
+      "saeed": [
+        {
+          "title": "Saeed · at his diabetes visit",
+          "detail": "Eye photos and a urine albumin test added. No extra trip."
+        }
+      ],
+      "sultan": [
+        {
+          "title": "Sultan · Wednesday evening",
+          "detail": "Blood pressure, BMI, HbA1c. A young doctor talked with him about vaping; quit app set up."
+        }
+      ],
+      "none": [
+        {
+          "title": "No visits booked",
+          "detail": "The family chose “not now” for everything. The passport keeps it all, with no reminders for 3 months."
+        }
+      ]
+    },
+    "follow": {
+      "hind": [
+        {
+          "title": "Hind · hearing test",
+          "detail": "Normal hearing; 6 speech therapy sessions on Saturdays near home."
+        }
+      ],
+      "khalid": [
+        {
+          "title": "Khalid · doctor review",
+          "detail": "Dr Aisha Al Hosani reviews his HbA1c, cholesterol and heart risk; care plan agreed. The doctor decides the treatment."
+        }
+      ],
+      "khalid_fc": [
+        {
+          "title": "Khalid · heart risk",
+          "detail": "Forecast shared with Khalid: quitting medwakh and lower blood pressure bring his 5-year line down."
+        }
+      ],
+      "amna": [
+        {
+          "title": "Amna · lifestyle programme",
+          "detail": "Joins with Khalid: 8 weekly sessions, evenings."
+        }
+      ],
+      "maitha": [
+        {
+          "title": "Maitha · lifestyle programme",
+          "detail": "Online sessions that fit her shifts."
+        }
+      ],
+      "saeed": [
+        {
+          "title": "Saeed · kidney protection",
+          "detail": "His diabetes doctor adjusts his medicines; recheck in 3 months."
+        }
+      ],
+      "sultan": [
+        {
+          "title": "Sultan · blood pressure",
+          "detail": "Home readings for 7 days, then a doctor review."
+        }
+      ],
+      "C4": [
+        {
+          "title": "Maitha and Sultan · cholesterol",
+          "detail": "Tests booked after their father’s very high result."
+        }
+      ],
+      "C5": [
+        {
+          "title": "Family plan",
+          "detail": "Week 1: Friday family walk, sugary drinks swapped at home. Hind and Hamdan’s growth watched."
+        }
+      ],
+      "passport": [
+        {
+          "title": "Passport",
+          "detail": "Next checks for all eight are in the passport, each with one reminder only. Noa Forecast recalculates when new readings arrive."
+        }
+      ]
+    },
+    "steps": [
+      {
+        "title": "Family Health Passport",
+        "hold": "Guardian + Forecast",
+        "decides": "Each adult decides for themselves; parents decide for the children. “Not now” is respected.",
+        "agents": {
+          "courier": [
+            "Brings records from 6 hospitals and clinics into one passport, with each adult’s consent"
+          ],
+          "guardian": [
+            "Collects home signals: blood pressure, weight, heart rate, glucose",
+            "Watches what is due for all eight, from 18 months to 78 years"
+          ],
+          "forecast": [
+            "Turns each adult’s signals into a 10-year heart risk and a 5-year what-if"
+          ],
+          "insight": [
+            "Finds connections across the family: one person’s diagnosis changes another’s checks"
+          ],
+          "voice": [
+            "Asks one question to find the barrier: Maitha by app, Sultan by short message, Moza by Arabic call"
+          ],
+          "navigator": [
+            "Bundles checks into one family trip"
+          ]
+        }
+      },
+      {
+        "title": "The family trip",
+        "hold": "Clinics",
+        "text": "One trip, several checks. The clinic already has each passport.",
+        "done": "Visits done.",
+        "decides": "The clinicians do the checks.",
+        "agents": {
+          "courier": [
+            "Sends each passport, with the forecast and signals, to the clinic before the visit",
+            "Files every result back into the family passport"
+          ]
+        },
+        "phone": {
+          "title": "Saturday trip",
+          "text": "Hind 09:00 · Maitha 09:15 · Khalid 09:30 · Amna 09:45"
+        },
+        "fam": {
+          "who": "Family",
+          "text": "Saturday trip done."
+        }
+      },
+      {
+        "title": "Results, risk and connections",
+        "hold": "Insight + Forecast → teams",
+        "text": "Enter the results yourself. Watch Noa Forecast recalculate Khalid’s heart risk with his real cholesterol, and the passport find new connections.",
+        "decides": "Clinicians confirm what each result means.",
+        "agents": {
+          "insight": [
+            "Reads each result against its threshold",
+            "Looks for what one result means for the rest of the family"
+          ],
+          "forecast": [
+            "Recalculates heart risk with the real cholesterol and blood pressure"
+          ],
+          "navigator": [
+            "Routes each result to the right team within 2 weeks"
+          ]
+        }
+      },
+      {
+        "title": "Noa explains, to each person",
+        "hold": "Coach → Khalid",
+        "text": "Each person hears their own result their own way. The family plan is shared only with consent.",
+        "decides": "Khalid decides who in the family sees his result.",
+        "agents": {
+          "coach": [
+            "Explains Khalid’s result and his heart forecast in Arabic or English",
+            "Checks he understood"
+          ],
+          "voice": [
+            "Tells Sultan his result by short message, the way he prefers"
+          ]
+        },
+        "phone": {
+          "title": "Noa Coach"
+        }
+      },
+      {
+        "title": "Until every result reaches care",
+        "hold": "Navigator → family",
+        "text": "The loop closes for the whole family, not one person at a time.",
+        "done": "Every result reached care.",
+        "decides": "The family keeps control of every booking.",
+        "agents": {
+          "navigator": [
+            "Follows every referral until it happens"
+          ],
+          "guardian": [
+            "Keeps collecting home signals"
+          ],
+          "forecast": [
+            "Updates each forecast as new readings arrive"
+          ]
+        },
+        "phone": {
+          "title": "Family passport",
+          "text": "Everyone is booked, in care or up to date."
+        }
+      },
+      {
+        "title": "Report to the Department",
+        "hold": "Analyst → DoH",
+        "decides": "The health centres sign off the report.",
+        "agents": {
+          "analyst": [
+            "Counts family-level participation, connected screenings and forecasts acted on",
+            "Removes names: this family is one anonymous case"
+          ]
+        }
+      }
+    ],
+    "routes": {
+      "hind": {
+        "refer": {
+          "t": "Hearing test and speech assessment",
+          "low": "hearing test and speech assessment",
+          "team": "Child speech and hearing clinic"
+        },
+        "ok": {
+          "t": "On track; 2-year visit in March",
+          "low": "on track; 2-year visit in march"
+        }
+      },
+      "maitha_a1c": {
+        "dm": {
+          "t": "Diabetes range: second test and doctor review",
+          "low": "diabetes range: second test and doctor review",
+          "team": "Family doctor"
+        },
+        "pre": {
+          "t": "Prediabetes: lifestyle programme, recheck in 6 months",
+          "low": "prediabetes: lifestyle programme, recheck in 6 months",
+          "team": "Healthy lifestyle programme"
+        },
+        "ok": {
+          "t": "Healthy; next IFHAS in 3 years",
+          "low": "healthy; next ifhas in 3 years"
+        }
+      },
+      "khalid_a1c": {
+        "dm": {
+          "t": "Diabetes range: second test and doctor review",
+          "low": "diabetes range: second test and doctor review",
+          "team": "Family doctor · Dr Aisha Al Hosani"
+        },
+        "pre": {
+          "t": "Prediabetes: healthy lifestyle programme",
+          "low": "prediabetes: healthy lifestyle programme",
+          "team": "Healthy lifestyle programme"
+        },
+        "ok": {
+          "t": "Healthy HbA1c",
+          "low": "healthy hba1c"
+        }
+      },
+      "amna_a1c": {
+        "dm": {
+          "t": "Diabetes range: second test and doctor review",
+          "low": "diabetes range: second test and doctor review",
+          "team": "Family doctor"
+        },
+        "pre": {
+          "t": "Prediabetes: lifestyle programme, recheck in 6 months",
+          "low": "prediabetes: lifestyle programme, recheck in 6 months",
+          "team": "Healthy lifestyle programme"
+        },
+        "ok": {
+          "t": "Healthy; recheck in a year",
+          "low": "healthy; recheck in a year"
+        }
+      },
+      "khalid_tc": {
+        "refer": {
+          "t": "Very high cholesterol: doctor review and family testing",
+          "low": "very high cholesterol: doctor review and family testing",
+          "team": "Family doctor · Dr Aisha Al Hosani"
+        },
+        "ok": {
+          "t": "Used in his heart risk",
+          "low": "used in his heart risk"
+        }
+      },
+      "khalid_hdl": {
+        "ok": {
+          "t": "Used in his heart risk",
+          "low": "used in his heart risk"
+        }
+      },
+      "khalid_sbp": {
+        "refer": {
+          "t": "High blood pressure: doctor review this week",
+          "low": "high blood pressure: doctor review this week",
+          "team": "Family doctor · Dr Aisha Al Hosani"
+        },
+        "ok": {
+          "t": "Used in his heart risk",
+          "low": "used in his heart risk"
+        }
+      },
+      "saeed_acr": {
+        "refer": {
+          "t": "Early kidney change: kidney protection review",
+          "low": "early kidney change: kidney protection review",
+          "team": "Diabetes clinic · Capital General Hospital"
+        },
+        "ok": {
+          "t": "Kidneys protected; recheck in a year",
+          "low": "kidneys protected; recheck in a year"
+        }
+      },
+      "sultan_sbp": {
+        "refer": {
+          "t": "High blood pressure at 21: repeat readings and doctor review",
+          "low": "high blood pressure at 21: repeat readings and doctor review",
+          "team": "Family doctor"
+        },
+        "ok": {
+          "t": "Healthy; next IFHAS in 3 years, quit support continues",
+          "low": "healthy; next ifhas in 3 years, quit support continues"
+        }
+      }
+    },
+    "doneBooked": "Booked: {{slot}}",
+    "doneMoza": "Dr Omar Haddad changed the dose; Noa Coach explained it to Moza in Arabic.",
+    "doneKeep": "Kept for 6 weeks; one reminder before.",
+    "doneDecline": "Choice respected: no reminders for 3 months; it stays in the passport.",
+    "routedWhy": "Sent to {{team}} within 2 weeks. Noa follows it until it happens.",
+    "routedDone": "Routed to {{team}}",
+    "c5": {
+      "t": "Family plan suggested",
+      "why": "{{conn}}. {{action}}.",
+      "done": "Offered to Khalid and Amna; shared only with their consent."
+    },
+    "status": {
+      "ok": "Up to date",
+      "care": "In care",
+      "booked": "Booked",
+      "due": "Due",
+      "overdue": "Overdue",
+      "alert": "Alert",
+      "declined": "Not now"
+    },
+    "slots": {
+      "hind": "Saturday 09:00, Al Khalidiya FHC",
+      "maitha": "Saturday 09:15, same clinic",
+      "khalid": "Saturday 09:30, same clinic",
+      "amna": "Saturday 09:45, same clinic",
+      "saeed": "Tuesday 10:00, his diabetes clinic visit",
+      "sultan": "Wednesday 19:00, Al Khalidiya FHC, with quit support"
+    },
+    "c4": {
+      "t": "Cholesterol test suggested",
+      "why": "{{conn}}. {{action}}.",
+      "done": "Offered to Maitha and Sultan; their choice."
+    },
+    "teams": {
+      "diabetes": "Diabetes clinic · Capital General Hospital",
+      "doctor": "Family doctor · Dr Aisha Al Hosani"
+    },
+    "next": {
+      "booked": "Booked: {{slot}}",
+      "declined": "“Not now” respected for 3 months",
+      "review": "Doctor review within 2 weeks",
+      "cholesterol": "Measure cholesterol at the next check",
+      "ifhas": "IFHAS screening",
+      "noIfhas": "IFHAS is for Emiratis 18–75: no IFHAS nudges",
+      "none": "Nothing due now"
+    },
+    "ageMonths": "{{n}} months",
+    "signals": {
+      "records": "Al Khalidiya FHC records",
+      "schedule": "Passport schedule (demo ages)",
+      "askedParent": "Asked the parent once",
+      "visitsDone": "Visits done: {{n}} of 14",
+      "allDone": "All visits done",
+      "nextVisit": "Next: {{visit}}",
+      "nextVisitOverdue": "Next: {{visit}}, {{n}} weeks overdue",
+      "barrierClinic": "Barrier: clinic hours clash with shifts",
+      "barrierNone": "Barrier: none",
+      "bp": {
+        "app": "BP cuff via the InsideSync app",
+        "cuff": "Home BP cuff",
+        "clinic": "Clinic reading"
+      },
+      "wt": {
+        "scale": "Smart scale via the InsideSync app",
+        "clinic": "Last clinic visit"
+      },
+      "checkin": "1-minute check-in",
+      "labs": "Clinic and lab records",
+      "links": "Family links",
+      "framingham": "Framingham 10-year heart risk",
+      "next": "Next action",
+      "bpValue": "Top number {{sbp}} mmHg{{trend}}{{tx}}",
+      "rising": " · rising {{n}} a year",
+      "falling": " · falling {{n}} a year",
+      "onTablets": " · on BP tablets",
+      "bmiValue": "BMI {{bmi}}{{trend}}",
+      "bmiTrend": " · {{n}} a year",
+      "checkinValue": "Smokes: {{smoker}} · diabetes: {{dm}}",
+      "labsValue": "Cholesterol {{tc}}, HDL {{hdl}} mmol/L",
+      "labsMissing": "Cholesterol not measured yet: BMI used instead",
+      "fcValue": "{{pct}} ({{cat}}) · heart age {{ha}}",
+      "fcNone": "Not scored: {{why}}"
+    },
+    "pfl": {
+      "age": "Age",
+      "sbp": "Blood pressure (top number)",
+      "bmi": "BMI",
+      "tc": "Total cholesterol",
+      "hdl": "HDL cholesterol",
+      "sbpTrend": "Blood pressure trend",
+      "bmiTrend": "BMI trend",
+      "ageM": "Age",
+      "overdueW": "Weeks overdue",
+      "bpTx": "On BP tablets",
+      "smoker": "Smokes or vapes",
+      "dm": "Diabetes",
+      "emirati": "Emirati",
+      "cvd": "Had a heart attack or stroke"
+    },
+    "fmt": {
+      "age": "{{v}} years",
+      "sbp": "{{v}} mmHg",
+      "mmol": "{{v}} mmol/L",
+      "sbpTrend": "{{v}} mmHg/yr",
+      "bmiTrend": "{{v}}/yr",
+      "ageM": "{{v}} months",
+      "overdueW": "{{v}} weeks"
+    }
+  },
+  "common": {
+    "dotPair": "{{a}} · {{b}}",
+    "pair": "{{a}}, {{b}}",
+    "colon": "{{a}}: {{b}}",
+    "list": "{{list}}",
+    "yes": "yes",
+    "no": "no"
+  },
+  "actor": {
+    "guardian": "Noa Guardian",
+    "voice": "Noa Voice",
+    "responder": "Noa Responder",
+    "courier": "Noa Courier",
+    "insight": "Noa Insight",
+    "coach": "Noa Coach",
+    "navigator": "Noa Navigator",
+    "analyst": "Noa Analyst",
+    "noa": "Noa",
+    "system": "system",
+    "hospital": "Hospital",
+    "forecast": "Noa Forecast"
+  },
+  "status": {
+    "new": "new",
+    "accepted": "accepted",
+    "bookingOffered": "booking offered",
+    "routed": "routed"
+  },
+  "source": {
+    "glucose": "Glucose sensor",
+    "scale": "Scale and oximeter",
+    "watch": "Watch and home sensors",
+    "passport": "Family Health Passport",
+    "phoneApp": "Phone app",
+    "clinic": "Clinic"
+  },
+  "teams": {
+    "emergency": "Emergency services and hospital",
+    "hfNurse": "Heart failure nurse",
+    "fallsClinic": "Falls clinic",
+    "familyDoctor": "Family doctor",
+    "emergencyServices": "Emergency services"
+  },
+  "reading": {
+    "R1": "heart rate above 120 for 10 min while still",
+    "R2": "fall detected, still on the floor after 2 min",
+    "R3": "glucose {{glu}} mmol/L",
+    "R4": "weight up {{wt}} kg / oxygen {{spo2}}%"
+  },
+  "decision": {
+    "noAction": "No action",
+    "standDown": "Stand down",
+    "standDownWhy": "{{n}} answered clearly and {{her}} speech is normal. Noa stands down and tells {{f1s}} and {{f2s}} {{she}} is fine.",
+    "nothingToNudge": "Nothing to nudge",
+    "declineWhy": "{{addr}} said not now. Noa records the choice, sends no more reminders for 3 months, and keeps it in the passport for whenever {{addr}} is ready."
+  },
+  "audit": {
+    "caseLoaded": "Case loaded",
+    "noAction": "No action",
+    "ruleMet": "Rule {{rule}} met",
+    "standDown": "Stand down",
+    "checkPassed": "Check passed",
+    "decision": "Decision {{rule}}",
+    "call998": "998 call",
+    "operatorTook": "Operator took over",
+    "monthlyReport": "Monthly report sent"
+  },
+  "feed": {
+    "safetyAlert": "Safety alert: “Noa is checking on {{n}} now.”",
+    "allClear": "All clear: {{n}} answered clearly. {{She}} is fine.",
+    "sugarBack": "Sugar back to {{v}}. {{n}} is eating a snack.",
+    "family": "Family",
+    "sentReadings": "Noa sent {{n}}’s readings to {{team}}.",
+    "planChanged": "{{n}}’s care team changed the plan; Noa explained it to {{herO}}."
+  },
+  "log": {
+    "start": "Case loaded · {{person}} · {{title}}",
+    "watching": "Noa Guardian · watching {{n}} from {{at}}",
+    "noticed": {
+      "fastMoving": "fast heart rate while moving (expected)",
+      "settled": "fast heart rate settled after {{min}} min",
+      "fallUp": "fall, but up again within 2 minutes",
+      "some": "Noticed: {{notes}}. No rule met, so nobody is woken.",
+      "none": "All readings are within {{her}} normal range. No rule met, so nobody is woken."
+    },
+    "noRuleMet": "Noa Guardian · no rule met · {{why}}",
+    "detect": "Noa Guardian · rule {{rule}} met: {{reading}} → hand-off to Noa Voice",
+    "alertFamily": "Noa Guardian → {{f1s}} and {{f2s}}: “Noa is checking on {{n}}.”",
+    "ask": "Noa Voice calls {{n}}: “{{q}}”",
+    "standDown": "Noa Voice · speech normal, answer clear → stand down; family told",
+    "decide": "Noa agents decide · {{rule}} → {{name}}",
+    "speechScored": "Noa Voice · speech check: {{level}} (score {{score}})",
+    "speechNone": "Noa Voice · speech check: no answer",
+    "answers": "{{n}} answers Noa Voice: {{a}}",
+    "passportWhy": "Noa Guardian · {{why}}",
+    "passportDue": "Noa Guardian · {{item}} · {{rem}} reminders already sent",
+    "passportDueOverdue": "Noa Guardian · {{item}}, overdue {{n}} weeks · {{rem}} reminders already sent",
+    "askBarrier": "Noa Voice → {{addr}}: one question to find the barrier, instead of reminder {{next}}",
+    "barrierAnswer": "{{addr}}: {{a}}",
+    "noaPickedRoute": "Noa Navigator · {{rule}} ← {{name}}, picked from the family history; no answer was asked",
+    "choiceRecorded": "Noa Navigator · choice recorded; reminders paused for 3 months",
+    "decidePrev": "Noa agents decide · {{rule}} → {{name}} (not another reminder)",
+    "routeTo": "Noa Insight · {{label}} {{v}} → {{team}}",
+    "routeHealthy": "Noa Insight · {{label}} {{v}} → healthy · passport: {{next}}",
+    "routeFamilyHealthy": "Noa Insight · {{label}} {{v}} → healthy · passport",
+    "accepted": "{{team}} accepted · {{what}}",
+    "badge": "Family badge: {{b}}",
+    "booked": "Noa Navigator · {{n}} booked: {{slot}}",
+    "strokeClinicAccepted": "Stroke clinic accepted Moza’s alert",
+    "amnaKeeps": "Amna keeps the original date; one reminder before",
+    "notNow": "Noa Navigator · {{n}}: not now · reminders paused 3 months",
+    "score": "Family passport {{score}}% ({{d}})",
+    "connectC5": "Noa Insight · new family connection: Khalid’s result → family eating and activity plan",
+    "chosePlan": "{{n}} chose who sees the plan: {{who}}",
+    "aiWrote": "Noa Coach · explanation written live by an AI model",
+    "teachBackPassed": "Noa Coach · teach-back passed",
+    "teachBackPassedAuto": "Noa Coach · teach-back passed",
+    "teachBackSecond": "Noa Coach · teach-back passed on the second try",
+    "teachBackNotYet": "Noa Coach · teach-back: not yet · explains more simply",
+    "recheckOk": "Noa Coach · recheck {{v}} mmol/L → recovered; snack now; doctor in the morning",
+    "recheckLow": "Noa Coach · recheck {{v}} mmol/L → still low: another 15 g, check again in 15 min",
+    "escalate": "Two rechecks still low → hand-off to Noa Responder: 998",
+    "dailyOk": "Noa Navigator · {{label}} {{v}} {{unit}} is on target ({{target}}) → no alert",
+    "dailyRoute": "Noa Navigator · {{finding}} → {{team}}",
+    "clinicAccepted": "{{team}} accepted the alert · {{act}}",
+    "reportSent": "Noa Analyst drafted, hospital signed off · {{title}} report → Department of Health",
+    "connectC4": "Noa Insight · new family connection: Khalid’s very high cholesterol → tests for Maitha and Sultan",
+    "connectC8": "Noa Insight · new family connection: father and son both smoke → quit support for both",
+    "editField": "Profile changed by you · {{n}}: {{label}} {{value}}",
+    "editToggle": "Profile changed by you · {{n}}: {{label}} {{yn}}",
+    "editLabsOn": "Profile changed by you · {{n}}: cholesterol measured",
+    "editLabsOff": "Profile changed by you · {{n}}: cholesterol not measured",
+    "editSex": "Profile changed by you · {{n}}: sex {{sex}}",
+    "editReset": "Family profiles reset",
+    "fcHighOffered": "Noa Forecast · {{n}}: 10-year heart risk {{pct}} (high) → doctor review offered",
+    "fcHighRouted": "Noa Forecast · {{n}}: 10-year heart risk {{pct}} (high) → routed to the family doctor",
+    "fcWithdrawn": "Noa Forecast · {{n}}: risk now {{risk}}, below high · alert withdrawn",
+    "fcNotScored": "not scored",
+    "fcRecalc": "Noa Forecast · Khalid recalculated with cholesterol: {{pct}} ({{cat}}), heart age {{ha}}",
+    "fcBooked": "Noa Navigator · {{n}}: doctor review for heart risk",
+    "fcNotNow": "Noa Navigator · {{n}}: not now (heart review)"
+  },
+  "db": {
+    "agentName": "Noa {{n}}",
+    "callList": "{{f1}} → {{f2}}",
+    "consent": {
+      "emergency": "Emergency services and hospital",
+      "alwaysShare": "always share",
+      "familyDoctor": "Family doctor",
+      "share": "share",
+      "granted": "granted",
+      "malaffi": "Abu Dhabi shared record",
+      "planned": "planned link",
+      "private": "private",
+      "parent": "parent"
+    },
+    "famName": "{{n}} ({{rel}})",
+    "famChildren": "Hind, Hamdan",
+    "malaffi": "Malaffi",
+    "linked": "linked",
+    "source": "Source",
+    "famPatient": "FAM-1 · {{n}}",
+    "speechCheck": "speech check",
+    "noAnswer": "no answer",
+    "speechDetailTimed": "score {{score}} · {{matched}}/{{total}} words · {{secs}} s",
+    "speechDetailTyped": "score {{score}} · {{matched}}/{{total}} words · typed",
+    "due": "Due: {{item}}",
+    "dueOverdue": "Due: {{item}} · overdue {{n}} weeks",
+    "choiceRecorded": "Choice recorded: not now",
+    "noRemindersUntil": "no reminders until {{date}}",
+    "itemDue": "{{item}} due",
+    "ruleName": "{{rule}} {{name}}",
+    "readingUnit": "{{label}}: {{v}} {{unit}}",
+    "reading": "{{label}}: {{v}}",
+    "bookedSlot": "Booked {{slot}}",
+    "mozaDose": "Moza: dose review",
+    "doneArabic": "done, explained in Arabic",
+    "nobody": "nobody",
+    "planInApp": "Plan in the phone app: {{text}}",
+    "deliveredTo": "delivered · visible to {{who}}",
+    "teachBack": "teach-back",
+    "passed": "passed",
+    "firstTry": "first try",
+    "secondTry": "second try",
+    "glucoseRecheck": "glucose recheck {{v}} mmol/L",
+    "lowNotRecovering": "Low sugar not recovering after two tries",
+    "dailyReading": "{{label}}: {{v}} {{unit}}",
+    "target": "target {{t}}",
+    "actClinician": "{{act}} (the clinician decides)",
+    "explainedChange": "done; Noa Coach explained the change and checked understanding",
+    "doh": "Department of Health",
+    "measuresOnly": "Measures only, no names",
+    "yesAnonymous": "yes, anonymous",
+    "notes": {
+      "agents": "The Noa agents, what each may do and what each may never do.",
+      "patients": "The person in this case.",
+      "consents": "What the person chose to share, and with whom.",
+      "observations": "Readings you entered and the sensors recorded.",
+      "checkins": "Noa Voice and Coach check-ins: speech checks and teach-back.",
+      "alerts": "Created when a rule says someone must act.",
+      "tasks": "Calls, plans and follow-ups, until done.",
+      "encounters": "Hospital and clinic events, step by step.",
+      "reports": "What the hospital sends to the Department of Health, without names.",
+      "audit": "Who did what, and when."
+    },
+    "famConsent": {
+      "moza": "Her record, shared with Khalid",
+      "saeed": "His record, shared with Amna",
+      "khalid": "His record and forecast; results shared with Amna",
+      "amna": "Her record; results shared with Khalid",
+      "maitha": "Her record; shared with Amna",
+      "sultan": "His record; shares nothing yet",
+      "children": "Children’s records, managed by Maitha",
+      "malaffi": "Abu Dhabi shared record",
+      "circle": "Amna, Moza",
+      "signals": "Noa Forecast (InsideSync app: BP cuff, scale, watch)"
+    },
+    "famReading": "Blood pressure {{sbp}} mmHg · BMI {{bmi}}",
+    "famReadingChol": "Blood pressure {{sbp}} mmHg · BMI {{bmi}} · cholesterol {{tc}}/{{hdl}}",
+    "fcFindingLab": "10-year heart risk {{pct}} (Framingham, with cholesterol)",
+    "fcFindingBmi": "10-year heart risk {{pct}} (Framingham, BMI)",
+    "bookedSunday": "Booked Sunday 10:00"
+  },
+  "checks": {
+    "noRule": "No rule met, so nobody was woken at night",
+    "fastWhileMoving": "A fast heart rate while moving (stairs) is expected, so no alert",
+    "ruleMet": "Rule {{rule}} met at {{at}}; Noa Voice checked at {{check}} ({{lag}} min, target ≤ 1)",
+    "waitedTen": "Waited for the full 10 minutes before waking {{n}}, so a short spike wakes nobody",
+    "standDown": "Speech normal and answer clear: no ambulance, family told {{she}} is fine",
+    "called998": "998 called at {{at}}, {{min}} min after the check (target ≤ 3)",
+    "hypoNotStroke": "Low sugar can look like a stroke, so Noa checked glucose first and did not start a stroke alert",
+    "hypoHome": "Answering clearly, so no ambulance: fast sugar now, recheck at {{at}}",
+    "headCt": "On a blood thinner: head CT flagged before arrival",
+    "fallMinor": "Up and talking clearly: no ambulance, fall-risk review booked",
+    "hfClinic": "Breathless only lying flat: same-day nurse, not 998",
+    "lastKnownWell": "Last known well {{at}} sent ahead for the stroke team",
+    "escalated": "Two rechecks stayed below 4.0, so Responder called 998 at once",
+    "p2Eligibility": "Checked eligibility before sending anything",
+    "p2NoNudge": "No nudge for a programme that doesn’t apply",
+    "askedAfterOne": "Asked about the barrier after {{n}} reminder instead of sending reminder {{next}}",
+    "askedAfterMany": "Asked about the barrier after {{n}} reminders instead of sending reminder {{next}}",
+    "askedBefore": "Asked about the barrier before any reminder",
+    "p8Recorded": "Choice recorded: no more nudges for 3 months",
+    "p8Kept": "The passport keeps it there; nothing is hidden",
+    "matched": "Matched the support to the barrier: {{name}}",
+    "oneTap": "Booking offered in one tap, near home",
+    "choicePreserved": "Choice preserved: {{addr}} can change or cancel",
+    "expatNoNudge": "Did not nudge Priya or Vikram for IFHAS: it is for Emiratis aged 18–75",
+    "oneTrip": "One trip for the family: Khalid’s overdue screening booked 30 minutes later",
+    "fam": [
+      "Asked Maitha why, after 3 ignored reminders, instead of sending a 4th",
+      "Raised Khalid’s screening from home signals and his parents’ history, before he feels anything",
+      "Scored only where Framingham is valid: not Moza (after a stroke), not Maitha or Sultan (under 30)",
+      "Added Saeed’s checks to a visit he already has, instead of a new trip",
+      "Celebrated Hamdan being up to date instead of nudging him"
+    ]
+  },
+  "tokens": {
+    "normal": "normal",
+    "possChild": "{{n}}’s",
+    "possAdult": "your",
+    "nextCheck": "the next check",
+    "nextIfhas": "the next IFHAS check in 3 years",
+    "speech": {
+      "scored": "score {{score}} ({{level}})",
+      "none": "no answer"
+    },
+    "voice": {
+      "awareness": "Here is what is due and why, in plain words: {{list}}. I can book {{slot}}.",
+      "access": "I found {{slot}}. Shall I book it?",
+      "trust": "Would {{slot}} suit you? You are welcome to bring someone with you.",
+      "value": "{{why}} Shall I book {{slot}}?",
+      "valueDefault": "These checks find problems years before you feel anything.",
+      "other": "No problem. Shall I book {{slot}}?"
+    },
+    "she_m": "he",
+    "she_f": "she",
+    "She_m": "He",
+    "She_f": "She",
+    "her_m": "his",
+    "her_f": "her",
+    "Her_m": "His",
+    "Her_f": "Her",
+    "herO_m": "him",
+    "herO_f": "her"
+  },
+  "speech": {
+    "level": {
+      "green": "as usual",
+      "amber": "a little different",
+      "red": "clearly changed"
+    },
+    "sample": {
+      "usual": "Use {{n}}’s usual speech",
+      "slurred": "Use slurred speech",
+      "none": "No answer"
+    },
+    "sentence": {
+      "en": "My name is {{n}} and I live in Abu Dhabi",
+      "ar": "اسمي {{nar}} وأعيش في أبوظبي"
+    },
+    "slurred": {
+      "en": "my … nay … {{n2}} … abu",
+      "ar": "اسـ … {{nar2}} … بوظ"
+    }
+  },
+  "forecast": {
+    "cat": {
+      "high": "High",
+      "mid": "Moderate",
+      "low": "Low"
+    },
+    "catLower": {
+      "high": "high",
+      "mid": "moderate",
+      "low": "low"
+    },
+    "na": {
+      "child": "Children are followed by well-child visits, not a heart score.",
+      "cvd": "Has had a heart attack or stroke, so a risk score does not apply: their clinic manages heart risk directly.",
+      "under30": "The Framingham score is valid from 30. Until then Noa shows habits that set lifetime risk.",
+      "over74": "The Framingham score is valid up to 74. Their doctor decides."
+    },
+    "naShort": {
+      "child": "Children are followed by well-child visits",
+      "cvd": "Has had a heart attack or stroke",
+      "under30": "The Framingham score is valid from 30. Until then Noa shows habits that set lifetime risk.",
+      "over74": "The Framingham score is valid up to 74. Their doctor decides."
+    },
+    "evidence": {
+      "lab": "Total and HDL cholesterol used",
+      "bmiUsed": "BMI used because cholesterol is not measured yet"
+    },
+    "ha": {
+      "atMost30": "30 or less",
+      "over100": "over 100"
+    }
+  },
+  "inputs": {
+    "missing": "{{label}} is needed. Enter a number.",
+    "clamped": "{{label}}: {{value}} is outside {{min}} to {{max}}, so {{applied}} is used.",
+    "rejected": "{{label}}: {{value}} is outside the plausible range {{min}} to {{max}} and was not accepted. Enter a value in that range.",
+    "outOfRange": "{{label}}: {{value}} is outside the plausible range {{min}} to {{max}}. Correct it before Noa decides.",
+    "rec": {
+      "glucose": "No glucose reading: Noa cannot check for low sugar (rule R3) until the sensor is on.",
+      "cholesterol": "Cholesterol is not measured yet, so Noa uses BMI for the heart score.",
+      "cholesterolPair": "Only one of total and HDL cholesterol is entered, so Noa uses BMI for the heart score."
+    },
+    "field": {
+      "hr": "Heart rate",
+      "dur": "How long it stays",
+      "floor": "Time on the floor",
+      "glu": "Glucose",
+      "spo2": "Blood oxygen",
+      "wt": "Weight change in 3 days",
+      "age": "Age",
+      "overdue": "Weeks overdue",
+      "rem": "Reminders already sent"
+    }
+  }
+}

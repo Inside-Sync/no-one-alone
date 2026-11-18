@@ -15,6 +15,8 @@ export interface DistrictMetric {
   suffix: string
   /** A tall column is a good one (reached care, coverage): the colour runs the other way. */
   higherIsBetter?: boolean
+  /** Areas whose value is suppressed (under 10): drawn as a flat stub labelled with `token`, not as their value. */
+  hidden?: boolean[]
 }
 
 interface Props {
@@ -50,8 +52,8 @@ export function DistrictMap({
 }: Props) {
   const { t } = useTranslation()
   const scene = useMemo(
-    () => buildDistrict(areas, metric.values, metric.suffix, highlight, metric.higherIsBetter),
-    [areas, metric.values, metric.suffix, metric.higherIsBetter, highlight],
+    () => buildDistrict(areas, metric.values, metric.suffix, highlight, metric.higherIsBetter, metric.hidden, t('suppression.token')),
+    [areas, metric.values, metric.suffix, metric.higherIsBetter, metric.hidden, highlight, t],
   )
   return (
     <City3D

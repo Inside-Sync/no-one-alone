@@ -1,0 +1,1108 @@
+{
+ "family": {
+  "steps": [
+   "1 · PassportFamily Health Passport",
+   "2 · VisitsThe family trip",
+   "3 · ResultsResults, risk and connections",
+   "4 · ExplainNoa explains, to each person",
+   "5 · Follow upUntil every result reaches care",
+   "6 · DepartmentReport to the Department"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 8,
+   "consents": 10,
+   "observations": 15,
+   "checkins": 0,
+   "alerts": 6,
+   "tasks": 15,
+   "encounters": 12,
+   "reports": 1,
+   "audit": 2
+  },
+  "log": [
+   "09:00POSTNoa Analyst drafted, hospital signed off · Family Health Passport report → Department of Health",
+   "11:00STEPPassport · Next checks for all eight are in the passport, each with one reminder only. Noa Forecast recalculates when new readings arrive.",
+   "10:50STEPFamily plan · Week 1: Friday family walk, sugary drinks swapped at home. Hind and Hamdan’s growth watched.",
+   "10:30STEPSaeed · kidney protection · His diabetes doctor adjusts his medicines; recheck in 3 months.",
+   "10:20STEPAmna · lifestyle programme · Joins with Khalid: 8 weekly sessions, evenings.",
+   "10:12STEPKhalid · heart risk · Forecast shared with Khalid: quitting medwakh and lower blood pressure bring his 5-year line down.",
+   "10:10STEPKhalid · doctor review · Dr Aisha Al Hosani reviews his HbA1c, cholesterol and heart risk; care plan agreed. The doctor decides the treatment.",
+   "10:00STEPHind · hearing test · Normal hearing; 6 speech therapy sessions on Saturdays near home.",
+   "18:20CONSENTKhalid chose who sees the plan: Amna, Moza",
+   "18:00CHECKNoa Coach · teach-back passed",
+   "12:00BADGEFamily badge: Every adult’s heart risk known",
+   "12:00BADGEFamily badge: Hind: 8 of 14 visits",
+   "12:00BADGEFamily badge: Family plan started",
+   "12:00CONNECTNoa Insight · new family connection: Khalid’s result → family eating and activity plan",
+   "12:00FORECASTNoa Forecast · Khalid: 10-year heart risk 26% (high) → routed to the family doctor",
+   "12:00FORECASTNoa Forecast · Saeed: 10-year heart risk 40% (high) → routed to the family doctor",
+   "12:00FORECASTNoa Forecast · Khalid recalculated with cholesterol: 26% (high), heart age 77",
+   "12:00ROUTENoa Insight · Sultan: blood pressure (top number) 126 → healthy · passport",
+   "12:00ROUTENoa Insight · Saeed: urine albumin (ACR) 4.2 → Diabetes clinic · Capital General Hospital",
+   "12:00ROUTENoa Insight · Amna: HbA1c 6 → Healthy lifestyle programme",
+   "12:00ROUTENoa Insight · Khalid: HbA1c 6.1 → Healthy lifestyle programme",
+   "12:00ROUTENoa Insight · Maitha: HbA1c 5.4 → healthy · passport",
+   "12:00ROUTENoa Insight · Hind: words besides mama and dada 2 → Child speech and hearing clinic",
+   "19:00RECORDSultan · Wednesday evening · Blood pressure, BMI, HbA1c. A young doctor talked with him about vaping; quit app set up.",
+   "10:00RECORDSaeed · at his diabetes visit · Eye photos and a urine albumin test added. No extra trip.",
+   "09:45RECORDAmna · HbA1c, 6 weeks early · 5 minutes while the grandchildren wait with Khalid.",
+   "09:30RECORDKhalid · IFHAS screening · Blood pressure taken. HbA1c and cholesterol (fasting). Bowel test kit given. Quit support offered. Family history recorded: mother’s stroke, father’s heart attack at 62.",
+   "09:15RECORDMaitha · IFHAS · Blood pressure 114/72, HbA1c taken. Her mother’s diabetes in pregnancy noted for any future pregnancy.",
+   "09:00RECORDHind · 18-month visit · Weighed, measured, vaccines given. The doctor records the words she says.",
+   "18:35SCOREFamily passport 76% (+9)",
+   "18:35CONNECTNoa Insight · new family connection: father and son both smoke → quit support for both",
+   "18:35BADGEFamily badge: Sultan’s first screening",
+   "18:35BOOKNoa Navigator · Sultan booked: Wednesday 19:00, Al Khalidiya FHC, with quit support",
+   "18:35SCOREFamily passport 67% (+9)",
+   "18:35BOOKNoa Navigator · Saeed booked: Tuesday 10:00, his diabetes clinic visit",
+   "18:35SCOREFamily passport 58% (+4)",
+   "18:35BOOKNoa Navigator · Amna booked: Saturday 09:45, same clinic",
+   "18:35SCOREFamily passport 54% (+8)",
+   "18:35BADGEFamily badge: Khalid’s first screening",
+   "18:35BOOKNoa Navigator · Khalid booked: Saturday 09:30, same clinic",
+   "18:35SCOREFamily passport 46% (+4)",
+   "18:35BADGEFamily badge: One trip, four checks",
+   "18:35BOOKNoa Navigator · Maitha booked: Saturday 09:15, same clinic",
+   "18:35SCOREFamily passport 42% (+9)",
+   "18:35BOOKNoa Navigator · Hind booked: Saturday 09:00, Al Khalidiya FHC",
+   "18:35SCOREFamily passport 33% (+8)",
+   "18:35BADGEFamily badge: Moza’s blood pressure plan updated",
+   "18:35ACCEPTStroke clinic accepted Moza’s alert",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "FAM-1-8|Hamdan (grandson)|5|4|Al Khalidiya FHC, School health|Through Maitha",
+    "FAM-1-7|Hind (granddaughter)|18 months|4|Al Khalidiya FHC, Capital Women’s Hospital|Through Maitha",
+    "FAM-1-6|Sultan (son)|21|3|Al Khalidiya FHC, University clinic|Short message only, evenings",
+    "FAM-1-5|Maitha (daughter)|25|3|Al Khalidiya FHC, Capital Women’s Hospital|In the app, after night shifts",
+    "FAM-1-4|Amna (mum)|45|2|Al Khalidiya FHC, Capital Women’s Hospital|In the app, one tap, family calendar",
+    "FAM-1-3|Khalid (dad)|47|2|Al Khalidiya FHC|Short message: what it means for him",
+    "FAM-1-2|Saeed (grandpa)|69|1|Capital General Hospital|Phone call; his son Rashid helps",
+    "FAM-1-1|Moza (grandma)|78|1|Corniche Stroke Centre, Al Bateen FHC|Arabic voice call; calls her Umm Khalid"
+   ],
+   "consents": [
+    "Khalid|home_signals|Noa Forecast (InsideSync app: BP cuff, scale, watch)|granted|Oct 2026",
+    "Khalid|family_circle|Amna, Moza|granted|26 Oct",
+    "Malaffi|record|Abu Dhabi shared record|planned link|Oct 2026",
+    "Hind, Hamdan|record|Children’s records, managed by Maitha|parent|Oct 2026",
+    "Sultan|record|His record; shares nothing yet|private|Oct 2026",
+    "Maitha|record|Her record; shared with Amna|granted|Oct 2026",
+    "Amna|record|Her record; results shared with Khalid|granted|Oct 2026",
+    "Khalid|record|His record and forecast; results shared with Amna|granted|Oct 2026",
+    "Saeed|record|His record, shared with Amna|granted|Oct 2026",
+    "Moza|record|Her record, shared with Khalid|granted|Oct 2026"
+   ],
+   "observations": [
+    "O-10015|FAM-1|Sultan: blood pressure (top number): 126 mmHg|Clinic|25 Oct 12:00",
+    "O-10014|FAM-1|Saeed: urine albumin (ACR): 4.2 mg/mmol|Clinic|25 Oct 12:00",
+    "O-10013|FAM-1|Amna: HbA1c: 6 %|Clinic|25 Oct 12:00",
+    "O-10012|FAM-1|Khalid: clinic blood pressure (top number): 142 mmHg|Clinic|25 Oct 12:00",
+    "O-10011|FAM-1|Khalid: HDL (“good”) cholesterol: 0.9 mmol/L|Clinic|25 Oct 12:00",
+    "O-10010|FAM-1|Khalid: total cholesterol: 6.4 mmol/L|Clinic|25 Oct 12:00",
+    "O-10009|FAM-1|Khalid: HbA1c: 6.1 %|Clinic|25 Oct 12:00",
+    "O-10008|FAM-1|Maitha: HbA1c: 5.4 %|Clinic|25 Oct 12:00",
+    "O-10007|FAM-1|Hind: words besides mama and dada: 2 words|Clinic|25 Oct 12:00",
+    "O-10006|FAM-1-6|Blood pressure 124 mmHg · BMI 26|Phone only|14 Oct",
+    "O-10005|FAM-1-5|Blood pressure 112 mmHg · BMI 24|Phone only|14 Oct",
+    "O-10004|FAM-1-4|Blood pressure 124 mmHg · BMI 28 · cholesterol 5.3/1.3|InsideSync app: watch|14 Oct",
+    "O-10003|FAM-1-3|Blood pressure 132 mmHg · BMI 29|InsideSync app: watch, BP cuff, scale|14 Oct",
+    "O-10002|FAM-1-2|Blood pressure 136 mmHg · BMI 30 · cholesterol 4.6/1|Glucose sensor, BP cuff|14 Oct",
+    "O-10001|FAM-1-1|Blood pressure 146 mmHg · BMI 26 · cholesterol 4.2/1.4|Watch and BP cuff; Noa Voice calls|14 Oct"
+   ],
+   "checkins": [],
+   "alerts": [
+    "AL-06|FAM-1 · Khalid|red|10-year heart risk 26% (Framingham, with cholesterol)|F1|Family doctor · Dr Aisha Al Hosani|routed|25 Oct 12:00",
+    "AL-05|FAM-1 · Saeed|red|10-year heart risk 40% (Framingham, with cholesterol)|F1|Diabetes clinic · Capital General Hospital|routed|25 Oct 12:00",
+    "AL-04|FAM-1 · Saeed|amber|Early kidney change: kidney protection review|P9|Diabetes clinic · Capital General Hospital|routed|25 Oct 12:00",
+    "AL-03|FAM-1 · Amna|amber|Prediabetes: lifestyle programme, recheck in 6 months|P9|Healthy lifestyle programme|routed|25 Oct 12:00",
+    "AL-02|FAM-1 · Khalid|amber|Prediabetes: healthy lifestyle programme|P9|Healthy lifestyle programme|routed|25 Oct 12:00",
+    "AL-01|FAM-1 · Hind|amber|Hearing test and speech assessment|P9|Child speech and hearing clinic|routed|25 Oct 12:00"
+   ],
+   "tasks": [
+    "T-15|9 Nov 11:00|Passport|Next checks for all eight are in the passport, each with one reminder only. Noa Forecast recalculates when new readings arrive.",
+    "T-14|9 Nov 10:50|Family plan|Week 1: Friday family walk, sugary drinks swapped at home. Hind and Hamdan’s growth watched.",
+    "T-13|9 Nov 10:30|Saeed · kidney protection|His diabetes doctor adjusts his medicines; recheck in 3 months.",
+    "T-12|9 Nov 10:20|Amna · lifestyle programme|Joins with Khalid: 8 weekly sessions, evenings.",
+    "T-11|9 Nov 10:12|Khalid · heart risk|Forecast shared with Khalid: quitting medwakh and lower blood pressure bring his 5-year line down.",
+    "T-10|9 Nov 10:10|Khalid · doctor review|Dr Aisha Al Hosani reviews his HbA1c, cholesterol and heart risk; care plan agreed. The doctor decides the treatment.",
+    "T-09|9 Nov 10:00|Hind · hearing test|Normal hearing; 6 speech therapy sessions on Saturdays near home.",
+    "T-08|26 Oct 18:20|Plan in the phone app: Each person hears their own result their own way. The family plan is shared only with consent.|delivered · visible to Amna, Moza",
+    "T-07|20 Oct 18:35|Sultan: Never screened; vapes every day|Booked Wednesday 19:00, Al Khalidiya FHC, with quit support",
+    "T-06|20 Oct 18:35|Saeed: Eye and kidney checks 14 months overdue|Booked Tuesday 10:00, his diabetes clinic visit",
+    "T-05|20 Oct 18:35|Amna: HbA1c recheck due in 6 weeks|Booked Saturday 09:45, same clinic",
+    "T-04|20 Oct 18:35|Khalid: No check-up in 4 years; IFHAS never done|Booked Saturday 09:30, same clinic",
+    "T-03|20 Oct 18:35|Maitha: IFHAS screening due (last done 2021)|Booked Saturday 09:15, same clinic",
+    "T-02|20 Oct 18:35|Hind: 18-month visit is 3 weeks overdue|Booked Saturday 09:00, Al Khalidiya FHC",
+    "T-01|20 Oct 18:35|Moza: dose review|done, explained in Arabic"
+   ],
+   "encounters": [
+    "E-06|28 Oct 19:00|Visits|Sultan · Wednesday evening · Blood pressure, BMI, HbA1c. A young doctor talked with him about vaping; quit app set up.|Al Khalidiya Family Health Centre",
+    "E-05|27 Oct 10:00|Visits|Saeed · at his diabetes visit · Eye photos and a urine albumin test added. No extra trip.|Al Khalidiya Family Health Centre",
+    "E-04|24 Oct 09:45|Visits|Amna · HbA1c, 6 weeks early · 5 minutes while the grandchildren wait with Khalid.|Al Khalidiya Family Health Centre",
+    "E-03|24 Oct 09:30|Visits|Khalid · IFHAS screening · Blood pressure taken. HbA1c and cholesterol (fasting). Bowel test kit given. Quit support offered. Family history recorded: mother’s stroke, father’s heart attack at 62.|Al Khalidiya Family Health Centre",
+    "E-02|24 Oct 09:15|Visits|Maitha · IFHAS · Blood pressure 114/72, HbA1c taken. Her mother’s diabetes in pregnancy noted for any future pregnancy.|Al Khalidiya Family Health Centre",
+    "E-01|24 Oct 09:00|Visits|Hind · 18-month visit · Weighed, measured, vaccines given. The doctor records the words she says.|Al Khalidiya Family Health Centre",
+    "SRC-6|linked|Source|Hamdan: vision and growth checks|School health",
+    "SRC-5|linked|Source|Amna and Maitha: pregnancies and births|Capital Women’s Hospital",
+    "SRC-4|linked|Source|Khalid, Amna, Maitha, Sultan, Hind, Hamdan: visits, vaccines, IFHAS|Al Khalidiya Family Health Centre",
+    "SRC-3|linked|Source|Saeed: diabetes clinic, glucose sensor|Capital General Hospital",
+    "SRC-2|linked|Source|Moza: blood pressure, past screening|Al Bateen Family Health Centre",
+    "SRC-1|linked|Source|Moza: stroke, discharge plan|Corniche Stroke Centre"
+   ],
+   "reports": [
+    "RPT-2026-10|Al Khalidiya Family Health Centre|Department of Health|Family Health Passport|Measures only, no names|yes, anonymous"
+   ],
+   "audit": [
+    "A-02|14 Nov 09:00|Hospital|Monthly report sent|Family Health Passport",
+    "A-01|20 Oct 18:30|system|Case loaded|Khalid Al Mansoori · The whole family"
+   ]
+  },
+  "kpi": [
+   "Families fully up to date41%+ this family",
+   "Checks done in one family trip2.6per trip",
+   "Screenings triggered by a relative’s diagnosis1,180this month",
+   "Adults with a heart forecast64%home signals + labs",
+   "High heart risk seen by a doctor within 2 weeks82%this family: yes",
+   "Reminders per completed check1.3down from 3.2",
+   "Passports covering 3+ generations18%life-long coverage"
+  ]
+ },
+ "wellchild": {
+  "steps": [
+   "1 · PassportFamily Health Passport",
+   "2 · BookBooked in one tap",
+   "3 · VisitThe visit",
+   "4 · ResultResult routed",
+   "5 · CareFrom result to care",
+   "6 · ExplainNoa explains",
+   "7 · Follow upUntil it’s done",
+   "8 · DepartmentReport to the Department"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 1,
+   "consents": 4,
+   "observations": 2,
+   "checkins": 0,
+   "alerts": 2,
+   "tasks": 6,
+   "encounters": 5,
+   "reports": 1,
+   "audit": 4
+  },
+  "log": [
+   "09:00POSTNoa Analyst drafted, hospital signed off · Well-child visits (1 month to 6 years) report → Department of Health",
+   "10:00STEPPassport · 2-year visit booked; one reminder 3 days before.",
+   "10:00STEPTherapy · 5 of 6 sessions attended. Hind now says 15 words.",
+   "10:00STEPSpeech assessment · Mild speech delay: 6 sessions of speech therapy on Saturdays near home.",
+   "10:00STEPHearing test · Normal hearing.",
+   "18:20CONSENTHind chose who sees the plan: Maitha, Amna",
+   "18:00CHECKNoa Coach · teach-back passed",
+   "09:00ACCEPTChild speech and hearing clinic accepted · Hearing test booked for next week; speech assessment after.",
+   "12:00ROUTENoa Insight · Words besides “mama” and “dada” 2 → Child speech and hearing clinic",
+   "09:25RECORDPassport updated · Next: the 2-year visit.",
+   "09:20RECORDVaccines · Given as per the schedule. No reaction after 15 minutes.",
+   "09:10RECORDDevelopment check · Walking well. The doctor records the words she says.",
+   "09:00RECORDCheck-in · Weighed and measured: growing on the 50th centile.",
+   "18:35ACTBook it · Booked: Saturday 09:00 at Al Khalidiya Family Health Centre, 2 km from home, with Maitha’s screening at 09:15 and grandfather Khalid’s at 09:30: one trip for the family",
+   "18:33DECIDENoa agents decide · P4 → Easy access and booking (not another reminder)",
+   "18:33ANSWERMaitha: “The times or the travel don’t work for us”",
+   "18:30ASKNoa Voice → Maitha: one question to find the barrier, instead of reminder 4",
+   "18:30PASSPORTNoa Guardian · 18-month visit (8 of 14), overdue 3 weeks · 3 reminders already sent",
+   "18:30STARTCase loaded · Hind Al Mansoori · Well-child visit overdue"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "P-1004|Hind Al Mansoori|18 months|F|None|Born at term · 15-month visit done · 18-month visit overdue|Growing on the 50th centile|Maitha (mother, nurse on shifts) → Amna (grandmother)"
+   ],
+   "consents": [
+    "malaffi|Abu Dhabi shared record|planned link|2 Jul 2026",
+    "family_circle|Maitha, Amna|granted|25 Oct",
+    "routine_alerts|Family doctor|share|2 Jul 2026",
+    "emergencies|Emergency services and hospital|always share|2 Jul 2026"
+   ],
+   "observations": [
+    "O-10002|P-1004|Words besides “mama” and “dada”: 2 words|Al Khalidiya Family Health Centre|24 Oct 12:00",
+    "O-10001|P-1004|Due: 18-month visit (8 of 14) · overdue 3 weeks|Family Health Passport|20 Oct 18:30"
+   ],
+   "checkins": [],
+   "alerts": [
+    "AL-02|P-1004|amber|Fewer than 3 words: a hearing test and speech assessment|P9|Child speech and hearing clinic|accepted|24 Oct 12:00",
+    "AL-01|P-1004|amber|18-month visit (8 of 14) due|P4 Easy access and booking|Noa Navigator|booking offered|20 Oct 18:33"
+   ],
+   "tasks": [
+    "T-06|13 Dec 10:00|Passport|2-year visit booked; one reminder 3 days before.",
+    "T-05|6 Dec 10:00|Therapy|5 of 6 sessions attended. Hind now says 15 words.",
+    "T-04|8 Nov 10:00|Speech assessment|Mild speech delay: 6 sessions of speech therapy on Saturdays near home.",
+    "T-03|1 Nov 10:00|Hearing test|Normal hearing.",
+    "T-02|25 Oct 18:20|Plan in the phone app: One thing at a time, in the family’s language.|delivered · visible to Maitha, Amna",
+    "T-01|25 Oct 09:00|Child speech and hearing clinic: fewer than 3 words: a hearing test and speech assessment|Hearing test booked for next week; speech assessment after."
+   ],
+   "encounters": [
+    "E-05|24 Oct 09:25|Visit|Passport updated · Next: the 2-year visit.|Al Khalidiya Family Health Centre",
+    "E-04|24 Oct 09:20|Visit|Vaccines · Given as per the schedule. No reaction after 15 minutes.|Al Khalidiya Family Health Centre",
+    "E-03|24 Oct 09:10|Visit|Development check · Walking well. The doctor records the words she says.|Al Khalidiya Family Health Centre",
+    "E-02|24 Oct 09:00|Visit|Check-in · Weighed and measured: growing on the 50th centile.|Al Khalidiya Family Health Centre",
+    "E-01|20 Oct 18:35|Book|Booked: Saturday 09:00 at Al Khalidiya Family Health Centre, 2 km from home, with Maitha’s screening at 09:15 and grandfather Khalid’s at 09:30: one trip for the family|Al Khalidiya Family Health Centre"
+   ],
+   "reports": [
+    "RPT-2026-10|Al Khalidiya Family Health Centre|Department of Health|Well-child visits (1 month to 6 years)|Measures only, no names|yes, anonymous"
+   ],
+   "audit": [
+    "A-04|5 Nov 09:00|Hospital|Monthly report sent|Well-child visits (1 month to 6 years)",
+    "A-03|20 Oct 18:35|Hospital|Book it|Booked: Saturday 09:00 at Al Khalidiya Family Health Centre, 2 km from home, with Maitha’s screening at 09:15 and grandfather Khalid’s at 09:30: one trip for the family",
+    "A-02|20 Oct 18:33|Noa|P4|Easy access and booking",
+    "A-01|20 Oct 18:30|system|Case loaded|Hind Al Mansoori · Well-child visit overdue"
+   ]
+  },
+  "kpi": [
+   "Visits on time78%+ this child",
+   "Completed after barrier-matched support64%vs 31% after reminders alone",
+   "Reminders per completed visit1.4down from 3.2",
+   "Expatriate families on schedule69%all nationalities",
+   "Most common barrierClinic hours41% of overdue visits",
+   "Development concerns seen within 2 weeks86%"
+  ]
+ },
+ "ifhas": {
+  "steps": [
+   "1 · PassportFamily Health Passport",
+   "2 · BookBooked in one tap",
+   "3 · VisitThe visit",
+   "4 · ResultResult routed",
+   "5 · CareFrom result to care",
+   "6 · ExplainNoa explains",
+   "7 · Follow upUntil it’s done",
+   "8 · DepartmentReport to the Department"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 1,
+   "consents": 4,
+   "observations": 2,
+   "checkins": 0,
+   "alerts": 2,
+   "tasks": 6,
+   "encounters": 5,
+   "reports": 1,
+   "audit": 4
+  },
+  "log": [
+   "09:00POSTNoa Analyst drafted, hospital signed off · IFHAS screening (Emiratis 18–75) report → Department of Health",
+   "10:00STEP3 months · HbA1c rechecked; next IFHAS items added to the passport.",
+   "10:00STEPBowel test · Kit returned: normal.",
+   "10:30STEPCare plan · Diet support in Arabic; eye and foot checks booked.",
+   "10:00STEPSecond HbA1c · Confirmed by Dr Aisha Al Hosani; care plan agreed. The doctor decides the treatment.",
+   "18:20CONSENTKhalid chose who sees the plan: Amna, Moza",
+   "18:00CHECKNoa Coach · teach-back passed",
+   "09:00ACCEPTFamily doctor · Dr Aisha Al Hosani accepted · Second HbA1c and doctor review booked in 2 weeks.",
+   "12:00ROUTENoa Insight · HbA1c 7.4 → Family doctor · Dr Aisha Al Hosani",
+   "09:20RECORDHeart risk · Family history recorded: mother’s stroke, father’s heart attack at 62. Cholesterol goes to Noa Forecast.",
+   "09:15RECORDBowel screening · Home test kit given, instructions in Arabic.",
+   "09:10RECORDBlood tests · HbA1c and cholesterol (fasting).",
+   "09:00RECORDCheck-in · Blood pressure 138/86. Waist 104 cm.",
+   "18:35ACTBook it · Booked: Saturday 09:30 at Al Khalidiya Family Health Centre, right after Hind’s visit: 15 minutes, fasting blood test",
+   "18:33DECIDENoa agents decide · P6 → Personalised outreach (not another reminder)",
+   "18:33ANSWERKhalid: “I feel fine, so why test?”",
+   "18:30ASKNoa Voice → Khalid: one question to find the barrier, instead of reminder 3",
+   "18:30PASSPORTNoa Guardian · IFHAS screening (3 groups due) · 2 reminders already sent",
+   "18:30STARTCase loaded · Khalid Al Mansoori · Adult screening never done"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "P-1005|Khalid Al Mansoori|47|M|None|No check-up in 4 years, IFHAS never done · mother: stroke and atrial fibrillation · father: heart attack at 62 · smokes medwakh|Logistics supervisor, long shifts; feels fine|Amna (wife) → Moza (mother)"
+   ],
+   "consents": [
+    "malaffi|Abu Dhabi shared record|planned link|2 Jul 2026",
+    "family_circle|Amna, Moza|granted|25 Oct",
+    "routine_alerts|Family doctor|share|2 Jul 2026",
+    "emergencies|Emergency services and hospital|always share|2 Jul 2026"
+   ],
+   "observations": [
+    "O-10002|P-1005|HbA1c: 7.4 %|Al Khalidiya Family Health Centre|24 Oct 12:00",
+    "O-10001|P-1005|Due: IFHAS screening (3 groups due)|Family Health Passport|20 Oct 18:30"
+   ],
+   "checkins": [],
+   "alerts": [
+    "AL-02|P-1005|amber|HbA1c in the diabetes range: a second test and a family doctor review|P9|Family doctor · Dr Aisha Al Hosani|accepted|24 Oct 12:00",
+    "AL-01|P-1005|amber|IFHAS screening (3 groups due) due|P6 Personalised outreach|Noa Navigator|booking offered|20 Oct 18:33"
+   ],
+   "tasks": [
+    "T-06|30 Jan 10:00|3 months|HbA1c rechecked; next IFHAS items added to the passport.",
+    "T-05|2 Nov 10:00|Bowel test|Kit returned: normal.",
+    "T-04|1 Nov 10:30|Care plan|Diet support in Arabic; eye and foot checks booked.",
+    "T-03|1 Nov 10:00|Second HbA1c|Confirmed by Dr Aisha Al Hosani; care plan agreed. The doctor decides the treatment.",
+    "T-02|25 Oct 18:20|Plan in the phone app: One thing at a time, in the family’s language.|delivered · visible to Amna, Moza",
+    "T-01|25 Oct 09:00|Family doctor · Dr Aisha Al Hosani: HbA1c in the diabetes range: a second test and a family doctor review|Second HbA1c and doctor review booked in 2 weeks."
+   ],
+   "encounters": [
+    "E-05|24 Oct 09:20|Visit|Heart risk · Family history recorded: mother’s stroke, father’s heart attack at 62. Cholesterol goes to Noa Forecast.|Al Khalidiya Family Health Centre",
+    "E-04|24 Oct 09:15|Visit|Bowel screening · Home test kit given, instructions in Arabic.|Al Khalidiya Family Health Centre",
+    "E-03|24 Oct 09:10|Visit|Blood tests · HbA1c and cholesterol (fasting).|Al Khalidiya Family Health Centre",
+    "E-02|24 Oct 09:00|Visit|Check-in · Blood pressure 138/86. Waist 104 cm.|Al Khalidiya Family Health Centre",
+    "E-01|20 Oct 18:35|Book|Booked: Saturday 09:30 at Al Khalidiya Family Health Centre, right after Hind’s visit: 15 minutes, fasting blood test|Al Khalidiya Family Health Centre"
+   ],
+   "reports": [
+    "RPT-2026-10|Al Khalidiya Family Health Centre|Department of Health|IFHAS screening (Emiratis 18–75)|Measures only, no names|yes, anonymous"
+   ],
+   "audit": [
+    "A-04|5 Nov 09:00|Hospital|Monthly report sent|IFHAS screening (Emiratis 18–75)",
+    "A-03|20 Oct 18:35|Hospital|Book it|Booked: Saturday 09:30 at Al Khalidiya Family Health Centre, right after Hind’s visit: 15 minutes, fasting blood test",
+    "A-02|20 Oct 18:33|Noa|P6|Personalised outreach",
+    "A-01|20 Oct 18:30|system|Case loaded|Khalid Al Mansoori · Adult screening never done"
+   ]
+  },
+  "kpi": [
+   "Uptake47%+ this person",
+   "Never-screened adults reached2,140this month",
+   "Results outside range seen within 2 weeks91%this case: yes",
+   "Most common barrier“I feel fine”38%",
+   "Family visits combined in one trip23%",
+   "Declined, choice recorded6%no repeat nudges"
+  ]
+ },
+ "expat": {
+  "steps": [
+   "1 · PassportFamily Health Passport",
+   "2 · BookBooked in one tap",
+   "3 · VisitThe visit",
+   "4 · ResultResult routed",
+   "5 · CareFrom result to care",
+   "6 · ExplainNoa explains",
+   "7 · Follow upUntil it’s done",
+   "8 · DepartmentReport to the Department"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 1,
+   "consents": 4,
+   "observations": 2,
+   "checkins": 0,
+   "alerts": 1,
+   "tasks": 3,
+   "encounters": 5,
+   "reports": 1,
+   "audit": 4
+  },
+  "log": [
+   "09:00POSTNoa Analyst drafted, hospital signed off · Well-child visits (1 month to 6 years) report → Department of Health",
+   "10:05STEPPassport · All 14 visits listed in English, with what each checks.",
+   "10:00STEPPassport · 6-month visit booked; one reminder 3 days before.",
+   "18:20CONSENTArjun chose who sees the plan: Priya, Vikram",
+   "18:00CHECKNoa Coach · teach-back passed",
+   "12:00ROUTENoa Insight · Weight-for-age centile 40 → healthy · passport: the 6-month visit",
+   "09:25RECORDPassport · Next: the 6-month visit.",
+   "09:20RECORDVaccines · 4-month vaccines given; records from India added to the passport.",
+   "09:10RECORDCheck · Feeding well, smiling, holding his head up.",
+   "09:00RECORDCheck-in · Weighed and measured.",
+   "18:35ACTBook it · Booked: Tuesday 10:00 at Mussafah Family Health Centre, 1 km away; Noa explains the 14 visits in English",
+   "18:33DECIDENoa agents decide · P3 → Know what is due (not another reminder)",
+   "18:33ANSWERPriya: “I didn’t know it was due”",
+   "18:30ASKNoa Voice → Priya: one question to find the barrier, instead of reminder 1",
+   "18:30PASSPORTNoa Guardian · 4-month visit (3 of 14) · 0 reminders already sent",
+   "18:30STARTCase loaded · Arjun Nair · New to Abu Dhabi"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "P-1006|Arjun Nair|4 months|M|None|Born in Kochi · 2-month vaccines given in India|Feeding well|Priya (mother, moved to Abu Dhabi 2 months ago) → Vikram (father)"
+   ],
+   "consents": [
+    "malaffi|Abu Dhabi shared record|planned link|2 Jul 2026",
+    "family_circle|Priya, Vikram|granted|25 Oct",
+    "routine_alerts|Family doctor|share|2 Jul 2026",
+    "emergencies|Emergency services and hospital|always share|2 Jul 2026"
+   ],
+   "observations": [
+    "O-10002|P-1006|Weight-for-age centile: 40 centile|Mussafah Family Health Centre|24 Oct 12:00",
+    "O-10001|P-1006|Due: 4-month visit (3 of 14)|Family Health Passport|20 Oct 18:30"
+   ],
+   "checkins": [],
+   "alerts": [
+    "AL-01|P-1006|amber|4-month visit (3 of 14) due|P3 Know what is due|Noa Navigator|booking offered|20 Oct 18:33"
+   ],
+   "tasks": [
+    "T-03|1 Nov 10:05|Passport|All 14 visits listed in English, with what each checks.",
+    "T-02|1 Nov 10:00|Passport|6-month visit booked; one reminder 3 days before.",
+    "T-01|25 Oct 18:20|Plan in the phone app: One thing at a time, in the family’s language.|delivered · visible to Priya, Vikram"
+   ],
+   "encounters": [
+    "E-05|24 Oct 09:25|Visit|Passport · Next: the 6-month visit.|Mussafah Family Health Centre",
+    "E-04|24 Oct 09:20|Visit|Vaccines · 4-month vaccines given; records from India added to the passport.|Mussafah Family Health Centre",
+    "E-03|24 Oct 09:10|Visit|Check · Feeding well, smiling, holding his head up.|Mussafah Family Health Centre",
+    "E-02|24 Oct 09:00|Visit|Check-in · Weighed and measured.|Mussafah Family Health Centre",
+    "E-01|20 Oct 18:35|Book|Booked: Tuesday 10:00 at Mussafah Family Health Centre, 1 km away; Noa explains the 14 visits in English|Mussafah Family Health Centre"
+   ],
+   "reports": [
+    "RPT-2026-10|Mussafah Family Health Centre|Department of Health|Well-child visits (1 month to 6 years)|Measures only, no names|yes, anonymous"
+   ],
+   "audit": [
+    "A-04|5 Nov 09:00|Hospital|Monthly report sent|Well-child visits (1 month to 6 years)",
+    "A-03|20 Oct 18:35|Hospital|Book it|Booked: Tuesday 10:00 at Mussafah Family Health Centre, 1 km away; Noa explains the 14 visits in English",
+    "A-02|20 Oct 18:33|Noa|P3|Know what is due",
+    "A-01|20 Oct 18:30|system|Case loaded|Arjun Nair · New to Abu Dhabi"
+   ]
+  },
+  "kpi": [
+   "Visits on time78%+ this child",
+   "Completed after barrier-matched support64%vs 31% after reminders alone",
+   "Reminders per completed visit1.4down from 3.2",
+   "Expatriate families on schedule69%all nationalities",
+   "Most common barrierClinic hours41% of overdue visits",
+   "Development concerns seen within 2 weeks86%"
+  ]
+ },
+ "bone": {
+  "steps": [
+   "1 · PassportFamily Health Passport",
+   "2 · BookBooked in one tap",
+   "3 · VisitThe visit",
+   "4 · ResultResult routed",
+   "5 · CareFrom result to care",
+   "6 · ExplainNoa explains",
+   "7 · Follow upUntil it’s done",
+   "8 · DepartmentReport to the Department"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 1,
+   "consents": 4,
+   "observations": 2,
+   "checkins": 0,
+   "alerts": 2,
+   "tasks": 6,
+   "encounters": 5,
+   "reports": 1,
+   "audit": 4
+  },
+  "log": [
+   "09:00POSTNoa Analyst drafted, hospital signed off · IFHAS screening (Emiratis 18–75) report → Department of Health",
+   "10:00STEPPassport · Next bone scan in 2 years.",
+   "10:00STEPDaily walks · Guardian sees his walks to the mosque continue.",
+   "10:00STEPHome safety check · Loose rug removed; grab rail fitted in the bathroom.",
+   "10:00STEPDoctor review · Bone-strengthening treatment agreed. The doctor decides.",
+   "18:20CONSENTHamad chose who sees the plan: Khalid, Moza",
+   "18:00CHECKNoa Coach · teach-back passed",
+   "09:00ACCEPTFamily doctor · Dr Fatima Al Ali accepted · Doctor review booked this week; home safety check arranged.",
+   "12:00ROUTENoa Insight · Bone density T-score -2.7 → Family doctor · Dr Fatima Al Ali",
+   "09:40RECORDBlood tests · Kidney function, vitamin D, HbA1c.",
+   "09:30RECORDMemory check · Normal for his age.",
+   "09:15RECORDBone density scan · Hip and spine scanned.",
+   "09:00RECORDCheck-in · Blood pressure 142/84.",
+   "18:35ACTBook it · Booked: Monday 10:00 at Al Bateen Family Health Centre; Noa books a taxi both ways and tells Khalid",
+   "18:33DECIDENoa agents decide · P4 → Easy access and booking (not another reminder)",
+   "18:33ANSWERHamad: “The times or the travel don’t work for us”",
+   "18:30ASKNoa Voice → Hamad: one question to find the barrier, instead of reminder 4",
+   "18:30PASSPORTNoa Guardian · IFHAS screening (5 groups due) · 3 reminders already sent",
+   "18:30STARTCase loaded · Hamad Al Hammadi · Bone and memory check"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "P-1007|Hamad Al Hammadi|74|M|Amlodipine 5 mg|High blood pressure · stopped driving in 2025 · IFHAS screening last done 2019|Walks to the mosque every day|Khalid (nephew) → Moza (sister, 450 m)"
+   ],
+   "consents": [
+    "malaffi|Abu Dhabi shared record|planned link|2 Jul 2026",
+    "family_circle|Khalid, Moza|granted|25 Oct",
+    "routine_alerts|Family doctor|share|2 Jul 2026",
+    "emergencies|Emergency services and hospital|always share|2 Jul 2026"
+   ],
+   "observations": [
+    "O-10002|P-1007|Bone density T-score: -2.7|Al Bateen Family Health Centre|24 Oct 12:00",
+    "O-10001|P-1007|Due: IFHAS screening (5 groups due)|Family Health Passport|20 Oct 18:30"
+   ],
+   "checkins": [],
+   "alerts": [
+    "AL-02|P-1007|amber|Osteoporosis: treatment and falls prevention|P9|Family doctor · Dr Fatima Al Ali|accepted|24 Oct 12:00",
+    "AL-01|P-1007|amber|IFHAS screening (5 groups due) due|P4 Easy access and booking|Noa Navigator|booking offered|20 Oct 18:33"
+   ],
+   "tasks": [
+    "T-06|1 Nov 10:00|Passport|Next bone scan in 2 years.",
+    "T-05|8 Nov 10:00|Daily walks|Guardian sees his walks to the mosque continue.",
+    "T-04|2 Nov 10:00|Home safety check|Loose rug removed; grab rail fitted in the bathroom.",
+    "T-03|1 Nov 10:00|Doctor review|Bone-strengthening treatment agreed. The doctor decides.",
+    "T-02|25 Oct 18:20|Plan in the phone app: One thing at a time, in the family’s language.|delivered · visible to Khalid, Moza",
+    "T-01|25 Oct 09:00|Family doctor · Dr Fatima Al Ali: osteoporosis: treatment and falls prevention|Doctor review booked this week; home safety check arranged."
+   ],
+   "encounters": [
+    "E-05|24 Oct 09:40|Visit|Blood tests · Kidney function, vitamin D, HbA1c.|Al Bateen Family Health Centre",
+    "E-04|24 Oct 09:30|Visit|Memory check · Normal for his age.|Al Bateen Family Health Centre",
+    "E-03|24 Oct 09:15|Visit|Bone density scan · Hip and spine scanned.|Al Bateen Family Health Centre",
+    "E-02|24 Oct 09:00|Visit|Check-in · Blood pressure 142/84.|Al Bateen Family Health Centre",
+    "E-01|20 Oct 18:35|Book|Booked: Monday 10:00 at Al Bateen Family Health Centre; Noa books a taxi both ways and tells Khalid|Al Bateen Family Health Centre"
+   ],
+   "reports": [
+    "RPT-2026-10|Al Bateen Family Health Centre|Department of Health|IFHAS screening (Emiratis 18–75)|Measures only, no names|yes, anonymous"
+   ],
+   "audit": [
+    "A-04|5 Nov 09:00|Hospital|Monthly report sent|IFHAS screening (Emiratis 18–75)",
+    "A-03|20 Oct 18:35|Hospital|Book it|Booked: Monday 10:00 at Al Bateen Family Health Centre; Noa books a taxi both ways and tells Khalid",
+    "A-02|20 Oct 18:33|Noa|P4|Easy access and booking",
+    "A-01|20 Oct 18:30|system|Case loaded|Hamad Al Hammadi · Bone and memory check"
+   ]
+  },
+  "kpi": [
+   "Uptake, age 65–7539%+ this person",
+   "Transport arranged312this month",
+   "Osteoporosis started on treatment84%",
+   "Most common barrier, age 65+Transport44%",
+   "Falls after a bone result, 12 monthsdown 18%estimate",
+   "Declined, choice recorded5%no repeat nudges"
+  ]
+ },
+ "stroke": {
+  "steps": [
+   "1 · AlertAt home",
+   "2 · HelpNoa calls for help",
+   "3 · Pre-arrivalPacket sent ahead",
+   "4 · TreatmentEmergency treatment",
+   "5 · ScreeningHospital screening",
+   "6 · DischargeHome with a plan",
+   "7 · MonitorRecovery at home",
+   "8 · HospitalHospital acts",
+   "9 · DepartmentReport to the Department"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 1,
+   "consents": 4,
+   "observations": 2,
+   "checkins": 2,
+   "alerts": 2,
+   "tasks": 6,
+   "encounters": 9,
+   "reports": 1,
+   "audit": 6
+  },
+  "log": [
+   "09:00POSTNoa Analyst drafted, hospital signed off · Stroke pathway report → Department of Health",
+   "09:30ACCEPTStroke clinic · Dr Omar Haddad accepted the alert · Review the perindopril dose",
+   "08:10ROUTENoa Navigator · Blood pressure above target for 5 days: average 146 mmHg, with every dose taken → Stroke clinic · Dr Omar Haddad",
+   "08:10CHECKNoa Voice · speech check: as usual (score 1.00)",
+   "11:05CONSENTMoza chose who sees the plan: Khalid, Hamad",
+   "10:45CHECKNoa Coach · teach-back passed",
+   "09:20RECORDFamily screening · Noa Insight offers Khalid a blood pressure and rhythm check in his own app.",
+   "09:10RECORDMRI brain and heart ultrasound · Small infarct. Heart pumping normally.",
+   "19:10RECORDHeart monitoring · Paroxysmal atrial fibrillation found. Stroke-risk score (CHA₂DS₂-VASc) 6.",
+   "09:10RECORDSwallow screen · Passed: safe for a normal diet.",
+   "03:40RECORDNIHSS 3 · The stroke score improved. Noa Voice tells the family.",
+   "02:52RECORDTenecteplase · Clot-busting medicine, the doctor’s decision. Door to needle 28 min.",
+   "02:31RECORDCT head and CT angiogram · No bleeding. Left M2 occlusion.",
+   "02:24RECORDArrival · NIHSS 6 · Right arm weakness, slurred speech. BP 168/96, glucose 6.4.",
+   "02:07ACTActivate the stroke team · Stroke team activated. CT room held.",
+   "01:36STEPVoice to Moza · “Help is coming. Stay seated. Don’t eat or drink.”",
+   "01:36STEPResponder calls 998 · operator takes over · Ambulance dispatched",
+   "01:35STEPResponder calls Hamad (brother), 450 m away · On the way",
+   "01:34STEPResponder calls Khalid (son, Al Ain) · No answer",
+   "01:34DECIDENoa agents decide · R5 → Emergency: possible stroke",
+   "01:32CHECKNoa Voice · speech check: clearly changed (score 0.33)",
+   "01:32ASKNoa Voice calls Moza: “Moza, are you all right? I noticed your heart racing.”",
+   "01:32ALERTNoa Guardian → Khalid and Hamad: “Noa is checking on Moza.”",
+   "01:32DETECTNoa Guardian · rule R1 met: heart rate above 120 for 10 min while still → hand-off to Noa Voice",
+   "01:12WATCHNoa Guardian · watching Moza from 01:12",
+   "01:12STARTCase loaded · Moza Al Hammadi · Stroke at night"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "P-1000|Moza Al Hammadi|78|F|Amlodipine 5 mg · aspirin 100 mg · atorvastatin 20 mg|High blood pressure (2023) · dehydration admission (2024) · wrist fracture (2025)|Heart 58–64 asleep · speech score 0.94|Khalid (son, Al Ain) → Hamad (brother)"
+   ],
+   "consents": [
+    "malaffi|Abu Dhabi shared record|planned link|2 Jul 2026",
+    "family_circle|Khalid, Hamad|granted|17 Oct",
+    "routine_alerts|Family doctor|share|2 Jul 2026",
+    "emergencies|Emergency services and hospital|always share|2 Jul 2026"
+   ],
+   "observations": [
+    "O-10002|P-1000|Morning blood pressure, 5-day average: 146 mmHg|Phone app|28 Oct 08:10",
+    "O-10001|P-1000|heart rate above 120 for 10 min while still|Watch and home sensors|15 Oct 01:31"
+   ],
+   "checkins": [
+    "C-02|28 Oct 08:10|speech check|as usual|score 1.00 · 10/10 words · 4.3 s|Noa Voice",
+    "C-01|15 Oct 01:32|speech check|clearly changed|score 0.33 · 2/10 words · 11.2 s|Noa Voice"
+   ],
+   "alerts": [
+    "AL-02|P-1000|amber|Blood pressure above target for 5 days: average 146 mmHg, with every dose taken|target under 130|Stroke clinic · Dr Omar Haddad|accepted|28 Oct 08:10",
+    "AL-01|P-1000|red|Emergency: possible stroke|R5|Emergency services and hospital|new|15 Oct 01:34"
+   ],
+   "tasks": [
+    "T-06|28 Oct 09:30|Review the perindopril dose (the clinician decides)|done; Noa Coach explained the change and checked understanding",
+    "T-05|17 Oct 11:05|Plan in the phone app: New medicines: apixaban 5 mg twice a day, perindopril 4 mg, atorvastatin 40 mg. Physio, speech therapy ×6, stroke clinic in 6 weeks.|delivered · visible to Khalid, Hamad",
+    "T-04|15 Oct 01:36|Voice to Moza|“Help is coming. Stay seated. Don’t eat or drink.”",
+    "T-03|15 Oct 01:36|Responder calls 998 · operator takes over|Ambulance dispatched",
+    "T-02|15 Oct 01:35|Responder calls Hamad (brother), 450 m away|On the way",
+    "T-01|15 Oct 01:34|Responder calls Khalid (son, Al Ain)|No answer"
+   ],
+   "encounters": [
+    "E-09|16 Oct 09:20|Screening|Family screening · Noa Insight offers Khalid a blood pressure and rhythm check in his own app.|Corniche Stroke Centre",
+    "E-08|16 Oct 09:10|Screening|MRI brain and heart ultrasound · Small infarct. Heart pumping normally.|Corniche Stroke Centre",
+    "E-07|15 Oct 19:10|Screening|Heart monitoring · Paroxysmal atrial fibrillation found. Stroke-risk score (CHA₂DS₂-VASc) 6.|Corniche Stroke Centre",
+    "E-06|15 Oct 09:10|Screening|Swallow screen · Passed: safe for a normal diet.|Corniche Stroke Centre",
+    "E-05|15 Oct 03:40|Treatment|NIHSS 3 · The stroke score improved. Noa Voice tells the family.|Corniche Stroke Centre",
+    "E-04|15 Oct 02:52|Treatment|Tenecteplase · Clot-busting medicine, the doctor’s decision. Door to needle 28 min.|Corniche Stroke Centre",
+    "E-03|15 Oct 02:31|Treatment|CT head and CT angiogram · No bleeding. Left M2 occlusion.|Corniche Stroke Centre",
+    "E-02|15 Oct 02:24|Treatment|Arrival · NIHSS 6 · Right arm weakness, slurred speech. BP 168/96, glucose 6.4.|Corniche Stroke Centre",
+    "E-01|15 Oct 02:07|Pre-arrival|Stroke team activated. CT room held.|Corniche Stroke Centre"
+   ],
+   "reports": [
+    "RPT-2026-10|Corniche Stroke Centre|Department of Health|Stroke pathway|Measures only, no names|yes, anonymous"
+   ],
+   "audit": [
+    "A-06|31 Oct 09:00|Hospital|Monthly report sent|Stroke pathway",
+    "A-05|15 Oct 02:07|Hospital|Activate the stroke team|Stroke team activated. CT room held.",
+    "A-04|15 Oct 01:36|Noa Responder|998 call|Operator took over",
+    "A-03|15 Oct 01:34|Noa|Decision R5|Emergency: possible stroke",
+    "A-02|15 Oct 01:32|Noa Guardian|Rule R1 met|heart rate above 120 for 10 min while still",
+    "A-01|15 Oct 01:12|system|Case loaded|Moza Al Hammadi · Stroke at night"
+   ]
+  },
+  "kpi": [
+   "Arrived with a pre-alert64%+ this case",
+   "Median door to needle41 mintarget ≤ 60",
+   "AF found → blood thinner at discharge92%",
+   "Home alerts acted on in 24 h88%",
+   "30-day readmission6.1%target < 8%",
+   "Recovered (mRS 0–2) at 90 days71%reported in January"
+  ]
+ },
+ "fall": {
+  "steps": [
+   "1 · AlertAt home",
+   "2 · HelpNoa calls for help",
+   "3 · Pre-arrivalPacket sent ahead",
+   "4 · TreatmentEmergency treatment",
+   "5 · ScreeningHospital screening",
+   "6 · DischargeHome with a plan",
+   "7 · MonitorRecovery at home",
+   "8 · DoctorDoctor acts",
+   "9 · DepartmentReport to the Department"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 1,
+   "consents": 4,
+   "observations": 2,
+   "checkins": 2,
+   "alerts": 2,
+   "tasks": 6,
+   "encounters": 9,
+   "reports": 1,
+   "audit": 6
+  },
+  "log": [
+   "09:00POSTNoa Analyst drafted, hospital signed off · Falls pathway report → Department of Health",
+   "10:00ACCEPTFamily doctor · Dr Fatima Al Ali accepted the alert · Review amlodipine (may stop it)",
+   "08:10ROUTENoa Navigator · Blood pressure drops 22 mmHg when she stands, still the likely cause of falls → Family doctor · Dr Fatima Al Ali",
+   "08:10CHECKNoa Voice · speech check: as usual (score 1.00)",
+   "11:20CONSENTHessa chose who sees the plan: Saif, Noura",
+   "11:00CHECKNoa Coach · teach-back passed",
+   "12:00RECORDBone health and home · Osteoporosis treatment reviewed. Noa Insight books motion lights for the bathroom route.",
+   "11:00RECORDLying and standing blood pressure · Drops 24 mmHg on standing: the likely cause of the fall.",
+   "10:00RECORDConfusion screen · Clear.",
+   "09:00RECORDHip surgery · Done on day 1. Walking with a frame on day 2.",
+   "04:55RECORDPain relief and plan · Nerve block for pain. Surgery within 36 hours; the surgeon decides. Apixaban paused.",
+   "04:40RECORDHip X-ray · Fractured right hip.",
+   "04:25RECORDCT head · No bleeding (important on a blood thinner).",
+   "04:05RECORDArrival · Right leg short and turned out. Pain 8 out of 10.",
+   "03:45ACTPrepare a head CT and hip X-ray · Head CT and hip X-ray ready on arrival.",
+   "03:22STEPVoice to Hessa · “Don’t try to get up. Noura is coming. Stay warm.”",
+   "03:22STEPResponder calls 998 · operator takes over · Ambulance dispatched",
+   "03:21STEPResponder calls Noura (neighbour, has a key), 60 m away · Coming with the key",
+   "03:20STEPResponder calls Saif (son, night shifts) · No answer",
+   "03:20DECIDENoa agents decide · R7 → Emergency: fall, can’t get up",
+   "03:18CHECKNoa Voice · speech check: as usual (score 1.00)",
+   "03:18ASKNoa Voice calls Hessa: “Hessa, I felt a hard fall. Can you get up on your own?”",
+   "03:18ALERTNoa Guardian → Saif and Noura: “Noa is checking on Hessa.”",
+   "03:18DETECTNoa Guardian · rule R2 met: fall detected, still on the floor after 2 min → hand-off to Noa Voice",
+   "03:05WATCHNoa Guardian · watching Hessa from 03:05",
+   "03:05STARTCase loaded · Hessa Al Ketbi · Fall in the night"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "P-1001|Hessa Al Ketbi|82|F|Apixaban 5 mg twice a day · amlodipine 5 mg · alendronate weekly|Atrial fibrillation (2022) · cataract surgery (2023) · osteoporosis (2024)|1 bathroom trip a night · speech score 0.92|Saif (son, night shifts) → Noura (neighbour, has a key)"
+   ],
+   "consents": [
+    "malaffi|Abu Dhabi shared record|planned link|2 Jul 2026",
+    "family_circle|Saif, Noura|granted|20 Oct",
+    "routine_alerts|Family doctor|share|2 Jul 2026",
+    "emergencies|Emergency services and hospital|always share|2 Jul 2026"
+   ],
+   "observations": [
+    "O-10002|P-1001|Blood pressure drop on standing: 22 mmHg|Phone app|29 Oct 08:10",
+    "O-10001|P-1001|fall detected, still on the floor after 2 min|Watch and home sensors|15 Oct 03:17"
+   ],
+   "checkins": [
+    "C-02|29 Oct 08:10|speech check|as usual|score 1.00 · 10/10 words · 4.3 s|Noa Voice",
+    "C-01|15 Oct 03:18|speech check|as usual|score 1.00 · 10/10 words · 4.3 s|Noa Voice"
+   ],
+   "alerts": [
+    "AL-02|P-1001|amber|Blood pressure drops 22 mmHg when she stands, still the likely cause of falls|target under 20|Family doctor · Dr Fatima Al Ali|accepted|29 Oct 08:10",
+    "AL-01|P-1001|red|Emergency: fall, can’t get up|R7|Emergency services and hospital|new|15 Oct 03:20"
+   ],
+   "tasks": [
+    "T-06|29 Oct 10:00|Review amlodipine (may stop it) (the clinician decides)|done; Noa Coach explained the change and checked understanding",
+    "T-05|20 Oct 11:20|Plan in the phone app: Home with a walking frame, physio at home 3 times a week, apixaban restarted, motion lights fitted.|delivered · visible to Saif, Noura",
+    "T-04|15 Oct 03:22|Voice to Hessa|“Don’t try to get up. Noura is coming. Stay warm.”",
+    "T-03|15 Oct 03:22|Responder calls 998 · operator takes over|Ambulance dispatched",
+    "T-02|15 Oct 03:21|Responder calls Noura (neighbour, has a key), 60 m away|Coming with the key",
+    "T-01|15 Oct 03:20|Responder calls Saif (son, night shifts)|No answer"
+   ],
+   "encounters": [
+    "E-09|16 Oct 12:00|Screening|Bone health and home · Osteoporosis treatment reviewed. Noa Insight books motion lights for the bathroom route.|Capital General Hospital",
+    "E-08|16 Oct 11:00|Screening|Lying and standing blood pressure · Drops 24 mmHg on standing: the likely cause of the fall.|Capital General Hospital",
+    "E-07|16 Oct 10:00|Screening|Confusion screen · Clear.|Capital General Hospital",
+    "E-06|16 Oct 09:00|Screening|Hip surgery · Done on day 1. Walking with a frame on day 2.|Capital General Hospital",
+    "E-05|15 Oct 04:55|Treatment|Pain relief and plan · Nerve block for pain. Surgery within 36 hours; the surgeon decides. Apixaban paused.|Capital General Hospital",
+    "E-04|15 Oct 04:40|Treatment|Hip X-ray · Fractured right hip.|Capital General Hospital",
+    "E-03|15 Oct 04:25|Treatment|CT head · No bleeding (important on a blood thinner).|Capital General Hospital",
+    "E-02|15 Oct 04:05|Treatment|Arrival · Right leg short and turned out. Pain 8 out of 10.|Capital General Hospital",
+    "E-01|15 Oct 03:45|Pre-arrival|Head CT and hip X-ray ready on arrival.|Capital General Hospital"
+   ],
+   "reports": [
+    "RPT-2026-10|Capital General Hospital|Department of Health|Falls pathway|Measures only, no names|yes, anonymous"
+   ],
+   "audit": [
+    "A-06|1 Nov 09:00|Hospital|Monthly report sent|Falls pathway",
+    "A-05|15 Oct 03:45|Hospital|Prepare a head CT and hip X-ray|Head CT and hip X-ray ready on arrival.",
+    "A-04|15 Oct 03:22|Noa Responder|998 call|Operator took over",
+    "A-03|15 Oct 03:20|Noa|Decision R7|Emergency: fall, can’t get up",
+    "A-02|15 Oct 03:18|Noa Guardian|Rule R2 met|fall detected, still on the floor after 2 min",
+    "A-01|15 Oct 03:05|system|Case loaded|Hessa Al Ketbi · Fall in the night"
+   ]
+  },
+  "kpi": [
+   "Median time on the floor14 minthis case: 6 min",
+   "Hip surgery within 36 h87%target 90%",
+   "Head CT if on a blood thinner96%this case: yes",
+   "Falls with a home safety fix64%this case: motion lights",
+   "30-day readmission8.2%",
+   "Home within 30 days71%"
+  ]
+ },
+ "hypo": {
+  "steps": [
+   "1 · AlertAt home",
+   "2 · TreatTreat at home",
+   "3 · DoctorDoctor reviews insulin",
+   "4 · ExplainNoa explains the change",
+   "5 · MonitorNights at home",
+   "6 · ClinicClinic acts",
+   "7 · DepartmentReport to the Department"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 1,
+   "consents": 4,
+   "observations": 3,
+   "checkins": 2,
+   "alerts": 1,
+   "tasks": 1,
+   "encounters": 1,
+   "reports": 1,
+   "audit": 5
+  },
+  "log": [
+   "09:00POSTNoa Analyst drafted, hospital signed off · Diabetes: night hypoglycaemia report → Department of Health",
+   "08:10CHECKNoa Navigator · Lowest night glucose, last 7 nights 4.6 mmol/L is on target (4.0 or above) → no alert",
+   "08:10CHECKNoa Voice · speech check: as usual (score 1.00)",
+   "11:20CONSENTSaeed chose who sees the plan: Shamsa, Rashid",
+   "11:00CHECKNoa Coach · teach-back passed",
+   "08:30ACTReview the insulin dose · Night insulin lowered from 24 to 20 units.",
+   "03:08CHECKNoa Coach · recheck 5.1 mmol/L → recovered; snack now; doctor in the morning",
+   "02:53DECIDENoa agents decide · R9 → Low sugar, treated at home",
+   "02:51CHECKNoa Voice · speech check: as usual (score 1.00)",
+   "02:51ASKNoa Voice calls Saeed: “Saeed, your sugar is low. Can you drink the juice by your bed?”",
+   "02:51ALERTNoa Guardian → Shamsa and Rashid: “Noa is checking on Saeed.”",
+   "02:51DETECTNoa Guardian · rule R3 met: glucose 2.7 mmol/L → hand-off to Noa Voice",
+   "02:40WATCHNoa Guardian · watching Saeed from 02:40",
+   "02:40STARTCase loaded · Saeed Al Nuaimi · Low sugar at night"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "P-1002|Saeed Al Nuaimi|69|M|Insulin glargine 24 units at night · metformin 1 g twice a day|Type 2 diabetes (2011) · insulin since 2021 · kidney function mildly reduced (eGFR 52)|Night glucose 5–8 mmol/L · speech score 0.95|Shamsa (wife, asleep next door) → Rashid (son)"
+   ],
+   "consents": [
+    "malaffi|Abu Dhabi shared record|planned link|2 Jul 2026",
+    "family_circle|Shamsa, Rashid|granted|15 Oct",
+    "routine_alerts|Family doctor|share|2 Jul 2026",
+    "emergencies|Emergency services and hospital|always share|2 Jul 2026"
+   ],
+   "observations": [
+    "O-10003|P-1002|Lowest night glucose, last 7 nights: 4.6 mmol/L|Phone app|22 Oct 08:10",
+    "O-10002|P-1002|glucose recheck 5.1 mmol/L|Glucose sensor|15 Oct 03:08",
+    "O-10001|P-1002|glucose 2.7 mmol/L|Glucose sensor|15 Oct 02:50"
+   ],
+   "checkins": [
+    "C-02|22 Oct 08:10|speech check|as usual|score 1.00 · 10/10 words · 4.3 s|Noa Voice",
+    "C-01|15 Oct 02:51|speech check|as usual|score 1.00 · 10/10 words · 4.3 s|Noa Voice"
+   ],
+   "alerts": [
+    "AL-01|P-1002|amber|Low sugar, treated at home|R9|Family doctor|new|15 Oct 02:53"
+   ],
+   "tasks": [
+    "T-01|15 Oct 11:20|Plan in the phone app: Night insulin glargine lowered to 20 units.|delivered · visible to Shamsa, Rashid"
+   ],
+   "encounters": [
+    "E-01|15 Oct 08:30|Doctor|Night insulin lowered from 24 to 20 units.|Capital General Hospital"
+   ],
+   "reports": [
+    "RPT-2026-10|Capital General Hospital|Department of Health|Diabetes: night hypoglycaemia|Measures only, no names|yes, anonymous"
+   ],
+   "audit": [
+    "A-05|1 Nov 09:00|Hospital|Monthly report sent|Diabetes: night hypoglycaemia",
+    "A-04|15 Oct 08:30|Hospital|Review the insulin dose|Night insulin lowered from 24 to 20 units.",
+    "A-03|15 Oct 02:53|Noa|Decision R9|Low sugar, treated at home",
+    "A-02|15 Oct 02:51|Noa Guardian|Rule R3 met|glucose 2.7 mmol/L",
+    "A-01|15 Oct 02:40|system|Case loaded|Saeed Al Nuaimi · Low sugar at night"
+   ]
+  },
+  "kpi": [
+   "Night hypos treated at home74%+ this case",
+   "Insulin reviewed within 24 h88%this case: yes",
+   "Hypos needing an ambulance19this month",
+   "Repeat severe hypo in 30 days4%"
+  ]
+ },
+ "hf": {
+  "steps": [
+   "1 · AlertAt home",
+   "2 · Same daySame-day nurse",
+   "3 · TreatmentSeen the same day",
+   "4 · ExplainNoa explains the plan",
+   "5 · MonitorMornings at home",
+   "6 · NurseNurse acts",
+   "7 · DepartmentReport to the Department"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 1,
+   "consents": 4,
+   "observations": 2,
+   "checkins": 2,
+   "alerts": 1,
+   "tasks": 1,
+   "encounters": 5,
+   "reports": 1,
+   "audit": 5
+  },
+  "log": [
+   "09:00POSTNoa Analyst drafted, hospital signed off · Heart failure report → Department of Health",
+   "08:10CHECKNoa Navigator · Morning weight vs dry weight 0.4 kg is on target (up to +1.0) → no alert",
+   "08:10CHECKNoa Voice · speech check: as usual (score 1.00)",
+   "13:20CONSENTMariam chose who sees the plan: Ahmed, Latifa",
+   "13:00CHECKNoa Coach · teach-back passed",
+   "12:00RECORDHome the same day · No hospital admission.",
+   "11:50RECORDBlood tests · Kidney function and potassium; recheck in 3 days.",
+   "11:45RECORDPlan with the cardiologist · Furosemide 40 → 80 mg for 3 days.",
+   "11:30RECORDNurse visit · Swollen ankles, crackles at the lung bases, weight up 2.4 kg.",
+   "08:28ACTAccept the same-day slot · Seen at 11:30 today.",
+   "08:23DECIDENoa agents decide · R10 → Fluid build-up: same-day nurse",
+   "08:21CHECKNoa Voice · speech check: as usual (score 1.00)",
+   "08:21ASKNoa Voice calls Mariam: “Mariam, your weight is up. Are you more breathless than usual?”",
+   "08:21DETECTNoa Guardian · rule R4 met: weight up 2.4 kg / oxygen 93% → hand-off to Noa Voice",
+   "08:10WATCHNoa Guardian · watching Mariam from 08:10",
+   "08:10STARTCase loaded · Mariam Al Shamsi · Fluid build-up"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "P-1003|Mariam Al Shamsi|81|F|Furosemide 40 mg morning · bisoprolol 2.5 mg · ramipril 5 mg|Heart failure (2024, pumping 35%) · admission for fluid build-up (Mar 2026)|Dry weight 61.0 kg · oxygen 95–97% · speech score 0.93|Ahmed (son) → Latifa (daughter)"
+   ],
+   "consents": [
+    "malaffi|Abu Dhabi shared record|planned link|2 Jul 2026",
+    "family_circle|Ahmed, Latifa|granted|15 Oct",
+    "routine_alerts|Family doctor|share|2 Jul 2026",
+    "emergencies|Emergency services and hospital|always share|2 Jul 2026"
+   ],
+   "observations": [
+    "O-10002|P-1003|Morning weight vs dry weight: 0.4 kg|Phone app|19 Oct 08:10",
+    "O-10001|P-1003|weight up 2.4 kg / oxygen 93%|Scale and oximeter|15 Oct 08:20"
+   ],
+   "checkins": [
+    "C-02|19 Oct 08:10|speech check|as usual|score 1.00 · 10/10 words · 4.3 s|Noa Voice",
+    "C-01|15 Oct 08:21|speech check|as usual|score 1.00 · 10/10 words · 4.3 s|Noa Voice"
+   ],
+   "alerts": [
+    "AL-01|P-1003|amber|Fluid build-up: same-day nurse|R10|Heart failure nurse|new|15 Oct 08:23"
+   ],
+   "tasks": [
+    "T-01|15 Oct 13:20|Plan in the phone app: Furosemide 80 mg for 3 days, then back to 40 mg. Weigh every morning.|delivered · visible to Ahmed, Latifa"
+   ],
+   "encounters": [
+    "E-05|15 Oct 12:00|Treatment|Home the same day · No hospital admission.|Capital General Hospital",
+    "E-04|15 Oct 11:50|Treatment|Blood tests · Kidney function and potassium; recheck in 3 days.|Capital General Hospital",
+    "E-03|15 Oct 11:45|Treatment|Plan with the cardiologist · Furosemide 40 → 80 mg for 3 days.|Capital General Hospital",
+    "E-02|15 Oct 11:30|Treatment|Nurse visit · Swollen ankles, crackles at the lung bases, weight up 2.4 kg.|Capital General Hospital",
+    "E-01|15 Oct 08:28|Same day|Seen at 11:30 today.|Capital General Hospital"
+   ],
+   "reports": [
+    "RPT-2026-10|Capital General Hospital|Department of Health|Heart failure|Measures only, no names|yes, anonymous"
+   ],
+   "audit": [
+    "A-05|1 Nov 09:00|Hospital|Monthly report sent|Heart failure",
+    "A-04|15 Oct 08:28|Hospital|Accept the same-day slot|Seen at 11:30 today.",
+    "A-03|15 Oct 08:23|Noa|Decision R10|Fluid build-up: same-day nurse",
+    "A-02|15 Oct 08:21|Noa Guardian|Rule R4 met|weight up 2.4 kg / oxygen 93%",
+    "A-01|15 Oct 08:10|system|Case loaded|Mariam Al Shamsi · Fluid build-up"
+   ]
+  },
+  "kpi": [
+   "Fluid warnings seen the same day91%this case: same day",
+   "Admissions avoided (estimate)37this month",
+   "Weight logged 6+ days a week79%",
+   "30-day readmission14.5%target < 18%"
+  ]
+ },
+ "own": {
+  "steps": [
+   "1 · AlertAt home"
+  ],
+  "db": {
+   "agents": 9,
+   "patients": 1,
+   "consents": 4,
+   "observations": 0,
+   "checkins": 0,
+   "alerts": 0,
+   "tasks": 0,
+   "encounters": 0,
+   "reports": 0,
+   "audit": 2
+  },
+  "log": [
+   "01:28WATCHNoa Guardian · no rule met · All readings are within her normal range. No rule met, so nobody is woken.",
+   "01:12WATCHNoa Guardian · watching Moza from 01:12",
+   "01:12STARTCase loaded · Moza Al Hammadi · Enter your own"
+  ],
+  "rows": {
+   "agents": [
+    "AG-9|Noa Analyst|Population reporting agent|Count measures, draft reports|See who anyone is",
+    "AG-8|Noa Navigator|Follow-up agent|Book, track tasks, route alerts with evidence|Prescribe",
+    "AG-7|Noa Coach|Education and teach-back agent|Explain, guide, check understanding, set reminders|Change doses",
+    "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
+    "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
+    "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
+    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
+    "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
+   ],
+   "patients": [
+    "P-1000|Moza Al Hammadi|78|F|Amlodipine 5 mg · aspirin 100 mg · atorvastatin 20 mg|High blood pressure (2023) · dehydration admission (2024) · wrist fracture (2025)|Heart 58–64 asleep · speech score 0.94|Khalid (son, Al Ain) → Hamad (brother)"
+   ],
+   "consents": [
+    "malaffi|Abu Dhabi shared record|planned link|2 Jul 2026",
+    "family_circle|Khalid, Hamad|granted|2 Jul 2026",
+    "routine_alerts|Family doctor|share|2 Jul 2026",
+    "emergencies|Emergency services and hospital|always share|2 Jul 2026"
+   ],
+   "observations": [],
+   "checkins": [],
+   "alerts": [],
+   "tasks": [],
+   "encounters": [],
+   "reports": [],
+   "audit": [
+    "A-02|15 Oct 01:28|Noa Guardian|No action|All readings are within {her} normal range. No rule met, so nobody is woken.",
+    "A-01|15 Oct 01:12|system|Case loaded|Moza Al Hammadi · Enter your own"
+   ]
+  },
+  "kpi": []
+ }
+}

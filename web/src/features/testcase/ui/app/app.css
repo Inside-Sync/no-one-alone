@@ -1,0 +1,36 @@
+/* Test case app: the pieces the overlay shell did not carry (case header columns, picker groups, baton rows, Judge path caption). Logical properties only. */
+.tc.tc .tc-group{display:grid;gap:8px}
+.tc.tc .tc-group+.tc-group{margin-block-start:4px}
+.tc.tc .tc-time-lab{margin-inline-start:10px}
+.tc.tc .ownrow .chip.on{border-color:var(--m-ind);background:var(--m-ind-s)}
+
+/* Case header: text on the start side, actions on the end side, the Judge path caption underneath. */
+.tc.tc .case>.tc-case-main{min-width:0}
+.tc.tc .tc-case-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+.tc.tc .tc-oneliner{font-weight:600;color:var(--ink)}
+.tc.tc .tc-brief{display:grid;gap:2px;margin-block-start:4px}
+.tc.tc .tc-brief p{margin:0;font-size:12.5px;color:var(--ink2)}
+.tc.tc .tc-brief .lab{margin-inline-end:4px;color:var(--brand-t)}
+.tc.tc .tc-judgecap{grid-column:1/-1;border:1px solid var(--brand);background:var(--noa-soft);border-radius:12px;padding:8px 12px;display:grid;gap:3px}
+.tc.tc .tc-judgecap p{margin:0;font-size:13px}
+.tc.tc .tc-jc-h{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tc.tc .tc-pain{color:var(--bad)}
+.tc.tc .tc-magic{color:var(--good-t)}
+
+/* Baton and hand-offs: the wrappers of arrows and items must not break the flex rows. */
+.tc.tc .tc-baton-row,.tc.tc .tc-hop{display:contents}
+.tc.tc .baton .handoff{flex:1 1 100%;margin-block-start:2px}
+[dir="rtl"] .tc.tc .arr,.tc[dir="rtl"] .arr{display:inline-block;transform:scaleX(-1)}
+.tc.tc .agent .decides .ic{margin-inline-end:.2em}
+
+/* The log shows its own newest line first; the database table cells wrap. */
+.tc.tc .db-h{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tc.tc .db-h .btn{margin-inline-start:auto}
+.tc.tc .tblw:focus-visible,.tc.tc .loglist:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.tc.tc .src.tc-note{margin:0}
+
+@media (max-width:640px){
+  .tc.tc .tc-case-actions{justify-content:flex-start}
+  .tc.tc .tc-case-actions .btn{flex:1 1 auto}
+  .tc.tc .tc-judgecap{padding:8px 10px}
+}

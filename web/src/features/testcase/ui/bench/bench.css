@@ -1,0 +1,105 @@
+/* Benchmark tab. Logical properties only; the wide tables scroll inside their own box and the scenario list becomes cards at 720 px, one column at 390 px. */
+.tc.tc .tc-bench{padding:16px;display:grid;gap:16px;min-inline-size:0}
+.tc.tc .tc-bn{display:grid;gap:16px;min-inline-size:0}
+.tc.tc .tc-bn-head h2{font-size:20px}
+.tc.tc .tc-bn-head>p{margin:6px 0 10px;color:var(--ink2);max-inline-size:82ch}
+.tc.tc .tc-bn-honest{border:1px solid var(--warn);background:var(--warn-s);border-radius:12px;padding:10px 14px;max-inline-size:82ch}
+.tc.tc .tc-bn-honest p{margin:4px 0 0;color:var(--ink)}
+.tc.tc .tc-bn-sr{position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+.tc.tc .tc-bn-run{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 18px;align-items:center}
+.tc.tc .tc-bn-prog{display:grid;gap:6px;min-inline-size:0}
+.tc.tc .tc-bn-bar{block-size:10px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);overflow:hidden}
+.tc.tc .tc-bn-bar>span{display:block;block-size:100%;background:var(--brand);border-radius:999px;transition:inline-size .15s linear}
+.tc.tc .tc-bn-status{margin:0;font-size:13px;color:var(--ink2)}
+
+.tc.tc .tc-bn-sec{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:12px 14px;display:grid;gap:10px;min-inline-size:0}
+.tc.tc .tc-bn-sec h3{font-size:16px}
+.tc.tc .tc-bn-intro{margin:0;color:var(--ink2);max-inline-size:82ch;font-size:13px}
+.tc.tc .tc-bn-count{display:inline-block;margin-inline-start:6px;padding:1px 9px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);font-size:12px;font-weight:600}
+
+.tc.tc .tc-bn-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tc.tc .tc-bn-stat{display:grid;gap:2px;align-content:start;border:1px solid var(--line);background:var(--solid);border-radius:12px;padding:10px 12px;min-inline-size:0}
+.tc.tc .tc-bn-stat b{font-size:28px;line-height:1.1;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.tc.tc .tc-bn-stat small{color:var(--muted);font-size:12px}
+.tc.tc .tc-bn-key{border-color:var(--brand);background:var(--noa-soft)}
+
+.tc.tc .tc-bn-two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start}
+.tc.tc .tc-bn-tblw{overflow-x:auto;max-inline-size:100%;border-radius:10px}
+.tc.tc .tc-bn-table,.tc.tc .tc-bn-matrix{inline-size:100%;border-collapse:collapse;font-size:13px}
+.tc.tc .tc-bn-table th,.tc.tc .tc-bn-table td,.tc.tc .tc-bn-matrix th,.tc.tc .tc-bn-matrix td{padding:7px 10px;border-block-end:1px solid var(--line);text-align:start;vertical-align:top}
+.tc.tc .tc-bn-table thead th,.tc.tc .tc-bn-matrix thead th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;white-space:nowrap}
+.tc.tc .tc-bn-table th,.tc.tc .tc-bn-matrix th{font-family:inherit;white-space:normal;overflow-wrap:anywhere}
+.tc.tc .tc-bn-table tbody th{font-weight:600;text-transform:none;letter-spacing:normal;font-size:13px}
+.tc.tc .tc-bn-table tbody th.mono,.tc.tc .tc-bn-id{font-family:var(--mono)}
+.tc.tc .tc-bn-matrix tbody th{font-size:13px;text-transform:none;letter-spacing:normal;color:var(--ink)}
+.tc.tc .tc-bn-table .num{text-align:end;font-variant-numeric:tabular-nums}
+.tc.tc .tc-bn-dim th{background:var(--sunk);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.tc.tc .tc-bn-rules td:nth-child(2){min-inline-size:220px}
+.tc.tc .tc-bn-matrix td{text-align:center;font-variant-numeric:tabular-nums}
+.tc.tc .tc-bn-matrix td b{display:block;font-size:24px}
+.tc.tc .tc-bn-matrix td small{display:block;font-size:11px;color:var(--ink2)}
+.tc.tc .tc-bn-matrix td.ok{background:var(--good-s)}
+.tc.tc .tc-bn-matrix td.bad{background:var(--bad-s)}
+.tc.tc .tc-bn-matrix td.warn{background:var(--warn-s)}
+
+.tc.tc .tc-bn-defs{margin:0;display:grid;gap:8px}
+.tc.tc .tc-bn-defs>div{display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr);gap:2px 10px;align-items:baseline}
+.tc.tc .tc-bn-defs dt{font-weight:600;font-size:13px}
+.tc.tc .tc-bn-defs dd{margin:0;display:grid;gap:2px}
+.tc.tc .tc-bn-defs small{color:var(--muted);font-size:12px}
+.tc.tc .tc-bn-pct{display:grid;gap:0}
+.tc.tc .tc-bn-pct b{font-variant-numeric:tabular-nums}
+.tc.tc .tc-bn-pct small{color:var(--muted);font-size:11.5px;white-space:nowrap}
+.tc.tc .tc-bn-n{display:block;color:var(--muted);font-size:11.5px}
+.tc.tc .tc-bn-na{color:var(--muted)}
+.tc.tc .tc-bn-meter{display:block;inline-size:100%;min-inline-size:80px;block-size:6px;border-radius:999px;background:var(--sunk);overflow:hidden;margin-block-end:3px}
+.tc.tc .tc-bn-meter>i{display:block;block-size:100%;background:var(--good)}
+
+.tc.tc .tc-bn-fails{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.tc.tc .tc-bn-fails li{border:1px solid var(--bad);background:var(--bad-s);border-radius:12px;padding:10px 12px;display:grid;gap:4px}
+.tc.tc .tc-bn-fails dl{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tc.tc .tc-bn-fails dt{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.tc.tc .tc-bn-fails dd{margin:0;font-weight:600}
+.tc.tc .tc-bn-at,.tc.tc .tc-bn-note{margin:0;font-size:12.5px;color:var(--ink2)}
+
+.tc.tc .tc-bn-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tc.tc .tc-bn-filters label{display:grid;gap:4px;min-inline-size:0}
+.tc.tc .tc-bn-filters input{font:inherit;color:var(--ink);background:var(--solid);border:1px solid var(--line);border-radius:9px;padding:7px 9px;inline-size:100%;min-inline-size:0}
+.tc.tc .tc-bn-count-line{margin:0;font-size:12.5px;color:var(--muted)}
+.tc.tc .tc-bn-scen th[scope="row"]{display:grid;gap:4px;min-inline-size:240px}
+.tc.tc .tc-bn-id{font-size:12px;color:var(--muted)}
+.tc.tc .tc-bn-title{font-weight:600;font-family:var(--font);text-align:start;unicode-bidi:plaintext}
+.tc.tc .tc-bn-tags{display:flex;flex-wrap:wrap;gap:4px}
+.tc.tc .tc-bn-tags i{font-style:normal;font-size:11px;font-weight:600;padding:1px 8px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);color:var(--ink2)}
+.tc.tc .tc-bn-tags i.tough{border-color:var(--warn);color:var(--warn)}
+.tc.tc .tc-bn-scen th .btn{justify-self:start;padding:4px 10px;font-size:12px}
+.tc.tc .tc-bn-scen td small{display:block;color:var(--muted);font-size:11.5px}
+.tc.tc .tc-bn-scen tr[data-pass="fail"]{background:var(--bad-s)}
+.tc.tc .tc-bn-badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line)}
+.tc.tc .tc-bn-badge.pass{background:var(--good-s);color:var(--good-t);border-color:var(--good)}
+.tc.tc .tc-bn-badge.fail{background:var(--bad-s);color:var(--bad);border-color:var(--bad)}
+.tc.tc .tc-bn-badge.pending{background:var(--sunk);color:var(--muted)}
+.tc.tc .tc-bn-limits{margin:0;padding-inline-start:20px;display:grid;gap:6px;color:var(--ink2);max-inline-size:82ch}
+
+@media (max-width:900px){
+  .tc.tc .tc-bn-two{grid-template-columns:minmax(0,1fr)}
+  .tc.tc .tc-bn-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .tc.tc .tc-bn-scen thead{position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%)}
+  .tc.tc .tc-bn-scen,.tc.tc .tc-bn-scen tbody,.tc.tc .tc-bn-scen tr,.tc.tc .tc-bn-scen td,.tc.tc .tc-bn-scen th{display:block}
+  .tc.tc .tc-bn-scen tr{border:1px solid var(--line);border-radius:12px;margin-block-end:8px;padding:6px 4px;background:var(--solid)}
+  .tc.tc .tc-bn-scen th[scope="row"]{display:grid;min-inline-size:0}
+  .tc.tc .tc-bn-scen td,.tc.tc .tc-bn-scen th{border:0;padding:4px 10px}
+  .tc.tc .tc-bn-scen td::before{content:attr(data-label);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+}
+@media (max-width:560px){
+  .tc.tc .tc-bench{padding:10px}
+  .tc.tc .tc-bn-run{grid-template-columns:minmax(0,1fr)}
+  .tc.tc .tc-bn-stats{grid-template-columns:minmax(0,1fr)}
+  .tc.tc .tc-bn-filters{grid-template-columns:minmax(0,1fr)}
+  .tc.tc .tc-bn-fails dl{grid-template-columns:minmax(0,1fr)}
+  .tc.tc .tc-bn-defs>div{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){.tc.tc .tc-bn-bar>span{transition:none}}

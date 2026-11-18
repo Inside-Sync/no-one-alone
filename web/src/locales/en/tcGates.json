@@ -1,0 +1,141 @@
+{
+  "gates": {
+    "label": "Gates this case passes through, in order",
+    "name": {
+      "consent": "Consent",
+      "data": "Data complete",
+      "urgent": "Urgent bypass",
+      "rule": "Rule decision",
+      "human": "Human approval"
+    },
+    "status": {
+      "pass": "Passed",
+      "hold": "On hold",
+      "pending": "Not reached",
+      "bypassed": "Bypassed"
+    },
+    "consent": {
+      "pass": "{{n}} consent records on file. Nothing is shared outside them.",
+      "none": "No consent on file, so nothing is shared.",
+      "nobody": "No one is chosen to see the plan, so it stays closed."
+    },
+    "data": {
+      "pass": "Every input is present and in its plausible range.",
+      "passWarn_one": "Inputs are usable. {{count}} warning to read below.",
+      "passWarn_other": "Inputs are usable. {{count}} warnings to read below.",
+      "hold": "{{first}}",
+      "holdMore": "{{first}} ({{n}} more to fix.)"
+    },
+    "urgent": {
+      "pending": "Noa has not looked for a sudden change yet.",
+      "check": "Noa is checking for a sudden change: waiting for the speech check.",
+      "bypassed": "Urgent rule {{rule}}: the routine flow is skipped and the emergency call comes first.",
+      "bypassedFam": "A red alert is open: it jumps the routine queue.",
+      "pass": "No sudden change: the routine flow continues."
+    },
+    "rule": {
+      "pending": "No decision yet.",
+      "check": "Waiting for the speech check and the answer before a rule can fire.",
+      "ask": "Waiting for the person’s answer before a rule can fire.",
+      "pass": "{{rule}}: {{name}}",
+      "fam": "{{n}} alerts raised by rules."
+    },
+    "human": {
+      "pending": "Nothing to confirm yet.",
+      "none": "No action was raised, so no one needs to confirm.",
+      "hold": "Waiting for the care team to accept (step {{n}}).",
+      "holdEm": "The 998 call does not wait for approval. The care team approves the follow-up plan at step {{n}}.",
+      "bypassEm": "Not required for the 998 call. Approval applies to the follow-up plan.",
+      "holdFam": "Waiting for a person to book or accept.",
+      "pass": "A person or care team accepted the action."
+    }
+  },
+  "prov": {
+    "legend": "What the tags mean",
+    "onCard": "On this card",
+    "col": "Source",
+    "homeReadings": "Readings from the watch, sensors and the person",
+    "observed": {
+      "label": "Observed",
+      "desc": "Read from a sensor, a record, or entered by a person"
+    },
+    "calculated": {
+      "label": "Calculated",
+      "desc": "Worked out by a rule or a formula"
+    },
+    "ai": {
+      "label": "AI-written",
+      "desc": "Wording written by AI. It explains; it never decides"
+    },
+    "clinician": {
+      "label": "Clinician confirmed",
+      "desc": "A clinician or care team accepted it"
+    }
+  },
+  "cardProv": {
+    "home": {
+      "observed": "readings and answers",
+      "calculated": "speech score and rule decision"
+    },
+    "passport": {
+      "observed": "age, weeks overdue, family record",
+      "calculated": "what is due and the rule"
+    },
+    "famhub": {
+      "observed": "profiles and linked records",
+      "calculated": "heart forecast and next actions"
+    },
+    "tl": {
+      "calculated": "steps taken by the rules"
+    },
+    "btn": {
+      "clinician": "the hospital team’s action"
+    },
+    "teach": {
+      "ai": "explanation and questions",
+      "calculated": "teach-back check"
+    },
+    "recheck": {
+      "observed": "the new reading",
+      "calculated": "recheck and escalation rule"
+    },
+    "daily": {
+      "observed": "the reading and the speech answer",
+      "calculated": "score and rule"
+    },
+    "accept": {
+      "clinician": "the care team’s acceptance",
+      "calculated": "the alert"
+    },
+    "result": {
+      "observed": "the result entered",
+      "calculated": "where it is routed"
+    },
+    "famresult": {
+      "observed": "the results entered",
+      "calculated": "where each is routed"
+    },
+    "refer": {
+      "clinician": "the referral accepted",
+      "calculated": "the route"
+    },
+    "report": {
+      "calculated": "monthly measures, no names"
+    }
+  },
+  "usual": {
+    "label": "Today’s speech score against the usual one",
+    "today": "Today",
+    "usual": "Usual",
+    "diff": "Difference",
+    "lower": "Today’s score is {{diff}} below {{n}}’s usual {{usual}}. Noa looks at the change from the person’s own baseline.",
+    "higher": "Today’s score is {{diff}} above {{n}}’s usual {{usual}}.",
+    "same": "Today’s score is the same as {{n}}’s usual {{usual}}."
+  },
+  "issue": {
+    "required": "Required",
+    "warning": "Warning",
+    "blocked": "Noa cannot run until the value above is fixed.",
+    "typed": "Exact value"
+  }
+}

@@ -1,0 +1,12 @@
+/* Entry points: the banner under the header (prototype #tcBanner). Prefixed `tc-`, nothing else is global. */
+.tc-banner{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;justify-content:space-between;padding:12px 16px;border-radius:18px;border:1.5px solid var(--brand)}
+.tc-banner-txt{min-width:0;flex:1 1 280px}
+.tc-banner-txt b{display:block;font-size:15px}
+.tc-banner-txt span{font-size:13px;color:var(--muted-text)}
+
+/* Header: room for the extra "Test case" button without a new row. Icon-only (aria-label stays) up to 1480 px, while the header is
+   tight, and a narrower search box between 1281 and 1560 px (the search is hidden below that by globals.css). */
+@media (max-width:1480px){.tn-right #runTest span.t{display:none}}
+@media (max-width:1560px) and (min-width:1281px){.topnav .search{width:150px}}
+@media (max-width:1400px) and (min-width:1281px){.topnav .search{width:110px}}
+.tc-loading{position:fixed;inset-block-end:16px;inset-inline-start:50%;transform:translateX(-50%);margin:0;padding:8px 16px;border-radius:12px;background:var(--solid,#fff);color:var(--ink,#111);box-shadow:0 4px 16px rgba(0,0,0,.18);font-size:13px;z-index:1000}

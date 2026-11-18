@@ -17,6 +17,13 @@ import type treatment from '../locales/en/treatment.json'
 import type patients from '../locales/en/patients.json'
 import type overview from '../locales/en/overview.json'
 import type guide from '../locales/en/guide.json'
+import type testcase from '../locales/en/testcase.json'
+import type testcaseShell from '../locales/en/testcaseShell.json'
+import type tcSafety from '../locales/en/tcSafety.json'
+import type tcPrevention from '../locales/en/tcPrevention.json'
+import type tcApp from '../locales/en/tcApp.json'
+import type tcBench from '../locales/en/tcBench.json'
+import type tcGates from '../locales/en/tcGates.json'
 
 /** English is the reference: keys are type-checked against it (`t('live:idle.title')`). */
 declare module 'i18next' {
@@ -41,6 +48,13 @@ declare module 'i18next' {
       patients: typeof patients
       overview: typeof overview
       guide: typeof guide
+      testcase: typeof testcase
+      testcaseShell: typeof testcaseShell
+      tcSafety: typeof tcSafety
+      tcPrevention: typeof tcPrevention
+      tcApp: typeof tcApp
+      tcBench: typeof tcBench
+      tcGates: typeof tcGates
     }
   }
 }

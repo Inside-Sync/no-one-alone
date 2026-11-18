@@ -7,6 +7,8 @@ import { Guide } from './Guide'
 import { ShellOverridesProvider } from './ShellOverrides'
 import { TopNav } from './TopNav'
 import { TourBar } from './TourBar'
+import { TestCaseBanner } from '@/features/testcase/entry/TestCaseBanner'
+import { TestCaseProvider } from '@/features/testcase/entry/TestCaseProvider'
 
 /**
  * Header, context bar, the "On this screen" tip and the page below them (`.wrap` is a grid, so each is a row), plus the
@@ -15,12 +17,15 @@ import { TourBar } from './TourBar'
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <ShellOverridesProvider>
-      <TopNav />
-      <ContextBar />
-      <Guide />
-      {children}
-      <ChatPanel />
-      <TourBar />
+      <TestCaseProvider>
+        <TopNav />
+        <TestCaseBanner />
+        <ContextBar />
+        <Guide />
+        {children}
+        <ChatPanel />
+        <TourBar />
+      </TestCaseProvider>
     </ShellOverridesProvider>
   )
 }

@@ -1,0 +1,3854 @@
+[
+ {
+  "id": "e01",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ]
+  ],
+  "sel": "khalid",
+  "big": "18%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 65 (real age 47) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 30%With the plan: 10%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk18% (moderate) · heart age 65",
+   "🧭Next actionMeasure cholesterol at the next check"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e02",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "tog",
+    "smoker"
+   ]
+  ],
+  "sel": "khalid",
+  "big": "9%",
+  "head": "10-year heart and stroke risk · Low",
+  "sub": "Heart age 52 (real age 47) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 16%With the plan: 10%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: no · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk9% (low) · heart age 52",
+   "🧭Next actionMeasure cholesterol at the next check"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 9%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: Smokes or vapes no",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e03",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "range",
+    "sbp",
+    170
+   ]
+  ],
+  "sel": "khalid",
+  "big": "27%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age 76 (real age 47) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 42%With the plan: 17%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 170 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk27% (high) · heart age 76",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 27%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: Blood pressure (top number) 170 mmHg",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e04",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "tog",
+    "labs"
+   ]
+  ],
+  "sel": "khalid",
+  "big": "14%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 62 (real age 47) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 23%With the plan: 8%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol 5.2, HDL 1.2 mmol/L",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk14% (moderate) · heart age 62",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 14%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: cholesterol measured",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e05",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "tog",
+    "labs"
+   ],
+   [
+    "range",
+    "tc",
+    8
+   ],
+   [
+    "range",
+    "hdl",
+    0.6
+   ]
+  ],
+  "sel": "khalid",
+  "big": "38%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age 90 (real age 47) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 55%With the plan: 23%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol 8, HDL 0.6 mmol/L",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk38% (high) · heart age 90",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 38%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: HDL cholesterol 0.6 mmol/L",
+   "18:30EDITProfile changed by you · Khalid: Total cholesterol 8 mmol/L",
+   "18:30EDITProfile changed by you · Khalid: cholesterol measured",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e06",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "tog",
+    "bpTx"
+   ],
+   [
+    "tog",
+    "dm"
+   ]
+  ],
+  "sel": "khalid",
+  "big": "38%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age 86 (real age 47) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 58%With the plan: 23%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year · on BP tablets",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: yes",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk38% (high) · heart age 86",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 38%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: Diabetes yes",
+   "18:30EDITProfile changed by you · Khalid: On BP tablets yes",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e07",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "range",
+    "age",
+    80
+   ]
+  ],
+  "sel": "khalid",
+  "big": null,
+  "head": null,
+  "sub": null,
+  "key": null,
+  "na": "The Framingham score is valid up to 74. Their doctor decides.",
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart riskNot scored: The Framingham score is valid up to 74. Their doctor decides.",
+   "🧭Next actionNothing due now"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 80Dad · logistics supervisorOverdue",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: Age 80 years",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e08",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "range",
+    "age",
+    29
+   ]
+  ],
+  "sel": "khalid",
+  "big": null,
+  "head": null,
+  "sub": null,
+  "key": null,
+  "na": "The Framingham score is valid from 30. Until then Noa shows habits that set lifetime risk.",
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart riskNot scored: The Framingham score is valid from 30. Until then Noa shows habits that set lifetime risk.",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 29Dad · logistics supervisorOverdue",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: Age 29 years",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e09",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "tog",
+    "cvd"
+   ]
+  ],
+  "sel": "khalid",
+  "big": null,
+  "head": null,
+  "sub": null,
+  "key": null,
+  "na": "Has had a heart attack or stroke, so a risk score does not apply: their clinic manages heart risk directly.",
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart riskNot scored: Has had a heart attack or stroke",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: Had a heart attack or stroke yes",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e10",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "sex",
+    "F"
+   ]
+  ],
+  "sel": "khalid",
+  "big": "9%",
+  "head": "10-year heart and stroke risk · Low",
+  "sub": "Heart age 65 (real age 47) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 16%With the plan: 5%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk9% (low) · heart age 65",
+   "🧭Next actionMeasure cholesterol at the next check"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 9%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: sex F",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e11",
+  "ops": [
+   [
+    "sel",
+    "saeed"
+   ]
+  ],
+  "sel": "saeed",
+  "big": "40%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age 92 (real age 69) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 51%With the plan: 42%",
+  "na": null,
+  "signals": [
+   "🛡️Home BP cuffTop number 136 mmHg · rising 2 a year",
+   "🛡️Last clinic visitBMI 30",
+   "🗣️1-minute check-inSmokes: no · diabetes: yes",
+   "📦Clinic and lab recordsCholesterol 4.6, HDL 1 mmol/L",
+   "🔎Family linksNo family history recorded",
+   "📈Framingham 10-year heart risk40% (high) · heart age 92",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e12",
+  "ops": [
+   [
+    "sel",
+    "saeed"
+   ],
+   [
+    "tog",
+    "dm"
+   ],
+   [
+    "range",
+    "sbp",
+    120
+   ],
+   [
+    "range",
+    "bmi",
+    24
+   ],
+   [
+    "range",
+    "sbpTrend",
+    0
+   ]
+  ],
+  "sel": "saeed",
+  "big": "20%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age 70 (real age 69) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 24%With the plan: 24%",
+  "na": null,
+  "signals": [
+   "🛡️Home BP cuffTop number 120 mmHg",
+   "🛡️Last clinic visitBMI 24",
+   "🗣️1-minute check-inSmokes: no · diabetes: no",
+   "📦Clinic and lab recordsCholesterol 4.6, HDL 1 mmol/L",
+   "🔎Family linksNo family history recorded",
+   "📈Framingham 10-year heart risk20% (high) · heart age 70",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 20%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Saeed: Blood pressure trend 0 mmHg/yr",
+   "18:30EDITProfile changed by you · Saeed: BMI 24",
+   "18:30EDITProfile changed by you · Saeed: Blood pressure (top number) 120 mmHg",
+   "18:30EDITProfile changed by you · Saeed: Diabetes no",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e13",
+  "ops": [
+   [
+    "sel",
+    "saeed"
+   ],
+   [
+    "act",
+    "book_saeed"
+   ]
+  ],
+  "sel": "saeed",
+  "big": "40%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age 92 (real age 69) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 51%With the plan: 42%",
+  "na": null,
+  "signals": [
+   "🛡️Home BP cuffTop number 136 mmHg · rising 2 a year",
+   "🛡️Last clinic visitBMI 30",
+   "🗣️1-minute check-inSmokes: no · diabetes: yes",
+   "📦Clinic and lab recordsCholesterol 4.6, HDL 1 mmol/L",
+   "🔎Family linksNo family history recorded",
+   "📈Framingham 10-year heart risk40% (high) · heart age 92",
+   "🧭Next actionBooked: Tuesday 10:00, his diabetes clinic visit"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al amber dn",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherBooked❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "34%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35SCOREFamily passport 34% (+9)",
+   "18:35BOOKNoa Navigator · Saeed booked: Tuesday 10:00, his diabetes clinic visit",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e14",
+  "ops": [
+   [
+    "sel",
+    "maitha"
+   ],
+   [
+    "range",
+    "age",
+    35
+   ],
+   [
+    "tog",
+    "smoker"
+   ],
+   [
+    "range",
+    "sbp",
+    150
+   ]
+  ],
+  "sel": "maitha",
+  "big": "5%",
+  "head": "10-year heart and stroke risk · Low",
+  "sub": "Heart age 54 (real age 35) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 7%With the plan: 3%",
+  "na": null,
+  "signals": [
+   "🛡️Clinic readingTop number 150 mmHg",
+   "🛡️Last clinic visitBMI 24 · +0.2 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksGrandfather Saeed: type 2 diabetes · mother: diabetes in pregnancy",
+   "📈Framingham 10-year heart risk5% (low) · heart age 54",
+   "🧭Next actionMeasure cholesterol at the next check"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 35Daughter · nurse on shiftsDue❤ 5%",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Maitha: Blood pressure (top number) 150 mmHg",
+   "18:30EDITProfile changed by you · Maitha: Smokes or vapes yes",
+   "18:30EDITProfile changed by you · Maitha: Age 35 years",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e15",
+  "ops": [
+   [
+    "sel",
+    "moza"
+   ],
+   [
+    "tog",
+    "cvd"
+   ]
+  ],
+  "sel": "moza",
+  "big": null,
+  "head": null,
+  "sub": null,
+  "key": null,
+  "na": "The Framingham score is valid up to 74. Their doctor decides.",
+  "signals": [
+   "🛡️Home BP cuffTop number 146 mmHg · on BP tablets",
+   "🛡️Last clinic visitBMI 26",
+   "🗣️1-minute check-inSmokes: no · diabetes: no",
+   "📦Clinic and lab recordsCholesterol 4.2, HDL 1.4 mmol/L",
+   "🔎Family linksHer brother Hamad: osteoporosis",
+   "📈Framingham 10-year heart riskNot scored: The Framingham score is valid up to 74. Their doctor decides.",
+   "🧭Next actionNothing due now"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Moza: Had a heart attack or stroke no",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e16",
+  "ops": [
+   [
+    "sel",
+    "moza"
+   ],
+   [
+    "tog",
+    "cvd"
+   ],
+   [
+    "range",
+    "age",
+    70
+   ]
+  ],
+  "sel": "moza",
+  "big": "14%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 86 (real age 70) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 16%With the plan: 14%",
+  "na": null,
+  "signals": [
+   "🛡️Home BP cuffTop number 146 mmHg · on BP tablets",
+   "🛡️Last clinic visitBMI 26",
+   "🗣️1-minute check-inSmokes: no · diabetes: no",
+   "📦Clinic and lab recordsCholesterol 4.2, HDL 1.4 mmol/L",
+   "🔎Family linksHer brother Hamad: osteoporosis",
+   "📈Framingham 10-year heart risk14% (moderate) · heart age 86",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 70Grandma · Khalid’s motherAlert❤ 14%",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Moza: Age 70 years",
+   "18:30EDITProfile changed by you · Moza: Had a heart attack or stroke no",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e17",
+  "ops": [
+   [
+    "sel",
+    "hind"
+   ],
+   [
+    "range",
+    "ageM",
+    30
+   ],
+   [
+    "range",
+    "overdueW",
+    0
+   ]
+  ],
+  "sel": "hind",
+  "big": null,
+  "head": null,
+  "sub": null,
+  "key": null,
+  "na": "Children are followed by well-child visits, not a heart score.",
+  "signals": [
+   "📦Al Khalidiya FHC recordsVisits done: 10 of 14",
+   "🛡️Passport schedule (demo ages)Next: 2.5-year visit",
+   "🗣️Asked the parent onceBarrier: clinic hours clash with shifts"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "2.5-year visit is due",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 2Granddaughter · Maitha’s daughterDue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "30%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Hind: Weeks overdue 0 weeks",
+   "18:30EDITProfile changed by you · Hind: Age 30 months",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e18",
+  "ops": [
+   [
+    "sel",
+    "hind"
+   ],
+   [
+    "range",
+    "ageM",
+    60
+   ],
+   [
+    "range",
+    "overdueW",
+    5
+   ]
+  ],
+  "sel": "hind",
+  "big": null,
+  "head": null,
+  "sub": null,
+  "key": null,
+  "na": "Children are followed by well-child visits, not a heart score.",
+  "signals": [
+   "📦Al Khalidiya FHC recordsVisits done: 12 of 14",
+   "🛡️Passport schedule (demo ages)Next: 5-year visit, 5 weeks overdue",
+   "🗣️Asked the parent onceBarrier: clinic hours clash with shifts"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "5-year visit is 5 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 5Granddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Hind: Weeks overdue 5 weeks",
+   "18:30EDITProfile changed by you · Hind: Age 60 months",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e19",
+  "ops": [
+   [
+    "sel",
+    "sultan"
+   ],
+   [
+    "range",
+    "age",
+    40
+   ],
+   [
+    "range",
+    "sbp",
+    150
+   ],
+   [
+    "act",
+    "no_sultan"
+   ]
+  ],
+  "sel": "sultan",
+  "big": "13%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 58 (real age 40) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 21%With the plan: 8%",
+  "na": null,
+  "signals": [
+   "🛡️Clinic readingTop number 150 mmHg · rising 1 a year",
+   "🛡️Last clinic visitBMI 26 · +0.6 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksGrandfather Abdullah: heart attack at 62 · grandfather Saeed: type 2 diabetes",
+   "📈Framingham 10-year heart risk13% (moderate) · heart age 58",
+   "🧭Next action“Not now” respected for 3 months"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber dn",
+    "title": "Never screened; vapes every day",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 40Son · university studentNot now❤ 13%",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "29%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35SCOREFamily passport 29% (+4)",
+   "18:35CHOICENoa Navigator · Sultan: not now · reminders paused 3 months",
+   "18:30EDITProfile changed by you · Sultan: Blood pressure (top number) 150 mmHg",
+   "18:30EDITProfile changed by you · Sultan: Age 40 years",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e20",
+  "ops": [
+   [
+    "act",
+    "book_sultan"
+   ],
+   [
+    "sel",
+    "sultan"
+   ]
+  ],
+  "sel": "sultan",
+  "big": null,
+  "head": null,
+  "sub": null,
+  "key": null,
+  "na": "The Framingham score is valid from 30. Until then Noa shows habits that set lifetime risk.",
+  "signals": [
+   "🛡️Clinic readingTop number 124 mmHg · rising 1 a year",
+   "🛡️Last clinic visitBMI 26 · +0.6 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksGrandfather Abdullah: heart attack at 62 · grandfather Saeed: type 2 diabetes",
+   "📈Framingham 10-year heart riskNot scored: The Framingham score is valid from 30. Until then Noa shows habits that set lifetime risk.",
+   "🧭Next actionBooked: Wednesday 19:00, Al Khalidiya FHC, with quit support"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber dn",
+    "title": "Never screened; vapes every day",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentBooked",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "34%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35SCOREFamily passport 34% (+9)",
+   "18:35CONNECTNoa Insight · new family connection: father and son both smoke → quit support for both",
+   "18:35BADGEFamily badge: Sultan’s first screening",
+   "18:35BOOKNoa Navigator · Sultan booked: Wednesday 19:00, Al Khalidiya FHC, with quit support",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four",
+   "🚭Khalid → SultanFather and son both smoke (medwakh, vape)Quit support offered to both, together if they want"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e21",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "tog",
+    "smoker"
+   ],
+   [
+    "reset"
+   ]
+  ],
+  "sel": "khalid",
+  "big": "18%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 65 (real age 47) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 30%With the plan: 10%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk18% (moderate) · heart age 65",
+   "🧭Next actionMeasure cholesterol at the next check"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITFamily profiles reset",
+   "18:30EDITProfile changed by you · Khalid: Smokes or vapes no",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e22",
+  "ops": [
+   [
+    "sel",
+    "amna"
+   ],
+   [
+    "tog",
+    "dm"
+   ],
+   [
+    "tog",
+    "bpTx"
+   ],
+   [
+    "range",
+    "sbp",
+    160
+   ]
+  ],
+  "sel": "amna",
+  "big": "18%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 96 (real age 45) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 24%With the plan: 16%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 160 mmHg · rising 1 a year · on BP tablets",
+   "🛡️Last clinic visitBMI 28 · +0.3 a year",
+   "🗣️1-minute check-inSmokes: no · diabetes: yes",
+   "📦Clinic and lab recordsCholesterol 5.3, HDL 1.3 mmol/L",
+   "🔎Family linksFather (Saeed): type 2 diabetes · her own diabetes in pregnancy",
+   "📈Framingham 10-year heart risk18% (moderate) · heart age 96",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 18%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Amna: Blood pressure (top number) 160 mmHg",
+   "18:30EDITProfile changed by you · Amna: On BP tablets yes",
+   "18:30EDITProfile changed by you · Amna: Diabetes yes",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e23",
+  "ops": [
+   [
+    "sel",
+    "amna"
+   ],
+   [
+    "tog",
+    "dm"
+   ],
+   [
+    "tog",
+    "bpTx"
+   ],
+   [
+    "range",
+    "sbp",
+    160
+   ],
+   [
+    "act",
+    "keep_amna"
+   ]
+  ],
+  "sel": "amna",
+  "big": "18%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 96 (real age 45) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 24%With the plan: 16%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 160 mmHg · rising 1 a year · on BP tablets",
+   "🛡️Last clinic visitBMI 28 · +0.3 a year",
+   "🗣️1-minute check-inSmokes: no · diabetes: yes",
+   "📦Clinic and lab recordsCholesterol 5.3, HDL 1.3 mmol/L",
+   "🔎Family linksFather (Saeed): type 2 diabetes · her own diabetes in pregnancy",
+   "📈Framingham 10-year heart risk18% (moderate) · heart age 96",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al yellow dn",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 18%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35CHOICEAmna keeps the original date; one reminder before",
+   "18:30EDITProfile changed by you · Amna: Blood pressure (top number) 160 mmHg",
+   "18:30EDITProfile changed by you · Amna: On BP tablets yes",
+   "18:30EDITProfile changed by you · Amna: Diabetes yes",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e24",
+  "ops": [
+   [
+    "sel",
+    "amna"
+   ],
+   [
+    "tog",
+    "dm"
+   ],
+   [
+    "tog",
+    "bpTx"
+   ],
+   [
+    "range",
+    "sbp",
+    160
+   ],
+   [
+    "act",
+    "keep_amna"
+   ],
+   [
+    "act",
+    "fcb_amna"
+   ]
+  ],
+  "sel": "amna",
+  "big": "18%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 96 (real age 45) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 24%With the plan: 16%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 160 mmHg · rising 1 a year · on BP tablets",
+   "🛡️Last clinic visitBMI 28 · +0.3 a year",
+   "🗣️1-minute check-inSmokes: no · diabetes: yes",
+   "📦Clinic and lab recordsCholesterol 5.3, HDL 1.3 mmol/L",
+   "🔎Family linksFather (Saeed): type 2 diabetes · her own diabetes in pregnancy",
+   "📈Framingham 10-year heart risk18% (moderate) · heart age 96",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al yellow dn",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 18%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35CHOICEAmna keeps the original date; one reminder before",
+   "18:30EDITProfile changed by you · Amna: Blood pressure (top number) 160 mmHg",
+   "18:30EDITProfile changed by you · Amna: On BP tablets yes",
+   "18:30EDITProfile changed by you · Amna: Diabetes yes",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": [
+   "fcb_amna"
+  ]
+ },
+ {
+  "id": "e25",
+  "ops": [
+   [
+    "sel",
+    "amna"
+   ],
+   [
+    "tog",
+    "dm"
+   ],
+   [
+    "tog",
+    "bpTx"
+   ],
+   [
+    "range",
+    "sbp",
+    160
+   ],
+   [
+    "act",
+    "keep_amna"
+   ],
+   [
+    "act",
+    "fcn_amna"
+   ]
+  ],
+  "sel": "amna",
+  "big": "18%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 96 (real age 45) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 24%With the plan: 16%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 160 mmHg · rising 1 a year · on BP tablets",
+   "🛡️Last clinic visitBMI 28 · +0.3 a year",
+   "🗣️1-minute check-inSmokes: no · diabetes: yes",
+   "📦Clinic and lab recordsCholesterol 5.3, HDL 1.3 mmol/L",
+   "🔎Family linksFather (Saeed): type 2 diabetes · her own diabetes in pregnancy",
+   "📈Framingham 10-year heart risk18% (moderate) · heart age 96",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al yellow dn",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 18%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35CHOICEAmna keeps the original date; one reminder before",
+   "18:30EDITProfile changed by you · Amna: Blood pressure (top number) 160 mmHg",
+   "18:30EDITProfile changed by you · Amna: On BP tablets yes",
+   "18:30EDITProfile changed by you · Amna: Diabetes yes",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": [
+   "fcn_amna"
+  ]
+ },
+ {
+  "id": "e26",
+  "ops": [
+   [
+    "sel",
+    "moza"
+   ],
+   [
+    "tog",
+    "cvd"
+   ],
+   [
+    "range",
+    "age",
+    70
+   ],
+   [
+    "tog",
+    "smoker"
+   ],
+   [
+    "range",
+    "sbp",
+    190
+   ],
+   [
+    "act",
+    "moza_ok"
+   ]
+  ],
+  "sel": "moza",
+  "big": "42%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age over 100 (real age 70) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 47%With the plan: 28%",
+  "na": null,
+  "signals": [
+   "🛡️Home BP cuffTop number 190 mmHg · on BP tablets",
+   "🛡️Last clinic visitBMI 26",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol 4.2, HDL 1.4 mmol/L",
+   "🔎Family linksHer brother Hamad: osteoporosis",
+   "📈Framingham 10-year heart risk42% (high) · heart age over 100",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "High heart risk: 42% in 10 years",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al red dn",
+    "title": "Blood pressure above target for 5 days",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 70Grandma · Khalid’s motherIn care❤ 42%",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "33%Al Mansoori family passport · 4 generations2 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35FORECASTNoa Forecast · Moza: 10-year heart risk 42% (high) → doctor review offered",
+   "18:35SCOREFamily passport 33% (+8)",
+   "18:35BADGEFamily badge: Moza’s blood pressure plan updated",
+   "18:35ACCEPTStroke clinic accepted Moza’s alert",
+   "18:30EDITProfile changed by you · Moza: Blood pressure (top number) 190 mmHg",
+   "18:30EDITProfile changed by you · Moza: Smokes or vapes yes",
+   "18:30EDITProfile changed by you · Moza: Age 70 years",
+   "18:30EDITProfile changed by you · Moza: Had a heart attack or stroke no"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e27",
+  "ops": [
+   [
+    "sel",
+    "moza"
+   ],
+   [
+    "tog",
+    "cvd"
+   ],
+   [
+    "range",
+    "age",
+    70
+   ],
+   [
+    "tog",
+    "smoker"
+   ],
+   [
+    "range",
+    "sbp",
+    190
+   ],
+   [
+    "act",
+    "moza_ok"
+   ],
+   [
+    "range",
+    "sbp",
+    110
+   ],
+   [
+    "tog",
+    "smoker"
+   ]
+  ],
+  "sel": "moza",
+  "big": "7%",
+  "head": "10-year heart and stroke risk · Low",
+  "sub": "Heart age 61 (real age 70) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 8%With the plan: 8%",
+  "na": null,
+  "signals": [
+   "🛡️Home BP cuffTop number 110 mmHg · on BP tablets",
+   "🛡️Last clinic visitBMI 26",
+   "🗣️1-minute check-inSmokes: no · diabetes: no",
+   "📦Clinic and lab recordsCholesterol 4.2, HDL 1.4 mmol/L",
+   "🔎Family linksHer brother Hamad: osteoporosis",
+   "📈Framingham 10-year heart risk7% (low) · heart age 61",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al red dn",
+    "title": "Blood pressure above target for 5 days",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 70Grandma · Khalid’s motherIn care❤ 7%",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "33%Al Mansoori family passport · 4 generations2 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35EDITProfile changed by you · Moza: Smokes or vapes no",
+   "18:35FORECASTNoa Forecast · Moza: risk now 11%, below high · alert withdrawn",
+   "18:35EDITProfile changed by you · Moza: Blood pressure (top number) 110 mmHg",
+   "18:35FORECASTNoa Forecast · Moza: 10-year heart risk 42% (high) → doctor review offered",
+   "18:35SCOREFamily passport 33% (+8)",
+   "18:35BADGEFamily badge: Moza’s blood pressure plan updated",
+   "18:35ACCEPTStroke clinic accepted Moza’s alert",
+   "18:30EDITProfile changed by you · Moza: Blood pressure (top number) 190 mmHg"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e28",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "range",
+    "bmi",
+    45
+   ],
+   [
+    "range",
+    "bmiTrend",
+    2
+   ],
+   [
+    "range",
+    "sbpTrend",
+    8
+   ]
+  ],
+  "sel": "khalid",
+  "big": "25%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age 73 (real age 47) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 52%With the plan: 15%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 8 a year",
+   "🛡️Smart scale via the InsideSync appBMI 45 · +2 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk25% (high) · heart age 73",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 25%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: Blood pressure trend +8 mmHg/yr",
+   "18:30EDITProfile changed by you · Khalid: BMI trend +2/yr",
+   "18:30EDITProfile changed by you · Khalid: BMI 45",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e29",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "range",
+    "sbp",
+    200
+   ],
+   [
+    "range",
+    "age",
+    74
+   ],
+   [
+    "tog",
+    "labs"
+   ],
+   [
+    "range",
+    "tc",
+    10
+   ],
+   [
+    "range",
+    "hdl",
+    0.5
+   ]
+  ],
+  "sel": "khalid",
+  "big": "99%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age over 100 (real age 74) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 99%With the plan: 97%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 200 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol 10, HDL 0.5 mmol/L",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk99% (high) · heart age over 100",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 74Dad · logistics supervisorOverdue❤ 99%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: HDL cholesterol 0.5 mmol/L",
+   "18:30EDITProfile changed by you · Khalid: Total cholesterol 10 mmol/L",
+   "18:30EDITProfile changed by you · Khalid: cholesterol measured",
+   "18:30EDITProfile changed by you · Khalid: Age 74 years",
+   "18:30EDITProfile changed by you · Khalid: Blood pressure (top number) 200 mmHg",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e30",
+  "ops": [
+   [
+    "sel",
+    "maitha"
+   ],
+   [
+    "range",
+    "age",
+    30
+   ],
+   [
+    "range",
+    "sbp",
+    90
+   ],
+   [
+    "range",
+    "bmi",
+    16
+   ]
+  ],
+  "sel": "maitha",
+  "big": "<1%",
+  "head": "10-year heart and stroke risk · Low",
+  "sub": "Heart age 30 or less (real age 30) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: <1%With the plan: <1%",
+  "na": null,
+  "signals": [
+   "🛡️Clinic readingTop number 90 mmHg",
+   "🛡️Last clinic visitBMI 16 · +0.2 a year",
+   "🗣️1-minute check-inSmokes: no · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksGrandfather Saeed: type 2 diabetes · mother: diabetes in pregnancy",
+   "📈Framingham 10-year heart risk<1% (low) · heart age 30 or less",
+   "🧭Next actionMeasure cholesterol at the next check"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 30Daughter · nurse on shiftsDue❤ <1%",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Maitha: BMI 16",
+   "18:30EDITProfile changed by you · Maitha: Blood pressure (top number) 90 mmHg",
+   "18:30EDITProfile changed by you · Maitha: Age 30 years",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e31",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "range",
+    "sbp",
+    250
+   ],
+   [
+    "range",
+    "age",
+    200
+   ],
+   [
+    "range",
+    "bmi",
+    60
+   ]
+  ],
+  "sel": "khalid",
+  "big": null,
+  "head": null,
+  "sub": null,
+  "key": null,
+  "na": "The Framingham score is valid up to 74. Their doctor decides.",
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 200 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 45 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart riskNot scored: The Framingham score is valid up to 74. Their doctor decides.",
+   "🧭Next actionNothing due now"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 90Dad · logistics supervisorOverdue",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: BMI 45",
+   "18:30EDITProfile changed by you · Khalid: Age 90 years",
+   "18:30EDITProfile changed by you · Khalid: Blood pressure (top number) 200 mmHg",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e32",
+  "ops": [
+   [
+    "sel",
+    "hind"
+   ],
+   [
+    "range",
+    "ageM",
+    200
+   ],
+   [
+    "range",
+    "overdueW",
+    50
+   ]
+  ],
+  "sel": "hind",
+  "big": null,
+  "head": null,
+  "sub": null,
+  "key": null,
+  "na": "Children are followed by well-child visits, not a heart score.",
+  "signals": [
+   "📦Al Khalidiya FHC recordsVisits done: 13 of 14",
+   "🛡️Passport schedule (demo ages)Next: 6-year visit, 12 weeks overdue",
+   "🗣️Asked the parent onceBarrier: clinic hours clash with shifts"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "6-year visit is 12 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 6Granddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Hind: Weeks overdue 12 weeks",
+   "18:30EDITProfile changed by you · Hind: Age 72 months",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e33",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "tog",
+    "emirati"
+   ]
+  ],
+  "sel": "khalid",
+  "big": "18%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 65 (real age 47) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 30%With the plan: 10%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk18% (moderate) · heart age 65",
+   "🧭Next actionMeasure cholesterol at the next check"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 45Mum · teacherDue❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:30EDITProfile changed by you · Khalid: Emirati no",
+   "18:30STARTCase loaded · Khalid Al Mansoori · The whole family"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e34",
+  "ops": [
+   [
+    "sel",
+    "khalid"
+   ],
+   [
+    "act",
+    "book_khalid"
+   ],
+   [
+    "act",
+    "book_hind"
+   ],
+   [
+    "act",
+    "book_amna"
+   ]
+  ],
+  "sel": "khalid",
+  "big": "18%",
+  "head": "10-year heart and stroke risk · Moderate",
+  "sub": "Heart age 65 (real age 47) · Framingham 2008, without cholesterol (uses BMI until it is measured)",
+  "key": "If today’s trends continue: 30%With the plan: 10%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 132 mmHg · rising 3 a year",
+   "🛡️Smart scale via the InsideSync appBMI 29 · +0.5 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: no",
+   "📦Clinic and lab recordsCholesterol not measured yet: BMI used instead",
+   "🔎Family linksMother: stroke and atrial fibrillation at 77 · father (late Abdullah): heart attack at 62",
+   "📈Framingham 10-year heart risk18% (moderate) · heart age 65",
+   "🧭Next actionBooked: Saturday 09:30, same clinic"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al amber dn",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": true
+   },
+   {
+    "cls": "al amber dn",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": true
+   },
+   {
+    "cls": "al yellow dn",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorBooked❤ 18%",
+   "👩Amna, 45Mum · teacherBooked❤ 4%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterBooked",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "46%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35SCOREFamily passport 46% (+4)",
+   "18:35BOOKNoa Navigator · Amna booked: Saturday 09:45, same clinic",
+   "18:35SCOREFamily passport 42% (+8)",
+   "18:35BADGEFamily badge: One trip, four checks",
+   "18:35BOOKNoa Navigator · Hind booked: Saturday 09:00, Al Khalidiya FHC",
+   "18:35SCOREFamily passport 34% (+9)",
+   "18:35BADGEFamily badge: Khalid’s first screening",
+   "18:35BOOKNoa Navigator · Khalid booked: Saturday 09:30, same clinic"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e35",
+  "ops": [
+   [
+    "sel",
+    "amna"
+   ],
+   [
+    "range",
+    "age",
+    60
+   ],
+   [
+    "tog",
+    "smoker"
+   ],
+   [
+    "tog",
+    "dm"
+   ],
+   [
+    "tog",
+    "bpTx"
+   ],
+   [
+    "range",
+    "sbp",
+    170
+   ],
+   [
+    "act",
+    "keep_amna"
+   ],
+   [
+    "act",
+    "fcb_amna"
+   ]
+  ],
+  "sel": "amna",
+  "big": "54%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age over 100 (real age 60) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 64%With the plan: 32%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 170 mmHg · rising 1 a year · on BP tablets",
+   "🛡️Last clinic visitBMI 28 · +0.3 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: yes",
+   "📦Clinic and lab recordsCholesterol 5.3, HDL 1.3 mmol/L",
+   "🔎Family linksFather (Saeed): type 2 diabetes · her own diabetes in pregnancy",
+   "📈Framingham 10-year heart risk54% (high) · heart age over 100",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al red dn",
+    "title": "High heart risk: 54% in 10 years",
+    "done": true
+   },
+   {
+    "cls": "al yellow dn",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 60Mum · teacherIn care❤ 54%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "31%Al Mansoori family passport · 4 generations2 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35SCOREFamily passport 31% (+6)",
+   "18:35BOOKNoa Navigator · Amna: doctor review for heart risk",
+   "18:35FORECASTNoa Forecast · Amna: 10-year heart risk 54% (high) → doctor review offered",
+   "18:35CHOICEAmna keeps the original date; one reminder before",
+   "18:30EDITProfile changed by you · Amna: Blood pressure (top number) 170 mmHg",
+   "18:30EDITProfile changed by you · Amna: On BP tablets yes",
+   "18:30EDITProfile changed by you · Amna: Diabetes yes",
+   "18:30EDITProfile changed by you · Amna: Smokes or vapes yes"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e36",
+  "ops": [
+   [
+    "sel",
+    "amna"
+   ],
+   [
+    "range",
+    "age",
+    60
+   ],
+   [
+    "tog",
+    "smoker"
+   ],
+   [
+    "tog",
+    "dm"
+   ],
+   [
+    "tog",
+    "bpTx"
+   ],
+   [
+    "range",
+    "sbp",
+    170
+   ],
+   [
+    "act",
+    "keep_amna"
+   ],
+   [
+    "act",
+    "fcn_amna"
+   ],
+   [
+    "range",
+    "sbp",
+    172
+   ]
+  ],
+  "sel": "amna",
+  "big": "55%",
+  "head": "10-year heart and stroke risk · High",
+  "sub": "Heart age over 100 (real age 60) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 65%With the plan: 33%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 172 mmHg · rising 1 a year · on BP tablets",
+   "🛡️Last clinic visitBMI 28 · +0.3 a year",
+   "🗣️1-minute check-inSmokes: yes · diabetes: yes",
+   "📦Clinic and lab recordsCholesterol 5.3, HDL 1.3 mmol/L",
+   "🔎Family linksFather (Saeed): type 2 diabetes · her own diabetes in pregnancy",
+   "📈Framingham 10-year heart risk55% (high) · heart age over 100",
+   "🧭Next actionDoctor review within 2 weeks"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al red dn",
+    "title": "High heart risk: 55% in 10 years",
+    "done": true
+   },
+   {
+    "cls": "al yellow dn",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 60Mum · teacherDue❤ 55%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35EDITProfile changed by you · Amna: Blood pressure (top number) 172 mmHg",
+   "18:35CHOICENoa Navigator · Amna: not now (heart review)",
+   "18:35FORECASTNoa Forecast · Amna: 10-year heart risk 54% (high) → doctor review offered",
+   "18:35CHOICEAmna keeps the original date; one reminder before",
+   "18:30EDITProfile changed by you · Amna: Blood pressure (top number) 170 mmHg",
+   "18:30EDITProfile changed by you · Amna: On BP tablets yes",
+   "18:30EDITProfile changed by you · Amna: Diabetes yes",
+   "18:30EDITProfile changed by you · Amna: Smokes or vapes yes"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ },
+ {
+  "id": "e37",
+  "ops": [
+   [
+    "sel",
+    "amna"
+   ],
+   [
+    "range",
+    "age",
+    60
+   ],
+   [
+    "tog",
+    "smoker"
+   ],
+   [
+    "tog",
+    "dm"
+   ],
+   [
+    "tog",
+    "bpTx"
+   ],
+   [
+    "range",
+    "sbp",
+    170
+   ],
+   [
+    "act",
+    "keep_amna"
+   ],
+   [
+    "tog",
+    "smoker"
+   ],
+   [
+    "tog",
+    "dm"
+   ],
+   [
+    "tog",
+    "bpTx"
+   ],
+   [
+    "range",
+    "sbp",
+    110
+   ]
+  ],
+  "sel": "amna",
+  "big": "5%",
+  "head": "10-year heart and stroke risk · Low",
+  "sub": "Heart age 53 (real age 60) · Framingham 2008, with cholesterol",
+  "key": "If today’s trends continue: 7%With the plan: 5%",
+  "na": null,
+  "signals": [
+   "🛡️BP cuff via the InsideSync appTop number 110 mmHg · rising 1 a year",
+   "🛡️Last clinic visitBMI 28 · +0.3 a year",
+   "🗣️1-minute check-inSmokes: no · diabetes: no",
+   "📦Clinic and lab recordsCholesterol 5.3, HDL 1.3 mmol/L",
+   "🔎Family linksFather (Saeed): type 2 diabetes · her own diabetes in pregnancy",
+   "📈Framingham 10-year heart risk5% (low) · heart age 53",
+   "🧭Next actionIFHAS screening"
+  ],
+  "alerts": [
+   {
+    "cls": "al red",
+    "title": "Blood pressure above target for 5 days",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "18-month visit is 3 weeks overdue",
+    "done": false
+   },
+   {
+    "cls": "al yellow",
+    "title": "IFHAS screening due (last done 2021)",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "No check-up in 4 years; IFHAS never done",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Eye and kidney checks 14 months overdue",
+    "done": false
+   },
+   {
+    "cls": "al amber",
+    "title": "Never screened; vapes every day",
+    "done": false
+   },
+   {
+    "cls": "al yellow dn",
+    "title": "HbA1c recheck due in 6 weeks",
+    "done": true
+   },
+   {
+    "cls": "al green dn",
+    "title": "5-year visit done",
+    "done": true
+   }
+  ],
+  "tree": [
+   "👵Moza, 78Grandma · Khalid’s motherAlert",
+   "👴Saeed, 69Grandpa · Amna’s fatherOverdue❤ 40%",
+   "👨Khalid, 47Dad · logistics supervisorOverdue❤ 18%",
+   "👩Amna, 60Mum · teacherDue❤ 5%",
+   "👩‍⚕️Maitha, 25Daughter · nurse on shiftsDue",
+   "🧑Sultan, 21Son · university studentOverdue",
+   "👧Hind, 18 monthsGranddaughter · Maitha’s daughterOverdue",
+   "👦Hamdan, 5Grandson · Maitha’s sonUp to date"
+  ],
+  "score": "25%Al Mansoori family passport · 4 generations1 of 8 up to date · goal: everyone by 30 November",
+  "log": [
+   "18:35EDITProfile changed by you · Amna: Blood pressure (top number) 110 mmHg",
+   "18:35FORECASTNoa Forecast · Amna: risk now 15%, below high · alert withdrawn",
+   "18:35EDITProfile changed by you · Amna: On BP tablets no",
+   "18:35EDITProfile changed by you · Amna: Diabetes no",
+   "18:35EDITProfile changed by you · Amna: Smokes or vapes no",
+   "18:35FORECASTNoa Forecast · Amna: 10-year heart risk 54% (high) → doctor review offered",
+   "18:35CHOICEAmna keeps the original date; one reminder before",
+   "18:30EDITProfile changed by you · Amna: Blood pressure (top number) 170 mmHg"
+  ],
+  "conns": [
+   "🧠Moza → KhalidStroke and atrial fibrillation in his motherBlood pressure and heart rhythm added to Khalid’s checks",
+   "❤️Late Abdullah → Khalid, SultanHeart attack at 62 in Khalid’s fatherNot part of the Framingham score, so Noa Insight shows it next to the forecast",
+   "🩸Saeed → Amna, Maitha, SultanType 2 diabetes in the grandfatherHbA1c moved up for Amna; first HbA1c for Maitha and Sultan",
+   "🤰Amna (2001, 2005) → Maitha, HindDiabetes in pregnancy in her motherMaitha’s sugar checked in any pregnancy; Hind’s growth watched",
+   "🚗Al Khalidiya FHC → Hind, Maitha, Khalid, AmnaFour checks at the same clinicOne Saturday trip instead of four"
+  ],
+  "miss": []
+ }
+]

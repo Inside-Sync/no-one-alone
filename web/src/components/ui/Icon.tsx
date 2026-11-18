@@ -8,7 +8,7 @@ import {
   PenLine, PersonStanding, PhoneOff, Plane, PlugZap, Receipt, RefreshCw, Ruler, Scale, Settings, Share,
   SlidersHorizontal, Smartphone, Sofa, Sparkles, Speech, Sprout, Stethoscope, SunDim, Sunrise, Syringe, Telescope,
   Thermometer, ThermometerSun, ThumbsUp, Timer, TriangleAlert, Turtle, Tv, Type, UserRound, Users, Utensils, Volume2,
-  VolumeX, Waves, Wheat, Wine,
+  VolumeX, Waves, Wheat, Wine, Baby, Car, Droplet, Globe, GraduationCap, Salad, Star,
   type LucideIcon,
 } from 'lucide-react'
 import type { DotIconName, DrawnIconName, IconName, LucideIconName } from '@/data/types'
@@ -40,6 +40,7 @@ const ICONS: Partial<Record<DrawnIconName, string>> = {
   hospital: "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M12 9v7M8.5 12.5h7\"/>",
   phone: "<path d=\"M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z\"/>",
   pause: "<path d=\"M9 5v14M15 5v14\"/>",
+  stop: "<rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"2\"/>",
   play: "<path d=\"M7 5l12 7-12 7z\"/>",
   check: "<path d=\"M5 12.5l4.5 4.5L19 7\"/>",
   x: "<path d=\"M6 6l12 12M18 6L6 18\"/>",
@@ -80,7 +81,7 @@ const LUCIDE: Record<LucideIconName, LucideIcon> = {
   syringe: Syringe, telescope: Telescope, thermometer: Thermometer, 'thermometer-sun': ThermometerSun,
   'thumbs-up': ThumbsUp, timer: Timer, 'triangle-alert': TriangleAlert, turtle: Turtle, tv: Tv, type: Type,
   'user-round': UserRound, users: Users, utensils: Utensils, 'volume-2': Volume2, 'volume-x': VolumeX, waves: Waves,
-  wheat: Wheat, wine: Wine,
+  wheat: Wheat, wine: Wine, baby: Baby, car: Car, droplet: Droplet, globe: Globe, 'graduation-cap': GraduationCap, salad: Salad, star: Star,
 }
 
 const DOT: Record<DotIconName, string> = { 'dot-green': 'var(--good)', 'dot-amber': 'var(--warn)', 'dot-red': 'var(--bad)' }
@@ -89,13 +90,13 @@ type Hue = 'red' | 'rose' | 'orange' | 'amber' | 'green' | 'blue' | 'indigo' | '
 
 const HUES: Record<Hue, readonly IconName[]> = {
   red: ['heart', 'heart-pulse', 'heart-crack', 'siren', 'ambulance', 'hospital', 'clinic', 'octagon-x', 'ban', 'circle-x', 'map-pin', 'target'],
-  rose: ['heart-handshake', 'wine', 'cake'],
+  rose: ['heart-handshake', 'wine', 'cake', 'baby', 'droplet'],
   orange: ['flame', 'thermometer', 'thermometer-sun', 'activity', 'dumbbell', 'biceps-flexed', 'utensils', 'cooking-pot', 'coffee'],
-  amber: ['sun', 'sunrise', 'sun-dim', 'cloud-sun', 'lightbulb', 'triangle-alert', 'bolt', 'sparkles', 'spark', 'party-popper', 'bell', 'candy', 'wheat', 'plug-zap', 'thumbs-up'],
-  green: ['leaf', 'sprout', 'tree', 'circle-check', 'check', 'footprints', 'person-standing', 'turtle', 'accessibility', 'shield', 'smile', 'door-stairwell'],
-  blue: ['drop', 'droplets', 'waves', 'cloud', 'cloud-rain', 'wind', 'lungs', 'phone', 'smartphone', 'message-circle', 'speech', 'mic', 'headphones', 'ear', 'volume-2', 'plane', 'info'],
+  amber: ['star', 'sun', 'sunrise', 'sun-dim', 'cloud-sun', 'lightbulb', 'triangle-alert', 'bolt', 'sparkles', 'spark', 'party-popper', 'bell', 'candy', 'wheat', 'plug-zap', 'thumbs-up'],
+  green: ['salad', 'leaf', 'sprout', 'tree', 'circle-check', 'check', 'footprints', 'person-standing', 'turtle', 'accessibility', 'shield', 'smile', 'door-stairwell'],
+  blue: ['globe', 'car', 'drop', 'droplets', 'waves', 'cloud', 'cloud-rain', 'wind', 'lungs', 'phone', 'smartphone', 'message-circle', 'speech', 'mic', 'headphones', 'ear', 'volume-2', 'plane', 'info'],
   indigo: ['moon', 'bed', 'cloud-moon', 'sofa', 'timer', 'clock', 'calendar', 'fast-forward', 'pause', 'play'],
-  purple: ['pill', 'brain', 'syringe', 'flask-conical', 'stethoscope', 'telescope', 'bean', 'bone', 'eye'],
+  purple: ['graduation-cap', 'pill', 'brain', 'syringe', 'flask-conical', 'stethoscope', 'telescope', 'bean', 'bone', 'eye'],
   slate: ['arrow-down', 'lock', 'settings', 'user-round', 'users', 'people', 'hand', 'clipboard-list', 'file', 'folder', 'receipt', 'notebook-pen', 'notebook-text', 'pen-line',
     'ruler', 'scale', 'type', 'tv', 'glasses', 'package', 'book-open', 'news', 'camera', 'volume-x', 'bell-off', 'phone-off', 'meh', 'cigarette-off', 'refresh-cw',
     'sliders-horizontal', 'circle-help', 'share'],
