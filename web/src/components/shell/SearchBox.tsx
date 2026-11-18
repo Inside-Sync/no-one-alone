@@ -2,18 +2,23 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useRouter } from '@/app/navigation'
+import { usePathname, useRouter } from '@/app/navigation'
 import { Icon } from '@/components/ui/Icon'
 import * as repo from '@/data/repo'
+import { parsePath } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
 import s from './shell.module.css'
 
 interface Entry { key: string; label: string; note: string; to: string }
 
-/** Filters people and Abu Dhabi areas from fixtures; Enter or a click navigates. */
+/**
+ * Filters people and Abu Dhabi areas; Enter or a click navigates. In the Hospital view a person is a patient, so a
+ * result opens their patient record instead of the person's own app.
+ */
 export function SearchBox() {
   const { t } = useTranslation()
   const router = useRouter()
+  const hospital = parsePath(usePathname()).view === 'hospital'
   const { people: sharePeople } = useAppState()
   const [entries, setEntries] = useState<Entry[]>([])
   const [q, setQ] = useState('')
@@ -22,19 +27,29 @@ export function SearchBox() {
 
   useEffect(() => {
     let live = true
+    const subsOf = (gov: Awaited<ReturnType<typeof repo.getGovernment>>): Entry[] => gov.areas.map((a) => ({
+      key: `s-${a.name}`, label: a.name, note: t('nav.search.suburb'), to: '/government/population',
+    }))
+    if (hospital) {
+      Promise.all([repo.getPatients(), repo.getGovernment()]).then(([data, gov]) => {
+        if (!live) return
+        const patients: Entry[] = data.patients.map((p) => ({
+          key: `r-${p.id}`, label: p.name, note: t('nav.search.patient', { why: p.why }), to: `/hospital/patients?patient=${p.id}&step=sum`,
+        }))
+        setEntries([...patients, ...subsOf(gov)])
+      }, () => {})
+      return () => { live = false }
+    }
     Promise.all([repo.getPerson('margaret'), repo.getGovernment()]).then(([person, gov]) => {
       if (!live) return
       const people: Entry[] = [
         { key: 'p-margaret', label: person.name, note: t('nav.search.person'), to: '/individual/health' },
         ...sharePeople.map((p) => ({ key: `p-${p.id}`, label: p.name, note: p.role, to: '/individual/health' })),
       ]
-      const subs: Entry[] = gov.areas.map((a) => ({
-        key: `s-${a.name}`, label: a.name, note: t('nav.search.suburb'), to: '/government/population',
-      }))
-      setEntries([...people, ...subs])
+      setEntries([...people, ...subsOf(gov)])
     }, () => {})
     return () => { live = false }
-  }, [sharePeople, t])
+  }, [sharePeople, t, hospital])
 
   const results = useMemo(() => {
     const v = q.trim().toLowerCase()
