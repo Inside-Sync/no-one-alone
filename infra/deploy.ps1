@@ -30,7 +30,10 @@ if ($Target -in "all", "respond") {
     Deploy-Run "respond-agent" "agents/respond" "respond-agent" $false
     $hospitalUrl = gcloud run services describe hospital-agent --region $Region --project $ProjectId --format="value(status.url)"
     if (-not $hospitalUrl) { throw "hospital-agent is not deployed; deploy it first" }
-    gcloud run services update respond-agent --region $Region --project $ProjectId --update-env-vars "HOSPITAL_AGENT_URL=$hospitalUrl" --quiet
+    $updateArgs = @("--update-env-vars", "HOSPITAL_AGENT_URL=$hospitalUrl")
+    gcloud secrets describe azure-speech-key --project $ProjectId *> $null
+    if ($LASTEXITCODE -eq 0) { $updateArgs += @("--update-secrets", "AZURE_SPEECH_KEY=azure-speech-key:latest") }
+    gcloud run services update respond-agent --region $Region --project $ProjectId @updateArgs --quiet
     if ($LASTEXITCODE -ne 0) { throw "Setting HOSPITAL_AGENT_URL on respond-agent failed" }
 }
 # core-api is public for Hosting rewrites and checks tokens itself; the org blocks allUsers, hence --no-invoker-iam-check.

@@ -62,6 +62,17 @@ The scripted voice question is recognised by `ASKED` with `params.step == "SPEEC
 - `turns[].kind` is set only on `AGENT` turns: `OPENING`, `SPEECH_CHECK`, `SYMPTOMS` or `YES_NO`.
 - `pending.step` takes the same values. `pending.kind` is still how the person answers (`VOICE` or `YES_NO`).
 
+## Pronunciation scores
+
+On the English speech-check turn, respond-agent may add Azure AI Speech scores to the person's turn:
+
+```json
+"assessment": { "clarity": "SLURRED", "pronunciation": { "accuracy": 62.5, "fluency": 48.0, "completeness": 100.0, "overall": 61.2 } }
+```
+
+- Scores are 0 to 100. `pronunciation` is absent when Azure did not score the turn (no key, error, timeout, Arabic).
+- The verdict stays `clarity`; the scores are shown, not used.
+
 ## Recovery key
 
 `POST /api/incidents/{id}/recovery` accepts an optional `key` on each `meds[]` and `activities[]` item. The pattern is `^[a-z0-9_]{1,40}$`; anything else returns 400. An empty string means absent.

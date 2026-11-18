@@ -94,6 +94,12 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini (Vertex AI `globa
 
 The web also supports the Google Maps JavaScript API, but the live demo is built without a key and draws its own 3D map from OpenStreetMap data.
 
+## Other services
+
+| Service | Used for |
+|---|---|
+| Azure AI Speech (Microsoft) | Pronunciation scores for the speech check. The repeat recording is sent to Azure in UAE North. |
+
 ## Repository layout
 
 ```
