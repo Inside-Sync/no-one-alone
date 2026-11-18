@@ -40,7 +40,7 @@ export type StatusLevel = 'good' | 'watch' | 'alert'
 export type DrawnIconName =
   | 'home' | 'spark' | 'tree' | 'file' | 'bell' | 'bolt' | 'mic' | 'heart' | 'right' | 'left'
   | 'trend' | 'pill' | 'people' | 'ear' | 'eye' | 'brain' | 'plus' | 'minus' | 'clinic' | 'hospital'
-  | 'phone' | 'pause' | 'play' | 'check' | 'x' | 'grid' | 'sun' | 'search' | 'target'
+  | 'phone' | 'pause' | 'play' | 'stop' | 'check' | 'x' | 'grid' | 'sun' | 'search' | 'target'
   | 'siren' | 'shield' | 'radar' | 'moon' | 'cpu' | 'smile' | 'news' | 'wind' | 'drop'
   | 'cloud' | 'lungs' | 'watch'
 
@@ -60,6 +60,7 @@ export type LucideIconName =
   | 'syringe' | 'telescope' | 'thermometer' | 'thermometer-sun' | 'thumbs-up' | 'timer' | 'triangle-alert'
   | 'turtle' | 'tv' | 'type' | 'user-round' | 'users' | 'utensils' | 'volume-2' | 'volume-x' | 'waves'
   | 'wheat' | 'wine'
+  | 'baby' | 'car' | 'droplet' | 'globe' | 'graduation-cap' | 'salad' | 'star'
 
 /** A traffic-light dot (green / amber / red status). */
 export type DotIconName = 'dot-green' | 'dot-amber' | 'dot-red'

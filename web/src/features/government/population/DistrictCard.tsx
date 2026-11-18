@@ -9,7 +9,8 @@ import type { Canvas3DHandle } from '@/components/canvas/useCanvas3D'
 import { useToast } from '@/components/ui/Toast'
 import type { Area } from '@/data/government.types'
 import type { CityView } from '@/data/types'
-import { DISTRICT_MODEL_IDS, districtModel, HIGHER_IS_BETTER, metricFor, type DistrictModel } from '@/domain/district'
+import { SuppressionNote } from '@/components/ui/Suppressed'
+import { DISTRICT_MODEL_IDS, districtModel, HIGHER_IS_BETTER, areaMetricHidden, metricFor, type DistrictModel } from '@/domain/district'
 
 interface Props {
   areas: Area[]
@@ -31,9 +32,10 @@ export function DistrictCard({ areas, kicker, view }: Props) {
   const narrow = typeof window !== 'undefined' && window.matchMedia?.('(max-width: 700px)').matches
   const camera = useMemo(() => (view && narrow ? { ...view, zoom: (view.zoom ?? 1) * 0.84 } : view), [view, narrow])
   const metric = useMemo(
-    () => ({ values: areas.map((a) => metricFor(a, model)), suffix: m.unit, higherIsBetter: HIGHER_IS_BETTER[model] }),
+    () => ({ values: areas.map((a) => metricFor(a, model)), suffix: m.unit, higherIsBetter: HIGHER_IS_BETTER[model], hidden: areaMetricHidden(areas, model) }),
     [areas, model, m.unit],
   )
+  const anyHidden = metric.hidden.some(Boolean)
   return (
     <article className="glass map-card district-card c8" style={{ minHeight: 540 }}>
       <div className="map-top">
@@ -55,6 +57,7 @@ export function DistrictCard({ areas, kicker, view }: Props) {
       {camera && <MapZoom map={city} />}
       {/* Hints, not controls: plain text so nothing looks pressable. */}
       <p className="map-bottom map-hint">{chips.join(' · ')}</p>
+      {anyHidden && <SuppressionNote className="fine map-hint" />}
     </article>
   )
 }

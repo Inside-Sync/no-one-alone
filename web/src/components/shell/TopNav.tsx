@@ -16,6 +16,7 @@ import { firstPage, parsePath, tabsFor, VIEW_USERS, type ViewId } from '@/domain
 import { useAppState } from '@/state/AppState'
 import { useNightDemo } from '@/state/useNightDemo'
 import { useTour } from '@/state/Tour'
+import { TestCaseButton } from '@/features/testcase/entry/TestCaseButton'
 
 interface Props {
   /** Overrides; by default each shows its `data-toast` copy via `useToast()`. */
@@ -74,6 +75,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
           <span className="ic"><Icon name="play" /></span>
           <span className="t">{t('nav.tour')}</span>
         </button>
+        <TestCaseButton />
         <button
           type="button"
           role="switch"

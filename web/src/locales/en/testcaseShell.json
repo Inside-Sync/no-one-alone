@@ -1,0 +1,40 @@
+{
+  "bar": {
+    "title": "Test case · prevention, screening and the safety net",
+    "subtitle": "Pick a case or enter your own data. Noa’s agents decide what to do; follow it through clinic, home and the Department of Health. Fictional data.",
+    "close": "Close",
+    "closeLabel": "Close the test case"
+  },
+  "tabs": {
+    "label": "Test case sections",
+    "case": "Test case",
+    "judges": "For judges",
+    "bench": "Benchmark"
+  },
+  "button": {
+    "label": "Test case"
+  },
+  "banner": {
+    "title": "Test it yourself: prevention, screening and the safety net",
+    "text": "Start with the whole family: one Family Health Passport for three generations across five hospitals. Then well-child visits, adult IFHAS screening and emergencies at home. Enter your own data, see Noa’s agents find the barrier or the risk, and follow it to care and to the Department of Health. Or press “Run it for me”.",
+    "start": "Start the test case"
+  },
+  "layout": {
+    "steps": "Steps",
+    "baton": "Who has the person’s care now",
+    "team": "Noa agent team",
+    "family": "Family Health Passport",
+    "picker": "Cases",
+    "dataPath": "Data path"
+  },
+  "screen": {
+    "phone": "No One Alone phone app · Individual",
+    "web": "No One Alone web · Family",
+    "noa": "No One Alone · Hospital and Government"
+  },
+  "demo": {
+    "caption": "Layout preview",
+    "region": "{{name}} goes here"
+  },
+  "loading": "Loading the test case…"
+}

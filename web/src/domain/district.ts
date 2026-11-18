@@ -1,5 +1,6 @@
 import type { Area, StalledResult } from '@/data/government.types'
 import i18n from '@/i18n'
+import { isSuppressed, suppressSplit } from './suppression'
 
 /** The four measures of the district map: results open past target, reached care in time, coverage, days to treatment. */
 export type DistrictModel = 'open' | 'reach' | 'cov' | 'days'
@@ -35,7 +36,30 @@ export function metricFor(a: Area, model: DistrictModel): number {
   }
 }
 
+/**
+ * Whether an area's column must be hidden (small-cell suppression): the count itself is under 10 (`open`), or the rate or
+ * median comes from fewer than 10 people (actionable results for `reach`, adults screened for `cov` and `days`).
+ */
+export function isAreaMetricHidden(a: Area, model: DistrictModel): boolean {
+  switch (model) {
+    case 'open': return isSuppressed(openPastTarget(a))
+    case 'reach': return isSuppressed(a.actionable)
+    case 'cov':
+    case 'days': return isSuppressed(a.screened)
+  }
+}
+
 /** Longest open first; results open for the same time keep the order they were given. */
 export function longestOpenFirst(rows: readonly StalledResult[]): StalledResult[] {
   return [...rows].sort((a, b) => b.openDays - a.openDays)
+}
+
+/**
+ * Hidden flags for every area under a measure. `open` is a count shown beside its page total (the "Open past target" tile),
+ * so it gets complementary suppression: with exactly one area under 10, the smallest visible one is hidden too, and
+ * total minus the visible columns can no longer reveal either. The other measures are rates or medians with no total to subtract.
+ */
+export function areaMetricHidden(areas: readonly Area[], model: DistrictModel): boolean[] {
+  if (model === 'open') return suppressSplit(areas.map(openPastTarget)).map((c) => c === null)
+  return areas.map((a) => isAreaMetricHidden(a, model))
 }

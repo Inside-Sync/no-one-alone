@@ -313,6 +313,11 @@
     "text": "That page does not exist.",
     "link": "Go to Home"
   },
+  "suppression": {
+    "token": "<10",
+    "label": "Fewer than 10, hidden to protect privacy",
+    "note": "Groups under 10 are hidden to protect privacy. A \"<10\" mark is not zero."
+  },
   "charts": {
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",

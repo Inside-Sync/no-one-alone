@@ -289,9 +289,13 @@ export const tileColour = (reached: number) => ramp(1 - (reached - 55) / 40, TIL
  * as one block, walls first. Each area also gets a hit-only tag pin for the tap toast. The measure comes from the
  * caller; when `higherIsBetter` the colour runs the other way (a tall column is a good one).
  */
-export function buildDistrict(areas: Area[], values: number[], suffix: string, highlight?: string, higherIsBetter = false): CityModel {
+export function buildDistrict(areas: Area[], values: number[], suffix: string, highlight?: string, higherIsBetter = false, hidden?: readonly boolean[], token = '<10'): CityModel {
   const F: Face[] = [], G: Face[] = [], P: CityPin[] = [], X: CityText[] = []
-  const scale = districtScale(values)
+  // Suppressed areas stand as a flat grey stub and stay out of the scale, so their height says nothing.
+  const shown = values.filter((_, i) => !hidden?.[i])
+  const scaleOf = shown.length ? districtScale(shown) : []
+  let next = 0
+  const scale = values.map((_, i) => (hidden?.[i] ? 0 : scaleOf[next++]))
   // A slab of sea round the island, land under the grid, like the design's board.
   const land = areaLand(), seaX = [land[0][0] - 34, land[1][0] + 34], seaY = [land[0][1] - 34, land[2][1] + 34]
   G.push({ pts: rect(seaX[0], seaY[0], seaX[1], seaY[1]), fill: '#d6e9f0', stroke: '#ffffff', lw: 1.2 })
@@ -302,7 +306,8 @@ export function buildDistrict(areas: Area[], values: number[], suffix: string, h
   areas.forEach((s, i) => {
     const r = areaColumn(s)
     const v = values[i], t = Math.max(0, Math.min(1, scale[i])), h = 8 + t * 150, mine = s.name === highlight
-    const col = rgbHex(ramp(higherIsBetter ? 1 - t : t, DISTRICT_RAMP)), [cx, cy] = centroid(r), key: Pt3 = [cx, cy, 0]
+    const off = !!hidden?.[i]
+    const col = off ? '#aeb8b6' : rgbHex(ramp(higherIsBetter ? 1 - t : t, DISTRICT_RAMP)), [cx, cy] = centroid(r), key: Pt3 = [cx, cy, 0]
     // Outward wall normals need the ring's winding.
     let area = 0
     for (let k = 0; k < r.length; k++) area += r[k][0] * r[(k + 1) % r.length][1] - r[(k + 1) % r.length][0] * r[k][1]
@@ -315,8 +320,8 @@ export function buildDistrict(areas: Area[], values: number[], suffix: string, h
     }
     F.push({ pts: r.map(([x, y]) => [x, y, h] as Pt3), fill: shade(col, 1.08), stroke: mine ? '#0b7f71' : 'rgba(255,255,255,.95)', lw: mine ? 2.5 : 1.2, key, last: true })
     // A roof too small for its name shows the value alone (the tap toast still names it).
-    X.push({ x: cx, y: cy, z: h, t: String(v), sub: Math.abs(area) / 2 < SMALL_ROOF ? '' : s.name, light: luminance(col) < 0.3 })
-    P.push({ x: cx, y: cy, z: h, name: s.name, sub: (v + suffix).trim(), c: mine ? '#14a08c' : col, ini: '', tag: true, card: true, rank: t })
+    X.push({ x: cx, y: cy, z: h, t: off ? token : String(v), sub: Math.abs(area) / 2 < SMALL_ROOF ? '' : s.name, light: luminance(col) < 0.3 })
+    P.push({ x: cx, y: cy, z: h, name: s.name, sub: off ? token : (v + suffix).trim(), c: mine ? '#14a08c' : col, ini: '', tag: true, card: true, rank: t })
   })
   return { faces: F, ground: G, trees: [], pins: P, labels: [], texts: X }
 }

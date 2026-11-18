@@ -130,7 +130,8 @@ describe('population health', () => {
     expect(rows()[0]).toHaveTextContent('Over capacity')
     expect(rows()[0]).toHaveTextContent('Below 70%')
     expect(rows()[7]).toHaveTextContent('On target')
-    const scores = rows().map((r) => Number(r.querySelectorAll('td')[2].querySelector('b')!.textContent))
+    // A small group (open under 10) shows no score: only the rows that have one are in the order.
+    const scores = rows().flatMap((r) => { const b = r.querySelectorAll('td')[2].querySelector('b'); return b ? [Number(b.textContent)] : [] })
     expect(scores).toEqual([...scores].sort((a, b) => a - b))
     expect(screen.getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'true')
     fireEvent.click(screen.getByRole('button', { name: 'Hospitals' }))
@@ -244,7 +245,8 @@ describe('programme signals', () => {
     renderWithProviders(<SignalsPage />, opts)
     await ready()
     const svg = screen.getByRole('img', { name: /Results open past target each week over 8 weeks, falling from 68 to 59/ })
-    expect(svg.querySelectorAll('rect')).toHaveLength(24)
+    // 24 bars, minus the 2 stacks whose cells under 10 merge into one hatched block each (2 fewer), plus the hatch pattern's own rect.
+    expect(svg.querySelectorAll('rect')).toHaveLength(23)
     const texts = Array.from(svg.querySelectorAll('text')).map((t) => t.textContent)
     expect(texts).toContain('this wk')
     expect(texts).toContain('w-7')

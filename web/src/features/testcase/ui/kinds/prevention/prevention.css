@@ -1,0 +1,28 @@
+/* S4: prevention and family cards. Everything under .tc.tc, logical properties only. */
+.tc.tc .tcp-sr{position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.tc.tc .opt .tcp-en{display:block;font-size:11px;color:var(--muted);margin-block-start:2px}
+.tc.tc .tcp-moment,.tc.tc .tcp-queue{border:1px dashed var(--warn);border-radius:14px;background:var(--panel);padding:10px 12px;display:grid;gap:8px}
+.tc.tc .tcp-moment-h,.tc.tc .tcp-queue-h{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between}
+.tc.tc .tcp-queue-h b{display:inline-flex;gap:6px;align-items:center}
+.tc.tc .tcp-story{display:grid;gap:8px}
+.tc.tc .tcp-story ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.tc.tc .tcp-story li{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);background:var(--solid);border-radius:10px;padding:7px 10px;font-size:12.5px}
+.tc.tc .tcp-story li.bad{border-color:var(--bad);background:var(--bad-s)}
+.tc.tc .tcp-story q{font-style:italic}
+.tc.tc .tcp-slot{display:flex;gap:8px;align-items:center;font-size:13px}
+.tc.tc .tcp-slot small{display:block;font-size:11px;color:var(--muted)}
+.tc.tc .tcp-queue ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.tc.tc .tcp-qrow{display:grid;gap:7px;border:1px solid var(--line);background:var(--solid);border-radius:12px;padding:8px 10px;font-size:12.5px}
+.tc.tc .tcp-qrow.decided{border-color:var(--good)}
+.tc.tc .tcp-qmain{display:grid;gap:2px;justify-items:start}
+.tc.tc .tcp-qmain small{color:var(--muted);font-size:11.5px}
+.tc.tc .tcp-qdone{margin:0;color:var(--good-t);font-weight:600}
+.tc.tc .tcp-toggle{justify-self:start}
+.tc.tc .tcp-agt{display:inline-flex;gap:5px;align-items:center}
+.tc.tc .tcp-lane text{font-size:8.5px}
+.tc.tc .tcp-lane{inline-size:100%;block-size:auto;display:block}
+
+.tc.tc .fcmini{border:1px solid var(--line);border-radius:12px;background:var(--solid);padding:8px 10px;display:grid;gap:3px;font-size:12.5px;margin-block-start:8px}
+.tc.tc .fcmini b.good{color:var(--good)}
+.tc.tc .fcmini b.warn{color:var(--warn)}
+.tc.tc .fcmini b.bad{color:var(--bad)}

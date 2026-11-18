@@ -3,9 +3,11 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlassCard } from '@/components/ui/GlassCard'
+import { CountOrSuppressed, SuppressionNote } from '@/components/ui/Suppressed'
 import { Pill } from '@/components/ui/Pill'
 import { TableScroll } from '@/components/ui/TableScroll'
 import type { Facility, GovernmentData } from '@/data/government.types'
+import { suppressCount, suppressRate } from '@/domain/suppression'
 import { toneVar } from '@/lib/tone'
 import { Head } from '../../individual/home/parts'
 import { BAND_PILL, capacityBand, careStatus, STATUS_COLOUR, STATUS_PILL, toneAt } from '../bands'
@@ -43,21 +45,26 @@ export function FacilitiesCard({ facilities }: { facilities: GovernmentData['fac
             {rows.map((f) => {
               const band = capacityBand(f.capacity)
               const status = careStatus(f.inCare)
+              // Every rate below is over the facility's open results: under 10 of them, it is hidden.
+              const readmitted = f.readmitted == null ? null : suppressRate(f.readmitted, f.open)
+              const effectiveness = suppressRate(f.effectiveness, f.open)
+              const days = suppressRate(f.days, f.open)
+              const outcome = suppressRate(f.outcome, f.open)
               return (
                 <tr key={f.name}>
                   <td><b style={plain}>{f.name}</b><small>{t(`population.facilities.kinds.${f.kind}`)} · {f.area}</small></td>
                   <td><b className="n">{f.capacity}%</b> <Pill tone={BAND_PILL[band]}>{t(`population.facilities.bands.${band}`)}</Pill></td>
-                  <td className="n"><b style={{ color: toneVar(toneAt(f.effectiveness, SCORE_GOOD, SCORE_WARN)) }}>{f.effectiveness}</b><small>{t('population.facilities.outOf')}</small></td>
+                  <td className="n">{effectiveness === null ? <CountOrSuppressed value={null} /> : <><b style={{ color: toneVar(toneAt(effectiveness, SCORE_GOOD, SCORE_WARN)) }}>{effectiveness}</b><small>{t('population.facilities.outOf')}</small></>}</td>
                   <td>
                     <div className={s.bar}>
                       <i><s style={{ width: `${f.inCare}%`, background: STATUS_COLOUR[status] }}></s></i>
                       <b className="n">{f.inCare}%</b>
                     </div>
                   </td>
-                  <td className="n">{f.days}</td>
-                  <td className="n">{f.readmitted == null ? <span className={s.muted}>{empty}</span> : `${f.readmitted}%`}</td>
-                  <td className="n">{f.open}</td>
-                  <td className="n"><span style={{ color: toneVar(toneAt(f.outcome, OUTCOME_GOOD, OUTCOME_WARN)) }}>{f.outcome}%</span><small>{t(`population.facilities.outcomeKinds.${f.outcomeKind}`)}</small></td>
+                  <td className="n">{days === null ? <CountOrSuppressed value={null} /> : days}</td>
+                  <td className="n">{f.readmitted == null ? <span className={s.muted}>{empty}</span> : readmitted === null ? <CountOrSuppressed value={null} /> : `${readmitted}%`}</td>
+                  <td className="n"><CountOrSuppressed value={suppressCount(f.open)} /></td>
+                  <td className="n">{outcome === null ? <CountOrSuppressed value={null} /> : <><span style={{ color: toneVar(toneAt(outcome, OUTCOME_GOOD, OUTCOME_WARN)) }}>{outcome}%</span><small>{t(`population.facilities.outcomeKinds.${f.outcomeKind}`)}</small></>}</td>
                   <td><Pill tone={STATUS_PILL[status]}>{t(`population.facilities.status.${status}`)}</Pill></td>
                 </tr>
               )
@@ -66,6 +73,7 @@ export function FacilitiesCard({ facilities }: { facilities: GovernmentData['fac
         </table>
       </TableScroll>
       <p className={`fine ${s.tableNote}`}>{facilities.tableNote}</p>
+      {rows.some((f) => suppressCount(f.open) === null) && <SuppressionNote />}
     </GlassCard>
   )
 }

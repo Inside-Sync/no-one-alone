@@ -1,0 +1,369 @@
+{
+  "fallback": {
+    "notYet": "{{what}} is not available yet.",
+    "kind": "The card for this step ({{kind}}) is not available yet.",
+    "phone": "The phone screen",
+    "web": "The web screen"
+  },
+  "picker": {
+    "group": {
+      "family": "Start here · the whole family",
+      "prevention": "Prevention and screening · one person at a time",
+      "safety": "Safety net · when something goes wrong at home"
+    },
+    "person": "Person",
+    "time": "Time",
+    "night": "Night 01:12",
+    "morning": "Morning 08:10"
+  },
+  "stepper": {
+    "next": "Next",
+    "nothingMore": "Nothing more needed",
+    "noaDecides": "Noa decides the rest"
+  },
+  "card": {
+    "handoffs": "Hand-offs",
+    "agents": "Noa agents on this step",
+    "stepBack": "Agents step back",
+    "working": "Working",
+    "back": "Back",
+    "next": "Next: {{title}}",
+    "again": "Try another case",
+    "onwards": "{{at}} onwards"
+  },
+  "team": {
+    "title": "Noa is a team of 9 AI agents",
+    "note": "An orchestrator passes the case to the right agent and logs every hand-off. Tap an agent for its story.",
+    "agentName": "Noa {{n}}",
+    "close": "Close",
+    "can": "Can: {{v}}",
+    "cannot": "Cannot: {{v}}"
+  },
+  "baton": {
+    "label": "Who has {{who}} care",
+    "family": "the family’s",
+    "person": "{{n}}’s"
+  },
+  "header": {
+    "family": "Al Mansoori family · 4 generations, 1 Family Health Passport",
+    "familyText": "Moza (78), Khalid’s mother, and Saeed (69), Amna’s father; Khalid (47) and his wife Amna (45); their children Maitha (25) and Sultan (21); and Maitha’s children Hind (18 months) and Hamdan (5). Records from 6 places, one passport, Noa’s agents watching for all eight.",
+    "own": "your own readings",
+    "facts": "Medicines: {{meds}}. History: {{hist}}. Usual: {{usual}}.",
+    "langLabel": "Language of speech checks and teach-back",
+    "lang": { "en": "English", "ar": "العربية" },
+    "run": "Run it for me",
+    "stop": "Stop",
+    "judge": "Judge path · about 3 minutes",
+    "replay": "Same details again",
+    "replayHint": "Change the details and check again: the same person, readings and time",
+    "restart": "Restart"
+  },
+  "brief": {
+    "momentLab": "The moment that matters",
+    "hmwLab": "How might we",
+    "family": {
+      "one": "One Family Health Passport shows four generations across six places, and Noa’s agents reach each person in the way that works for them.",
+      "moment": "When a family’s care is spread over six hospitals, clinics and schools, Amna and Khalid need to see who is due for what, but no single place holds the whole picture and the reminders are the same for everyone.",
+      "hmw": "How might we give a family one passport, and each member one personal, one-tap next step?"
+    },
+    "ifhas": {
+      "one": "Khalid feels fine and has never been screened; Noa finds his barrier and gets him to a Saturday slot in one tap.",
+      "moment": "When Khalid, 47, is overdue for diabetes screening, he needs a personal reason and an easy way to book, but a generic reminder says nothing about him and is swiped away.",
+      "hmw": "How might we give people at rising risk a personal reason and a one-tap way to get screened before any symptoms?"
+    },
+    "wellchild": {
+      "one": "Three reminders were ignored, so Noa asks why instead of sending a fourth, and books one trip for the whole family.",
+      "moment": "When Hind’s 18-month visit is three weeks late, her parents need a slot that fits their shifts, but clinic hours clash with their work and the reminders keep arriving at the wrong time.",
+      "hmw": "How might we turn an ignored reminder into one question and a slot that fits the family?"
+    },
+    "expat": {
+      "one": "A family new to Abu Dhabi does not know what is due; Noa explains it in plain words and books it.",
+      "moment": "When a baby is new to Abu Dhabi, the parents need to know which visits are due and where, but nobody has explained the system and the schedule is unfamiliar.",
+      "hmw": "How might we show a newcomer family what is due, and book it, without a phone tree?"
+    },
+    "bone": {
+      "one": "Hamad no longer drives and his bone and memory checks are years overdue; Noa books the check and the taxi.",
+      "moment": "When Hamad, 74, is overdue since 2019 for his bone and memory checks, he needs an appointment he can reach, but he no longer drives and nobody has asked him what is in the way.",
+      "hmw": "How might we remove the practical barrier, transport or trust, between an older adult and an overdue check?"
+    },
+    "stroke": {
+      "one": "At night Moza’s racing heart, then slurred speech, trigger a voice check and a 998 call with a pre-arrival packet.",
+      "moment": "When Moza has a stroke at night while alone, she needs help within minutes and a hospital that is ready, but she may not be able to call and her family is asleep.",
+      "hmw": "How might we notice a night-time stroke from the signals and have the right people moving before anyone has to ask?"
+    },
+    "fall": {
+      "one": "After a hard fall on a blood thinner, Noa asks, hears “I can’t get up” and calls 998 with the head-CT flag.",
+      "moment": "When Hessa falls on the way to the bathroom while on a blood thinner, she needs help and a head CT, but she may lie there for hours and the team does not know about the blood thinner.",
+      "hmw": "How might we make sure a fall is noticed within minutes and the hospital knows the risk before arrival?"
+    },
+    "hypo": {
+      "one": "Glucose drops to 2.7 while he sleeps; Noa checks that he answers, then guides sugar at home or calls 998 if he cannot.",
+      "moment": "When Saeed’s sugar falls at night, he needs sugar fast, but he may be too confused to ask and a stroke alert would send the wrong help.",
+      "hmw": "How might we tell low sugar from a stroke at night and send the right help?"
+    },
+    "hf": {
+      "one": "A 2.4 kg weight gain in three days sends the heart failure nurse the same day: not 998, and not a wait.",
+      "moment": "When Mariam’s weight creeps up, she needs the nurse the same day, but she feels only a little breathless and would wait until it is an emergency.",
+      "hmw": "How might we catch fluid build-up early and route it to the nurse, not the emergency room?"
+    },
+    "own": {
+      "one": "Choose a person and set any readings: the rules, not a script, decide what Noa does.",
+      "moment": "When a judge enters their own readings, they need to see Noa decide, but a fixed demo would only prove that it plays one tape.",
+      "hmw": "How might we let anyone test the rules with their own numbers and see the reason for each decision?"
+    }
+  },
+  "judgePath": {
+    "start": "Start the Judge path",
+    "beatOf": "Beat {{n}} of {{total}}",
+    "next": "next case starting",
+    "pain": "Pain",
+    "magic": "Magic",
+    "done": "Judge path finished.",
+    "doneNext": "Open “For judges” for the numbers, the rules and the pilot plan.",
+    "beats": {
+      "0": {
+        "title": "Wow first: Khalid, one tap",
+        "pain": "A generic reminder, swiped away. Two years later: a heart attack or stroke risk still unchecked.",
+        "magic": "A message about his own father, a Saturday slot near home, one tap to book."
+      },
+      "1": {
+        "title": "The whole family, one passport",
+        "pain": "Six places each hold a piece; nobody sees the whole family.",
+        "magic": "One passport and one score; each person reached their own way, one tap each."
+      },
+      "2": {
+        "title": "The stroke at night",
+        "pain": "Alone at night, speech slurred, the family asleep.",
+        "magic": "Noa hears the change, asks, calls 998 and sends the packet before the ambulance arrives."
+      }
+    }
+  },
+  "noa": {
+    "title": "No One Alone",
+    "tabs": "Which view",
+    "famRecord": "Consolidated record · 6 places, 8 people",
+    "booked": "booked {{slot}}",
+    "heart": "10-year heart risk {{pct}}",
+    "clinicView": "Clinic view",
+    "lvl": { "due": "due", "amber": "amber", "red": "red" },
+    "bookingOffered": "Booking offered",
+    "itemSupport": "{{item}} · support: {{enabler}}",
+    "clinicsWait": "Clinics see a visit once the family books it. Noa never shares the passport without consent.",
+    "results": "Results · {{hosp}}",
+    "routedTo": "Noa Insight routed to",
+    "passport": "Family Health Passport",
+    "why": "Why",
+    "waitingResult": "Waiting for the result.",
+    "worklist": "Worklist · {{team}}",
+    "clinic": "clinic",
+    "twoWeeks": "2 weeks",
+    "accepted": "accepted",
+    "acceptReferral": "Accept the referral",
+    "nothingToRefer": "Nothing to refer: the result was healthy.",
+    "whoAge": "{{full}} · {{age}}",
+    "now": "Now",
+    "today": "Today",
+    "nameRule": "{{name}} · rule {{rule}}",
+    "nothingFrom": "Nothing from {{n}}. Hospitals only hear when something needs them.",
+    "preArrival": "Pre-arrival packet",
+    "booking": "Booking",
+    "referral": "Referral",
+    "updatesAppear": "Updates appear here as the team records them.",
+    "acceptAct": "Accept and act",
+    "noAlertOnTarget": "No alert: the reading was on target.",
+    "noAlertWaiting": "No alert: waiting for today’s reading.",
+    "reportSent": "Monthly report sent to the Department of Health.",
+    "reportReady": "Monthly report ready to send.",
+    "sharedRecord": "Shared record · {{full}}",
+    "medicines": "Medicines",
+    "history": "History",
+    "thisCase": "This case",
+    "dohTitle": "Department of Health · {{title}} · October 2026 · no names",
+    "pathways": "pathways",
+    "fictional": "Fictional figures for the demo. This person is counted as one anonymous case.",
+    "waitingReports": "Waiting for the hospitals’ monthly reports."
+  },
+  "db": {
+    "title": "Demo database",
+    "demo": "Demo data",
+    "copy": "Copy table as JSON",
+    "copied": "Copied",
+    "copyNo": "Copy not allowed here",
+    "tables": "Database tables",
+    "tableLabel": "Table {{table}}",
+    "none": "No rows yet."
+  },
+  "log": {
+    "title": "API and event log",
+    "note": "Every hand-off, decision and message, newest first."
+  },
+  "judges": {
+    "title": "For judges",
+    "intro": "The same running case, read against the judging criteria. Everything here is computed from the demo you can run; nothing is typed in. All data is fictional.",
+    "criteria": "Judging criteria",
+    "criteriaFor": "Judging criteria this answers",
+    "pathTitle": "The Judge path: about 3 minutes, wow first",
+    "questionsTitle": "Six questions, answered",
+    "briefTitle": "Every case in one sentence",
+    "kpiTitle": "What a pilot would measure, computed live",
+    "wrongTitle": "What happens when Noa is wrong",
+    "pilotTitle": "Path to pilot",
+    "demoData": "Demo data",
+    "proposal": "Proposal",
+    "openCase": "Open this case"
+  },
+  "criteria": {
+    "impact": "Health impact and clinical relevance",
+    "tech": "Technical depth and architecture",
+    "working": "Working solution and demo quality",
+    "safety": "Responsible AI, safety and data governance",
+    "scale": "Scalability",
+    "deploy": "Deployment readiness",
+    "commercial": "Commercial viability and path to pilot"
+  },
+  "questions": {
+    "who": {
+      "q": "Who is it for?",
+      "a": "People at rising risk who feel fine, such as Khalid, 47, a smoker with rising blood pressure whose mother had a stroke and whose father had a heart attack at 62, and the relatives, children and older parents in the same family. Also the clinics and the Department of Health that serve them.",
+      "link": "See the whole family"
+    },
+    "agent": {
+      "q": "Why an agent and not a chatbot?",
+      "a": "A chatbot waits to be asked. Nine agents watch the signals, apply rules you can read, act (book, call, route) and hand over with a log; a person decides every clinical step.",
+      "link": "See the nine agents"
+    },
+    "e2e": {
+      "q": "Does it run end to end?",
+      "a": "Yes: signal, personal message, booking, result, referral and the Department of Health report, on all ten cases, with a database and event log you can open.",
+      "link": "Run the Judge path"
+    },
+    "wrong": {
+      "q": "What if Noa is wrong?",
+      "a": "The rules are visible and a clinician approves each clinical step; “not now” is respected for 3 months and every action is in the audit trail. Data moves only with consent.",
+      "link": "See how it is contained"
+    },
+    "deploy": {
+      "q": "What does deployment need?",
+      "a": "A Malaffi link, the IFHAS data feed, in-country hosting under the Department of Health’s rules, and clinician sign-off of every script and rule.",
+      "link": "See the deployment list"
+    },
+    "next": {
+      "q": "What is the next step?",
+      "a": "A 3 to 9 month pilot (a proposal): 2 family health centres and 1 hospital, about 300 families overdue or never screened, compared with reminders only.",
+      "link": "See the pilot plan"
+    }
+  },
+  "kpi": {
+    "intro": "From the case on screen: {{person}}. Press “Run it for me” and watch the numbers fill; a KPI that does not apply to this kind of case says so.",
+    "ratio": "{{a}} of {{b}} · {{pct}}%",
+    "days": "{{v}} days",
+    "minutes": "{{v}} min",
+    "wait": "Not reached yet",
+    "na": "Does not apply to this case",
+    "allCases": "All ten cases",
+    "casesN": "{{n}} cases count",
+    "pool": "Run all ten cases and pool the numbers",
+    "poolClear": "Clear",
+    "disclaimer": "Demo data from one fictional run per case. These are the measures a pilot would report, not results.",
+    "screened": {
+      "label": "Rising-risk people who completed screening",
+      "note": "A result recorded in the demo database after a booking."
+    },
+    "days": {
+      "label": "Days from invitation to booking",
+      "note": "Booked the moment the invitation is opened; reminder lists take weeks (not measured here)."
+    },
+    "barriers": {
+      "label": "Barriers resolved",
+      "note": "Open alerts and questions that ended in a booking, a care step or the person’s own choice."
+    },
+    "to998": {
+      "label": "Minutes from alert to the 998 call",
+      "note": "From the voice check to the call, on the engine’s clock."
+    },
+    "teach": {
+      "label": "Teach-back right the first time",
+      "note": "The person said the instruction back correctly without a second explanation."
+    },
+    "care": {
+      "label": "Results that reached care",
+      "note": "Flagged results with a referral or a hospital step completed."
+    }
+  },
+  "wrong": {
+    "allRules": "Read every rule Noa applies",
+    "rulesSafety": "Safety net, R1 to R12",
+    "rulesPrevention": "Prevention and screening, P1 to P9",
+    "rulesFamily": "Family passport, what raises each alert",
+    "colRule": "Rule",
+    "colWhen": "When",
+    "colThen": "Then",
+    "rules": {
+      "t": "The rules are visible",
+      "d": "Every decision names its rule (R, P or F) and shows the check “right action, right time?”. There is no hidden score."
+    },
+    "human": {
+      "t": "A human decides every step",
+      "d": "The care team accepts the alert, the family doctor approves the referral, the person picks the slot. Noa proposes; it never diagnoses, prescribes or changes a dose."
+    },
+    "standdown": {
+      "t": "It can stand down",
+      "d": "A clear answer ends the alert early. A fast heart rate while moving, or nothing that meets a rule, means nobody is woken (R12)."
+    },
+    "notnow": {
+      "t": "“Not now” is respected",
+      "d": "If the person does not want it now, there are no more nudges for 3 months and the door stays open (P8)."
+    },
+    "audit": {
+      "t": "Everything is in an audit trail",
+      "d": "Each action, by an agent or a person, is written to the audit table with who, what and when.",
+      "link": "Open the audit table"
+    },
+    "consent": {
+      "t": "A consent gate",
+      "d": "Nothing is shared outside the scope the person chose; the plan goes only to the people on their list.",
+      "link": "Open the consents table"
+    },
+    "analyst": {
+      "t": "The Analyst never sees names",
+      "d": "The monthly report to the Department of Health holds measures only; this person is counted as one anonymous case.",
+      "link": "Open the Government view"
+    },
+    "where": {
+      "t": "Where the data lives, honestly",
+      "d": "The demo runs fictional data on Google Cloud (asia-southeast1). A pilot would follow the Department of Health’s hosting rules, which means in-country."
+    }
+  },
+  "pilot": {
+    "cohortLab": "Proposed cohort",
+    "cohort": "About 300 families overdue or never screened for IFHAS, at 2 family health centres and 1 hospital, followed for 3 to 9 months and compared with reminders only.",
+    "cohortWhere": "A proposal for discussion with the centres, not an agreed plan.",
+    "whyLab": "Why this group",
+    "why": {
+      "risk": "Khalid, 47, is a close fit: a smoker with rising blood pressure and BMI 29, an 18% heart risk, a mother with stroke and atrial fibrillation at 77 and a father with a heart attack at 62, never screened.",
+      "find": "Overdue and never-screened families are already visible in the programme’s records, so the cohort can be found without new tests.",
+      "small": "Three sites keep it small enough for clinicians to review every flagged result themselves.",
+      "review": "The demo’s IFHAS rule offers screening to Emirati adults aged 18 to 75, so the cohort needs no new eligibility rule."
+    },
+    "kpiLab": "Proposed targets, to agree with the clinics",
+    "kpi": {
+      "screened": "Share of invited people who complete screening within 30 days, against a baseline measured in weeks 1 and 2.",
+      "days": "Days from invitation to booking, median.",
+      "barriers": "Share of people who did not respond that get one question and an answer from Noa.",
+      "care": "Flagged results that reach the right team within the 2 weeks the rule promises.",
+      "teach": "Teach-back right the first time.",
+      "safe": "Clinical decisions taken without a clinician: none."
+    },
+    "needsLab": "What deployment needs",
+    "needs": {
+      "malaffi": "A Malaffi link, so Noa reads the shared record with the person’s consent.",
+      "ifhas": "The IFHAS data feed, to know who is due and what is overdue.",
+      "hosting": "In-country hosting under the Department of Health’s rules.",
+      "signoff": "Clinician sign-off of every script and rule before it is used.",
+      "language": "Native Arabic and English review of every message."
+    },
+    "timeLab": "Timeline",
+    "time": "Months 0 to 3: set-up, DoH sandbox and ethics review. Months 3 to 9: pilot with about 300 families, compared with reminders only. Months 9 to 12: independent evaluation. Year 2: more centres and programmes.",
+    "seeCase": "See Khalid’s case"
+  }
+}

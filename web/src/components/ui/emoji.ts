@@ -25,4 +25,5 @@ export const EMOJI: Partial<Record<IconName, string>> = {
   telescope: '🔭', thermometer: '🌡️', 'thermometer-sun': '🌡️', 'thumbs-up': '👍', timer: '⏱️', 'triangle-alert': '⚠️',
   turtle: '🐢', tv: '📺', type: '🔤', 'user-round': '🧑', users: '👨‍👩‍👧', utensils: '🍽️', 'volume-2': '🔊',
   'volume-x': '🔇', waves: '🌊', wheat: '🌾', wine: '🍷',
+  baby: '👶', car: '🚗', droplet: '🩸', globe: '🌍', 'graduation-cap': '🎓', salad: '🥗', star: '⭐',
 }
