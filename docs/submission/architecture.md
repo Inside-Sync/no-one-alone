@@ -52,7 +52,7 @@ The Test case is an overlay in the live web app (`web/src/features/testcase/`). 
 - **Engine** (`engine/`): pure TypeScript with no React. The same engine drives the screens, the "Run it for me" autopilot and the benchmark.
 - **Rules** are published and numbered: R1 to R12 (safety), P1 to P9 (prevention), F1 and F2 (family heart score).
 - **The 9 Noa agents** (Guardian, Voice, Responder, Courier, Insight, Forecast, Coach, Navigator, Analyst) are roles in the engine. Each has a written "may do" and "may not do". They are not separate services. The hand-offs between them are shown on screen.
-- **No LLM makes a decision.** Scores and routing come from rules. The explanations are pre-written text in two languages. The "AI-written" label in the UI marks that wording.
+- **No LLM makes a decision.** Scores and routing come from rules. The explanations are prepared text in two languages, labelled "Prepared text". "AI-written" appears only if a live explanation is loaded, and the rules still decide. No live explanation is wired in this build.
 - **Voice:** the speech check uses the browser Web Speech API where it exists (Chrome, Edge). Typing or choosing a sample also works.
 - **Demo database:** ten tables (agents, patients, consents, observations, checkins, alerts, tasks, encounters, reports, audit), kept in memory for the run.
 - **Benchmark** (`bench/`): 252 labelled scenarios, run by the same engine. See [test-report.md](test-report.md).

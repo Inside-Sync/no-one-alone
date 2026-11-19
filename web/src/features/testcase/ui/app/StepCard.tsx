@@ -95,7 +95,7 @@ export function StepCard({ s }: SessionProps) {
     <>
       <span className="when">{when}</span>
       <h3>{i + 1} · {r(tx(st.title))}</h3>
-      <ProvLine kind={st.kind} />
+      <ProvLine kind={st.kind} live={engine.curExplain()?.src === 'live'} />
       <Meaning s={s} />
       <AgentBlock s={s} decides={!byDecides(st)} />
       <KindSlot type={engine.caseDef.type} engine={engine} snap={snap} step={st} r={r} />

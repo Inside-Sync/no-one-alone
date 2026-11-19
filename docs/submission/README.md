@@ -26,7 +26,7 @@ The live site is shared by everyone who opens it. The Test case runs in your own
 1. **For judges tab, "Judge path" (about 3 minutes).** Khalid books a check with one tap, then the whole family, then a stroke at night.
 2. **Whole family case.** One passport for 8 people in 4 generations. Edit a profile and watch the alerts and the Noa Forecast heart-risk figures change. Forecast shows only when it is valid (ages 30 to 74, no heart attack or stroke).
 3. **Stroke case, "Run it for me".** Sensor readings play minute by minute. A published rule (R1 to R12) decides. Then the 998 call, the pre-arrival packet and the teach-back in English and Arabic.
-4. **Gate strip and provenance labels** on every step. Gates: Consent, Enough data, Urgent bypass, Rule decision, Human approval. Every value is labelled Observed, Calculated, AI-written or Clinician confirmed.
+4. **Gate strip and provenance labels** on every step. Gates: Consent, Enough data, Urgent bypass, Rule decision, Human approval. Every value is labelled Observed, Calculated, Prepared text, AI-written (only when a live AI explanation is used) or Clinician confirmed.
 5. **Benchmark tab, press Run.** 252 labelled synthetic scenarios go through the real rule engine. All match the rule table. For "998 now": sensitivity 49 of 49, specificity 83 of 83. This checks that Noa follows its own rules. It is not clinical validation.
 6. **Government view.** Counts under 10 show "<10" (small-cell suppression).
 
