@@ -232,8 +232,8 @@ export class TestCaseEngine {
     return tAct + (a.m || 0)
   }
   private rows(rows: Row[] | undefined): Item[] {
-    const anti = this.person.anticoag
-    return (rows ?? []).map((r) => {
+    const anti = this.person.anticoag, low = !!this.S.trig?.hypo
+    return (rows ?? []).filter((r) => !r.lowGlu || low).map((r) => {
       const o = anti && r.anticoag ? { ...r, ...r.anticoag } : r
       return { at: o.at ?? 0, title: T(o.title, o.p), detail: T(o.detail) }
     })

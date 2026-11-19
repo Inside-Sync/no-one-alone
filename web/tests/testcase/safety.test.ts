@@ -264,3 +264,17 @@ describe('what the checklist and the R12 note say', () => {
     expect(lines).not.toContain('Breathless only lying flat: same-day nurse, not 998')
   })
 })
+
+describe('the 998 packet carries low sugar when another rule leads', () => {
+  const rows = (e: TestCaseEngine, id: 'hf_em' | 'fall_em') => e.packet(JOURNEYS[id].steps[1]).map((r) => `${text(e, r.title)}: ${text(e, r.detail)}`)
+  test('oxygen under 90 with glucose 3.5 (hf_em), a fall with glucose 3.5 (fall_em), and no row when glucose is not low', () => {
+    const hf = run({ id: '', pk: 'mariam', inp: { spo2: 89, glu: 3.5 }, glus: true, speech: 'usual', ans: 'drink', rule: 'R8', path: 'hf_em' })
+    expect(hf.S.dec?.path).toBe('hf_em')
+    expect(rows(hf, 'hf_em')).toContain('Glucose: 3.5 mmol/L, below 4.0')
+    const fall = run(SCEN.find((s) => s.id.startsWith('s30'))!)
+    expect(fall.S.dec?.path).toBe('fall_em')
+    expect(rows(fall, 'fall_em')).toContain('Glucose: 3.5 mmol/L, below 4.0')
+    const noSensor = run(SCEN.find((s) => s.id.startsWith('s26'))!)
+    expect(rows(noSensor, 'hf_em').some((r) => r.startsWith('Glucose'))).toBe(false)
+  })
+})

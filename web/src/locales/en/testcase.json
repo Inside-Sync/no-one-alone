@@ -1976,6 +1976,10 @@
             {
               "title": "History",
               "detail": "{{hist}}"
+            },
+            {
+              "title": "Glucose",
+              "detail": "{{glu}} mmol/L, below 4.0"
             }
           ],
           "phone": {
@@ -2794,6 +2798,10 @@
             {
               "title": "History",
               "detail": "{{hist}}"
+            },
+            {
+              "title": "Glucose",
+              "detail": "{{glu}} mmol/L, below 4.0"
             }
           ],
           "phone": {
