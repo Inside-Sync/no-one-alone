@@ -1,11 +1,13 @@
 import { expect, test } from '@playwright/test'
 import { PAGE_TITLES } from '../src/domain/views'
-import { seedWho } from './helpers'
+import { enableLegacyUi, seedWho } from './helpers'
 
-test("root forwards to Moza's own app on My day", async ({ page }) => {
+test("root forwards to Moza's own app on Family health, with no context bar or tip", async ({ page }) => {
   await page.goto('/')
-  await expect(page).toHaveURL(/\/individual\/me$/)
-  await expect(page.locator('#pgTitle')).toHaveText(PAGE_TITLES.me)
+  await expect(page).toHaveURL(/\/individual\/lineage$/)
+  await expect(page.getByRole('button', { name: /Family health/ })).toHaveAttribute('aria-current', 'page')
+  await expect(page.locator('#pgTitle')).toHaveCount(0)
+  await expect(page.locator('#guide')).toHaveCount(0)
 })
 
 test('a deep link loads its page directly', async ({ page }) => {
@@ -14,17 +16,17 @@ test('a deep link loads its page directly', async ({ page }) => {
 })
 
 test('tabs navigate on the client', async ({ page }) => {
-  await page.goto('/individual/me')
-  await page.getByRole('button', { name: /My family health/ }).click()
-  await expect(page).toHaveURL(/\/individual\/lineage$/)
-  await expect(page.locator('#pgTitle')).toHaveText(PAGE_TITLES.lineage)
+  await page.goto('/individual/lineage')
+  await page.getByRole('button', { name: /My day/ }).click()
+  await expect(page).toHaveURL(/\/individual\/me$/)
+  await expect(page.locator('#pgTitle')).toHaveText(PAGE_TITLES.me)
 })
 
 test('unknown routes show not found', async ({ page }) => {
   await page.goto('/hospital/nope')
   await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible()
   await page.getByRole('link', { name: 'Go to Home' }).click()
-  await expect(page).toHaveURL(/\/individual\/me$/)
+  await expect(page).toHaveURL(/\/individual\/lineage$/)
 })
 
 test('fonts load from the bundle', async ({ page }) => {
@@ -37,8 +39,17 @@ test('fonts load from the bundle', async ({ page }) => {
   expect(await page.evaluate(() => getComputedStyle(document.body).fontFamily)).toMatch(/^"Be Vietnam Pro", "IBM Plex Sans Arabic"/)
 })
 
-// A link to a page that only one role has (My day, Around me, My family health, My phone are Moza's) opens it as that role (AppState, whoForPage).
-test('deep link /individual/around opens it as Moza, whatever role was stored', async ({ page }) => {
+test('Around me and My phone are hidden: their links open My day', async ({ page }) => {
+  for (const hidden of ['around', 'device']) {
+    await page.goto(`/individual/${hidden}`)
+    await expect(page).toHaveURL(/\/individual\/me$/)
+    await expect(page.locator('#pgTitle')).toHaveText(PAGE_TITLES.me)
+  }
+})
+
+// A link to a page that only one role has (My day, Family health, and the hidden Around me and My phone are Moza's) opens it as that role (AppState, whoForPage).
+test('deep link /individual/around (legacy pages on) opens it as Moza, whatever role was stored', async ({ page }) => {
+  await enableLegacyUi(page)
   await seedWho(page, 'family')
   await page.goto('/individual/around')
   await expect(page).toHaveURL(/\/individual\/around$/)
@@ -47,7 +58,7 @@ test('deep link /individual/around opens it as Moza, whatever role was stored', 
 })
 
 test('the removed individual pages open the first tab of the stored role', async ({ page }) => {
-  for (const [who, first] of [['self', 'me'], ['family', 'health']] as const) {
+  for (const [who, first] of [['self', 'lineage'], ['family', 'health']] as const) {
     for (const old of ['home', 'forecast', 'recovery', 'privacy']) {
       await seedWho(page, who)
       await page.goto(`/individual/${old}`)
@@ -78,9 +89,11 @@ test('the who switch moves between Moza and the family tabs', async ({ page }) =
   await page.goto('/individual/me')
   await page.getByRole('button', { name: /Family & carers/ }).click()
   await expect(page).toHaveURL(/\/individual\/health$/)
-  await expect(page.getByRole('button', { name: /^.*Treatment$/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: /^.*Care record$/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: /^.*Treatment$/ })).toHaveCount(0)
   await page.getByRole('button', { name: /Moza \(her own app\)/ }).click()
-  await expect(page).toHaveURL(/\/individual\/me$/)
+  // Moza's first tab is Family health (the redesign): switching back opens it.
+  await expect(page).toHaveURL(/\/individual\/lineage$/)
 })
 
 test('the view switcher opens each view at its first tab', async ({ page }) => {
@@ -90,7 +103,7 @@ test('the view switcher opens each view at its first tab', async ({ page }) => {
   await page.getByRole('button', { name: 'Government' }).click()
   await expect(page).toHaveURL(/\/government\/population$/)
   await page.getByRole('button', { name: 'Individual' }).click()
-  await expect(page).toHaveURL(/\/individual\/me$/)
+  await expect(page).toHaveURL(/\/individual\/lineage$/)
 })
 
 test('tips: Hide is remembered across a reload, Show brings them back', async ({ page }) => {
@@ -113,6 +126,7 @@ test('theme: dark is remembered under noa-theme', async ({ page }) => {
 })
 
 test("Moza's case walks the three views and closes", async ({ page }) => {
+  await enableLegacyUi(page)
   await page.goto('/individual/me')
   await page.getByRole('button', { name: "Moza's case" }).click()
   await expect(page.locator('#tourBar')).toContainText('1 / 21')
@@ -178,6 +192,7 @@ test('opening a patient shows the clinical record, and the list button takes it 
 test("Moza's case: all 21 steps land on their page, role and target, and each target is outlined", async ({ page }) => {
   test.setTimeout(120_000)
   const { TOUR_STEPS, tourPath } = await import('../src/domain/tour')
+  await enableLegacyUi(page)
   await page.goto('/individual/me')
   await page.getByRole('button', { name: "Moza's case" }).click()
   for (const [i, s] of TOUR_STEPS.entries()) {
@@ -192,6 +207,7 @@ test("Moza's case: all 21 steps land on their page, role and target, and each ta
 })
 
 test("Moza's case: Back returns to the previous step, and the night alert step has a Play button", async ({ page }) => {
+  await enableLegacyUi(page)
   await page.goto('/individual/me')
   await page.getByRole('button', { name: "Moza's case" }).click()
   await page.getByRole('button', { name: 'Next', exact: true }).click()
@@ -201,4 +217,24 @@ test("Moza's case: Back returns to the previous step, and the night alert step h
   for (let i = 0; i < 7; i++) await page.getByRole('button', { name: 'Next', exact: true }).click()
   await expect(page).toHaveURL(/\/individual\/live$/)
   await expect(page.getByRole('button', { name: 'Play', exact: true })).toBeVisible()
+})
+
+test('the redesigned header: one row at 1440px, no search, no Test case, tour or demo buttons, EN/ع first on the right', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/hospital/overview')
+  await expect(page.locator('#pgTitle')).toHaveText(PAGE_TITLES.overview)
+  for (const id of ['#runTest', '#runCase', '#runDemo', '#tcBanner', '.chat-fab']) await expect(page.locator(id), id).toHaveCount(0)
+  await expect(page.locator('.topnav .search')).toBeHidden()
+  const ys = await page.locator('.topnav .brand, .topnav .views, .topnav .tabs, .topnav .tn-right').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top + e.getBoundingClientRect().height / 2)))
+  for (const y of ys) expect(Math.abs(y - ys[0])).toBeLessThanOrEqual(4)
+  const first = await page.locator('.tn-right > *').first().getAttribute('id')
+  expect(first).toBe('localeSwitch')
+  const h = await page.locator('.topnav').evaluate((e) => e.getBoundingClientRect().height)
+  expect(h).toBeLessThan(60)
+})
+
+test('?test= links no longer open the old Test case overlay', async ({ page }) => {
+  await page.goto('/hospital/overview?test=family')
+  await expect(page.locator('#pgTitle')).toHaveText(PAGE_TITLES.overview)
+  await expect(page.locator('#tcHost')).toHaveCount(0)
 })

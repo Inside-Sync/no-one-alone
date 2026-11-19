@@ -24,6 +24,8 @@ import type tcPrevention from '../locales/en/tcPrevention.json'
 import type tcApp from '../locales/en/tcApp.json'
 import type tcBench from '../locales/en/tcBench.json'
 import type tcGates from '../locales/en/tcGates.json'
+import type familyHealth from '../locales/en/familyHealth.json'
+import type familyHealthUi from '../locales/en/familyHealthUi.json'
 
 /** English is the reference: keys are type-checked against it (`t('live:idle.title')`). */
 declare module 'i18next' {
@@ -55,6 +57,8 @@ declare module 'i18next' {
       tcApp: typeof tcApp
       tcBench: typeof tcBench
       tcGates: typeof tcGates
+      familyHealth: typeof familyHealth
+      familyHealthUi: typeof familyHealthUi
     }
   }
 }

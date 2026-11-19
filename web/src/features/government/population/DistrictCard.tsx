@@ -22,7 +22,7 @@ interface Props {
 /** Abu Dhabi 3D column map (`.map-card.c8`) with the four measures. */
 export function DistrictCard({ areas, kicker, view }: Props) {
   const toast = useToast()
-  const [model, setModel] = useState<DistrictModel>('open')
+  const [model, setModel] = useState<DistrictModel>('cov')
   const city = useRef<Canvas3DHandle>(null)
   const { t } = useTranslation('government')
   const chips = t('population.district.chips', { returnObjects: true })

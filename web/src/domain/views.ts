@@ -2,6 +2,7 @@
 
 import i18n from '@/i18n'
 import type { IconName } from '@/data/types'
+import { legacyPagesOn } from '@/config/legacy'
 
 export type ViewId = 'individual' | 'hospital' | 'government'
 export type Who = 'family' | 'self'
@@ -46,15 +47,20 @@ const tab = (group: TabGroup, id: string, icon?: IconName): Tab => ({
   get label() { return i18n.t(`common:tabs.${group}.${id}` as 'common:tabs.family.health') },
 })
 
-/** Family and carers: Moza's health, care record and treatment within what she shares. */
+/**
+ * Family and carers: Moza's health and care record within what she shares. Treatment has no tab of its own: it is
+ * step 5 of the care record and opens from its buttons (see `ROUTED_ONLY`).
+ */
 export const TABS_FAM: Tab[] = ([
-  ['health', 'heart'], ['record', 'clipboard-list'], ['treatment', 'pill'],
+  ['health', 'heart'], ['record', 'clipboard-list'],
 ] as const).map(([id, icon]) => tab('family', id, icon))
 
-/** Moza's own app. */
+/**
+ * Moza's own app. Family health comes first and is where Individual opens (`firstPage`). My treatment is reached from
+ * the care record; Around me and My phone are hidden and their links open My day (`INDIVIDUAL_REDIRECTS`).
+ */
 export const TABS_SELF: Tab[] = ([
-  ['me', 'sun'], ['health', 'heart'], ['record', 'clipboard-list'], ['treatment', 'pill'],
-  ['around', 'cloud-sun'], ['lineage', 'tree'], ['device', 'smartphone'],
+  ['lineage', 'tree'], ['me', 'sun'], ['health', 'heart'], ['record', 'clipboard-list'],
 ] as const).map(([id, icon]) => tab('self', id, icon))
 
 const TABS_HOSPITAL: Tab[] = [
@@ -72,9 +78,12 @@ const TABS_GOVERNMENT: Tab[] = [
 /** The night alert replay: a tab only while its page is open (family and carers), reached from the demo switch or Moza's phone. */
 const TAB_LIVE: Tab = tab('family', 'live', 'siren')
 
-/** Routed pages that have no tab of their own: `review` opens from "Open results to review"; `live` from the demo. */
+/**
+ * Routed pages that have no tab of their own: `review` opens from "Open results to review"; `live` from the demo;
+ * `treatment` from the care record (its step 5).
+ */
 const ROUTED_ONLY: Readonly<Record<ViewId, readonly string[]>> = {
-  individual: ['live'],
+  individual: ['live', 'treatment'],
   hospital: ['review'],
   government: [],
 }
@@ -95,6 +104,21 @@ export const LEGACY_ROUTES: Readonly<Record<string, string>> = {
 
 /** Individual pages that were removed: they open the first tab of the current role (`firstPage('individual', who)`). */
 export const ROLE_REDIRECT_PAGES: readonly string[] = ['home', 'forecast', 'recovery', 'privacy']
+
+/**
+ * Individual pages hidden by the redesign (Around me, My phone): Moza's pages without a tab; their links open My day, as
+ * in the prototype, unless the legacy pages are switched on (config/legacy).
+ */
+export const HIDDEN_PAGES: readonly string[] = ['around', 'device']
+export const INDIVIDUAL_REDIRECTS: Readonly<Record<string, string>> = {
+  '/individual/around': '/individual/me',
+  '/individual/device': '/individual/me',
+}
+
+/** The tab to mark as current for a page: Treatment is a step of the care record, so the care record tab is lit. */
+export function currentTab(view: ViewId, page: string | undefined): string | undefined {
+  return view === 'individual' && page === 'treatment' ? 'record' : page
+}
 
 export function isViewId(v: string): v is ViewId {
   return (VIEW_IDS as readonly string[]).includes(v)
@@ -120,6 +144,7 @@ export type PageResolution =
 export function resolvePage(view: string, page: string, who: Who): PageResolution {
   if (!isViewId(view)) return { kind: 'notFound' }
   if (tabsFor(view, who).some((t) => t.id === page) || ROUTED_ONLY[view].includes(page)) return { kind: 'ok' }
+  if (view === 'individual' && HIDDEN_PAGES.includes(page)) return legacyPagesOn() ? { kind: 'ok' } : { kind: 'redirect', to: '/individual/me' }
   const other: Who = who === 'self' ? 'family' : 'self'
   if (view === 'individual' && tabsFor(view, other).some((t) => t.id === page)) {
     return { kind: 'redirect', to: `/individual/${firstPage(view, who)}` }
@@ -130,18 +155,19 @@ export function resolvePage(view: string, page: string, who: Who): PageResolutio
 /** The role an individual page belongs to when only one role has it as a tab (`me` -> self); undefined when shared or not individual. */
 export function whoForPage(view: string, page: string | undefined): Who | undefined {
   if (view !== 'individual' || !page) return undefined
-  const self = TABS_SELF.some((t) => t.id === page)
+  const self = TABS_SELF.some((t) => t.id === page) || HIDDEN_PAGES.includes(page)
   const fam = TABS_FAM.some((t) => t.id === page)
   return self === fam ? undefined : self ? 'self' : 'family'
 }
 
-/** Every valid view x page pair: the routes App.tsx accepts (anything else is a 404). Tabs of both roles, then the routed-only pages. */
+/** Every valid view x page pair: the routes App.tsx accepts (anything else is a 404). Tabs of both roles, the routed-only pages, then the hidden ones. */
 export function allRoutes(): { view: ViewId; page: string }[] {
   const out: { view: ViewId; page: string }[] = []
   for (const view of VIEW_IDS) {
     const ids = new Set<string>()
     for (const who of ['family', 'self'] as const) for (const t of tabsFor(view, who)) ids.add(t.id)
     for (const id of ROUTED_ONLY[view]) ids.add(id)
+    if (view === 'individual') for (const id of HIDDEN_PAGES) ids.add(id)
     for (const page of ids) out.push({ view, page })
   }
   return out

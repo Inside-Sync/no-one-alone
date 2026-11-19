@@ -1,4 +1,8 @@
 import { expect, test } from '@playwright/test'
+import { enableLegacyUi } from './helpers'
+
+// The night demo switch and Around me are hidden by the redesign; these tests turn them back on.
+test.beforeEach(async ({ page }) => { await enableLegacyUi(page) })
 
 /**
  * Ruling R21: jsdom cannot measure CSS Module styles, so the 28 pt / 92 px rule for

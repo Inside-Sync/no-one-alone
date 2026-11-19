@@ -7,17 +7,29 @@ const title = (text: string) => screen.findByText(text, { selector: '#pgTitle' }
 
 beforeEach(() => { sessionStorage.clear(); localStorage.clear() })
 
-test("the root opens Moza's own app on My day", async () => {
+/** Moza's Family health tab: the tab is current and the shell has no context bar (so no page title) there. */
+const onFamilyHealth = async () => {
+  expect(await screen.findByRole('button', { name: /^Family health$/ })).toHaveAttribute('aria-current', 'page')
+  expect(document.querySelector('#pgTitle')).toBeNull()
+  expect(document.querySelector('#guide')).toBeNull()
+}
+
+test("the root opens Moza's own app on Family health", async () => {
   at('/')
-  await title('Hello, Moza')
+  await onFamilyHealth()
 })
 
+test.each(['/individual/home', '/individual/forecast', '/individual/recovery', '/individual/privacy', '/individual'])(
+  '%s redirects to the first tab, Family health',
+  async (from) => {
+    at(from)
+    await onFamilyHealth()
+  },
+)
+
 test.each([
-  ['/individual/home', 'Hello, Moza'],
-  ['/individual/forecast', 'Hello, Moza'],
-  ['/individual/recovery', 'Hello, Moza'],
-  ['/individual/privacy', 'Hello, Moza'],
-  ['/individual', 'Hello, Moza'],
+  ['/individual/around', 'Hello, Moza'],
+  ['/individual/device', 'Hello, Moza'],
   ['/hospital/panel', 'Patient records'],
   ['/hospital/patient', 'Patient records'],
   ['/hospital/demand', 'Overview · Corniche Stroke Centre'],

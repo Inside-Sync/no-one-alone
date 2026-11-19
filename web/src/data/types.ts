@@ -65,7 +65,13 @@ export type LucideIconName =
 /** A traffic-light dot (green / amber / red status). */
 export type DotIconName = 'dot-green' | 'dot-amber' | 'dot-red'
 
-export type IconName = DrawnIconName | LucideIconName | DotIconName
+/** Emoji-only icons of the "Noa · family health" panel (no line drawing; `Icon` with `tint` draws the emoji from `emoji.ts`). */
+export type EmojiIconName =
+  | 'grandma' | 'grandpa' | 'dad' | 'mum' | 'son' | 'daughter' | 'orchestrator' | 'puzzle' | 'xray' | 'landmark' | 'conductor'
+  | 'fh-search' | 'fh-walk' | 'fh-stop' | 'arrow-up' | 'family' | 'recall' | 'child' | 'dna' | 'mic-studio' | 'point-right'
+  | 'book-blue' | 'bust' | 'red-circle' | 'link' | 'lock-key' | 'fh-heart' | 'fh-hospital'
+
+export type IconName = DrawnIconName | LucideIconName | DotIconName | EmojiIconName
 
 /** A KPI tile (`.kpi`): label, big value + unit, sparkline, baseline and delta. */
 export interface Kpi {
