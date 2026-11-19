@@ -1062,8 +1062,8 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
         ],
         flow: [
           { agent: 'responder' },
-          { label: 'flow.f1s' },
           { label: 'flow.998_operator' },
+          { label: 'flow.f1s' },
           { agent: 'courier' },
         ],
         items: [
