@@ -255,4 +255,12 @@ describe('what the checklist and the R12 note say', () => {
     expect(e.decisionChecks().map((c) => c.k)).toEqual(['checks.ruleMet', 'checks.waitedTen', 'checks.standDown'])
     expect(e.S.feed.map((f) => text(e, f.text))).toContain('All clear: Moza answered clearly. She is fine.')
   })
+  test('R10 checklist follows the answer: lying flat, or feeling fine', () => {
+    const flat = run(SCEN.find((s) => s.id.startsWith('s20'))!)
+    expect(flat.decisionChecks().map((c) => text(flat, c))).toContain('Breathless only lying flat: same-day nurse, not 998')
+    const fine = run(SCEN.find((s) => s.id.startsWith('s22'))!)
+    const lines = fine.decisionChecks().map((c) => text(fine, c))
+    expect(lines).toContain('Mariam says “I feel fine”, but the weight or oxygen reading met R4: same-day nurse, not 998')
+    expect(lines).not.toContain('Breathless only lying flat: same-day nurse, not 998')
+  })
 })

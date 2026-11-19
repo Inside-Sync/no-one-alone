@@ -4040,6 +4040,7 @@
     "headCt": "On a blood thinner: head CT flagged before arrival",
     "fallMinor": "Up and talking clearly: no ambulance, fall-risk review booked",
     "hfClinic": "Breathless only lying flat: same-day nurse, not 998",
+    "hfClinicFine": "{{n}} says “I feel fine”, but the weight or oxygen reading met R4: same-day nurse, not 998",
     "lastKnownWell": "Last known well {{at}} sent ahead for the stroke team",
     "escalated": "Two rechecks stayed below 4.0, so Responder called 998 at once",
     "p2Eligibility": "Checked eligibility before sending anything",
