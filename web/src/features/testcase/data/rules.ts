@@ -2,7 +2,7 @@
 // namespace (see locales/en/testcase.json); numbers, thresholds, ids and order are the prototype's.
 import type { RuleRow } from './types'
 
-/** Noa's safety rules R1 to R12, in the prototype's order (shown to judges exactly as the engine applies them). */
+/** Noa's safety rules R1 to R12, as shown to judges. */
 export const RULES: RuleRow[] = [
   { id: 'R1', when: 'rules.R1.when', then: 'rules.R1.then' },
   { id: 'R2', when: 'rules.R2.when', then: 'rules.R2.then' },

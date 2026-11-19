@@ -43,14 +43,16 @@ const SCEN: Scen[] = [
   { id: 's20 weight +2.4, a bit breathless: R10', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'usual', ans: 'pillows', rule: 'R10', path: 'hf_clinic' },
   { id: 's21 weight +2.4, breathless at rest: R8', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'usual', ans: 'rest', rule: 'R8', path: 'hf_em' },
   { id: 's22 weight +2.4, feels fine: R10', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'usual', ans: 'fine', rule: 'R10', path: 'hf_clinic' },
-  { id: 's23 weight +2.4, no speech: R8', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'none', rule: 'R8', path: 'hf_em' },
+  // no answer is R5, not the prototype's R8
+  { id: 's23 weight +2.4, no speech: R5', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'none', rule: 'R5', path: 'stroke_em' },
   { id: 's24 weight +1.9, oxygen 93: R12', pk: 'mariam', inp: { wt: 1.9, spo2: 93 }, speech: 'usual', rule: 'R12' },
   { id: 's25 oxygen 92 starts R4: R10', pk: 'mariam', inp: { wt: 0, spo2: 92 }, speech: 'usual', ans: 'fine', rule: 'R10', path: 'hf_clinic' },
   { id: 's26 oxygen 89 is below 90: R8', pk: 'mariam', inp: { wt: 0, spo2: 89 }, speech: 'usual', ans: 'fine', rule: 'R8', path: 'hf_em' },
   { id: 's27 weight +2.0 exactly: R10', pk: 'mariam', inp: { wt: 2, spo2: 96 }, speech: 'usual', ans: 'fine', rule: 'R10', path: 'hf_clinic' },
   { id: 's28 slurred, not yet answered', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'slurred', rule: null },
   { id: 's29 fall plus low glucose, got up: low sugar wins, R9', pk: 'hessa', inp: { floor: 6, glu: 3.5 }, fall: true, glus: true, speech: 'usual', ans: 'ok', rule: 'R9', path: 'hypo_home' },
-  { id: 's30 fall plus low glucose, cannot get up: R9', pk: 'hessa', inp: { floor: 6, glu: 3.5 }, fall: true, glus: true, speech: 'usual', ans: 'cant', rule: 'R9', path: 'hypo_home' },
+  // the fall makes it 998, not the prototype's R9
+  { id: 's30 fall plus low glucose, cannot get up: R7', pk: 'hessa', inp: { floor: 6, glu: 3.5 }, fall: true, glus: true, speech: 'usual', ans: 'cant', rule: 'R7', path: 'fall_em' },
   { id: 's31 fall plus low glucose, confused is not an option of the fall question', pk: 'hessa', inp: { floor: 6, glu: 3.5 }, fall: true, glus: true, speech: 'usual', ans: 'confused', rule: null },
   { id: 's32 heart rate and weight: the first rule (R4) leads, R10', pk: 'moza', inp: { hr: 138, dur: 12, wt: 2.5 }, speech: 'usual', ans: 'fine', rule: 'R10', path: 'hf_clinic' },
   { id: 's33 heart rate and oxygen 88: R8', pk: 'moza', inp: { hr: 138, dur: 12, spo2: 88 }, speech: 'usual', ans: 'fine', rule: 'R8', path: 'hf_em' },
@@ -161,6 +163,31 @@ describe('the decision ladder (R5 to R11)', () => {
     expect(choosePath({ ...base, hypo: true }, sp('green', false), null)).toBe('hypo_em')
     expect(choosePath({ ...base, hypo: true }, sp('amber'), 'drink')).toBe('hypo_home')
   })
+  test('a second danger sign never lowers the response', () => {
+    expect(choosePath({ ...base, hypo: true, fall: true }, sp('green'), 'cant')).toBe('fall_em')
+    expect(choosePath({ ...base, hypo: true, fall: true }, sp('amber'), 'cant')).toBe('fall_em')
+    expect(choosePath({ ...base, hypo: true, spo2c: true }, sp('green'), 'drink')).toBe('hf_em')
+    expect(choosePath({ ...base, hypo: true, fall: true }, sp('green'), 'ok')).toBe('hypo_home')
+    expect(choosePath({ ...base, hypo: true }, sp('red'), 'drink')).toBe('hypo_em')
+  })
+  test('every combination: the path is a 998 path exactly when a danger sign is present', () => {
+    const keys = ['hypo', 'fall', 'hf', 'hr', 'spo2c'] as const
+    for (let mask = 1; mask < 32; mask++) {
+      const tr = { ...base, ...Object.fromEntries(keys.map((k, i) => [k, !!(mask & (1 << i))])) }
+      // the question Noa asks, in the order of engine/state.ts finishPlay
+      const q = QUESTIONS[tr.fall ? 'fall' : tr.hypo ? 'hypo' : tr.hf ? 'hf' : 'hr']
+      for (const lvl of ['green', 'amber', 'red'] as const) {
+        for (const said of [true, false]) {
+          for (const ans of q.a.map((a) => a.id)) {
+            const noAns = !said || ans === 'none'
+            const danger = lvl === 'red' || noAns || (tr.hypo && ans === 'confused') || (tr.fall && ans === 'cant') || tr.spo2c || ans === 'rest'
+            const path = choosePath(tr, sp(lvl, said), ans)
+            expect(/_em$/.test(path ?? ''), JSON.stringify({ tr, lvl, said, ans, path })).toBe(danger)
+          }
+        }
+      }
+    }
+  })
   test('fall: cannot get up or no answer is R7, got up is R11', () => {
     expect(choosePath({ ...base, fall: true }, sp('green'), 'cant')).toBe('fall_em')
     expect(choosePath({ ...base, fall: true }, sp('green'), 'none')).toBe('fall_em')
@@ -172,10 +199,10 @@ describe('the decision ladder (R5 to R11)', () => {
     expect(choosePath({ ...base, hr: true }, sp('green'), 'fine')).toBeNull()
     expect(choosePath({ ...base, hr: true }, sp('amber'), 'fine')).toBeNull()
   })
-  test('weight or oxygen: at rest or oxygen under 90 is R8, no answer is R8, otherwise the nurse (R10)', () => {
+  test('weight or oxygen: at rest or oxygen under 90 is R8, no answer is R5, otherwise the nurse (R10)', () => {
     expect(choosePath({ ...base, hf: true }, sp('green'), 'rest')).toBe('hf_em')
     expect(choosePath({ ...base, hf: true, spo2c: true }, sp('green'), 'fine')).toBe('hf_em')
-    expect(choosePath({ ...base, hf: true }, sp('green', false), null)).toBe('hf_em')
+    expect(choosePath({ ...base, hf: true }, sp('green', false), null)).toBe('stroke_em')
     expect(choosePath({ ...base, hf: true }, sp('green'), 'pillows')).toBe('hf_clinic')
   })
 })

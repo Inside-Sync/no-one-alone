@@ -13,17 +13,16 @@ import tc from '../src/locales/en/tcBench.json'
 import testcase from '../src/locales/en/testcase.json'
 import { BENCH_GROUPS, SCENARIOS, computeMetrics, pct, runAllSync, type Metrics, type Outcome, type Rate, type ScenarioResult } from '../src/features/testcase/bench'
 
-/** Found by the first run of this benchmark and fixed in the engine since; the scenarios now match. Listed in section 7 for honesty. */
+/** Found by this benchmark or a review and fixed in the engine since; the scenarios now match. Listed in section 7 for honesty. */
 export const FIXED: readonly string[] = [
   'T-glu-02 and T-glu-40 (safety): an implausible glucose (0.2 or 40 mmol/L) typed for a person with diabetes was not held back, because the "glucose sensor is missing" warning hid the refusal and the run went ahead with the sensor treated as off. An implausible value is now always a required issue that blocks the run, whatever other warnings are open.',
   'C-hf-weight-hypo (labelling): when low sugar (R3) and a weight rise (R4) were met in the same minute the first sensor rule was recorded as R4. It is now recorded by rule priority (R3); the decision (R9) was already right and is unchanged.',
+  'Found in a review of the rule order, not by a benchmark run; two scenarios were added to pin it. C-hypo-fall-cant and C-hypo-spo2 (safety order): low sugar was checked before a fall with "can\'t get up" and before oxygen under 90, so both ended at home treatment (R9). Every 998 line (R6, R7, R5, R8) is now checked before the home lines, so both are now 998. Heart failure with no answer is now R5, as the rule table says; it was already 998.',
   'Prevention result value (no scenario): the result slider value had no plausibility check unlike the other inputs. It is now refused and reported the same way (unit tests in `web/tests/testcase/inputs.test.ts`).',
 ]
 
 /** What the benchmark found about the engine, by scenario id: written once here, shown next to the difference in the report. */
-export const FINDINGS: Record<string, string> = {
-  'C-hf-nospeech': 'Rule table versus engine order. The table has no heart-failure row for "no answer", so the generic R5 (no answer to a check, 998 now) is the literal reading; the engine takes its heart-failure emergency path (R8). The decision is 998 in both, so the critical metric is not affected.',
-}
+export const FINDINGS: Record<string, string> = {}
 
 const en = tc as unknown as Record<string, Record<string, unknown>>
 const label = (group: string, key: string): string => String((en[group] as Record<string, unknown>)[key] ?? key)
@@ -87,7 +86,7 @@ export function buildReport(results: readonly ScenarioResult[]): string {
   const tough = results.filter((r) => r.scenario.tags.level === 'tough')
   p('## 7. Tough cases and the differences found',
     `**Tough cases** are the scenarios with missing values, values that cannot be real, contradictory answers, typed speech with typos or in the wrong language, and values at the very edge of the plausible range. There are ${tough.length}; ${tough.filter((r) => r.pass).length} match (${ci(m.subgroups.level.tough)}). The input guardrail refuses a missing or implausible sensor or screening value (the previous valid value stays, the run waits for a valid one); family profile and result values are kept inside their range with a warning.`)
-  p('**Found by this benchmark and fixed in the engine** (the scenarios now match):', FIXED.map((f) => `- ${f}`).join('\n'))
+  p('**Found and fixed in the engine** (the scenarios now match):', FIXED.map((f) => `- ${f}`).join('\n'))
   if (m.failures.length === 0) p('**No differences.** Every scenario matches the rule table.')
   else {
     p('**Differences between the rule table and the engine** (expected, what Noa did, where it diverged first):')
