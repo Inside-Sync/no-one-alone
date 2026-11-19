@@ -1,7 +1,7 @@
 'use client'
 
 import { Icon } from '@/components/ui/Icon'
-import { CASES, CASE_GROUPS } from '../../data/cases'
+import { CASES, CASE_GROUPS, SPEECH_CASE } from '../../data/cases'
 import { PEOPLE, PERSON_IDS } from '../../data/people'
 import { tx, type CaseId, type PersonId } from '../../engine'
 import { useA, type SessionProps } from './parts'
@@ -9,7 +9,10 @@ import { useA, type SessionProps } from './parts'
 const NIGHT_START = 72
 const MORNING_START = 490
 
-/** All ten cases in the prototype's three groups (the whole family, prevention and screening, the safety net), with icon and teaser. */
+/**
+ * The prototype's picker: "Start here · pick one" with three cards (the family, the live speech test, the one-tap screening). In the simple
+ * view the other seven wait behind a dashed "More cases" card; after it (or with details on) the prevention and safety-net groups show.
+ */
 export function CasePicker({ s }: SessionProps) {
   const t = useA()
   const { engine, snap, r } = s
@@ -18,16 +21,32 @@ export function CasePicker({ s }: SessionProps) {
   const card = (id: CaseId) => {
     const c = CASES[id], p = PEOPLE[c.person]
     const sub = id === 'own' || id === 'family' ? r(tx(c.teaser)) : `${r(tx(p.t.n!))}, ${age(c.person)} · ${r(tx(c.teaser))}`
+    const speech = id === SPEECH_CASE
     return (
-      <button key={id} type="button" className={`cs${S.ck === id ? ' on' : ''}`} aria-pressed={S.ck === id} onClick={() => s.pick(id)}>
-        <span className="ci" aria-hidden="true"><span className="ic"><Icon name={c.icon} tint /></span></span>
-        <span><b>{r(tx(c.title))}</b><small>{sub}</small></span>
+      <button key={id} type="button" className={`cs${speech ? ' speechcs' : ''}${S.ck === id ? ' on' : ''}`} aria-pressed={S.ck === id} onClick={() => s.pick(id)}>
+        <span className="ci" aria-hidden="true"><span className="ic"><Icon name={speech ? 'mic' : c.icon} tint /></span></span>
+        <span><b>{speech ? t('picker.speech') : r(tx(c.title))}</b><small>{sub}</small></span>
       </button>
     )
   }
+  const [start, ...rest] = CASE_GROUPS
+  const more = s.details || s.more || !start.cases.includes(S.ck)
+  const hidden = rest.flatMap((g) => g.cases)
   return (
     <>
-      {CASE_GROUPS.map((g) => (
+      <div className="tc-group">
+        <span className="lab">{t('picker.group.start')}</span>
+        <div className="cases">
+          {start.cases.map(card)}
+          {!more && (
+            <button type="button" className="cs morecs" aria-expanded={false} onClick={() => { s.showMore(); window.setTimeout(() => document.querySelector<HTMLElement>('#picker .tc-group + .tc-group .cs')?.focus(), 0) }}>
+              <span className="ci" aria-hidden="true"><span className="ic"><Icon name="plus" tint /></span></span>
+              <span><b>{t('picker.more', { n: hidden.length })}</b><small>{hidden.map((id) => r(tx(CASES[id].title))).join(', ')}</small></span>
+            </button>
+          )}
+        </div>
+      </div>
+      {more && rest.map((g) => (
         <div key={g.id} className="tc-group">
           <span className="lab">{t(`picker.group.${g.id}`)}</span>
           <div className="cases">{g.cases.map(card)}</div>

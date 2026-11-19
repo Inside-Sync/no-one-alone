@@ -8,7 +8,7 @@ import type { TestCaseSession } from './useTestCaseEngine'
 
 /**
  * The session with the screen movement that goes with each button: the picker goes to the case header, "Run it for me" and the Judge
- * path follow the step card (until the person scrolls by hand), "Replay with the same readings" goes to the first step, Restart to the top.
+ * path follow the step card (until the person scrolls by hand; the Judge path follows again from its next case), "Replay with the same readings" goes to the first step, Restart to the top.
  * Everything else about the session is the engine's.
  */
 export function useUxSession(base: TestCaseSession): TestCaseSession {
@@ -23,16 +23,20 @@ export function useUxSession(base: TestCaseSession): TestCaseSession {
   useEffect(() => watchManualScroll(() => { follow.current = false }), [])
 
   // While a run is on and following: each new step (or the next beat's case) brings the step card into view. No focus move.
+  // A new case of the Judge path is a fresh start: it follows again even after a hand scroll in the case before.
   const { step, ck, auto } = base.snap.state
+  const beat = base.judge?.beat ?? -1
   const seen = useRef(`${ck}:${step}`)
+  const seenBeat = useRef(beat)
   useEffect(() => {
+    if (seenBeat.current !== beat) { seenBeat.current = beat; if (beat >= 0) follow.current = true }
     const key = `${ck}:${step}`
     if (seen.current === key) return
     seen.current = key
     if (auto && follow.current) scrollToTarget('card')
-  }, [ck, step, auto])
+  }, [ck, step, auto, beat])
 
-  const { engine, pick, restart, replay, toggleAuto, startJudge, stop, playback } = base
+  const { engine, pick, restart, replay, toggleAuto, startJudge, stop, stepOnce, playback } = base
   return useMemo(() => ({
     ...base,
     pick: (id) => { follow.current = false; pick(id); keep(scrollSoon('caseHeader')) },
@@ -44,8 +48,10 @@ export function useUxSession(base: TestCaseSession): TestCaseSession {
       toggleAuto()
       if (on) keep(scrollSoon('card'))
     },
-    startJudge: () => { follow.current = true; startJudge(); keep(scrollTopSoon()) },
+    // The Judge path starts on its first step card (not the top of the overlay, which hid the card below the fold on a laptop).
+    startJudge: () => { follow.current = true; startJudge(); keep(scrollSoon('card')) },
     stop: () => { follow.current = false; stop() },
+    stepOnce: () => { follow.current = false; stepOnce() },
     // Back and Skip bring the step card into view, like Next does; Resume follows the run again.
     playback: {
       ...playback,
@@ -54,5 +60,5 @@ export function useUxSession(base: TestCaseSession): TestCaseSession {
       back: () => { follow.current = true; playback.back(); keep(scrollSoon('card')) },
       skip: () => { follow.current = true; playback.skip(); keep(scrollSoon('card')) },
     },
-  }), [base, engine, pick, restart, replay, toggleAuto, startJudge, stop, playback, keep, toast, t])
+  }), [base, engine, pick, restart, replay, toggleAuto, startJudge, stop, stepOnce, playback, keep, toast, t])
 }

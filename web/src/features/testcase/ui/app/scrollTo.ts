@@ -23,9 +23,7 @@ export function barOffset(host: Element): number {
   const bar = host.querySelector('.tc-bar')
   if (!bar) return GAP
   const covered = bar.getBoundingClientRect().bottom - host.getBoundingClientRect().top
-  // The run controls stick under the bar (8 px below it) while a run is on.
-  const pb = host.querySelector<HTMLElement>('.tc-pb')
-  return Math.max(0, covered) + (pb ? 8 + pb.offsetHeight : 0) + GAP
+  return Math.max(0, covered) + GAP
 }
 
 /** Put keyboard focus on a target's heading (or the target) without scrolling again. */
@@ -91,11 +89,24 @@ export function scrollTopSoon(opts?: ScrollOpts, ms = 0): () => void {
   return () => window.clearTimeout(id)
 }
 
+/** Whether an element between the wheel's target and the overlay scrolls by itself in the wheel's direction (and is not at its end). */
+function innerTakes(target: EventTarget | null, dy: number, host: HTMLElement | Document): boolean {
+  if (!dy || typeof getComputedStyle !== 'function') return false
+  for (let n = target as HTMLElement | null; n && n !== host && n.nodeType === 1; n = n.parentElement) {
+    const oy = getComputedStyle(n).overflowY
+    if ((oy === 'auto' || oy === 'scroll') && n.scrollHeight > n.clientHeight + 1) {
+      if (dy > 0 ? n.scrollTop + n.clientHeight < n.scrollHeight - 1 : n.scrollTop > 0) return true
+    }
+  }
+  return false
+}
+
 /** Keys that scroll a page. */
 const SCROLL_KEYS = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ', 'Spacebar'])
 
 /**
- * Call `onManual` when the person scrolls by hand (wheel, touch or a scrolling key) in the overlay.
+ * Call `onManual` when the person scrolls the overlay by hand (wheel, one-finger touch or a scrolling key). Ctrl + wheel (zoom), a pinch,
+ * a sideways turn and a turn an inner list takes for itself do not count.
  * A key pressed on a field, a button or a tab is not a scroll. Returns the cleanup.
  */
 export function watchManualScroll(onManual: () => void): () => void {
@@ -108,13 +119,21 @@ export function watchManualScroll(onManual: () => void): () => void {
     if (el?.getAttribute?.('role') === 'tab') return
     onManual()
   }
-  const onPointer = () => onManual()
-  host.addEventListener('wheel', onPointer, { passive: true })
-  host.addEventListener('touchmove', onPointer, { passive: true })
+  const onWheel = (e: Event) => {
+    const w = e as WheelEvent
+    // Ctrl + wheel is the browser zoom (a presenter setting 75 %), and a sideways turn only moves a wide table: neither moves the page.
+    if (w.ctrlKey || w.metaKey || (w.deltaY === 0 && w.deltaX !== 0)) return
+    // A turn that an inner list or table takes for itself (it can still scroll that way) does not move the page either.
+    if (innerTakes(w.target, w.deltaY, host)) return
+    onManual()
+  }
+  const onTouch = (e: Event) => { if ((e as TouchEvent).touches?.length > 1) return; onManual() } // two fingers: a pinch zoom
+  host.addEventListener('wheel', onWheel, { passive: true })
+  host.addEventListener('touchmove', onTouch, { passive: true })
   host.addEventListener('keydown', onKey)
   return () => {
-    host.removeEventListener('wheel', onPointer)
-    host.removeEventListener('touchmove', onPointer)
+    host.removeEventListener('wheel', onWheel)
+    host.removeEventListener('touchmove', onTouch)
     host.removeEventListener('keydown', onKey)
   }
 }

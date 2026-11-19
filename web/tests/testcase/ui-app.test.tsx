@@ -45,13 +45,25 @@ test('the deep link selects the case, the picker lists all ten in three groups',
   const picker = screen.getByLabelText('Cases')
   expect(within(picker).getAllByRole('button', { pressed: undefined }).length).toBeGreaterThanOrEqual(10)
   expect(screen.getByRole('button', { name: /Bone and memory check/, pressed: true })).toBeInTheDocument()
-  expect(screen.getByText('Start here · the whole family')).toBeInTheDocument()
+  expect(screen.getByText('Start here · pick one')).toBeInTheDocument()
   expect(screen.getByText('Prevention and screening · one person at a time')).toBeInTheDocument()
   expect(screen.getByText('Safety net · when something goes wrong at home')).toBeInTheDocument()
   // A click picks another case and tells the shell.
   fireEvent.click(screen.getByRole('button', { name: /Fluid build-up/ }))
   expect(screen.getByRole('button', { name: /Fluid build-up/, pressed: true })).toBeInTheDocument()
   expect(v.setCaseKey).toHaveBeenCalledWith('hf')
+})
+
+test('the picker starts with three cases and the rest behind "More cases" (prototype simple view)', () => {
+  render(<App value={ctx('family')} />)
+  const picker = screen.getByLabelText('Cases')
+  expect(within(picker).getByText('Start here · pick one')).toBeInTheDocument()
+  expect(within(picker).getByRole('button', { name: /Live speech test/ })).toHaveClass('speechcs')
+  expect(within(picker).queryByText('Prevention and screening · one person at a time')).toBeNull()
+  fireEvent.click(within(picker).getByRole('button', { name: /More cases \(7\)/ }))
+  expect(within(picker).getByText('Prevention and screening · one person at a time')).toBeInTheDocument()
+  expect(within(picker).getByText('Safety net · when something goes wrong at home')).toBeInTheDocument()
+  expect(within(picker).queryByRole('button', { name: /More cases/ })).toBeNull()
 })
 
 test('an unknown deep link falls back to the family case', () => {
@@ -67,7 +79,7 @@ test.each(ids)('%s: every region renders and "Run it for me" reaches the end wit
   expect(screen.getByRole('list', { name: 'Data path' })).toBeInTheDocument()
   expect(screen.getByText('Demo database')).toBeInTheDocument()
   expect(screen.getByText('API and event log')).toBeInTheDocument()
-  expect(screen.getByText('Which agent is working now', { exact: false })).toBeInTheDocument()
+  expect(screen.getByText('Who has', { exact: false })).toBeInTheDocument()
   // Moment that matters and How might we in the header.
   expect(screen.getByText('The moment that matters')).toBeInTheDocument()
   expect(screen.getByText('How might we')).toBeInTheDocument()

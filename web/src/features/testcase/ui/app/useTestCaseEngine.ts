@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CASES } from '../../data/cases'
-import { TestCaseEngine, resolveText, setDateLocale, type CaseId, type Params, type Snapshot, type TFn, type Txt } from '../../engine'
+import { TestCaseEngine, resolveText, setDateLocale, type AgentId, type CaseId, type Params, type Snapshot, type TFn, type Txt } from '../../engine'
 import { useTestCase } from '../../entry/TestCaseContext'
 import { intlLocale } from '@/i18n'
 import { DEFAULT_SPEED, Driver, SPEEDS, type JudgeState, type Speed } from './driver'
@@ -41,6 +41,17 @@ export interface TestCaseSession {
   toggleAuto: () => void
   startJudge: () => void
   stop: () => void
+  /** The sticky bar's Next: one action of the step by hand (prototype stepOnce), "Run it for me" stays off. */
+  stepOnce: () => void
+  /** "Show details" is on: the baton, the team, the data path, the database and log, and the rule details show (prototype `simple` off). */
+  details: boolean
+  setDetails: (on: boolean) => void
+  /** The picker shows all ten cases (after "More cases", or with details on). */
+  more: boolean
+  showMore: () => void
+  /** The agent whose story is open in the team card. */
+  agOpen: AgentId | null
+  setAgOpen: (k: AgentId | null) => void
 }
 
 export const isCaseId = (k: string | null | undefined): k is CaseId => !!k && Object.prototype.hasOwnProperty.call(CASES, k)
@@ -72,6 +83,11 @@ export function useTestCaseEngine(): TestCaseSession {
   const [engine] = useState(() => new TestCaseEngine({ t: tt, caseId: isCaseId(tc.caseKey) ? tc.caseKey : 'family', lang: lang === 'ar' ? 'ar' : 'en' }))
   const [judge, setJudge] = useState<JudgeState | null>(null)
   const driverRef = useRef<Driver | null>(null)
+  // A newcomer starts in the simple view (prototype `simple:true`); the choice stays for the whole overlay session, across cases.
+  const [details, setDetails] = useState(false)
+  const [more, setMore] = useState(false)
+  const showMore = useCallback(() => setMore(true), [])
+  const [agOpen, setAgOpen] = useState<AgentId | null>(null)
   const [pb, setPb] = useState<{ paused: boolean; speed: Speed }>(() => ({ paused: false, speed: loadSpeed() }))
 
   useEffect(() => { engine.setTranslator(tt) }, [engine, tt])
@@ -125,6 +141,10 @@ export function useTestCaseEngine(): TestCaseSession {
   const toggleAuto = useCallback(() => driverRef.current?.setAuto(!engine.S.auto), [engine])
   const startJudge = useCallback(() => driverRef.current?.startJudge(), [])
   const stop = useCallback(() => driverRef.current?.stop(), [])
+  const stepOnce = useCallback(() => {
+    if (engine.S.auto) driverRef.current?.setAuto(false)
+    engine.stepOnce()
+  }, [engine])
 
   const { paused, speed } = pb
   const active = paused || snap.state.auto || (!!judge && judge.phase !== 'done')
@@ -139,7 +159,7 @@ export function useTestCaseEngine(): TestCaseSession {
   }), [active, paused, speed])
 
   return useMemo(
-    () => ({ engine, snap, r, tt, ctx, judge, playback, pick, restart, replay, toggleAuto, startJudge, stop }),
-    [engine, snap, r, tt, ctx, judge, playback, pick, restart, replay, toggleAuto, startJudge, stop],
+    () => ({ engine, snap, r, tt, ctx, judge, playback, pick, restart, replay, toggleAuto, startJudge, stop, stepOnce, details, setDetails, more, showMore, agOpen, setAgOpen }),
+    [engine, snap, r, tt, ctx, judge, playback, pick, restart, replay, toggleAuto, startJudge, stop, stepOnce, details, more, showMore, agOpen],
   )
 }

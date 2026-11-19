@@ -11,7 +11,7 @@ import { REPORT } from '../data/report'
 import { STEP_ZERO } from '../data/stepZero'
 import { TEACH } from '../data/teach'
 import { tx, type AdultProfile, type CaseId, type JourneyId, type Params, type PersonId, type PrevInputs, type PvId, type Row, type SafetyInputs, type SampleKey, type StepDef, type Txt } from '../data/types'
-import { runAutoStep } from './autopilot'
+import { canAutoStep, runAutoStep } from './autopilot'
 import { decisionChecks, prevChecks } from './checks'
 import { emptyDb, type Seq } from './db'
 import { ageText, childAlertTitle, famScore, famSignals, famUp, familySteps, fcAlertTitle, initFamily, nextAction, routeFamilyResult } from './family'
@@ -1131,6 +1131,13 @@ export class TestCaseEngine {
     const stop = runAutoStep(this)
     if (stop) { S.auto = false; this.emit(); return null }
     return 850
+  }
+  /** The sticky bar's Next (prototype stepOnce): one autopilot action by hand, without turning "Run it for me" on. */
+  stepOnce(): boolean {
+    if (!canAutoStep(this)) return false
+    runAutoStep(this)
+    this.emit()
+    return true
   }
   /** Autopilot only: the answer is already in `S.ans`; decide without the "answer" log line (as the prototype's autoTick does). */
   answerSilently() { this.decide(); this.emit() }

@@ -5,6 +5,7 @@ import { DAILY, QUESTIONS } from '../../../data'
 import { clk, hm, tx, type Lang, type SafetyInputs } from '../../../engine'
 import { langAttrs, useSpeakResolve } from '../langText'
 import type { ScreenProps } from '../types'
+import { Signal } from '../Signal'
 
 type Tone = 'red' | 'amber' | 'green' | 'info'
 
@@ -84,7 +85,7 @@ export function SafetyPhone({ engine, snap, r }: ScreenProps) {
   return (
     <>
       <div className="ph-notch" />
-      <div className="ph-bar"><span>{hm(S.clock)}</span><span>{t('phone.bar')}</span></div>
+      <div className="ph-bar"><span>{hm(S.clock)}</span><span>{t('phone.bar')} <Signal /></span></div>
       <div className="ph-body">
         <div className="ph-hello">
           <h3>{S.step === 0 && night ? nm : t('phone.hello', { n: nm })}</h3>

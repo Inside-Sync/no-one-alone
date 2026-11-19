@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, type CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@/components/ui/Icon'
 import { AGENTS, AGENT_IDS } from '../../data/agents'
 import { NODES } from '../../data/agents'
-import { tx, type AgentId, type FlowNode } from '../../engine'
+import { tx, type FlowNode } from '../../engine'
 import { scrollSoon } from './scrollTo'
 import { tokText, useA, type SessionProps } from './parts'
 
@@ -64,7 +64,7 @@ export function Handoffs({ flow, r, label = true }: { flow: FlowNode[]; r: Sessi
   )
 }
 
-/** Who holds the person's care at every step (the baton), and what the current step hands on. */
+/** Who holds the person's care at every step (the baton), one row of chips; the hand-offs are in the step card. */
 export function Baton({ s }: SessionProps) {
   const t = useA()
   const { snap, r } = s
@@ -81,7 +81,6 @@ export function Baton({ s }: SessionProps) {
           </span>
         ))}
       </div>
-      <Handoffs flow={snap.step.flow} r={r} />
     </>
   )
 }
@@ -89,8 +88,7 @@ export function Baton({ s }: SessionProps) {
 /** The eight Noa agents; the ones working on this step are lit; a tap tells an agent's story. */
 export function Team({ s }: SessionProps) {
   const t = useA()
-  const { snap, r } = s
-  const [open, setOpen] = useState<AgentId | null>(null)
+  const { snap, r, agOpen: open, setAgOpen: setOpen } = s
   const on = snap.step.agents.map((a) => a.agent)
   return (
     <>

@@ -76,9 +76,9 @@ describe.each(IDS)('case %s', (id) => {
 describe('the picker', () => {
   test('ten cases in three groups, in the prototype\'s order', () => {
     expect(CASE_GROUPS.map((g) => [g.id, g.cases])).toEqual([
-      ['family', ['family']],
-      ['prevention', ['wellchild', 'ifhas', 'expat', 'bone']],
-      ['safety', ['stroke', 'fall', 'hypo', 'hf', 'own']],
+      ['start', ['family', 'stroke', 'ifhas']],
+      ['prevention', ['wellchild', 'expat', 'bone']],
+      ['safety', ['fall', 'hypo', 'hf', 'own']],
     ])
     expect(Object.keys(CASES)).toHaveLength(10)
   })

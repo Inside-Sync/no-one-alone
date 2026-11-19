@@ -125,10 +125,12 @@ export const CASES: Record<CaseId, CaseDef> = {
   },
 }
 
-/** Picker order and groups (the prototype's three groups). */
-export const CASE_GROUPS: { id: 'family' | 'prevention' | 'safety'; cases: CaseId[] }[] = [
-  { id: 'family', cases: ['family'] },
-  { id: 'prevention', cases: ['wellchild', 'ifhas', 'expat', 'bone'] },
-  { id: 'safety', cases: ['stroke', 'fall', 'hypo', 'hf', 'own'] },
+/** Picker order and groups (the prototype's): three to start with (the family, the live speech test, the one-tap screening), then the rest. */
+export const CASE_GROUPS: { id: 'start' | 'prevention' | 'safety'; cases: CaseId[] }[] = [
+  { id: 'start', cases: ['family', 'stroke', 'ifhas'] },
+  { id: 'prevention', cases: ['wellchild', 'expat', 'bone'] },
+  { id: 'safety', cases: ['fall', 'hypo', 'hf', 'own'] },
 ]
+/** The case shown as the "Live speech test" card in the picker. */
+export const SPEECH_CASE: CaseId = 'stroke'
 
