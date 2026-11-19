@@ -1,6 +1,7 @@
 import { JOURNEYS, QUESTIONS, RULES } from '@/features/testcase/data'
 import { choosePath, runLen, triggers, type PersonId, type SafetyInputs, type SampleKey } from '@/features/testcase/engine'
-import { make, text } from './helpers'
+import { TestCaseEngine } from '@/features/testcase/engine'
+import { make, t, text } from './helpers'
 
 /**
  * Safety rules R1 to R12. The table below was produced by running the prototype (new3.html, "Enter your own") with the same
@@ -121,6 +122,21 @@ describe('R1 to R4: what starts a check', () => {
     expect(trigger('moza', { hr: 138, dur: 9 }).S.why1).toBeNull()
     expect(trigger('moza', { hr: 138, dur: 12 }, (e) => e.setInputToggle('still', false)).S.why1).toBeNull()
     expect(trigger('moza', { hr: 118, dur: 12 }).S.phase).not.toBe('check')
+  })
+  const runR1 = ({ hr, random }: { hr: number; random?: () => number }) => {
+    const e = new TestCaseEngine({ t, caseId: 'own', random })
+    e.setPerson('moza'); e.setInput('hr', hr); e.setInput('dur', 12); e.play(); e.drain()
+    return e
+  }
+  test('R1 edge: noise never moves a typed rate across 120', () => {
+    for (const hr of [121, 122, 123]) expect(runR1({ hr }).S.why1).toBe('R1')
+    const low = runR1({ hr: 121, random: () => 0 })
+    expect(low.S.why1).toBe('R1')
+    expect(low.S.read.slice(10, 20).every((v) => v > 120)).toBe(true)
+    const high = runR1({ hr: 120, random: () => 0.99 })
+    expect(high.S.why1).toBeNull()
+    expect(high.S.dec?.rule).toBe('R12')
+    expect(high.S.read.slice(10, 22).every((v) => v <= 120)).toBe(true)
   })
   test('R2: a fall still on the floor after 2 minutes', () => {
     const e = trigger('hessa', { floor: 2 }, (x) => x.setInputToggle('fall', true))

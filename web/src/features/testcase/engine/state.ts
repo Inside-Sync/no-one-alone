@@ -28,7 +28,7 @@ const T = tx
 export interface EngineOptions {
   /** `t` of the `testcase` namespace. Only the speech check needs it (the target sentence and the sample answers are real strings). */
   t?: TFn
-  /** 0..1 random source for the heart-rate jitter of the playback. Default: a fixed-seed generator, so runs are reproducible. */
+  /** 0..1 random source for the heart-rate jitter of the playback. Default: a fixed-seed generator, so runs are reproducible; the in-run reading never crosses 120. */
   random?: () => number
   /** Case to start with (default `family`, like the prototype). */
   caseId?: CaseId
@@ -452,7 +452,10 @@ export class TestCaseEngine {
     if (!ctl || S.phase !== 'playing') return false
     const I = S.inp as SafetyInputs, tr = triggers(I), m = ctl.m
     const on = m >= 10, inRun = on && m < 10 + I.dur
-    S.read.push(Math.round(inRun ? I.hr + (this.random() - 0.5) * 6 : (I.still ? 60 : 84) + (this.random() - 0.5) * 5))
+    const noise = this.random() - 0.5
+    const raw = Math.round(inRun ? I.hr + noise * 6 : (I.still ? 60 : 84) + noise * 5)
+    // Noise stays on the typed value's side of the R1 line, so demo and benchmark agree.
+    S.read.push(inRun ? (I.hr > 120 ? Math.max(121, raw) : Math.min(120, raw)) : raw)
     S.mv.push(inRun && !I.still ? 1 : 0)
     S.min = m; S.clock = S.start + m
     if (on) {
