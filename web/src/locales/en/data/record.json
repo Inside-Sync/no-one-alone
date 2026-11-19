@@ -1128,7 +1128,7 @@
           ],
           [
             "Action",
-            "Possible stroke · call list started"
+            "Possible stroke · 998 called, family alerted"
           ]
         ],
         "related": [
@@ -1140,11 +1140,15 @@
         "id": "y3",
         "stage": "sym",
         "kind": "Calls",
-        "when": "15 Oct 2026 · 01:36",
+        "when": "15 Oct 2026 · 01:34",
         "title": "Ambulance called, hospital told",
         "where": "Home to Corniche Stroke Centre · Noa",
-        "summary": "Khalid did not answer, Hamad came, and Noa called an ambulance and sent her details to the hospital.",
+        "summary": "Noa called an ambulance at once and sent her details to the hospital. Khalid did not answer, and Hamad came.",
         "findings": [
+          [
+            "Ambulance",
+            "Called 01:34"
+          ],
           [
             "Khalid",
             "No answer"
@@ -1152,10 +1156,6 @@
           [
             "Hamad",
             "On his way, 450 m"
-          ],
-          [
-            "Ambulance",
-            "Called 01:36"
           ],
           [
             "Hospital packet",
