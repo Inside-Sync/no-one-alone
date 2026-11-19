@@ -7,7 +7,7 @@
   },
   "picker": {
     "group": {
-      "start": "Start here · pick one",
+      "start": "Who should Noa look after?",
       "prevention": "Prevention and screening · one person at a time",
       "safety": "Safety net · when something goes wrong at home"
     },
@@ -16,12 +16,15 @@
     "person": "Person",
     "time": "Time",
     "night": "Night 01:12",
-    "morning": "Morning 08:10"
+    "morning": "Morning 08:10",
+    "startWith": "Start with {{who}}",
+    "family": "the family"
   },
   "stepper": {
     "next": "Next",
     "nothingMore": "Nothing more needed",
-    "noaDecides": "Noa decides the rest"
+    "noaDecides": "Noa decides the rest",
+    "afterDecides": "After Noa decides"
   },
   "card": {
     "handoffs": "Hand-offs",
@@ -31,7 +34,8 @@
     "back": "Back",
     "next": "Next: {{title}}",
     "again": "Try another case",
-    "onwards": "{{at}} onwards"
+    "onwards": "{{at}} onwards",
+    "means": "What this means"
   },
   "team": {
     "title": "Noa is a team of 9 AI agents",

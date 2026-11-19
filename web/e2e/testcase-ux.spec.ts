@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
-import { openTest, overlay, runToEnd, watchErrors } from './testcase-helpers'
+import { noHScroll, openTest, overlay, runToEnd, watchErrors } from './testcase-helpers'
 
 test.setTimeout(120_000)
 
@@ -157,6 +157,30 @@ for (const [w, h] of [[1536, 864], [2048, 1150]] as const) {
     expect(switched).toBe(true)
     expect(seen.size).toBeGreaterThanOrEqual(5)
     await page.locator('#pbPause').click()
+    expect(errs.list()).toEqual([])
+  })
+}
+
+for (const [w, h] of [[2048, 1150], [1536, 864]] as const) {
+  test(`first view ${w}x${h}: start cards by person, "What this means" in the card, the branch label in one stepper row`, async ({ page }) => {
+    const errs = watchErrors(page)
+    await page.setViewportSize({ width: w, height: h })
+    await openTest(page, 'stroke')
+    await expect(page.locator('#picker .tc-startcs b')).toHaveText(['Start with the family', 'Start with Moza', 'Start with Khalid'])
+    const means = page.locator('#card .tc-means')
+    await expect(means).toContainText('What this means')
+    await expect(means).not.toContainText(/your turn/i)
+    // Compact: at most three lines of text.
+    expect((await means.boundingBox())!.height).toBeLessThan(80)
+    await expect(page.locator('ol.stepper .tc-branch')).toHaveCount(0)
+    await runToEnd(page)
+    await expect(means).not.toContainText(/your turn/i)
+    const branch = page.locator('ol.stepper .tc-branch')
+    await expect(branch).toHaveText('After Noa decides')
+    // The label sits in the same row as the steps, not on a row of its own.
+    const tops = await page.locator('ol.stepper > li').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)))
+    expect(new Set(tops).size).toBe(1)
+    await noHScroll(page)
     expect(errs.list()).toEqual([])
   })
 }

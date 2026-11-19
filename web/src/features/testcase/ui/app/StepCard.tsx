@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { Icon } from '@/components/ui/Icon'
 import { AGENTS } from '../../data/agents'
-import { clk, hm, tx, type AgentId } from '../../engine'
+import { clk, hm, tx, type AgentId, type StepDef } from '../../engine'
 import { GateStrip } from './Gates'
 import { Handoffs } from './Flow'
 import { ProvLine } from './Provenance'
@@ -13,7 +13,7 @@ import { KindSlot } from './registry'
 import { scrollSoon, scrollToTarget } from './scrollTo'
 
 /** "Noa agents on this step": what each working agent does, the hand-offs, and who decides (prototype agentHTML). */
-function AgentBlock({ s }: SessionProps) {
+function AgentBlock({ s, decides = true }: SessionProps & { decides?: boolean }) {
   const t = useA()
   const { snap, r, setDetails, setAgOpen } = s
   const st = snap.step
@@ -33,8 +33,26 @@ function AgentBlock({ s }: SessionProps) {
         </div>
       ))}
       <Handoffs flow={st.flow} r={r} />
-      <div className="decides"><span className="ic" aria-hidden="true"><Icon name="user-round" /></span> {r(tx(st.decides))}</div>
+      {decides && <div className="decides"><span className="ic" aria-hidden="true"><Icon name="user-round" /></span> {r(tx(st.decides))}</div>}
     </div>
+  )
+}
+
+/** A step without its own text (always step 0) explains itself by who decides; that line then moves from the agents to "What this means". */
+const byDecides = (st: StepDef) => !st.text
+
+/**
+ * "What this means" (top of the card, in the step's mode colour): one plain sentence, the step's own text or who decides. What to do next
+ * stays in the sticky bar, and the mode in the step's own header below, so nothing is said twice and the box keeps its height.
+ */
+function Meaning({ s }: SessionProps) {
+  const t = useAd()
+  const { snap, r } = s
+  const st = snap.step
+  return (
+    <p className={`tc-means mode-${st.mode}`}>
+      <span className="lab">{t('card.means')}</span> {r(tx(byDecides(st) ? st.decides : st.text!))}
+    </p>
   )
 }
 
@@ -78,8 +96,8 @@ export function StepCard({ s }: SessionProps) {
       <span className="when">{when}</span>
       <h3>{i + 1} · {r(tx(st.title))}</h3>
       <ProvLine kind={st.kind} />
-      <AgentBlock s={s} />
-      {i > 0 && st.text && <p>{r(tx(st.text))}</p>}
+      <Meaning s={s} />
+      <AgentBlock s={s} decides={!byDecides(st)} />
       <KindSlot type={engine.caseDef.type} engine={engine} snap={snap} step={st} r={r} />
       {/* Ours, not the prototype's: the safety checks sit after the step's own content, so the card reads as in the prototype. */}
       <GateStrip snap={snap} r={r} />
