@@ -67,13 +67,14 @@ export function ProvLegend({ live = false }: { live?: boolean }) {
   )
 }
 
-/** "On this card" line; live swaps prepared for AI-written. */
+/** "On this card" line; a live teach card tags the explanation AI-written and keeps the question and answers Prepared text. */
 export function ProvLine({ kind, live = false }: { kind: StepKindName; live?: boolean }) {
   const t = useG()
-  const ps = live ? CARD_PROV[kind].map((p) => (p === 'prepared' ? 'ai' : p)) : CARD_PROV[kind]
+  const lv = live && kind === 'teach'
+  const ps: Prov[] = lv ? ['ai', 'prepared', 'calculated'] : CARD_PROV[kind]
   return (
     <ul className="prov-line" aria-label={t('prov.onCard')}>
-      {ps.map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`cardProv.${kind}.${p}`)}</span></li>)}
+      {ps.map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`cardProv.${lv ? 'teachLive' : kind}.${p}`)}</span></li>)}
     </ul>
   )
 }

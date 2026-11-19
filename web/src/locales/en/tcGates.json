@@ -103,7 +103,11 @@
     },
     "teach": {
       "prepared": "explanation and questions",
-      "ai": "explanation and questions",
+      "calculated": "teach-back check"
+    },
+    "teachLive": {
+      "ai": "explanation",
+      "prepared": "question and answers",
       "calculated": "teach-back check"
     },
     "recheck": {

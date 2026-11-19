@@ -1,3 +1,4 @@
+import i18n from '@/i18n'
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { runAutopilot, type CaseId, type TestCaseEngine } from '@/features/testcase/engine'
 import { StepCard } from '@/features/testcase/ui/app/StepCard'
@@ -232,6 +233,7 @@ describe('B3 input issues next to the fields', () => {
 })
 
 describe('G2 teach card source', () => {
+  afterEach(() => { void i18n.changeLanguage('en') })
   it('prepared wording is tagged Prepared text, never AI-written', () => {
     const { container } = render(<ProvLine kind="teach" />)
     expect(container).toHaveTextContent('Prepared text')
@@ -239,18 +241,24 @@ describe('G2 teach card source', () => {
     expect(container.querySelector('[data-prov="ai"]')).toBeNull()
   })
 
-  it('a live explanation is tagged AI-written', () => {
+  const lines = (c: HTMLElement) => [...c.querySelectorAll('.prov-line li')].map((li) => li.textContent)
+  it('a live explanation: AI-written explanation, Prepared text question and answers', () => {
     const { container } = render(<ProvLine kind="teach" live />)
-    expect(container).toHaveTextContent('AI-written')
-    expect(container).not.toHaveTextContent('Prepared text')
+    expect(lines(container)).toEqual(['AI-writtenexplanation', 'Prepared textquestion and answers', 'Calculatedteach-back check'])
   })
 
-  it('the step card follows the engine: prepared, live after applyLiveExplain, prepared again after a language switch', () => {
+  it('in Arabic the live line names both sources', async () => {
+    await act(async () => { await i18n.changeLanguage('ar') })
+    const { container } = render(<ProvLine kind="teach" live />)
+    expect(lines(container)).toEqual(['كتبه الذكاء الاصطناعيالشرح', 'نص معدّ مسبقاًالسؤال والإجابات', 'محسوبفحص إعادة الشرح'])
+  })
+
+  it('the step card follows the engine: prepared, live on the teach step only, prepared after a language switch', () => {
     const e = make('stroke')
     advanceTo(e, 'teach')
     function Card() {
       const { snap, r } = useEngine(e)
-      return <StepCard s={{ engine: e, snap, r } as unknown as TestCaseSession} />
+      return <StepCard s={{ engine: e, snap, r, playback: { active: false } } as unknown as TestCaseSession} />
     }
     const { container } = render(<Card />)
     const tag = (p: string) => container.querySelector(`.prov-line [data-prov="${p}"]`)
@@ -258,9 +266,11 @@ describe('G2 teach card source', () => {
     expect(tag('ai')).toBeNull()
     act(() => { e.applyLiveExplain({ explain: 'Live', simpler: 's' }, { tkey: e.teachKey()!, lang: e.S.lang }) })
     expect(tag('ai')).not.toBeNull()
-    expect(tag('prepared')).toBeNull()
+    expect(tag('prepared')).not.toBeNull()
     act(() => { e.setLang('ar') })
     expect(tag('prepared')).not.toBeNull()
+    expect(tag('ai')).toBeNull()
+    act(() => { e.setLang('en'); e.applyLiveExplain({ explain: 'Live', simpler: 's' }, { tkey: e.teachKey()!, lang: e.S.lang }); e.go(e.S.step - 1) })
     expect(tag('ai')).toBeNull()
   })
 })

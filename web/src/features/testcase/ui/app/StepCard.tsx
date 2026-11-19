@@ -98,7 +98,7 @@ export function StepCard({ s }: SessionProps) {
       <ProvLine kind={st.kind} live={engine.curExplain()?.src === 'live'} />
       <Meaning s={s} />
       <AgentBlock s={s} decides={!byDecides(st)} />
-      <KindSlot type={engine.caseDef.type} engine={engine} snap={snap} step={st} r={r} />
+      <KindSlot type={engine.caseDef.type} engine={engine} snap={snap} step={st} r={r} running={s.playback.active} />
       {/* Ours, not the prototype's: the safety checks sit after the step's own content, so the card reads as in the prototype. */}
       <GateStrip snap={snap} r={r} />
       <Nav s={s} />

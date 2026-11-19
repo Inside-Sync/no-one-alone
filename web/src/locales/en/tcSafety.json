@@ -87,6 +87,8 @@
     "stop": "Stop",
     "simpler": "Simpler words",
     "prepared": "Prepared text",
+    "another": "Explain it another way",
+    "aiWritten": "AI-written",
     "answerAs": "answer as {{n}}",
     "passed": "Teach-back passed: Noa checks the person understood",
     "saved": "Saved to the record.",

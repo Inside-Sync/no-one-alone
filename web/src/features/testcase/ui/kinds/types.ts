@@ -10,6 +10,8 @@ export interface KindProps {
   snap: Snapshot
   step: StepDef
   r: Resolve
+  /** A run is on or paused ("Run it for me", the Judge path): no network calls. */
+  running?: boolean
 }
 
 /** Props of the phone and the two app windows for a family of cases (safety, prevention, family). */

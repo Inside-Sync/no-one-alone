@@ -38,13 +38,17 @@ describe('tl and btn', () => {
 })
 
 describe('teach-back', () => {
-  test('a live explanation hides the Prepared text pill', () => {
+  test('a live explanation swaps the Prepared text pill for AI-written, in English and Arabic', async () => {
     const e = make('stroke')
     advanceTo(e, 'teach')
     renderKind(e)
     expect(screen.getByText('Prepared text')).toBeInTheDocument()
+    expect(screen.queryByText('AI-written')).toBeNull()
     act(() => { e.applyLiveExplain({ explain: 'Live', simpler: 's' }, { tkey: e.teachKey()!, lang: e.S.lang }) })
     expect(screen.queryByText('Prepared text')).toBeNull()
+    expect(screen.getByText('AI-written')).toBeInTheDocument()
+    await act(async () => { await i18n.changeLanguage('ar') })
+    expect(screen.getByText('كتبه الذكاء الاصطناعي')).toBeInTheDocument()
   })
 
   test('wrong answer: gentle feedback and simpler words; right answer passes; language switch; plan', () => {

@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import { chat, startDemo } from '@/data/api'
+import { chat, explain, startDemo } from '@/data/api'
 
 vi.mock('@/lib/firebase', () => ({ idToken: async () => 'token' }))
 
@@ -34,4 +34,14 @@ test('chat sends lang when given and leaves it out when not', async () => {
   fetchMock.mockClear()
   await chat({ question: 'q', mode: 'self' })
   expect(sentBody()).toEqual({ question: 'q', mode: 'self' })
+})
+
+test('explain posts {tkey, lang} to /api/explain with the abort signal', async () => {
+  fetchMock.mockResolvedValueOnce(new Response('{"explain":"e","simpler":"s"}', { status: 200 }))
+  const ctrl = new AbortController()
+  await expect(explain({ tkey: 'hf', lang: 'ar' }, ctrl.signal)).resolves.toEqual({ explain: 'e', simpler: 's' })
+  const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit]
+  expect(url).toBe('/api/explain')
+  expect(JSON.parse(init.body as string)).toEqual({ tkey: 'hf', lang: 'ar' })
+  expect(init.signal).toBe(ctrl.signal)
 })

@@ -20,7 +20,7 @@ export class ApiError extends Error {
   }
 }
 
-async function call<T>(path: string, body?: BodyInit | object): Promise<T> {
+async function call<T>(path: string, body?: BodyInit | object, signal?: AbortSignal): Promise<T> {
   const headers: Record<string, string> = { Authorization: `Bearer ${await idToken()}` }
   let payload: BodyInit | undefined
   if (body instanceof FormData) payload = body
@@ -30,7 +30,7 @@ async function call<T>(path: string, body?: BodyInit | object): Promise<T> {
   }
   let res: Response
   try {
-    res = await fetch(BASE + path, { method: 'POST', headers, body: payload })
+    res = await fetch(BASE + path, { method: 'POST', headers, body: payload, signal })
   } catch (e) {
     throw new ApiError(0, 'NETWORK', e instanceof Error ? e.message : String(e))
   }
@@ -86,4 +86,11 @@ export interface ChatRequest { question: string; mode: ChatMode; viewer?: string
 /** Asks Noa about Margaret; `502 CHAT_UNAVAILABLE` when the agent fails. */
 export function chat(body: ChatRequest) {
   return call<{ answer: string }>('/chat', body)
+}
+
+export interface ExplainRequestBody { tkey: string; lang: 'en' | 'ar' }
+
+/** Live wording for the teach card's explanation; `502 AGENT_FAILED` when respond-agent or Claude fails. */
+export function explain(body: ExplainRequestBody, signal?: AbortSignal) {
+  return call<{ explain: string; simpler: string }>('/explain', body, signal)
 }
