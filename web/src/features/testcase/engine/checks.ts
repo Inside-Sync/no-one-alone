@@ -21,7 +21,7 @@ export function decisionChecks(S: State): Txt[] {
   if (S.why1 === 'R1') c.push(tx('checks.waitedTen'))
   if (d.standdown) { c.push(tx('checks.standDown')); return c }
   const em = d.path != null && /_em$/.test(d.path)
-  if (em) c.push(tx('checks.called998', { at: hm(tAct + 2), min: tAct + 2 - tCheck }))
+  if (em) c.push(tx(d.escalated ? 'checks.called998Recheck' : 'checks.called998', { at: hm(tAct), min: d.escalated ? 0 : tAct - tCheck }))
   if (d.path === 'hypo_em') c.push(tx('checks.hypoNotStroke'))
   if (d.path === 'hypo_home') c.push(tx('checks.hypoHome', { at: hm(tAct + 15) }))
   if (d.path === 'fall_em' && PEOPLE[S.pk].anticoag) c.push(tx('checks.headCt'))

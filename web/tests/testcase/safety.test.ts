@@ -1,5 +1,6 @@
 import { JOURNEYS, QUESTIONS, RULES } from '@/features/testcase/data'
 import { TestCaseEngine, choosePath, runLen, triggers, type PersonId, type SafetyInputs, type SampleKey } from '@/features/testcase/engine'
+import { computeKpis } from '@/features/testcase/ui/judges/kpis'
 import { make, t, text } from './helpers'
 
 /**
@@ -239,10 +240,14 @@ describe('what the checklist and the R12 note say', () => {
     const lines = stroke.decisionChecks().map((c) => text(stroke, c))
     expect(lines[0]).toBe('Rule R1 met at 01:31; Noa Voice checked at 01:32 (1 min, target ≤ 1)')
     expect(lines).toContain('Waited for the full 10 minutes before waking Moza, so a short spike wakes nobody')
-    expect(lines).toContain('998 called at 01:36, 4 min after the check (target ≤ 3)')
+    expect(lines).toContain('998 called at 01:34, 2 min after the check (target ≤ 3)')
     expect(lines).toContain('Last known well 01:22 sent ahead for the stroke team')
     expect(run(SCEN[9]).decisionChecks().some((c) => c.k === 'checks.headCt')).toBe(true)
     expect(run(SCEN[13]).decisionChecks().some((c) => c.k === 'checks.headCt')).toBe(false)
+  })
+  test('998 KPI: minutes from the check to the call', () => {
+    expect(computeKpis(run(SCEN[2])).to998).toEqual({ state: 'ready', a: 2, b: 1 })
+    expect(computeKpis(run(SCEN.find((s) => s.id.startsWith('s26 oxygen 89'))!)).to998).toEqual({ state: 'ready', a: 2, b: 1 })
   })
   test('stand down checklist', () => {
     const e = run(SCEN[1])

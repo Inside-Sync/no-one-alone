@@ -1555,9 +1555,9 @@
     "responder": {
       "n": "Responder",
       "role": "Emergency coordination agent",
-      "can": "Call family and 998, stay on the line",
+      "can": "Call 998 and family, stay on the line",
       "cannot": "Change the script or give medical advice",
-      "story": "Responder follows the call list each family agreed in advance: who first, who has a key, who is nearest. It reads a fixed script that clinicians approved and hands every 998 call to a human operator. It never improvises."
+      "story": "Responder calls 998 first, then follows the call list each family agreed in advance: who has a key, who is nearest. It reads a fixed script that clinicians approved and hands every 998 call to a human operator. It never improvises."
     },
     "courier": {
       "n": "Courier",
@@ -1644,13 +1644,13 @@
         {
           "title": "Noa calls for help",
           "hold": "Responder → 998",
-          "text": "Noa follows the call list {{n}} and {{her}} family agreed when {{she}} joined. {{Her}} emergency rule says: always share.",
+          "text": "Noa calls 998 and, at the same time, follows the call list {{n}} and {{her}} family agreed when {{she}} joined. {{Her}} emergency rule says: always share.",
           "done": "Help is on the way.",
           "decides": "The 998 operator sends the ambulance.",
           "agents": {
             "responder": [
-              "Runs the agreed call list: {{f1s}} first, then the nearest person",
-              "Calls 998 with the fixed script; a human operator takes over"
+              "Calls 998 with the fixed script; a human operator takes over",
+              "At the same time runs the agreed call list: {{f1s}}, then the nearest person"
             ],
             "voice": [
               "Stays on the line: “Stay seated, help is coming”"
@@ -1658,16 +1658,16 @@
           },
           "items": [
             {
+              "title": "Responder calls 998 · operator takes over",
+              "detail": "Ambulance dispatched"
+            },
+            {
               "title": "Responder calls {{f1}}",
               "detail": "No answer"
             },
             {
               "title": "Responder calls {{f2}}, {{f2d}} away",
               "detail": "On the way"
-            },
-            {
-              "title": "Responder calls 998 · operator takes over",
-              "detail": "Ambulance dispatched"
             },
             {
               "title": "Voice to {{n}}",
@@ -1898,8 +1898,8 @@
           "decides": "The 998 operator sends the ambulance.",
           "agents": {
             "responder": [
-              "Runs the call list: {{f1s}}, then the nearest person with a key",
-              "Calls 998 with the fixed script; a human operator takes over"
+              "Calls 998 with the fixed script; a human operator takes over",
+              "At the same time runs the call list: {{f1s}}, then the nearest person with a key"
             ],
             "voice": [
               "Stays with {{n}}: “Don’t try to get up. Stay warm.”"
@@ -1907,16 +1907,16 @@
           },
           "items": [
             {
+              "title": "Responder calls 998 · operator takes over",
+              "detail": "Ambulance dispatched"
+            },
+            {
               "title": "Responder calls {{f1}}",
               "detail": "No answer"
             },
             {
               "title": "Responder calls {{f2}}, {{f2d}} away",
               "detail": "Coming with the key"
-            },
-            {
-              "title": "Responder calls 998 · operator takes over",
-              "detail": "Ambulance dispatched"
             },
             {
               "title": "Voice to {{n}}",
@@ -2389,13 +2389,13 @@
         {
           "title": "Noa calls for help",
           "hold": "Responder → 998",
-          "text": "Low sugar and no clear answer: this is an emergency. Noa wakes the person next door first.",
+          "text": "Low sugar and no clear answer: this is an emergency. Noa calls 998 and wakes the person next door at the same time.",
           "done": "Glucagon given; ambulance on the way.",
           "decides": "The 998 operator sends the ambulance. {{f1s}} gives the glucagon.",
           "agents": {
             "responder": [
-              "Wakes {{f1s}} with a loud alarm on her phone",
-              "Calls 998 with the fixed script; a human operator takes over"
+              "Calls 998 with the fixed script; a human operator takes over",
+              "At the same time wakes {{f1s}} with a loud alarm on her phone"
             ],
             "coach": [
               "Guides {{f1s}} to use the glucagon pen in the drawer"
@@ -2403,16 +2403,16 @@
           },
           "items": [
             {
+              "title": "Responder calls 998 · operator takes over",
+              "detail": "Ambulance dispatched"
+            },
+            {
               "title": "Responder wakes {{f1}}",
               "detail": "“He won’t wake properly.”"
             },
             {
               "title": "Coach guides {{f1s}}",
               "detail": "“Don’t give food or drink if he can’t swallow. Use the glucagon pen in the drawer.”"
-            },
-            {
-              "title": "Responder calls 998 · operator takes over",
-              "detail": "Ambulance dispatched"
             },
             {
               "title": "{{f1s}} gives glucagon",
@@ -2737,12 +2737,12 @@
           },
           "items": [
             {
-              "title": "Voice to {{n}}",
-              "detail": "“Sit upright with your feet down. Help is coming.”"
-            },
-            {
               "title": "Responder calls 998 · operator takes over",
               "detail": "Ambulance dispatched"
+            },
+            {
+              "title": "Voice to {{n}}",
+              "detail": "“Sit upright with your feet down. Help is coming.”"
             },
             {
               "title": "Responder calls {{f1}}",
@@ -4034,6 +4034,7 @@
     "waitedTen": "Waited for the full 10 minutes before waking {{n}}, so a short spike wakes nobody",
     "standDown": "Speech normal and answer clear: no ambulance, family told {{she}} is fine",
     "called998": "998 called at {{at}}, {{min}} min after the check (target ≤ 3)",
+    "called998Recheck": "998 called at {{at}}, {{min}} min after the second low recheck (target ≤ 3)",
     "hypoNotStroke": "Low sugar can look like a stroke, so Noa checked glucose first and did not start a stroke alert",
     "hypoHome": "Answering clearly, so no ambulance: fast sugar now, recheck at {{at}}",
     "headCt": "On a blood thinner: head CT flagged before arrival",
