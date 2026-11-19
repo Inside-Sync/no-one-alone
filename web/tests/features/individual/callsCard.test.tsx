@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { CallsCard } from '@/features/individual/live/CallsCard'
 import type { AgentView } from '@/domain/agent'
 import '@/i18n'
