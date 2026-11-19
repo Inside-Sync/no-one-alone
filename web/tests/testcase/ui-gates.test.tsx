@@ -140,6 +140,26 @@ describe('G2 provenance tags', () => {
   })
 })
 
+describe('G2 legend', () => {
+  it('lists AI-written only after a live explanation', () => {
+    const e = make('stroke')
+    function Panels() {
+      const { snap, r } = useEngine(e)
+      const s = { engine: e, snap, r } as unknown as TestCaseSession
+      return <><DbPanel s={s} /><LogPanel s={s} /></>
+    }
+    const { container } = render(<Panels />)
+    const row = (p: string) => container.querySelector(`ul.prov-legend [data-prov="${p}"]`)
+    expect(row('ai')).toBeNull()
+    expect(row('prepared')).not.toBeNull()
+    act(() => {
+      advanceTo(e, 'teach')
+      e.applyLiveExplain({ explain: 'Live', q: 'Q?', opts: ['a', 'b', 'c'], correct: 1, simpler: 's' })
+    })
+    expect(row('ai')).not.toBeNull()
+  })
+})
+
 describe('G3 speech score against the usual one', () => {
   it('reads the usual score from the person description (also in Arabic digits)', () => {
     expect(usualScore('Heart 58–64 asleep · speech score 0.94')).toBe(0.94)

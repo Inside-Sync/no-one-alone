@@ -55,19 +55,19 @@ export function RuleId({ id }: { id: string }) {
 }
 
 /** The five tags and what they mean. */
-export function ProvLegend() {
+export function ProvLegend({ live = false }: { live?: boolean }) {
   const t = useG()
   return (
     <>
       <p className="prov-legend-t">{t('prov.legend')}</p>
       <ul className="prov-legend" aria-label={t('prov.legend')}>
-        {PROVS.map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`prov.${p}.desc`)}</span></li>)}
+        {PROVS.filter((p) => p !== 'ai' || live).map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`prov.${p}.desc`)}</span></li>)}
       </ul>
     </>
   )
 }
 
-/** "On this card": which parts of the step card are observed, calculated, prepared, AI-written or confirmed. */
+/** "On this card" line; live swaps prepared for AI-written. */
 export function ProvLine({ kind, live = false }: { kind: StepKindName; live?: boolean }) {
   const t = useG()
   const ps = live ? CARD_PROV[kind].map((p) => (p === 'prepared' ? 'ai' : p)) : CARD_PROV[kind]

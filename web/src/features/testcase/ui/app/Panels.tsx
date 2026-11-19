@@ -43,7 +43,7 @@ export function DbPanel({ s }: SessionProps) {
         ))}
       </div>
       <p className="hint" id="dbnote">{r(tx(dbNoteKey(table)))}</p>
-      <ProvLegend />
+      <ProvLegend live={snap.log.some((l) => l.m === 'AI')} />
       <div className="tblw" tabIndex={0} role="region" aria-label={t('db.tableLabel', { table })}>
         {rows.length ? (
           <table className="tbl2">
