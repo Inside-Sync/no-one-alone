@@ -730,7 +730,7 @@ export class TestCaseEngine {
             this.alert('red', T(f.lab ? 'db.fcFindingLab' : 'db.fcFindingBmi', { pct: pct(f.r) }), 'F1', team, 'routed', S.clock, T('db.famPatient', { n: this.mname(m.id) }))
           }
           F.alerts.unshift(a)
-          this.log('FORECAST', 'warn', T(ctx === 'results' ? 'log.fcHighRouted' : 'log.fcHighOffered', { n: this.mname(m.id), pct: pct(f.r) }))
+          this.log('FORECAST', 'warn', T(ctx === 'results' ? 'log.fcHighRouted' : 'log.fcHighOffered', { n: this.mname(m.id), pct: pct(f.r), team }))
         }
       } else if (ex && ex.state === 'open') {
         F.alerts.splice(F.alerts.indexOf(ex), 1)

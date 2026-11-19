@@ -3939,7 +3939,7 @@
     "editSex": "Profile changed by you · {{n}}: sex {{sex}}",
     "editReset": "Family profiles reset",
     "fcHighOffered": "Noa Forecast · {{n}}: 10-year heart risk {{pct}} (high) → doctor review offered",
-    "fcHighRouted": "Noa Forecast · {{n}}: 10-year heart risk {{pct}} (high) → routed to the family doctor",
+    "fcHighRouted": "Noa Forecast · {{n}}: 10-year heart risk {{pct}} (high) → routed to {{team}}",
     "fcWithdrawn": "Noa Forecast · {{n}}: risk now {{risk}}, below high · alert withdrawn",
     "fcNotScored": "not scored",
     "fcRecalc": "Noa Forecast · Khalid recalculated with cholesterol: {{pct}} ({{cat}}), heart age {{ha}}",
