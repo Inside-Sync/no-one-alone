@@ -14,6 +14,8 @@ public class RespondAgentClient {
 
     public record ChatResult(String answer) {}
 
+    public record ExplainResult(String explain, String simpler) {}
+
     private final RestClient http;
 
     public RespondAgentClient(NoaProperties props, RestClient.Builder builder) {
@@ -52,6 +54,14 @@ public class RespondAgentClient {
         ChatResult r = post("/chat", body, ChatResult.class);
         if (r.answer() == null || r.answer().isBlank()) {
             throw new AgentException("Empty answer from respond-agent /chat", null);
+        }
+        return r;
+    }
+
+    public ExplainResult explain(Map<String, Object> body) {
+        ExplainResult r = post("/explain", body, ExplainResult.class);
+        if (r.explain() == null || r.explain().isBlank() || r.simpler() == null || r.simpler().isBlank()) {
+            throw new AgentException("Empty explanation from respond-agent /explain", null);
         }
         return r;
     }

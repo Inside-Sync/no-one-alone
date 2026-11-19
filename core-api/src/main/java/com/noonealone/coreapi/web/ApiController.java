@@ -2,6 +2,7 @@ package com.noonealone.coreapi.web;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Executor;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.noonealone.coreapi.agent.AgentException;
+import com.noonealone.coreapi.agent.RespondAgentClient;
 import com.noonealone.coreapi.flow.Actions;
 import com.noonealone.coreapi.flow.ChatService;
 import com.noonealone.coreapi.flow.CheckInInput;
@@ -36,21 +38,28 @@ public class ApiController {
 
     public record ActionRequest(String memberId, String action) {}
 
+    public record ExplainRequest(String tkey, String lang) {}
+
+    // Same four reachable teach sets as respond-agent ExplainIn.
+    private static final Set<String> TEACH_KEYS = Set.of("stroke", "fall", "hypo", "hf");
+
     private final DemoService demo;
     private final IncidentFlow flow;
     private final Actions actions;
     private final Recovery recovery;
     private final Executor executor;
     private final ChatService chat;
+    private final RespondAgentClient agent;
 
     public ApiController(DemoService demo, IncidentFlow flow, Actions actions, Recovery recovery, Executor executor,
-            ChatService chat) {
+            ChatService chat, RespondAgentClient agent) {
         this.demo = demo;
         this.flow = flow;
         this.actions = actions;
         this.recovery = recovery;
         this.executor = executor;
         this.chat = chat;
+        this.agent = agent;
     }
 
     @PostMapping("/demo/{scenario}")
@@ -110,6 +119,22 @@ public class ApiController {
             return ResponseEntity.ok(Map.of("answer", chat.answer(body)));
         } catch (AgentException e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(Map.of("error", "CHAT_UNAVAILABLE"));
+        }
+    }
+
+    @PostMapping("/explain")
+    public Map<String, String> explain(@RequestBody ExplainRequest body) {
+        if (body.tkey() == null || !TEACH_KEYS.contains(body.tkey())) {
+            throw ApiException.badRequest("tkey must be a teach set");
+        }
+        if (body.lang() == null || !Set.of("en", "ar").contains(body.lang())) {
+            throw ApiException.badRequest("lang must be en or ar");
+        }
+        try {
+            RespondAgentClient.ExplainResult r = agent.explain(Map.of("tkey", body.tkey(), "lang", body.lang()));
+            return Map.of("explain", r.explain(), "simpler", r.simpler());
+        } catch (AgentException e) {
+            throw new ApiException(HttpStatus.BAD_GATEWAY, "AGENT_FAILED", "Explanation unavailable");
         }
     }
 

@@ -21,9 +21,11 @@ public class RateLimitFilter extends OncePerRequestFilter {
 
     private static final Logger log = LoggerFactory.getLogger(RateLimitFilter.class);
     private static final int CHAT_PER_IP = 20;
+    private static final int EXPLAIN_PER_IP = 5;
     private static final int DEMO_PER_IP = 40;
     private static final int INCIDENTS_PER_IP = 60;
     private static final int CHAT_GLOBAL = 200;
+    private static final int EXPLAIN_GLOBAL = 20;
 
     private final Clock clock;
     private final int trustedHops;
@@ -38,6 +40,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
 
     private static String group(String path) {
         if (path.equals("/api/chat")) return "chat";
+        if (path.equals("/api/explain")) return "explain";
         if (path.startsWith("/api/demo/")) return "demo";
         if (path.startsWith("/api/incidents/")) return "incidents";
         return null;
@@ -46,8 +49,18 @@ public class RateLimitFilter extends OncePerRequestFilter {
     private static int limit(String group) {
         return switch (group) {
             case "chat" -> CHAT_PER_IP;
+            case "explain" -> EXPLAIN_PER_IP;
             case "demo" -> DEMO_PER_IP;
             default -> INCIDENTS_PER_IP;
+        };
+    }
+
+    /** Cap across all IPs per minute; 0 means none. */
+    private static int global(String group) {
+        return switch (group) {
+            case "chat" -> CHAT_GLOBAL;
+            case "explain" -> EXPLAIN_GLOBAL;
+            default -> 0;
         };
     }
 
@@ -81,7 +94,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
         long now = millis / 60_000;
         String ip = clientIp(request);
         boolean over = next(group + "|" + ip, now) > limit(group)
-                || (group.equals("chat") && next("chat|*", now) > CHAT_GLOBAL);
+                || (global(group) > 0 && next(group + "|*", now) > global(group));
         if (over) {
             log.warn("Rate limited {} ip={} xff={}", group, ip, request.getHeader("X-Forwarded-For"));
             response.setStatus(429);

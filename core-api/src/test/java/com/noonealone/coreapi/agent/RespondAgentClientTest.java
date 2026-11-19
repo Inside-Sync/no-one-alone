@@ -113,4 +113,25 @@ class RespondAgentClientTest {
 
         assertThat(client.handoff(Map.of()).status()).isEqualTo("RECEIVED");
     }
+
+    @Test
+    void explainPostsTkeyAndLangAndParsesTheWording() {
+        server.expect(requestTo("http://agent/explain")).andExpect(method(HttpMethod.POST))
+                .andExpect(jsonPath("$.tkey").value("hf")).andExpect(jsonPath("$.lang").value("ar"))
+                .andRespond(withSuccess("{\"explain\":\"e\",\"simpler\":\"s\"}", MediaType.APPLICATION_JSON));
+
+        RespondAgentClient.ExplainResult r = client.explain(Map.of("tkey", "hf", "lang", "ar"));
+
+        assertThat(r.explain()).isEqualTo("e");
+        assertThat(r.simpler()).isEqualTo("s");
+        server.verify();
+    }
+
+    @Test
+    void explainWithABlankFieldIsAgentException() {
+        server.expect(requestTo("http://agent/explain"))
+                .andRespond(withSuccess("{\"explain\":\"e\",\"simpler\":\" \"}", MediaType.APPLICATION_JSON));
+
+        assertThatThrownBy(() -> client.explain(Map.of())).isInstanceOf(AgentException.class);
+    }
 }
