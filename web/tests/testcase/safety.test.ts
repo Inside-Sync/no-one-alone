@@ -43,7 +43,7 @@ const SCEN: Scen[] = [
   { id: 's20 weight +2.4, a bit breathless: R10', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'usual', ans: 'pillows', rule: 'R10', path: 'hf_clinic' },
   { id: 's21 weight +2.4, breathless at rest: R8', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'usual', ans: 'rest', rule: 'R8', path: 'hf_em' },
   { id: 's22 weight +2.4, feels fine: R10', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'usual', ans: 'fine', rule: 'R10', path: 'hf_clinic' },
-  // differs from the prototype on purpose: no answer is R5 (2026-11-19 ladder)
+  // no answer is R5, not the prototype's R8
   { id: 's23 weight +2.4, no speech: R5', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'none', rule: 'R5', path: 'stroke_em' },
   { id: 's24 weight +1.9, oxygen 93: R12', pk: 'mariam', inp: { wt: 1.9, spo2: 93 }, speech: 'usual', rule: 'R12' },
   { id: 's25 oxygen 92 starts R4: R10', pk: 'mariam', inp: { wt: 0, spo2: 92 }, speech: 'usual', ans: 'fine', rule: 'R10', path: 'hf_clinic' },
@@ -51,7 +51,7 @@ const SCEN: Scen[] = [
   { id: 's27 weight +2.0 exactly: R10', pk: 'mariam', inp: { wt: 2, spo2: 96 }, speech: 'usual', ans: 'fine', rule: 'R10', path: 'hf_clinic' },
   { id: 's28 slurred, not yet answered', pk: 'mariam', inp: { wt: 2.4, spo2: 93 }, speech: 'slurred', rule: null },
   { id: 's29 fall plus low glucose, got up: low sugar wins, R9', pk: 'hessa', inp: { floor: 6, glu: 3.5 }, fall: true, glus: true, speech: 'usual', ans: 'ok', rule: 'R9', path: 'hypo_home' },
-  // differs from the prototype on purpose (2026-11-19 ladder: the fall makes it 998)
+  // the fall makes it 998, not the prototype's R9
   { id: 's30 fall plus low glucose, cannot get up: R7', pk: 'hessa', inp: { floor: 6, glu: 3.5 }, fall: true, glus: true, speech: 'usual', ans: 'cant', rule: 'R7', path: 'fall_em' },
   { id: 's31 fall plus low glucose, confused is not an option of the fall question', pk: 'hessa', inp: { floor: 6, glu: 3.5 }, fall: true, glus: true, speech: 'usual', ans: 'confused', rule: null },
   { id: 's32 heart rate and weight: the first rule (R4) leads, R10', pk: 'moza', inp: { hr: 138, dur: 12, wt: 2.5 }, speech: 'usual', ans: 'fine', rule: 'R10', path: 'hf_clinic' },
