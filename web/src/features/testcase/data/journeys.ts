@@ -1526,7 +1526,7 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
             detail: 'journeys.hf_em.steps.0.items.1.detail',
           },
           {
-            at: 2,
+            at: 0,
             title: 'journeys.hf_em.steps.0.items.2.title',
             detail: 'journeys.hf_em.steps.0.items.2.detail',
           },

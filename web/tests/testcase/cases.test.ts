@@ -9,7 +9,7 @@ import { auto, make, t, text } from './helpers'
  * (new3.html) showed after the same run in a browser: stepper, table sizes, the event log and the rows of the demo database.
  * The engine must give the same, line for line.
  */
-// 998 now: the emergency journeys call 998 before the family, unlike the prototype.
+// 998 now: the emergency journeys call 998 and the family in the same minute, unlike the prototype.
 const IDS = ['family', 'wellchild', 'ifhas', 'expat', 'bone', 'stroke', 'fall', 'hypo', 'hf', 'own'] as const
 type Run = { steps: string[]; db: Record<string, number>; log: string[]; rows: Record<string, string[]>; kpi: string[] }
 const RUNS = runs as unknown as Record<CaseId, Run>
@@ -155,6 +155,12 @@ describe('journeys of the safety cases', () => {
       const items = JOURNEYS[id].steps[0].items!
       expect(items.findIndex((it) => t(it.title).includes('998'))).toBe(0)
       expect(items[0].at).toBe(0)
+    }
+  })
+  test('every emergency journey wakes the first family member at the decision, with 998', () => {
+    for (const id of ['stroke_em', 'fall_em', 'hypo_em', 'hf_em'] as const) {
+      const f1 = JOURNEYS[id].steps[0].items!.find((it) => /^Responder (calls|wakes) \{\{f1\}\}$/.test(t(it.title)))
+      expect(f1?.at, id).toBe(0)
     }
   })
   test('the stroke run stamps the 998 call at the decision', () => {
