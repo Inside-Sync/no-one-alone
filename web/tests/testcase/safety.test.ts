@@ -170,6 +170,24 @@ describe('the decision ladder (R5 to R11)', () => {
     expect(choosePath({ ...base, hypo: true, fall: true }, sp('green'), 'ok')).toBe('hypo_home')
     expect(choosePath({ ...base, hypo: true }, sp('red'), 'drink')).toBe('hypo_em')
   })
+  test('every combination: the path is a 998 path exactly when a danger sign is present', () => {
+    const keys = ['hypo', 'fall', 'hf', 'hr', 'spo2c'] as const
+    for (let mask = 1; mask < 32; mask++) {
+      const tr = { ...base, ...Object.fromEntries(keys.map((k, i) => [k, !!(mask & (1 << i))])) }
+      // the question Noa asks, in the order of engine/state.ts finishPlay
+      const q = QUESTIONS[tr.fall ? 'fall' : tr.hypo ? 'hypo' : tr.hf ? 'hf' : 'hr']
+      for (const lvl of ['green', 'amber', 'red'] as const) {
+        for (const said of [true, false]) {
+          for (const ans of q.a.map((a) => a.id)) {
+            const noAns = !said || ans === 'none'
+            const danger = lvl === 'red' || noAns || (tr.hypo && ans === 'confused') || (tr.fall && ans === 'cant') || tr.spo2c || ans === 'rest'
+            const path = choosePath(tr, sp(lvl, said), ans)
+            expect(/_em$/.test(path ?? ''), JSON.stringify({ tr, lvl, said, ans, path })).toBe(danger)
+          }
+        }
+      }
+    }
+  })
   test('fall: cannot get up or no answer is R7, got up is R11', () => {
     expect(choosePath({ ...base, fall: true }, sp('green'), 'cant')).toBe('fall_em')
     expect(choosePath({ ...base, fall: true }, sp('green'), 'none')).toBe('fall_em')

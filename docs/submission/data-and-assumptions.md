@@ -40,4 +40,4 @@
 
 ## 4. Known differences, in test-report.md
 
-The generated [test-report.md](test-report.md) lists every difference between the rule table and the engine. At the time of writing, all 252 scenarios match. Low sugar no longer hides another emergency sign: the 998 lines (R6, R7, R5, R8) are checked before the home lines (R9, R11, R10). The report also lists what the benchmark found and we fixed. Re-run `npm run benchmark:report` for current numbers.
+The generated [test-report.md](test-report.md) lists every difference between the rule table and the engine. At the time of writing, all 252 scenarios match. Low sugar no longer hides another emergency sign: the 998 lines (R6, R7, R5, R8) are checked before the home lines (R9, R11, R10). The report also lists what the benchmark or a review found and we fixed. Re-run `npm run benchmark:report` for current numbers.
