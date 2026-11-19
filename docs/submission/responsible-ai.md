@@ -21,7 +21,7 @@ Every card, database row and log line carries a label. It is always a word (colo
 - **Observed:** from a sensor, or entered or chosen by the person.
 - **Calculated:** from a rule, a score or Framingham.
 - **Prepared text:** explanatory wording written and checked by the team.
-- **AI-written:** explanatory wording from a live AI model; shown only when one is used.
+- **AI-written:** the teach card's explanation and simpler words after Claude reworded them ("Explain it another way", live mode). Shown only while that text is on the card. The question and answers stay Prepared text.
 - **Clinician confirmed:** a clinician accepted it.
 
 ## 3. Input guardrails
@@ -37,7 +37,7 @@ Family profile values are kept inside their range, with a warning.
 
 Scores and routing use published, numbered rules. The rule table is shown after each decision. The speech check is a demo score (words matched and time taken). It is not a validated stroke test.
 
-In the deployed backend, Gemini judges recorded speech and writes text. Rules set triage and the escalation plan. The hospital packet is built by rules with no LLM.
+In the deployed backend, Gemini judges recorded speech and writes text, and Claude rewords the teach card's explanation on request. respond-agent drops Claude's text if it has a number that is not in the fixed facts, the wrong script or the wrong length; the prepared text then stays. Rules set triage and the escalation plan. The hospital packet is built by rules with no LLM.
 
 ## 5. Noa Forecast: limits
 

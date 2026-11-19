@@ -34,7 +34,7 @@
 - **Hosting:** the demo runs in `asia-southeast1` (Singapore), not in the UAE. The data is fictional.
 - **Forecast** uses a model built on a US population and needs UAE calibration.
 - **Not built:** Malaffi and HL7 link, a production audit log, UAE hosting, the IFHAS data feed. See [architecture.md](architecture.md).
-- **The Test case does not call the backend.** It shows the logic, not the live integration.
+- **The Test case does not call the backend,** except "Explain it another way" in live mode, which asks Claude to reword one explanation. It shows the logic, not the live integration.
 - **Not load-tested.**
 - **Small-cell suppression** covers the Government view cells it is applied to, not a full disclosure-control review.
 

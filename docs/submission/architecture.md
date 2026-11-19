@@ -17,6 +17,7 @@ flowchart LR
     CA --> RA
     RA -->|A2A| HA
     RA --> VX[Vertex AI Gemini 2.5 Flash]
+    RA --> CL[Claude on Vertex AI<br/>teach card wording]
     RA --> TTS[Chirp 3 HD TTS]
     HA --> FHIR[(Cloud Healthcare API<br/>FHIR R4 store)]
     CA --> CT[Cloud Tasks]
@@ -36,23 +37,23 @@ Checked against `README.md`, `firebase.json` and `infra/`.
 |---|---|---|
 | Web app | `web/`, Firebase Hosting | Vite, React, TypeScript. Reads Firestore in real time. `/api/**` is rewritten to core-api (`firebase.json`). |
 | core-api | `core-api/`, Cloud Run | Java 17, Spring Boot. Owns the incident state machine. Takes alerts from Pub/Sub, sets escalation timers in Cloud Tasks, gets travel times from the Routes API, writes every state change to Firestore. |
-| respond-agent | `agents/respond/`, Cloud Run | Rules decide verification, triage and the escalation plan. Gemini 2.5 Flash judges recorded spoken answers, writes the recovery summary and answers chat. Chirp 3 HD speaks the lines. |
+| respond-agent | `agents/respond/`, Cloud Run | Rules decide verification, triage and the escalation plan. Gemini 2.5 Flash judges recorded spoken answers, writes the recovery summary and answers chat. Claude (model set by `CLAUDE_MODEL`, Vertex AI) rewords the teach card's explanation when asked; a validator checks it against fixed facts. Chirp 3 HD speaks the lines. |
 | hospital-agent | `agents/hospital/`, Cloud Run | An ADK agent served over A2A. Reads the person's FHIR R4 record, applies consent (fail closed: only an active permit shares anything) and builds the pre-arrival packet by rules, with no LLM. |
 | Data stores | Firestore, Cloud Healthcare API (FHIR R4), Cloud Storage | All content is synthetic. Firestore rules: signed-in users read, only service accounts write. |
 | Messaging | Pub/Sub topic `alerts`, Cloud Tasks queue `escalation` | Alert intake and escalation timeouts. |
 | Security basics | IAM, Secret Manager, Firebase Auth | One service account per service. Agents are private and called with Google-signed ID tokens. Visitors sign in anonymously. |
 | Delivery | GitHub Actions, Cloud Build, Workload Identity Federation | CI on pull requests and on `dev`. Deploy after green CI. |
 
-Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini uses the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
+Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini and Claude use the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
 
 ## 2. In the Test case (browser only)
 
-The Test case is an overlay in the live web app (`web/src/features/testcase/`). It does not call the backend and never touches a real record.
+The Test case is an overlay in the live web app (`web/src/features/testcase/`). It never touches a real record. Its only backend call is "Explain it another way" on the teach card, in live mode (`POST /api/explain`).
 
 - **Engine** (`engine/`): pure TypeScript with no React. The same engine drives the screens, the "Run it for me" autopilot and the benchmark.
 - **Rules** are published and numbered: R1 to R12 (safety), P1 to P9 (prevention), F1 and F2 (family heart score).
 - **The 9 Noa agents** (Guardian, Voice, Responder, Courier, Insight, Forecast, Coach, Navigator, Analyst) are roles in the engine. Each has a written "may do" and "may not do". They are not separate services. The hand-offs between them are shown on screen.
-- **No LLM makes a decision.** Scores and routing come from rules. The explanations are prepared text in two languages, labelled "Prepared text". "AI-written" appears only if a live explanation is loaded, and the rules still decide. No live explanation is wired in this build.
+- **No LLM makes a decision.** Scores and routing come from rules. The explanations are prepared text in two languages, labelled "Prepared text". In live mode, "Explain it another way" asks Claude to reword the explanation and the simpler words only. The question, the answers and the correct answer stay prepared, so the rules still decide the teach-back. The card then tags the explanation "AI-written" and the question and answers "Prepared text". If the call fails or takes more than 8 seconds, the prepared text stays. "Run it for me", the Judge path and the benchmark never call it.
 - **Voice:** the speech check uses the browser Web Speech API where it exists (Chrome, Edge). Typing or choosing a sample also works.
 - **Demo database:** ten tables (agents, patients, consents, observations, checkins, alerts, tasks, encounters, reports, audit), kept in memory for the run.
 - **Benchmark** (`bench/`): 252 labelled scenarios, run by the same engine. See [test-report.md](test-report.md).
