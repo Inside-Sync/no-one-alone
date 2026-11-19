@@ -117,7 +117,8 @@ function escalationSteps(inc: IncidentDoc, people: LivePeople, tone: Tone): Agen
   const steps: Omit<AgentStep, 'note'>[] = [{ key: 'alertall', icon: 'bell', label: tl('step.alertAll'), state: has(inc, 'ALERTED') ? 'done' : 'cur' }]
   const called = has(inc, 'CALLED_115')
   const ooo: StepState = called ? 'done' : has(inc, 'NO_NEARBY') ? 'cur' : closed ? 'skip' : ''
-  if (tone === 'red' || called) steps.push({ key: 'ooo', icon: 'ambulance', label: tl('step.ooo', { num }), state: ooo })
+  const oooStep: Omit<AgentStep, 'note'> = { key: 'ooo', icon: 'ambulance', label: tl('step.ooo', { num }), state: ooo }
+  if (tone === 'red') steps.push(oooStep)
   queue.forEach((c, k) => {
     const a = (inc.assignments ?? []).find((x) => x.memberId === c.memberId)
     const prev = queue[k - 1]
@@ -129,10 +130,12 @@ function escalationSteps(inc: IncidentDoc, people: LivePeople, tone: Tone): Agen
     const s = stepOf(a)
     steps.push({ key: `call-${c.memberId}`, icon: 'phone', label: tl('step.call', { name: first(memberName(people, c.memberId)), detail: who(people, queue, c, k).detail }), state: s || (closed ? 'skip' : '') })
   })
+  if (tone !== 'red' && called) steps.push(oooStep)
   const h = inc.handoff?.status
   steps.push({ key: 'packet', icon: 'hospital', label: tl('step.packet'), state: h === 'RECEIVED' ? 'done' : h === 'FAILED' ? 'fail' : h === 'PENDING' || has(inc, 'HANDOFF_SENT') ? 'cur' : '' })
   const helping = Boolean(inc.ownerId) || called
-  steps.push({ key: 'company', icon: 'handshake', label: tl(called ? 'step.paramedics' : 'step.company'), state: closed ? 'done' : helping && h !== 'PENDING' ? 'cur' : '' })
+  const calling = steps.some((s) => s.state === 'cur' && (s.key === 'ooo' || s.key.startsWith('call-')))
+  steps.push({ key: 'company', icon: 'handshake', label: tl(called ? 'step.paramedics' : 'step.company'), state: closed ? 'done' : helping && h !== 'PENDING' && !calling ? 'cur' : '' })
   return steps.map((s) => ({ ...s, note: '' }))
 }
 

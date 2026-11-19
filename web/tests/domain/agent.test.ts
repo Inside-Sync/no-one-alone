@@ -84,7 +84,7 @@ test('a red stroke incident: steps, decision, calls and alerts follow the backen
     ['Find the nearest person', 'Done'],
     ['Call David (460 m)', 'Now'],
     ['Send her record to hospital', ''],
-    ['Stay with her · hand over to paramedics', 'Now'],
+    ['Stay with her · hand over to paramedics', ''],
   ])
   expect(a.calls.map((c) => [c.name, c.status, c.cls])).toEqual([
     ['000', 'Connected · speaking', 'ok'],
@@ -105,4 +105,11 @@ test('while checking in, Noa says why it stepped in', async () => {
   expect(a.now).toMatch(/^Warning sign: heart rate above 120 for 10 minutes while she isn't moving \(now 142 bpm\)/)
   await i18n.changeLanguage('ar')
   expect(agentView(checking, people).label).toBe(i18n.getFixedT('ar', 'live')('agent.pill.ask'))
+})
+
+test('an amber run with no one nearby keeps the 000 step after the family calls', () => {
+  const amber = { ...red, level: 'COME_NOW', timeline: [...red.timeline, { at: at(120), actor: 'SYSTEM', kind: 'CALLED_115', text: 'Calling 000 automatically with the call script (demo call)' }] } as unknown as IncidentDoc
+  expect(agentView(amber, people).steps.map((s) => s.label).slice(5, 10)).toEqual([
+    'Alert her whole circle', 'Call James (priority 1)', 'Find the nearest person', 'Call David (460 m)', 'Call 000 with the script',
+  ])
 })

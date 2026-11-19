@@ -237,6 +237,7 @@ test('Hamad called after the 998 call gives no ring', async () => {
   await show(incidentAt(0, false))
   await show(night998(false))
   await show(night998(true))
+  await act(async () => { dialed[0]() })
   expect(playRing).not.toHaveBeenCalled()
   expect(playDial000).toHaveBeenCalledTimes(1)
 })
