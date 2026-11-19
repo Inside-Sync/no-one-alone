@@ -1,6 +1,5 @@
 import { JOURNEYS, QUESTIONS, RULES } from '@/features/testcase/data'
-import { choosePath, runLen, triggers, type PersonId, type SafetyInputs, type SampleKey } from '@/features/testcase/engine'
-import { TestCaseEngine } from '@/features/testcase/engine'
+import { TestCaseEngine, choosePath, runLen, triggers, type PersonId, type SafetyInputs, type SampleKey } from '@/features/testcase/engine'
 import { make, t, text } from './helpers'
 
 /**
