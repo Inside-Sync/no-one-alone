@@ -85,7 +85,7 @@ test('Run shows progress, then the metrics, the confusion matrix, the subgroups 
   fireEvent.click(within(dlg).getAllByRole('button', { name: 'Open as a case' })[0])
   const caseTab = within(dlg).getByRole('tab', { name: 'Test case' })
   expect(caseTab).toHaveAttribute('aria-selected', 'true')
-  expect(await within(dlg).findByRole('button', { name: /The whole family/, pressed: true })).toBeInTheDocument()
+  expect(await within(dlg).findByRole('button', { name: /Start with the family/, pressed: true })).toBeInTheDocument()
   // the numbers survive a trip to another tab
   fireEvent.click(within(dlg).getByRole('tab', { name: 'Benchmark' }))
   expect(within(dlg).getByText('Sensitivity, 998 now')).toBeInTheDocument()

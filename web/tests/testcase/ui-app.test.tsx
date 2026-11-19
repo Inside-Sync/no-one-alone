@@ -45,7 +45,7 @@ test('the deep link selects the case, the picker lists all ten in three groups',
   const picker = screen.getByLabelText('Cases')
   expect(within(picker).getAllByRole('button', { pressed: undefined }).length).toBeGreaterThanOrEqual(10)
   expect(screen.getByRole('button', { name: /Bone and memory check/, pressed: true })).toBeInTheDocument()
-  expect(screen.getByText('Start here · pick one')).toBeInTheDocument()
+  expect(screen.getByText('Who should Noa look after?')).toBeInTheDocument()
   expect(screen.getByText('Prevention and screening · one person at a time')).toBeInTheDocument()
   expect(screen.getByText('Safety net · when something goes wrong at home')).toBeInTheDocument()
   // A click picks another case and tells the shell.
@@ -57,7 +57,7 @@ test('the deep link selects the case, the picker lists all ten in three groups',
 test('the picker starts with three cases and the rest behind "More cases" (prototype simple view)', () => {
   render(<App value={ctx('family')} />)
   const picker = screen.getByLabelText('Cases')
-  expect(within(picker).getByText('Start here · pick one')).toBeInTheDocument()
+  expect(within(picker).getByText('Who should Noa look after?')).toBeInTheDocument()
   expect(within(picker).getByRole('button', { name: /Live speech test/ })).toHaveClass('speechcs')
   expect(within(picker).queryByText('Prevention and screening · one person at a time')).toBeNull()
   fireEvent.click(within(picker).getByRole('button', { name: /More cases \(7\)/ }))
@@ -68,7 +68,7 @@ test('the picker starts with three cases and the rest behind "More cases" (proto
 
 test('an unknown deep link falls back to the family case', () => {
   render(<App caseKey="nonsense" />)
-  expect(screen.getByRole('button', { name: /The whole family/, pressed: true })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /Start with the family/, pressed: true })).toBeInTheDocument()
 })
 
 test.each(ids)('%s: every region renders and "Run it for me" reaches the end without errors', (id) => {

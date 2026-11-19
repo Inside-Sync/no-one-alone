@@ -49,7 +49,7 @@ test('the For judges tab shows the KPIs of the run, the six questions, the pilot
   expect(screen.getAllByText('All ten cases').length).toBeGreaterThan(0)
   // A question link jumps to the case tab.
   fireEvent.click(screen.getByRole('button', { name: /See the whole family/ }))
-  expect(screen.getByRole('button', { name: /The whole family/, pressed: true })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /Start with the family/, pressed: true })).toBeInTheDocument()
 }, 30_000)
 
 test('the Judge path chains Khalid, the family and the stroke, then stops all timers', () => {

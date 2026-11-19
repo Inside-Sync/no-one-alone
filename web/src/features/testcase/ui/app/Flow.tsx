@@ -1,6 +1,6 @@
 'use client'
 
-import type { CSSProperties } from 'react'
+import { Fragment, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@/components/ui/Icon'
 import { AGENTS, AGENT_IDS } from '../../data/agents'
@@ -9,34 +9,45 @@ import { tx, type FlowNode } from '../../engine'
 import { scrollSoon } from './scrollTo'
 import { tokText, useA, type SessionProps } from './parts'
 
-/** The six steps of the case, one button each; only steps already reached can be opened. */
+/**
+ * The steps of the case, one button each; only steps already reached can be opened, the ones ahead are dashed. In a safety case the
+ * journey Noa chose is a branch: a small "After Noa decides" label sits before its first step.
+ */
 export function Stepper({ s }: SessionProps) {
   const t = useA()
   const { engine, snap, r } = s
   const S = snap.state
   const steps = snap.steps
   const n = Math.max(steps.length + (S.path ? 0 : 1), 2)
+  const branch = !engine.isFam && !engine.isPrev && steps.length > 1
   const { t: tShell } = useTranslation('testcaseShell')
+  // With the label the wide grid gets one narrow column for it: the step before it, the label, then the journey.
+  const style = { '--n': n, ...(branch ? { '--cols': `minmax(0,1fr) auto repeat(${n - 1},minmax(0,1fr))` } : {}) } as CSSProperties
   return (
-    <ol className="stepper" aria-label={tShell('layout.steps')} style={{ '--n': n } as CSSProperties}>
+    <ol className={`stepper${branch ? ' tc-branched' : ''}`} aria-label={tShell('layout.steps')} style={style}>
       {steps.map((st, i) => (
-        <li key={i}>
-          <button
-            type="button"
-            className={`mode-${st.mode} ${i < S.max || S.done[i] ? 'done' : ''}`}
-            disabled={i > S.max}
-            aria-current={i === S.step ? 'step' : undefined}
-            title={r(tx(st.title))}
-            onClick={() => { engine.go(i); scrollSoon('card', { focus: true }) }}
-          >
-            <span className="n">{i + 1} · {r(tx(st.label))}</span>
-            <span className="t">{r(tx(st.title))}</span>
-          </button>
-        </li>
+        <Fragment key={i}>
+          {/* A label in the grid, not a step: hidden from the list semantics, said instead at the start of the first journey step. */}
+          {branch && i === 1 && <li className="tc-branch" aria-hidden="true"><span>{t('stepper.afterDecides')}</span></li>}
+          <li>
+            <button
+              type="button"
+              className={`mode-${st.mode} ${i < S.max || S.done[i] ? 'done' : ''}${i > S.max ? ' tc-ahead' : ''}`}
+              disabled={i > S.max}
+              aria-current={i === S.step ? 'step' : undefined}
+              title={r(tx(st.title))}
+              onClick={() => { engine.go(i); scrollSoon('card', { focus: true }) }}
+            >
+              {branch && i === 1 && <span className="tc-vh">{t('stepper.afterDecides')}: </span>}
+              <span className="n">{i + 1} · {r(tx(st.label))}</span>
+              <span className="t">{r(tx(st.title))}</span>
+            </button>
+          </li>
+        </Fragment>
       ))}
       {!S.path && (
         <li>
-          <button type="button" disabled className="mode-ind">
+          <button type="button" disabled className="mode-ind tc-ahead">
             <span className="n">{t('stepper.next')}</span>
             <span className="t">{S.dec ? (S.dec.standdown || S.dec.rule === 'R12' ? t('stepper.nothingMore') : '') : t('stepper.noaDecides')}</span>
           </button>
