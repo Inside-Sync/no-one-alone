@@ -40,7 +40,7 @@ const DbPanel = memo(DbPanelBase)
 const LogPanel = memo(LogPanelBase)
 
 /**
- * The Test case, assembled: the picker, the six steps, the eight agents, the three screens of the data path, the demo database and the
+ * The Test case, assembled: the picker, the six steps, the nine agents, the three screens of the data path, the demo database and the
  * event log (the "Test case" tab), and the judges' view of the same running engine (the "For judges" tab).
  */
 export default function TestCaseApp() {
