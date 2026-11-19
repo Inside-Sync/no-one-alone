@@ -4,9 +4,11 @@
 .tc-banner-txt b{display:block;font-size:15px}
 .tc-banner-txt span{font-size:13px;color:var(--muted-text)}
 
-/* Header: room for the extra "Test case" button without a new row. Icon-only (aria-label stays) up to 1480 px, while the header is
-   tight, and a narrower search box between 1281 and 1560 px (the search is hidden below that by globals.css). */
-@media (max-width:1480px){.tn-right #runTest span.t{display:none}}
-@media (max-width:1560px) and (min-width:1281px){.topnav .search{width:150px}}
-@media (max-width:1400px) and (min-width:1281px){.topnav .search{width:110px}}
+/* Header: room for the extra "Test case" button without a new row. The label shows from 1024 px up; icon-only (aria-label stays) below,
+   and a narrower search box between 1281 and 1560 px (the search is hidden below that by globals.css). */
+@media (max-width:1023px){.tn-right #runTest span.t{display:none}}
+/* 1024 to 1180 px: tighter gaps so the labelled buttons still fit on the one header row (English is the widest). */
+@media (max-width:1180px) and (min-width:1024px){header.topnav{column-gap:10px}.topnav .tn-right{gap:4px}}
+@media (max-width:1560px) and (min-width:1281px){.topnav .search{width:120px}}
+@media (max-width:1400px) and (min-width:1281px){.topnav .search{width:100px}}
 .tc-loading{position:fixed;inset-block-end:16px;inset-inline-start:50%;transform:translateX(-50%);margin:0;padding:8px 16px;border-radius:12px;background:var(--solid,#fff);color:var(--ink,#111);box-shadow:0 4px 16px rgba(0,0,0,.18);font-size:13px;z-index:1000}

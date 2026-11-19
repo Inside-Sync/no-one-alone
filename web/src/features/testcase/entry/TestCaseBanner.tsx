@@ -15,7 +15,7 @@ export function TestCaseBanner() {
         <b id="tcBannerT">{t('banner.title')}</b>
         <span>{t('banner.text')}</span>
       </div>
-      <button type="button" className="btn" id="tcBannerBtn" aria-haspopup="dialog" onClick={() => tc.open()}>
+      <button type="button" className="btn" id="tcBannerBtn" aria-haspopup="dialog" onClick={() => tc.openJudge()}>
         <span className="ic"><Icon name="play" /></span>
         {t('banner.start')}
       </button>

@@ -1,8 +1,10 @@
 'use client'
 
 import { memo, useCallback, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TestCaseLayout } from '../TestCaseLayout'
 import { useTestCaseTab } from '../tabContext'
+import { useTestCase } from '../../entry/TestCaseContext'
 import { BenchPanel } from '../bench/BenchPanel'
 import { useBenchRun } from '../bench/useBenchRun'
 import { caseOf, prepareCase, type Scenario } from '../../bench'
@@ -12,10 +14,14 @@ import { CasePicker as CasePickerBase } from './CasePicker'
 import { Baton as BatonBase, Pipe as PipeBase, Stepper as StepperBase, Team as TeamBase } from './Flow'
 import { NoaPanel as NoaPanelBase } from './NoaPanel'
 import { DbPanel as DbPanelBase, LogPanel as LogPanelBase } from './Panels'
+import { PlaybackBar } from './PlaybackBar'
 import { StepCard as StepCardBase } from './StepCard'
 import { FamilyDashboard, NotAvailable, screensFor } from './registry'
 import { useTestCaseEngine } from './useTestCaseEngine'
 import { useA } from './parts'
+import { scrollOverlayTop, scrollSoon } from './scrollTo'
+import { ToastProvider, useToast } from './toast'
+import { useUxSession } from './useUxSession'
 import './app.css'
 
 /**
@@ -38,38 +44,57 @@ const LogPanel = memo(LogPanelBase)
  * event log (the "Test case" tab), and the judges' view of the same running engine (the "For judges" tab).
  */
 export default function TestCaseApp() {
+  return <ToastProvider><TestCaseAppBody /></ToastProvider>
+}
+
+function TestCaseAppBody() {
   const t = useA()
-  const s = useTestCaseEngine()
+  const toast = useToast()
+  const { t: tb } = useTranslation('tcBench')
+  const base = useTestCaseEngine()
+  const s = useUxSession(base)
   const { engine, snap } = s
   const { tab, setTab } = useTestCaseTab()
+  const tc = useTestCase()
+  // Opened from the banner's "Start the 3-minute tour": start the Judge path once the overlay is drawn.
+  const { judgePending, consumeJudge } = tc
+  const { startJudge } = s
+  useEffect(() => {
+    if (!judgePending) return
+    const id = window.setTimeout(() => { consumeJudge(); startJudge() }, 50)
+    return () => window.clearTimeout(id)
+  }, [judgePending, consumeJudge, startJudge])
   const bench = useBenchRun()
   const type = engine.caseDef.type
   const screens = screensFor(type)
   const fam = engine.isFam
 
   const jump = useCallback((j: JudgeJump) => {
-    if (j.caseId) s.pick(j.caseId)
-    if (j.run === 'judge') s.startJudge()
+    if (j.caseId) base.pick(j.caseId)
+    if (j.run === 'judge') base.startJudge()
     setTab(j.tab ?? 'case')
     if (j.anchor) {
       const id = j.anchor
-      window.setTimeout(() => document.getElementById(id)?.scrollIntoView?.({ block: 'start' }), 60)
+      scrollSoon(id, undefined, 60)
     }
-  }, [s, setTab])
+  }, [base, setTab])
 
   // A Benchmark scenario opened as a case: load the case, put the scenario's inputs in, switch to the Test case tab.
   const openScenario = useCallback((sc: Scenario) => {
-    s.pick(caseOf(sc))
-    prepareCase(s.engine, sc)
+    base.pick(caseOf(sc))
+    prepareCase(base.engine, sc)
     setTab('case')
-  }, [s, setTab])
+    toast(t('toast.opened', { name: tb(`scn.${sc.id}`, { defaultValue: sc.title }) }))
+    // Once the Test case tab is drawn (and has gone back to its top): the step card, and focus on its heading for keyboard users.
+    scrollSoon('card', { focus: true }, 120)
+  }, [base, setTab, toast, t, tb])
   // A stable callback for the Benchmark list (it has hundreds of rows and must not re-render on every progress tick).
   const openRef = useRef(openScenario)
   useEffect(() => { openRef.current = openScenario })
   const onOpenScenario = useCallback((sc: Scenario) => openRef.current(sc), [])
 
   // Back to the top when the tab changes.
-  useEffect(() => { document.getElementById('tcHost')?.scrollTo?.({ top: 0 }) }, [tab])
+  useEffect(() => { scrollOverlayTop({ behavior: 'instant' }) }, [tab])
 
   return (
     <>
@@ -79,6 +104,7 @@ export default function TestCaseApp() {
         picker={<CasePicker s={s} />}
         familyDashboard={fam ? <FamilyDashboard engine={engine} snap={snap} r={s.r} /> : undefined}
         stepper={<Stepper s={s} />}
+        playback={s.playback.active ? <PlaybackBar s={s} /> : undefined}
         baton={<Baton s={s} />}
         team={<Team s={s} />}
         card={<StepCard s={s} />}

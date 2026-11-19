@@ -53,7 +53,7 @@
    "18:35SCOREFamily passport 76% (+9)",
    "18:35CONNECTNoa Insight · new family connection: father and son both smoke → quit support for both",
    "18:35BADGEFamily badge: Sultan’s first screening",
-   "18:35BOOKNoa Navigator · Sultan booked: Wednesday 19:00, Al Khalidiya FHC, with quit support",
+   "18:35BOOKNoa Navigator · Sultan booked: Wednesday 19:00, Al Khalidiya Family Health Centre, with quit support",
    "18:35SCOREFamily passport 67% (+9)",
    "18:35BOOKNoa Navigator · Saeed booked: Tuesday 10:00, his diabetes clinic visit",
    "18:35SCOREFamily passport 58% (+4)",
@@ -65,7 +65,7 @@
    "18:35BADGEFamily badge: One trip, four checks",
    "18:35BOOKNoa Navigator · Maitha booked: Saturday 09:15, same clinic",
    "18:35SCOREFamily passport 42% (+9)",
-   "18:35BOOKNoa Navigator · Hind booked: Saturday 09:00, Al Khalidiya FHC",
+   "18:35BOOKNoa Navigator · Hind booked: Saturday 09:00, Al Khalidiya Family Health Centre",
    "18:35SCOREFamily passport 33% (+8)",
    "18:35BADGEFamily badge: Moza’s blood pressure plan updated",
    "18:35ACCEPTStroke clinic accepted Moza’s alert",
@@ -84,14 +84,14 @@
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
    "patients": [
-    "FAM-1-8|Hamdan (grandson)|5|4|Al Khalidiya FHC, School health|Through Maitha",
-    "FAM-1-7|Hind (granddaughter)|18 months|4|Al Khalidiya FHC, Capital Women’s Hospital|Through Maitha",
-    "FAM-1-6|Sultan (son)|21|3|Al Khalidiya FHC, University clinic|Short message only, evenings",
-    "FAM-1-5|Maitha (daughter)|25|3|Al Khalidiya FHC, Capital Women’s Hospital|In the app, after night shifts",
-    "FAM-1-4|Amna (mum)|45|2|Al Khalidiya FHC, Capital Women’s Hospital|In the app, one tap, family calendar",
-    "FAM-1-3|Khalid (dad)|47|2|Al Khalidiya FHC|Short message: what it means for him",
+    "FAM-1-8|Hamdan (grandson)|5|4|Al Khalidiya Family Health Centre, School health|Through Maitha",
+    "FAM-1-7|Hind (granddaughter)|18 months|4|Al Khalidiya Family Health Centre, Capital Women’s Hospital|Through Maitha",
+    "FAM-1-6|Sultan (son)|21|3|Al Khalidiya Family Health Centre, University clinic|Short message only, evenings",
+    "FAM-1-5|Maitha (daughter)|25|3|Al Khalidiya Family Health Centre, Capital Women’s Hospital|In the app, after night shifts",
+    "FAM-1-4|Amna (mum)|45|2|Al Khalidiya Family Health Centre, Capital Women’s Hospital|In the app, one tap, family calendar",
+    "FAM-1-3|Khalid (dad)|47|2|Al Khalidiya Family Health Centre|Short message: what it means for him",
     "FAM-1-2|Saeed (grandpa)|69|1|Capital General Hospital|Phone call; his son Rashid helps",
-    "FAM-1-1|Moza (grandma)|78|1|Corniche Stroke Centre, Al Bateen FHC|Arabic voice call; calls her Umm Khalid"
+    "FAM-1-1|Moza (grandma)|78|1|Corniche Stroke Centre, Al Bateen Family Health Centre|Arabic voice call; calls her Umm Khalid"
    ],
    "consents": [
     "Khalid|home_signals|Noa Forecast (InsideSync app: BP cuff, scale, watch)|granted|Oct 2026",
@@ -140,12 +140,12 @@
     "T-10|9 Nov 10:10|Khalid · doctor review|Dr Aisha Al Hosani reviews his HbA1c, cholesterol and heart risk; care plan agreed. The doctor decides the treatment.",
     "T-09|9 Nov 10:00|Hind · hearing test|Normal hearing; 6 speech therapy sessions on Saturdays near home.",
     "T-08|26 Oct 18:20|Plan in the phone app: Each person hears their own result their own way. The family plan is shared only with consent.|delivered · visible to Amna, Moza",
-    "T-07|20 Oct 18:35|Sultan: Never screened; vapes every day|Booked Wednesday 19:00, Al Khalidiya FHC, with quit support",
+    "T-07|20 Oct 18:35|Sultan: Never screened; vapes every day|Booked Wednesday 19:00, Al Khalidiya Family Health Centre, with quit support",
     "T-06|20 Oct 18:35|Saeed: Eye and kidney checks 14 months overdue|Booked Tuesday 10:00, his diabetes clinic visit",
     "T-05|20 Oct 18:35|Amna: HbA1c recheck due in 6 weeks|Booked Saturday 09:45, same clinic",
     "T-04|20 Oct 18:35|Khalid: No check-up in 4 years; IFHAS never done|Booked Saturday 09:30, same clinic",
     "T-03|20 Oct 18:35|Maitha: IFHAS screening due (last done 2021)|Booked Saturday 09:15, same clinic",
-    "T-02|20 Oct 18:35|Hind: 18-month visit is 3 weeks overdue|Booked Saturday 09:00, Al Khalidiya FHC",
+    "T-02|20 Oct 18:35|Hind: 18-month visit is 3 weeks overdue|Booked Saturday 09:00, Al Khalidiya Family Health Centre",
     "T-01|20 Oct 18:35|Moza: dose review|done, explained in Arabic"
    ],
    "encounters": [

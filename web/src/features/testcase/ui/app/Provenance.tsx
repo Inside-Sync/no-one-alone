@@ -48,13 +48,22 @@ export function ProvTag({ kind }: { kind: Prov }) {
   return <span className={`prov prov-${kind}`} title={t(`prov.${kind}.desc`)} data-prov={kind}>{t(`prov.${kind}.label`)}</span>
 }
 
+/** A rule id (R1, P6, F4...) with its tooltip: where the rule comes from. */
+export function RuleId({ id }: { id: string }) {
+  const t = useG()
+  return <span className="tc-ruleid" title={t('gates.ruleTip')}>{id}</span>
+}
+
 /** The four tags and what they mean. */
 export function ProvLegend() {
   const t = useG()
   return (
-    <ul className="prov-legend" aria-label={t('prov.legend')}>
-      {PROVS.map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`prov.${p}.desc`)}</span></li>)}
-    </ul>
+    <>
+      <p className="prov-legend-t">{t('prov.legend')}</p>
+      <ul className="prov-legend" aria-label={t('prov.legend')}>
+        {PROVS.map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`prov.${p}.desc`)}</span></li>)}
+      </ul>
+    </>
   )
 }
 

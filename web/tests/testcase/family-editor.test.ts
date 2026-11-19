@@ -313,7 +313,7 @@ describe('nextAction and the signals', () => {
     const e = make('family')
     const rows = e.getSnapshot().family!.signals.hind.map((r) => `${r.agent} ${text(e, r.source)}: ${text(e, r.value)}`)
     expect(rows).toEqual([
-      'courier Al Khalidiya FHC records: Visits done: 7 of 14',
+      'courier Al Khalidiya Family Health Centre records: Visits done: 7 of 14',
       'guardian Passport schedule (demo ages): Next: 18-month visit, 3 weeks overdue',
       'voice Asked the parent once: Barrier: clinic hours clash with shifts',
     ])

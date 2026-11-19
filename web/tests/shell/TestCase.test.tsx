@@ -10,7 +10,7 @@ import { TestCaseOverlay } from '@/features/testcase/ui/TestCaseOverlay'
 vi.mock('@/features/testcase/entry/TestCaseBody', () => ({
   default: function Body() {
     const tc = useTestCase()
-    return <div data-testid="body" data-case={tc.caseKey ?? ''}><button type="button" onClick={() => tc.setNight(true)}>go night</button></div>
+    return <div data-testid="body" data-case={tc.caseKey ?? ''} data-judge={tc.judgePending ? 'yes' : 'no'}><button type="button" onClick={() => tc.setNight(true)}>go night</button></div>
   },
 }))
 
@@ -46,14 +46,17 @@ test('the header button opens the dialog, Esc closes it and focus goes back to t
   expect(document.documentElement.style.overflow).toBe('')
 })
 
-test('the banner opens the dialog on the picker; Close restores focus to the banner button', async () => {
+test('the banner states the product and its button opens the dialog asking for the Judge path; Close restores focus to the banner button', async () => {
   render(shell())
-  expect(screen.getByText('Test it yourself: prevention, screening and the safety net')).toBeInTheDocument()
-  const start = screen.getByRole('button', { name: 'Start the test case' })
+  expect(screen.getByText(/AI care agents that keep Abu Dhabi families checked and safe at home/)).toBeInTheDocument()
+  expect(screen.getByText(/four generations across six places/)).toBeInTheDocument()
+  const start = screen.getByRole('button', { name: 'Start the 3-minute tour' })
   start.focus()
   fireEvent.click(start)
   const dlg = await dialog()
-  expect((await screen.findByTestId('body')).dataset.case).toBe('')
+  const body = await screen.findByTestId('body')
+  expect(body.dataset.case).toBe('')
+  expect(body.dataset.judge).toBe('yes')
   fireEvent.click(within(dlg).getByRole('button', { name: 'Close the test case' }))
   await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull())
   expect(start).toHaveFocus()

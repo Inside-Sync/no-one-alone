@@ -164,6 +164,8 @@ export class TestCaseEngine {
   /** The Noa agent's display actor ("Noa Guardian"). */
   private actor = (a: string): Txt => T(`actor.${a}`)
   get busy() { return this.queue.length > 0 || this.active != null }
+  /** Playback pause of the demo (set by the shell's driver, read by whatever else steps the engine on a timer). The engine itself ignores it. */
+  paused = false
 
   private log(m: string, cls: LogClass, text: Txt) {
     this.logs.unshift({ t: hm(this.S.clock), m, cls, tx: text })

@@ -9,7 +9,7 @@ import { TestCaseOverlay } from '@/features/testcase/ui/TestCaseOverlay'
 import { computeKpis, pooledKpis } from '@/features/testcase/ui/judges/kpis'
 
 const tt = () => i18n.getFixedT('en', 'testcase') as unknown as TFn
-const ctx = (caseKey: string): TestCaseValue => ({ isOpen: true, caseKey, open: vi.fn(), close: vi.fn(), setCaseKey: vi.fn(), night: false, setNight: vi.fn() })
+const ctx = (caseKey: string): TestCaseValue => ({ isOpen: true, caseKey, open: vi.fn(), openJudge: vi.fn(), judgePending: false, consumeJudge: vi.fn(), close: vi.fn(), setCaseKey: vi.fn(), night: false, setNight: vi.fn() })
 const App = ({ caseKey }: { caseKey: string }) => (
   <TestCaseContext.Provider value={ctx(caseKey)}><TestCaseOverlay onClose={() => {}}><TestCaseApp /></TestCaseOverlay></TestCaseContext.Provider>
 )

@@ -214,7 +214,7 @@ describe('profile editor', () => {
   it('says whether the person is eligible for IFHAS', () => {
     open()
     pick('khalid')
-    expect(editor().getByText(/IFHAS: eligible \(Emirati, 18–75\)\./)).toBeInTheDocument()
+    expect(editor().getByText(/IFHAS, Abu Dhabi’s free adult health check: eligible \(Emirati, 18–75\)\./)).toBeInTheDocument()
     fireEvent.click(editor().getByRole('button', { name: 'Emirati' }))
     expect(editor().getByText(/IFHAS: not eligible \(not Emirati\)/)).toBeInTheDocument()
     expect(forecastPanel().getByText('No IFHAS')).toBeInTheDocument()

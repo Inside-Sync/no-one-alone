@@ -113,12 +113,13 @@ export function TestCaseOverlay({ onClose, night = false, tab, onTabChange, acti
     document.getElementById(tabId(TEST_CASE_TABS[next]))?.focus()
   }
 
-  const dark = appDark || night
+  const dark = appDark || (night && activeTab === 'case')
   const lang = i18n.resolvedLanguage ?? 'en'
   return createPortal(
     <div
       ref={rootRef}
       id="tcHost"
+      data-tab={activeTab}
       className={`tc${dark ? ' dark' : ''}`}
       role="dialog"
       aria-modal="true"

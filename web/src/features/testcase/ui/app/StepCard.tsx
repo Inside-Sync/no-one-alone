@@ -8,10 +8,9 @@ import { GateStrip } from './Gates'
 import { Handoffs } from './Flow'
 import { ProvLine } from './Provenance'
 import './gates.css'
-import { useA, type SessionProps } from './parts'
+import { useA, useAd, type SessionProps } from './parts'
 import { KindSlot } from './registry'
-
-const prefersReduced = () => typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+import { scrollToTarget } from './scrollTo'
 
 /** "Noa agents on this step": what each working agent does, the hand-offs, and who decides (prototype agentHTML). */
 function AgentBlock({ s }: SessionProps) {
@@ -38,16 +37,19 @@ function AgentBlock({ s }: SessionProps) {
 
 /** Back and Next (prototype navHTML). */
 function Nav({ s }: SessionProps) {
-  const t = useA()
+  const t = useAd()
   const { engine, snap, r } = s
   const i = snap.state.step
   const nx = snap.steps[i + 1]
+  // Next is off: say why, from what this step needs (not while the engine is busy playing, which ends by itself).
+  const why = nx && !snap.canNext && !snap.busy ? t(`card.wait.${snap.step.kind}`, { defaultValue: t('card.wait.default') }) : null
   return (
     <div className="nav">
       {i > 0 ? <button type="button" className="btn ghost sm" onClick={() => engine.go(i - 1)}>← {t('card.back')}</button> : <span />}
       {nx
-        ? <button type="button" className="btn" data-act="next" disabled={!snap.canNext} onClick={() => engine.next()}>{t('card.next', { title: r(tx(nx.title)) })} →</button>
+        ? <button type="button" className="btn" data-act="next" disabled={!snap.canNext} aria-describedby={why ? 'tc-nextwhy' : undefined} onClick={() => engine.next()}>{t('card.next', { title: r(tx(nx.title)) })} →</button>
         : i > 0 ? <button type="button" className="btn" data-act="restart" onClick={s.restart}>{t('card.again')}</button> : null}
+      {why && <p className="tc-nextwhy" id="tc-nextwhy" role="status">{why}</p>}
     </div>
   )
 }
@@ -63,13 +65,13 @@ export function StepCard({ s }: SessionProps) {
   useEffect(() => {
     const changed = prev.current !== i
     prev.current = i
-    if (changed && i > 0 && !S.auto && window.innerWidth < 980) document.getElementById('card')?.scrollIntoView?.({ behavior: prefersReduced() ? 'auto' : 'smooth', block: 'start' })
+    if (changed && i > 0 && !S.auto && window.innerWidth < 980) scrollToTarget('card')
   }, [i, S.auto])
   return (
     <>
-      <GateStrip snap={snap} r={r} />
       <span className="when">{when}</span>
       <h3>{i + 1} · {r(tx(st.title))}</h3>
+      <GateStrip snap={snap} r={r} />
       <ProvLine kind={st.kind} />
       <AgentBlock s={s} />
       {i > 0 && st.text && <p>{r(tx(st.text))}</p>}

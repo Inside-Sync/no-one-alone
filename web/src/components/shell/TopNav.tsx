@@ -14,6 +14,7 @@ import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
 import { firstPage, parsePath, tabsFor, VIEW_USERS, type ViewId } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
+import { useLiveIncident } from '@/state/LiveIncident'
 import { useNightDemo } from '@/state/useNightDemo'
 import { useTour } from '@/state/Tour'
 import { TestCaseButton } from '@/features/testcase/entry/TestCaseButton'
@@ -32,6 +33,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
   const { who, viewer, people, alertActive, packetNew } = useAppState()
   const demo = useNightDemo()
   const tour = useTour()
+  const liveIncident = useLiveIncident()
 
   useEffect(() => {
     document.body.dataset.view = view
@@ -58,7 +60,8 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
 
   const badges: Record<string, string | undefined> = {}
   if (alertActive) {
-    badges.live = t('nav.liveBadge')
+    // The scripted demo replays a night; only a real incident from core-api is live.
+    badges.live = liveIncident.live ? t('nav.liveBadge') : t('nav.replayBadge')
     if (packetNew) badges.ed = '1'
   }
 

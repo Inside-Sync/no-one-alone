@@ -1,6 +1,12 @@
 {
   "gates": {
-    "label": "Gates this case passes through, in order",
+    "title": "Safety checks before Noa acts",
+    "ruleTip": "Noa’s published rule table: every decision names the rule it used",
+    "label": "Safety checks this case passes through, in order",
+    "plain": {
+      "urgentSkipped": "Urgent: skipped the queue",
+      "humanWaiting": "Waiting for a person to approve"
+    },
     "name": {
       "consent": "Consent",
       "data": "Data complete",
@@ -51,7 +57,7 @@
     }
   },
   "prov": {
-    "legend": "What the tags mean",
+    "legend": "Where this comes from",
     "onCard": "On this card",
     "col": "Source",
     "homeReadings": "Readings from the watch, sensors and the person",

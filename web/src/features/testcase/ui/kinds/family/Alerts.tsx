@@ -1,6 +1,6 @@
 'use client'
 
-import { useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { Glyph } from '@/components/ui/Icon'
 import { AGENTS } from '../../../data/agents'
 import { FAMILY_MEMBERS } from '../../../data/family'
@@ -22,10 +22,20 @@ function AlertCard({ engine, snap, r, a }: ScreenProps & { a: FamAlert }) {
   const F = snap.state.fm!
   const tid = useId()
   const [momentOpen, setMomentOpen] = useState(false)
+  // Briefly highlight the card whose state just changed (open -> done), so the person sees what their tap did.
+  const last = useRef(a.state)
+  const [flash, setFlash] = useState(false)
+  useEffect(() => {
+    if (last.current === a.state) return
+    last.current = a.state
+    setFlash(true)
+    const id = window.setTimeout(() => setFlash(false), 1400)
+    return () => window.clearTimeout(id)
+  }, [a.state])
   const m = FAMILY_MEMBERS.find((x) => x.id === a.who)!
   const ag = AGENTS[a.agent]
   return (
-    <div className={`al ${a.lvl}${a.state === 'done' ? ' dn' : ''}`} data-alert={a.id}>
+    <div className={`al ${a.lvl}${a.state === 'done' ? ' dn' : ''}${flash ? ' tc-flash' : ''}`} data-alert={a.id}>
       <div className="alh">
         <span><Glyph name={m.icon} /> <b>{r(tx(m.name))}</b></span>
         <span className="agt tcp-agt"><Glyph name={ag.icon} />{t('phone.noaAgent', { agent: r(tx(ag.n)) })}</span>

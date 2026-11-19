@@ -34,3 +34,13 @@
   .tc.tc .tc-case-actions .btn{flex:1 1 auto}
   .tc.tc .tc-judgecap{padding:8px 10px}
 }
+
+.tc.tc .tc-langlab{font-size:12px;color:var(--muted);align-self:center;margin-inline-end:-4px}
+
+/* The overlay's one toast: a polite status line at the bottom, never over the sticky bar. */
+.tc.tc .tc-toast-host{position:fixed;inset-inline:16px;bottom:max(16px,env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:40}
+.tc.tc .tc-toast{max-width:min(520px,100%);padding:10px 16px;border-radius:14px;background:var(--code-bg);color:var(--code-ink);font-size:13px;font-weight:600;box-shadow:0 10px 28px rgba(8,50,48,.28);text-align:center}
+@media (prefers-reduced-motion:no-preference){.tc.tc .tc-toast{animation:tc-toast-in .2s ease-out}@keyframes tc-toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}
+
+/* Where a button took the person: its heading shows a focus ring when keyboard focus lands on it. */
+.tc.tc #card h3:focus-visible,.tc.tc .case h2:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:6px}

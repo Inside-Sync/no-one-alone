@@ -17,6 +17,8 @@ type Opts = { lng?: 'en' | 'ar'; theme?: 'light' | 'dark' }
 /** Open the app at a page with an optional `?test` query (the overlay reads and strips it on mount). */
 export async function openApp(page: Page, query = '', opts: Opts = {}) {
   await seedWho(page, 'family')
+  // The runs play at the old pace in the tests (the app default is slower, for presenting).
+  await page.addInitScript(() => { try { if (!localStorage.getItem('noa-tc-speed')) localStorage.setItem('noa-tc-speed', 'normal') } catch { /* ignore */ } })
   if (opts.theme === 'dark') await page.addInitScript(() => { try { localStorage.setItem('noa-theme', 'dark') } catch { /* ignore */ } })
   if (opts.lng === 'ar') await page.addInitScript(() => { try { localStorage.setItem('noa-locale', 'ar') } catch { /* ignore */ } })
   await page.goto(`/individual/health${query}`)

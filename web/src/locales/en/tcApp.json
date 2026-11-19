@@ -29,7 +29,13 @@
     "back": "Back",
     "next": "Next: {{title}}",
     "again": "Try another case",
-    "onwards": "{{at}} onwards"
+    "onwards": "{{at}} onwards",
+    "wait": {
+      "famhub": "Book one alert (e.g. Hind’s Saturday visit) to unlock the next step.",
+      "teach": "Answer Noa’s teach-back question (Noa checks the person understood) to unlock the next step.",
+      "accept": "Accept the alert as the care team to unlock the next step.",
+      "default": "Finish the action on this card to unlock the next step."
+    }
   },
   "team": {
     "title": "Noa is a team of 9 AI agents",
@@ -40,21 +46,51 @@
     "cannot": "Cannot: {{v}}"
   },
   "baton": {
-    "label": "Who has {{who}} care",
+    "label": "Which agent is working now · who has {{who}} care",
     "family": "the family’s",
     "person": "{{n}}’s"
+  },
+  "toast": {
+    "replay": "Running again with the same details",
+    "restart": "Case reset to its starting details",
+    "speak": {
+      "ar": "Noa will speak Arabic in the speech check and teach-back",
+      "en": "Noa will speak English in the speech check and teach-back"
+    },
+    "opened": "Opened as a case: {{name}}"
+  },
+  "playback": {
+    "label": "Playback of the run",
+    "pause": "Pause",
+    "resume": "Resume",
+    "pauseAria": "Pause the run. Space also works.",
+    "resumeAria": "Resume the run. Space also works.",
+    "back": "Back",
+    "backAria": "Go back one step (the case replays to there)",
+    "skip": "Skip",
+    "skipAria": "Skip to the next step now",
+    "speed": "Speed",
+    "slow": "Slow",
+    "normal": "Normal",
+    "fast": "Fast",
+    "stepOf": "Step {{n}} of {{total}}",
+    "caseOf": "Case {{n}} of {{total}}",
+    "paused": "Paused",
+    "state": "Run paused",
+    "stateResumed": "Run playing"
   },
   "header": {
     "family": "Al Mansoori family · 4 generations, 1 Family Health Passport",
     "familyText": "Moza (78), Khalid’s mother, and Saeed (69), Amna’s father; Khalid (47) and his wife Amna (45); their children Maitha (25) and Sultan (21); and Maitha’s children Hind (18 months) and Hamdan (5). Records from 6 places, one passport, Noa’s agents watching for all eight.",
     "own": "your own readings",
     "facts": "Medicines: {{meds}}. History: {{hist}}. Usual: {{usual}}.",
+    "langShort": "Noa’s call language",
     "langLabel": "Language of speech checks and teach-back",
     "lang": { "en": "English", "ar": "العربية" },
     "run": "Run it for me",
     "stop": "Stop",
-    "judge": "Judge path · about 3 minutes",
-    "replay": "Same details again",
+    "judge": "Start here: 3-minute Judge path",
+    "replay": "Replay with the same readings",
     "replayHint": "Change the details and check again: the same person, readings and time",
     "restart": "Restart"
   },

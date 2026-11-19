@@ -19,6 +19,8 @@ export interface TestCaseLayoutProps {
   baton?: ReactNode
   /** Inside `.team.card`. */
   team?: ReactNode
+  /** The run's controls, shown only while a run is on: sticky under the bar, above the stage. */
+  playback?: ReactNode
   /** Inside `aside.stepcard.card` (left column). */
   card?: ReactNode
   /** Rendered as is, above the three screens; supply `<ol className="pipe card">`. */
@@ -53,6 +55,18 @@ export function TestCaseLayout(p: TestCaseLayoutProps) {
     const title = hostRef.current?.querySelector('#card h3')?.textContent?.trim() ?? ''
     setStepTitle((prev) => (prev === title ? prev : title))
   })
+  // Where the sticky bar ends, for the things that stick under it (the run controls, the step column).
+  useEffect(() => {
+    const tc = hostRef.current?.closest<HTMLElement>('.tc')
+    const bar = tc?.querySelector<HTMLElement>('.tc-bar')
+    if (!tc || !bar) return
+    const set = () => { tc.style.setProperty('--bar-bottom', `${Math.round(bar.getBoundingClientRect().bottom - tc.getBoundingClientRect().top)}px`) }
+    set()
+    if (typeof ResizeObserver === 'undefined') return
+    const ro = new ResizeObserver(set)
+    ro.observe(bar)
+    return () => ro.disconnect()
+  }, [p.tab])
   if (p.tab === 'judges') {
     return (
       <section className="wrap" id={panelId('judges')} role="tabpanel" aria-labelledby={tabId('judges')}>
@@ -68,25 +82,27 @@ export function TestCaseLayout(p: TestCaseLayoutProps) {
     )
   }
   const screens = p.phone || p.web || p.noa
+  const stage = !!(p.card || screens || p.pipe)
+  const team = p.team && <div className="team card" id="team" aria-label={t('layout.team')}>{p.team}</div>
   return (
-    <section ref={hostRef} className="wrap" id={panelId('case')} role="tabpanel" aria-labelledby={tabId('case')}>
+    <section ref={hostRef} className="wrap" data-run={p.playback ? '' : undefined} id={panelId('case')} role="tabpanel" aria-labelledby={tabId('case')}>
       <p className="sr" role="status" aria-live="polite" aria-atomic="true">{stepTitle}</p>
-      {p.caseHeader && <div className="case card">{p.caseHeader}</div>}
-      {p.picker && <div className="picker card" id="picker" aria-label={t('layout.picker')}>{p.picker}</div>}
-      {p.familyDashboard && <div className="famdash card" id="famdash" aria-label={t('layout.family')}>{p.familyDashboard}</div>}
+      {p.caseHeader && <div className="case card" id="caseHeader">{p.caseHeader}</div>}
+      {/* Where am I: right under the case header, so a newcomer sees the six steps without scrolling. */}
       {p.stepper}
-      {p.baton && <div className="baton card" id="baton" aria-label={t('layout.baton')}>{p.baton}</div>}
-      {p.team && <div className="team card" id="team" aria-label={t('layout.team')}>{p.team}</div>}
-      {(p.card || screens || p.pipe) && (
+      {/* The stage: the step card (sticky, scrolls inside itself on a wide screen) beside the team, the data path and the three screens. */}
+      {p.playback}
+      {stage && (
         <div className="casegrid">
-          <aside className="stepcard card" id="card">{p.card}</aside>
+          <aside className="stepcard card" id="card" data-tc-scroll="">{p.card}</aside>
           <div className="tc-main">
+            {team}
             {p.pipe}
             {screens && (
               <div className="screens">
                 <div>
                   <div className="scr-h"><span className="lab"><b>1</b> · {t('screen.phone')}</span></div>
-                  <div className="phone"><div className="ph-in" id="phone">{p.phone}</div></div>
+                  <div className="phone"><div className="ph-in" id="phone" tabIndex={0}>{p.phone}</div></div>
                 </div>
                 <div>
                   <div className="scr-h"><span className="lab"><b>2</b> · {t('screen.web')}</span></div>
@@ -101,6 +117,10 @@ export function TestCaseLayout(p: TestCaseLayoutProps) {
           </div>
         </div>
       )}
+      {p.picker && <div className="picker card" id="picker" aria-label={t('layout.picker')}>{p.picker}</div>}
+      {p.familyDashboard && <div className="famdash card" id="famdash" aria-label={t('layout.family')}>{p.familyDashboard}</div>}
+      {p.baton && <div className="baton card" id="baton" aria-label={t('layout.baton')}>{p.baton}</div>}
+      {!stage && team}
       {(p.db || p.log) && (
         <div className="bottom">
           {p.db && <div className="db card">{p.db}</div>}

@@ -11,7 +11,7 @@ const ids = Object.keys(CASES) as CaseId[]
 
 /** The context a provider would give, with spies, so a test can see what the app tells the shell. */
 function ctx(caseKey: string | null, over: Partial<TestCaseValue> = {}): TestCaseValue {
-  return { isOpen: true, caseKey, open: vi.fn(), close: vi.fn(), setCaseKey: vi.fn(), night: false, setNight: vi.fn(), ...over }
+  return { isOpen: true, caseKey, open: vi.fn(), openJudge: vi.fn(), judgePending: false, consumeJudge: vi.fn(), close: vi.fn(), setCaseKey: vi.fn(), night: false, setNight: vi.fn(), ...over }
 }
 
 function App({ caseKey = null, value, shown = true }: { caseKey?: string | null; value?: TestCaseValue; shown?: boolean }) {
@@ -67,7 +67,7 @@ test.each(ids)('%s: every region renders and "Run it for me" reaches the end wit
   expect(screen.getByRole('list', { name: 'Data path' })).toBeInTheDocument()
   expect(screen.getByText('Demo database')).toBeInTheDocument()
   expect(screen.getByText('API and event log')).toBeInTheDocument()
-  expect(screen.getByText('Who has', { exact: false })).toBeInTheDocument()
+  expect(screen.getByText('Which agent is working now', { exact: false })).toBeInTheDocument()
   // Moment that matters and How might we in the header.
   expect(screen.getByText('The moment that matters')).toBeInTheDocument()
   expect(screen.getByText('How might we')).toBeInTheDocument()

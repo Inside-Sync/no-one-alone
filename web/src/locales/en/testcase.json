@@ -3066,7 +3066,7 @@
         "sub": "Khalid’s mother",
         "src": [
           "Corniche Stroke Centre",
-          "Al Bateen FHC"
+          "Al Bateen Family Health Centre"
         ],
         "how": "Arabic voice call; calls her Umm Khalid",
         "dev": "Watch and BP cuff; Noa Voice calls",
@@ -3090,7 +3090,7 @@
         "relLower": "dad",
         "sub": "logistics supervisor",
         "src": [
-          "Al Khalidiya FHC"
+          "Al Khalidiya Family Health Centre"
         ],
         "how": "Short message: what it means for him",
         "dev": "InsideSync app: watch, BP cuff, scale",
@@ -3102,7 +3102,7 @@
         "relLower": "mum",
         "sub": "teacher",
         "src": [
-          "Al Khalidiya FHC",
+          "Al Khalidiya Family Health Centre",
           "Capital Women’s Hospital"
         ],
         "how": "In the app, one tap, family calendar",
@@ -3115,7 +3115,7 @@
         "relLower": "daughter",
         "sub": "nurse on shifts",
         "src": [
-          "Al Khalidiya FHC",
+          "Al Khalidiya Family Health Centre",
           "Capital Women’s Hospital"
         ],
         "how": "In the app, after night shifts",
@@ -3128,7 +3128,7 @@
         "relLower": "son",
         "sub": "university student",
         "src": [
-          "Al Khalidiya FHC",
+          "Al Khalidiya Family Health Centre",
           "University clinic"
         ],
         "how": "Short message only, evenings",
@@ -3141,7 +3141,7 @@
         "relLower": "granddaughter",
         "sub": "Maitha’s daughter",
         "src": [
-          "Al Khalidiya FHC",
+          "Al Khalidiya Family Health Centre",
           "Capital Women’s Hospital"
         ],
         "how": "Through Maitha",
@@ -3154,7 +3154,7 @@
         "relLower": "grandson",
         "sub": "Maitha’s son",
         "src": [
-          "Al Khalidiya FHC",
+          "Al Khalidiya Family Health Centre",
           "School health"
         ],
         "how": "Through Maitha",
@@ -3210,7 +3210,7 @@
         "a": "Maitha’s sugar checked in any pregnancy; Hind’s growth watched"
       },
       "C6": {
-        "from": "Al Khalidiya FHC",
+        "from": "Al Khalidiya Family Health Centre",
         "t": "Four checks at the same clinic",
         "a": "One Saturday trip instead of four"
       },
@@ -3716,12 +3716,12 @@
       "declined": "Not now"
     },
     "slots": {
-      "hind": "Saturday 09:00, Al Khalidiya FHC",
+      "hind": "Saturday 09:00, Al Khalidiya Family Health Centre",
       "maitha": "Saturday 09:15, same clinic",
       "khalid": "Saturday 09:30, same clinic",
       "amna": "Saturday 09:45, same clinic",
       "saeed": "Tuesday 10:00, his diabetes clinic visit",
-      "sultan": "Wednesday 19:00, Al Khalidiya FHC, with quit support"
+      "sultan": "Wednesday 19:00, Al Khalidiya Family Health Centre, with quit support"
     },
     "c4": {
       "t": "Cholesterol test suggested",
@@ -3743,7 +3743,7 @@
     },
     "ageMonths": "{{n}} months",
     "signals": {
-      "records": "Al Khalidiya FHC records",
+      "records": "Al Khalidiya Family Health Centre records",
       "schedule": "Passport schedule (demo ages)",
       "askedParent": "Asked the parent once",
       "visitsDone": "Visits done: {{n}} of 14",

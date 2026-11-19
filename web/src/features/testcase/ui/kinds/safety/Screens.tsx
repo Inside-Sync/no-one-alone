@@ -107,7 +107,7 @@ export function SafetyWeb({ engine, snap, r }: ScreenProps) {
   return (
     <>
       <div className="win-bar mode-ind"><i /><i /><i /><span className="t">{t('web.brand')} · <span className="mt">{r(tx('modes.ind'))}</span> · {t('web.family', { n: nm })}</span></div>
-      <div className="win-body">
+      <div className="win-body" tabIndex={0}>
         <div>
           <div className="lab" style={{ marginBottom: 6 }}>{t('web.circle')}</div>
           <div className="explain" aria-live="polite">
