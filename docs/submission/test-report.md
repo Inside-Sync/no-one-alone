@@ -129,7 +129,7 @@ The same rules should give the same answers however a scenario is tagged. The 99
 
 - T-glu-02 and T-glu-40 (safety): an implausible glucose (0.2 or 40 mmol/L) typed for a person with diabetes was not held back, because the "glucose sensor is missing" warning hid the refusal and the run went ahead with the sensor treated as off. An implausible value is now always a required issue that blocks the run, whatever other warnings are open.
 - C-hf-weight-hypo (labelling): when low sugar (R3) and a weight rise (R4) were met in the same minute the first sensor rule was recorded as R4. It is now recorded by rule priority (R3); the decision (R9) was already right and is unchanged.
-- C-hypo-fall-cant and C-hypo-spo2 (safety order): low sugar was checked before a fall with "can't get up" and before oxygen under 90, so both ended at home treatment (R9). Every 998 line (R6, R7, R5, R8) is now checked before the home lines; heart failure with no answer is now R5, as the rule table says. Both stay 998.
+- C-hypo-fall-cant and C-hypo-spo2 (safety order): low sugar was checked before a fall with "can't get up" and before oxygen under 90, so both ended at home treatment (R9). Every 998 line (R6, R7, R5, R8) is now checked before the home lines, so both are now 998. Heart failure with no answer is now R5, as the rule table says; it was already 998.
 - Prevention result value (no scenario): the result slider value had no plausibility check unlike the other inputs. It is now refused and reported the same way (unit tests in `web/tests/testcase/inputs.test.ts`).
 
 **No differences.** Every scenario matches the rule table.
