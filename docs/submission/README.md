@@ -10,30 +10,29 @@ All people, places, facilities and numbers in the product are fictional. Noa sup
 
 | What | Link |
 |---|---|
-| Live site | https://noonealone.insidesync.ai |
-| Whole family (start here) | https://noonealone.insidesync.ai/?test=family |
-| Stroke at night | https://noonealone.insidesync.ai/?test=stroke |
-| For judges tab | https://noonealone.insidesync.ai/?test=judges |
-| Benchmark tab | https://noonealone.insidesync.ai/?test=bench |
-| Claude prototype (the design the Test case follows) | https://claude.ai/artifact/U62CJAJZuVGoQ87F3uGB9P |
+| Live site (opens on Family health) | https://noonealone.insidesync.ai |
+| Family health: Noa's family journey | https://noonealone.insidesync.ai/individual/lineage |
+| Hospital view | https://noonealone.insidesync.ai/hospital/overview |
+| Government view: prevention and screening | https://noonealone.insidesync.ai/government/population |
+| Design prototype (the design the web follows) | https://claude.ai/artifact/U62CJAJZuVGoQ87F3uGB9P |
 
-The Test case also opens from the button in the header and from the banner under it, on every page. It works in English and Arabic.
+The Family health tab opens first and plays Saeed's demo by itself. Press **Next** (or the → key) to step through, answer as the person yourself, tap anyone in the family tree, or run a quick test case below the panel. It works in English and Arabic.
 
-The live site is shared by everyone who opens it. The Test case runs in your own browser, so other visitors do not affect it.
+The live site is shared by everyone who opens it. The family journey runs in your own browser, so other visitors do not affect it.
 
 ## What to look at in 5 minutes
 
-1. **For judges tab, "Judge path" (about 3 minutes).** Khalid books a check with one tap, then the whole family, then a stroke at night.
-2. **Whole family case.** One passport for 8 people in 4 generations. Edit a profile and watch the alerts and the Noa Forecast heart-risk figures change. Forecast shows only when it is valid (ages 30 to 74, no heart attack or stroke).
-3. **Stroke case, "Run it for me".** Sensor readings play minute by minute. A published rule (R1 to R12) decides. Then the 998 call, the pre-arrival packet and the teach-back in English and Arabic.
-4. **Gate strip and provenance labels** on every step. Gates: Consent, Enough data, Urgent bypass, Rule decision, Human approval. Every value is labelled Observed, Calculated, AI-written or Clinician confirmed.
-5. **Benchmark tab, press Run.** 249 labelled synthetic scenarios go through the real rule engine. 248 match the rule table. For "998 now": sensitivity 46 of 46, specificity 83 of 83. This checks that Noa follows its own rules. It is not clinical validation.
-6. **Government view.** Counts under 10 show "<10" (small-cell suppression).
+1. **Saeed, the demo start.** A racing heart on his watch prompts a check by itself: speech check against his own voice, red-flag questions, then the right pathway. Detect, Protect, Home screening, Right pathway, Referral.
+2. **Tap Khalid in the family tree.** His record opens. He can switch his genomic result off (rule P1). The pathway keeps what Noa may book (population priority) apart from what only the doctor decides. Say "Not now": routine checks pause for 3 months, urgent items still go to the doctor (rule U1).
+3. **Quick test case "Saeed · speech clearly changed".** Noa advises seeing a doctor now with a fixed, clinician-approved script that never goes through AI, and pauses screening.
+4. **Agent orchestra, beside the journey.** An Orchestrator and four agents (Personal care, Screening, Specialist, Government). Every hand-off names its rule and shows consent and logging. Every message is labelled Live AI, Prepared, Fixed script or Guardrail.
+5. **Government view, Prevention and screening.** Reach, recommendation, uptake, false positives, missed cases and calibration by group. Groups under 10 people are hidden.
+6. **[test-report.md](test-report.md).** 249 labelled synthetic scenarios run through the rule engine: 248 match the rule table; for "998 now", sensitivity 46 of 46 and specificity 83 of 83. This checks that Noa follows its own rules. It is not clinical validation.
 
 ## What is built, and what is not
 
 - **Built and deployed:** the web app, core-api, respond-agent and hospital-agent on Google Cloud, with a FHIR R4 store (all synthetic data).
-- **Built in the Test case:** a deterministic rules engine that runs in the browser. The 9 Noa agents are roles inside it.
+- **Built in the family journey:** a deterministic rules engine that runs in the browser: the Orchestrator's rules pick every next agent. Agent messages use prepared text (labelled "Prepared") until the live AI connection is switched on.
 - **Planned, not built:** Malaffi and HL7 link, a production audit log, UAE hosting, clinical sign-off of the rules and scripts.
 
 ## The other documents
@@ -53,6 +52,6 @@ The live site is shared by everyone who opens it. The Test case runs in your own
 ```
 cd web
 npm ci
-npm run dev                  # open any page with ?test=family
+npm run dev                  # opens on Individual > Family health
 npm run benchmark:report     # rewrites test-report.md
 ```

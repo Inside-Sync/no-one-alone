@@ -49,7 +49,7 @@ span.ic>svg{width:100%;height:100%;display:block}
 h1,h2,h3{text-wrap:balance}
 .mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
-.scene{position:fixed;inset:0;z-index:0;pointer-events:none;background:#8fc3e6 url(/bg/day.jpg) center/cover no-repeat}
+.scene{position:fixed;inset:0;z-index:0;pointer-events:none;background:#c9a874 url(/bg/skyline.jpg) center/cover no-repeat}
 .scene::after{content:"";position:absolute;inset:0;background:url(/bg/bg_night.jpeg) center/cover no-repeat;opacity:0;transition:opacity 1.2s ease}
 body.night .scene::after{opacity:1}
 .flash{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(60% 50% at 50% 30%,rgba(255,138,106,.3),transparent 70%);opacity:0}
@@ -68,7 +68,7 @@ body.night .scene::after{opacity:1}
 .topnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:10px 12px 8px 16px;border-radius:20px}
 .topnav .tabs{order:3;flex-basis:100%;border-top:1px solid var(--line);padding-top:8px}
 .topnav .views{margin-inline-end:auto}
-/* Language toggle: after the views on desktop (pushed right by their auto margin), in the views row on a phone. */
+/* Language toggle: the first item of the right group, one pill with both letters (the prototype's #langBtn). */
 .topnav .locale{flex:none}
 .brand{display:flex;align-items:center;gap:10px;flex:none}
 /* The animated Noa globe; its 44px box (orbit ring included) sits in the old 32px logo slot. */
@@ -90,6 +90,38 @@ body.night .scene::after{opacity:1}
 .av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:13.5px;font-weight:600;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.8);flex:none;background:radial-gradient(120% 120% at 30% 20%,rgba(255,255,255,.45),rgba(255,255,255,0) 45%),var(--c,#0b7f71)}
 .av.sm{width:30px;height:30px;font-size:12px}
 .av img{width:100%;height:100%;border-radius:inherit;object-fit:cover;display:block}
+/* Compact header of the redesign (prototype: "Family health is the first, default tab"): one row from 1180px, with the
+   tabs between the views and the right group; the search box only below 1180px. */
+.topnav{padding-block:6px;padding-inline:14px 10px;gap:6px 12px;border-radius:18px}
+.topnav .logo{width:28px;height:28px}
+.topnav .brand b{font-size:14.5px}
+.topnav .brand small{font-size:10.5px}
+.topnav .views{padding:2px}
+.topnav .views button{padding:6px 11px;font-size:12.5px}
+.topnav .tabs{padding-top:4px}
+.topnav .tabs button{padding:6px 11px;font-size:13px}
+.topnav :is(.rb,.av){width:34px;height:34px}
+.topnav .rb{font-size:15px}
+.topnav .rb .dot{top:6px;inset-inline-end:7px}
+.topnav .locale.seg{gap:2px;padding:3px;border-radius:999px;height:36px;align-items:center}
+.topnav .locale.seg button{min-width:0;padding:0 9px;height:30px;line-height:30px;border-radius:999px;font-size:12px;font-weight:600;color:var(--muted-text)}
+.topnav .locale.seg button:lang(ar){font-family:"IBM Plex Sans Arabic","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;font-size:13px}
+@media (min-width:1180px){
+  .topnav{flex-wrap:nowrap}
+  .topnav .views{margin-inline-end:0;order:1}
+  .topnav .tabs{order:2;flex:1 1 auto;flex-basis:auto;border-top:0;padding-top:0;min-width:0}
+  .topnav .tn-right{order:3}
+  .topnav .search{display:none!important}
+}
+@media (max-width:700px){
+  .topnav{padding:6px 8px;gap:6px}
+  .topnav .brand small{display:none}
+  .topnav .brand{gap:8px}
+  /* It wraps rather than widening the page when the legacy header buttons are switched back on (config/legacy). */
+  .topnav .tn-right{gap:5px;margin-inline-start:auto;flex:0 1 auto;min-width:0;flex-wrap:wrap;justify-content:flex-end}
+  .topnav .views button{padding:5px 8px}
+  .topnav .tabs{padding-top:2px}
+}
 
 /* context bar */
 .ctx{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:14px 18px}
@@ -532,9 +564,10 @@ body[data-view="government"]{--brand:#6d4fc0;--brand-2:#9a7fe0}
 .check em{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--muted-text)}
 .board td.st{text-align:center;padding:6px 4px}
 .board td.st i{display:inline-block;width:26px;height:18px;border-radius:6px;font-style:normal;font-size:10px;font-family:var(--mono);color:#fff;line-height:18px}
-@media (max-width:1280px){.views button span:not(.ic){display:none}}
+/* The prototype keeps the view labels at every width (it overrides its own icon-only rule below 1280px). */
+.views button span:not(.ic){display:inline}
 @media (max-width:1100px){.groups{grid-template-columns:1fr}}
-@media (max-width:760px){.views{order:2}.topnav .locale{order:2}.topnav .locale .rb{width:35px;height:35px}.week{grid-template-columns:repeat(4,minmax(0,1fr))}.gauges{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){.views{order:2}.week{grid-template-columns:repeat(4,minmax(0,1fr))}.gauges{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:1280px){.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}.search{display:none}}
 @media (max-width:1100px){.c2,.c3,.c4,.c5,.c6,.c7,.c8,.c9{grid-column:1/-1}.model{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){
@@ -657,7 +690,6 @@ body.night .me-hero{background:rgba(255,255,255,.06)}
 [dir="rtl"] .sw::after{transform:none}
 [dir="rtl"] .sw[aria-checked="true"]::after{transform:translateX(-16px)}
 /* Four-value paddings that were written for left to right. */
-[dir="rtl"] .topnav{padding:10px 16px 8px 12px}
 [dir="rtl"] .alerts li{padding:10px 0 10px 12px}
 [dir="rtl"] .tx{padding:4px 0 4px 4px}
 [dir="rtl"] .chat-fab{padding:8px 10px 8px 18px}
@@ -672,17 +704,22 @@ body.night .me-hero{background:rgba(255,255,255,.06)}
 
 /* ---- WP-E: shell additions (tips, walkthrough, theme, per-view gradient) ---- */
 
-/* Per-view gradient: a soft tint over the photo backdrop (below the content, above the day and night photos).
-   Individual warm peach and mint, Hospital cool blue and aqua, Government lilac and gold; dark versions under body.night
-   (the dark theme and the night alert). Alphas are low so the glass cards keep the contrast they were measured with. */
-.scene-tint{position:absolute;inset:0;z-index:1;pointer-events:none;transition:background .6s ease,opacity .6s ease;
-  background:linear-gradient(155deg,rgba(255,196,160,.34) 0%,rgba(255,226,200,.14) 45%,rgba(176,232,208,.30) 100%)}
-body[data-view="hospital"] .scene-tint{background:linear-gradient(155deg,rgba(120,170,235,.34) 0%,rgba(190,220,250,.14) 45%,rgba(120,220,222,.30) 100%)}
-body[data-view="government"] .scene-tint{background:linear-gradient(155deg,rgba(184,160,236,.34) 0%,rgba(226,214,250,.14) 45%,rgba(244,206,120,.28) 100%)}
-body.night .scene-tint{background:linear-gradient(155deg,rgba(120,70,70,.34) 0%,rgba(30,24,60,.20) 45%,rgba(20,70,66,.32) 100%)}
-body.night[data-view="hospital"] .scene-tint{background:linear-gradient(155deg,rgba(24,60,130,.38) 0%,rgba(16,26,70,.20) 45%,rgba(14,84,96,.34) 100%)}
-body.night[data-view="government"] .scene-tint{background:linear-gradient(155deg,rgba(70,40,130,.38) 0%,rgba(26,20,64,.20) 45%,rgba(96,70,14,.32) 100%)}
-@media (prefers-reduced-motion:reduce){.scene-tint{transition:none}}
+/* Per-view backgrounds (prototype "v14: view backgrounds"): pastel radial gradients over the skyline at .86 for the current view.
+   Individual peach and mint, Hospital blue and aqua, Government lilac and gold. The dark theme (body[data-theme="dark"]) uses the dark
+   versions; a night alert in the light theme (body.night only) hides them so the night photo shows. */
+.view-bg{position:absolute;inset:0;z-index:1;pointer-events:none}
+.view-bg .vb{position:absolute;inset:0;opacity:0;transition:opacity .7s ease}
+body[data-view="individual"] .view-bg .vb-individual,body[data-view="hospital"] .view-bg .vb-hospital,body[data-view="government"] .view-bg .vb-government{opacity:.86}
+body.night:not([data-theme="dark"]) .view-bg .vb{opacity:0!important}
+/* Dark theme: a little lower than the prototype's .86 so the dark night photo tones the bright blobs down and text on the glass keeps 4.5:1. */
+body[data-theme="dark"][data-view="individual"] .view-bg .vb-individual,body[data-theme="dark"][data-view="hospital"] .view-bg .vb-hospital,body[data-theme="dark"][data-view="government"] .view-bg .vb-government{opacity:.5}
+.vb-individual{background:radial-gradient(60% 55% at 12% 18%,#ffd9b8 0%,rgba(255,217,184,0) 70%),radial-gradient(55% 50% at 88% 12%,#bff0e3 0%,rgba(191,240,227,0) 70%),radial-gradient(60% 55% at 75% 88%,#f9d3df 0%,rgba(249,211,223,0) 70%),radial-gradient(50% 45% at 25% 85%,#d7f2c8 0%,rgba(215,242,200,0) 70%),linear-gradient(160deg,#fff6ea 0%,#e6f6f1 100%)}
+.vb-hospital{background:radial-gradient(60% 55% at 15% 15%,#cfe3ff 0%,rgba(207,227,255,0) 70%),radial-gradient(55% 50% at 88% 20%,#c4f1f4 0%,rgba(196,241,244,0) 70%),radial-gradient(60% 55% at 70% 90%,#dedcff 0%,rgba(222,220,255,0) 70%),radial-gradient(45% 40% at 20% 85%,#e3f3ff 0%,rgba(227,243,255,0) 70%),linear-gradient(165deg,#f4f8ff 0%,#e1ecfb 100%)}
+.vb-government{background:radial-gradient(60% 55% at 14% 16%,#e3d4fd 0%,rgba(227,212,253,0) 70%),radial-gradient(55% 50% at 86% 14%,#ffe6c2 0%,rgba(255,230,194,0) 70%),radial-gradient(60% 55% at 72% 88%,#d5d0fb 0%,rgba(213,208,251,0) 70%),radial-gradient(45% 40% at 22% 86%,#f6dcf1 0%,rgba(246,220,241,0) 70%),linear-gradient(160deg,#f8f4ff 0%,#ebe5fb 100%)}
+body[data-theme="dark"] .vb-individual{background:radial-gradient(60% 55% at 12% 18%,rgba(31,179,156,.45) 0%,rgba(31,179,156,0) 70%),radial-gradient(55% 50% at 88% 12%,rgba(255,170,110,.28) 0%,rgba(255,170,110,0) 70%),radial-gradient(60% 55% at 75% 88%,rgba(233,120,160,.25) 0%,rgba(233,120,160,0) 70%),linear-gradient(160deg,#0c2422 0%,#14202c 100%)}
+body[data-theme="dark"] .vb-hospital{background:radial-gradient(60% 55% at 15% 15%,rgba(79,143,214,.5) 0%,rgba(79,143,214,0) 70%),radial-gradient(55% 50% at 88% 20%,rgba(64,200,210,.3) 0%,rgba(64,200,210,0) 70%),radial-gradient(60% 55% at 70% 90%,rgba(120,110,230,.3) 0%,rgba(120,110,230,0) 70%),linear-gradient(165deg,#0a1630 0%,#101c36 100%)}
+body[data-theme="dark"] .vb-government{background:radial-gradient(60% 55% at 14% 16%,rgba(154,127,224,.5) 0%,rgba(154,127,224,0) 70%),radial-gradient(55% 50% at 86% 14%,rgba(240,170,80,.26) 0%,rgba(240,170,80,0) 70%),radial-gradient(60% 55% at 72% 88%,rgba(110,90,220,.32) 0%,rgba(110,90,220,0) 70%),linear-gradient(160deg,#160f2e 0%,#1c1538 100%)}
+@media (prefers-reduced-motion:reduce){.view-bg .vb{transition:none}}
 
 /* "On this screen" tip */
 .guide{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-radius:18px;border-inline-start:4px solid var(--brand);margin-block-end:16px}
@@ -691,6 +728,8 @@ body.night[data-view="government"] .scene-tint{background:linear-gradient(155deg
 .guide .g-h{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted-text)}
 .guide .g-try{color:var(--ink2)}
 .guide .g-try b{color:var(--brand-text)}
+/* Dark: the bold words of the tip (heading and "Try:") in light blue, as in the prototype. */
+body.night .guide b{color:#9cc4ff}
 .guide-show{justify-self:start}
 .guide .chip{flex:none}
 @media (max-width:520px){.guide{flex-wrap:wrap}.guide .chip{margin-inline-start:auto}}

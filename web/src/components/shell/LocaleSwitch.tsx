@@ -5,8 +5,8 @@ import { currentLanguage, LANGUAGE_INFO, LANGUAGES, type Language } from '@/i18n
 import s from './shell.module.css'
 
 /**
- * Language switch, a sibling of the view switcher: a two-state control, `EN` and `ع`. Each state is a real button with
- * `aria-pressed`, so Tab, Enter and Space work and a screen reader hears the language by its own name.
+ * Language switch, the first item of the header's right group: one pill with both letters, `EN` and `ع`, the active one
+ * filled. Each state is a real button with `aria-pressed`, so Tab, Enter and Space work and a screen reader hears the language by its own name.
  * `i18n.changeLanguage` re-renders the app, reloads its data in that language, and sets `<html lang dir>`.
  */
 export function LocaleSwitch() {

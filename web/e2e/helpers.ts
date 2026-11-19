@@ -1,17 +1,21 @@
 import { expect, type Page } from '@playwright/test'
-import { pageTitle, tabsFor, VIEW_IDS, type ViewId, type Who } from '../src/domain/views'
+import { HIDDEN_PAGES, pageTitle, tabsFor, VIEW_IDS, type ViewId, type Who } from '../src/domain/views'
 
 export type RouteCase = { view: ViewId; page: string; who: Who; /** Query string of the route, e.g. `?step=res` (care-record step) or `?patient=moza&step=tx` (an opened patient). */ query?: string }
 
 /**
- * Every page each role can open: the family sees all three views, Moza (self) her own individual tabs, plus the two
- * routed pages that have no tab of their own (the night alert replay and Results to review).
+ * Every page each role can open: the family sees all three views, Moza (self) her own individual tabs, plus the
+ * routed pages that have no tab of their own (Treatment for both roles, the night alert replay and Results to review).
+ * Around me and My phone are hidden by the redesign; their own tests open them with the legacy override.
  */
 export function routeCases(): RouteCase[] {
   const out: RouteCase[] = []
   for (const view of VIEW_IDS) for (const t of tabsFor(view, 'family')) out.push({ view, page: t.id, who: 'family' })
   for (const t of tabsFor('individual', 'self')) out.push({ view: 'individual', page: t.id, who: 'self' })
-  out.push({ view: 'individual', page: 'live', who: 'family' }, { view: 'hospital', page: 'review', who: 'family' })
+  out.push(
+    { view: 'individual', page: 'treatment', who: 'self' }, { view: 'individual', page: 'treatment', who: 'family' },
+    { view: 'individual', page: 'live', who: 'family' }, { view: 'hospital', page: 'review', who: 'family' },
+  )
   // States the stepper and an opened patient add to a page: one step of each record, Moza's clinical record, another patient.
   out.push(
     { view: 'individual', page: 'record', who: 'self', query: '?step=res' },
@@ -25,6 +29,14 @@ export function routeCases(): RouteCase[] {
 
 export const caseName = (c: RouteCase) => `${c.who === 'self' ? 'self' : c.view}-${c.page}${c.query ?? ''}`
 
+/**
+ * Turn back on what the redesign hides (src/config/legacy.ts): the old Test case banner, button and `?test=` links,
+ * "Moza's case", the "Night alert demo" switch, and the Around me and My phone pages. Call before `page.goto`.
+ */
+export async function enableLegacyUi(page: Page) {
+  await page.addInitScript(() => { try { localStorage.setItem('noa-legacy-ui', 'on') } catch { /* ignore */ } })
+}
+
 /** Seed the role before any app script runs (AppState reads sessionStorage `noa-app-state`). */
 export async function seedWho(page: Page, who: Who) {
   await page.addInitScript((w) => {
@@ -32,15 +44,20 @@ export async function seedWho(page: Page, who: Who) {
   }, who)
 }
 
-/** Open a page as a role and wait until its title and data have rendered. */
+/**
+ * Open a page as a role and wait until its title and data have rendered. The hidden pages (Around me, My phone) are
+ * opened with the legacy override; the Family health tab has no context bar, so no page title to wait for.
+ */
 export async function openPage(page: Page, c: RouteCase, lng: 'en' | 'ar' = 'en', theme: 'light' | 'dark' = 'light') {
   await seedWho(page, c.who)
+  if (c.view === 'individual' && HIDDEN_PAGES.includes(c.page)) await enableLegacyUi(page)
   if (theme === 'dark') await page.addInitScript(() => { try { localStorage.setItem('noa-theme', 'dark') } catch { /* ignore */ } })
   if (lng !== 'en') await page.addInitScript((l) => { try { localStorage.setItem('noa-locale', l) } catch { /* ignore */ } }, lng)
   await page.goto(`/${c.view}/${c.page}${c.query ?? ''}`)
   await expect(page).toHaveURL((u) => u.pathname + u.search === `/${c.view}/${c.page}${c.query ?? ''}`)
   // Page titles are asserted in English only; in another language the title just has to be there. An opened patient is titled with the patient.
-  if (lng === 'en' && !c.query?.includes('patient=')) await expect(page.locator('#pgTitle')).toHaveText(pageTitle(c.view, c.page, c.who))
+  if (c.view === 'individual' && c.page === 'lineage') await expect(page.locator('main').first()).toBeVisible()
+  else if (lng === 'en' && !c.query?.includes('patient=')) await expect(page.locator('#pgTitle')).toHaveText(pageTitle(c.view, c.page, c.who))
   else await expect(page.locator('#pgTitle')).not.toBeEmpty()
   await page.waitForLoadState('networkidle')
   await page.evaluate(() => document.fonts.ready)
@@ -117,7 +134,7 @@ export async function measureToneText(page: Page, extraColours: Record<string, s
     return out
   }, tones)
   if (!found.length) return []
-  const style = await page.addStyleTag({ content: '.chat-fab{visibility:hidden!important}[data-tone-probe]{color:transparent!important;text-shadow:none!important}[data-tone-probe]::before{background:transparent!important}' })
+  const style = await page.addStyleTag({ content: '.chat-fab,#fh-fab,#fh-toast{visibility:hidden!important}[data-tone-probe]{color:transparent!important;text-shadow:none!important}[data-tone-probe]::before{background:transparent!important}' })
   const png = PNG.sync.read(await page.screenshot({ fullPage: true, animations: 'disabled' }))
   await style.evaluate((s) => (s as Element).remove())
   const hits: ToneHit[] = []
