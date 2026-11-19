@@ -3,9 +3,9 @@
 import { useTranslation } from 'react-i18next'
 import type { Cell, DbRow, DbTable, StepKindName } from '../../engine'
 
-/** Plan item G2: where a value comes from. Recorded observations, calculated findings, AI-written wording, and what a clinician confirmed. */
-export type Prov = 'observed' | 'calculated' | 'ai' | 'clinician'
-export const PROVS: readonly Prov[] = ['observed', 'calculated', 'ai', 'clinician']
+/** Plan item G2: where a value comes from. Observed, calculated, prepared text, AI-written (live only), clinician confirmed. */
+export type Prov = 'observed' | 'calculated' | 'prepared' | 'ai' | 'clinician'
+export const PROVS: readonly Prov[] = ['observed', 'calculated', 'prepared', 'ai', 'clinician']
 
 /** The tcGates translator for keys built at run time (a kind, a tag): untyped. */
 export type TG = (key: string, opts?: Record<string, unknown>) => string
@@ -38,7 +38,7 @@ export function dbProv(table: DbTable, row: DbRow): Prov {
 /** What each step card is made of (key values on the card). */
 export const CARD_PROV: Record<StepKindName, Prov[]> = {
   home: ['observed', 'calculated'], passport: ['observed', 'calculated'], famhub: ['observed', 'calculated'],
-  tl: ['calculated'], btn: ['clinician'], teach: ['ai', 'calculated'], recheck: ['observed', 'calculated'], daily: ['observed', 'calculated'],
+  tl: ['calculated'], btn: ['clinician'], teach: ['prepared', 'calculated'], recheck: ['observed', 'calculated'], daily: ['observed', 'calculated'],
   accept: ['clinician', 'calculated'], result: ['observed', 'calculated'], famresult: ['observed', 'calculated'], refer: ['clinician', 'calculated'], report: ['calculated'],
 }
 
@@ -54,25 +54,26 @@ export function RuleId({ id }: { id: string }) {
   return <span className="tc-ruleid" title={t('gates.ruleTip')}>{id}</span>
 }
 
-/** The four tags and what they mean. */
-export function ProvLegend() {
+/** The five tags and what they mean. */
+export function ProvLegend({ live = false }: { live?: boolean }) {
   const t = useG()
   return (
     <>
       <p className="prov-legend-t">{t('prov.legend')}</p>
       <ul className="prov-legend" aria-label={t('prov.legend')}>
-        {PROVS.map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`prov.${p}.desc`)}</span></li>)}
+        {PROVS.filter((p) => p !== 'ai' || live).map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`prov.${p}.desc`)}</span></li>)}
       </ul>
     </>
   )
 }
 
-/** "On this card": which parts of the step card are observed, calculated, AI-written or confirmed. */
-export function ProvLine({ kind }: { kind: StepKindName }) {
+/** "On this card" line; live swaps prepared for AI-written. */
+export function ProvLine({ kind, live = false }: { kind: StepKindName; live?: boolean }) {
   const t = useG()
+  const ps = live ? CARD_PROV[kind].map((p) => (p === 'prepared' ? 'ai' : p)) : CARD_PROV[kind]
   return (
     <ul className="prov-line" aria-label={t('prov.onCard')}>
-      {CARD_PROV[kind].map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`cardProv.${kind}.${p}`)}</span></li>)}
+      {ps.map((p) => <li key={p}><ProvTag kind={p} /><span>{t(`cardProv.${kind}.${p}`)}</span></li>)}
     </ul>
   )
 }

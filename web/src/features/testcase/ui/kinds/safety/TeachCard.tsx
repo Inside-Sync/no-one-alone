@@ -38,7 +38,7 @@ export function TeachCard({ engine, snap, step, r }: KindProps) {
               : <button type="button" className="btn ghost sm" onClick={() => sp.speak(rl(e.explain))}><Glyph name="volume-2" />{t('teach.listen')}</button>
           )}
           <button type="button" className="btn ghost sm" aria-pressed={simpler} onClick={() => setSimpler((v) => !v)}>{t('teach.simpler')}</button>
-          <span className="pill s-plan">{t('teach.prepared')}</span>
+          {e.src === 'prepared' && <span className="pill s-plan">{t('teach.prepared')}</span>}
         </div>
       </div>
       <div className="seg2 teach-lang" role="group" aria-label={t('teach.language')}>
