@@ -225,6 +225,24 @@ describe('helperStatus: what Noa tells Margaret after the plan', () => {
     expect(helperStatus(withTl(callJames), circle)).toMatchObject({ text: ar('incident.phone.status.calling', { name: 'Khalid' }), clip: '/noa/calling-khalid.mp3' })
   })
 
+  test('998 at the decision: one status names the ambulance and Khalid together, text only until its clip exists', () => {
+    const moza = { ...circle, person: { displayName: 'Moza Al Hammadi', emergencyNumber: '998' } } as unknown as LivePeople
+    expect(helperStatus(withTl(alerted, auto000(80), callJames), moza)).toEqual({
+      text: "I'm calling 998 for an ambulance now, and Khalid too. Please stay sitting.", clip: null, key: `calling-998-khalid ${at(80)}`,
+    })
+  })
+
+  test('after Noa has called 998, the family statuses are text only', () => {
+    expect(helperStatus(withTl(alerted, auto000(80), callJames, jamesExpired, callDavid), circle)).toEqual({
+      text: "Khalid didn't answer, so I've left him a message. I'm calling Hamad now.", clip: null, key: `no-answer-khalid-calling-hamad ${at(85)}`,
+    })
+  })
+
+  test('998 at the decision in Arabic', async () => {
+    await i18n.changeLanguage('ar')
+    expect(helperStatus(withTl(alerted, auto000(80), callJames), circle)?.text).toBe('أتصل بـ 000 لطلب الإسعاف الآن، وبـ Khalid أيضاً. من فضلكِ ابقي جالسة.')
+  })
+
   test('phoneView: status only once the instruction exists', () => {
     const inc = { ...withTl(callJames), personInstruction: undefined } as unknown as IncidentDoc
     expect(liveView('inc1', inc, circle, T0 + 120_000).phone.status).toBeNull()
@@ -264,6 +282,20 @@ describe('heardLimit: the timeline shown waits for what Margaret has heard', () 
     expect(heardLimit(inc, circle, `calling-khalid ${at(80)}`)).toBe(2)
     expect(heardLimit(inc, circle, `no-answer-khalid-calling-hamad ${at(85)}`)).toBe(4)
     expect(heardLimit(inc, circle, `on-the-way ${at(86)}`)).toBe(5)
+  })
+
+  test('998 at the decision: the call and Khalid show once that status is heard', () => {
+    const first = { ...incident, timeline: [
+      ev(79, 'SYSTEM', 'ALERTED', 'Alert sent to Khalid and Hamad'),
+      ev(80, 'SYSTEM', 'CALLED_115', 'Calling 998 automatically with the call script (demo call)'),
+      ev(80, 'SYSTEM', 'NOTIFIED', 'Calling Khalid: x'),
+      ev(85, 'SYSTEM', 'EXPIRED', 'Khalid did not answer in 5 s · voicemail and text sent'),
+      ev(85, 'SYSTEM', 'NOTIFIED', 'Calling Hamad: x'),
+      ev(86, 'david', 'ACCEPTED', 'x'),
+    ] } as unknown as IncidentDoc
+    expect(heardLimit(first, circle, null)).toBe(1)
+    expect(heardLimit(first, circle, `calling-998-khalid ${at(80)}`)).toBe(3)
+    expect(heardLimit(first, circle, `no-answer-khalid-calling-hamad ${at(85)}`)).toBe(5)
   })
 
   test('a closed incident shows everything', () => {
