@@ -118,6 +118,15 @@ test.each([
   const tour = (files['guide.json'] as { tour: { steps: { text: string }[] } }).tour.steps[7].text
   for (const s of [moza.journey[1].lines[3], tour]) {
     expect(s).toContain(khalid)
+    expect(s).toContain('998')
+    expect(s).toContain('01:34')
     expect(s.indexOf('998')).toBeLessThan(s.indexOf(khalid))
   }
+})
+
+test.each([
+  ['en', EN, 'Noa has called 998 with this script. Call again yourself if you need to.'],
+  ['ar', AR, 'اتصلت نوا بـ 998 بهذا النص. اتصل بنفسك مرة أخرى إذا احتجت.'],
+] as const)('%s: the 998 script note says Noa has already called', (_lng, files, note) => {
+  expect((files['live.json'] as { sos: { note: string } }).sos.note).toBe(note)
 })

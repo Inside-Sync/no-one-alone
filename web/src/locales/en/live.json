@@ -109,7 +109,7 @@
     "callToast": "Dialling 998 · ask for ambulance",
     "copy": "Copy address",
     "copied": "Address copied",
-    "note": "Noa prepares this. A person makes the call."
+    "note": "Noa has called 998 with this script. Call again yourself if you need to."
   },
   "liveSubtitleShort": "Live · {{time}}",
   "phase": {
@@ -231,7 +231,7 @@
       "help": "Hamad · 6 min away"
     },
     {
-      "d": "Ambulance on its way · Noa gave the prepared script",
+      "d": "Ambulance on its way · Noa read the prepared script",
       "s": "Address, age, symptoms, medicines, access",
       "own": [
         "",

@@ -110,7 +110,7 @@ test('orbit targets map the steps onto the prototype modes', () => {
 
 test('night demo: Noa calls 998 at the decision step, the ambulance is on its way by 02:06', () => {
   expect(STEPS[4]).toMatchObject({ t: '02:04', d: 'Noa calls 998 · Hamad and you are alerted', e: { q: "I've called 998 and Hamad." } })
-  expect(STEPS[6]).toMatchObject({ t: '02:06', d: 'Ambulance on its way · Noa gave the prepared script', e: { q: 'An ambulance is on its way.' } })
+  expect(STEPS[6]).toMatchObject({ t: '02:06', d: 'Ambulance on its way · Noa read the prepared script', e: { q: 'An ambulance is on its way.' } })
 })
 
 test('night demo in Arabic: step 4 names 998 before Hamad', async () => {
