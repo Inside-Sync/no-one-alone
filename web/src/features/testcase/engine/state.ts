@@ -396,7 +396,7 @@ export class TestCaseEngine {
     return { ok: false, value: k.value, issue }
   }
   setRecheckVal(v: number) { this.S.rc.val = v; this.emit() }
-  /** Today's reading at the Monitor step: outside the slider range it is REFUSED (the previous value stays), like `setResVal`. */
+  /** Today's reading at the Monitor step: outside the slider range it is refused (the previous value stays), like `setResVal`. */
   setDailyVal(v: number): InputCheck {
     const S = this.S, id = S.path ? this.meta().daily : null
     if (!id) { S.daily.val = v; this.emit(); return { ok: true, value: v } }

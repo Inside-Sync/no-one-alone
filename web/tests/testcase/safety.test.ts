@@ -276,6 +276,9 @@ describe('the 998 packet carries low sugar when another rule leads', () => {
     expect(rows(fall, 'fall_em')).toContain('Glucose: 3.5 mmol/L, below 4.0')
     const noSensor = run(SCEN.find((s) => s.id.startsWith('s26'))!)
     expect(rows(noSensor, 'hf_em').some((r) => r.startsWith('Glucose'))).toBe(false)
+    const normal = run({ id: '', pk: 'mariam', inp: { spo2: 89, glu: 6.0 }, glus: true, speech: 'usual', ans: 'fine', rule: 'R8', path: 'hf_em' })
+    expect(normal.S.dec?.path).toBe('hf_em')
+    expect(rows(normal, 'hf_em').some((r) => r.startsWith('Glucose'))).toBe(false)
   })
 })
 
@@ -299,7 +302,7 @@ describe('hypo_em copy follows the person, not Saeed', () => {
       '“Don’t give food or drink if she can’t swallow. Use the glucagon pen in the drawer.”',
       'Noa: Mariam’s sugar is very low; ambulance called, Ahmed is with her.',
     ])
-    expect(copy(mariam)[4]).not.toContain('his')
+    expect(copy(mariam)[4]).toContain('her kidney function')
     const saeed = run(SCEN.find((s) => s.id.startsWith('s16'))!)
     expect(copy(saeed)).toEqual([
       'At the same time wakes Shamsa with a loud phone alarm',
