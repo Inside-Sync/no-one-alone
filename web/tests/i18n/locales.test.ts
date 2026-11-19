@@ -125,8 +125,8 @@ test.each([
 })
 
 test.each([
-  ['en', EN, 'Noa has called 998 with this script. Call again yourself if you need to.'],
-  ['ar', AR, 'اتصلت نوا بـ 998 بهذا النص. اتصل بنفسك مرة أخرى إذا احتجت.'],
-] as const)('%s: the 998 script note says Noa has already called', (_lng, files, note) => {
+  ['en', EN, 'Noa calls 998 with this script. You can call again if you need to.'],
+  ['ar', AR, 'تتصل نوا بـ 998 بهذا النص. يمكن الاتصال مرة أخرى عند الحاجة.'],
+] as const)('%s: the 998 script note says Noa calls 998', (_lng, files, note) => {
   expect((files['live.json'] as { sos: { note: string } }).sos.note).toBe(note)
 })

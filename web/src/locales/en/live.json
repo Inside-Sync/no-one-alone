@@ -109,7 +109,7 @@
     "callToast": "Dialling 998 · ask for ambulance",
     "copy": "Copy address",
     "copied": "Address copied",
-    "note": "Noa has called 998 with this script. Call again yourself if you need to."
+    "note": "Noa calls 998 with this script. You can call again if you need to."
   },
   "liveSubtitleShort": "Live · {{time}}",
   "phase": {
