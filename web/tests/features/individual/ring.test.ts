@@ -58,3 +58,8 @@ test('freshCallSound: the same story-time call in a new incident dials again', (
   expect(freshCallSound([auto000], seen, 'run1')).toBeNull()
   expect(freshCallSound([auto000], seen, 'run2')).toBe('dial')
 })
+
+test('freshCallSound: no family ring once Noa has called 998 herself', () => {
+  const seen = new Set(callKeys([auto000, call('c', 'Calling Khalid: x')]))
+  expect(freshCallSound([auto000, call('c', 'Calling Khalid: x'), call('d', 'Calling Hamad: x')], seen)).toBeNull()
+})

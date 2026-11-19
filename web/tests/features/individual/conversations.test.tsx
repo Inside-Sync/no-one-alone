@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import type { IncidentDoc, PersonDoc } from '@/data/contract'
 import type { LivePeople } from '@/domain/incident'
 import { ConversationsCard } from '@/features/individual/live/ConversationsCard'
+import type { CallLine } from '@/features/individual/live/useCallDialogue'
 import '@/i18n'
 
 const at = (s: number) => new Date(Date.parse('2026-10-15T19:03:00Z') + s * 1000).toISOString()
@@ -40,4 +41,17 @@ test('shows the spoken hand-off line, not the packet, and the family update to e
   fireEvent.click(screen.getByRole('button', { name: /James/ }))
   expect(screen.getByText(`“${UPDATE}”`)).toBeInTheDocument()
   expect(screen.getByText(/Noa → James/)).toBeInTheDocument()
+})
+
+test("998 and Khalid share one time: the whole 998 block is listed above Khalid's call", () => {
+  const same = { ...incident, timeline: [
+    { at: at(60), actor: 'SYSTEM', kind: 'CALLED_115', text: 'Calling 998 automatically with the call script (demo call)' },
+    { at: at(60), actor: 'SYSTEM', kind: 'NOTIFIED', text: 'Calling Khalid: Her speech is slurred.', memberId: 'khalid' },
+  ] } as unknown as IncidentDoc
+  const khalid = { ...people, members: { khalid: member('Khalid') } }
+  const lines = [{ by: 'noa', text: 'I am calling about a stroke.' }, { by: 'operator', text: 'Stay on the line.' }] as unknown as CallLine[]
+  render(<ConversationsCard incident={same} people={khalid} call={lines} dialling={false} />)
+  const text = screen.getByRole('list').textContent ?? ''
+  expect(text.indexOf('Stay on the line.')).toBeGreaterThan(-1)
+  expect(text.indexOf('Stay on the line.')).toBeLessThan(text.indexOf('Her speech is slurred.'))
 })
