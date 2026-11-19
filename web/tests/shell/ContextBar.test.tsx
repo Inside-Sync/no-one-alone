@@ -51,10 +51,10 @@ test('the record page reads "My care record" for Moza and "Care record" for fami
   expect(screen.getByText('What Moza shares from her record')).toBeInTheDocument()
 })
 
-test('switching roles navigates: Moza to /individual/me, family to /individual/health', async () => {
+test('switching roles opens the first tab: Moza to Family health, family to /individual/health', async () => {
   render(ui())
   await act(async () => { fireEvent.click(await screen.findByRole('button', { name: /Moza \(her own app\)/ })) })
-  expect(push).toHaveBeenCalledWith('/individual/me')
+  expect(push).toHaveBeenCalledWith('/individual/lineage')
   await act(async () => { fireEvent.click(screen.getByRole('button', { name: /Family & carers/ })) })
   expect(push).toHaveBeenLastCalledWith('/individual/health')
 })

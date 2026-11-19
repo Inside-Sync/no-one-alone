@@ -4,6 +4,8 @@
 
 .searchWrap { position: relative; }
 @media (max-width: 1280px) { .searchWrap { display: none; } }
+/* The redesign's one-row header has no room for it from 1180px (the prototype hides it there too). */
+@media (min-width: 1180px) { .searchWrap { display: none; } }
 .results {
   position: absolute; top: calc(100% + 6px); inset-inline-end: 0; z-index: 40; min-width: 260px;
   list-style: none; margin: 0; padding: 6px; border-radius: 14px;
@@ -18,6 +20,5 @@
 .result small { font-size: 11.5px; color: var(--muted-text); }
 .result:hover, .result[aria-selected="true"] { background: var(--glass-2); }
 
-/* Language switch: a two-state EN / Arabic segmented control (the global .seg look). */
+/* Language switch: a two-state EN / Arabic pill in the right group (sizes in globals.css, .topnav .locale.seg). */
 .localeWrap { display: inline-flex; }
-.localeWrap button { min-width: 34px; }

@@ -4,8 +4,9 @@ import { DrawerReset } from '@/components/shell/DrawerReset'
 import { Scene } from '@/components/shell/Scene'
 import { DrawerProvider } from '@/components/ui/Drawer'
 import { ToastProvider } from '@/components/ui/Toast'
-import { allRoutes, firstPage, LEGACY_ROUTES, ROLE_REDIRECT_PAGES } from '@/domain/views'
+import { allRoutes, firstPage, INDIVIDUAL_REDIRECTS, LEGACY_ROUTES, ROLE_REDIRECT_PAGES } from '@/domain/views'
 import { RoutedPage } from '@/features/RoutedPage'
+import { legacyPagesOn } from '@/config/legacy'
 import { AppStateProvider, useAppState } from '@/state/AppState'
 import { TourProvider } from '@/state/Tour'
 import { LiveIncidentProvider } from '@/state/LiveIncident'
@@ -47,7 +48,7 @@ export function App() {
                   {ROLE_REDIRECT_PAGES.map((p) => (
                     <Route key={p} path={`/individual/${p}`} element={<RoleHome />} />
                   ))}
-                  {Object.entries(LEGACY_ROUTES).map(([from, to]) => (
+                  {Object.entries({ ...LEGACY_ROUTES, ...(legacyPagesOn() ? {} : INDIVIDUAL_REDIRECTS) }).map(([from, to]) => (
                     <Route key={from} path={from} element={<Navigate to={to} replace />} />
                   ))}
                   <Route path="/community/*" element={<Navigate to="/government/population" replace />} />

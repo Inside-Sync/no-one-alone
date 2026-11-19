@@ -3,6 +3,12 @@ import { vi } from 'vitest'
 import i18n from '@/i18n'
 import { getGovernment, getSignals } from '@/data/repo'
 import { PopulationPage } from '@/features/government/population/PopulationPage'
+import { FunnelCard } from '@/features/government/population/FunnelCard'
+import { ProgrammesCard } from '@/features/government/population/ProgrammesCard'
+import { ReferralsCard } from '@/features/government/population/ReferralsCard'
+import { ShareCard } from '@/features/government/population/ShareCard'
+import { StalledCard } from '@/features/government/population/StalledCard'
+import { GovernmentKpis } from '@/features/government/shared'
 import { SignalsPage } from '@/features/government/signals/SignalsPage'
 import { PAGE_REGISTRY } from '@/features/registry'
 import { mockCanvas, mockLayout, mockRaf } from '../../canvas/fakeCtx'
@@ -31,16 +37,17 @@ describe('population health', () => {
     renderWithProviders(<PopulationPage />, opts)
     await readyPopulation()
     expect(Array.from(document.querySelectorAll('main h2')).map((h) => h.textContent)).toEqual([
-      'Health and recovery', 'Health and wellbeing', 'Recovery after care', 'Screening to care',
+      'Prevention and screening', 'Who Noa reaches, and how safely',
+      'Health and recovery', 'Health and wellbeing', 'Recovery after care', 'Screening capacity and performance',
       'Screening this quarter', 'Capacity and effectiveness by facility', 'Where capacity is out of balance',
-      'Performance by hospital and centre', 'Results open past target', 'Screening to care',
-      'Referral capacity vs need', 'In care in time, by language', 'In care in time, by contact',
-      'Programmes and outcomes', 'Programme signals',
+      'Performance by hospital and centre', 'Programmes and outcomes', 'Programme signals',
     ])
-    expect(Array.from(document.querySelector('main')!.children).map((c) => c.className.match(/c\d+/)?.[0])).toEqual(
-      ['c12', 'c8', 'c4', 'c12', 'c12', 'c8', 'c4', 'c7', 'c5', 'c12', 'c8', 'c4', 'c4', 'c4', 'c4', 'c6', 'c6', 'c12'],
+    expect(Array.from(document.querySelector('main')!.children).map((c) => c.className.match(/\bc\d+\b/)?.[0])).toEqual(
+      ['c12', 'c12', 'c12', 'c12', 'c8', 'c4', 'c12', 'c8', 'c4', 'c7', 'c5', 'c12', 'c6', 'c6', 'c12'],
     )
-    expect(document.querySelectorAll('#comKpis .kpi')).toHaveLength(6)
+    // Hidden by the redesign (components kept): the KPI strip and five cards.
+    expect(document.querySelector('#comKpis')).toBeNull()
+    for (const gone of ['#stalled', '#funnel', '#capacity', '#langs', '#contact']) expect(document.querySelector(gone), gone).toBeNull()
     expect(screen.queryByText('Locked')).not.toBeInTheDocument()
   })
 
@@ -59,9 +66,9 @@ describe('population health', () => {
     expect(within(rc as HTMLElement).getByRole('img', { name: 'Stroke 64% · target 70%' })).toBeInTheDocument()
   })
 
-  test('the six KPI tiles carry the design figures', async () => {
-    renderWithProviders(<PopulationPage />, opts)
-    await readyPopulation()
+  test('the six KPI tiles carry the design figures (strip no longer on the page)', async () => {
+    const g = await getGovernment()
+    renderWithProviders(<GovernmentKpis id="comKpis" kpis={g.kpis} />, opts)
     const tiles = Array.from(document.querySelectorAll('#comKpis .kpi')).map((k) => k.querySelector('.k')!.textContent)
     expect(tiles).toEqual(['Actionable results', 'Told within 1 day', 'Reached care in time', 'Days to treatment', 'Open past target', 'Controlled at 3 months'])
     expect(document.querySelectorAll('#comKpis .kpi')[4]).toHaveTextContent('636')
@@ -70,6 +77,10 @@ describe('population health', () => {
   test('choosing a measure updates title, subtitle and aria-pressed', async () => {
     renderWithProviders(<PopulationPage />, opts)
     await readyPopulation()
+    // The map opens on Coverage (as in the prototype).
+    expect(document.querySelector('.loc b')).toHaveTextContent('Screening coverage')
+    expect(screen.getByRole('button', { name: 'Coverage' })).toHaveAttribute('aria-pressed', 'true')
+    fireEvent.click(screen.getByRole('button', { name: 'Open past target' }))
     expect(document.querySelector('.loc b')).toHaveTextContent('Results open past target')
     expect(screen.getByRole('button', { name: 'Open past target' })).toHaveAttribute('aria-pressed', 'true')
     fireEvent.click(screen.getByRole('button', { name: 'Days to treatment' }))
@@ -145,9 +156,9 @@ describe('population health', () => {
     expect(rows()).toHaveLength(8)
   })
 
-  test('results open past target: 7 rows, longest first; Assign toasts and goes once; the row opens the drawer', async () => {
-    renderWithProviders(<PopulationPage />, opts)
-    await readyPopulation()
+  test('results open past target (card kept, not on the page): 7 rows, longest first; Assign toasts and goes once; the row opens the drawer', async () => {
+    const g = await getGovernment()
+    renderWithProviders(<StalledCard rows={g.stalled} />, opts)
     const rows = Array.from(document.querySelectorAll('#stalled tr'))
     expect(rows).toHaveLength(7)
     expect(rows[0]).toHaveTextContent('Mohammed I.')
@@ -168,9 +179,18 @@ describe('population health', () => {
     expect(within(dialog).getByText('Re-refer nearer home')).toBeInTheDocument()
   })
 
-  test('funnel has 8 stages and 3 medians; referral, language and contact bars are drawn from the data', async () => {
-    renderWithProviders(<PopulationPage />, opts)
-    await readyPopulation()
+  test('funnel has 8 stages and 3 medians; referral, language and contact bars are drawn from the data (cards kept, not on the page)', async () => {
+    const g = await getGovernment()
+    renderWithProviders(
+      <main>
+        <FunnelCard stages={g.funnel} minis={g.funnelMinis} />
+        <ReferralsCard rows={g.referrals} />
+        <ShareCard id="langs" title="langs" meta="" rows={g.byLanguage.rows} note={g.byLanguage.note} />
+        <ShareCard id="contact" title="contact" meta="" rows={g.byContact.rows} note={g.byContact.note} />
+        <ProgrammesCard rows={g.programmes} />
+      </main>,
+      opts,
+    )
     const funnel = Array.from(document.querySelectorAll('#funnel > div'))
     expect(funnel).toHaveLength(8)
     expect((funnel[0].querySelector('i') as HTMLElement).style.width).toBe('100%')
@@ -206,13 +226,86 @@ describe('population health', () => {
   })
 
   test('kpi tile opens a drawer with the government explanation and actions', async () => {
-    renderWithProviders(<PopulationPage />, opts)
-    await readyPopulation()
+    const g = await getGovernment()
+    renderWithProviders(<GovernmentKpis id="comKpis" kpis={g.kpis} />, opts)
     const tile = Array.from(document.querySelectorAll('#comKpis .kpi')).find((k) => k.textContent?.includes('Open past target'))!
     fireEvent.click(tile)
     const dialog = await screen.findByRole('dialog')
     expect(within(dialog).getByText('Aggregated across adults screened in the 17 Abu Dhabi areas. Groups under 10 are suppressed.')).toBeInTheDocument()
     expect(within(dialog).getByText('Add to watchlist')).toBeInTheDocument()
+  })
+})
+
+describe('prevention and screening', () => {
+  test('8 KPI tiles with their notes; the warn notes are marked', async () => {
+    renderWithProviders(<PopulationPage />, opts)
+    await readyPopulation()
+    const tiles = Array.from(document.querySelectorAll('#g04k > div'))
+    expect(tiles.map((k) => k.querySelector('small')!.textContent)).toEqual([
+      'Eligible reached', 'Recommended a check', 'Uptake after recommendation', 'Screenings completed',
+      'False positives', 'Missed within 12 months', 'Model calibration', 'Recalled on time',
+    ])
+    expect(tiles.map((k) => k.querySelector('b')!.textContent)).toEqual(['51%', '14,610', '69%', '10,035', '8.4%', '1.1%', '0.93 O/E', '86%'])
+    expect(tiles[0]).toHaveTextContent('24,600 of 48,200')
+    expect(tiles[2]).toHaveTextContent('target 75%')
+    expect(tiles[3]).toHaveTextContent('96% of those attended')
+    expect(tiles.filter((k) => k.querySelector('span')!.className !== '')).toEqual([tiles[2], tiles[6]])
+  })
+
+  test('segment table: computed rates, thin data says so, groups under 10 hidden', async () => {
+    renderWithProviders(<PopulationPage />, opts)
+    await readyPopulation()
+    const rows = Array.from(document.querySelectorAll('#g04seg tr'))
+    expect(rows).toHaveLength(10)
+    const cells = (i: number) => Array.from(rows[i].querySelectorAll('td')).map((td) => td.textContent)
+    expect(cells(0)).toEqual(['Emirati men 30–39', '3,120', '45%', '612', '47%', '7%', '0.9%'])
+    expect(cells(3)).toEqual(['Emirati women 40–59', '5,410', '52%', '1,560', '65%', '7%', '1.0%'])
+    expect(cells(5)).toEqual(['Expat men 40–59', '12,100', '35%', '1,110', '36%', '12%', 'not enough follow-up'])
+    expect(rows[5].querySelector('b')!.className).toMatch(/lo/)
+    expect(rows[4].querySelector('b')!.className).toBe('')
+    expect(cells(7)).toEqual(['Children 0–6 (well-child)', '7,778', '89%', '6,900', '84%', '—', 'not enough follow-up'])
+    expect(cells(8)).toEqual(['Arabic-only speakers 60+', '44', '68%', '12', 'not enough data', '—', 'not enough follow-up'])
+    expect(cells(9)).toEqual(['Men 70+, Al Dhafra', 'Hidden: fewer than 10 people (small-cell rule)'])
+    expect(rows[9].querySelector('td[colspan="6"]')).not.toBeNull()
+  })
+
+  test('calibration chart, outcome funnel, recommended mix and safeguards', async () => {
+    renderWithProviders(<PopulationPage />, opts)
+    await readyPopulation()
+    const card = document.querySelector('#g04') as HTMLElement
+    const svg = within(card).getByRole('img', { name: 'Calibration: predicted versus observed 10-year heart risk by risk band, demo data' })
+    expect(svg.querySelectorAll('circle')).toHaveLength(8)
+    expect(svg).toHaveTextContent('top band over-predicts')
+    const stages = Array.from(within(card).getByText('Outcomes: from eligible to recalled on time (last 12 months)').nextElementSibling!.children)
+    expect(stages).toHaveLength(8)
+    expect((stages[0].querySelector('i') as HTMLElement).style.width).toBe('100%')
+    expect((stages[7].querySelector('i') as HTMLElement).style.width).toBe('14%')
+    expect(stages[1]).toHaveTextContent('Reached by Noa24,60051% of previous')
+    expect(stages[0].querySelector('em')!.textContent).toBe('')
+    const mix = Array.from(within(card).getByText('What Noa recommended').nextElementSibling!.children)
+    expect(mix).toHaveLength(9)
+    expect((mix[7].querySelector('i') as HTMLElement).style.width).toBe('100%')
+    expect((mix[2].querySelector('i') as HTMLElement).style.width).toBe('6%')
+    const safe = card.querySelectorAll('ul.list li')
+    expect(safe).toHaveLength(4)
+    expect(safe[0]).toHaveTextContent('2,140 items routed to doctors')
+    expect(safe[1]).toHaveTextContent('Uptake 36% vs 65% for Emirati women 40–59')
+    expect(within(safe[1] as HTMLElement).getByText('Act')).toHaveClass('pill', 'warn')
+    expect(safe[3]).toHaveTextContent('18,900 sessions; 0.3% stopped as Red')
+  })
+
+  test('Arabic: the section is translated and its figures formatted', async () => {
+    await act(async () => { await i18n.changeLanguage('ar') })
+    try {
+      renderWithProviders(<PopulationPage />, opts)
+      expect(await screen.findByText('الوقاية والفحص')).toBeInTheDocument()
+      const first = Array.from(document.querySelectorAll('#g04seg tr')[0].querySelectorAll('td')).map((td) => td.textContent)
+      expect(first[1]).toBe('3,120')
+      expect(first[2]).toMatch(/^45\D*%/)
+      expect(screen.getByText('مخفي: أقل من 10 أشخاص (قاعدة الخلايا الصغيرة)')).toBeInTheDocument()
+    } finally {
+      await act(async () => { await i18n.changeLanguage('en') })
+    }
   })
 })
 

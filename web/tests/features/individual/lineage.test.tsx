@@ -1,6 +1,7 @@
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { vi } from 'vitest'
 import { LineagePage } from '@/features/individual/lineage/LineagePage'
+import { FamilyHealthPage } from '@/features/familyHealth/ui'
 import { PAGE_REGISTRY } from '@/features/registry'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
 import { fillForWhiteText } from '@/lib/color'
@@ -11,7 +12,7 @@ const ready = () => screen.findByText('Four generations')
 const toastText = () => document.getElementById('toast')!.textContent
 
 test('is registered for individual/lineage', () => {
-  expect(PAGE_REGISTRY['individual/lineage']).toBe(LineagePage)
+  expect(PAGE_REGISTRY['individual/lineage']).toBe(FamilyHealthPage) // the Family health tab is the new panel; this page stays unmounted
 })
 
 test('the pedigree card is the walkthrough target', async () => {

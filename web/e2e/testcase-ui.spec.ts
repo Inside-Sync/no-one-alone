@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 import { measureToneText } from './helpers'
 import { noHScroll, openTest, overlay, runToEnd, seriousAxe } from './testcase-helpers'
+import { enableLegacyUi } from './helpers'
 
 test.use({ contextOptions: { reducedMotion: 'reduce' } })
 test.setTimeout(120_000)
@@ -59,6 +60,7 @@ for (const v of VIEWS) {
 
 test('Arabic switch from the header (#locale-ar) then opening the overlay is rtl', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
+  await enableLegacyUi(page)
   await page.goto('/individual/health')
   await page.locator('#locale-ar').click()
   await page.locator('#runTest').click()
