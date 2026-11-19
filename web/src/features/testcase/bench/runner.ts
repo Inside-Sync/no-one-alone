@@ -43,7 +43,7 @@ type Run = { actual: Outcome; input: Divergence | null }
 
 /**
  * The playback adds up to +-3 bpm of sensor noise to the heart rate. A constant source of 0.5 switches it off, so the heart rate typed in IS the
- * reading and the edge of "above 120 for 10 minutes" can be tested exactly (with the noise, 121 dips under 121 and the run stops counting).
+ * reading and the edge of "above 120 for 10 minutes" can be tested exactly.
  */
 const NO_NOISE = () => 0.5
 

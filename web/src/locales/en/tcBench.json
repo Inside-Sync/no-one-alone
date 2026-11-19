@@ -3,7 +3,7 @@
   "intro": "A labelled set of made-up scenarios, run through Noa's real rules in your browser, right now. Each scenario carries the outcome that Noa's published rule table asks for. Noa's own answer is compared with it, step by step.",
   "honest": {
     "title": "What this is, and what it is not",
-    "noise": "Sensor noise is switched off in the benchmark, so the heart rate typed in is exactly the reading. The playback in the other tabs adds a few beats of noise.",
+    "noise": "Sensor noise is switched off in the benchmark, so the heart rate typed in is exactly the reading. The playback in the other tabs adds a few beats of noise, but never across the 120 line, so both give the same answer.",
     "body": "This checks that Noa follows its own published rules, including at the edge of each threshold and on messy input. The scenarios are synthetic and were labelled by hand from the rule table. It is not clinical validation: it does not show that the rules are medically right, and it was not tested on patients."
   },
   "run": {

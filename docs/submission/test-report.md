@@ -34,7 +34,7 @@ The scenarios cover every safety rule R1 to R12, every prevention rule P1 to P9 
 
 1. **Synthetic and labelled by hand.** Each scenario is a setup (what the sensors read, what the person says or types, the profile) and an expected outcome written from the published rule table (the sensor rule, the deciding rule, the decision such as "998 now" or "home plan" or "no action", and the agent that takes it). No patient data is used.
 
-2. **The real engine, one fresh run per scenario.** The runner drives a new `TestCaseEngine` for each scenario, with no timers: the playback and the pipeline are drained, exactly as the "Run it for me" autopilot does. The engine's sensor noise (about 3 beats a minute) is switched off so that the heart rate typed in is the reading; with the noise on, a value at the edge such as 121 can dip under the threshold.
+2. **The real engine, one fresh run per scenario.** The runner drives a new `TestCaseEngine` for each scenario, with no timers: the playback and the pipeline are drained, exactly as the "Run it for me" autopilot does. The engine's sensor noise (about 3 beats a minute) is switched off so that the heart rate typed in is the reading; the noise in the demo never crosses the 120 line, so both give the same answer.
 
 3. **What "match" means.** The sensor rule (R1 to R4), the speech check level when it is part of the case, the deciding rule, the decision, the agent and, where it applies, the routing or the warning all agree with the expectation. On a difference the run records the first step and the agent where Noa diverged: input check, sensor rule (Noa Guardian), speech check (Noa Voice), decision (Noa).
 
@@ -222,7 +222,7 @@ The set is `web/src/features/testcase/bench/scenarios.ts`; the runner is `runner
 
 - The expected outcomes come from the published rule table and the prototype's demo thresholds, which are not clinical guidance. The labels were written by the team, not by an independent clinician, so a mistake in the table is copied into the labels.
 
-- The sensor playback is simulated and the sensor noise is off for the boundary cases; real devices will not give clean values.
+- The sensor playback is simulated; its noise never crosses the R1 line and is off in the benchmark. Real devices will not give clean values.
 
 - The speech check is a demo score (words matched and time taken), not a validated stroke test.
 
