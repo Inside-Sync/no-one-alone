@@ -255,4 +255,61 @@ describe('what the checklist and the R12 note say', () => {
     expect(e.decisionChecks().map((c) => c.k)).toEqual(['checks.ruleMet', 'checks.waitedTen', 'checks.standDown'])
     expect(e.S.feed.map((f) => text(e, f.text))).toContain('All clear: Moza answered clearly. She is fine.')
   })
+  test('R10 checklist follows the answer: lying flat, or feeling fine', () => {
+    const flat = run(SCEN.find((s) => s.id.startsWith('s20'))!)
+    expect(flat.decisionChecks().map((c) => text(flat, c))).toContain('Breathless only lying flat: same-day nurse, not 998')
+    const fine = run(SCEN.find((s) => s.id.startsWith('s22'))!)
+    const lines = fine.decisionChecks().map((c) => text(fine, c))
+    expect(lines).toContain('Mariam says “I feel fine”, but the weight or oxygen reading met R4: same-day nurse, not 998')
+    expect(lines).not.toContain('Breathless only lying flat: same-day nurse, not 998')
+  })
+})
+
+describe('the 998 packet carries low sugar when another rule leads', () => {
+  const rows = (e: TestCaseEngine, id: 'hf_em' | 'fall_em') => e.packet(JOURNEYS[id].steps[1]).map((r) => `${text(e, r.title)}: ${text(e, r.detail)}`)
+  test('oxygen under 90 with glucose 3.5 (hf_em), a fall with glucose 3.5 (fall_em), and no row when glucose is not low', () => {
+    const hf = run({ id: '', pk: 'mariam', inp: { spo2: 89, glu: 3.5 }, glus: true, speech: 'usual', ans: 'drink', rule: 'R8', path: 'hf_em' })
+    expect(hf.S.dec?.path).toBe('hf_em')
+    expect(rows(hf, 'hf_em')).toContain('Glucose: 3.5 mmol/L, below 4.0')
+    const fall = run(SCEN.find((s) => s.id.startsWith('s30'))!)
+    expect(fall.S.dec?.path).toBe('fall_em')
+    expect(rows(fall, 'fall_em')).toContain('Glucose: 3.5 mmol/L, below 4.0')
+    const noSensor = run(SCEN.find((s) => s.id.startsWith('s26'))!)
+    expect(rows(noSensor, 'hf_em').some((r) => r.startsWith('Glucose'))).toBe(false)
+    const normal = run({ id: '', pk: 'mariam', inp: { spo2: 89, glu: 6.0 }, glus: true, speech: 'usual', ans: 'fine', rule: 'R8', path: 'hf_em' })
+    expect(normal.S.dec?.path).toBe('hf_em')
+    expect(rows(normal, 'hf_em').some((r) => r.startsWith('Glucose'))).toBe(false)
+  })
+})
+
+describe('hypo_em copy follows the person, not Saeed', () => {
+  const copy = (e: TestCaseEngine) => {
+    const [s0, , s2] = JOURNEYS.hypo_em.steps
+    return [
+      text(e, { k: s0.agents.find((a) => a.agent === 'responder')!.lines[1] }),
+      text(e, e.items(s0)[1].detail),
+      text(e, e.items(s0)[2].detail),
+      text(e, { k: s0.fam!.text }),
+      text(e, e.items(s2)[2].detail),
+    ]
+  }
+  test('Mariam in "own" (glucose 2.7, confused) and Saeed', () => {
+    const mariam = run({ id: '', pk: 'mariam', inp: { glu: 2.7 }, glus: true, speech: 'usual', ans: 'confused', rule: 'R6', path: 'hypo_em' })
+    expect(mariam.S.dec?.path).toBe('hypo_em')
+    expect(copy(mariam).slice(0, 4)).toEqual([
+      'At the same time wakes Ahmed with a loud phone alarm',
+      '“She won’t wake properly.”',
+      '“Don’t give food or drink if she can’t swallow. Use the glucagon pen in the drawer.”',
+      'Noa: Mariam’s sugar is very low; ambulance called, Ahmed is with her.',
+    ])
+    expect(copy(mariam)[4]).toContain('her kidney function')
+    const saeed = run(SCEN.find((s) => s.id.startsWith('s16'))!)
+    expect(copy(saeed)).toEqual([
+      'At the same time wakes Shamsa with a loud phone alarm',
+      '“He won’t wake properly.”',
+      '“Don’t give food or drink if he can’t swallow. Use the glucagon pen in the drawer.”',
+      'Noa: Saeed’s sugar is very low; ambulance called, Shamsa is with him.',
+      'Insulin dose too high for his kidney function.',
+    ])
+  })
 })

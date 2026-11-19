@@ -2,7 +2,7 @@
 // namespace (see locales/en/testcase.json); numbers, thresholds, ids and order are the prototype's.
 import type { AgentDef, AgentId, Mode, PipeNode } from './types'
 
-/** The eight Noa agents (prototype AG). `n` is the short name ("Guardian"); texts are keys. */
+/** The nine Noa agents (prototype AG). `n` is the short name ("Guardian"); texts are keys. */
 export const AGENTS: Record<AgentId, AgentDef> = {
   guardian: {
     id: 'guardian',

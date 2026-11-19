@@ -106,6 +106,8 @@ export interface Row {
   p?: Params
   detail: TKey
   anticoag?: { at?: number; title?: TKey; detail?: TKey }
+  /** Shown only when glucose is below 4.0 (R3 fired). */
+  lowGlu?: boolean
 }
 export type FlowNode = { agent: AgentId } | { label: TKey }
 export interface StepDef {

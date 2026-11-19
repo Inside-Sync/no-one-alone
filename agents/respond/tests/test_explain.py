@@ -93,6 +93,13 @@ def test_route_is_503_when_claude_fails_or_writes_something_unchecked(monkeypatc
     assert client.post("/explain", json={"tkey": "hf", "lang": "en"}).status_code == 503
 
 
+def test_route_503_when_claude_returns_nothing_logs_no_shape_rejection(monkeypatch, caplog):
+    caplog.set_level("WARNING", logger="explain")
+    monkeypatch.setattr(main, "explainer", Writer(None))
+    assert client.post("/explain", json={"tkey": "hf", "lang": "en"}).status_code == 503
+    assert not [r for r in caplog.records if r.getMessage() == "explain rejected: shape"]
+
+
 def test_route_rejects_unknown_sets_languages_and_facts_from_the_caller(monkeypatch):
     fake = Writer(HF_OK)
     monkeypatch.setattr(main, "explainer", fake)
