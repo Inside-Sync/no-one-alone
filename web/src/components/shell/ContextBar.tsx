@@ -7,7 +7,7 @@ import { Glyph } from '@/components/ui/Icon'
 import { WhoSwitch } from './WhoSwitch'
 import { STEPS } from '@/domain/emergency'
 import { CATEGORY_IDS, countSees } from '@/domain/consent'
-import { pageContext, pageTitle, parsePath, VIEW_LABELS } from '@/domain/views'
+import { firstPage, pageContext, pageTitle, parsePath, VIEW_LABELS } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 import { useShellOverrides } from './ShellOverrides'
@@ -46,7 +46,7 @@ export function ContextBar() {
   const switchWho = (w: typeof who) => {
     setWho(w)
     if (w === 'family') setViewer('james')
-    router.push(w === 'self' ? '/individual/me' : '/individual/health')
+    router.push(`/individual/${firstPage('individual', w)}`)
   }
 
   return (

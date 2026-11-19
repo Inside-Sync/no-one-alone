@@ -12,12 +12,13 @@ import { ViewSwitcher } from './ViewSwitcher'
 import { Avatar } from '@/components/ui/Avatar'
 import { Icon } from '@/components/ui/Icon'
 import { useToast } from '@/components/ui/Toast'
-import { firstPage, parsePath, tabsFor, VIEW_USERS, type ViewId } from '@/domain/views'
+import { currentTab, firstPage, parsePath, tabsFor, VIEW_USERS, type ViewId } from '@/domain/views'
 import { useAppState } from '@/state/AppState'
 import { useLiveIncident } from '@/state/LiveIncident'
 import { useNightDemo } from '@/state/useNightDemo'
 import { useTour } from '@/state/Tour'
 import { TestCaseButton } from '@/features/testcase/entry/TestCaseButton'
+import { legacyHeaderDemosOn, legacyTestCaseOn } from '@/config/legacy'
 
 interface Props {
   /** Overrides; by default each shows its `data-toast` copy via `useToast()`. */
@@ -40,6 +41,8 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
   }, [view])
 
   const tabs = tabsFor(view, who, page)
+  // The walkthrough and night demo switches are hidden by the redesign (config/legacy).
+  const demos = legacyHeaderDemosOn()
   const bellToast = t('nav.bellToast')
 
   const go = (v: ViewId, p: string) => router.push(`/${v}/${p}`)
@@ -69,29 +72,33 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
     <header className="topnav glass">
       <BrandMark />
       <ViewSwitcher view={view} onSelect={(v) => go(v, firstPage(v, who))} />
-      <LocaleSwitch />
-      <Tabs tabs={tabs} current={page} badges={badges} onSelect={(id) => go(view, id)} />
+      <Tabs tabs={tabs} current={currentTab(view, page)} badges={badges} onSelect={(id) => go(view, id)} />
       <div className="tn-right">
+        <LocaleSwitch />
         <ThemeSwitch />
         <SearchBox />
-        <button type="button" className="btn" id="runCase" aria-label={t('nav.tour')} onClick={tour.start}>
-          <span className="ic"><Icon name="play" /></span>
-          <span className="t">{t('nav.tour')}</span>
-        </button>
-        <TestCaseButton />
-        <button
-          type="button"
-          role="switch"
-          aria-checked={demo.night}
-          className="btn sos demo-sw"
-          id="runDemo"
-          aria-label={t('nav.demo')}
-          // Live mode: the Live page starts a real scenario through core-api; the mock plays the scripted demo.
-          onClick={demo.toggle}
-        >
-          <span className="knob" aria-hidden="true"><i /></span>
-          <span className="t">{t('nav.demo')}</span>
-        </button>
+        {demos && (
+          <button type="button" className="btn" id="runCase" aria-label={t('nav.tour')} onClick={tour.start}>
+            <span className="ic"><Icon name="play" /></span>
+            <span className="t">{t('nav.tour')}</span>
+          </button>
+        )}
+        {legacyTestCaseOn() && <TestCaseButton />}
+        {demos && (
+          <button
+            type="button"
+            role="switch"
+            aria-checked={demo.night}
+            className="btn sos demo-sw"
+            id="runDemo"
+            aria-label={t('nav.demo')}
+            // Live mode: the Live page starts a real scenario through core-api; the mock plays the scripted demo.
+            onClick={demo.toggle}
+          >
+            <span className="knob" aria-hidden="true"><i /></span>
+            <span className="t">{t('nav.demo')}</span>
+          </button>
+        )}
         <button type="button" className="rb" aria-label={t('nav.notifications')} data-toast={bellToast} onClick={onBellClick ?? (() => toastMsg(bellToast))}>
           <span className="ic"><Icon name="bell" /></span>
           <span className="dot"></span>

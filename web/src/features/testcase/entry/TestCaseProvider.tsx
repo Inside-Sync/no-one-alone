@@ -3,6 +3,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { TestCaseTab } from '../ui/tabContext'
+import { legacyTestCaseOn } from '@/config/legacy'
 import './shell.css'
 import { loadTestCaseLocales } from './loadTestCaseLocales'
 import { TestCaseContext, type TestCaseValue } from './TestCaseContext'
@@ -45,7 +46,8 @@ function stripDeepLink() {
  * The deep link is read once, on mount, from the address bar (router redirects would drop the query otherwise).
  */
 export function TestCaseProvider({ children }: { children: ReactNode }) {
-  const [link] = useState(() => (typeof window === 'undefined' ? undefined : readDeepLink(window.location.search)))
+  // The redesign hides the old Test case: `?test=` links are ignored unless it is switched back on (config/legacy).
+  const [link] = useState(() => (typeof window === 'undefined' || !legacyTestCaseOn() ? undefined : readDeepLink(window.location.search)))
   const [isOpen, setOpen] = useState(link !== undefined)
   const [caseKey, setCaseKey] = useState<string | null>(link?.caseKey ?? null)
   const [night, setNightState] = useState(false)

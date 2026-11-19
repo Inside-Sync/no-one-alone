@@ -23,7 +23,7 @@ export const LANGUAGE_INFO: Record<Language, { name: string; short: string; intl
 }
 
 export const NAMESPACES = [
-  'common', 'home', 'health', 'around', 'live', 'me', 'privacy', 'lineage', 'record', 'hospital', 'screening', 'government', 'overlay', 'chat', 'treatment', 'patients', 'overview', 'guide', 'testcase', 'testcaseShell', 'tcSafety', 'tcPrevention', 'tcApp', 'tcBench', 'tcGates',
+  'common', 'home', 'health', 'around', 'live', 'me', 'privacy', 'lineage', 'record', 'hospital', 'screening', 'government', 'overlay', 'chat', 'treatment', 'patients', 'overview', 'guide', 'testcase', 'testcaseShell', 'tcSafety', 'tcPrevention', 'tcApp', 'tcBench', 'tcGates', 'familyHealth', 'familyHealthUi',
 ] as const
 
 // Explicit imports (not import.meta.glob) so this module also loads outside Vite, e.g. in Playwright's e2e helpers.

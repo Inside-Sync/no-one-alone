@@ -62,8 +62,8 @@
         "try": "Run the night alert demo to watch her packet arrive."
       },
       "population": {
-        "text": "Abu Dhabi's population health: wellbeing, recovery after care, screening to care and each hospital's performance.",
-        "try": "Filter the hospital table, or change the map measure."
+        "text": "Prevention and screening first: who Noa reaches, what it recommends, uptake, false positives, missed cases and calibration by group. Below: wellbeing, capacity and each hospital’s performance.",
+        "try": "Read the segment table: groups under 10 are hidden, and thin data says so."
       },
       "signals": {
         "text": "Signals that need a decision, each with a suggested action.",
