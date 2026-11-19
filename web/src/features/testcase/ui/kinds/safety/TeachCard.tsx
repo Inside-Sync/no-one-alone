@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Glyph, Icon } from '@/components/ui/Icon'
+import type { ExplainRequestBody } from '@/data/api'
 import { LIVE } from '@/data/repo'
 import { tx, type ExplainRequest } from '../../../engine'
 import { langAttrs, useSpeakResolve } from '../langText'
@@ -9,6 +10,7 @@ import { Done, YourTurn } from './Controls'
 import { useSpeech } from './useSpeech'
 
 const EXPLAIN_TIMEOUT_MS = 8000
+const LIVE_TKEYS: ReadonlySet<string> = new Set(['stroke', 'fall', 'hypo', 'hf'])
 
 /**
  * Teach-back: Noa Coach explains in plain words (English or Arabic, read aloud on request), the person answers a
@@ -24,7 +26,7 @@ export function TeachCard({ engine, snap, step, r, running = false }: KindProps)
   const ask = useRef<AbortController | null>(null)
   const rl = useSpeakResolve(engine, snap)
   const sp = useSpeech(S.lang, () => undefined)
-  useEffect(() => () => { ask.current?.abort(); ask.current = null; setAsking(false) }, [S.step, S.auto, running])
+  useEffect(() => () => { ask.current?.abort(); ask.current = null; setAsking(false) }, [S.step, S.auto, S.lang, running])
   const p = engine.person
   const nm = r(tx(p.t.n!))
   if (!e) return null
@@ -32,7 +34,7 @@ export function TeachCard({ engine, snap, step, r, running = false }: KindProps)
   const ok = S.tb === 'ok'
   const wrong = S.tbWrong != null && !ok
   const wrongText = wrong && e.wrong ? rl(e.wrong[S.tbWrong === 0 ? 0 : 1]) : ''
-  const canExplain = LIVE && !S.auto && !running
+  const canExplain = LIVE && !S.auto && !running && LIVE_TKEYS.has(e.tkey)
 
   const explainAnother = async () => {
     const req: ExplainRequest = { tkey: e.tkey, lang: S.lang }
@@ -42,8 +44,8 @@ export function TeachCard({ engine, snap, step, r, running = false }: KindProps)
     const timer = setTimeout(() => c.abort(), EXPLAIN_TIMEOUT_MS)
     try {
       const { explain } = await import('@/data/api')
-      const reply = await explain(req, c.signal)
-      if (ask.current === c) engine.applyLiveExplain(reply, req)
+      const reply = await explain(req as ExplainRequestBody, c.signal)
+      if (ask.current === c && !engine.applyLiveExplain(reply, req)) setSimpler(true)
     } catch {
       if (ask.current === c) { engine.applyLiveExplain(null, req); setSimpler(true) }
     } finally {

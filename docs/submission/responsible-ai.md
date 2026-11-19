@@ -21,7 +21,7 @@ Every card, database row and log line carries a label. It is always a word (colo
 - **Observed:** from a sensor, or entered or chosen by the person.
 - **Calculated:** from a rule, a score or Framingham.
 - **Prepared text:** explanatory wording written and checked by the team.
-- **AI-written:** the teach card's explanation and simpler words after Claude reworded them ("Explain it another way", live mode). Shown only while that text is on the card. The question and answers stay Prepared text.
+- **AI-written:** the safety-net teach card's explanation and simpler words after Claude reworded them ("Explain it another way", live mode). Shown only while that text is on the card. The question and answers stay Prepared text.
 - **Clinician confirmed:** a clinician accepted it.
 
 ## 3. Input guardrails

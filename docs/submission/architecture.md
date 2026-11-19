@@ -46,9 +46,9 @@ Checked against `README.md`, `firebase.json` and `infra/`.
 
 Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini and Claude use the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
 
-## 2. In the Test case (browser only)
+## 2. In the Test case (engine in the browser)
 
-The Test case is an overlay in the live web app (`web/src/features/testcase/`). It never touches a real record. Its only backend call is "Explain it another way" on the teach card, in live mode (`POST /api/explain`).
+The Test case is an overlay in the live web app (`web/src/features/testcase/`). It never touches a real record. Its only backend call is "Explain it another way" on the safety-net teach cards, in live mode (`POST /api/explain`).
 
 - **Engine** (`engine/`): pure TypeScript with no React. The same engine drives the screens, the "Run it for me" autopilot and the benchmark.
 - **Rules** are published and numbered: R1 to R12 (safety), P1 to P9 (prevention), F1 and F2 (family heart score).
@@ -59,7 +59,7 @@ The Test case is an overlay in the live web app (`web/src/features/testcase/`). 
 - **Benchmark** (`bench/`): 252 labelled scenarios, run by the same engine. See [test-report.md](test-report.md).
 - **Loading:** the Test case text and CSS load only when it is opened, so the main bundle stays smaller.
 
-Why not use the backend for the Test case? The deployed chat service only knows Moza's case, so it cannot explain the other fictional people safely. Fixed text also gives repeatable results for judges.
+Why not use the backend for the Test case? The engine runs in the browser: the deployed chat service only knows Moza's case, so it cannot explain the other fictional people safely, and fixed text gives repeatable results for judges. Only the optional "Explain it another way" button on the safety-net teach cards calls the backend.
 
 ## 3. Planned, not built
 

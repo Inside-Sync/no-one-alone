@@ -59,7 +59,9 @@ describe('Explain it another way', () => {
     await waitFor(() => expect(explain).toHaveBeenCalledTimes(1))
     const signal = explain.mock.calls[0][1]!
     expect(signal.aborted).toBe(false)
-    act(() => { vi.advanceTimersByTime(8000) })
+    act(() => { vi.advanceTimersByTime(7900) })
+    expect(signal.aborted).toBe(false)
+    act(() => { vi.advanceTimersByTime(200) })
     expect(signal.aborted).toBe(true)
     await waitFor(() => expect(e.logs[0].m).toBe('GUARD'))
     expect(e.curExplain()!.src).toBe('prepared')
@@ -75,7 +77,7 @@ describe('Explain it another way', () => {
     fireEvent.click(screen.getByRole('button', { name: ANOTHER }))
     await waitFor(() => expect(e.logs[0].m).toBe('GUARD'))
     expect(e.curExplain()!.src).toBe('prepared')
-    expect(screen.getByText(text(e, e.curExplain()!.simpler))).toBeInTheDocument()
+    expect(screen.getByText('One tablet in the morning and one in the evening, every day. It stops new clots.')).toBeInTheDocument()
   })
 
   test('leaving the step cancels the request and logs nothing', async () => {
@@ -88,6 +90,35 @@ describe('Explain it another way', () => {
     expect(explain.mock.calls[0][1]!.aborted).toBe(true)
     await act(async () => { await Promise.resolve() })
     expect(e.logs.some((l) => l.m === 'GUARD')).toBe(false)
+  })
+
+  test('switching the language mid-request cancels it and logs nothing', async () => {
+    explain.mockImplementation(hang)
+    const e = atTeach()
+    renderKind(e)
+    fireEvent.click(screen.getByRole('button', { name: ANOTHER }))
+    await waitFor(() => expect(explain).toHaveBeenCalledTimes(1))
+    act(() => { e.setLang('ar') })
+    expect(explain.mock.calls[0][1]!.aborted).toBe(true)
+    await act(async () => { await Promise.resolve() })
+    expect(e.logs.some((l) => l.m === 'GUARD')).toBe(false)
+  })
+
+  test('a refused reply (late or malformed) shows the simpler words', async () => {
+    explain.mockResolvedValue({ explain: '', simpler: '' })
+    const e = atTeach()
+    renderKind(e)
+    fireEvent.click(screen.getByRole('button', { name: ANOTHER }))
+    await waitFor(() => expect(e.logs[0].m).toBe('GUARD'))
+    expect(screen.getByText('One tablet in the morning and one in the evening, every day. It stops new clots.')).toBeInTheDocument()
+  })
+
+  test('a prevention teach card has no button even in live mode', () => {
+    const e = make('wellchild')
+    advanceTo(e, 'teach')
+    expect(e.curExplain()!.tkey).not.toBe('stroke')
+    renderKind(e)
+    expect(screen.queryByRole('button', { name: ANOTHER })).toBeNull()
   })
 
   test('starting "Run it for me" cancels the request', async () => {

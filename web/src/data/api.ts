@@ -88,7 +88,7 @@ export function chat(body: ChatRequest) {
   return call<{ answer: string }>('/chat', body)
 }
 
-export interface ExplainRequestBody { tkey: string; lang: 'en' | 'ar' }
+export interface ExplainRequestBody { tkey: 'stroke' | 'fall' | 'hypo' | 'hf'; lang: 'en' | 'ar' }
 
 /** Live wording for the teach card's explanation; `502 AGENT_FAILED` when respond-agent or Claude fails. */
 export function explain(body: ExplainRequestBody, signal?: AbortSignal) {
