@@ -3,7 +3,7 @@
 import type { TeachSet } from './types'
 
 /** Teach-back sets. `en` and `ar` are both present in both locale files: the English / Arabic switch inside the overlay is
- * independent of the app language. Arabic uses `{{nar}}` / `{{addrar}}` (the Arabic spellings). `facts` feeds the live-AI prompt. The correct option is always index 1. */
+ * independent of the app language. Arabic uses `{{nar}}` / `{{addrar}}` (the Arabic spellings). `facts` mirrors respond-agent `explain.FACTS` (a pytest keeps them equal). The correct option is always index 1. */
 export const TEACH: Record<'stroke' | 'fall' | 'hypo' | 'hf' | 'child_speech' | 'dm' | 'bone' | 'prev_ok' | 'prev_ref', TeachSet> = {
   stroke: {
     facts: 'teach.stroke.facts',
