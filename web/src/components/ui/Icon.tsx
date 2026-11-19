@@ -154,7 +154,7 @@ export function Icon({ name, tint }: { name: IconName; tint?: boolean }) {
       </svg>
     )
   }
-  const inner = ICONS[name]
+  const inner = ICONS[name as DrawnIconName]
   if (!inner) return null
   return (
     <svg

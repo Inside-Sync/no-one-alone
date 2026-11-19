@@ -26,4 +26,9 @@ export const EMOJI: Partial<Record<IconName, string>> = {
   turtle: '🐢', tv: '📺', type: '🔤', 'user-round': '🧑', users: '👨‍👩‍👧', utensils: '🍽️', 'volume-2': '🔊',
   'volume-x': '🔇', waves: '🌊', wheat: '🌾', wine: '🍷',
   baby: '👶', car: '🚗', droplet: '🩸', globe: '🌍', 'graduation-cap': '🎓', salad: '🥗', star: '⭐',
+  // "Noa · family health" panel (prototype emoji; names that clash with the app's own keep an `fh-` prefix).
+  grandma: '👵', grandpa: '👴', dad: '👨', mum: '👩', son: '👦', daughter: '👧', orchestrator: '🎼', puzzle: '🧩', xray: '🩻',
+  landmark: '🏛️', conductor: '🎼', 'fh-search': '🔎', 'fh-walk': '🚶', 'fh-stop': '⛔', 'arrow-up': '⬆️', family: '👪',
+  recall: '🔁', child: '🧒', dna: '🧬', 'mic-studio': '🎙️', 'point-right': '👉', 'book-blue': '📘', bust: '👤',
+  'red-circle': '🔴', link: '🔗', 'lock-key': '🔐', 'fh-heart': '❤', 'fh-hospital': '🏥',
 }

@@ -11,7 +11,7 @@ import { ReviewPage } from './hospital/review/ReviewPage'
 import { AroundPage } from './individual/around/AroundPage'
 import { DevicePage } from './individual/device/DevicePage'
 import { HealthPage } from './individual/health/HealthPage'
-import { LineagePage } from './individual/lineage/LineagePage'
+import { FamilyHealthPage } from './familyHealth/ui/FamilyHealthPage'
 import { LivePage } from './individual/live/LivePage'
 import { MePage } from './individual/me/MePage'
 import { RecordPage } from './individual/record/RecordPage'
@@ -19,7 +19,8 @@ import { TreatmentPage } from './individual/treatment/TreatmentPage'
 
 /**
  * Page registry: `${view}/${page}` -> component, one entry for every route in `allRoutes()`.
- * `hospital/review` and `individual/live` are routed pages without a tab of their own.
+ * `hospital/review` and `individual/live` are routed pages without a tab of their own. `individual/lineage` (the Family health
+ * tab) is the "Noa · family health" panel; the old Health Lineage page stays in the code, unmounted.
  */
 export const PAGE_REGISTRY: Record<string, ComponentType> = {
   'individual/me': MePage,
@@ -27,7 +28,7 @@ export const PAGE_REGISTRY: Record<string, ComponentType> = {
   'individual/record': RecordPage,
   'individual/treatment': TreatmentPage,
   'individual/around': AroundPage,
-  'individual/lineage': LineagePage,
+  'individual/lineage': FamilyHealthPage,
   'individual/device': DevicePage,
   'individual/live': LivePage,
   'hospital/overview': OverviewPage,

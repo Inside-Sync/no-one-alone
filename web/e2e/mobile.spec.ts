@@ -30,7 +30,7 @@ for (const c of routeCases()) {
   })
 }
 
-test("360px: Moza's seven-tab bar scrolls inside nav, not the page", async ({ page }) => {
+test("360px: Moza's tab bar scrolls inside nav, not the page", async ({ page }) => {
   await openPage(page, { view: 'individual', page: 'me', who: 'self' })
   const tabs = page.locator('nav.tabs')
   const m = await tabs.evaluate((e) => ({ ox: getComputedStyle(e).overflowX, sw: e.scrollWidth, cw: e.clientWidth, right: e.getBoundingClientRect().right }))
@@ -38,10 +38,10 @@ test("360px: Moza's seven-tab bar scrolls inside nav, not the page", async ({ pa
   expect(m.sw).toBeGreaterThan(m.cw)
   expect(m.right).toBeLessThanOrEqual(360)
   // The last tab can be scrolled into view and used.
-  const last = page.getByRole('button', { name: /My phone/ })
+  const last = page.getByRole('button', { name: /My care record/ })
   await last.scrollIntoViewIfNeeded()
   await last.click()
-  await expect(page).toHaveURL(/\/individual\/device$/)
+  await expect(page).toHaveURL(/\/individual\/record$/)
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360)
 })
 

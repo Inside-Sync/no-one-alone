@@ -8,6 +8,7 @@ import { NIGHT_DEMO } from '@/features/individual/live/nightDemo'
 import type { LiveIncidentValue } from '@/state/LiveIncident'
 import { mockCanvas, mockLayout, mockRaf } from '../../canvas/fakeCtx'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
+import { withLegacyUi } from '../../helpers/legacyUi'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/live/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
@@ -240,3 +241,6 @@ describe('step 3 brings her phone into view', () => {
     expect(spy).not.toHaveBeenCalled()
   })
 })
+
+// The top bar's Night alert demo is hidden by the redesign; these tests turn it back on.
+withLegacyUi()

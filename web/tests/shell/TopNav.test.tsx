@@ -4,6 +4,7 @@ import { AppStateProvider, useAppState } from '@/state/AppState'
 import { ToastProvider } from '@/components/ui/Toast'
 import { TopNav } from '@/components/shell/TopNav'
 import { TourProvider } from '@/state/Tour'
+import { withLegacyUi } from '../helpers/legacyUi'
 
 let mockPath = '/individual/me/'
 const push = vi.fn((to: string) => { mockPath = to })
@@ -189,3 +190,6 @@ test('the night alert demo is a switch: on starts the emergency, off ends it and
   expect(sw).toHaveAttribute('aria-checked', 'false')
   expect(document.body.classList.contains('night')).toBe(false)
 })
+
+// These tests drive the old Test case entry points and header demos, which the redesign hides by default.
+withLegacyUi()

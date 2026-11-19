@@ -19,8 +19,11 @@ const CALLS_HER_MUM = new Set(['james', 'sarah'])
 interface Msg extends ChatTurn { local?: boolean }
 interface Log { key: string; msgs: Msg[]; waiting: boolean }
 
-/** "Ask Noa" button and the chat panel (UI spec 1.1 to 1.7); answers come from `POST /api/chat`. */
-export function ChatPanel() {
+/**
+ * "Ask Noa" button and the chat panel (UI spec 1.1 to 1.7); answers come from `POST /api/chat`. With `fab={false}` the
+ * floating button is not drawn (the redesign hides it on every view); the panel still opens from `openChat()`.
+ */
+export function ChatPanel({ fab: showFab = true }: { fab?: boolean } = {}) {
   const { t } = useTranslation('chat')
   const { view } = parsePath(usePathname())
   const { who, viewer, people } = useAppState()
@@ -122,9 +125,9 @@ export function ChatPanel() {
           <button className="btn sm" type="submit" disabled={cur.waiting}>{t('send')}</button>
         </form>
       </aside>
-      <button ref={fab} type="button" className={open ? 'chat-fab hide' : 'chat-fab'} aria-expanded={open} tabIndex={open ? -1 : undefined} aria-label={t('fab')} onClick={() => setOpen(true)}>
+      {showFab && <button ref={fab} type="button" className={open ? 'chat-fab hide' : 'chat-fab'} aria-expanded={open} tabIndex={open ? -1 : undefined} aria-label={t('fab')} onClick={() => setOpen(true)}>
         <AgentOrb size={40} alert={busy} /><span>{t('fab')}</span><i className="live" />
-      </button>
+      </button>}
     </>
   )
 }
