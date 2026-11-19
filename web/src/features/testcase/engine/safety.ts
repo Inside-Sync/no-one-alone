@@ -23,19 +23,16 @@ export function runLen(read: number[], mv: number[]): number {
   return k
 }
 
-/**
- * The decision ladder after the speech check and the answer (R5 to R11), exactly the prototype's order. Returns the journey, or
- * null for "stand down" (answered clearly, speech normal).
- */
+/** The decision ladder (R5 to R11): every 998 line before the home lines. Returns the journey, or null for "stand down". */
 export function choosePath(tr: Triggers, sp: SpeechResult, ans: string | null): JourneyId | null {
   const noAns = !sp.said || ans === 'none'
   const sRed = sp.lvl === 'red'
+  // 998 lines first: one danger sign is enough, and a second sign never lowers the response.
   if (tr.hypo && (sRed || noAns || ans === 'confused')) return 'hypo_em'
-  if (tr.hypo) return 'hypo_home'
   if (tr.fall && (ans === 'cant' || noAns)) return 'fall_em'
-  if (tr.hf && noAns) return 'hf_em'
-  if (sRed || (tr.hr && noAns)) return 'stroke_em'
+  if (sRed || noAns) return 'stroke_em'
   if (tr.spo2c || ans === 'rest') return 'hf_em'
+  if (tr.hypo) return 'hypo_home'
   if (tr.fall) return 'fall_minor'
   if (tr.hf) return 'hf_clinic'
   return null
