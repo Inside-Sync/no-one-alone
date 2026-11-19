@@ -79,7 +79,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
@@ -232,7 +232,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
@@ -340,7 +340,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
@@ -445,7 +445,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
@@ -549,7 +549,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
@@ -665,7 +665,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
@@ -790,7 +790,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
@@ -901,7 +901,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
@@ -998,7 +998,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
@@ -1079,7 +1079,7 @@
     "AG-6|Noa Forecast|Risk prediction agent|Combine signals into a validated risk score and a what-if forecast|Diagnose, or score someone the model was not built for",
     "AG-5|Noa Insight|Clinical context agent|Link results with home history, suggest screening|Make a diagnosis",
     "AG-4|Noa Courier|Records and handover agent|Build packets, file notes, turn summaries into plans|Edit what a clinician wrote",
-    "AG-3|Noa Responder|Emergency coordination agent|Call family and 998, stay on the line|Change the script or give medical advice",
+    "AG-3|Noa Responder|Emergency coordination agent|Call 998 and family, stay on the line|Change the script or give medical advice",
     "AG-2|Noa Voice|Check-in and speech agent|Talk with the person, run the speech check|Decide treatment",
     "AG-1|Noa Guardian|Monitoring agent|Watch readings, apply the rules, raise alerts|Diagnose, or call 998 itself"
    ],
