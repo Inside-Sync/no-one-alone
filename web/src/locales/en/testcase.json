@@ -1555,7 +1555,7 @@
     "responder": {
       "n": "Responder",
       "role": "Emergency coordination agent",
-      "can": "Call family and 998, stay on the line",
+      "can": "Call 998 and family, stay on the line",
       "cannot": "Change the script or give medical advice",
       "story": "Responder calls 998 first, then follows the call list each family agreed in advance: who has a key, who is nearest. It reads a fixed script that clinicians approved and hands every 998 call to a human operator. It never improvises."
     },
@@ -1644,7 +1644,7 @@
         {
           "title": "Noa calls for help",
           "hold": "Responder → 998",
-          "text": "Noa calls 998 first, then follows the call list {{n}} and {{her}} family agreed when {{she}} joined. {{Her}} emergency rule says: always share.",
+          "text": "Noa calls 998 and, at the same time, follows the call list {{n}} and {{her}} family agreed when {{she}} joined. {{Her}} emergency rule says: always share.",
           "done": "Help is on the way.",
           "decides": "The 998 operator sends the ambulance.",
           "agents": {
