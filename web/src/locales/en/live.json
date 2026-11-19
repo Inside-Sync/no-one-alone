@@ -203,7 +203,7 @@
       "help": ""
     },
     {
-      "d": "Hamad and you are alerted",
+      "d": "Noa calls 998 · Hamad and you are alerted",
       "s": "Alia in London gets updates",
       "own": [
         "Hamad · alerted",
@@ -212,7 +212,7 @@
       ],
       "what": "",
       "sub": "",
-      "q": "I've called Hamad.",
+      "q": "I've called 998 and Hamad.",
       "small": "",
       "help": ""
     },
@@ -231,7 +231,7 @@
       "help": "Hamad · 6 min away"
     },
     {
-      "d": "You call 998 with the prepared script",
+      "d": "Ambulance on its way · Noa gave the prepared script",
       "s": "Address, age, symptoms, medicines, access",
       "own": [
         "",
@@ -240,7 +240,7 @@
       ],
       "what": "",
       "sub": "",
-      "q": "Khalid is calling an ambulance.",
+      "q": "An ambulance is on its way.",
       "small": "",
       "help": "Hamad · 5 min away"
     },

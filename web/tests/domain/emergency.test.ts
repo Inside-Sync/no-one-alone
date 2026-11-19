@@ -101,8 +101,26 @@ test('orbit targets map the steps onto the prototype modes', () => {
   expect(orbitTargets(0)).toEqual({ mode: 'check', app: 0, call: 0, hosp: 0, arrived: 0 })
   expect(orbitTargets(2).mode).toBe('check')
   expect(orbitTargets(3).mode).toBe('sos')
-  expect(orbitTargets(4)).toMatchObject({ call: 0.35 })
+  expect(orbitTargets(3)).toMatchObject({ call: 0 })
+  expect(orbitTargets(4)).toMatchObject({ call: 1 })
   expect(orbitTargets(6)).toMatchObject({ call: 1, hosp: 0 })
   expect(orbitTargets(7)).toMatchObject({ hosp: 1, arrived: 0, app: 0.58 })
   expect(orbitTargets(9)).toEqual({ mode: 'sos', app: 1, call: 1, hosp: 1, arrived: 1 })
+})
+
+test('night demo: Noa calls 998 at the decision step, the ambulance is on its way by 02:06', () => {
+  expect(STEPS[4]).toMatchObject({ t: '02:04', d: 'Noa calls 998 · Hamad and you are alerted', e: { q: "I've called 998 and Hamad." } })
+  expect(STEPS[6]).toMatchObject({ t: '02:06', d: 'Ambulance on its way · Noa gave the prepared script', e: { q: 'An ambulance is on its way.' } })
+})
+
+test('night demo in Arabic: step 4 names 998 before Hamad', async () => {
+  await i18n.changeLanguage('ar')
+  try {
+    const d = emSteps()[4].d
+    expect(d).toContain('حمد')
+    expect(d.indexOf('998')).toBeGreaterThanOrEqual(0)
+    expect(d.indexOf('998')).toBeLessThan(d.indexOf('حمد'))
+  } finally {
+    await i18n.changeLanguage('en')
+  }
 })
