@@ -411,7 +411,7 @@ describe('with the real i18next instance', () => {
     for (const lng of ['en', 'ar']) {
       const rt = real(lng)
       expect(rt('teach.stroke.en.opts.1', { skipInterpolation: true })).toBe('Twice a day, every day, and never stop it on my own')
-      const responder = rt('journeys.stroke_em.steps.0.agents.responder.1', { skipInterpolation: true })
+      const responder = rt('journeys.stroke_em.steps.0.agents.responder.0', { skipInterpolation: true })
       if (lng === 'en') expect(responder).toBe('Calls 998 with the fixed script; a human operator takes over')
       else expect(responder).toMatch(/998/)
       expect(rt('teach.stroke.ar.opts.1', { skipInterpolation: true })).toBe('مرتين يوميًا كل يوم، دون إيقافه')

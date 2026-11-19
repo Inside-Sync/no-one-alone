@@ -64,6 +64,7 @@ describe('home (step 0)', () => {
     expect(screen.getByText(/Noa’s decision · R5/)).toBeInTheDocument()
     expect(screen.getByText('Right action, right time?')).toBeInTheDocument()
     expect(screen.getAllByText(/998 called at/).length).toBeGreaterThan(0)
+    expect(screen.getByText('998 (UAE ambulance) called at 01:34. The rest of the journey follows.')).toBeInTheDocument()
     const table = screen.getByRole('table')
     const rows = within(table).getAllByRole('row')
     expect(rows.filter((r) => r.className === 'hit').length).toBeGreaterThan(0)

@@ -948,10 +948,8 @@ export class TestCaseEngine {
     else this.task(S.clock, r.title, r.detail)
     this.log(st.mode === 'hosp' ? 'RECORD' : 'STEP', st.mode === 'hosp' ? 'noa' : 'is', T('common.dotPair', { a: r.title, b: r.detail }))
     S.prog[S.step] = k + 1
-    if (k + 1 >= it.length) {
-      this.markDone()
-      if (S.step === 1 && S.dec?.path && /_em$/.test(S.dec.path)) this.audit(this.actor('responder'), T('audit.call998'), T('audit.operatorTook'))
-    }
+    if (k === 0 && S.step === 1 && S.dec?.path && /_em$/.test(S.dec.path)) this.audit(this.actor('responder'), T('audit.call998'), T('audit.operatorTook'))
+    if (k + 1 >= it.length) this.markDone()
     this.emit()
   }
   /** Button step ("act as the care team"). */

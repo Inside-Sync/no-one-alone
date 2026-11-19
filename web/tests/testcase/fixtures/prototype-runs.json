@@ -646,9 +646,9 @@
    "02:24RECORDArrival · NIHSS 6 · Right arm weakness, slurred speech. BP 168/96, glucose 6.4.",
    "02:07ACTActivate the stroke team · Stroke team activated. CT room held.",
    "01:36STEPVoice to Moza · “Help is coming. Stay seated. Don’t eat or drink.”",
-   "01:36STEPResponder calls 998 · operator takes over · Ambulance dispatched",
    "01:35STEPResponder calls Hamad (brother), 450 m away · On the way",
    "01:34STEPResponder calls Khalid (son, Al Ain) · No answer",
+   "01:34STEPResponder calls 998 · operator takes over · Ambulance dispatched",
    "01:34DECIDENoa agents decide · R5 → Emergency: possible stroke",
    "01:32CHECKNoa Voice · speech check: clearly changed (score 0.33)",
    "01:32ASKNoa Voice calls Moza: “Moza, are you all right? I noticed your heart racing.”",
@@ -694,9 +694,9 @@
     "T-06|28 Oct 09:30|Review the perindopril dose (the clinician decides)|done; Noa Coach explained the change and checked understanding",
     "T-05|17 Oct 11:05|Plan in the phone app: New medicines: apixaban 5 mg twice a day, perindopril 4 mg, atorvastatin 40 mg. Physio, speech therapy ×6, stroke clinic in 6 weeks.|delivered · visible to Khalid, Hamad",
     "T-04|15 Oct 01:36|Voice to Moza|“Help is coming. Stay seated. Don’t eat or drink.”",
-    "T-03|15 Oct 01:36|Responder calls 998 · operator takes over|Ambulance dispatched",
-    "T-02|15 Oct 01:35|Responder calls Hamad (brother), 450 m away|On the way",
-    "T-01|15 Oct 01:34|Responder calls Khalid (son, Al Ain)|No answer"
+    "T-03|15 Oct 01:35|Responder calls Hamad (brother), 450 m away|On the way",
+    "T-02|15 Oct 01:34|Responder calls Khalid (son, Al Ain)|No answer",
+    "T-01|15 Oct 01:34|Responder calls 998 · operator takes over|Ambulance dispatched"
    ],
    "encounters": [
     "E-09|16 Oct 09:20|Screening|Family screening · Noa Insight offers Khalid a blood pressure and rhythm check in his own app.|Corniche Stroke Centre",
@@ -715,7 +715,7 @@
    "audit": [
     "A-06|31 Oct 09:00|Hospital|Monthly report sent|Stroke pathway",
     "A-05|15 Oct 02:07|Hospital|Activate the stroke team|Stroke team activated. CT room held.",
-    "A-04|15 Oct 01:36|Noa Responder|998 call|Operator took over",
+    "A-04|15 Oct 01:34|Noa Responder|998 call|Operator took over",
     "A-03|15 Oct 01:34|Noa|Decision R5|Emergency: possible stroke",
     "A-02|15 Oct 01:32|Noa Guardian|Rule R1 met|heart rate above 120 for 10 min while still",
     "A-01|15 Oct 01:12|system|Case loaded|Moza Al Hammadi · Stroke at night"
@@ -771,9 +771,9 @@
    "04:05RECORDArrival · Right leg short and turned out. Pain 8 out of 10.",
    "03:45ACTPrepare a head CT and hip X-ray · Head CT and hip X-ray ready on arrival.",
    "03:22STEPVoice to Hessa · “Don’t try to get up. Noura is coming. Stay warm.”",
-   "03:22STEPResponder calls 998 · operator takes over · Ambulance dispatched",
    "03:21STEPResponder calls Noura (neighbour, has a key), 60 m away · Coming with the key",
    "03:20STEPResponder calls Saif (son, night shifts) · No answer",
+   "03:20STEPResponder calls 998 · operator takes over · Ambulance dispatched",
    "03:20DECIDENoa agents decide · R7 → Emergency: fall, can’t get up",
    "03:18CHECKNoa Voice · speech check: as usual (score 1.00)",
    "03:18ASKNoa Voice calls Hessa: “Hessa, I felt a hard fall. Can you get up on your own?”",
@@ -819,9 +819,9 @@
     "T-06|29 Oct 10:00|Review amlodipine (may stop it) (the clinician decides)|done; Noa Coach explained the change and checked understanding",
     "T-05|20 Oct 11:20|Plan in the phone app: Home with a walking frame, physio at home 3 times a week, apixaban restarted, motion lights fitted.|delivered · visible to Saif, Noura",
     "T-04|15 Oct 03:22|Voice to Hessa|“Don’t try to get up. Noura is coming. Stay warm.”",
-    "T-03|15 Oct 03:22|Responder calls 998 · operator takes over|Ambulance dispatched",
-    "T-02|15 Oct 03:21|Responder calls Noura (neighbour, has a key), 60 m away|Coming with the key",
-    "T-01|15 Oct 03:20|Responder calls Saif (son, night shifts)|No answer"
+    "T-03|15 Oct 03:21|Responder calls Noura (neighbour, has a key), 60 m away|Coming with the key",
+    "T-02|15 Oct 03:20|Responder calls Saif (son, night shifts)|No answer",
+    "T-01|15 Oct 03:20|Responder calls 998 · operator takes over|Ambulance dispatched"
    ],
    "encounters": [
     "E-09|16 Oct 12:00|Screening|Bone health and home · Osteoporosis treatment reviewed. Noa Insight books motion lights for the bathroom route.|Capital General Hospital",
@@ -840,7 +840,7 @@
    "audit": [
     "A-06|1 Nov 09:00|Hospital|Monthly report sent|Falls pathway",
     "A-05|15 Oct 03:45|Hospital|Prepare a head CT and hip X-ray|Head CT and hip X-ray ready on arrival.",
-    "A-04|15 Oct 03:22|Noa Responder|998 call|Operator took over",
+    "A-04|15 Oct 03:20|Noa Responder|998 call|Operator took over",
     "A-03|15 Oct 03:20|Noa|Decision R7|Emergency: fall, can’t get up",
     "A-02|15 Oct 03:18|Noa Guardian|Rule R2 met|fall detected, still on the floor after 2 min",
     "A-01|15 Oct 03:05|system|Case loaded|Hessa Al Ketbi · Fall in the night"

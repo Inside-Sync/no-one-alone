@@ -326,7 +326,7 @@
     },
     "to998": {
       "label": "Minutes from alert to the 998 call",
-      "note": "From the voice check to the call, on the engine’s clock."
+      "note": "From the voice check (or the second low recheck) to the call, on the engine’s clock."
     },
     "teach": {
       "label": "Teach-back right the first time",

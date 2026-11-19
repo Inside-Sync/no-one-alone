@@ -1,6 +1,7 @@
 import { CASES, CASE_GROUPS, JOURNEYS, REPORT } from '@/features/testcase/data'
 import { DB_TABLES, TestCaseEngine, famScore, runAutopilot, type CaseId } from '@/features/testcase/engine'
 import runs from './fixtures/prototype-runs.json'
+import { computeKpis } from '@/features/testcase/ui/judges/kpis'
 import { auto, make, t, text } from './helpers'
 
 /**
@@ -8,6 +9,7 @@ import { auto, make, t, text } from './helpers'
  * (new3.html) showed after the same run in a browser: stepper, table sizes, the event log and the rows of the demo database.
  * The engine must give the same, line for line.
  */
+// 998 now: the emergency journeys call 998 before the family, unlike the prototype.
 const IDS = ['family', 'wellchild', 'ifhas', 'expat', 'bone', 'stroke', 'fall', 'hypo', 'hf', 'own'] as const
 type Run = { steps: string[]; db: Record<string, number>; log: string[]; rows: Record<string, string[]>; kpi: string[] }
 const RUNS = runs as unknown as Record<CaseId, Run>
@@ -148,6 +150,17 @@ describe('journeys of the safety cases', () => {
       ['stroke_em', 3], ['fall_em', 3], ['fall_minor', 1], ['hypo_home', 1], ['hypo_em', 3], ['hf_clinic', -1], ['hf_em', -1],
     ])
   })
+  test('every emergency journey calls 998 first, at the decision', () => {
+    for (const id of ['stroke_em', 'fall_em', 'hypo_em', 'hf_em'] as const) {
+      const items = JOURNEYS[id].steps[0].items!
+      expect(items.findIndex((it) => t(it.title).includes('998'))).toBe(0)
+      expect(items[0].at).toBe(0)
+    }
+  })
+  test('the stroke run stamps the 998 call at the decision', () => {
+    const { e } = auto('stroke')
+    expect(e.db.audit.find((r) => text(e, r.event) === '998 call')?.at).toBe('15 Oct 01:34')
+  })
   test('the stroke packet depends on the blood thinner: Moza has none, Hessa takes apixaban', () => {
     const moza = make('stroke')
     const rows = (e: TestCaseEngine, i: number) => e.packet(JOURNEYS.stroke_em.steps[i]).map((r) => `${text(e, r.title)}: ${text(e, r.detail)}`)
@@ -182,6 +195,8 @@ describe('journeys of the safety cases', () => {
     expect(e.S.tAct).toBe(tAct + 30)
     expect(e.S.done).toEqual({})
     expect(e.decisionChecks().map((c) => text(e, c))).toContain('Two rechecks stayed below 4.0, so Responder called 998 at once')
+    expect(e.decisionChecks().map((c) => text(e, c))).toContain('998 called at 03:23, 0 min after the second low recheck (target ≤ 3)')
+    expect(computeKpis(e).to998).toEqual({ state: 'ready', a: 0, b: 1 })
     expect(e.db.alerts.at(-1)).toMatchObject({ level: 'red' })
     expect(e.cur().kind).toBe('tl')
   })
