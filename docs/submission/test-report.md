@@ -125,7 +125,7 @@ The same rules should give the same answers however a scenario is tagged. The 99
 
 **Tough cases** are the scenarios with missing values, values that cannot be real, contradictory answers, typed speech with typos or in the wrong language, and values at the very edge of the plausible range. There are 61; 61 match (100% (95% CI 94.1% to 100%; 61 of 61)). The input guardrail refuses a missing or implausible sensor or screening value (the previous valid value stays, the run waits for a valid one); family profile and result values are kept inside their range with a warning.
 
-**Found by this benchmark and fixed in the engine** (the scenarios now match):
+**Found and fixed in the engine** (the scenarios now match):
 
 - T-glu-02 and T-glu-40 (safety): an implausible glucose (0.2 or 40 mmol/L) typed for a person with diabetes was not held back, because the "glucose sensor is missing" warning hid the refusal and the run went ahead with the sensor treated as off. An implausible value is now always a required issue that blocks the run, whatever other warnings are open.
 - C-hf-weight-hypo (labelling): when low sugar (R3) and a weight rise (R4) were met in the same minute the first sensor rule was recorded as R4. It is now recorded by rule priority (R3); the decision (R9) was already right and is unchanged.

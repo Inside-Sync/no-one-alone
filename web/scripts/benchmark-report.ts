@@ -13,7 +13,7 @@ import tc from '../src/locales/en/tcBench.json'
 import testcase from '../src/locales/en/testcase.json'
 import { BENCH_GROUPS, SCENARIOS, computeMetrics, pct, runAllSync, type Metrics, type Outcome, type Rate, type ScenarioResult } from '../src/features/testcase/bench'
 
-/** Found by the first run of this benchmark and fixed in the engine since; the scenarios now match. Listed in section 7 for honesty. */
+/** Found by this benchmark or a review and fixed in the engine since; the scenarios now match. Listed in section 7 for honesty. */
 export const FIXED: readonly string[] = [
   'T-glu-02 and T-glu-40 (safety): an implausible glucose (0.2 or 40 mmol/L) typed for a person with diabetes was not held back, because the "glucose sensor is missing" warning hid the refusal and the run went ahead with the sensor treated as off. An implausible value is now always a required issue that blocks the run, whatever other warnings are open.',
   'C-hf-weight-hypo (labelling): when low sugar (R3) and a weight rise (R4) were met in the same minute the first sensor rule was recorded as R4. It is now recorded by rule priority (R3); the decision (R9) was already right and is unchanged.',
@@ -86,7 +86,7 @@ export function buildReport(results: readonly ScenarioResult[]): string {
   const tough = results.filter((r) => r.scenario.tags.level === 'tough')
   p('## 7. Tough cases and the differences found',
     `**Tough cases** are the scenarios with missing values, values that cannot be real, contradictory answers, typed speech with typos or in the wrong language, and values at the very edge of the plausible range. There are ${tough.length}; ${tough.filter((r) => r.pass).length} match (${ci(m.subgroups.level.tough)}). The input guardrail refuses a missing or implausible sensor or screening value (the previous valid value stays, the run waits for a valid one); family profile and result values are kept inside their range with a warning.`)
-  p('**Found by this benchmark and fixed in the engine** (the scenarios now match):', FIXED.map((f) => `- ${f}`).join('\n'))
+  p('**Found and fixed in the engine** (the scenarios now match):', FIXED.map((f) => `- ${f}`).join('\n'))
   if (m.failures.length === 0) p('**No differences.** Every scenario matches the rule table.')
   else {
     p('**Differences between the rule table and the engine** (expected, what Noa did, where it diverged first):')
