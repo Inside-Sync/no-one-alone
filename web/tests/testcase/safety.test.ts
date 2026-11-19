@@ -278,3 +278,35 @@ describe('the 998 packet carries low sugar when another rule leads', () => {
     expect(rows(noSensor, 'hf_em').some((r) => r.startsWith('Glucose'))).toBe(false)
   })
 })
+
+describe('hypo_em copy follows the person, not Saeed', () => {
+  const copy = (e: TestCaseEngine) => {
+    const [s0, , s2] = JOURNEYS.hypo_em.steps
+    return [
+      text(e, { k: s0.agents.find((a) => a.agent === 'responder')!.lines[1] }),
+      text(e, e.items(s0)[1].detail),
+      text(e, e.items(s0)[2].detail),
+      text(e, { k: s0.fam!.text }),
+      text(e, e.items(s2)[2].detail),
+    ]
+  }
+  test('Mariam in "own" (glucose 2.7, confused) and Saeed', () => {
+    const mariam = run({ id: '', pk: 'mariam', inp: { glu: 2.7 }, glus: true, speech: 'usual', ans: 'confused', rule: 'R6', path: 'hypo_em' })
+    expect(mariam.S.dec?.path).toBe('hypo_em')
+    expect(copy(mariam).slice(0, 4)).toEqual([
+      'At the same time wakes Ahmed with a loud phone alarm',
+      '“She won’t wake properly.”',
+      '“Don’t give food or drink if she can’t swallow. Use the glucagon pen in the drawer.”',
+      'Noa: Mariam’s sugar is very low; ambulance called, Ahmed is with her.',
+    ])
+    expect(copy(mariam)[4]).not.toContain('his')
+    const saeed = run(SCEN.find((s) => s.id.startsWith('s16'))!)
+    expect(copy(saeed)).toEqual([
+      'At the same time wakes Shamsa with a loud phone alarm',
+      '“He won’t wake properly.”',
+      '“Don’t give food or drink if he can’t swallow. Use the glucagon pen in the drawer.”',
+      'Noa: Saeed’s sugar is very low; ambulance called, Shamsa is with him.',
+      'Insulin dose too high for his kidney function.',
+    ])
+  })
+})

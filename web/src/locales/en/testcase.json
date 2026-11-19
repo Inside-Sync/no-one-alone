@@ -2399,7 +2399,7 @@
           "agents": {
             "responder": [
               "Calls 998 with the fixed script; a human operator takes over",
-              "At the same time wakes {{f1s}} with a loud alarm on her phone"
+              "At the same time wakes {{f1s}} with a loud phone alarm"
             ],
             "coach": [
               "Guides {{f1s}} to use the glucagon pen in the drawer"
@@ -2412,11 +2412,11 @@
             },
             {
               "title": "Responder wakes {{f1}}",
-              "detail": "“He won’t wake properly.”"
+              "detail": "“{{She}} won’t wake properly.”"
             },
             {
               "title": "Coach guides {{f1s}}",
-              "detail": "“Don’t give food or drink if he can’t swallow. Use the glucagon pen in the drawer.”"
+              "detail": "“Don’t give food or drink if {{she}} can’t swallow. Use the glucagon pen in the drawer.”"
             },
             {
               "title": "{{f1s}} gives glucagon",
@@ -2429,7 +2429,7 @@
           },
           "fam": {
             "who": "{{f2s}}",
-            "text": "Noa: your father’s sugar is very low; ambulance called, your mother is with him."
+            "text": "Noa: {{n}}’s sugar is very low; ambulance called, {{f1s}} is with {{herO}}."
           }
         },
         {
@@ -2496,7 +2496,7 @@
             },
             {
               "title": "Cause",
-              "detail": "Insulin dose too high for his kidney function."
+              "detail": "Insulin dose too high for {{her}} kidney function."
             },
             {
               "title": "Observed for 6 hours",
