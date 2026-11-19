@@ -55,7 +55,7 @@ The Test case is an overlay in the live web app (`web/src/features/testcase/`). 
 - **No LLM makes a decision.** Scores and routing come from rules. The explanations are prepared text in two languages, labelled "Prepared text". "AI-written" appears only if a live explanation is loaded, and the rules still decide. No live explanation is wired in this build.
 - **Voice:** the speech check uses the browser Web Speech API where it exists (Chrome, Edge). Typing or choosing a sample also works.
 - **Demo database:** ten tables (agents, patients, consents, observations, checkins, alerts, tasks, encounters, reports, audit), kept in memory for the run.
-- **Benchmark** (`bench/`): 249 labelled scenarios, run by the same engine. See [test-report.md](test-report.md).
+- **Benchmark** (`bench/`): 252 labelled scenarios, run by the same engine. See [test-report.md](test-report.md).
 - **Loading:** the Test case text and CSS load only when it is opened, so the main bundle stays smaller.
 
 Why not use the backend for the Test case? The deployed chat service only knows Moza's case, so it cannot explain the other fictional people safely. Fixed text also gives repeatable results for judges.

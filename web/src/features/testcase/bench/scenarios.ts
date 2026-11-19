@@ -179,10 +179,12 @@ function contradictory() {
   c('C-hr-hypo', 'Racing heart for 12 minutes and low sugar 3.5: low sugar is checked first', { person: 'saeed', set: [set('glu', 3.5), set('hr', 138), set('dur', 12)], speech: 'usual', answer: 'drink' }, 'R3', 'R9', 'home-plan')
   c('C-hf-weight-hypo', 'Weight up and low sugar, clear answer: low sugar first', { person: 'saeed', set: [set('glu', 3.5), set('wt', 2.5)], speech: 'usual', answer: 'drink' }, 'R3', 'R9', 'home-plan')
   c('C-hf-slurred', 'Weight up, "3 pillows", but slurred speech', { person: 'mariam', set: [set('wt', 2.4)], speech: 'slurred', answer: 'pillows' }, 'R4', 'R5', 'call-998')
-  c('C-hf-nospeech', 'Weight up, no speech at all (no answer)', { person: 'mariam', set: [set('wt', 2.4)], speech: 'none' }, 'R4', 'R5', 'call-998',
-    'The rule table has no HF row for "no answer", so the generic R5 applies: the decision is 998 either way.')
+  c('C-hf-nospeech', 'Weight up, no speech at all (no answer)', { person: 'mariam', set: [set('wt', 2.4)], speech: 'none' }, 'R4', 'R5', 'call-998')
   c('C-spo2-fine', 'Oxygen 88% but "I feel fine": the number wins', { person: 'mariam', set: [set('spo2', 88)], speech: 'usual', answer: 'fine' }, 'R4', 'R8', 'call-998')
   c('C-hr-moving-hf', 'Heart rate 150 moving (no R1) with weight up 2.5 kg: only R4', { set: [set('hr', 150), set('dur', 15), set('wt', 2.5)], toggles: { still: false }, speech: 'usual', answer: 'fine' }, 'R4', 'R10', 'same-day-clinic')
+  c('C-hypo-fall-cant', 'Low sugar and a fall, "I can\'t get up": the fall makes it 998', { person: 'saeed', set: [set('glu', 2.8), set('floor', 5)], toggles: { fall: true }, speech: 'usual', answer: 'cant' }, 'R3', 'R7', 'call-998')
+  c('C-hypo-spo2', 'Low sugar 2.7 and oxygen 88%, "drinking it now": the oxygen makes it 998', { person: 'saeed', set: [set('glu', 2.7), set('spo2', 88)], speech: 'usual', answer: 'drink' }, 'R3', 'R8', 'call-998')
+  c('C-spo2-slurred', 'Oxygen 85% and slurred speech: possible stroke first', { person: 'mariam', set: [set('spo2', 85)], speech: 'slurred' }, 'R4', 'R5', 'call-998')
 }
 
 /* ---------------------------------------------------------------- night and day: the same case at different times */

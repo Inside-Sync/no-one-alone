@@ -13,17 +13,16 @@ import tc from '../src/locales/en/tcBench.json'
 import testcase from '../src/locales/en/testcase.json'
 import { BENCH_GROUPS, SCENARIOS, computeMetrics, pct, runAllSync, type Metrics, type Outcome, type Rate, type ScenarioResult } from '../src/features/testcase/bench'
 
-/** Found by the first run of this benchmark and fixed in the engine since; the scenarios now match. Listed in section 7 for honesty. */
+/** Found by this benchmark or a review and fixed in the engine since; the scenarios now match. Listed in section 7 for honesty. */
 export const FIXED: readonly string[] = [
   'T-glu-02 and T-glu-40 (safety): an implausible glucose (0.2 or 40 mmol/L) typed for a person with diabetes was not held back, because the "glucose sensor is missing" warning hid the refusal and the run went ahead with the sensor treated as off. An implausible value is now always a required issue that blocks the run, whatever other warnings are open.',
   'C-hf-weight-hypo (labelling): when low sugar (R3) and a weight rise (R4) were met in the same minute the first sensor rule was recorded as R4. It is now recorded by rule priority (R3); the decision (R9) was already right and is unchanged.',
+  'Found in a review of the rule order, not by a benchmark run; two scenarios were added to pin it. C-hypo-fall-cant and C-hypo-spo2 (safety order): low sugar was checked before a fall with "can\'t get up" and before oxygen under 90, so both ended at home treatment (R9). Every 998 line (R6, R7, R5, R8) is now checked before the home lines, so both are now 998. Heart failure with no answer is now R5, as the rule table says; it was already 998.',
   'Prevention result value (no scenario): the result slider value had no plausibility check unlike the other inputs. It is now refused and reported the same way (unit tests in `web/tests/testcase/inputs.test.ts`).',
 ]
 
 /** What the benchmark found about the engine, by scenario id: written once here, shown next to the difference in the report. */
-export const FINDINGS: Record<string, string> = {
-  'C-hf-nospeech': 'Rule table versus engine order. The table has no heart-failure row for "no answer", so the generic R5 (no answer to a check, 998 now) is the literal reading; the engine takes its heart-failure emergency path (R8). The decision is 998 in both, so the critical metric is not affected.',
-}
+export const FINDINGS: Record<string, string> = {}
 
 const en = tc as unknown as Record<string, Record<string, unknown>>
 const label = (group: string, key: string): string => String((en[group] as Record<string, unknown>)[key] ?? key)
@@ -60,7 +59,7 @@ export function buildReport(results: readonly ScenarioResult[]): string {
 
   p('## 3. How it was tested',
     '1. **Synthetic and labelled by hand.** Each scenario is a setup (what the sensors read, what the person says or types, the profile) and an expected outcome written from the published rule table (the sensor rule, the deciding rule, the decision such as "998 now" or "home plan" or "no action", and the agent that takes it). No patient data is used.',
-    '2. **The real engine, one fresh run per scenario.** The runner drives a new `TestCaseEngine` for each scenario, with no timers: the playback and the pipeline are drained, exactly as the "Run it for me" autopilot does. The engine\'s sensor noise (about 3 beats a minute) is switched off so that the heart rate typed in is the reading; with the noise on, a value at the edge such as 121 can dip under the threshold.',
+    '2. **The real engine, one fresh run per scenario.** The runner drives a new `TestCaseEngine` for each scenario, with no timers: the playback and the pipeline are drained, exactly as the "Run it for me" autopilot does. The engine\'s sensor noise (about 3 beats a minute) is switched off so that the heart rate typed in is the reading; the noise in the demo never crosses the 120 line, so both give the same answer.',
     '3. **What "match" means.** The sensor rule (R1 to R4), the speech check level when it is part of the case, the deciding rule, the decision, the agent and, where it applies, the routing or the warning all agree with the expectation. On a difference the run records the first step and the agent where Noa diverged: input check, sensor rule (Noa Guardian), speech check (Noa Voice), decision (Noa).',
     '4. **Intervals.** Every percentage comes with a 95% Wilson score interval (z = 1.96). "Sensitivity" is the share of scenarios the table sends to 998 that Noa sent to 998; "specificity" is the share of the others that Noa kept out of 998.')
 
@@ -87,7 +86,7 @@ export function buildReport(results: readonly ScenarioResult[]): string {
   const tough = results.filter((r) => r.scenario.tags.level === 'tough')
   p('## 7. Tough cases and the differences found',
     `**Tough cases** are the scenarios with missing values, values that cannot be real, contradictory answers, typed speech with typos or in the wrong language, and values at the very edge of the plausible range. There are ${tough.length}; ${tough.filter((r) => r.pass).length} match (${ci(m.subgroups.level.tough)}). The input guardrail refuses a missing or implausible sensor or screening value (the previous valid value stays, the run waits for a valid one); family profile and result values are kept inside their range with a warning.`)
-  p('**Found by this benchmark and fixed in the engine** (the scenarios now match):', FIXED.map((f) => `- ${f}`).join('\n'))
+  p('**Found and fixed in the engine** (the scenarios now match):', FIXED.map((f) => `- ${f}`).join('\n'))
   if (m.failures.length === 0) p('**No differences.** Every scenario matches the rule table.')
   else {
     p('**Differences between the rule table and the engine** (expected, what Noa did, where it diverged first):')
@@ -111,7 +110,7 @@ export function buildReport(results: readonly ScenarioResult[]): string {
   p('## 9. Limits, in plain words',
     '- The scenarios are synthetic and few. A high score on made-up cases says that Noa follows its rules; it says nothing about how often the rules are right for real people.',
     '- The expected outcomes come from the published rule table and the prototype\'s demo thresholds, which are not clinical guidance. The labels were written by the team, not by an independent clinician, so a mistake in the table is copied into the labels.',
-    '- The sensor playback is simulated and the sensor noise is off for the boundary cases; real devices will not give clean values.',
+    '- The sensor playback is simulated; its noise never crosses the R1 line and is off in the benchmark. Real devices will not give clean values.',
     '- The speech check is a demo score (words matched and time taken), not a validated stroke test.',
     '- Noa is decision support, not a diagnosis: the doctor decides.')
 

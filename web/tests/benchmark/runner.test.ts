@@ -2,13 +2,8 @@ import { SCENARIOS, computeMetrics, diverge, runAll, runAllSync, runScenario, ty
 
 const byId = (id: string): Scenario => SCENARIOS.find((s) => s.id === id)!
 
-/**
- * Differences between the rule table and the engine that the benchmark found (see the report): they are listed, not fixed, by the benchmark.
- * When the engine changes, this list must change with it.
- */
-const KNOWN = [
-  'C-hf-nospeech', // weight up and no answer: the engine says R8, the rule table's only "no answer" row is R5 (documented rule-table note)
-]
+/** Differences between the rule table and the engine; must change with the engine. */
+const KNOWN: string[] = []
 
 const all = runAllSync(SCENARIOS)
 

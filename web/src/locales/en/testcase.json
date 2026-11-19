@@ -207,7 +207,7 @@
       "then": "Treat as a possible stroke: 998 now (low sugar checked first)"
     },
     "R6": {
-      "when": "Low sugar plus no answer or a confused answer",
+      "when": "Low sugar plus no answer, a confused answer, or a speech score below 0.6",
       "then": "998 now, family guided to the glucagon pen"
     },
     "R7": {
@@ -219,7 +219,7 @@
       "then": "998 now"
     },
     "R9": {
-      "when": "Low sugar, answering clearly",
+      "when": "Low sugar, answering clearly, and no other emergency sign",
       "then": "Fast sugar at home, recheck in 15 minutes, doctor in the morning"
     },
     "R10": {
@@ -227,7 +227,7 @@
       "then": "Heart failure nurse the same day (not 998)"
     },
     "R11": {
-      "when": "Got up after a fall, speech normal",
+      "when": "Got up after a fall, speech score 0.6 or higher",
       "then": "No ambulance; fall-risk review within 7 days"
     },
     "R12": {
