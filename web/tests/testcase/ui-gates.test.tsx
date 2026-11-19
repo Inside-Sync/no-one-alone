@@ -1,8 +1,9 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { runAutopilot, type CaseId, type TestCaseEngine } from '@/features/testcase/engine'
+import { StepCard } from '@/features/testcase/ui/app/StepCard'
 import { GateStrip, gateStates, type GateId } from '@/features/testcase/ui/app/Gates'
 import { DbPanel, LogPanel } from '@/features/testcase/ui/app/Panels'
-import { dbProv, logProv } from '@/features/testcase/ui/app/Provenance'
+import { ProvLine, dbProv, logProv } from '@/features/testcase/ui/app/Provenance'
 import { SpeechResultView, usualScore } from '@/features/testcase/ui/kinds/safety/SpeechCheck'
 import type { TestCaseSession } from '@/features/testcase/ui/app/useTestCaseEngine'
 import { make, text } from './helpers'
@@ -207,5 +208,39 @@ describe('B3 input issues next to the fields', () => {
     expect(screen.getAllByText(/Required/).length).toBeGreaterThan(0)
     expect(screen.getByRole('button', { name: 'Check the passport' })).toBeDisabled()
     expect(engine.getSnapshot().inputIssues.required.length).toBeGreaterThan(0)
+  })
+})
+
+describe('G2 teach card source', () => {
+  it('prepared wording is tagged Prepared text, never AI-written', () => {
+    const { container } = render(<ProvLine kind="teach" />)
+    expect(container).toHaveTextContent('Prepared text')
+    expect(container).not.toHaveTextContent('AI-written')
+    expect(container.querySelector('[data-prov="ai"]')).toBeNull()
+  })
+
+  it('a live explanation is tagged AI-written', () => {
+    const { container } = render(<ProvLine kind="teach" live />)
+    expect(container).toHaveTextContent('AI-written')
+    expect(container).not.toHaveTextContent('Prepared text')
+  })
+
+  it('the step card follows the engine: prepared, live after applyLiveExplain, prepared again after a language switch', () => {
+    const e = make('stroke')
+    advanceTo(e, 'teach')
+    function Card() {
+      const { snap, r } = useEngine(e)
+      return <StepCard s={{ engine: e, snap, r } as unknown as TestCaseSession} />
+    }
+    const { container } = render(<Card />)
+    const tag = (p: string) => container.querySelector(`.prov-line [data-prov="${p}"]`)
+    expect(tag('prepared')).not.toBeNull()
+    expect(tag('ai')).toBeNull()
+    act(() => { e.applyLiveExplain({ explain: 'Live', q: 'Q?', opts: ['a', 'b', 'c'], correct: 1, simpler: 's' }) })
+    expect(tag('ai')).not.toBeNull()
+    expect(tag('prepared')).toBeNull()
+    act(() => { e.setLang('ar') })
+    expect(tag('prepared')).not.toBeNull()
+    expect(tag('ai')).toBeNull()
   })
 })
