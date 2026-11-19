@@ -4,7 +4,7 @@ import re
 
 log = logging.getLogger("explain")
 
-# The four sets the web can reach (TeachCard is registered for safety only, kinds/safety/index.ts:13); same text as teach.<tkey>.facts in the en locale, kept equal by tests/test_explain.py.
+# The four teach sets the web can reach; text equals teach.<tkey>.facts in the en locale (tests/test_explain.py).
 FACTS = {
     "stroke": "Heart monitoring found paroxysmal atrial fibrillation, the likely cause of the clot. New blood thinner apixaban 5 mg twice a day replaces aspirin. Never stop it on your own. Call the care team for black stools, blood in urine or bad bruising. Call 998 for new face, arm or speech symptoms.",
     "fall": "The fall was caused by blood pressure dropping on standing. Sit on the bed edge for a minute before standing, then use the walking frame. Motion lights were fitted on the way to the bathroom. Apixaban restarted after hip surgery; do not stop it.",
@@ -61,7 +61,7 @@ def validate(data, tkey: str, lang: str) -> dict | None:
         return _bad("script")
     if lang == "en" and arabic:
         return _bad("script")
-    # ponytail: digits only; a number written as a word ("two") is not checked
+    # ponytail: digits only; "two" is not checked and swapped numbers ("40 mg instead of 80 mg") pass; add a per-set allowed-claims check if needed
     if not numbers(text) <= numbers(FACTS[tkey]):
         return _bad("number")
     return out

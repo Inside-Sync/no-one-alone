@@ -147,7 +147,8 @@ class ExplainIn(BaseModel):
 @app.post("/explain")
 def explain_route(body: ExplainIn):
     system, user = explain.prompt(body.tkey, body.lang)
-    out = explain.validate(explainer(system, user), body.tkey, body.lang)
+    raw = explainer(system, user)
+    out = None if raw is None else explain.validate(raw, body.tkey, body.lang)
     if out is None:
         log.warning("explain rejected: %s %s", body.tkey, body.lang)
         raise HTTPException(status_code=503, detail="explain failed")
