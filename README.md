@@ -42,7 +42,7 @@ flowchart LR
 | Part | Folder | What it does |
 |---|---|---|
 | core-api | `core-api/` | Owns the incident. Takes alerts from Pub/Sub, runs the state machine (verify, check-in, triage, escalate, hand off, recover), sets escalation timers in Cloud Tasks, gets travel times from the Routes API and writes every state change to Firestore. Serves the web's `/api` routes. |
-| respond-agent | `agents/respond/` | The care agent's judgement. Rules decide verification, triage and the escalation plan. Gemini judges the person's spoken check-in answers (for example slurred speech), writes the recovery summary and answers questions in the chat. Chirp 3 HD speaks every line in the person's language. Claude on Vertex AI rewords the Test case teach card's explanation when someone presses "Explain it another way". |
+| respond-agent | `agents/respond/` | The care agent's judgement. Rules decide verification, triage and the escalation plan. Gemini judges the person's spoken check-in answers (for example slurred speech), writes the recovery summary and answers questions in the chat. Chirp 3 HD speaks every line in the person's language. Claude on Vertex AI rewords the Test case safety-net teach card's explanation when someone presses "Explain it another way". |
 | hospital-agent | `agents/hospital/` | An ADK agent served over A2A. It reads the person's FHIR R4 record, applies their sharing consent and builds the pre-arrival packet for the receiving emergency department. The packet is built by rules, with no LLM, so it only ever contains what the record says. |
 | Web app | `web/` | Vite, React and TypeScript. Views for the person, the family, the hospital and the community. It reads Firestore in real time, so the family and hospital screens move as the incident moves. |
 | Forecast job | `data/predict/` | An offline job that screens family history and runs BigQuery `AI.FORECAST` (TimesFM) on synthetic blood pressure readings, then writes the result to Firestore for the "What's ahead" view. |
@@ -68,7 +68,7 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini and Claude (Verte
 |---|---|
 | Cloud Run | Runs core-api, respond-agent and hospital-agent. The two agents are private: core-api and respond-agent call them with Google-signed ID tokens. |
 | Vertex AI, Gemini 2.5 Flash | Three jobs in respond-agent: listens to the person's recorded answer and returns the transcript and a speech judgement (clear, slurred or missing) in one call, writes the recovery summary, and answers questions in the Ask Noa chat. |
-| Vertex AI, Claude | One job in respond-agent: rewords the teach card's explanation and simpler words from fixed facts (model set by `CLAUDE_MODEL`, effort low). Output with a number that is not in the facts is dropped and the prepared text stays. |
+| Vertex AI, Claude | One job in respond-agent: rewords the safety-net teach card's explanation and simpler words from fixed facts (model set by `CLAUDE_MODEL`, effort low). Output with a number that is not in the facts is dropped and the prepared text stays. |
 | Cloud Text-to-Speech, Chirp 3 HD | Noa's voice (Aoede, en-AU and vi-VN) for check-ins, the emergency call script and recovery reminders. |
 | Agent Development Kit (ADK) | hospital-agent is an ADK agent, served over A2A. respond-agent calls Gemini directly and does not use ADK. |
 | A2A protocol | respond-agent sends the hospital handoff to hospital-agent over A2A, with a plain HTTP call as fallback. |
