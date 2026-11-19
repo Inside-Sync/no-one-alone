@@ -1,7 +1,7 @@
 export * from './types'
 export { TestCaseEngine, type EngineOptions, type Item, type InputCheck } from './state'
 export { resolveText, hm, clk, setDateLocale } from './text'
-export { runAutopilot } from './autopilot'
+export { canAutoStep, nextFamilyAction, runAutopilot } from './autopilot'
 export { scoreSpeech, words, lev, lcsMask, samples, sentenceTxt, BASE_SECS } from './speech'
 export { decisionChecks, prevChecks, FAMILY_CHECKS } from './checks'
 export { triggers, runLen, choosePath, chads } from './safety'

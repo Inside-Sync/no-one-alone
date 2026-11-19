@@ -93,7 +93,7 @@
 
 /* Side by side, the alerts column is exactly as tall as the sources and connections column and scrolls inside,
    so neither column leaves an empty gap. contain:size stops the long list from setting the row height. */
-@media (min-width:641px){
+@media (min-width:761px){
   .tc.tc .fd-cols2>div:last-child{grid-template-rows:auto auto minmax(0,1fr);align-content:stretch}
   .tc.tc .fd-cols2 .alerts{contain:size;max-height:none;min-height:280px;align-content:start;padding-inline-end:4px}
 }
@@ -101,7 +101,7 @@
   .tc.tc .fd-top{grid-template-columns:1fr 1fr}
   .tc.tc .fd-top>div:first-child{grid-column:1/-1}
 }
-@media (max-width:640px){
+@media (max-width:760px){
   .tc.tc .fd-top,.tc.tc .fd-cols2{grid-template-columns:1fr}
   .tc.tc .tn{max-inline-size:none;flex-basis:100%}
 }

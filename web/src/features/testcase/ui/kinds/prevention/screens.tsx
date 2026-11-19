@@ -8,6 +8,7 @@ import { clk, hm, tx, type PrevInputs, type PvId } from '../../../engine'
 import type { ScreenProps, ScreenSet } from '../types'
 import { Tile, tok, useP } from './parts'
 import { langAttrs, useSpeakResolve } from '../langText'
+import { Signal } from '../Signal'
 
 type Tone = 'green' | 'amber' | 'red' | 'info'
 
@@ -51,7 +52,7 @@ export function PhoneP({ engine, snap, r }: ScreenProps) {
   return (
     <>
       <div className="ph-notch" />
-      <div className="ph-bar"><span>{hm(S.clock)}</span><span>{t('phone.network')}</span></div>
+      <div className="ph-bar"><span>{hm(S.clock)}</span><span>{t('phone.network')} <Signal /></span></div>
       <div className="ph-body">
         <div className="ph-hello"><h3>{t('phone.hello', { n: tok(engine, r, 'addr') })}</h3><span className="is-tag mtag-ind">{t('phone.tag')}</span></div>
         {stat}

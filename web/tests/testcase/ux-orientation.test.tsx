@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { readFileSync } from 'node:fs'
 import { vi } from 'vitest'
 import { TestCaseContext, type TestCaseValue } from '@/features/testcase/entry/TestCaseContext'
@@ -34,19 +34,50 @@ test('opened from the banner (judgePending), the overlay starts the Judge path o
   expect(document.querySelector('.tc-judgecap')).toHaveTextContent(/Beat 1/i)
 })
 
-test('the six steps sit directly under the case header', () => {
+test('the sections follow the prototype: header, picker, family dashboard, steps, baton, team, step view, next bar, bottom', () => {
   render(<App value={ctx('family')} />)
-  const header = document.getElementById('caseHeader')!
-  expect(header.nextElementSibling?.tagName).toBe('OL')
-  expect(header.nextElementSibling).toHaveClass('stepper')
+  const wrap = document.getElementById('caseHeader')!.parentElement!
+  const order = Array.from(wrap.children).filter((e) => !e.classList.contains('sr')).map((e) => e.id || e.className.split(' ')[0])
+  expect(order).toEqual(['caseHeader', 'picker', 'famdash', 'stepper', 'baton', 'team', 'casegrid', 'nextbar', 'bottom'])
+  const grid = wrap.querySelector('.casegrid')!
+  expect(grid.children[0].id).toBe('card')
+  expect(grid.children[1].firstElementChild).toHaveClass('pipe')
+  expect(grid.children[1].lastElementChild).toHaveClass('screens')
 })
 
-test('a disabled Next says why, in plain words, from what the step needs', () => {
+test('Next in the bar does the next action of the step and says which one (prototype stepOnce and nextHint)', () => {
   render(<App value={ctx('family')} />)
-  const next = document.querySelector('[data-act="next"]') as HTMLButtonElement
-  expect(next).toBeDisabled()
-  expect(screen.getByText('Book one alert (e.g. Hind’s Saturday visit) to unlock the next step.')).toBeInTheDocument()
-  expect(next.getAttribute('aria-describedby')).toBe('tc-nextwhy')
+  const next = () => document.querySelector('#nextbar [data-act="stepnext"]') as HTMLButtonElement
+  const why = () => document.getElementById('tc-nextwhy')!.textContent
+  expect(next()).toBeEnabled()
+  expect(next().getAttribute('aria-describedby')).toBe('tc-nextwhy')
+  expect(why()).toMatch(/^Moza: /)
+  expect(document.querySelector('#nextbar .lab')).toHaveTextContent(/^Step 1 of \d+ · /)
+  const before = why()
+  fireEvent.click(next())
+  act(() => { vi.advanceTimersByTime(5000) })
+  expect(why()).not.toBe(before)
+})
+
+test('a safety case: step 1 has no "of N" yet, and Next plays the readings', () => {
+  render(<App value={ctx('stroke')} />)
+  expect(document.querySelector('#nextbar .lab')).toHaveTextContent(/^Step 1 · /)
+  expect(document.getElementById('tc-nextwhy')).toHaveTextContent('Start the night: play the heart-rate readings')
+  fireEvent.click(document.querySelector('#nextbar [data-act="stepnext"]')!)
+  expect(document.getElementById('tc-nextwhy')).not.toHaveTextContent('Start the night')
+})
+
+test('the case opens in the simple view; "Show details" brings the baton, team, data path and bottom', () => {
+  render(<App value={ctx('stroke')} />)
+  const wrap = document.getElementById('caseHeader')!.parentElement!
+  const btn = screen.getByRole('button', { name: 'Show details' })
+  expect(wrap).toHaveClass('simple')
+  expect(btn).toHaveAttribute('aria-pressed', 'false')
+  fireEvent.click(btn)
+  expect(wrap).not.toHaveClass('simple')
+  expect(screen.getByRole('button', { name: 'Hide details' })).toHaveAttribute('aria-pressed', 'true')
+  const css = readFileSync('src/features/testcase/ui/app/app.css', 'utf8')
+  expect(css).toMatch(/\.wrap\.simple :is\(#baton,#team,\.pipe,\.bottom,details\.rules,\.srcwrap,\.lanebox,\.tc-brief\)\{display:none!important\}/)
 })
 
 test('the header keeps the "Test case" label from 1024 px up (icon-only below)', () => {

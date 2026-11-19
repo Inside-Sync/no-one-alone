@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { dbNoteKey } from '../../data/status'
-import { Icon } from '@/components/ui/Icon'
 import { DB_TABLES, tx, type Cell, type DbRow } from '../../engine'
 import { dbProv, logProv, ProvLegend, ProvTag, useG } from './Provenance'
 import { useA, type SessionProps } from './parts'
@@ -35,9 +34,7 @@ export function DbPanel({ s }: SessionProps) {
     <>
       <span id="tc-db" />
       <div className="db-h">
-        <span className="li" aria-hidden="true"><span className="ic"><Icon name="file" /></span></span>
         <h2>{t('db.title')}</h2>
-        <span className="pill p-demo">{t('db.demo')}</span>
         <button type="button" className="btn ghost sm" onClick={copy}>{t(copied === 'ok' ? 'db.copied' : copied === 'no' ? 'db.copyNo' : 'db.copy')}</button>
       </div>
       <div className="dbtabs" role="group" aria-label={t('db.tables')}>
@@ -45,7 +42,7 @@ export function DbPanel({ s }: SessionProps) {
           <button key={k} type="button" aria-pressed={table === k} onClick={() => engine.setDbTab(k)}>{k}<span className="c">{snap.db[k].length}</span></button>
         ))}
       </div>
-      <p className="src" id="dbnote">{r(tx(dbNoteKey(table)))}</p>
+      <p className="hint" id="dbnote">{r(tx(dbNoteKey(table)))}</p>
       <ProvLegend />
       <div className="tblw" tabIndex={0} role="region" aria-label={t('db.tableLabel', { table })}>
         {rows.length ? (
@@ -72,8 +69,8 @@ export function LogPanel({ s }: SessionProps) {
   const { snap, r } = s
   return (
     <>
-      <div className="ch"><span className="li" aria-hidden="true"><span className="ic"><Icon name="bolt" /></span></span><h2>{t('log.title')}</h2></div>
-      <p className="src">{t('log.note')}</p>
+      <h2>{t('log.title')}</h2>
+      <p className="hint">{t('log.note')}</p>
       <div role="log" aria-label={t('log.title')}>
         <ul className="loglist" aria-label={t('log.title')} tabIndex={0}>
           {snap.log.map((l, i) => (

@@ -3,20 +3,22 @@
 import { useEffect, useRef } from 'react'
 import { Icon } from '@/components/ui/Icon'
 import { AGENTS } from '../../data/agents'
-import { clk, hm, tx } from '../../engine'
+import { clk, hm, tx, type AgentId } from '../../engine'
 import { GateStrip } from './Gates'
 import { Handoffs } from './Flow'
 import { ProvLine } from './Provenance'
 import './gates.css'
 import { useA, useAd, type SessionProps } from './parts'
 import { KindSlot } from './registry'
-import { scrollToTarget } from './scrollTo'
+import { scrollSoon, scrollToTarget } from './scrollTo'
 
 /** "Noa agents on this step": what each working agent does, the hand-offs, and who decides (prototype agentHTML). */
 function AgentBlock({ s }: SessionProps) {
   const t = useA()
-  const { snap, r } = s
+  const { snap, r, setDetails, setAgOpen } = s
   const st = snap.step
+  // The agent's story opens in the team card (a detail): details on, the story open, the team in view.
+  const story = (k: AgentId) => { setDetails(true); setAgOpen(k); scrollSoon('team', undefined, 60) }
   return (
     <div className="agent">
       <div className="hd"><span>{t('card.agents')}</span><span className="pill s-live" style={{ marginInlineStart: 'auto' }}>{t(st.back ? 'card.stepBack' : 'card.working')}</span></div>
@@ -25,6 +27,7 @@ function AgentBlock({ s }: SessionProps) {
           <div className="ag1h">
             <span className="bot" aria-hidden="true"><span className="ic"><Icon name={AGENTS[a.agent].icon} /></span></span>
             <b>{t('team.agentName', { n: r(tx(AGENTS[a.agent].n)) })}</b><span className="agr">{r(tx(AGENTS[a.agent].role))}</span>
+            <button type="button" className="agq" onClick={() => story(a.agent)}>{t('team.story')}</button>
           </div>
           <ul>{a.lines.map((l, i) => <li key={i}>{r(tx(l))}</li>)}</ul>
         </div>
@@ -35,21 +38,24 @@ function AgentBlock({ s }: SessionProps) {
   )
 }
 
-/** Back and Next (prototype navHTML). */
+/** Back and Next (prototype navHTML); at the end of the case, Replay and Try another case. */
 function Nav({ s }: SessionProps) {
   const t = useAd()
   const { engine, snap, r } = s
   const i = snap.state.step
   const nx = snap.steps[i + 1]
-  // Next is off: say why, from what this step needs (not while the engine is busy playing, which ends by itself).
-  const why = nx && !snap.canNext && !snap.busy ? t(`card.wait.${snap.step.kind}`, { defaultValue: t('card.wait.default') }) : null
   return (
     <div className="nav">
       {i > 0 ? <button type="button" className="btn ghost sm" onClick={() => engine.go(i - 1)}>← {t('card.back')}</button> : <span />}
       {nx
-        ? <button type="button" className="btn" data-act="next" disabled={!snap.canNext} aria-describedby={why ? 'tc-nextwhy' : undefined} onClick={() => engine.next()}>{t('card.next', { title: r(tx(nx.title)) })} →</button>
-        : i > 0 ? <button type="button" className="btn" data-act="restart" onClick={s.restart}>{t('card.again')}</button> : null}
-      {why && <p className="tc-nextwhy" id="tc-nextwhy" role="status">{why}</p>}
+        ? <button type="button" className="btn" data-act="next" disabled={!snap.canNext} onClick={() => engine.next()}>{t('card.next', { title: r(tx(nx.title)) })} →</button>
+        : i > 0 ? (
+          <span className="tc-endacts">
+            {/* The end of the case: play it again with the same readings (after changing a detail), or start over. */}
+            <button type="button" className="btn ghost sm" onClick={s.replay} title={t('header.replayHint')}>{t('header.replay')}</button>
+            <button type="button" className="btn" data-act="restart" onClick={s.restart}>{t('card.again')}</button>
+          </span>
+        ) : null}
     </div>
   )
 }
@@ -71,11 +77,12 @@ export function StepCard({ s }: SessionProps) {
     <>
       <span className="when">{when}</span>
       <h3>{i + 1} · {r(tx(st.title))}</h3>
-      <GateStrip snap={snap} r={r} />
       <ProvLine kind={st.kind} />
       <AgentBlock s={s} />
       {i > 0 && st.text && <p>{r(tx(st.text))}</p>}
       <KindSlot type={engine.caseDef.type} engine={engine} snap={snap} step={st} r={r} />
+      {/* Ours, not the prototype's: the safety checks sit after the step's own content, so the card reads as in the prototype. */}
+      <GateStrip snap={snap} r={r} />
       <Nav s={s} />
     </>
   )

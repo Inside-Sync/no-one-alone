@@ -35,7 +35,7 @@ function NoaFamily({ s }: SessionProps) {
         {FAMILY_MEMBERS.map((m) => {
           const st = FAMILY_STATUS[F.status[m.id]] ?? FAMILY_STATUS.ok
           const f = fc?.[m.id]
-          const heart = f?.ok ? <> <span className="lv lv-info"><Glyph name="heart" /><span aria-hidden="true">{pct(f.r)}</span><span className="tcp-sr">{t('noa.heart', { pct: pct(f.r) })}</span></span></> : null
+          const heart = f?.ok ? <> <span className={`lv lv-${f.cat.tone}`}><Glyph name="heart" /><span aria-hidden="true">{pct(f.r)}</span><span className="tcp-sr">{t('noa.heart', { pct: pct(f.r) })}</span></span></> : null
           return (
             <div key={m.id} className="fnd">
               <div className="h"><Glyph name={m.icon} />{r(tx(m.name))} <span className={`lv lv-${lvOf(st.tone)}`}>{r(tx(st.label))}</span>{heart}</div>

@@ -19,6 +19,8 @@ test('picking a case brings its header into view', async ({ page }) => {
   await openTest(page, 'family')
   await page.locator('#picker').scrollIntoViewIfNeeded()
   await scrollHost(page, await page.evaluate(() => (document.querySelector('#picker') as HTMLElement).offsetTop + 200))
+  // The simple view keeps the other seven cases behind "More cases" (prototype).
+  await page.locator('#picker .morecs').click()
   await page.locator('#picker .cs', { hasText: 'Bone' }).first().click()
   await expect.poll(() => belowBar(page, '#caseHeader'), { timeout: 5000 }).toBeGreaterThanOrEqual(-2)
   await expect.poll(() => belowBar(page, '#caseHeader')).toBeLessThan(60)
@@ -93,15 +95,15 @@ test('Judge path: pause holds the step, Back and Skip move one step, Resume carr
   await openTest(page, 'ifhas')
   await expect(page.locator('#tcPlayback')).toHaveCount(0)
   await page.locator('#judgeBtn').click()
-  const bar = page.locator('#tcPlayback')
-  await expect(bar).toBeVisible()
+  const bar = page.locator('#nextbar')
+  await expect(page.locator('#tcPlayback')).toBeVisible()
   await expect(bar).toContainText('Case 1 of 3')
   await bar.locator('[data-speed="fast"]').click()
   const cur = () => page.locator('ol.stepper li button[aria-current="step"]').textContent()
   const stepNo = async () => Number(((await cur()) ?? '').match(/^(\d+) ·/)?.[1] ?? 0)
   await expect.poll(stepNo, { timeout: 60_000 }).toBeGreaterThanOrEqual(3)
   await page.locator('#pbPause').click()
-  await expect(page.locator('#pbPause')).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('#pbPause')).toHaveAttribute('aria-label', 'Play')
   const held = await stepNo()
   await page.waitForTimeout(2500)
   expect(await stepNo()).toBe(held)
@@ -115,7 +117,46 @@ test('Judge path: pause holds the step, Back and Skip move one step, Resume carr
   await expect.poll(() => belowBar(page, '#card'), { timeout: 5000 }).toBeLessThan(80)
   await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
   await page.keyboard.press('Space')
-  await expect(page.locator('#pbPause')).toHaveAttribute('aria-pressed', 'false')
+  await expect(page.locator('#pbPause')).toHaveAttribute('aria-label', 'Pause')
   await expect.poll(stepNo, { timeout: 30_000 }).toBeGreaterThan(held + 1)
   expect(errs.list()).toEqual([])
 })
+
+for (const [w, h] of [[1536, 864], [2048, 1150]] as const) {
+  test(`Judge path ${w}x${h}: the step card comes into view on every step and after the case switch`, async ({ page }) => {
+    const errs = watchErrors(page)
+    await page.setViewportSize({ width: w, height: h })
+    await openTest(page, 'family')
+    await page.locator('#judgeBtn').click()
+    const bar = page.locator('#nextbar')
+    await expect(bar).toContainText('Case 1 of 3')
+    await bar.locator('[data-speed="fast"]').click()
+    const where = () => page.evaluate(() => {
+      const cur = document.querySelector('ol.stepper li button[aria-current="step"]')?.textContent ?? ''
+      return `${document.querySelector('#nextbar .nb-prog b')?.textContent ?? ''}|${cur.slice(0, 3)}`
+    })
+    const inView = async (label: string) => {
+      await expect.poll(() => belowBar(page, '#card'), { timeout: 5000, message: `card under the bar at ${label}` }).toBeGreaterThanOrEqual(-2)
+      await expect.poll(() => belowBar(page, '#card'), { timeout: 5000, message: `card under the bar at ${label}` }).toBeLessThan(80)
+    }
+    // The first step card, right after the start.
+    await inView(await where())
+    // The presenter zooms with Ctrl + wheel: the screen keeps following.
+    await page.evaluate(() => document.getElementById('tcHost')!.dispatchEvent(new WheelEvent('wheel', { ctrlKey: true, deltaY: 100, bubbles: true })))
+    const seen = new Set<string>([await where()])
+    let switched = false
+    for (let n = 0; n < 400 && !(switched && seen.size >= 3 && (await where()).startsWith('Case 2 of 3|2')); n++) {
+      const k = await where()
+      if (!seen.has(k)) {
+        seen.add(k)
+        if (k.startsWith('Case 2 of 3')) switched = true
+        await inView(k)
+      }
+      await page.waitForTimeout(150)
+    }
+    expect(switched).toBe(true)
+    expect(seen.size).toBeGreaterThanOrEqual(5)
+    await page.locator('#pbPause').click()
+    expect(errs.list()).toEqual([])
+  })
+}

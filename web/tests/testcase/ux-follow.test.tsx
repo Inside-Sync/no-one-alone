@@ -83,3 +83,52 @@ test('Replay with the same readings goes to the first step card with a toast', (
   tick(1)
   expect(scrollTo).toHaveBeenCalledTimes(1)
 })
+
+test('the Judge path follows the step card on every step and after the case switch; Ctrl + wheel (zoom) does not stop it', () => {
+  render(<App caseKey="family" />)
+  const host = document.getElementById('tcHost')!
+  const stepNow = () => document.querySelector('ol.stepper [aria-current="step"]')?.textContent ?? ''
+  const caseNow = () => document.querySelector('#nextbar .nb-prog b')?.textContent ?? ''
+  scrollTo.mockClear()
+  fireEvent.click(document.getElementById('judgeBtn')!)
+  tick(1)
+  expect(scrollTo).toHaveBeenCalled()
+  expect(caseNow()).toBe('Case 1 of 3')
+  let key = `${caseNow()}|${stepNow()}`
+  let calls = scrollTo.mock.calls.length
+  let moves = 0
+  let zoomed = false
+  const done = () => caseNow() === 'Case 2 of 3' && stepNow().startsWith('2 ')
+  for (let guard = 0; guard < 2000 && !done(); guard++) {
+    act(() => { vi.advanceTimersByTime(150) })
+    const k = `${caseNow()}|${stepNow()}`
+    if (k === key) continue
+    // A new step (or the next case): the screen moved to the step card.
+    expect(scrollTo.mock.calls.length, `no follow at ${k}`).toBeGreaterThan(calls)
+    key = k; calls = scrollTo.mock.calls.length; moves++
+    // The presenter zooms the browser with Ctrl + wheel: not a hand scroll.
+    if (!zoomed) { zoomed = true; fireEvent.wheel(host, { ctrlKey: true, deltaY: 100 }) }
+  }
+  expect(done()).toBe(true)
+  expect(moves).toBeGreaterThanOrEqual(8)
+}, 60_000)
+
+test('a hand scroll pauses the Judge path following; its next case follows again', () => {
+  render(<App caseKey="family" />)
+  const host = document.getElementById('tcHost')!
+  const stepNow = () => document.querySelector('ol.stepper [aria-current="step"]')?.textContent ?? ''
+  const caseNow = () => document.querySelector('#nextbar .nb-prog b')?.textContent ?? ''
+  fireEvent.click(document.getElementById('judgeBtn')!)
+  tick(1)
+  fireEvent.wheel(host, { deltaY: 120 })
+  const n = scrollTo.mock.calls.length
+  const s0 = stepNow()
+  let guard = 0
+  while (stepNow() === s0 && guard++ < 400) tick(200)
+  expect(stepNow()).not.toBe(s0)
+  expect(scrollTo.mock.calls.length).toBe(n)
+  guard = 0
+  while (caseNow() === 'Case 1 of 3' && guard++ < 800) tick(200)
+  expect(caseNow()).toBe('Case 2 of 3')
+  expect(scrollTo.mock.calls.length).toBeGreaterThan(n)
+}, 60_000)

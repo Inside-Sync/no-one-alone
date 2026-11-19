@@ -10,6 +10,7 @@ import type { ScreenProps, ScreenSet } from '../types'
 import { Tile, useP } from '../prevention/parts'
 import { haText } from './Forecast'
 import { FAM_STATUS_TONE } from './tones'
+import { Signal } from '../Signal'
 
 /** Screen 1 of the family case (prototype renderPhoneF): the phone of the person selected in the family tree, each reached their own way. */
 export function PhoneF({ engine, snap, r }: ScreenProps) {
@@ -51,7 +52,7 @@ export function PhoneF({ engine, snap, r }: ScreenProps) {
   return (
     <>
       <div className="ph-notch" />
-      <div className="ph-bar"><span>{hm(S.clock)}</span><span>{t('phone.network')}</span></div>
+      <div className="ph-bar"><span>{hm(S.clock)}</span><span>{t('phone.network')} <Signal /></span></div>
       <div className="ph-body">
         <div className="ph-hello"><h3>{m.stage === 'child' ? t('fam.phone.child', { n: name }) : t('fam.phone.hello', { n: name })}</h3><span className="is-tag mtag-ind">{t('phone.tag')}</span></div>
         {stat}

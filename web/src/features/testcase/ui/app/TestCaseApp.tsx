@@ -14,7 +14,7 @@ import { CasePicker as CasePickerBase } from './CasePicker'
 import { Baton as BatonBase, Pipe as PipeBase, Stepper as StepperBase, Team as TeamBase } from './Flow'
 import { NoaPanel as NoaPanelBase } from './NoaPanel'
 import { DbPanel as DbPanelBase, LogPanel as LogPanelBase } from './Panels'
-import { PlaybackBar } from './PlaybackBar'
+import { NextBar } from './NextBar'
 import { StepCard as StepCardBase } from './StepCard'
 import { FamilyDashboard, NotAvailable, screensFor } from './registry'
 import { useTestCaseEngine } from './useTestCaseEngine'
@@ -69,7 +69,10 @@ function TestCaseAppBody() {
   const screens = screensFor(type)
   const fam = engine.isFam
 
+  const { setDetails } = base
   const jump = useCallback((j: JudgeJump) => {
+    // The team and the database are details: a jump to them turns details on.
+    if (j.anchor === 'team' || j.anchor === 'tc-db') setDetails(true)
     if (j.caseId) base.pick(j.caseId)
     if (j.run === 'judge') base.startJudge()
     setTab(j.tab ?? 'case')
@@ -77,7 +80,7 @@ function TestCaseAppBody() {
       const id = j.anchor
       scrollSoon(id, undefined, 60)
     }
-  }, [base, setTab])
+  }, [base, setTab, setDetails])
 
   // A Benchmark scenario opened as a case: load the case, put the scenario's inputs in, switch to the Test case tab.
   const openScenario = useCallback((sc: Scenario) => {
@@ -100,14 +103,15 @@ function TestCaseAppBody() {
     <>
       <TestCaseLayout
         tab={tab}
+        simple={!s.details}
         caseHeader={<CaseHeader s={s} />}
         picker={<CasePicker s={s} />}
         familyDashboard={fam ? <FamilyDashboard engine={engine} snap={snap} r={s.r} /> : undefined}
         stepper={<Stepper s={s} />}
-        playback={s.playback.active ? <PlaybackBar s={s} /> : undefined}
         baton={<Baton s={s} />}
         team={<Team s={s} />}
         card={<StepCard s={s} />}
+        nextbar={<NextBar s={s} />}
         pipe={<Pipe s={s} />}
         phone={screens ? <screens.Phone engine={engine} snap={snap} r={s.r} /> : <NotAvailable what={t('fallback.phone')} />}
         web={screens ? <screens.Web engine={engine} snap={snap} r={s.r} /> : <NotAvailable what={t('fallback.web')} />}

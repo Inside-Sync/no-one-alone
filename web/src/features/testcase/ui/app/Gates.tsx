@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { CASES } from '../../data/cases'
 import type { Snapshot } from '../../engine'
 import type { Resolve } from '../kinds/types'
@@ -65,8 +64,6 @@ export function gateStates(snap: Snapshot, r: Resolve): GateState[] {
 export function GateStrip({ snap, r }: { snap: Snapshot; r: Resolve }) {
   const t: TG = useG()
   const gates = gateStates(snap, r)
-  // A chip each; the reason opens under a press (one at a time), so the strip stays small.
-  const [open, setOpen] = useState<GateId | null>(null)
   return (
     <>
       <p className="gates-title">{t('gates.title')}</p>
@@ -75,11 +72,9 @@ export function GateStrip({ snap, r }: { snap: Snapshot; r: Resolve }) {
           // Two states are said in plain words and shown in the neutral (info) colour: they are not errors.
           const plain = g.id === 'urgent' && g.status === 'bypassed' ? 'urgentSkipped' : g.id === 'human' && g.status === 'hold' ? 'humanWaiting' : null
           return (
-            <li key={g.id} className={`gate gate-${g.status}${plain ? ' gate-info' : ''}${open === g.id ? ' gate-open' : ''}`} data-gate={g.id} data-status={g.status}>
-              <button type="button" className="gate-h" aria-expanded={open === g.id} aria-controls={`tc-gate-why-${g.id}`} onClick={() => setOpen(open === g.id ? null : g.id)}>
-                <span className="gate-dot" aria-hidden="true" /><b>{t(plain ? `gates.plain.${plain}` : `gates.name.${g.id}`)}</b>{!plain && <span className="gate-st">{t(`gates.status.${g.status}`)}</span>}
-              </button>
-              <span className="gate-why" id={`tc-gate-why-${g.id}`} hidden={open !== g.id} title={g.id === 'rule' ? t('gates.ruleTip') : undefined}>{t(`gates.${g.key}`, g.p)}</span>
+            <li key={g.id} className={`gate gate-${g.status}${plain ? ' gate-info' : ''}`} data-gate={g.id} data-status={g.status}>
+              <span className="gate-h"><span className="gate-dot" aria-hidden="true" /><b>{t(plain ? `gates.plain.${plain}` : `gates.name.${g.id}`)}</b>{!plain && <span className="gate-st">{t(`gates.status.${g.status}`)}</span>}</span>
+              <span className="gate-why" title={g.id === 'rule' ? t('gates.ruleTip') : undefined}>{t(`gates.${g.key}`, g.p)}</span>
             </li>
           )
         })}

@@ -1,5 +1,5 @@
 import { QUESTIONS } from '../data/questions'
-import type { SampleKey } from '../data/types'
+import type { SampleKey, Txt } from '../data/types'
 import type { TestCaseEngine } from './state'
 
 /** The family autopilot clicks the first open alert action of this list (prototype order). */
@@ -71,4 +71,26 @@ export function runAutopilot(e: TestCaseEngine, maxTicks = 500): number {
   }
   e.drain()
   return n
+}
+
+/**
+ * Whether the sticky bar's Next can do something now (prototype stepOnce): not while Noa is busy or the readings play, and not once the
+ * case has nothing more to do (the last step done, or step 0 decided with no path).
+ */
+export function canAutoStep(e: TestCaseEngine): boolean {
+  const S = e.S, i = S.step
+  if (e.busy || S.phase === 'playing') return false
+  if (i === 0 && e.isFam) return S.fm!.alerts.some((a) => a.state === 'open' && a.acts.some((y) => FAMILY_SCRIPT.includes(y.id))) || e.canNext()
+  if (i === 0) return S.phase !== 'decided' || !!S.dec?.path
+  return !S.done[i] || e.canNext()
+}
+
+/** The family alert action the bar's Next does next (the first open one of the autopilot's list), if any. */
+export function nextFamilyAction(e: TestCaseEngine): { who: string; label: Txt } | null {
+  const S = e.S
+  if (!S.fm) return null
+  const id = FAMILY_SCRIPT.find((x) => S.fm!.alerts.some((a) => a.state === 'open' && a.acts.some((y) => y.id === x)))
+  if (!id) return null
+  const a = S.fm.alerts.find((x) => x.state === 'open' && x.acts.some((y) => y.id === id))!
+  return { who: a.who, label: a.acts.find((y) => y.id === id)!.label }
 }

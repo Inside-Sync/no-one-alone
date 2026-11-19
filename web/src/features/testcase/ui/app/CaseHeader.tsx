@@ -39,7 +39,7 @@ function JudgeCaption({ s }: SessionProps) {
   )
 }
 
-/** The case header: who and what, the moment that matters, language switch, "Run it for me", Judge path, Restart. */
+/** The case header (prototype `.case`): who and what, the one-liner (the brief shows with details), language, Judge path, "Run it for me", Restart, "Show details". */
 export function CaseHeader({ s }: SessionProps) {
   const t = useAd()
   const { engine, snap, r } = s
@@ -73,12 +73,11 @@ export function CaseHeader({ s }: SessionProps) {
         <button type="button" className="btn" id="judgeBtn" disabled={!!s.judge && s.judge.phase !== 'done'} onClick={s.startJudge}>
           <span className="ic" aria-hidden="true"><Icon name="target" /></span> {t('header.judge')}
         </button>
-        <button type="button" className="btn ghost" id="autoBtn" aria-pressed={S.auto} onClick={s.toggleAuto}>
+        <button type="button" className="btn ghost sm" id="autoBtn" aria-pressed={S.auto} onClick={s.toggleAuto}>
           {S.auto ? <><span className="ic" aria-hidden="true"><Icon name="stop" /></span> {t('header.stop')}</> : <><span className="ic" aria-hidden="true"><Icon name="play" /></span> {t('header.run')}</>}
         </button>
-        {/* Nothing to replay until the case has moved on from its first screen. */}
-        <button type="button" className="btn ghost sm" onClick={s.replay} title={t('header.replayHint')} disabled={S.step === 0 && S.phase === 'setup' && !snap.busy}>{t('header.replay')}</button>
         <button type="button" className="btn ghost sm" onClick={s.restart}>{t('header.restart')}</button>
+        <button type="button" className="btn ghost sm" id="detBtn" aria-pressed={s.details} onClick={() => s.setDetails(!s.details)}>{t(s.details ? 'header.hideDetails' : 'header.showDetails')}</button>
       </div>
       <JudgeCaption s={s} />
     </>

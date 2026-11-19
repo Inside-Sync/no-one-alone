@@ -21,12 +21,20 @@ test('the controls are hidden until a run starts; then Pause, Back, Skip, speed 
   render(<App caseKey="stroke" />)
   expect(document.getElementById('tcPlayback')).toBeNull()
   fireEvent.click(document.getElementById('judgeBtn')!)
-  const bar = document.getElementById('tcPlayback')!
-  expect(bar).toBeTruthy()
-  expect(bar).toHaveTextContent('Step 1 of')
+  const bar = document.getElementById('nextbar')!
+  expect(document.getElementById('tcPlayback')).toBeTruthy()
+  expect(bar).toHaveClass('tc-run')
+  // The prototype's bar text stays during a run: the step and what Noa does.
+  expect(bar.querySelector('.nb-t .lab')).toHaveTextContent(/^Step 1 · /)
+  expect(bar.querySelector('.nb-t b')?.textContent).toBeTruthy()
   expect(bar).toHaveTextContent('Case 1 of 3')
   for (const id of ['pbPause', 'pbBack', 'pbSkip']) expect(document.getElementById(id)!.getAttribute('aria-label')).toBeTruthy()
   expect(bar.querySelectorAll('[data-speed]')).toHaveLength(3)
+  // The prototype's player: round buttons and one dot per step, the current one on.
+  expect(document.getElementById('pbBack')).toHaveAttribute('aria-label', 'Previous step')
+  expect(document.getElementById('pbSkip')).toHaveAttribute('aria-label', 'Next step')
+  expect(bar.querySelectorAll('.pdots i').length).toBeGreaterThan(0)
+  expect(bar.querySelectorAll('.pdots i.on')).toHaveLength(1)
 })
 
 test('Pause freezes the step, Space resumes it, speed is remembered', () => {
@@ -34,17 +42,17 @@ test('Pause freezes the step, Space resumes it, speed is remembered', () => {
   fireEvent.click(document.getElementById('autoBtn')!)
   tick(3000)
   const pause = document.getElementById('pbPause')!
-  expect(pause).toHaveAttribute('aria-pressed', 'false')
+  expect(pause).toHaveAttribute('aria-label', 'Pause')
   fireEvent.click(pause)
-  expect(document.getElementById('pbPause')).toHaveAttribute('aria-pressed', 'true')
+  expect(document.getElementById('pbPause')).toHaveAttribute('aria-label', 'Play')
   const s0 = stepNow()
   tick(120_000)
   expect(stepNow()).toBe(s0)
   fireEvent.keyDown(document.body, { key: ' ' })
-  expect(document.getElementById('pbPause')).toHaveAttribute('aria-pressed', 'false')
+  expect(document.getElementById('pbPause')).toHaveAttribute('aria-label', 'Pause')
   // Space on a field or a button is not ours.
   fireEvent.keyDown(document.getElementById('pbSkip')!, { key: ' ' })
-  expect(document.getElementById('pbPause')).toHaveAttribute('aria-pressed', 'false')
+  expect(document.getElementById('pbPause')).toHaveAttribute('aria-label', 'Pause')
   fireEvent.click(document.querySelector('[data-speed="fast"]')!)
   expect(window.localStorage.getItem('noa-tc-speed')).toBe('fast')
   expect(document.querySelector('[data-speed="fast"]')).toHaveAttribute('aria-pressed', 'true')
@@ -60,5 +68,5 @@ test('Skip goes to the next step and Back returns to the one before', () => {
   expect(stepNow()).toMatch(/^3 ·/)
   fireEvent.click(document.getElementById('pbBack')!)
   expect(stepNow()).toMatch(/^2 ·/)
-  expect(document.getElementById('pbPause')).toHaveAttribute('aria-pressed', 'true')
+  expect(document.getElementById('pbPause')).toHaveAttribute('aria-label', 'Play')
 })

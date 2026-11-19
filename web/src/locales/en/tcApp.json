@@ -7,10 +7,12 @@
   },
   "picker": {
     "group": {
-      "family": "Start here · the whole family",
+      "start": "Start here · pick one",
       "prevention": "Prevention and screening · one person at a time",
       "safety": "Safety net · when something goes wrong at home"
     },
+    "speech": "Live speech test",
+    "more": "More cases ({{n}})",
     "person": "Person",
     "time": "Time",
     "night": "Night 01:12",
@@ -29,24 +31,19 @@
     "back": "Back",
     "next": "Next: {{title}}",
     "again": "Try another case",
-    "onwards": "{{at}} onwards",
-    "wait": {
-      "famhub": "Book one alert (e.g. Hind’s Saturday visit) to unlock the next step.",
-      "teach": "Answer Noa’s teach-back question (Noa checks the person understood) to unlock the next step.",
-      "accept": "Accept the alert as the care team to unlock the next step.",
-      "default": "Finish the action on this card to unlock the next step."
-    }
+    "onwards": "{{at}} onwards"
   },
   "team": {
     "title": "Noa is a team of 9 AI agents",
     "note": "An orchestrator passes the case to the right agent and logs every hand-off. Tap an agent for its story.",
     "agentName": "Noa {{n}}",
     "close": "Close",
+    "story": "Story",
     "can": "Can: {{v}}",
     "cannot": "Cannot: {{v}}"
   },
   "baton": {
-    "label": "Which agent is working now · who has {{who}} care",
+    "label": "Who has {{who}} care",
     "family": "the family’s",
     "person": "{{n}}’s"
   },
@@ -63,8 +60,7 @@
     "label": "Playback of the run",
     "pause": "Pause",
     "resume": "Resume",
-    "pauseAria": "Pause the run. Space also works.",
-    "resumeAria": "Resume the run. Space also works.",
+    "pauseAria": "Pause",
     "back": "Back",
     "backAria": "Go back one step (the case replays to there)",
     "skip": "Skip",
@@ -77,22 +73,31 @@
     "caseOf": "Case {{n}} of {{total}}",
     "paused": "Paused",
     "state": "Run paused",
-    "stateResumed": "Run playing"
+    "stateResumed": "Run playing",
+    "prevAria": "Previous step",
+    "nextAria": "Next step",
+    "playAria": "Play",
+    "spaceHint": "Space also pauses and plays"
   },
   "header": {
     "family": "Al Mansoori family · 4 generations, 1 Family Health Passport",
     "familyText": "Moza (78), Khalid’s mother, and Saeed (69), Amna’s father; Khalid (47) and his wife Amna (45); their children Maitha (25) and Sultan (21); and Maitha’s children Hind (18 months) and Hamdan (5). Records from 6 places, one passport, Noa’s agents watching for all eight.",
     "own": "your own readings",
     "facts": "Medicines: {{meds}}. History: {{hist}}. Usual: {{usual}}.",
-    "langShort": "Noa’s call language",
+    "langShort": "Noa speaks",
     "langLabel": "Language of speech checks and teach-back",
-    "lang": { "en": "English", "ar": "العربية" },
+    "lang": {
+      "en": "English",
+      "ar": "العربية"
+    },
     "run": "Run it for me",
     "stop": "Stop",
     "judge": "Start here: 3-minute Judge path",
     "replay": "Replay with the same readings",
     "replayHint": "Change the details and check again: the same person, readings and time",
-    "restart": "Restart"
+    "restart": "Restart",
+    "showDetails": "Show details",
+    "hideDetails": "Hide details"
   },
   "brief": {
     "momentLab": "The moment that matters",
@@ -181,7 +186,11 @@
     "booked": "booked {{slot}}",
     "heart": "10-year heart risk {{pct}}",
     "clinicView": "Clinic view",
-    "lvl": { "due": "due", "amber": "amber", "red": "red" },
+    "lvl": {
+      "due": "due",
+      "amber": "amber",
+      "red": "red"
+    },
     "bookingOffered": "Booking offered",
     "itemSupport": "{{item}} · support: {{enabler}}",
     "clinicsWait": "Clinics see a visit once the family books it. Noa never shares the passport without consent.",
@@ -221,7 +230,6 @@
   },
   "db": {
     "title": "Demo database",
-    "demo": "Demo data",
     "copy": "Copy table as JSON",
     "copied": "Copied",
     "copyNo": "Copy not allowed here",
@@ -231,7 +239,7 @@
   },
   "log": {
     "title": "API and event log",
-    "note": "Every hand-off, decision and message, newest first."
+    "note": "What each agent and system did, newest first. Times follow the case clock."
   },
   "judges": {
     "title": "For judges",
@@ -292,7 +300,10 @@
   "kpi": {
     "intro": "From the case on screen: {{person}}. Press “Run it for me” and watch the numbers fill; a KPI that does not apply to this kind of case says so.",
     "ratio": "{{a}} of {{b}} · {{pct}}%",
-    "days": "{{v}} days",
+    "days": {
+      "label": "Days from invitation to booking",
+      "note": "Booked the moment the invitation is opened; reminder lists take weeks (not measured here)."
+    },
     "minutes": "{{v}} min",
     "wait": "Not reached yet",
     "na": "Does not apply to this case",
@@ -304,10 +315,6 @@
     "screened": {
       "label": "Rising-risk people who completed screening",
       "note": "A result recorded in the demo database after a booking."
-    },
-    "days": {
-      "label": "Days from invitation to booking",
-      "note": "Booked the moment the invitation is opened; reminder lists take weeks (not measured here)."
     },
     "barriers": {
       "label": "Barriers resolved",
@@ -401,5 +408,38 @@
     "timeLab": "Timeline",
     "time": "Months 0 to 3: set-up, DoH sandbox and ethics review. Months 3 to 9: pilot with about 300 families, compared with reminders only. Months 9 to 12: independent evaluation. Year 2: more centres and programmes.",
     "seeCase": "See Khalid’s case"
+  },
+  "nextbar": {
+    "step": "Step {{n}} of {{total}} · {{title}}",
+    "stepOnly": "Step {{n}} · {{title}}",
+    "next": "Next step: {{title}}",
+    "working": "Noa is working…",
+    "done": "Done. Pick another case above.",
+    "backAria": "Back one step",
+    "nextBtn": "Next",
+    "hint": {
+      "fam": "{{who}}: {{act}}",
+      "passport": "Check the passport",
+      "barrier": "Answer Noa Voice: why not yet?",
+      "playNight": "Start the night: play the heart-rate readings",
+      "play": "Start: play the heart-rate readings",
+      "watching": "Noa Guardian is watching the readings…",
+      "answer": "Answer Noa’s question",
+      "speech": "Speech check: tap the mic and say the sentence, or press Next to use a sample",
+      "finish": "Finish this step",
+      "kind": {
+        "tl": "Show what happens next",
+        "btn": "Do this step",
+        "teach": "Answer the teach-back",
+        "plan": "Send the plan",
+        "recheck": "Send the recheck",
+        "daily": "Send today’s check",
+        "accept": "Accept as the care team",
+        "report": "Send the report to the Department",
+        "result": "Send the result",
+        "refer": "Accept the referral",
+        "famresult": "Send the results"
+      }
+    }
   }
 }

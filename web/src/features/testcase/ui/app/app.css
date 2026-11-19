@@ -6,7 +6,7 @@
 
 /* Case header: text on the start side, actions on the end side, the Judge path caption underneath. */
 .tc.tc .case>.tc-case-main{min-width:0}
-.tc.tc .tc-case-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+.tc.tc .tc-case-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end;max-inline-size:520px}
 .tc.tc .tc-oneliner{font-weight:600;color:var(--ink)}
 .tc.tc .tc-brief{display:grid;gap:2px;margin-block-start:4px}
 .tc.tc .tc-brief p{margin:0;font-size:12.5px;color:var(--ink2)}
@@ -19,7 +19,6 @@
 
 /* Baton and hand-offs: the wrappers of arrows and items must not break the flex rows. */
 .tc.tc .tc-baton-row,.tc.tc .tc-hop{display:contents}
-.tc.tc .baton .handoff{flex:1 1 100%;margin-block-start:2px}
 [dir="rtl"] .tc.tc .arr,.tc[dir="rtl"] .arr{display:inline-block;transform:scaleX(-1)}
 .tc.tc .agent .decides .ic{margin-inline-end:.2em}
 
@@ -38,9 +37,93 @@
 .tc.tc .tc-langlab{font-size:12px;color:var(--muted);align-self:center;margin-inline-end:-4px}
 
 /* The overlay's one toast: a polite status line at the bottom, never over the sticky bar. */
-.tc.tc .tc-toast-host{position:fixed;inset-inline:16px;bottom:max(16px,env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:40}
+.tc.tc .tc-toast-host{position:fixed;inset-inline:16px;bottom:max(84px,env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:40}
 .tc.tc .tc-toast{max-width:min(520px,100%);padding:10px 16px;border-radius:14px;background:var(--code-bg);color:var(--code-ink);font-size:13px;font-weight:600;box-shadow:0 10px 28px rgba(8,50,48,.28);text-align:center}
 @media (prefers-reduced-motion:no-preference){.tc.tc .tc-toast{animation:tc-toast-in .2s ease-out}@keyframes tc-toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}
 
 /* Where a button took the person: its heading shows a focus ring when keyboard focus lands on it. */
 .tc.tc #card h3:focus-visible,.tc.tc .case h2:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:6px}
+
+/* The sticky bar under the step view (prototype .nextbar): Back, "Step n of N · title" with what Next does, Next. The text wraps. */
+.tc.tc .nextbar{position:sticky;bottom:10px;z-index:6;display:flex;gap:12px;align-items:center;justify-content:space-between;margin:12px 0;padding:10px 14px;border-radius:16px;background:var(--nb-bg);border:1.5px solid var(--mc,var(--m-ind));box-shadow:0 8px 26px rgba(0,0,0,.14)}
+.tc.tc .nextbar .nb-t{flex:1;min-width:0;display:grid;gap:2px}
+.tc.tc .nextbar .nb-t .lab{font-size:11px;line-height:1.3}
+.tc.tc .nextbar .nb-t b{font-size:14.5px;line-height:1.3}
+.tc.tc .nextbar .btn{min-block-size:0;white-space:nowrap}
+.tc.tc .nextbar [data-act="stepnext"]{background:var(--mc,var(--m-ind));border-color:var(--mc,var(--m-ind));color:var(--on-mode);min-width:110px}
+.tc.tc .nextbar [data-act="stepnext"]:disabled{opacity:.5}
+.tc.tc .nextbar .btn .ic{display:inline-grid;vertical-align:middle}
+.tc.tc .nextbar .btn .ic svg{inline-size:14px;block-size:14px}
+[dir="rtl"] .tc.tc .flip svg{transform:scaleX(-1)}
+
+/* The night-alert player, in the bar while a run is on. */
+.tc{--track:rgba(13,42,42,.22)}
+.tc.dark{--track:rgba(255,255,255,.28)}
+.tc.tc .nextbar.tc-run{padding-block:8px}
+.tc.tc .player{display:flex;align-items:center;gap:8px;flex:none}
+.tc.tc .pb{inline-size:36px;block-size:36px;border-radius:50%;display:grid;place-items:center;padding:0;border:0;background:var(--glass-2);box-shadow:var(--glass-edge);flex:none}
+.tc.tc .pb:disabled{opacity:.4;cursor:default}
+.tc.tc .pb .ic{display:grid;place-items:center}
+.tc.tc .pb svg{inline-size:16px;block-size:16px}
+.tc.tc .pdots{display:flex;gap:5px;flex:none;justify-content:center;padding-inline:8px}
+.tc.tc .pdots i{inline-size:6px;block-size:6px;border-radius:50%;background:var(--track)}
+.tc.tc .pdots i.on{background:var(--ink)}
+.tc.tc .nb-prog{display:inline-flex;flex-wrap:wrap;gap:0 10px;align-items:baseline;font-size:12px;color:var(--ink2);white-space:nowrap}
+.tc.tc .nb-prog b{color:var(--ink);font-weight:600}
+.tc.tc .nb-paused{font-weight:700;color:var(--ink)}
+.tc.tc .nb-speed{display:inline-flex;gap:2px;padding:2px;border-radius:10px;background:var(--glass-2);box-shadow:var(--glass-edge);flex:none}
+.tc.tc .nb-speed button{border:0;background:none;border-radius:8px;padding:3px 9px;font-size:12px;font-weight:500;color:var(--ink2)}
+.tc.tc .nb-speed button[aria-pressed="true"]{background:rgba(255,255,255,.95);color:#064a42;box-shadow:0 1px 3px rgba(8,50,48,.14)}
+/* During a run the bar is a short pill centred at the bottom (prototype player): easy to reach, the screens stay visible beside it. */
+.tc.tc .nextbar.tc-run{max-inline-size:640px;inline-size:100%;margin-inline:auto;justify-self:center;justify-content:center;gap:10px;border-radius:999px;padding:6px 8px 6px 10px}
+.tc.tc .nextbar.tc-run .player{gap:4px}
+.tc.tc .nextbar.tc-run .pb{inline-size:32px;block-size:32px}
+.tc.tc .nextbar.tc-run .pdots{padding-inline:4px;gap:4px}
+.tc.tc .nextbar.tc-run .nb-t{gap:0}
+.tc.tc .nextbar.tc-run .nb-t>*{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tc.tc .nextbar.tc-run .nb-t b{font-size:13px}
+.tc.tc .nextbar.tc-run .nb-prog{flex-direction:column;gap:0;align-items:flex-end;font-size:11.5px;line-height:1.25}
+.tc.tc .nextbar.tc-run .nb-speed button{padding:3px 7px;font-size:11.5px}
+@media (max-width:640px){
+  .tc.tc .nextbar.tc-run{border-radius:22px;padding:8px 10px;justify-content:space-between}
+  .tc.tc .nextbar.tc-run{gap:6px 8px}
+  .tc.tc .nextbar.tc-run .pdots{gap:3px;padding-inline:2px}
+  .tc.tc .nextbar.tc-run .nb-speed button{padding:3px 6px}
+  .tc.tc .nextbar.tc-run .nb-speed{order:2}
+  .tc.tc .nextbar.tc-run .nb-t{flex:1 1 55%}
+  .tc.tc .nextbar.tc-run .nb-prog{flex:none}
+  .tc.tc .nextbar{gap:8px;padding:8px 10px}
+  .tc.tc .nextbar.tc-run{flex-wrap:wrap}
+  .tc.tc .nextbar.tc-run .nb-t{order:3}
+  .tc.tc .nextbar.tc-run .nb-prog{order:4}
+  .tc.tc .nextbar [data-act="stepnext"]{min-width:0}
+}
+
+/* Simple view (prototype .tc.simple): a newcomer sees the case, the picker, the steps, the step card, the three screens and the bar.
+   "Show details" brings the baton, the team, the data path, the database and log, the rule details and the brief. */
+.tc.tc .wrap.simple :is(#baton,#team,.pipe,.bottom,details.rules,.srcwrap,.lanebox,.tc-brief){display:none!important}
+@media (min-width:761px){.tc.tc .wrap.simple .fd-cols2{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}
+
+/* Picker (prototype): the live speech test stands out, "More cases" is dashed. */
+.tc.tc .cs.speechcs{border-color:var(--m-ind);background:var(--m-ind-s)}
+.tc.tc .cs.morecs{border-style:dashed}
+.tc.tc .tc-endacts{display:inline-flex;flex-wrap:wrap;gap:8px;align-items:center;margin-inline-start:auto}
+.tc.tc .tc-signal{display:inline-block;vertical-align:baseline;margin-inline-start:2px}
+
+/* Night: the level pills (now also the family heart pill, coloured by its risk band) use lighter text so they keep 4.5:1 on the dark glass. */
+.tc.tc.dark .lv-red{color:#ffc4c0}
+.tc.tc.dark .lv-amber{color:#ffd77a}
+.tc.tc.dark .lv-green{color:#9fe8c2}
+.tc.tc.dark .tn em.fc{background:var(--nb-bg)}
+
+/* The sticky bar is opaque (prototype var(--solid), #fff): the glass --solid is translucent. */
+.tc{--nb-bg:#ffffff}
+.tc.dark{--nb-bg:#141b33}
+
+/* Wide screens (a presenter at 75 % zoom: about 2048 x 1150): the case tab uses the width. The three screens keep about their size
+   and the step card column takes the extra, so its text wraps less. For judges and Benchmark keep their width; below 1700 px nothing changes. */
+@media (min-width:1700px){
+  .tc.tc .wrap#v-demo{max-width:2100px;padding-inline:24px}
+  .tc.tc:has(#v-demo) .tc-bar{width:calc(min(100%,2100px) - 48px)}
+  .tc.tc #v-demo .casegrid{grid-template-columns:clamp(520px,30%,600px) minmax(0,1fr)}
+}
