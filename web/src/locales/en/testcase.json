@@ -1557,7 +1557,7 @@
       "role": "Emergency coordination agent",
       "can": "Call 998 and family, stay on the line",
       "cannot": "Change the script or give medical advice",
-      "story": "Responder calls 998 first, then follows the call list each family agreed in advance: who has a key, who is nearest. It reads a fixed script that clinicians approved and hands every 998 call to a human operator. It never improvises."
+      "story": "Responder calls 998 and, at the same time, follows the call list each family agreed in advance: who has a key, who is nearest. It reads a fixed script that clinicians approved and hands every 998 call to a human operator. It never improvises."
     },
     "courier": {
       "n": "Courier",
@@ -2729,7 +2729,7 @@
           "agents": {
             "responder": [
               "Calls 998 with the fixed script; a human operator takes over",
-              "Calls {{f1s}}"
+              "At the same time calls {{f1s}}"
             ],
             "voice": [
               "“Sit upright with your feet down. Help is coming.”"
