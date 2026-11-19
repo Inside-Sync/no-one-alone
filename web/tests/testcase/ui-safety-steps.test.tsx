@@ -50,11 +50,11 @@ describe('teach-back', () => {
     expect(e.S.tbWrong).toBe(0)
     expect(options()[0].className).toContain('wrong')
     expect(screen.getByText(new RegExp(text(e, (ex.wrong as never[])[0]).slice(0, 20)))).toBeInTheDocument()
-    expect(screen.queryByText('Teach-back passed')).toBeNull()
+    expect(screen.queryByText('Teach-back passed: Noa checks the person understood')).toBeNull()
     fireEvent.click(options()[1])
     expect(e.S.tb).toBe('ok')
     expect(options()[1].className).toContain('right')
-    expect(screen.getByText('Teach-back passed')).toBeInTheDocument()
+    expect(screen.getByText('Teach-back passed: Noa checks the person understood')).toBeInTheDocument()
     expect(options().every((b) => (b as HTMLButtonElement).disabled)).toBe(true)
     // simpler words on request
     expect(screen.queryByText(text(e, ex.simpler))).toBeNull()

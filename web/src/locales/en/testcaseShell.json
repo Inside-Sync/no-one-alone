@@ -15,13 +15,13 @@
     "label": "Test case"
   },
   "banner": {
-    "title": "Test it yourself: prevention, screening and the safety net",
-    "text": "Start with the whole family: one Family Health Passport for three generations across five hospitals. Then well-child visits, adult IFHAS screening and emergencies at home. Enter your own data, see Noa’s agents find the barrier or the risk, and follow it to care and to the Department of Health. Or press “Run it for me”.",
-    "start": "Start the test case"
+    "title": "No One Alone: AI care agents that keep Abu Dhabi families checked and safe at home, for families, hospitals and the Department of Health",
+    "text": "Fictional data: four generations across six places. Start with the 3-minute Judge path, or pick a case and try it.",
+    "start": "Start the 3-minute tour"
   },
   "layout": {
     "steps": "Steps",
-    "baton": "Who has the person’s care now",
+    "baton": "Which agent is working now",
     "team": "Noa agent team",
     "family": "Family Health Passport",
     "picker": "Cases",

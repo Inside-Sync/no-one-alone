@@ -80,7 +80,7 @@ describe('G1 gate statuses, read from the engine', () => {
     const e = make('stroke')
     function Strip() { const { snap, r } = useEngine(e); return <GateStrip snap={snap} r={r} /> }
     render(<Strip />)
-    const list = screen.getByRole('list', { name: /Gates this case passes through/ })
+    const list = screen.getByRole('list', { name: /Safety checks this case passes through/ })
     expect(list.tagName).toBe('OL')
     const items = within(list).getAllByRole('listitem')
     expect(items.map((li) => li.getAttribute('data-gate'))).toEqual(['consent', 'data', 'urgent', 'rule', 'human'])
@@ -88,9 +88,17 @@ describe('G1 gate statuses, read from the engine', () => {
     expect(items[0]).toHaveTextContent('Passed')
     expect(items[2]).toHaveTextContent('Not reached')
     act(() => { advanceTo(e, 'tl') })
-    expect(items[2]).toHaveTextContent('Bypassed')
+    // Two states are said in plain words, in the neutral colour, not as error states.
+    expect(items[2]).toHaveTextContent('Urgent: skipped the queue')
+    expect(items[2]).not.toHaveTextContent('Bypassed')
+    expect(items[2]).toHaveClass('gate-info')
     expect(items[3]).toHaveTextContent(`${e.S.dec?.rule}:`)
-    expect(items[4]).toHaveTextContent('On hold')
+    expect(items[4]).toHaveTextContent('Waiting for a person to approve')
+    expect(items[4]).toHaveClass('gate-info')
+    expect(items[4]).not.toHaveTextContent('On hold')
+    expect(screen.getByText('Safety checks before Noa acts')).toBeInTheDocument()
+    // The colon is not a separate text node on its own line.
+    expect(items[0].querySelector('.gate-why')?.textContent).not.toMatch(/^:/)
   })
 })
 
@@ -115,7 +123,9 @@ describe('G2 provenance tags', () => {
       return <><DbPanel s={s} /><LogPanel s={s} /></>
     }
     const { container } = render(<Panels />)
-    expect(screen.getAllByRole('list', { name: 'What the tags mean' })).toHaveLength(2)
+    // The legend is shown once, titled "Where this comes from", not once per panel.
+    expect(screen.getAllByRole('list', { name: 'Where this comes from' })).toHaveLength(1)
+    expect(screen.getByText('Where this comes from', { selector: 'p' })).toBeInTheDocument()
     const rows = container.querySelectorAll('table.tbl2 tbody tr')
     expect(rows.length).toBeGreaterThan(0)
     rows.forEach((row) => expect(row.querySelector('td:last-child .prov')).not.toBeNull())

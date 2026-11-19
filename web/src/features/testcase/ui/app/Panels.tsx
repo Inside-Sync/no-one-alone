@@ -74,7 +74,6 @@ export function LogPanel({ s }: SessionProps) {
     <>
       <div className="ch"><span className="li" aria-hidden="true"><span className="ic"><Icon name="bolt" /></span></span><h2>{t('log.title')}</h2></div>
       <p className="src">{t('log.note')}</p>
-      <ProvLegend />
       <div role="log" aria-label={t('log.title')}>
         <ul className="loglist" aria-label={t('log.title')} tabIndex={0}>
           {snap.log.map((l, i) => (

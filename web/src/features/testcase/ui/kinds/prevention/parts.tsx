@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { RULES_P } from '../../../data/rules'
 import { tx, type Txt } from '../../../engine'
 import type { TestCaseEngine } from '../../../engine'
+import { RuleId } from '../../app/Provenance'
 import type { Resolve } from '../types'
 import './prevention.css'
 
@@ -99,7 +100,7 @@ export function RulesTable({ hit, r, open }: { hit?: string | null; r: Resolve; 
         <tbody>
           {RULES_P.map((x) => (
             <tr key={x.id} className={hit === x.id ? 'hit' : ''} aria-current={hit === x.id ? 'true' : undefined}>
-              <td>{x.id}</td><td>{r(tx(x.when))}</td><td>{r(tx(x.then))}</td>
+              <td><RuleId id={x.id} /></td><td>{r(tx(x.when))}</td><td>{r(tx(x.then))}</td>
             </tr>
           ))}
         </tbody>

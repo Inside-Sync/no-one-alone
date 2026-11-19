@@ -1,11 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Glyph } from '@/components/ui/Icon'
 import { QUESTIONS, RULES } from '../../../data'
 import { SAFETY_RANGES } from '../../../data/forecast'
 import { hm, runLen, tx, type SafetyInputs } from '../../../engine'
 import { FieldGuard, IssueList, issuesOf } from '../../app/FieldGuard'
-import { ProvTag, useG } from '../../app/Provenance'
+import { ProvTag, RuleId, useG } from '../../app/Provenance'
+import { scrollSoon } from '../../app/scrollTo'
 import type { KindProps } from '../types'
 import { Range, Seg, YourTurn } from './Controls'
 import { SpeechCheck } from './SpeechCheck'
@@ -67,6 +68,16 @@ export function HomeCard({ engine, snap, r }: KindProps) {
   const d = S.dec
   const em = !!d?.path && /_em$/.test(d.path)
   const Q = S.qk ? QUESTIONS[S.qk] : null
+  // After a speech result, bring the next "Your turn" (the question, or the decision when Noa has already decided) into view.
+  const heard = S.speech.home
+  const seenSpeech = useRef(heard)
+  const { auto, phase } = S
+  useEffect(() => {
+    if (seenSpeech.current === heard) return
+    seenSpeech.current = heard
+    if (!heard || auto) return
+    return scrollSoon(phase === 'decided' ? 'tc-decision' : 'tc-answerturn', undefined, 80)
+  }, [heard, auto, phase])
   const showSpeech = S.phase === 'check' || (S.phase === 'decided' && S.tCheck != null)
   const live = S.phase === 'playing' ? t('home.live.playing') : S.phase === 'check' ? t('home.live.check', { n: nm }) : d ? t('home.live.decided', { rule: d.rule, name: r(d.name) }) : ''
 
@@ -128,7 +139,7 @@ export function HomeCard({ engine, snap, r }: KindProps) {
         />
       )}
       {showSpeech && Q && S.speech.home?.said && (
-        <YourTurn mode="ind" what={t('home.answerTitle')} r={r}>
+        <div id="tc-answerturn"><YourTurn mode="ind" what={t('home.answerTitle')} r={r}>
           <p id="tc-q">{r(tx(Q.q))}</p>
           <div role="group" aria-labelledby="tc-q" className="opts">
             {Q.a.map((a) => (
@@ -137,11 +148,11 @@ export function HomeCard({ engine, snap, r }: KindProps) {
               </button>
             ))}
           </div>
-        </YourTurn>
+        </YourTurn></div>
       )}
 
       {d && (
-        <div className="decision">
+        <div className="decision" id="tc-decision">
           <div className={`result status ${em ? 'st-red' : d.path ? 'st-amber' : 'st-green'}`}>
             <b>{t('home.decision', { rule: d.rule, name: r(d.name) })}</b> <ProvTag kind="calculated" />
             {d.why ? r(d.why) : em ? t('home.called', { at: hm((S.tAct ?? 0) + 2) }) : snap.steps[1] ? t('home.nextIs', { title: r(tx(snap.steps[1].title)) }) : ''}
@@ -161,7 +172,7 @@ export function HomeCard({ engine, snap, r }: KindProps) {
           <tbody>
             {RULES.map((ru) => (
               <tr key={ru.id} className={d && (ru.id === d.rule || ru.id === S.why1) ? 'hit' : ''}>
-                <td>{ru.id}</td><td>{r(tx(ru.when))}</td><td>{r(tx(ru.then))}</td>
+                <td><RuleId id={ru.id} /></td><td>{r(tx(ru.when))}</td><td>{r(tx(ru.then))}</td>
               </tr>
             ))}
           </tbody>

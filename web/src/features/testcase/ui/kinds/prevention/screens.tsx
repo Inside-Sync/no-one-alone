@@ -84,7 +84,7 @@ export function WebP({ engine, snap, r }: ScreenProps) {
   return (
     <>
       <div className="win-bar mode-ind"><i /><i /><i /><span className="t">{t('web.title')} · <span className="mt">{t('web.mode')}</span> · {t('web.screen')}</span></div>
-      <div className="win-body">
+      <div className="win-body" tabIndex={0}>
         <div className="pass">
           <span className="lab">{t('web.careGaps')}</span>
           {rows.map((row, k) => <div key={k} className={`prow ${row.cls}`}><b>{row.name}</b><span>{row.what}</span><em>{row.state}</em></div>)}

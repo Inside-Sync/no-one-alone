@@ -191,7 +191,7 @@ export function NoaPanel({ s, Custom }: SessionProps & { Custom?: ComponentType<
           <button type="button" className="mode-gov" aria-pressed={!hosp} onClick={() => engine.setNoaTab('doh')}>{r(tx('modes.gov'))}</button>
         </div>
       </div>
-      <div className={`win-body mode-${nm}`}>{body}</div>
+      <div className={`win-body mode-${nm}`} tabIndex={0}>{body}</div>
     </>
   )
 }

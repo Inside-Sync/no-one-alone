@@ -49,10 +49,13 @@ export function TestCaseProvider({ children }: { children: ReactNode }) {
   const [isOpen, setOpen] = useState(link !== undefined)
   const [caseKey, setCaseKey] = useState<string | null>(link?.caseKey ?? null)
   const [night, setNightState] = useState(false)
+  const [judgePending, setJudgePending] = useState(false)
   const [tab, setTab] = useState<TestCaseTab>(link?.tab ?? 'case')
 
   const open = useCallback((key?: string) => { setCaseKey(key ?? null); setTab('case'); setOpen(true) }, [])
-  const close = useCallback(() => { setOpen(false); setNightState(false); setTab('case') }, [])
+  const openJudge = useCallback(() => { setCaseKey(null); setTab('case'); setJudgePending(true); setOpen(true) }, [])
+  const consumeJudge = useCallback(() => setJudgePending(false), [])
+  const close = useCallback(() => { setOpen(false); setJudgePending(false); setNightState(false); setTab('case') }, [])
   const setNight = useCallback((on: boolean) => setNightState(on), [])
 
   useEffect(() => {
@@ -60,8 +63,8 @@ export function TestCaseProvider({ children }: { children: ReactNode }) {
   }, [link])
 
   const value = useMemo<TestCaseValue>(
-    () => ({ isOpen, caseKey, open, close, setCaseKey, night, setNight }),
-    [isOpen, caseKey, open, close, night, setNight],
+    () => ({ isOpen, caseKey, open, openJudge, judgePending, consumeJudge, close, setCaseKey, night, setNight }),
+    [isOpen, caseKey, open, openJudge, judgePending, consumeJudge, close, night, setNight],
   )
 
   return (

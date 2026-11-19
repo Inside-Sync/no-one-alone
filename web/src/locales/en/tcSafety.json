@@ -36,7 +36,7 @@
     "speechTitle": "speech check (play {{n}})",
     "answerTitle": "answer Noa’s question",
     "decision": "Noa’s decision · {{rule}} · {{name}}",
-    "called": "998 called at {{at}}. The rest of the journey follows.",
+    "called": "998 (UAE ambulance) called at {{at}}. The rest of the journey follows.",
     "nextIs": "Next: {{title}}.",
     "checksTitle": "Right action, right time?",
     "tryAnother": "Try another case, or change the readings and play again.",
@@ -68,6 +68,11 @@
     "wpm": "{{n}} words/min",
     "mode": { "spoken": "spoken", "typed": "typed", "sample": "sample" },
     "heard": "Heard: “{{said}}”",
+    "next": {
+      "ask": "What happens next: Noa asks one more question about what changed. No answer, or slurred speech, means a 998 (UAE ambulance) call.",
+      "call": "What happens next: no answer or slurred speech, so Noa calls 998 (UAE ambulance) now.",
+      "decided": "What happens next: Noa has decided; see the decision below."
+    },
     "wordHeard": "heard clearly",
     "wordMissed": "not heard",
     "demo": "Demo rule: words matched and time taken, compared with the usual. Not a validated stroke test."
@@ -83,7 +88,7 @@
     "simpler": "Simpler words",
     "prepared": "Prepared text",
     "answerAs": "answer as {{n}}",
-    "passed": "Teach-back passed",
+    "passed": "Teach-back passed: Noa checks the person understood",
     "saved": "Saved to the record.",
     "chooses": "{{n}} chooses who sees the plan",
     "sendPlan": "Send the plan home",

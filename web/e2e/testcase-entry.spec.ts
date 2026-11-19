@@ -50,3 +50,11 @@ for (const [q, check] of [
     expect(errs.list()).toEqual([])
   })
 }
+
+test('"Start the 3-minute tour" opens the overlay and starts the Judge path', async ({ page }) => {
+  await openApp(page)
+  await page.locator('#tcBannerBtn').click()
+  await expect(overlay(page)).toBeVisible()
+  await expect(page.locator('.tc-judgecap')).toBeVisible({ timeout: 15_000 })
+  await expect(page.locator('#judgeBtn')).toBeDisabled()
+})

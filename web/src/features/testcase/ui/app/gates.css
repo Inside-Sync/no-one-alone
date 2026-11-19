@@ -1,13 +1,14 @@
 /* Gates (G1), provenance tags (G2), speech vs usual (G3), input issues (B3). Logical properties only; colours come from the overlay's tokens (light and `.tc.dark`). */
 
 /* G1: the gate strip at the top of a step card. */
-.tc.tc ol.gates{list-style:none;margin:0 0 10px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px;counter-reset:gate}
-.tc.tc .gate{counter-increment:gate;border:1px solid var(--line);border-radius:10px;padding:6px 8px;background:var(--sunk);display:grid;gap:2px;align-content:start;min-inline-size:0}
-.tc.tc .gate-h{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-size:12px}
+.tc.tc ol.gates{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-wrap:wrap;gap:5px;counter-reset:gate}
+.tc.tc ol.gates>.gate{counter-increment:gate;border:1px solid var(--line);border-radius:999px;padding:0;background:var(--sunk);display:grid;gap:0;align-content:start;min-inline-size:0;flex:0 1 auto;overflow:hidden}
+.tc.tc .gate-h{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;line-height:1.3;padding:3px 9px;min-block-size:26px;inline-size:100%;cursor:pointer;background:none;border:0;color:inherit;text-align:start}
 .tc.tc .gate-h b::before{content:counter(gate) ". ";font-weight:500;color:var(--muted)}
 .tc.tc .gate-dot{inline-size:9px;block-size:9px;border-radius:50%;border:2px solid var(--muted);flex:none;box-sizing:border-box}
-.tc.tc .gate-st{margin-inline-start:auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
-.tc.tc .gate-why{font-size:11.5px;line-height:1.35;color:var(--ink2);overflow-wrap:anywhere}
+.tc.tc .gate-st{margin-inline-start:2px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+.tc.tc .gate-why{font-size:12px;line-height:1.35;color:var(--ink2);overflow-wrap:anywhere;padding:0 11px 8px}
+.tc.tc ol.gates>.gate.gate-open{flex:1 1 100%;border-radius:12px}
 .tc.tc .gate-pass{border-color:color-mix(in srgb,var(--good) 45%,transparent);background:var(--good-s)}
 .tc.tc .gate-pass .gate-dot{background:var(--good);border-color:var(--good)}
 .tc.tc .gate-pass .gate-st{color:var(--good-t)}
@@ -53,6 +54,9 @@
 .tc.tc .tc-issue.is-required{border-inline-start-color:var(--bad);background:var(--bad-s)}
 .tc.tc .tc-issue.is-required b{color:var(--bad)}
 
-@media (max-width:640px){
-  .tc.tc ol.gates{grid-template-columns:1fr}
-}
+
+/* Plain-words gates (urgent: skipped the queue, waiting for a person): neutral info colour, not error red or warning amber. */
+.tc.tc .gate-info{border-color:var(--info);background:var(--info-s)}
+.tc.tc .gate-info .gate-dot{border-color:var(--info);background:var(--info);border-radius:50%;transform:none}
+.tc.tc .gates-title{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--ink2)}
+.tc.tc .prov-legend-t{margin:6px 0 0;font-size:11.5px;font-weight:700;color:var(--ink2)}

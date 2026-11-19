@@ -58,7 +58,8 @@ export const firebaseSource: DataSource = {
     return seed ? overlayCircle(c, seed, VIEWER) : c
   },
   async getSharePeople() {
-    const [p, seed] = await Promise.all([mockSource.getSharePeople(), getSeed()])
+    // A failed seed read must not empty the panel: show the prototype people (the seed is retried on the next call).
+    const [p, seed] = await Promise.all([mockSource.getSharePeople(), getSeed().catch(() => null)])
     return seed ? overlaySharePeople(p, seed) : p
   },
   async getOrbitScene() {

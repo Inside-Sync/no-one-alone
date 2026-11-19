@@ -28,6 +28,8 @@ test('overlay status-tone text keeps 4.5:1 contrast (family, light and dark)', a
   for (const theme of ['light', 'dark'] as const) {
     await openTest(page, 'family', { theme })
     await runToEnd(page)
+    // The run now follows the step card; measure from the top of the overlay, as the screenshot probe expects (the sticky bar would cover scrolled content).
+    await page.evaluate(() => { (document.getElementById('tcHost') as HTMLElement).scrollTop = 0 })
     const hits = (await measureToneText(page)).filter((h) => h.ratio < 4.5)
     expect(hits.map((h) => `${theme} ${h.tone} "${h.text}" ${h.ratio.toFixed(2)}`), 'low-contrast tones').toEqual([])
   }

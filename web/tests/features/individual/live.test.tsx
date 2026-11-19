@@ -245,7 +245,7 @@ test('Night alert demo (TopNav) goes to the live page as family; body.night; End
   expect(r.app().who).toBe('family')
   expect(r.app().emergency).toMatchObject({ active: true, step: 0, playing: true })
   expect(document.body).toHaveClass('night')
-  expect(screen.getByText('LIVE')).toBeInTheDocument()
+  expect(screen.getByText('REPLAY')).toBeInTheDocument()
   expect(screen.getByText('Live timeline')).toBeInTheDocument()
   // Tab to Next: it is a real, focusable button; Enter activates it.
   screen.getByRole('button', { name: 'Next step' }).focus()
@@ -253,7 +253,7 @@ test('Night alert demo (TopNav) goes to the live page as family; body.night; End
   expect(screen.getByText(/Calls Moza by voice/)).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: 'End demo' }))
   expect(document.body.classList.contains('night')).toBe(false)
-  expect(screen.queryByText('LIVE')).toBeNull()
+  expect(screen.queryByText('REPLAY')).toBeNull()
 })
 
 test('STEPS stay the single source for the timeline text', async () => {

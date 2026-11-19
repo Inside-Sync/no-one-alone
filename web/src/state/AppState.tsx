@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore, type ReactNode } from 'react'
 import * as repo from '@/data/repo'
 import i18n from '@/i18n'
 import type { AuditEntry, PersonId, SharePerson, ShareMatrix } from '@/data/types'
@@ -158,10 +158,29 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     const { view, page } = parsePath(window.location.pathname)
     who = whoForPage(view, page) ?? who
     commit({ type: 'hydrate', who, viewer })
-    repo.getSharePeople().then((people) => { if (mounted.current) commit({ type: 'people', people }) }, () => {})
     repo.getShare().then((share) => { if (mounted.current) commit({ type: 'share', share }) }, () => {})
     return () => { mounted.current = false }
   }, [commit])
+
+  // "Your people": loaded once, and again when the language changes (names and roles are per language). A failed read is retried
+  // a few times instead of leaving the panel empty for the rest of the session.
+  const lang = useSyncExternalStore(
+    (cb) => { i18n.on('languageChanged', cb); return () => { i18n.off('languageChanged', cb) } },
+    () => i18n.resolvedLanguage ?? i18n.language,
+    () => 'en',
+  )
+  useEffect(() => {
+    let alive = true
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const load = (attempt: number) => {
+      repo.getSharePeople().then(
+        (people) => { if (alive && mounted.current) commit({ type: 'people', people }) },
+        () => { if (alive && attempt < 3) timer = setTimeout(() => load(attempt + 1), 1500 * (attempt + 1)) },
+      )
+    }
+    load(0)
+    return () => { alive = false; if (timer) clearTimeout(timer) }
+  }, [commit, lang])
 
   useEffect(() => {
     if (!s.hydrated) return

@@ -91,6 +91,12 @@
 .tc.tc .tcp-tile-xs{font-size:11px}
 .tc.tc .tcp-lab-gap{margin-block-end:6px}
 
+/* Side by side, the alerts column is exactly as tall as the sources and connections column and scrolls inside,
+   so neither column leaves an empty gap. contain:size stops the long list from setting the row height. */
+@media (min-width:641px){
+  .tc.tc .fd-cols2>div:last-child{grid-template-rows:auto auto minmax(0,1fr);align-content:stretch}
+  .tc.tc .fd-cols2 .alerts{contain:size;max-height:none;min-height:280px;align-content:start;padding-inline-end:4px}
+}
 @media (max-width:1180px){
   .tc.tc .fd-top{grid-template-columns:1fr 1fr}
   .tc.tc .fd-top>div:first-child{grid-column:1/-1}
@@ -100,3 +106,7 @@
   .tc.tc .tn{max-inline-size:none;flex-basis:100%}
 }
 .tc.tc .tcp-lane text{font-family:var(--font);font-size:8.5px}
+
+/* A changed alert card shows for a moment: a static ring, plus a fade when motion is welcome. */
+.tc.tc .famdash .al.tc-flash{box-shadow:0 0 0 2px var(--brand);background:var(--noa-soft)}
+@media (prefers-reduced-motion:no-preference){.tc.tc .famdash .al.tc-flash{animation:tc-flash 1.4s ease-out}@keyframes tc-flash{from{box-shadow:0 0 0 5px var(--brand2)}to{box-shadow:0 0 0 2px var(--brand)}}}

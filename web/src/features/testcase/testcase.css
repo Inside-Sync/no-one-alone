@@ -34,7 +34,9 @@
 .tc.tc [hidden]{display:none!important}
 .tc.tc .how>*,.tc.tc .two>*,.tc.tc .lanes>*{min-width:0}
 .tc{background:radial-gradient(900px 500px at 0% -5%,var(--glow),transparent 70%),radial-gradient(800px 500px at 100% 0%,var(--glow2),transparent 70%),linear-gradient(180deg,var(--bg),var(--bg2));color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45}
-.tc.tc .wrap{max-width:1480px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 40px}
+.tc{--wrap-max:1480px;--gut:16px}
+.tc[data-tab="case"]{--wrap-max:2200px;--gut:clamp(16px,1.2vw,24px)}
+.tc.tc .wrap{max-width:var(--wrap-max);margin:0 auto;padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px));padding-block:18px 40px}
 .tc.tc h1,.tc.tc h2,.tc.tc h3{text-wrap:balance;margin:0}
 .tc.tc button{font:inherit;color:inherit;cursor:pointer}
 .tc.tc button:focus-visible,.tc.tc input:focus-visible,.tc.tc select:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
@@ -558,7 +560,7 @@ body[data-view="government"] .tc.dark.tc .tc-tint{background:linear-gradient(155
 .tc.tc .wrap{position:relative;z-index:2}
 
 /* Header bar = the app's top navigation: glass, 20 px radius, orb + title, segmented tabs, soft Close. */
-.tc.tc .tc-bar{position:sticky;top:max(12px,env(safe-area-inset-top,0px));z-index:30;width:calc(min(100%,1480px) - 32px);margin:12px auto 0;padding:10px 12px 10px 16px;gap:10px 14px;border:0;border-radius:20px;background:var(--glass);box-shadow:var(--glass-edge),var(--glass-drop);backdrop-filter:var(--frost);-webkit-backdrop-filter:var(--frost);justify-content:flex-start}
+.tc.tc .tc-bar{position:sticky;top:max(12px,env(safe-area-inset-top,0px));z-index:30;width:calc(min(100%,var(--wrap-max)) - 2 * var(--gut));margin:12px auto 0;padding:10px 12px 10px 16px;gap:10px 14px;border:0;border-radius:20px;background:var(--glass);box-shadow:var(--glass-edge),var(--glass-drop);backdrop-filter:var(--frost);-webkit-backdrop-filter:var(--frost);justify-content:flex-start}
 .tc.tc .tc-orb{display:grid;place-items:center;width:32px;height:32px;flex:none}
 .tc.tc .tc-bar-t{flex:1 1 auto}
 .tc.tc .tc-bar b{font-size:15.5px;font-weight:600;letter-spacing:-.2px;line-height:1.15}
@@ -699,3 +701,151 @@ body[data-view="government"] .tc.dark.tc .tc-tint{background:linear-gradient(155
   .tc.tc .tc-tabs button{flex:1 1 auto;padding:6px 6px;white-space:nowrap}
   .tc.tc .tc-bar .src{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 }
+
+/* The sticky bar: ~95% opaque so scrolled text does not show through (light and dark). On a phone the subtitle goes, leaving title, tabs and Close. */
+.tc{--bar-bg:rgba(250,252,252,.95)}
+.tc.dark{--bar-bg:rgba(14,28,30,.95)}
+.tc.tc.tc .tc-bar{background:var(--bar-bg)}
+@media (max-width:640px){
+  .tc.tc.tc .tc-bar .src{display:none}
+}
+
+/* Why Next is off: one plain line under the buttons. */
+.tc.tc .nav .tc-nextwhy{flex:1 1 100%;order:3;margin:2px 0 0;font-size:12.5px;line-height:1.4;color:var(--ink2)}
+.tc.tc .fd-score .fd-ring{display:grid;justify-items:center;gap:2px;flex:none}
+.tc.tc .fd-score .fd-ringlab{font-size:11px;font-weight:600;color:var(--ink2);text-align:center}
+
+/* Steps not reached yet stay readable (a newcomer reads what is coming): a dashed edge and quieter fill say "not yet", not faded text. */
+.tc.tc.tc .stepper button:disabled{opacity:1;border-style:dashed;background:var(--glass-2)}
+.tc.tc.tc .stepper button:disabled .n,.tc.tc.tc .stepper button:disabled .t{color:var(--ink2)}
+/* The step label is dark text on every mode (the mode colour stays on the top edge): the Department's violet is too light as small text. */
+.tc.tc.tc .stepper button[class*="mode-"] .n,.tc.tc.tc .stepper button[class*="mode-"][aria-current="step"] .n{color:var(--ink2)}
+.tc.tc.tc .stepper button[aria-current="step"] .n{color:var(--ink)}
+
+/* ================= Console layout (the step view) =================
+ * Wide screens: the case header and the six steps on top, then the stage: the step card in a sticky column of its own (it scrolls
+ * inside itself) beside the team strip, the data path and the three screens, which share one row of equal height that fits the viewport.
+ * The picker, the family dashboard and the baton sit under the stage. Logical properties only, so Arabic mirrors. */
+.tc{--bar-bottom:81px;--left-w:320px;--above-screens:176px;--scr-h:auto;--pb-h:0px}
+.tc.tc .wrap{--stage-top:calc(var(--bar-bottom) + 12px + var(--pb-h))}
+.tc.tc .wrap[data-run]{--pb-h:48px}
+.tc.tc .gate-h{background:none;border:0;padding:0;color:inherit;text-align:start}
+
+/* Gates: a strip of chips; the reason opens under a press and takes the full row. */
+.tc.tc ol.gates{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 8px;counter-reset:gate}
+.tc.tc ol.gates .gate{flex:0 1 auto;padding:0;gap:0;border-radius:999px;overflow:hidden}
+.tc.tc ol.gates .gate-h{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;font-size:11.5px;line-height:1.3;min-block-size:26px;inline-size:100%;cursor:pointer}
+.tc.tc ol.gates .gate-st{margin-inline-start:2px;font-size:10px}
+.tc.tc ol.gates .gate-why{padding:0 11px 8px;font-size:12px}
+.tc.tc ol.gates .gate.gate-open{flex:1 1 100%;border-radius:12px}
+.tc.tc ol.gates .gate-h:focus-visible{outline-offset:-2px;border-radius:999px}
+
+@media (min-width:1280px){
+  .tc[data-tab="case"]{font-size:13px}
+  .tc[data-tab="case"] .wrap{gap:12px;padding-block:12px 28px}
+  .tc[data-tab="case"] .wrap :is(.card,.win){border-radius:18px}
+  .tc[data-tab="case"] :is(.case,.picker,.famdash,.db,.log).card{padding:12px 16px}
+  .tc[data-tab="case"] .stepcard.card{padding:12px 14px;gap:10px}
+  .tc[data-tab="case"] :is(.baton,.team).card{padding:8px 12px}
+  .tc[data-tab="case"] .stepcard h3,.tc[data-tab="case"] .case h2{font-size:17px}
+
+  /* Case header: who / one line / moment and how-might-we / actions, in one row. */
+  .tc[data-tab="case"] .case{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) auto;align-items:start;gap:4px 18px}
+  .tc[data-tab="case"] .case{align-content:start}
+  .tc[data-tab="case"] .case>.tc-case-main{display:contents}
+  .tc[data-tab="case"] .case h2{grid-column:1}
+  .tc[data-tab="case"] .case .tc-case-main>p{grid-column:1;margin:0;font-size:12.5px}
+  .tc[data-tab="case"] .case .tc-brief{grid-column:2;grid-row:1/span 3;margin:0;align-self:start}
+  .tc[data-tab="case"] .case .tc-brief p{font-size:12.5px}
+  .tc[data-tab="case"] .case>.tc-case-actions{grid-column:3;grid-row:1/span 3;max-inline-size:470px;gap:6px}
+  .tc[data-tab="case"] .case .tc-case-main>p.tc-oneliner{margin-block-start:2px}
+  .tc[data-tab="case"] .tc-judgecap{padding:6px 10px}
+  .tc[data-tab="case"] .stepper{gap:6px}
+  .tc[data-tab="case"] .stepper button{padding:5px 9px;border-radius:12px}
+  .tc[data-tab="case"] .stepper .t{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tc[data-tab="case"] .stepper .n{font-size:10px}
+
+  /* The stage. */
+  .tc[data-tab="case"] .casegrid{grid-template-columns:var(--left-w) minmax(0,1fr);gap:12px;align-items:start}
+  .tc[data-tab="case"] .stepcard{position:sticky;top:var(--stage-top);align-self:start;block-size:calc(100dvh - var(--stage-top) - 12px);overflow-y:auto;overscroll-behavior:contain;scroll-padding-block:12px;align-content:start}
+  .tc[data-tab="case"] .stepcard .nav{position:sticky;inset-block-end:-12px;margin-block-end:-12px;padding-block:8px 12px;background:var(--bar-bg);border-block-start:1px solid var(--line);z-index:1}
+  .tc[data-tab="case"] .tc-main{gap:10px}
+  .tc[data-tab="case"] .tc-main>.card{margin:0}
+
+  /* Team: one line of nine, name and icon; the role is on hover and focus (title) and in the accessible name. */
+  .tc[data-tab="case"] .team{gap:6px}
+  .tc[data-tab="case"] .team-h{flex-wrap:nowrap;gap:10px;min-inline-size:0}
+  .tc[data-tab="case"] .team-h .note{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-inline-size:0;flex:1 1 0}
+  .tc[data-tab="case"] .team-h .lab{flex:none}
+  .tc[data-tab="case"] .team-row{grid-template-columns:repeat(9,minmax(0,1fr));gap:5px}
+  .tc[data-tab="case"] .agc{padding:4px 6px;gap:5px;border-radius:10px}
+  .tc[data-tab="case"] .agc>span:last-child{min-inline-size:0}
+  .tc[data-tab="case"] .agc b{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tc[data-tab="case"] .agc small{position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .tc[data-tab="case"] .agc .bot{inline-size:22px;block-size:22px;font-size:13px}
+
+  /* Data path: one compact row. */
+  .tc[data-tab="case"] .pipe.card{padding:6px;gap:5px;overflow:hidden}
+  .tc[data-tab="case"] .node{min-inline-size:0;padding:4px 7px 5px}
+  .tc[data-tab="case"] .node .who{font-size:9.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tc[data-tab="case"] .node .nm{font-size:12px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tc[data-tab="case"] .node .st{font-size:10.5px;line-height:1.25;margin-block-start:1px;min-block-size:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  /* Three screens, one row, one height. Each scrolls inside itself. */
+  .tc[data-tab="case"] .wrap{--scr-h:max(520px,calc(100dvh - var(--stage-top) - 12px - var(--above-screens)));--ph-w:clamp(250px,calc(var(--scr-h) * .47),340px)}
+  .tc[data-tab="case"] .screens{grid-template-columns:var(--ph-w) minmax(0,1fr) minmax(0,1.15fr);gap:12px;align-items:start}
+  .tc[data-tab="case"] .scr-h{margin:0 2px 5px}
+  .tc[data-tab="case"] .phone{block-size:var(--scr-h);padding:7px;border-radius:34px}
+  .tc[data-tab="case"] .ph-in{block-size:100%;min-block-size:0;overflow-y:auto;overscroll-behavior:contain;border-radius:27px}
+  .tc[data-tab="case"] .win{block-size:var(--scr-h);display:flex;flex-direction:column}
+  .tc[data-tab="case"] .win-bar{flex:none}
+  .tc[data-tab="case"] .win-body{flex:1 1 auto;min-block-size:0;overflow-y:auto;overscroll-behavior:contain;align-content:start}
+}
+
+/* Roomy: 1800 px and up. */
+@media (min-width:1800px){
+  .tc{--left-w:380px;--above-screens:190px}
+  .tc[data-tab="case"]{font-size:14px}
+  .tc[data-tab="case"] .agc small{position:static;inline-size:auto;block-size:auto;clip-path:none;overflow:hidden;text-overflow:ellipsis}
+}
+
+/* 1024 to 1279: the step card on top (not sticky), the screens at a fixed height, two and one. */
+@media (min-width:901px) and (max-width:1279px){
+  .tc[data-tab="case"] .wrap{--scr-h:540px;--ph-w:260px}
+  .tc[data-tab="case"] .casegrid{grid-template-columns:minmax(0,1fr)}
+  .tc[data-tab="case"] .stepcard{position:static}
+  .tc[data-tab="case"] .screens{grid-template-columns:var(--ph-w) minmax(0,1fr)}
+  .tc[data-tab="case"] .screens>div:last-child{grid-column:1/-1}
+  .tc[data-tab="case"] .team-row{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .tc[data-tab="case"] .agc small{position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .tc[data-tab="case"] .phone{block-size:var(--scr-h);padding:8px}
+  .tc[data-tab="case"] .ph-in{block-size:100%;min-block-size:0;overflow-y:auto;overscroll-behavior:contain}
+  .tc[data-tab="case"] .win{block-size:var(--scr-h);display:flex;flex-direction:column}
+  .tc[data-tab="case"] .win-bar{flex:none}
+  .tc[data-tab="case"] .win-body{flex:1 1 auto;min-block-size:0;overflow-y:auto;align-content:start}
+}
+@media (max-width:1279px){
+  .tc.tc ol.pipe{overflow-x:auto}
+}
+
+/* Run controls: a compact glass strip, sticky under the overlay bar. */
+.tc.tc .tc-pb{position:sticky;top:calc(var(--bar-bottom) + 8px);z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:5px 10px;border-radius:16px;background:var(--bar-bg);box-shadow:var(--glass-edge),var(--glass-drop);backdrop-filter:var(--frost);-webkit-backdrop-filter:var(--frost);min-block-size:40px}
+.tc.tc .tc-pb .btn{min-block-size:30px}
+.tc.tc .tc-pb .btn[aria-pressed="true"]{background:var(--warn);color:var(--bg)}
+.tc.tc .tc-pb-prog{display:inline-flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline;font-size:12.5px;color:var(--ink2);margin-inline:6px auto}
+.tc.tc .tc-pb-prog b{color:var(--ink);font-weight:600}
+.tc.tc .tc-pb-speed{display:inline-flex;align-items:center;gap:2px;padding:2px;border-radius:10px;background:var(--glass-2);box-shadow:var(--glass-edge)}
+.tc.tc .tc-pb-speed .lab{margin-inline:6px 4px}
+.tc.tc .tc-pb-speed button{border:0;background:none;border-radius:8px;padding:4px 10px;font-size:12.5px;font-weight:500;color:var(--ink2);min-block-size:28px}
+.tc.tc .tc-pb-speed button[aria-pressed="true"]{background:rgba(255,255,255,.95);color:#064a42;box-shadow:0 1px 3px rgba(8,50,48,.14)}
+@media (max-width:640px){
+  .tc.tc .tc-pb{padding:5px 8px}
+  .tc.tc .tc-pb-prog{flex:1 1 100%;order:5;margin:0}
+  .tc.tc .tc-pb-speed{margin-inline-start:auto}
+}
+
+/* The screens' labels sit straight on the photo: give them their own light ground. The windows' bars are opaque, so their tabs read the same wherever the window sits. */
+.tc.tc.tc .scr-h .lab{background:var(--bar-bg);color:var(--ink2);padding:2px 9px;border-radius:8px}
+.tc.tc.tc .scr-h .lab b{color:var(--ink)}
+.tc.tc.tc .win-bar{background:var(--th-bg)}
+.tc.tc.tc .node.gov .who{color:color-mix(in srgb,var(--m-gov) 78%,var(--ink))}

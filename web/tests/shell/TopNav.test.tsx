@@ -144,13 +144,13 @@ test('the night alert tab appears only on its page; it carries LIVE while the de
   expect(screen.queryByRole('button', { name: /Night alert \(replay\)/ })).toBeNull()
 })
 
-test('LIVE badge on the night alert tab while the demo runs; none otherwise', async () => {
+test('REPLAY badge on the night alert tab while the demo runs; none otherwise', async () => {
   mockPath = '/individual/live/'
   render(withControls())
   const tab = await screen.findByRole('button', { name: /Night alert \(replay\)/ })
   expect(tab.querySelector('.badge')).toBeNull()
   fireEvent.click(screen.getByText('go'))
-  expect(screen.getByRole('button', { name: /Night alert \(replay\)/ }).querySelector('.badge')).toHaveTextContent('LIVE')
+  expect(screen.getByRole('button', { name: /Night alert \(replay\)/ }).querySelector('.badge')).toHaveTextContent('REPLAY')
   fireEvent.click(screen.getByText('stop'))
   expect(screen.getByRole('button', { name: /Night alert \(replay\)/ }).querySelector('.badge')).toBeNull()
 })

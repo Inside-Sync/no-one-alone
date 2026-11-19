@@ -134,6 +134,7 @@ export function SpeechCheck({ engine, snap, r, which, sample, ask, title }: Prop
         ))}
       </div>
       {res && <SpeechResultView res={res} usual={usual} who={who} />}
+      {res && which === 'home' && <p className="tc-speech-next" role="status">{t(S.phase === 'decided' ? (S.dec?.path && /_em$/.test(S.dec.path) ? 'speech.next.call' : 'speech.next.decided') : 'speech.next.ask')}</p>}
       <p className="note">{t('speech.demo')}</p>
     </div>
   )

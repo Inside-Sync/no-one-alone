@@ -72,11 +72,14 @@ export function FamilyDashboard(p: ScreenProps) {
     <>
       <div className="fd-h">
         <div className="fd-score">
+          <div className="fd-ring">
           <svg viewBox="0 0 64 64" width="64" height="64" role="img" aria-label={t('fam.dash.score', { score })}>
             <circle cx="32" cy="32" r="26" fill="none" stroke="var(--sunk)" strokeWidth="7" />
             <circle cx="32" cy="32" r="26" fill="none" stroke="var(--m-ind)" strokeWidth="7" strokeLinecap="round" strokeDasharray={`${((score / 100) * circ).toFixed(1)} 999`} transform="rotate(-90 32 32)" />
             <text x="32" y="37" textAnchor="middle" fontSize="15" fontWeight="700" fill="var(--ink)">{score}%</text>
           </svg>
+          <small className="fd-ringlab">{t('fam.dash.scoreLabel')}</small>
+          </div>
           <div>
             <b>{t('fam.dash.title')}</b>
             <span>{t('fam.dash.upOf', { n: up, total })}</span>

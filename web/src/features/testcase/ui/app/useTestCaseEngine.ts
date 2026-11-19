@@ -6,9 +6,23 @@ import { CASES } from '../../data/cases'
 import { TestCaseEngine, resolveText, setDateLocale, type CaseId, type Params, type Snapshot, type TFn, type Txt } from '../../engine'
 import { useTestCase } from '../../entry/TestCaseContext'
 import { intlLocale } from '@/i18n'
-import { Driver, type JudgeState } from './driver'
+import { DEFAULT_SPEED, Driver, SPEEDS, type JudgeState, type Speed } from './driver'
 
 export type Resolve = (x: Txt | string | number | null | undefined) => string
+
+/** The playback controls of a run ("Run it for me" or the Judge path): pause, resume, back, skip and speed. */
+export interface Playback {
+  /** A run is on (or paused): the controls show. */
+  active: boolean
+  paused: boolean
+  speed: Speed
+  pause: () => void
+  resume: () => void
+  toggle: () => void
+  back: () => void
+  skip: () => void
+  setSpeed: (s: Speed) => void
+}
 
 export interface TestCaseSession {
   engine: TestCaseEngine
@@ -19,6 +33,7 @@ export interface TestCaseSession {
   tt: TFn
   ctx: Params
   judge: JudgeState | null
+  playback: Playback
   /** Pick a case (a click in the picker): stops any run, loads the case, tells the shell. */
   pick: (id: CaseId) => void
   restart: () => void
@@ -29,6 +44,16 @@ export interface TestCaseSession {
 }
 
 export const isCaseId = (k: string | null | undefined): k is CaseId => !!k && Object.prototype.hasOwnProperty.call(CASES, k)
+
+const SPEED_KEY = 'noa-tc-speed'
+const loadSpeed = (): Speed => {
+  try {
+    const v = window.localStorage.getItem(SPEED_KEY)
+    if (v && (SPEEDS as readonly string[]).includes(v)) return v as Speed
+  } catch { /* storage blocked: the default */ }
+  return DEFAULT_SPEED
+}
+const saveSpeed = (s: Speed) => { try { window.localStorage.setItem(SPEED_KEY, s) } catch { /* not remembered */ } }
 
 const prefersReduced = () => typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -47,6 +72,7 @@ export function useTestCaseEngine(): TestCaseSession {
   const [engine] = useState(() => new TestCaseEngine({ t: tt, caseId: isCaseId(tc.caseKey) ? tc.caseKey : 'family', lang: lang === 'ar' ? 'ar' : 'en' }))
   const [judge, setJudge] = useState<JudgeState | null>(null)
   const driverRef = useRef<Driver | null>(null)
+  const [pb, setPb] = useState<{ paused: boolean; speed: Speed }>(() => ({ paused: false, speed: loadSpeed() }))
 
   useEffect(() => { engine.setTranslator(tt) }, [engine, tt])
   // Noa speaks the app language by default; changing the app language moves it too (the header toggle still overrides it until then).
@@ -59,7 +85,9 @@ export function useTestCaseEngine(): TestCaseSession {
   useEffect(() => {
     const d = new Driver(engine, {
       reduced: prefersReduced(),
+      speed: loadSpeed(),
       onJudge: setJudge,
+      onPlayback: () => setPb({ paused: d.paused, speed: d.speed }),
     })
     driverRef.current = d
     return () => { d.dispose(); driverRef.current = null }
@@ -98,8 +126,20 @@ export function useTestCaseEngine(): TestCaseSession {
   const startJudge = useCallback(() => driverRef.current?.startJudge(), [])
   const stop = useCallback(() => driverRef.current?.stop(), [])
 
+  const { paused, speed } = pb
+  const active = paused || snap.state.auto || (!!judge && judge.phase !== 'done')
+  const playback = useMemo<Playback>(() => ({
+    active, paused, speed,
+    pause: () => driverRef.current?.pause(),
+    resume: () => driverRef.current?.resume(),
+    toggle: () => { const x = driverRef.current; if (x) { if (x.paused) x.resume(); else x.pause() } },
+    back: () => driverRef.current?.back(),
+    skip: () => driverRef.current?.skip(),
+    setSpeed: (s) => { saveSpeed(s); driverRef.current?.setSpeed(s) },
+  }), [active, paused, speed])
+
   return useMemo(
-    () => ({ engine, snap, r, tt, ctx, judge, pick, restart, replay, toggleAuto, startJudge, stop }),
-    [engine, snap, r, tt, ctx, judge, pick, restart, replay, toggleAuto, startJudge, stop],
+    () => ({ engine, snap, r, tt, ctx, judge, playback, pick, restart, replay, toggleAuto, startJudge, stop }),
+    [engine, snap, r, tt, ctx, judge, playback, pick, restart, replay, toggleAuto, startJudge, stop],
   )
 }
