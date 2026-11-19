@@ -96,7 +96,7 @@ export function Baton({ s }: SessionProps) {
   )
 }
 
-/** The eight Noa agents; the ones working on this step are lit; a tap tells an agent's story. */
+/** The nine Noa agents; the ones working on this step are lit; a tap tells an agent's story. */
 export function Team({ s }: SessionProps) {
   const t = useA()
   const { snap, r, agOpen: open, setAgOpen: setOpen } = s

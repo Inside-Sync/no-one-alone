@@ -26,7 +26,7 @@ export function decisionChecks(S: State): Txt[] {
   if (d.path === 'hypo_home') c.push(tx('checks.hypoHome', { at: hm(tAct + 15) }))
   if (d.path === 'fall_em' && PEOPLE[S.pk].anticoag) c.push(tx('checks.headCt'))
   if (d.path === 'fall_minor') c.push(tx('checks.fallMinor'))
-  if (d.path === 'hf_clinic') c.push(tx('checks.hfClinic'))
+  if (d.path === 'hf_clinic') c.push(tx(S.ans === 'fine' ? 'checks.hfClinicFine' : 'checks.hfClinic'))
   if (d.path === 'stroke_em') c.push(tx('checks.lastKnownWell', { at: hm(S.start + 10) }))
   if (d.escalated) c.push(tx('checks.escalated'))
   return c
