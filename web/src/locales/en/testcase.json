@@ -3919,6 +3919,7 @@
     "connectC5": "Noa Insight · new family connection: Khalid’s result → family eating and activity plan",
     "chosePlan": "{{n}} chose who sees the plan: {{who}}",
     "aiWrote": "Noa Coach · explanation written live by an AI model",
+    "aiRejected": "Noa Coach · live explanation not used · prepared text kept",
     "teachBackPassed": "Noa Coach · teach-back passed",
     "teachBackPassedAuto": "Noa Coach · teach-back passed",
     "teachBackSecond": "Noa Coach · teach-back passed on the second try",

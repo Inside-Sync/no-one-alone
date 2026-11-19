@@ -154,7 +154,7 @@ describe('G2 legend', () => {
     expect(row('prepared')).not.toBeNull()
     act(() => {
       advanceTo(e, 'teach')
-      e.applyLiveExplain({ explain: 'Live', q: 'Q?', opts: ['a', 'b', 'c'], correct: 1, simpler: 's' })
+      e.applyLiveExplain({ explain: 'Live', simpler: 's' }, { tkey: e.teachKey()!, lang: e.S.lang })
     })
     expect(row('ai')).not.toBeNull()
   })
@@ -256,7 +256,7 @@ describe('G2 teach card source', () => {
     const tag = (p: string) => container.querySelector(`.prov-line [data-prov="${p}"]`)
     expect(tag('prepared')).not.toBeNull()
     expect(tag('ai')).toBeNull()
-    act(() => { e.applyLiveExplain({ explain: 'Live', q: 'Q?', opts: ['a', 'b', 'c'], correct: 1, simpler: 's' }) })
+    act(() => { e.applyLiveExplain({ explain: 'Live', simpler: 's' }, { tkey: e.teachKey()!, lang: e.S.lang }) })
     expect(tag('ai')).not.toBeNull()
     expect(tag('prepared')).toBeNull()
     act(() => { e.setLang('ar') })

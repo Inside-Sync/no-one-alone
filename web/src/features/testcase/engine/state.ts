@@ -21,10 +21,12 @@ import { dueNow, passportStep, prevSteps, routeResult, wcName } from './preventi
 import { alertTeamKey, chads, choosePath, runLen, triggers } from './safety'
 import { samples, scoreSpeech, sentenceTxt } from './speech'
 import { clk, clkDate, hm, pad2, resolveText } from './text'
-import { DB_TABLES, type Cell, type DbRow, type DbState, type DbTable, type Explain, type FamAlert, type FamilyView, type FeedItem, type Lang, type LogClass, type LogEntry, type Snapshot, type SpeechResult, type State, type TFn } from './types'
+import { DB_TABLES, type Cell, type DbRow, type DbState, type DbTable, type Explain, type ExplainRequest, type FamAlert, type FamilyView, type FeedItem, type Lang, type LogClass, type LogEntry, type Snapshot, type SpeechResult, type State, type TFn } from './types'
 import { WC_AGES } from '../data/prevention'
 
 const T = tx
+const EXPLAIN_MAX = 500, SIMPLER_MAX = 160
+const okText = (x: unknown, max: number) => typeof x === 'string' && x.trim() !== '' && x.length <= max
 export interface EngineOptions {
   /** `t` of the `testcase` namespace. Only the speech check needs it (the target sentence and the sample answers are real strings). */
   t?: TFn
@@ -995,13 +997,16 @@ export class TestCaseEngine {
     if (!S.path) return null
     return S.path === 'prev' || S.path === 'fam' ? S.teachKey || 'prev_ok' : JOURNEYS[S.path].teach
   }
-  /** Accept an explanation written live by an AI (validated like the prototype: 3 options, one correct). False when the shape is wrong. */
-  applyLiveExplain(r: unknown): boolean {
-    const o = r as { explain?: unknown; q?: unknown; opts?: unknown; correct?: unknown; simpler?: unknown } | null
-    const tkey = this.teachKey()
-    if (!o || !tkey || typeof o.explain !== 'string' || !Array.isArray(o.opts) || o.opts.length !== 3 || !Number.isInteger(o.correct) || (o.correct as number) < 0 || (o.correct as number) > 2) return false
-    this.S.explain = { src: 'live', lang: this.S.lang, tkey, explain: o.explain, q: String(o.q || ''), opts: o.opts.map(String), correct: o.correct as number, simpler: String(o.simpler || '') }
-    this.S.tb = null; this.S.tbWrong = null
+  /** Live wording for the teach card: only `explain` and `simpler` change. Late, mismatched or malformed replies are refused with a GUARD line. */
+  applyLiveExplain(reply: unknown, req: ExplainRequest): boolean {
+    const S = this.S, o = reply as { explain?: unknown; simpler?: unknown } | null
+    const base = this.cur().kind === 'teach' && req.tkey === this.teachKey() && req.lang === S.lang ? this.curExplain() : null
+    if (!base || !o || !okText(o.explain, EXPLAIN_MAX) || !okText(o.simpler, SIMPLER_MAX)) {
+      this.log('GUARD', 'warn', T('log.aiRejected'))
+      this.emit()
+      return false
+    }
+    S.explain = { ...base, src: 'live', explain: String(o.explain).trim(), simpler: String(o.simpler).trim() }
     this.log('AI', 'is', T('log.aiWrote'))
     this.emit()
     return true
