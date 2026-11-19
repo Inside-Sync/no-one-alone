@@ -20,7 +20,8 @@ Every card, database row and log line carries a label. It is always a word (colo
 
 - **Observed:** from a sensor, or entered or chosen by the person.
 - **Calculated:** from a rule, a score or Framingham.
-- **AI-written:** explanatory wording.
+- **Prepared text:** explanatory wording written and checked by the team.
+- **AI-written:** explanatory wording from a live AI model; shown only when one is used.
 - **Clinician confirmed:** a clinician accepted it.
 
 ## 3. Input guardrails

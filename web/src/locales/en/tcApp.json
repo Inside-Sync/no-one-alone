@@ -38,7 +38,7 @@
     "means": "What this means"
   },
   "team": {
-    "title": "Noa is a team of 9 AI agents",
+    "title": "Noa is a team of 9 agents that follow written rules",
     "note": "An orchestrator passes the case to the right agent and logs every hand-off. Tap an agent for its story.",
     "agentName": "Noa {{n}}",
     "close": "Close",

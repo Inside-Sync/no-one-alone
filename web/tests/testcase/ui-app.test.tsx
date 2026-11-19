@@ -76,6 +76,7 @@ test.each(ids)('%s: every region renders and "Run it for me" reaches the end wit
   render(<App caseKey={id} />)
   expect(screen.getByRole('list', { name: 'Steps' })).toBeInTheDocument()
   expect(screen.getByLabelText('Noa agent team')).toBeInTheDocument()
+  expect(screen.getByText('Noa is a team of 9 agents that follow written rules')).toBeInTheDocument()
   expect(screen.getByRole('list', { name: 'Data path' })).toBeInTheDocument()
   expect(screen.getByText('Demo database')).toBeInTheDocument()
   expect(screen.getByText('API and event log')).toBeInTheDocument()
@@ -155,7 +156,7 @@ test('Arabic: the app renders in Arabic with right-to-left direction', async () 
   try {
     render(<App caseKey="family" />)
     expect(document.getElementById('tcHost')).toHaveAttribute('dir', 'rtl')
-    expect(screen.getByText('نوا فريق من 9 وكلاء ذكاء اصطناعي')).toBeInTheDocument()
+    expect(screen.getByText('نوا فريق من 9 وكلاء يتبعون قواعد مكتوبة')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /شغّلها لي/ })).toBeInTheDocument()
   } finally {
     await act(async () => { await i18n.changeLanguage('en') })
