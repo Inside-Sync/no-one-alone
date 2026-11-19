@@ -16,7 +16,7 @@ import { decisionChecks, prevChecks } from './checks'
 import { emptyDb, type Seq } from './db'
 import { ageText, childAlertTitle, famScore, famSignals, famUp, familySteps, fcAlertTitle, initFamily, nextAction, routeFamilyResult } from './family'
 import { fcFor, ifhasForecast, ifhasOk, pct, wcDone, wcNext, type ForecastResult } from './forecast'
-import { checkValue, familyIssue, noteKey, prevIssue, prevRange, prevStateIssues, profileStateIssues, safetyIssue, safetyStateIssues, split, type Checked, type InputIssue, type InputIssues } from './inputs'
+import { checkValue, familyIssue, issueFor, noteKey, prevIssue, prevRange, prevStateIssues, profileStateIssues, safetyIssue, safetyStateIssues, split, type Checked, type InputIssue, type InputIssues } from './inputs'
 import { dueNow, passportStep, prevSteps, routeResult, wcName } from './prevention'
 import { alertTeamKey, chads, choosePath, runLen, triggers } from './safety'
 import { samples, scoreSpeech, sentenceTxt } from './speech'
@@ -396,7 +396,15 @@ export class TestCaseEngine {
     return { ok: false, value: k.value, issue }
   }
   setRecheckVal(v: number) { this.S.rc.val = v; this.emit() }
-  setDailyVal(v: number) { this.S.daily.val = v; this.emit() }
+  /** Today's reading at the Monitor step: outside the slider range it is REFUSED (the previous value stays), like `setResVal`. */
+  setDailyVal(v: number): InputCheck {
+    const S = this.S, id = S.path ? this.meta().daily : null
+    if (!id) { S.daily.val = v; this.emit(); return { ok: true, value: v } }
+    const D = DAILY[id], r = { min: D.min, max: D.max, step: D.step }, c = checkValue(r, v)
+    const res = this.noteInput(noteKey('daily', 'val'), c, c.ok ? null : issueFor('daily', 'val', T(D.label), r, v, c, 'reject', S.daily.val ?? D.def), S.daily, 'val')
+    this.emit()
+    return res
+  }
   /** A result at the family results step (`member` is a result id such as `khalid_tc`); out of its range it is clamped, with a warning. */
   setFamResult(member: string, v: number): InputCheck {
     const def = FAMILY_RESULTS[member], F = this.F
@@ -1045,7 +1053,7 @@ export class TestCaseEngine {
   /** Send today's reading (`setDailyVal`) at the Monitor step. Off target raises an alert for the clinician. */
   sendDaily() {
     const S = this.S, st = this.cur()
-    if (S.daily.sent) return
+    if (S.daily.sent || S.notes[noteKey('daily', 'val')]) return
     const meta = this.meta()
     if (!meta.daily) return
     const D = DAILY[meta.daily]
