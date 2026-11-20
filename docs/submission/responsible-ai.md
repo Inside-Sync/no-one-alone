@@ -22,6 +22,7 @@ Every card, database row and log line carries a label. It is always a word (colo
 - **Calculated:** from a rule, a score or Framingham.
 - **Prepared text:** explanatory wording written and checked by the team.
 - **AI-written:** explanatory wording from a live AI model; shown only when one is used.
+- **Live AI:** in the family journey, wording a model wrote for one agent message, shown only after the server checks passed.
 - **Clinician confirmed:** a clinician accepted it.
 
 ## 3. Input guardrails
@@ -38,6 +39,8 @@ Family profile values are kept inside their range, with a warning.
 Scores and routing use published, numbered rules. The rule table is shown after each decision. The speech check is a demo score (words matched and time taken). It is not a validated stroke test.
 
 In the deployed backend, Gemini judges recorded speech and writes text. Rules set triage and the escalation plan. The hospital packet is built by rules with no LLM.
+
+In the family journey, Claude writes wording only. The engine picks every agent, rule, test, pathway item, urgency and the emergency branch before the model is called. Typed replies to risky questions are read by Claude and by keywords, and the more urgent reading wins. Emergency advice never goes through the model.
 
 ## 5. Noa Forecast: limits
 

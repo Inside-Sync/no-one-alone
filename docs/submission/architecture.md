@@ -17,6 +17,7 @@ flowchart LR
     CA --> RA
     RA -->|A2A| HA
     RA --> VX[Vertex AI Gemini 2.5 Flash]
+    RA --> CL[Vertex AI Claude]
     RA --> TTS[Chirp 3 HD TTS]
     HA --> FHIR[(Cloud Healthcare API<br/>FHIR R4 store)]
     CA --> CT[Cloud Tasks]
@@ -37,13 +38,16 @@ Checked against `README.md`, `firebase.json` and `infra/`.
 | Web app | `web/`, Firebase Hosting | Vite, React, TypeScript. Reads Firestore in real time. `/api/**` is rewritten to core-api (`firebase.json`). |
 | core-api | `core-api/`, Cloud Run | Java 17, Spring Boot. Owns the incident state machine. Takes alerts from Pub/Sub, sets escalation timers in Cloud Tasks, gets travel times from the Routes API, writes every state change to Firestore. |
 | respond-agent | `agents/respond/`, Cloud Run | Rules decide verification, triage and the escalation plan. Gemini 2.5 Flash judges recorded spoken answers, writes the recovery summary and answers chat. Chirp 3 HD speaks the lines. |
+| Family-health AI | respond-agent `/noa/say` and `/noa/understand`, core-api `/api/noa/*` | The browser sends a call id, the language and structured facts. respond-agent holds the prompts and checks the reply (numbers only from the facts, right script, no dose, no diagnosis, no advice against emergency care, word limit). Fast model Claude Haiku 5.5 for short turns and reading replies, Claude Opus 5.5 for explanations, the pathway and the referral note. One audit line per call: call id, hash of the facts, prompt version, model, check result. |
 | hospital-agent | `agents/hospital/`, Cloud Run | An ADK agent served over A2A. Reads the person's FHIR R4 record, applies consent (fail closed: only an active permit shares anything) and builds the pre-arrival packet by rules, with no LLM. |
 | Data stores | Firestore, Cloud Healthcare API (FHIR R4), Cloud Storage | All content is synthetic. Firestore rules: signed-in users read, only service accounts write. |
 | Messaging | Pub/Sub topic `alerts`, Cloud Tasks queue `escalation` | Alert intake and escalation timeouts. |
 | Security basics | IAM, Secret Manager, Firebase Auth | One service account per service. Agents are private and called with Google-signed ID tokens. Visitors sign in anonymously. |
 | Delivery | GitHub Actions, Cloud Build, Workload Identity Federation | CI on pull requests and on `dev`. Deploy after green CI. |
 
-Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini uses the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
+Family journey, live AI switch (off by default): with `VITE_NOA_AI=on` the family-health panel sends each agent message to core-api, and respond-agent has Claude write the wording from the facts the engine chose. A message that fails a check, times out after 8 seconds or errors shows the prepared text. Typed replies on risky questions are also read by keywords, and the more urgent reading wins. The page-open auto-run stays on prepared text.
+
+Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini and Claude use the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
 
 ## 2. In the Test case (browser only)
 

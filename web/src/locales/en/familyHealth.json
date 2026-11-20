@@ -616,6 +616,10 @@
     "steps": { "title": "Steps a day", "caption": "Goal 7,000+ a day", "low": "Average {{steps}}: low", "avg": "Average {{steps}}" }
   },
   "ai": {
+    "prepared": {
+      "timeout": "Prepared text: the live AI took longer than 8 seconds.",
+      "failed": "Prepared text: the live AI was not available."
+    },
     "guardrail": {
       "dose": "Guardrail: the AI text contained a dose, so the prepared text replaced it.",
       "diagnosis": "Guardrail: the AI text contained a diagnosis, so the prepared text replaced it.",
