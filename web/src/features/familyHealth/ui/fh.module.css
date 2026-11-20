@@ -781,3 +781,9 @@ details.past[open]{padding-bottom:10px}
 .now .items>*{animation:fin .38s cubic-bezier(.2,.7,.3,1) both}
 .tx{animation:fin .3s ease both}
 @keyframes fin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* speech check long take: a bar that runs for the 20 s maximum while the microphone listens */
+.take{display:inline-block;width:120px;height:6px;border-radius:999px;background:var(--sub);overflow:hidden;position:relative;vertical-align:middle}
+.take::after{content:"";position:absolute;inset:0;background:var(--bad-f);transform-origin:left;animation:takebar 20s linear forwards}
+:global([dir="rtl"]) .take::after{transform-origin:right}
+@keyframes takebar{from{transform:scaleX(1)}to{transform:scaleX(0)}}

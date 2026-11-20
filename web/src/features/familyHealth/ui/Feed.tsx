@@ -8,7 +8,7 @@ import { getEngine, reducedMotion, useSpokenText, useTexts } from './store'
 import { AgentOrb } from '@/components/noa/AgentOrb'
 import { Bold, E, c } from './bits'
 import { canDictate } from './speechIo'
-import { answerGo, feedScroll } from './layout'
+import { answerGo, feedScroll, showRun } from './layout'
 import { usePanel } from './panelContext'
 
 type Texts = ReturnType<typeof useTexts>
@@ -34,9 +34,9 @@ export function Now({ snap }: { snap: Snapshot }) {
           <h3>{u('welcome.h')}</h3>
           <p><Bold text={u('welcome.p')} /></p>
           <div className={c('starts')}>
-            <button type="button" className={c('start')} onClick={() => { void e.runTestCase('s0') }}><b><E n="grandpa" /> {u('welcome.saeed.t')}</b><span>{u('welcome.saeed.d')}</span></button>
-            <button type="button" className={c('start')} onClick={() => { void e.runTestCase('m1') }}><b><E n="grandma" /> {u('welcome.moza.t')}</b><span>{u('welcome.moza.d')}</span></button>
-            <button type="button" className={c('start')} onClick={() => { void e.startJourney('khalid') }}><b><E n="dad" /> {u('welcome.khalid.t')}</b><span>{u('welcome.khalid.d')}</span></button>
+            <button type="button" className={c('start')} onClick={() => { void e.runTestCase('s0'); showRun() }}><b><E n="grandpa" /> {u('welcome.saeed.t')}</b><span>{u('welcome.saeed.d')}</span></button>
+            <button type="button" className={c('start')} onClick={() => { void e.runTestCase('m1'); showRun() }}><b><E n="grandma" /> {u('welcome.moza.t')}</b><span>{u('welcome.moza.d')}</span></button>
+            <button type="button" className={c('start')} onClick={() => { void e.startJourney('khalid'); showRun() }}><b><E n="dad" /> {u('welcome.khalid.t')}</b><span>{u('welcome.khalid.d')}</span></button>
           </div>
           <p className={c('mut sm')}>{u('welcome.more')}</p>
         </div>
@@ -570,9 +570,24 @@ function Wave({ ws, off, gap }: { ws: string[]; off?: boolean; gap?: boolean }) 
     </>
   )
 }
+/** Speech-check cards that already started by themselves (once per card, also under React's double effects). */
+const autoSpoken = new Set<number>()
+/** Automated browsers (tests) never open the microphone by themselves. */
+const automated = () => typeof navigator !== 'undefined' && !!(navigator as Navigator & { webdriver?: boolean }).webdriver
+
 function SpeechCheck({ card, open, snap, t }: { card: Extract<Card, { type: 'speech' }>; open: boolean; snap: Snapshot; t: Texts }) {
   const { u, raw } = t
-  const { listening, liveText, micMsg, startListen, stopListen } = usePanel()
+  const { listening, liveText, micMsg, startSpeechCheck, stopListen } = usePanel()
+  const busy = listening === 'prompt' || listening === 'speech'
+  // Like the night alert: when the card opens, Noa reads the sentence and the microphone opens by itself (no click needed).
+  // "Speak it" stays for another try. Answering the card another way (a sample, typing, Next) stops listening.
+  useEffect(() => {
+    if (!open || card.result || !canDictate() || automated()) return
+    const id = setTimeout(() => { if (autoSpoken.has(card.id)) return; autoSpoken.add(card.id); startSpeechCheck() }, 700)
+    return () => clearTimeout(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, card.id])
+  useEffect(() => { if (!open && busy) stopListen() }, [open, busy, stopListen])
   const e = getEngine()
   const k = card.person, nm = raw(`people.${k}.name`), his = PEOPLE[k].sex === 'M'
   const b = SPEECH_BASE[k] ?? SPEECH_BASE_DEFAULT
@@ -637,14 +652,17 @@ function SpeechCheck({ card, open, snap, t }: { card: Extract<Card, { type: 'spe
                   {open && (
                     <>
                       <div className={c('btnrow')}>
-                        {dict && (listening === 'speech'
-                          ? <><button type="button" className={c('btn rec gStop')} onClick={stopListen}>{u('spx.stop')}</button><span className={c('mut')}>{liveText || u('spx.listening')}</span></>
-                          : <button type="button" className={c('btn')} onClick={() => startListen('speech')}><E n="mic-studio" /> {u('spx.speak')}</button>)}
+                        {dict && (listening === 'prompt'
+                          ? <><button type="button" className={c('btn ghost sm gStop')} onClick={stopListen}>{u('spx.stop')}</button><span className={c('mut')} role="status">{u('spx.noaSays')}</span></>
+                          : listening === 'speech'
+                            ? <><button type="button" className={c('btn rec gStop')} onClick={stopListen}>{u('spx.done')}</button><span className={c('mut')} role="status">{liveText || u('spx.listening')}</span><span className={c('take')} aria-hidden="true" /></>
+                            : <button type="button" className={c('btn')} onClick={startSpeechCheck}><E n="mic-studio" /> {u('spx.speak')}</button>)}
                         <button type="button" className={c('btn ghost sm')} onClick={() => e.useSample('usual')}>{u('spx.usual', { name: nm })}</button>
                         <button type="button" className={c('btn ghost sm')} onClick={() => e.useSample('unclear')}>{u('spx.unclear')}</button>
                         <button type="button" className={c('btn ghost sm')} onClick={() => e.useSample('slurred')}>{u('spx.slurred')}</button>
                       </div>
                       {micMsg && <p className={c('hint')} role="status">{micMsg}</p>}
+                      {listening === 'speech' && <p className={c('hint')}>{u('spx.takeTime')}</p>}
                       <p className={c('hint')}>{dict ? '' : u('spx.noMic')}{u('spx.say')}{sentEl}</p>
                     </>
                   )}
