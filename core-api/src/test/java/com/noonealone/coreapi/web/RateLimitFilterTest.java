@@ -99,20 +99,20 @@ class RateLimitFilterTest {
     }
 
     @Test
-    void noaSayHasItsOwnLimitOf20PerIpAnd30Overall() throws Exception {
-        assertThat(okCount("/api/noa/say", "1.1.1.1", 21)).isEqualTo(20);
+    void noaSayHasItsOwnLimitOf60PerIpAnd150Overall() throws Exception {
+        assertThat(okCount("/api/noa/say", "1.1.1.1", 61)).isEqualTo(60);
         assertThat(call("/api/noa/understand", "1.1.1.1").getStatus()).isEqualTo(200);
         int ok = 0;
-        for (int ip = 0; ip < 4; ip++) ok += okCount("/api/noa/say", "10.0.0." + ip, 20);
-        assertThat(ok).isEqualTo(10);
+        for (int ip = 0; ip < 4; ip++) ok += okCount("/api/noa/say", "10.0.0." + ip, 60);
+        assertThat(ok).isEqualTo(90);
     }
 
     @Test
-    void noaUnderstandHasItsOwnLimitOf10PerIpAnd20Overall() throws Exception {
-        assertThat(okCount("/api/noa/understand", "1.1.1.1", 11)).isEqualTo(10);
+    void noaUnderstandHasItsOwnLimitOf30PerIpAnd60Overall() throws Exception {
+        assertThat(okCount("/api/noa/understand", "1.1.1.1", 31)).isEqualTo(30);
         int ok = 0;
-        for (int ip = 0; ip < 4; ip++) ok += okCount("/api/noa/understand", "10.0.0." + ip, 10);
-        assertThat(ok).isEqualTo(10);
+        for (int ip = 0; ip < 4; ip++) ok += okCount("/api/noa/understand", "10.0.0." + ip, 30);
+        assertThat(ok).isEqualTo(30);
     }
 
     @Test
