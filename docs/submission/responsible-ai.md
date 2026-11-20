@@ -34,7 +34,7 @@ Every number a person can type has a plausible range (`engine/inputs.ts`). There
 
 Family profile values are kept inside their range, with a warning.
 
-What a Claude call receives (live AI switch on, off by default): the structured facts for that one call, with no free text except the person's own typed reply. For a message, that is the agent, the language, the reader and the facts the rules chose, which include a first name where the card shows one. For a typed reply, it is the question, the options and the reply. The teach-card explanation sends only the card key and the language. The call goes to the Claude API (outside Google Cloud) when `ANTHROPIC_API_KEY` is set, otherwise to Claude on Vertex AI.
+What a Claude call receives (live AI switch on, off by default): the structured facts for that one call, with no free text except what the person typed (a reply or a question). For a message, that is the agent, the language, the reader and the facts the rules chose, which include a first name where the card shows one. For a typed reply, it is the question, the options and the reply. For the teach-card explanation the browser sends only the card key and the language; the prompt is fixed text held on the server. The call goes to the Claude API (api.anthropic.com, outside Google Cloud) when `ANTHROPIC_API_KEY` is set, or Claude on Vertex AI otherwise.
 
 ## 4. Rules decide, not a model
 

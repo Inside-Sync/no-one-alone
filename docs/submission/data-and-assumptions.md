@@ -35,7 +35,7 @@
 - **Hosting:** the demo runs in `asia-southeast1` (Singapore), not in the UAE. The data is fictional.
 - **Forecast** uses a model built on a US population and needs UAE calibration.
 - **Not built:** Malaffi and HL7 link, a production audit log, UAE hosting, the IFHAS data feed. See [architecture.md](architecture.md).
-- **Live AI in the family journey.** With the live AI switch on, the journey sends Claude on Vertex AI the facts for one message: first names, the readings and flags shown on screen, the pathway items, and any question the viewer typed. All of it is synthetic. Nothing is stored by our service beyond a hash in the audit line.
+- **Live AI in the family journey.** With the live AI switch on, the journey sends Claude (hosting is described under Claude hosting above) the facts for one message: first names, the readings and flags shown on screen, the pathway items, and any question the viewer typed. All of it is synthetic. Nothing is stored by our service beyond a hash in the audit line.
 - **The Test case does not call the backend.** It shows the logic, not the live integration.
 - **Not load-tested.**
 - **Small-cell suppression** covers the Government view cells it is applied to, not a full disclosure-control review.

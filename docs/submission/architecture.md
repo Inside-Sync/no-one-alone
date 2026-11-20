@@ -17,7 +17,7 @@ flowchart LR
     CA --> RA
     RA -->|A2A| HA
     RA --> VX[Vertex AI Gemini 2.5 Flash]
-    RA --> CL[Vertex AI Claude]
+    RA --> CL[Claude API or Vertex AI]
     RA --> TTS[Chirp 3 HD TTS]
     HA --> FHIR[(Cloud Healthcare API<br/>FHIR R4 store)]
     CA --> CT[Cloud Tasks]
@@ -48,7 +48,7 @@ Checked against `README.md`, `firebase.json` and `infra/`.
 
 Family journey, live AI switch (off by default): with `VITE_NOA_AI=on` the family-health panel sends each agent message to core-api, and respond-agent has Claude write the wording from the facts the engine chose. A message that fails a check, times out after 8 seconds or errors shows the prepared text. Typed replies on risky questions are also read by keywords, and the more urgent reading wins. The page-open auto-run stays on prepared text.
 
-Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini and Claude use the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
+Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini uses the Vertex AI `global` endpoint. Claude uses the Claude API (api.anthropic.com, outside Google Cloud) when `ANTHROPIC_API_KEY` is set, or the Vertex AI `global` endpoint otherwise. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
 
 ## 2. In the Test case (browser only)
 
