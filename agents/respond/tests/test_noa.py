@@ -71,6 +71,12 @@ def test_arabic_may_copy_latin_terms_from_params():
     assert noa.check_say(text + " please call", "home.voice.intro", "ar", params) == "script"
 
 
+def test_arabic_terms_come_from_values_only_and_match_case():
+    text = "سنجري فحص HbA1c اليوم"
+    assert noa.check_say(text, "home.voice.intro", "ar", {"HbA1c": "x"}) == "script"
+    assert noa.check_say(text.replace("HbA1c", "hba1c"), "home.voice.intro", "ar", {"tests": ["HbA1c"]}) == "script"
+
+
 def test_arabic_does_not_allow_plain_english_words_found_in_params():
     params = {"audience": "x", "call": "x", "tests": ["Heart 128 bpm at rest for 22 min"]}
     assert noa.check_say("نبض Heart 128 bpm at rest for 22 min", "home.voice.intro", "ar", params) == "script"
