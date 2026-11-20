@@ -1,6 +1,9 @@
 package com.noonealone.coreapi.web;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.Clock;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,8 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ReadListener;
+import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
 
 /** Per-IP and global request limits per clock minute on the public /api routes. */
@@ -124,18 +130,32 @@ public class RateLimitFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
             return;
         }
-        if (group.startsWith("noa") && request.getContentLengthLong() > NOA_MAX_BODY) {
-            response.setStatus(413);
-            response.setContentType("application/json");
-            response.getWriter().write("{\"error\":{\"code\":\"PAYLOAD_TOO_LARGE\",\"message\":\"Request body too large\"}}");
-            return;
+        if (group.startsWith("noa")) {
+            if (request.getContentLengthLong() < 0) {
+                // No Content-Length (chunked): read at most the cap plus one byte, then serve the bytes again.
+                byte[] body = request.getInputStream().readNBytes(NOA_MAX_BODY + 1);
+                request = new BufferedBody(request, body);
+            }
+            if (request.getContentLengthLong() > NOA_MAX_BODY) {
+                response.setStatus(413);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"error\":{\"code\":\"PAYLOAD_TOO_LARGE\",\"message\":\"Request body too large\"}}");
+                return;
+            }
         }
         long millis = clock.millis();
         long now = millis / 60_000;
         String ip = clientIp(request);
         boolean over = next(group + "|" + ip, now) > limit(group)
-                || (global(group) > 0 && next(group + "|*", now) > global(group))
-                || (daily(group) > 0 && nextDay(group, millis / 86_400_000) > daily(group));
+                || (global(group) > 0 && next(group + "|*", now) > global(group));
+        if (!over && daily(group) > 0 && nextDay(group, millis / 86_400_000) > daily(group)) {
+            log.warn("Daily limit reached {} ip={}", group, ip);
+            response.setStatus(429);
+            response.setHeader("Retry-After", String.valueOf(86_400 - (millis / 1000) % 86_400));
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\":{\"code\":\"RATE_LIMITED\",\"message\":\"Daily limit reached, try again after midnight UTC\"}}");
+            return;
+        }
         if (over) {
             log.warn("Rate limited {} ip={} xff={}", group, ip, request.getHeader("X-Forwarded-For"));
             response.setStatus(429);
@@ -145,5 +165,42 @@ public class RateLimitFilter extends OncePerRequestFilter {
             return;
         }
         chain.doFilter(request, response);
+    }
+
+    /** A request whose body was read up front; the length is the bytes read, so an oversize body shows as over the cap. */
+    private static final class BufferedBody extends HttpServletRequestWrapper {
+        private final byte[] body;
+
+        BufferedBody(HttpServletRequest request, byte[] body) {
+            super(request);
+            this.body = body;
+        }
+
+        @Override
+        public long getContentLengthLong() {
+            return body.length;
+        }
+
+        @Override
+        public int getContentLength() {
+            return body.length;
+        }
+
+        @Override
+        public ServletInputStream getInputStream() {
+            ByteArrayInputStream in = new ByteArrayInputStream(body);
+            return new ServletInputStream() {
+                @Override public int read() { return in.read(); }
+                @Override public int read(byte[] b, int off, int len) { return in.read(b, off, len); }
+                @Override public boolean isFinished() { return in.available() == 0; }
+                @Override public boolean isReady() { return true; }
+                @Override public void setReadListener(ReadListener listener) { throw new UnsupportedOperationException(); }
+            };
+        }
+
+        @Override
+        public BufferedReader getReader() {
+            return new BufferedReader(new InputStreamReader(getInputStream(), java.nio.charset.StandardCharsets.UTF_8));
+        }
     }
 }
