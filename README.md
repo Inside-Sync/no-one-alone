@@ -61,6 +61,40 @@ flowchart LR
 6. At emergency level, respond-agent hands off to hospital-agent over A2A, with a plain HTTP call as fallback. hospital-agent reads the FHIR store, keeps only what the person agreed to share, and returns a pre-arrival packet for a stroke-ready hospital.
 7. After discharge, the hospital approves a recovery plan. respond-agent turns it into reminders and a short spoken summary, and the incident closes.
 
+### Family health panel: live AI
+
+In the family health panel, the rule engine decides every step. Claude only writes the agents' words and reads a typed reply into one of the card's options.
+
+- **Routes.** The web calls core-api `/api/noa/say` and `/api/noa/understand`. core-api forwards them to respond-agent `/noa/say` and `/noa/understand`.
+  - The web sends `{callId, lang, params}`. The prompt, the params model and the checks for each call id live on the server (`agents/respond/noa.py`).
+  - There are 17 call ids:
+    - 15 places in the journey where an agent speaks;
+    - `family.notify`, which words a family notification;
+    - `analyst.weekly`, which gives the Government page a short summary from aggregates.
+- **Models.** Haiku 5.5 handles the short turns, Ask Noa, the family chat and reading replies. Opus 5.5 handles Forecast, Insight, Navigator, Courier and Analyst.
+- **Emergencies never reach the model.** The server returns the fixed safety line, and the model is never called, when any of these appears:
+  - an emergency word in the person's question;
+  - an emergency word in any of the person's earlier turns in the chat history;
+  - a family member who is in an emergency.
+
+  Urgent family notifications are rejected.
+- **Checks on every reply.** A reply that fails a check is not shown; the web shows the prepared text instead. The server checks:
+  - no dose, no diagnosis, no advice against emergency care;
+  - every number comes from the params;
+  - the reply is in the requested script (English or Arabic). Medical terms copied from the params, such as HbA1c, may stay in Latin letters in an Arabic reply.
+  - a word limit per call;
+  - in the chat, no promise to book or send anything.
+- **Chat context.** Ask Noa and the family chat send:
+  - the recent turns;
+  - what Detect found;
+  - what is booked;
+  - the buttons the person can press.
+
+  With these, short replies like "10am" are understood, and Noa points to the right button instead of promising an action.
+- **Fallback.** The web waits 8 seconds. After that, or on any error, it shows the prepared text with a note. The first reply after a quiet period can be slow while the service wakes up.
+- **Limits.** core-api allows each IP 60 `say` and 30 `understand` calls a minute. It also allows 150 and 60 a minute overall, and 1000 of each a day, per instance (at most 2 instances).
+- **Audit.** Every call writes one log line with the call id, a hash of the params, the prompt version, the model and the result (`live`, `guardrail:<reason>` or `failed`). The line never holds the params or the reply text.
+
 ## Google Cloud services
 
 Everything runs in `asia-southeast1` (Singapore) except Gemini (Vertex AI `global` endpoint), Claude (the Claude API at api.anthropic.com, outside Google Cloud, reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set; otherwise the Vertex AI `global` endpoint), Firebase Hosting (global CDN) and the Routes API (global).
