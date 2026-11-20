@@ -74,10 +74,7 @@ Trả lời ghi thẳng vào file này hoặc tạo file mới trong `handover/`
   - Deploy tự động chạy bản `deploy.yml` trên `main`, nên cách mới chỉ có hiệu lực khi `dev` đã merge vào `main`.
   - Muốn deploy hết thì chạy `gh workflow run Deploy --ref dev -f target=all`.
 
-**Câu 4. `family.notify` và `analyst.weekly`.** Đã xong (PR #87).
-- respond-agent đã deploy.
-- core-api đang deploy trong lượt deploy toàn bộ chiều 20/11.
-- Nếu gọi `/api/noa/say` với hai `callId` này mà nhận 400 "callId must be a Noa call site", tức là lượt deploy core-api chưa xong.
+**Câu 4. `family.notify` và `analyst.weekly`.** Đã xong (PR #87). respond-agent và core-api đã deploy lúc 17:28 (giờ VN) ngày 20/11, trong lượt deploy toàn bộ. Lượt này cũng đặt mốc `refs/deploy/dev` lần đầu.
 
 `family.notify` (mô hình nhanh, tối đa 30 chữ):
 - `params`: `audience`, `to`, `relation` (mỗi trường tối đa 120 ký tự), `event` (tối đa 300 ký tự), `urgency` (`"routine"` hoặc `"soon"`).
