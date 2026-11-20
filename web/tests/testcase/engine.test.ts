@@ -344,17 +344,56 @@ describe('teach-back and the plan', () => {
     e.sendPlan()
     expect(text(e, e.db.consents.find((c) => c.scope === 'family_circle')!.shared_with)).toBe('nobody')
   })
-  test('a live explanation is accepted only in the right shape', () => {
+  const REPLY = { explain: 'Your blood pressure drops when you stand, so sit first.', simpler: 'Sit, then stand slowly.' }
+  test('live wording replaces only explain and simpler; the question, options and answer stay prepared', () => {
     const e = toTeach()
-    expect(e.applyLiveExplain({ explain: 'x', opts: ['a', 'b'], correct: 0 })).toBe(false)
-    expect(e.applyLiveExplain({ explain: 'x', opts: ['a', 'b', 'c'], correct: 3 })).toBe(false)
-    expect(e.applyLiveExplain(null)).toBe(false)
-    expect(e.applyLiveExplain({ explain: 'Live text', q: 'Q?', opts: ['a', 'b', 'c'], correct: 2, simpler: 's' })).toBe(true)
-    expect(e.curExplain()).toMatchObject({ src: 'live', explain: 'Live text', correct: 2 })
-    e.answerTeach(2)
+    const prepared = e.curExplain()!
+    expect(e.applyLiveExplain({ explain: '  Live text  ', simpler: 'Short.', q: 'Q?', opts: ['a', 'b', 'c'], correct: 2 }, { tkey: 'fall', lang: 'en' })).toBe(true)
+    expect(e.curExplain()).toMatchObject({ src: 'live', tkey: 'fall', lang: 'en', explain: 'Live text', simpler: 'Short.', correct: 1 })
+    expect(e.curExplain()!.q).toEqual(prepared.q)
+    expect(e.curExplain()!.opts).toEqual(prepared.opts)
+    expect(e.logs[0].m).toBe('AI')
+    e.answerTeach(1)
     expect(e.S.tb).toBe('ok')
-    e.setLang('ar') // another language: back to the prepared text
+    e.setLang('ar')
     expect(e.curExplain()!.src).toBe('prepared')
+  })
+  test('a reply that arrives after an answer keeps the teach-back state', () => {
+    const e = toTeach()
+    e.answerTeach(0)
+    expect(e.applyLiveExplain(REPLY, { tkey: 'fall', lang: 'en' })).toBe(true)
+    expect(e.S.tbWrong).toBe(0)
+    e.answerTeach(1)
+    expect(e.applyLiveExplain(REPLY, { tkey: 'fall', lang: 'en' })).toBe(true)
+    expect(e.S.tb).toBe('ok')
+    expect(text(e, e.db.checkins.at(-1)!.detail)).toBe('second try')
+  })
+  test('a reply for another language or teach set is refused, keeps the prepared text and logs GUARD', () => {
+    const e = toTeach()
+    e.setLang('ar')
+    expect(e.applyLiveExplain(REPLY, { tkey: 'fall', lang: 'en' })).toBe(false)
+    expect(e.curExplain()!.src).toBe('prepared')
+    expect(e.logs[0].m).toBe('GUARD')
+    expect(text(e, e.logs[0].tx)).toBe('Noa Coach · live explanation not used · prepared text kept')
+    expect(e.applyLiveExplain(REPLY, { tkey: 'stroke', lang: 'ar' })).toBe(false)
+    expect(e.curExplain()!.src).toBe('prepared')
+  })
+  test('a reply that arrives after the teach step is refused', () => {
+    const e = toTeach()
+    e.go(e.S.step - 1)
+    expect(e.cur().kind).not.toBe('teach')
+    expect(e.applyLiveExplain(REPLY, { tkey: 'fall', lang: 'en' })).toBe(false)
+    expect(e.logs[0].m).toBe('GUARD')
+  })
+  test('a reply in the wrong shape is refused; the caps are 500 and 160 characters', () => {
+    const e = toTeach()
+    const req = { tkey: 'fall' as const, lang: 'en' as const }
+    for (const bad of [null, {}, { explain: 'x' }, { explain: '', simpler: 's' }, { explain: 'x', simpler: '   ' },
+      { explain: 'x'.repeat(501), simpler: 's' }, { explain: 'x', simpler: 's'.repeat(161) }, { explain: 5, simpler: 's' }]) {
+      expect(e.applyLiveExplain(bad, req)).toBe(false)
+    }
+    expect(e.curExplain()!.src).toBe('prepared')
+    expect(e.applyLiveExplain({ explain: 'x'.repeat(500), simpler: 's'.repeat(160) }, req)).toBe(true)
   })
   test('prevention teach-back is chosen by the result', () => {
     const e = auto('ifhas').e

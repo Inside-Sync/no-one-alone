@@ -42,7 +42,7 @@ export * from '../data/types'
  *  - Family step 0: `famAct(actionId)`, `famSelect(memberId)` and the profile editor (below); step 2: `setFamResult(resultId, value)`, `famSendResults()`.
  *  - Safety / prevention inputs: `setInput(key, value)` is checked (see "Input guardrail").
  *  - Any step: `go(i)`, `next()` (`canNext()`), `tlNext()`, `btnAct()`, `answerTeach(optionIndex)`, `sendPlan()`, `recheck()`,
- *    `sendDaily()`, `accept()`, `report()`, `applyLiveExplain(json)`.
+ *    `sendDaily()`, `accept()`, `report()`, `applyLiveExplain(reply, request)`.
  *
  * ## The family (eight people, four generations) and Noa Forecast
  * `snapshot.state.fm` (`FamState`) holds `prof` (the editable profile of every member), `status`, `booked`, `declined`, `fcNo` (heart-review "not now"),
@@ -161,6 +161,8 @@ export interface Explain {
   src: 'prepared' | 'live'; lang: Lang; tkey: TeachId
   explain: Txt | string; q: Txt | string; opts: (Txt | string)[]; correct: number; simpler: Txt | string; wrong?: (Txt | string)[]
 }
+/** The teach set and language a live explanation was asked for, taken when the request starts. */
+export interface ExplainRequest { tkey: TeachId; lang: Lang }
 
 /** The whole mutable state of a running case. Everything in it is serialisable; times are minutes since 15 Oct 2026 00:00. */
 export interface State {
