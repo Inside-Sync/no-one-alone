@@ -617,7 +617,7 @@
   },
   "ai": {
     "prepared": {
-      "timeout": "Prepared text: the live AI took longer than 8 seconds.",
+      "timeout": "Prepared text: the live AI is waking up and took longer than 8 seconds. The next replies should be live.",
       "failed": "Prepared text: the live AI was not available."
     },
     "guardrail": {

@@ -19,7 +19,7 @@ test('a live reply is trimmed and labelled live', async () => {
   expect(await new RemoteAi(net(async () => ({ source: 'live', text: '  Hello Saeed. ' }))).say(req())).toEqual({ text: 'Hello Saeed.', source: 'live' })
 })
 test('no answer within the timeout gives the prepared text with the timeout note', async () => {
-  expect(await new RemoteAi(net(never), 20).say(req())).toEqual({ text: 'Prepared words.', source: 'prepared', note: 'Prepared text: the live AI took longer than 8 seconds.' })
+  expect(await new RemoteAi(net(never), 20).say(req())).toEqual({ text: 'Prepared words.', source: 'prepared', note: 'Prepared text: the live AI is waking up and took longer than 8 seconds. The next replies should be live.' })
 })
 test('the abort signal fires at the timeout', async () => {
   let signal: AbortSignal | undefined
