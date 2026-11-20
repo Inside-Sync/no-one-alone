@@ -20,7 +20,7 @@ export class ApiError extends Error {
   }
 }
 
-async function call<T>(path: string, body?: BodyInit | object): Promise<T> {
+async function call<T>(path: string, body?: BodyInit | object, signal?: AbortSignal): Promise<T> {
   const headers: Record<string, string> = { Authorization: `Bearer ${await idToken()}` }
   let payload: BodyInit | undefined
   if (body instanceof FormData) payload = body
@@ -30,7 +30,7 @@ async function call<T>(path: string, body?: BodyInit | object): Promise<T> {
   }
   let res: Response
   try {
-    res = await fetch(BASE + path, { method: 'POST', headers, body: payload })
+    res = await fetch(BASE + path, { method: 'POST', headers, body: payload, signal })
   } catch (e) {
     throw new ApiError(0, 'NETWORK', e instanceof Error ? e.message : String(e))
   }
@@ -86,4 +86,18 @@ export interface ChatRequest { question: string; mode: ChatMode; viewer?: string
 /** Asks Noa about Margaret; `502 CHAT_UNAVAILABLE` when the agent fails. */
 export function chat(body: ChatRequest) {
   return call<{ answer: string }>('/chat', body)
+}
+
+export interface NoaSayBody { callId: string; lang: 'en' | 'ar'; params: Record<string, unknown> }
+export interface NoaSayReply { source: 'live' | 'guardrail'; text?: string; reason?: string }
+export interface NoaUnderstandBody { qid: string; lang: 'en' | 'ar'; options: { id: string; label: string }[]; reply: string }
+
+/** Family-health wording (`503`/`502 AGENT_FAILED` when the model fails or is checked out); the caller aborts after 8 s. */
+export function noaSay(body: NoaSayBody, signal?: AbortSignal) {
+  return call<NoaSayReply>('/noa/say', body, signal)
+}
+
+/** Reads a typed reply into one of the card's option ids. */
+export function noaUnderstand(body: NoaUnderstandBody, signal?: AbortSignal) {
+  return call<{ choice: string }>('/noa/understand', body, signal)
 }
