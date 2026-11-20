@@ -8,7 +8,7 @@ The emergency backend below was first built as an AI care agent for older people
 It began as an entry for the Google Cloud AI Builder Cup and is now the safety net inside the Abu Dhabi family-health journey. Live demo: https://noonealone.insidesync.ai
 
 > [!IMPORTANT]
-> **The live demo runs one emergency at a time and is shared by everyone who opens it. If the Emergency page says the demo is busy, or a run you started resets, someone else is trying it too. Wait a minute and reload the page.**
+> **The live demo runs one emergency at a time and is shared by everyone who opens it. If the Emergency page says a demo incident is still running, or a run you started resets, someone else is trying it too. Wait a minute and reload the page.**
 
 All people, places and medical records in this repo are fictional.
 
@@ -45,9 +45,9 @@ flowchart LR
 | Part | Folder | What it does |
 |---|---|---|
 | core-api | `core-api/` | Owns the incident. Takes alerts from Pub/Sub, runs the state machine (verify, check-in, triage, escalate, hand off, recover), sets escalation timers in Cloud Tasks, gets travel times from the Routes API and writes every state change to Firestore. Serves the web's `/api` routes. |
-| respond-agent | `agents/respond/` | The care agent's judgement. Rules decide verification, triage and the escalation plan. Gemini judges the person's spoken check-in answers (for example slurred speech), writes the recovery summary and answers questions in the chat. Chirp 3 HD speaks every line in the person's language. It also writes the family-health panel's agent messages and reads typed replies with Claude, when the live switch is on. |
+| respond-agent | `agents/respond/` | The care agent's judgement. Rules decide verification, triage and the escalation plan. Gemini judges the person's spoken check-in answers (for example slurred speech), writes the recovery summary and answers questions in the Ask Noa chat panel. Chirp 3 HD speaks every line in the person's language. It also writes the family-health panel's agent messages and reads typed replies with Claude, when the live switch is on. |
 | hospital-agent | `agents/hospital/` | An ADK agent served over A2A. It reads the person's FHIR R4 record, applies their sharing consent and builds the pre-arrival packet for the receiving emergency department. The packet is built by rules, with no LLM, so it only ever contains what the record says. |
-| Web app | `web/` | Vite, React and TypeScript. Views for the person, the family, the hospital and the community. It reads Firestore in real time, so the family and hospital screens move as the incident moves. |
+| Web app | `web/` | Vite, React and TypeScript. Views for the individual and their family health journey, the hospital and the government. It reads Firestore in real time, so the family and hospital screens move as the incident moves. |
 | Forecast job | `data/predict/` | An offline job that screens family history and runs BigQuery `AI.FORECAST` (TimesFM) on synthetic blood pressure readings, then writes the result to Firestore for the "What's ahead" view. |
 | Infra | `infra/` | PowerShell scripts that set up the Google Cloud project and deploy each part. |
 
@@ -61,6 +61,14 @@ flowchart LR
 6. At emergency level, respond-agent hands off to hospital-agent over A2A, with a plain HTTP call as fallback. hospital-agent reads the FHIR store, keeps only what the person agreed to share, and returns a pre-arrival packet for a stroke-ready hospital.
 7. After discharge, the hospital approves a recovery plan. respond-agent turns it into reminders and a short spoken summary, and the incident closes.
 
+### Family health journey
+
+- A family member works through due checks in the Individual view. The speech check starts by itself: Noa reads the sentence, then records the answer.
+- Noa Forecast explains, in plain words, the flags the rules found in home readings and the family record.
+- A referral reaches the hospital's Referrals page with the home test results. The hospital accepts or declines it, and the reason reaches the family.
+- The Government view shows only aggregates. A count or rate for a group under 10 people is hidden.
+- The Benchmark button in the top bar runs the emergency rules on the benchmark scenarios in the browser and shows how many match the rule table.
+
 ### Family health panel: live AI
 
 In the family health panel, the rule engine decides every step. Claude only writes the agents' words and reads a typed reply into one of the card's options.
@@ -71,7 +79,7 @@ In the family health panel, the rule engine decides every step. Claude only writ
     - 15 places in the journey where an agent speaks;
     - `family.notify`, which words a family notification;
     - `analyst.weekly`, which gives the Government page a short summary from aggregates.
-- **Models.** Haiku 5.5 handles the short turns, Ask Noa, the family chat and reading replies. Opus 5.5 handles Forecast, Insight, Navigator, Courier and Analyst.
+- **Models.** Haiku 5.5 handles the short turns, questions typed in the panel, the family messages, the weekly Government summary and reading replies. Opus 5.5 handles Forecast, Insight, Navigator, Courier and the referral Analyst.
 - **Emergencies never reach the model.** The server returns the fixed safety line, and the model is never called, when any of these appears:
   - an emergency word in the person's question;
   - an emergency word in any of the person's earlier turns in the chat history;
