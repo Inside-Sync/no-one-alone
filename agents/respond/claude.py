@@ -1,4 +1,4 @@
-"""Claude on Vertex AI for Noa's wording (teach card and family-health panel). Returns None on any error."""
+"""Claude for Noa's wording: the Claude API when ANTHROPIC_API_KEY is set, else Vertex AI. Returns None on any error."""
 import json
 import logging
 import os
@@ -14,6 +14,9 @@ class ClaudeExplainer:
         self._client = None
 
     def _get_client(self):
+        if self._client is None and os.environ.get("ANTHROPIC_API_KEY"):
+            from anthropic import Anthropic
+            self._client = Anthropic(timeout=TIMEOUT_S, max_retries=0)
         if self._client is None:
             import google.auth
             from anthropic import AnthropicVertex

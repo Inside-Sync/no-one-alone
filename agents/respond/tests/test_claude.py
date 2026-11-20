@@ -61,6 +61,7 @@ def test_client_is_vertex_with_7_s_and_no_retries(monkeypatch):
             seen.update(kw)
 
     monkeypatch.setattr(anthropic, "AnthropicVertex", FakeVertex)
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "p1")
     monkeypatch.delenv("CLAUDE_LOCATION", raising=False)
     claude.ClaudeExplainer()._get_client()
@@ -68,6 +69,24 @@ def test_client_is_vertex_with_7_s_and_no_retries(monkeypatch):
     monkeypatch.setenv("CLAUDE_LOCATION", "us-east5")
     claude.ClaudeExplainer()._get_client()
     assert seen["region"] == "us-east5"
+
+
+def test_api_key_selects_the_claude_api_with_7_s_and_no_retries(monkeypatch):
+    seen = {}
+
+    class FakeApi:
+        def __init__(self, **kw):
+            seen.update(kw)
+
+    class NoVertex:
+        def __init__(self, **kw):
+            raise AssertionError("Vertex used although an API key is set")
+
+    monkeypatch.setattr(anthropic, "Anthropic", FakeApi)
+    monkeypatch.setattr(anthropic, "AnthropicVertex", NoVertex)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
+    assert isinstance(claude.ClaudeExplainer()._get_client(), FakeApi)
+    assert seen == {"timeout": 7, "max_retries": 0}
 
 
 def test_schema_and_model_arguments_reach_the_request():
