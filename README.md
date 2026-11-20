@@ -25,7 +25,7 @@ flowchart LR
     CA -->|verify, check-in, triage, plan, recovery, chat| RA
     RA -->|handoff over A2A| HA
     RA --> VX[Vertex AI<br/>Gemini 2.5 Flash]
-    RA --> CL[Claude on Vertex AI]
+    RA --> CL[Claude API or Vertex AI]
     RA --> TTS[Text-to-Speech<br/>Chirp 3 HD]
     HA --> FHIR[(Cloud Healthcare API<br/>FHIR R4 store)]
     CA --> CT[Cloud Tasks<br/>escalation timers]
@@ -60,7 +60,7 @@ flowchart LR
 
 ## Google Cloud services
 
-Everything runs in `asia-southeast1` (Singapore) except Gemini and Claude (Vertex AI `global` endpoint), Firebase Hosting (global CDN) and the Routes API (global).
+Everything runs in `asia-southeast1` (Singapore) except Gemini (Vertex AI `global` endpoint), Claude (the Claude API at api.anthropic.com, outside Google Cloud, reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set; otherwise the Vertex AI `global` endpoint), Firebase Hosting (global CDN) and the Routes API (global).
 
 **Running in the live demo**
 
@@ -68,7 +68,7 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini and Claude (Verte
 |---|---|
 | Cloud Run | Runs core-api, respond-agent and hospital-agent. The two agents are private: core-api and respond-agent call them with Google-signed ID tokens. |
 | Vertex AI, Gemini 2.5 Flash | Three jobs in respond-agent: listens to the person's recorded answer and returns the transcript and a speech judgement (clear, slurred or missing) in one call, writes the recovery summary, and answers questions in the Ask Noa chat. |
-| Vertex AI, Claude (Haiku 5.5 and Opus 5.5) | Writes the wording of the family-health agent messages from the facts the rules chose, and reads a typed reply into one of the card's options, when the live AI switch is on (off by default). Every reply is checked on the server; a failed check shows the prepared text. |
+| Claude (Haiku 5.5 and Opus 5.5), through the Claude API (api.anthropic.com, outside Google Cloud), reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set, or Claude on Vertex AI otherwise | Writes the wording of the family-health agent messages from the facts the rules chose, reads a typed reply into one of the card's options and writes the teach-card explanation, when the live AI switch (`VITE_NOA_AI`, off by default) is on. Every reply is checked on the server; a failed check shows the prepared text. The prompt holds the structured facts for that call and no free text except what the person typed (a reply or a question). |
 | Cloud Text-to-Speech, Chirp 3 HD | Noa's voice (Aoede, en-AU and vi-VN) for check-ins, the emergency call script and recovery reminders. |
 | Agent Development Kit (ADK) | hospital-agent is an ADK agent, served over A2A. respond-agent calls Gemini directly and does not use ADK. |
 | A2A protocol | respond-agent sends the hospital handoff to hospital-agent over A2A, with a plain HTTP call as fallback. |
@@ -80,7 +80,7 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini and Claude (Verte
 | Google Maps Platform, Routes API | Real travel times: each relative's ETA to the person, and the ETA to each hospital when choosing where to send the packet. |
 | Firebase Hosting | Serves the web app and rewrites `/api/**` to core-api. |
 | Firebase Authentication | Anonymous sign-in for every visitor. Firestore and Storage only allow reads from signed-in users. |
-| Secret Manager | Holds the Maps API key. Cloud Run reads it when an instance starts. |
+| Secret Manager | Holds the Maps API key. Cloud Run reads it when an instance starts. To use the Claude API with Workload Identity Federation, run `infra/set-anthropic-wif.ps1`; no key is stored. Only when the federation ids are unset, the key is used instead: run `infra/set-anthropic-key.ps1`. It stores the key as the secret `anthropic-api-key` and gives it to respond-agent as `ANTHROPIC_API_KEY`; `infra/setup.ps1` does not create it. |
 | IAM | One service account per service with only the roles it needs. |
 | Cloud Logging and Cloud Monitoring | Logs and metrics for the three Cloud Run services. |
 

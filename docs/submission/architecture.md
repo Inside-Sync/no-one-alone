@@ -17,7 +17,7 @@ flowchart LR
     CA --> RA
     RA -->|A2A| HA
     RA --> VX[Vertex AI Gemini 2.5 Flash]
-    RA --> CL[Vertex AI Claude]
+    RA --> CL[Claude API or Vertex AI]
     RA --> TTS[Chirp 3 HD TTS]
     HA --> FHIR[(Cloud Healthcare API<br/>FHIR R4 store)]
     CA --> CT[Cloud Tasks]
@@ -43,11 +43,12 @@ Checked against `README.md`, `firebase.json` and `infra/`.
 | Data stores | Firestore, Cloud Healthcare API (FHIR R4), Cloud Storage | All content is synthetic. Firestore rules: signed-in users read, only service accounts write. |
 | Messaging | Pub/Sub topic `alerts`, Cloud Tasks queue `escalation` | Alert intake and escalation timeouts. |
 | Security basics | IAM, Secret Manager, Firebase Auth | One service account per service. Agents are private and called with Google-signed ID tokens. Visitors sign in anonymously. |
+| Claude route | respond-agent | Claude Haiku 5.5 and Opus 5.5. respond-agent calls the Claude API (api.anthropic.com), which is outside Google Cloud and outside `asia-southeast1`. It is reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set. Otherwise Claude runs on Vertex AI. Used only when the live AI switch (`VITE_NOA_AI`, off by default) is on. |
 | Delivery | GitHub Actions, Cloud Build, Workload Identity Federation | CI on pull requests and on `dev`. Deploy after green CI. |
 
 Family journey, live AI switch (off by default): with `VITE_NOA_AI=on` the family-health panel sends each agent message to core-api, and respond-agent has Claude write the wording from the facts the engine chose. A message that fails a check, times out after 8 seconds or errors shows the prepared text. Typed replies on risky questions are also read by keywords, and the more urgent reading wins. The page-open auto-run stays on prepared text.
 
-Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini and Claude use the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
+Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini uses the Vertex AI `global` endpoint. Claude uses the Claude API (api.anthropic.com, outside Google Cloud), reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set; otherwise it uses the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
 
 ## 2. In the Test case (browser only)
 
