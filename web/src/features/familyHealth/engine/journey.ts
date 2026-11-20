@@ -66,6 +66,8 @@ interface Journey {
 interface ChoiceResult { id: string; label: Txt }
 /** One turn of a conversation sent to the AI as `history`. */
 interface Turn { by: 'person' | 'noa'; text: string }
+/** Calls the page-open auto-run still sends to a live AI: the typed question and the two Detect turns. */
+const QUIET_LIVE = new Set<string>(['composer.reply', 'detect.guardian', 'detect.forecast'])
 const clip = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1)}…` : s)
 
 /** The AI port's question for each free-text card (English, for the model; prototype `free.q`). */
@@ -660,8 +662,9 @@ export class FamilyHealthEngine {
     else {
       const callId = o.callId as SayCallId
       const req: SayRequest = { callId, tier: SAY_CALLS[callId].tier, skill: agent, domain: AGENTS[agent].domain, audience: o.audience, lang: this.lang, facts: o.facts, task: o.task, fallback: this.str(o.fallback), maxWords: o.max ?? 55, route: o.route }
-      // The page-open auto-run stays on prepared text; a question the viewer typed still goes to the AI port.
-      const port = this.quiet && o.callId !== 'composer.reply' ? this.prepared : this.ai
+      // The page-open auto-run uses the live AI only for its two Detect turns (the first thing a viewer sees), then prepared text;
+      // a question the viewer typed still goes to the AI port.
+      const port = this.quiet && !QUIET_LIVE.has(o.callId) ? this.prepared : this.ai
       this.aiBusy = !(port instanceof PreparedAi)
       this.emit()
       let r: Awaited<ReturnType<NoaAi['say']>>

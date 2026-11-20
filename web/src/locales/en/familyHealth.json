@@ -425,7 +425,7 @@
   },
   "coach": {
     "emergency": "If your face or arm is weak, your speech changes, or you have chest pain or feel faint, call 998 now.",
-    "pass": "Good question. I’ll pass it to {{doctor}}; you’ll hear back within 2 working days.",
+    "pass": "Good question. {{doctor}} is the right person to answer that; you can ask at your visit, or book one from the pathway card.",
     "emergencyActive": "{{name}}, please see a doctor now at the nearest emergency department; ask someone to take you, or call 998 if you cannot get there safely. Screening and bookings are paused until a doctor has seen you."
   },
   "sys": {
