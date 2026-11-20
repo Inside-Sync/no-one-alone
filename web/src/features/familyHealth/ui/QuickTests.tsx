@@ -6,7 +6,7 @@ import { E, WithNext, c } from './bits'
 export function runCase(id: TestCaseId, quiet = false) {
   if (!quiet) claimAutoRun() // a case picked by hand before the load auto-run: the auto-run must not start another journey
   setUi({ drawer: null })
-  void getEngine().runTestCase(id)
+  void getEngine().runTestCase(id, { prepared: quiet })
   if (!quiet) document.getElementById('fh-panel')?.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' })
 }
 

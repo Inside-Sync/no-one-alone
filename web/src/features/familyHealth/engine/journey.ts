@@ -7,7 +7,7 @@ import { CHILD_DEV_UNDER_MONTHS, CHOICES, DIN_ROUNDS, FREE_TEXT, HYPO_RECHECK, S
 import { CLOCK_START, STAGE_MINUTES, WAIT, writingMs } from '../data/thresholds'
 import type { AdultProfile, AgentId, ChildProfile, FhIcon, FhParams, Mode, NoaLang, PersonId, Profile, QsetId, RuleId, SampleKey, StageId, TestCaseId, TimeId, Tone, Txt, VtId } from '../data/types'
 import { PERSON_IDS, RULE_IDS } from '../data/types'
-import { FIXED_CALL, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, moreUrgent, type NoaAi, type SayCallId, type SayRequest } from './ai'
+import { EMERGENCY, FIXED_CALL, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, moreUrgent, type NoaAi, type SayCallId, type SayRequest } from './ai'
 import { detectFlags, famWorking, joinedTitles, scrCounts, scrStatus, signalRules, topFlags, urgentOf, type FamRow, type Flag, type Signal } from './flags'
 import { forecast, pct, riskTone } from './framingham'
 import { dinDefaults, qsetDefaults, qsetItems, scoreDin, scoreQ, selectTests, type DinResult, type QResult, type TestPlan } from './home'
@@ -115,6 +115,7 @@ export class FamilyHealthEngine {
   private run: Run = { cancelled: true }
   private running = false
   private aiBusy = false
+  private quiet = false
   private nextId = 0
 
   constructor(opts: EngineOptions = {}) {
@@ -188,11 +189,13 @@ export class FamilyHealthEngine {
 
   /** Start (or re-run) a journey for a person with their current data and no test-case answers (tree node, drawer). */
   startJourney(k: PersonId): Promise<void> {
+    this.quiet = false
     this.tc = null
     return this.begin(k)
   }
   /** Load a quick test case: the person's start data plus the preset, and the case's default answers. */
-  runTestCase(id: TestCaseId): Promise<void> {
+  runTestCase(id: TestCaseId, opts: { prepared?: boolean } = {}): Promise<void> {
+    this.quiet = !!opts.prepared
     const t = testCase(id)
     const base = structuredClone(PROFILES0[t.person])
     const p = { ...base, ...t.preset } as Profile
@@ -311,7 +314,7 @@ export class FamilyHealthEngine {
       } catch {
         u = keyword
       }
-      this.aiBusy = false
+      if (!run.cancelled) this.aiBusy = false
       if (this.pending !== p || run.cancelled) { this.emit(); return }
       if (u.source === 'live') this.calls.live++
       else this.calls.prepared++
@@ -331,10 +334,10 @@ export class FamilyHealthEngine {
       return
     }
     const k: PersonId = this.j?.k ?? 'khalid'
-    const qrun: Run = this.running ? run : { cancelled: false }
+    const qrun: Run = this.running ? run : (this.run = { cancelled: false })
     const agent: AgentId = this.active && this.active !== 'orch' ? this.active : 'coach'
     this.add({ kind: 'me', who: name(k), text, chip: null })
-    const emergency = /weak|speech|chest|faint|pain/.test(text.toLowerCase())
+    const emergency = EMERGENCY.test(text)
     try {
       // say(): a question typed in the composer. facts: name, question, journey_stage. Emergency words get the fixed safety line,
       // which never goes through the AI port (`fixed`).
@@ -418,11 +421,12 @@ export class FamilyHealthEngine {
     this.notes.unshift({ id: ++this.nextId, to: 'me', icon: 'message-circle', text, t: hhmm(this.clock), read: true })
     this.emit()
     const j = this.j
-    const fallback = /slur|speech|weak|chest|confus|faint/i.test(text) ? tx('chat.emergency')
+    const em = EMERGENCY.test(text)
+    const fallback = em ? tx('chat.emergency')
       : j ? tx('chat.working', { name: name(j.k), stage: j.stage ? lc(tx(`stages.${j.stage}.name`)) : tx('chat.starting') }) : tx('chat.idle')
     let out: string | Txt = fallback
     // Emergency words: the fixed safety line only, never the AI port.
-    if (/slur|speech|weak|chest|confus|faint/i.test(text)) { this.notify('noa', out, 'bot', true); return }
+    if (em) { this.notify('noa', out, 'bot', true); return }
     try {
       // say(): the family messages panel. facts: recent notifications ("To <name>: <text>", newest first, at most 6).
       const r = await this.ai.say({
@@ -431,7 +435,8 @@ export class FamilyHealthEngine {
         task: 'Answer the family’s question in at most 45 plain words. Never diagnose or name a dose; a doctor decides treatment; for stroke signs, chest pain or confusion advise seeing a doctor immediately.',
         fallback: this.str(fallback),
       })
-      if (r.source === 'live' && !guard(r.text)) out = r.text
+      if (r.emergency) out = tx('chat.emergency')
+      else if (r.source === 'live' && !guard(r.text)) out = r.text
     } catch { /* prepared text */ }
     this.notify('noa', out, 'bot', true)
   }
@@ -569,13 +574,16 @@ export class FamilyHealthEngine {
     else {
       const callId = o.callId as SayCallId
       const req: SayRequest = { callId, tier: SAY_CALLS[callId].tier, skill: agent, domain: AGENTS[agent].domain, audience: o.audience, lang: this.lang, facts: o.facts, task: o.task, fallback: this.str(o.fallback), maxWords: o.max ?? 55, route: o.route }
-      this.aiBusy = !(this.ai instanceof PreparedAi)
+      // The page-open auto-run stays on prepared text; a question the viewer typed still goes to the AI port.
+      const port = this.quiet && o.callId !== 'composer.reply' ? this.prepared : this.ai
+      this.aiBusy = !(port instanceof PreparedAi)
       this.emit()
       let r: Awaited<ReturnType<NoaAi['say']>>
-      try { r = await this.ai.say(req) } catch { r = { text: req.fallback, source: 'prepared', note: undefined } }
-      this.aiBusy = false
+      try { r = await port.say(req) } catch { r = { text: req.fallback, source: 'prepared', note: undefined } }
+      if (!run.cancelled) this.aiBusy = false
       this.live(run)
-      if (r.source === 'live') {
+      if (r.emergency) { source = 'fixed'; text = tx('coach.emergency'); this.calls.prepared++ }
+      else if (r.source === 'live') {
         const g = guard(r.text)
         if (g) { source = 'guardrail'; note = tx(`ai.guardrail.${g}`); this.calls.guardrail++ }
         else {
