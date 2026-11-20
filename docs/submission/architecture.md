@@ -45,6 +45,8 @@ Checked against `README.md`, `firebase.json` and `infra/`.
 | Security basics | IAM, Secret Manager, Firebase Auth | One service account per service. Agents are private and called with Google-signed ID tokens. Visitors sign in anonymously. |
 | Delivery | GitHub Actions, Cloud Build, Workload Identity Federation | CI on pull requests and on `dev`. Deploy after green CI. |
 
+Family journey, live AI switch (off by default): with `VITE_NOA_AI=on` the family-health panel sends each agent message to core-api, and respond-agent has Claude write the wording from the facts the engine chose. A message that fails a check, times out after 8 seconds or errors shows the prepared text. Typed replies on risky questions are also read by keywords, and the more urgent reading wins. The page-open auto-run stays on prepared text.
+
 Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini and Claude use the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
 
 ## 2. In the Test case (browser only)
@@ -55,7 +57,6 @@ The Test case is an overlay in the live web app (`web/src/features/testcase/`). 
 - **Rules** are published and numbered: R1 to R12 (safety), P1 to P9 (prevention), F1 and F2 (family heart score).
 - **The 9 Noa agents** (Guardian, Voice, Responder, Courier, Insight, Forecast, Coach, Navigator, Analyst) are roles in the engine. Each has a written "may do" and "may not do". They are not separate services. The hand-offs between them are shown on screen.
 - **No LLM makes a decision.** Scores and routing come from rules. The explanations are prepared text in two languages, labelled "Prepared text". "AI-written" appears only if a live explanation is loaded, and the rules still decide. No live explanation is wired in this build.
-- **Family journey (live AI switch):** with `VITE_NOA_AI=on` the family-health panel sends each agent message to core-api, and respond-agent has Claude write the wording from the facts the engine chose. A message that fails a check, times out after 8 seconds or errors shows the prepared text. Typed replies on risky questions are also read by keywords, and the more urgent reading wins. The page-open auto-run stays on prepared text.
 - **Voice:** the speech check uses the browser Web Speech API where it exists (Chrome, Edge). Typing or choosing a sample also works.
 - **Demo database:** ten tables (agents, patients, consents, observations, checkins, alerts, tasks, encounters, reports, audit), kept in memory for the run.
 - **Benchmark** (`bench/`): 252 labelled scenarios, run by the same engine. See [test-report.md](test-report.md).

@@ -18,7 +18,7 @@ All people, places, facilities and numbers in the product are fictional. Noa sup
 
 The Family health tab opens first and plays Saeed's demo by itself. Press **Next** (or the → key) to step through, answer as the person yourself, tap anyone in the family tree, or run a quick test case below the panel. It works in English and Arabic.
 
-The live site is shared by everyone who opens it. The family journey runs in your own browser, so other visitors do not affect it.
+The live site is shared by everyone who opens it. The family journey runs in your own browser, so other visitors do not affect it. When the live AI switch is on (off by default), the agents' wording goes through the backend.
 
 ## What to look at in 5 minutes
 

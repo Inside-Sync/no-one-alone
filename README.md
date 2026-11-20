@@ -68,7 +68,7 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini and Claude (Verte
 |---|---|
 | Cloud Run | Runs core-api, respond-agent and hospital-agent. The two agents are private: core-api and respond-agent call them with Google-signed ID tokens. |
 | Vertex AI, Gemini 2.5 Flash | Three jobs in respond-agent: listens to the person's recorded answer and returns the transcript and a speech judgement (clear, slurred or missing) in one call, writes the recovery summary, and answers questions in the Ask Noa chat. |
-| Vertex AI, Claude (Haiku 5.5 and Opus 5.5) | Writes the wording of the family-health agent messages from the facts the rules chose, and reads a typed reply into one of the card's options. Every reply is checked on the server; a failed check shows the prepared text. |
+| Vertex AI, Claude (Haiku 5.5 and Opus 5.5) | Writes the wording of the family-health agent messages from the facts the rules chose, and reads a typed reply into one of the card's options, when the live AI switch is on (off by default). Every reply is checked on the server; a failed check shows the prepared text. |
 | Cloud Text-to-Speech, Chirp 3 HD | Noa's voice (Aoede, en-AU and vi-VN) for check-ins, the emergency call script and recovery reminders. |
 | Agent Development Kit (ADK) | hospital-agent is an ADK agent, served over A2A. respond-agent calls Gemini directly and does not use ADK. |
 | A2A protocol | respond-agent sends the hospital handoff to hospital-agent over A2A, with a plain HTTP call as fallback. |
