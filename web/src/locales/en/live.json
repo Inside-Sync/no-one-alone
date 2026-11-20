@@ -355,6 +355,7 @@
         "noAnswer": "{{prev}} didn't answer, so I've left him a message. I'm calling {{name}} now.",
         "onTheWay": "{{name}} is on the way. Help is coming.",
         "calling000": "I'm calling {{num}} for an ambulance now. Stay where you are. Help is coming.",
+        "calling998": "I'm calling {{num}} for an ambulance now, and {{name}} too. Please stay sitting.",
         "onTheWayCalling": "{{name}} is on his way. He has a key. I'm calling {{num}} now.",
         "ambulance": "Help is on the way, Umm Khalid. The ambulance is 12 minutes away. Stay sitting. I'm right here with you."
       }

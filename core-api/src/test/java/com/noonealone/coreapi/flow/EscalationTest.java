@@ -96,6 +96,7 @@ class EscalationTest extends FirestoreTestBase {
         verify(tasks).schedule("e-1", "test-near", 1, 30);
         assertThat(inc.timeline).filteredOn(t -> "NOTIFIED".equals(t.kind)).extracting(t -> t.text)
                 .anyMatch(s -> s.startsWith("Calling ") && s.endsWith(": Test Elder may be having a stroke."));
+        assertThat(inc.timeline).extracting(t -> t.kind).doesNotContain("CALLED_115");
     }
 
     @Test
@@ -167,7 +168,7 @@ class EscalationTest extends FirestoreTestBase {
     }
 
     @Test
-    void margaretEmergencyCallsJamesThenDavidAndDavidAcceptCalls000() {
+    void margaretEmergencyCalls998AtTheDecisionThenKhalidThenHamad() {
         runMargaretEmergency("m-e1");
 
         var james = store.get("m-e1").assignment("james").orElseThrow();
@@ -180,11 +181,11 @@ class EscalationTest extends FirestoreTestBase {
 
         assertThat(callTexts("m-e1")).containsExactly(
                 "Alert sent to Khalid, Alia and Hamad: Moza may be having a stroke. Noa is calling for help now.",
+                "Calling 998 automatically with the call script (demo call)",
                 "Calling Khalid: Moza may be having a stroke. Her speech is slurred.",
                 "Khalid did not answer in 30 s · voicemail and text sent",
                 "Calling Hamad: Moza may be having a stroke. You are 6 min away. Use the spare key if needed.",
-                "Hamad accepted",
-                "Calling 998 automatically with the call script (demo call)");
+                "Hamad accepted");
 
         assertThat(entry("m-e1", "ALERTED", 0).params)
                 .isEqualTo(Map.of("memberIds", List.of("james", "sarah", "david"), "suspectedStroke", true));
@@ -200,7 +201,7 @@ class EscalationTest extends FirestoreTestBase {
     }
 
     @Test
-    void margaretWithNoAcceptCallsJamesDavidThen000AndNeverAisha() {
+    void margaretWithNoAcceptCalls998OnceThenKhalidAndHamadAndNeverAisha() {
         runMargaretEmergency("m-e2");
 
         actions.timeout("m-e2", "james", 1);
@@ -208,12 +209,12 @@ class EscalationTest extends FirestoreTestBase {
 
         assertThat(callTexts("m-e2")).containsExactly(
                 "Alert sent to Khalid, Alia and Hamad: Moza may be having a stroke. Noa is calling for help now.",
+                "Calling 998 automatically with the call script (demo call)",
                 "Calling Khalid: Moza may be having a stroke. Her speech is slurred.",
                 "Khalid did not answer in 30 s · voicemail and text sent",
                 "Calling Hamad: Moza may be having a stroke. You are 6 min away. Use the spare key if needed.",
                 "Hamad did not answer in 30 s",
-                "No one nearby accepted",
-                "Calling 998 automatically with the call script (demo call)");
+                "No one nearby accepted");
         assertThat(entry("m-e2", "EXPIRED", 1).memberId).isEqualTo("david");
         assertThat(entry("m-e2", "EXPIRED", 1).params).isEqualTo(Map.of("seconds", 30L, "voicemail", false));
         assertThat(entry("m-e2", "NO_NEARBY", 0).memberId).isNull();
@@ -250,16 +251,21 @@ class EscalationTest extends FirestoreTestBase {
 
         assertThat(store.get("m-h1").timeline).extracting(t -> t.kind)
                 .containsSubsequence("CALLED_115", "HANDOFF_SENT", "HANDOFF_RECEIVED", "FAMILY_UPDATE");
+        assertThat(store.get("m-h1").timeline).extracting(t -> t.kind).containsSubsequence("ALERTED", "CALLED_115", "NO_NEARBY");
+        assertThat(store.get("m-h1").timeline).filteredOn(t -> "CALLED_115".equals(t.kind) && "SYSTEM".equals(t.actor)).hasSize(1);
     }
 
     @Test
-    void davidAcceptHandsOffAndTellsTheFamilyHeIsComing() {
+    void handoffTimerAfterDavidAcceptTellsTheFamilyHeIsComing() {
+        when(tasks.enabled()).thenReturn(true);
         runMargaretEmergency("m-h2");
+        verify(tasks).schedule("m-h2", "handoff", 1, 25);
 
         actions.timeout("m-h2", "james", 1);
         actions.apply("m-h2", "david", "ACCEPT");
+        actions.timeout("m-h2", "handoff", 1);
 
-        assertThat(store.get("m-h2").timeline).extracting(t -> t.kind).containsSubsequence("CALLED_115", "HANDOFF_SENT");
+        assertThat(store.get("m-h2").timeline).extracting(t -> t.kind).containsSubsequence("CALLED_115", "ACCEPTED", "HANDOFF_SENT");
         assertThat(text("m-h2", "FAMILY_UPDATE")).contains("Hamad is on his way.");
         assertThat(entry("m-h2", "FAMILY_UPDATE", 0).memberId).isEqualTo("david");
         assertThat(entry("m-h2", "FAMILY_UPDATE", 0).params).isEqualTo(Map.of("hospitalId", "sydney-stroke-center", "ownerId", "david"));
@@ -300,6 +306,7 @@ class EscalationTest extends FirestoreTestBase {
 
     @Test
     void handoffTaskOnClosedIncidentDoesNothing() {
+        when(tasks.enabled()).thenReturn(true);
         runMargaretEmergency("m-h4");
         actions.apply("m-h4", "console", "CLOSE");
 
