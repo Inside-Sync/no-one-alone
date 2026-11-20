@@ -13,5 +13,7 @@
   "referral.courier": { "audience": "the clinic team (Dr Omar Haddad)", "patient": "Saeed Al Mansoori", "age": "64", "booked": ["Diabetes blood test"], "for_doctor_decision": ["Blood pressure review"], "home_screening": { "speech_score": 0.92 }, "flags": ["Heart and stroke risk"] },
   "referral.analyst": { "audience": "Department of Health programme team", "segment": "men 60s", "booked": 2 },
   "composer.reply": { "audience": "Khalid", "name": "Khalid", "question": "what happens next?", "journey_stage": "referral" },
-  "family.chat": { "audience": "Moza’s family", "notifications": ["To Saeed: Your pathway is ready"], "question": "how is grandpa?" }
+  "family.chat": { "audience": "Moza’s family", "notifications": ["To Saeed: Your pathway is ready"], "question": "how is grandpa?" },
+  "family.notify": { "audience": "Moza", "to": "Moza", "relation": "daughter of Saeed", "event": "Saeed's checks are booked: Diabetes blood test, Wed 25 Nov, 09:00", "urgency": "routine" },
+  "analyst.weekly": { "audience": "Department of Health programme team", "period": "16 to 22 Nov", "groups": [{ "segment": "non-national men 40-59", "recommended": 120, "uptake_pct": 36 }, { "segment": "national women 50-69", "recommended": 210, "uptake_pct": 71 }] }
 }

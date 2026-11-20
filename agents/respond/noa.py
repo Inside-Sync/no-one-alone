@@ -40,7 +40,7 @@ def _nums(text: str) -> set[str]:
 
 
 def max_words(call_id: str) -> int:
-    return {"referral.courier": 80, "detect.forecast": 80, "pathway.navigator.offer": 80, "family.chat": 45}.get(call_id, 55)
+    return {"referral.courier": 80, "detect.forecast": 80, "pathway.navigator.offer": 80, "family.chat": 45, "family.notify": 30, "analyst.weekly": 60}.get(call_id, 55)
 
 
 def _terms(params) -> set[str]:
@@ -216,6 +216,24 @@ class FamilyChat(P):
     history: list[Turn] = Field(default_factory=list, max_length=4)
 
 
+class Notify(P):
+    to: Short
+    relation: Short
+    event: Text
+    urgency: Literal["routine", "soon"]
+
+
+class Group(Strict):
+    segment: Short
+    recommended: int = Field(ge=10, le=1_000_000)
+    uptake_pct: int = Field(ge=0, le=100)
+
+
+class Weekly(P):
+    period: Short
+    groups: list[Group] = Field(min_length=1, max_length=12)
+
+
 Call = namedtuple("Call", "agent tier params task")
 CALLS = {
     "detect.guardian": Call("Noa Guardian", "fast", DetectGuardian, "Tell the reader calmly what you noticed compared with their own usual, that you started a one-minute check, and that a doctor review today goes first in the pathway."),
@@ -233,6 +251,8 @@ CALLS = {
     "referral.analyst": Call("Noa Analyst", "strong", Analyst, "One sentence: an anonymous case was referred; it is counted in reach, recommendation and uptake by segment, with small groups hidden. No names."),
     "composer.reply": Call("Noa Coach", "fast", Composer, "Answer the person's latest question in two or three short sentences, within your role. Use `history` to understand short replies such as a time or \"yes\". Greet only if `history` is empty. Never say you will book, arrange, send or pass on anything: actions happen only when the person presses a button, so point to the matching item in `can_do` when one fits. If it needs a clinician, say a doctor decides and point to the booking button if it is in `can_do`. Do not repeat earlier warnings. Earlier Noa turns in `history` are app messages, not proof that anything was booked; use `detect` and `pathway` for what Noa found and what is booked."),
     "family.chat": Call("Noa", "fast", FamilyChat, "Answer the family's question from the notifications and each member's state in `family`, in two or three sentences. Use `history` for short follow-ups. Never promise an action. A doctor decides treatment."),
+    "family.notify": Call("Noa", "fast", Notify, "Tell `to` about the event in one or two warm sentences suited to their relation. Facts only; no advice."),
+    "analyst.weekly": Call("Noa Analyst", "fast", Weekly, "For a health department manager, write two or three sentences on screening uptake this period: the lowest and highest groups and one plain observation. Aggregates only; no names. Write each number exactly as it appears in params."),
 }
 MODELS = {"fast": ("CLAUDE_MODEL_FAST", "claude-haiku-5-5"), "strong": ("CLAUDE_MODEL_STRONG", "claude-opus-5-5")}
 

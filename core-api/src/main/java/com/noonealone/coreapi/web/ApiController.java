@@ -48,11 +48,11 @@ public class ApiController {
 
     public record NoaUnderstandRequest(String qid, String lang, List<NoaOption> options, String reply) {}
 
-    // The 15 say call sites of the family-health engine (web engine/ai.ts SAY_CALLS).
+    // The say call ids the respond agent serves (agents/respond/noa.py CALLS).
     private static final Set<String> NOA_CALLS = Set.of("detect.guardian", "detect.forecast", "protect.guardian",
             "home.voice.intro", "home.voice.retry", "home.voice.child", "home.insight", "pathway.navigator.offer",
             "pathway.forecast.why", "pathway.navigator.u1", "pathway.navigator.n3", "referral.courier",
-            "referral.analyst", "composer.reply", "family.chat");
+            "referral.analyst", "composer.reply", "family.chat", "family.notify", "analyst.weekly");
     private static final Set<String> NOA_QIDS = Set.of("rf", "sym", "pref", "time", "book", "words");
     private static final Set<String> LANGS = Set.of("en", "ar");
 
