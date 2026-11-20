@@ -7,7 +7,7 @@ import { CHILD_DEV_UNDER_MONTHS, CHOICES, DIN_ROUNDS, FREE_TEXT, HYPO_RECHECK, S
 import { CLOCK_START, STAGE_MINUTES, WAIT, writingMs } from '../data/thresholds'
 import type { AdultProfile, AgentId, ChildProfile, FhIcon, FhParams, Mode, NoaLang, PersonId, Profile, QsetId, RuleId, SampleKey, StageId, TestCaseId, TimeId, Tone, Txt, VtId } from '../data/types'
 import { PERSON_IDS, RULE_IDS } from '../data/types'
-import { FIXED_CALL, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, moreUrgent, type NoaAi, type SayCallId, type SayRequest } from './ai'
+import { EMERGENCY_AR, FIXED_CALL, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, moreUrgent, type NoaAi, type SayCallId, type SayRequest } from './ai'
 import { detectFlags, famWorking, joinedTitles, scrCounts, scrStatus, signalRules, topFlags, urgentOf, type FamRow, type Flag, type Signal } from './flags'
 import { forecast, pct, riskTone } from './framingham'
 import { dinDefaults, qsetDefaults, qsetItems, scoreDin, scoreQ, selectTests, type DinResult, type QResult, type TestPlan } from './home'
@@ -334,7 +334,7 @@ export class FamilyHealthEngine {
     const qrun: Run = this.running ? run : { cancelled: false }
     const agent: AgentId = this.active && this.active !== 'orch' ? this.active : 'coach'
     this.add({ kind: 'me', who: name(k), text, chip: null })
-    const emergency = /weak|speech|chest|faint|pain/.test(text.toLowerCase())
+    const emergency = /weak|speech|chest|faint|pain/.test(text.toLowerCase()) || EMERGENCY_AR.test(text)
     try {
       // say(): a question typed in the composer. facts: name, question, journey_stage. Emergency words get the fixed safety line,
       // which never goes through the AI port (`fixed`).
@@ -418,11 +418,12 @@ export class FamilyHealthEngine {
     this.notes.unshift({ id: ++this.nextId, to: 'me', icon: 'message-circle', text, t: hhmm(this.clock), read: true })
     this.emit()
     const j = this.j
-    const fallback = /slur|speech|weak|chest|confus|faint/i.test(text) ? tx('chat.emergency')
+    const em = /slur|speech|weak|chest|confus|faint/i.test(text) || EMERGENCY_AR.test(text)
+    const fallback = em ? tx('chat.emergency')
       : j ? tx('chat.working', { name: name(j.k), stage: j.stage ? lc(tx(`stages.${j.stage}.name`)) : tx('chat.starting') }) : tx('chat.idle')
     let out: string | Txt = fallback
     // Emergency words: the fixed safety line only, never the AI port.
-    if (/slur|speech|weak|chest|confus|faint/i.test(text)) { this.notify('noa', out, 'bot', true); return }
+    if (em) { this.notify('noa', out, 'bot', true); return }
     try {
       // say(): the family messages panel. facts: recent notifications ("To <name>: <text>", newest first, at most 6).
       const r = await this.ai.say({

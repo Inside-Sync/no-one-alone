@@ -1,4 +1,4 @@
-import { FamilyHealthEngine, SAY_CALLS, TEST_CASES, type NoaAi, type PersonId, type SayRequest, type UnderstandRequest } from '@/features/familyHealth'
+import { FamilyHealthEngine, PreparedAi, SAY_CALLS, TEST_CASES, type NoaAi, type PersonId, type SayRequest, type UnderstandRequest } from '@/features/familyHealth'
 import { T, drive, of } from './helpers'
 
 /** A recording port: live text (optionally with a rule id), and a fixed `understand` choice. */
@@ -103,5 +103,46 @@ describe('understand: an invalid model choice never becomes "none"', () => {
     const s = e.getSnapshot()
     expect(s.emergency).toBe(false)
     expect(of(s.feed, 'card').map((c) => c.card.type === 'choice' && c.card.qid === 'rf' ? T(c.picked) : null).filter(Boolean)).toEqual(['No, I feel OK (read by keywords)'])
+  })
+})
+
+describe('Arabic emergency words never reach the AI port', () => {
+  test('composer: the fixed safety line, no composer.reply call', async () => {
+    const { ai, says } = recorder()
+    const e = new FamilyHealthEngine({ ai })
+    await e.reply('أشعر بألم في الصدر')
+    await e.whenIdle()
+    expect(says.filter((s) => s.callId === 'composer.reply')).toHaveLength(0)
+    expect(of(e.getSnapshot().feed, 'agent').at(-1)?.source).toBe('fixed')
+  })
+  test('family chat: the fixed safety line, no family.chat call', async () => {
+    const { ai, says } = recorder()
+    const e = new FamilyHealthEngine({ ai })
+    await e.askNoa('جدي يشعر بدوخة')
+    expect(says.filter((s) => s.callId === 'family.chat')).toHaveLength(0)
+    expect(T(e.getSnapshot().notes[0].text)).toBe('If anyone has slurred speech, face or arm weakness, chest pain or confusion, they should see a doctor immediately at the emergency department.')
+  })
+})
+
+describe('the keyword reader reads Arabic replies', () => {
+  const read = async (qid: string, reply: string) => (await new PreparedAi().understand({ tier: 'fast', qid, question: '', options: [], reply, lang: 'ar' })).choice
+  test('rf: weakness, chest, faint, palpitations, none', async () => {
+    expect(await read('rf', 'ذراعي فيها ضعف')).toBe('weak')
+    expect(await read('rf', 'أشعر بألم في الصدر')).toBe('chest')
+    expect(await read('rf', 'أشعر بدوخة')).toBe('faint')
+    expect(await read('rf', 'عندي خفقان')).toBe('palp')
+    expect(await read('rf', 'لا، أنا بخير')).toBe('none')
+  })
+  test('sym: thirst, bowel, breast, chest, none', async () => {
+    expect(await read('sym', 'أشعر بعطش دائم')).toBe('thirst')
+    expect(await read('sym', 'لاحظت تغيرا في البراز')).toBe('bowel')
+    expect(await read('sym', 'وجدت كتلة في الثدي')).toBe('breast')
+    expect(await read('sym', 'ضيق في الصدر عند المشي')).toBe('chest')
+    expect(await read('sym', 'لا شيء من هذا')).toBe('none')
+  })
+  test('words: few, many, some', async () => {
+    expect(await read('words', 'لا يتكلم بعد')).toBe('few')
+    expect(await read('words', 'يقول كلمات كثيرة')).toBe('many')
+    expect(await read('words', 'بعض الكلمات')).toBe('some')
   })
 })

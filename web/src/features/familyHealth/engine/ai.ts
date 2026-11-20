@@ -105,14 +105,17 @@ export function guard(text: string): GuardHit | null {
   return null
 }
 
+/** Arabic emergency words (weakness, numbness, speech, chest, pain, fainting, dizziness, confusion, stroke): fixed safety line, never the AI. */
+export const EMERGENCY_AR = /ضعف|خدر|تنميل|تدل[يى]|كلام|تلعثم|صدر|ألم|وجع|إغماء|اغماء|أغمي|اغمي|دوخة|دوار|تشوش|ارتباك|مشوش|سكتة|جلطة/
+
 /** The prototype keyword readers (used when the AI is off). Input is lower-cased. */
 export const KEYWORDS: Record<string, (t: string) => string> = {
-  rf: (t) => (/weak|numb|droop|arm|face/.test(t) ? 'weak' : /chest|pain/.test(t) ? 'chest' : /faint|dizzy/.test(t) ? 'faint' : /pound|racing|heart/.test(t) ? 'palp' : 'none'),
-  sym: (t) => (/thirst|tired|urin|pee/.test(t) ? 'thirst' : /blood|stool|bowel/.test(t) ? 'bowel' : /breast|lump/.test(t) ? 'breast' : /chest|tight/.test(t) ? 'chest' : 'none'),
+  rf: (t) => (/weak|numb|droop|arm|face|ضعف|خدر|تنميل|تدل[يى]|ذراع|وجه|كلام|تلعثم/.test(t) ? 'weak' : /chest|pain|صدر|ألم|وجع/.test(t) ? 'chest' : /faint|dizzy|إغماء|اغماء|أغمي|اغمي|دوخة|دوار/.test(t) ? 'faint' : /pound|racing|heart|خفقان|نبض|قلب/.test(t) ? 'palp' : 'none'),
+  sym: (t) => (/thirst|tired|urin|pee|عطش|تعب|إرهاق|ارهاق|تبول/.test(t) ? 'thirst' : /blood|stool|bowel|نزيف|براز|أمعاء|امعاء|إمساك|امساك|إسهال|اسهال/.test(t) ? 'bowel' : /breast|lump|ثدي|كتلة|ورم/.test(t) ? 'breast' : /chest|tight|صدر|ضيق/.test(t) ? 'chest' : 'none'),
   pref: (t) => (/female|woman|lady/.test(t) ? 'female' : /home|kit/.test(t) ? 'home' : 'one'),
   time: (t) => (/even|night/.test(t) ? 'eve' : /sat|weekend/.test(t) ? 'sat' : /after|15|school/.test(t) ? 'pm' : 'am'),
   book: (t) => (/not now|later|no thanks/.test(t) ? 'later' : /time|change|evening|morning|saturday/.test(t) ? 'change' : /why|fine|bother/.test(t) ? 'why' : 'book'),
-  words: (t) => (/none|no |one|two|1|2/.test(t) ? 'few' : /many|lots|more/.test(t) ? 'many' : 'some'),
+  words: (t) => (/none|no |one|two|1|2|لا شيء|لا يتكلم|لا تتكلم|لا ينطق|واحدة|كلمتين|كلمتان|١|٢/.test(t) ? 'few' : /many|lots|more|كثير|أكثر|اكثر|جمل/.test(t) ? 'many' : 'some'),
 }
 
 /**
