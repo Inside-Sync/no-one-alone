@@ -64,6 +64,24 @@ def test_script():
     assert noa.check_say("سعيد", "detect.guardian", "en", P) == "script"
 
 
+def test_arabic_may_copy_latin_terms_from_params():
+    params = {"audience": "موزة", "call": "x", "tests": ["HbA1c", "M-CHAT-R"]}
+    text = "سنجري فحص HbA1c واستبيان M-CHAT-R اليوم"
+    assert noa.check_say(text, "home.voice.intro", "ar", params) is None
+    assert noa.check_say(text + " please call", "home.voice.intro", "ar", params) == "script"
+
+
+def test_arabic_terms_come_from_values_only_and_match_case():
+    text = "سنجري فحص HbA1c اليوم"
+    assert noa.check_say(text, "home.voice.intro", "ar", {"HbA1c": "x"}) == "script"
+    assert noa.check_say(text.replace("HbA1c", "hba1c"), "home.voice.intro", "ar", {"tests": ["HbA1c"]}) == "script"
+
+
+def test_arabic_does_not_allow_plain_english_words_found_in_params():
+    params = {"audience": "x", "call": "x", "tests": ["Heart 128 bpm at rest for 22 min"]}
+    assert noa.check_say("نبض Heart 128 bpm at rest for 22 min", "home.voice.intro", "ar", params) == "script"
+
+
 def test_word_limits_55_80_45():
     assert noa.check_say(" ".join(["word"] * 55), "detect.guardian", "en", P) is None
     assert noa.check_say(" ".join(["word"] * 56), "detect.guardian", "en", P) == "length"
