@@ -1,5 +1,6 @@
 export { FamilyHealthEngine, type EngineOptions } from './journey'
-export { PreparedAi, guard, EMERGENCY_AR, KEYWORDS, SAY_CALLS, FIXED_CALL, UNDERSTAND_TIER, type SayCallId, type ModelTier, type NoaAi, type SayRequest, type SayResult, type SaySource, type UnderstandRequest, type UnderstandResult, type GuardHit } from './ai'
+export { PreparedAi, guard, EMERGENCY_AR, EMERGENCY_EN_MORE, KEYWORDS, SAY_CALLS, FIXED_CALL, UNDERSTAND_TIER, type SayCallId, type ModelTier, type NoaAi, type SayRequest, type SayResult, type SaySource, type UnderstandRequest, type UnderstandResult, type GuardHit } from './ai'
+export { RemoteAi, type NoaTransport } from './remoteAi'
 export { realScheduler, instantScheduler, type Scheduler } from './scheduler'
 export { FH_NS, tx, lc, list, date, fixed, resolveText, textOf, lcFirst, formatDay, hhmm, type RawT } from './text'
 export { forecast, pct, project, riskCat, riskTone, type Forecast, type RiskCat } from './framingham'

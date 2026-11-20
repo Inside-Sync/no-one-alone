@@ -7,7 +7,7 @@ import { CHILD_DEV_UNDER_MONTHS, CHOICES, DIN_ROUNDS, FREE_TEXT, HYPO_RECHECK, S
 import { CLOCK_START, STAGE_MINUTES, WAIT, writingMs } from '../data/thresholds'
 import type { AdultProfile, AgentId, ChildProfile, FhIcon, FhParams, Mode, NoaLang, PersonId, Profile, QsetId, RuleId, SampleKey, StageId, TestCaseId, TimeId, Tone, Txt, VtId } from '../data/types'
 import { PERSON_IDS, RULE_IDS } from '../data/types'
-import { EMERGENCY_AR, FIXED_CALL, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, moreUrgent, type NoaAi, type SayCallId, type SayRequest } from './ai'
+import { EMERGENCY_AR, EMERGENCY_EN_MORE, FIXED_CALL, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, moreUrgent, type NoaAi, type SayCallId, type SayRequest } from './ai'
 import { detectFlags, famWorking, joinedTitles, scrCounts, scrStatus, signalRules, topFlags, urgentOf, type FamRow, type Flag, type Signal } from './flags'
 import { forecast, pct, riskTone } from './framingham'
 import { dinDefaults, qsetDefaults, qsetItems, scoreDin, scoreQ, selectTests, type DinResult, type QResult, type TestPlan } from './home'
@@ -334,7 +334,7 @@ export class FamilyHealthEngine {
     const qrun: Run = this.running ? run : { cancelled: false }
     const agent: AgentId = this.active && this.active !== 'orch' ? this.active : 'coach'
     this.add({ kind: 'me', who: name(k), text, chip: null })
-    const emergency = /weak|speech|chest|faint|pain/.test(text.toLowerCase()) || EMERGENCY_AR.test(text)
+    const emergency = /weak|speech|chest|faint|pain/.test(text.toLowerCase()) || EMERGENCY_AR.test(text) || EMERGENCY_EN_MORE.test(text)
     try {
       // say(): a question typed in the composer. facts: name, question, journey_stage. Emergency words get the fixed safety line,
       // which never goes through the AI port (`fixed`).
@@ -418,7 +418,7 @@ export class FamilyHealthEngine {
     this.notes.unshift({ id: ++this.nextId, to: 'me', icon: 'message-circle', text, t: hhmm(this.clock), read: true })
     this.emit()
     const j = this.j
-    const em = /slur|speech|weak|chest|confus|faint/i.test(text) || EMERGENCY_AR.test(text)
+    const em = /slur|speech|weak|chest|confus|faint/i.test(text) || EMERGENCY_AR.test(text) || EMERGENCY_EN_MORE.test(text)
     const fallback = em ? tx('chat.emergency')
       : j ? tx('chat.working', { name: name(j.k), stage: j.stage ? lc(tx(`stages.${j.stage}.name`)) : tx('chat.starting') }) : tx('chat.idle')
     let out: string | Txt = fallback
@@ -432,7 +432,8 @@ export class FamilyHealthEngine {
         task: 'Answer the family’s question in at most 45 plain words. Never diagnose or name a dose; a doctor decides treatment; for stroke signs, chest pain or confusion advise seeing a doctor immediately.',
         fallback: this.str(fallback),
       })
-      if (r.source === 'live' && !guard(r.text)) out = r.text
+      if (r.emergency) out = tx('chat.emergency')
+      else if (r.source === 'live' && !guard(r.text)) out = r.text
     } catch { /* prepared text */ }
     this.notify('noa', out, 'bot', true)
   }
@@ -576,7 +577,8 @@ export class FamilyHealthEngine {
       try { r = await this.ai.say(req) } catch { r = { text: req.fallback, source: 'prepared', note: undefined } }
       this.aiBusy = false
       this.live(run)
-      if (r.source === 'live') {
+      if (r.emergency) { source = 'fixed'; text = tx('coach.emergency'); this.calls.prepared++ }
+      else if (r.source === 'live') {
         const g = guard(r.text)
         if (g) { source = 'guardrail'; note = tx(`ai.guardrail.${g}`); this.calls.guardrail++ }
         else {

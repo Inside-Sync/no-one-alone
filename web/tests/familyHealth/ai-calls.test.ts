@@ -115,6 +115,25 @@ describe('Arabic emergency words never reach the AI port', () => {
     expect(says.filter((s) => s.callId === 'composer.reply')).toHaveLength(0)
     expect(of(e.getSnapshot().feed, 'agent').at(-1)?.source).toBe('fixed')
   })
+  test('composer and family chat: the wider English and Arabic emergency words also stay off the AI port', async () => {
+    for (const w of ['I feel dizzy', 'he is unconscious', 'she collapsed', 'my face droops', 'trouble with breathing', 'صعوبة في التنفس', 'فقد الوعي', 'عنده نزيف']) {
+      const { ai, says } = recorder()
+      const e = new FamilyHealthEngine({ ai })
+      await e.reply(w)
+      await e.askNoa(w)
+      expect(says, w).toHaveLength(0)
+    }
+  })
+  test('a server emergency refusal shows the fixed safety line in the composer and in family chat', async () => {
+    const ai: NoaAi = { say: async () => ({ text: 'Prepared.', source: 'guardrail', emergency: true }), understand: async () => ({ choice: 'none', summary: '', source: 'live' }) }
+    const e = new FamilyHealthEngine({ ai })
+    await e.reply('my arm feels strange')
+    await e.askNoa('grandpa is acting strange')
+    const last = of(e.getSnapshot().feed, 'agent').at(-1)
+    expect(last?.source).toBe('fixed')
+    expect(T(last?.text ?? null)).toBe('If your face or arm is weak, your speech changes, or you have chest pain or feel faint, call 998 now.')
+    expect(T(e.getSnapshot().notes[0].text)).toBe('If anyone has slurred speech, face or arm weakness, chest pain or confusion, they should see a doctor immediately at the emergency department.')
+  })
   test('family chat: the fixed safety line, no family.chat call', async () => {
     const { ai, says } = recorder()
     const e = new FamilyHealthEngine({ ai })

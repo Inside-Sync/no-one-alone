@@ -73,6 +73,8 @@ export interface SayResult {
   note?: string
   /** A live model's suggested next agent (compared with `route`). */
   handoffTo?: AgentId | null
+  /** The server refused the typed question as an emergency: the engine shows its fixed safety line, not the prepared text. */
+  emergency?: boolean
   /** A live turn's Orchestrator rule code it explains (shown in the "why" line when it is one of the 34 codes; else ignored). */
   ruleId?: string | null
 }
@@ -106,7 +108,9 @@ export function guard(text: string): GuardHit | null {
 }
 
 /** Arabic emergency words (weakness, numbness, speech, chest, pain, fainting, dizziness, confusion, stroke): fixed safety line, never the AI. */
-export const EMERGENCY_AR = /ضعف|خدر|تنميل|تدل[يى]|كلام|تلعثم|صدر|ألم|وجع|إغماء|اغماء|أغمي|اغمي|دوخة|دوار|تشوش|ارتباك|مشوش|سكتة|جلطة/
+export const EMERGENCY_AR = /ضعف|خدر|تنميل|تدل[يى]|كلام|تلعثم|صدر|ألم|وجع|إغماء|اغماء|أغمي|اغمي|دوخة|دوار|تشوش|ارتباك|مشوش|سكتة|جلطة|تنفس|فقد الوعي|نزيف/
+/** The wider English emergency words the server also refuses (the composer and family chat regexes add these). */
+export const EMERGENCY_EN_MORE = /numb|droop|dizz|stroke|breath|collaps|unconscious/i
 
 /** The prototype keyword readers (used when the AI is off). Input is lower-cased. */
 export const KEYWORDS: Record<string, (t: string) => string> = {
