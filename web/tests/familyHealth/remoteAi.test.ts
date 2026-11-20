@@ -1,4 +1,5 @@
 import '@/i18n'
+import { liveAiOn } from '@/features/familyHealth/ui/store'
 import { RemoteAi, SAY_CALLS, type NoaTransport, type SayRequest, type UnderstandRequest } from '@/features/familyHealth'
 
 const req = (lang: 'en' | 'ar' = 'en'): SayRequest => ({
@@ -47,4 +48,12 @@ test('understand: a listed id is live; a label, an unknown id, an error or a tim
 test('an Arabic red flag still reads chest when the transport throws', async () => {
   const ar: UnderstandRequest = { ...und, lang: 'ar', reply: 'أشعر بألم في الصدر' }
   expect(await new RemoteAi(net(never, async () => { throw new Error('502') })).understand(ar)).toEqual({ choice: 'chest', summary: '', source: 'keyword' })
+})
+
+test('live AI only on the firebase data source with VITE_NOA_AI=on, never in tests', () => {
+  expect(liveAiOn({ MODE: 'production', VITE_DATA_SOURCE: 'firebase', VITE_NOA_AI: 'on' })).toBe(true)
+  expect(liveAiOn({ MODE: 'production', VITE_DATA_SOURCE: 'firebase' })).toBe(false)
+  expect(liveAiOn({ MODE: 'production', VITE_DATA_SOURCE: 'mock', VITE_NOA_AI: 'on' })).toBe(false)
+  expect(liveAiOn({ MODE: 'test', VITE_DATA_SOURCE: 'firebase', VITE_NOA_AI: 'on' })).toBe(false)
+  expect(liveAiOn()).toBe(false)
 })

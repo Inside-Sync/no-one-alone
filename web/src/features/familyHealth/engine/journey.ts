@@ -115,6 +115,7 @@ export class FamilyHealthEngine {
   private run: Run = { cancelled: true }
   private running = false
   private aiBusy = false
+  private quiet = false
   private nextId = 0
 
   constructor(opts: EngineOptions = {}) {
@@ -188,11 +189,13 @@ export class FamilyHealthEngine {
 
   /** Start (or re-run) a journey for a person with their current data and no test-case answers (tree node, drawer). */
   startJourney(k: PersonId): Promise<void> {
+    this.quiet = false
     this.tc = null
     return this.begin(k)
   }
   /** Load a quick test case: the person's start data plus the preset, and the case's default answers. */
-  runTestCase(id: TestCaseId): Promise<void> {
+  runTestCase(id: TestCaseId, opts: { prepared?: boolean } = {}): Promise<void> {
+    this.quiet = !!opts.prepared
     const t = testCase(id)
     const base = structuredClone(PROFILES0[t.person])
     const p = { ...base, ...t.preset } as Profile
@@ -311,7 +314,7 @@ export class FamilyHealthEngine {
       } catch {
         u = keyword
       }
-      this.aiBusy = false
+      if (!run.cancelled) this.aiBusy = false
       if (this.pending !== p || run.cancelled) { this.emit(); return }
       if (u.source === 'live') this.calls.live++
       else this.calls.prepared++
@@ -571,11 +574,13 @@ export class FamilyHealthEngine {
     else {
       const callId = o.callId as SayCallId
       const req: SayRequest = { callId, tier: SAY_CALLS[callId].tier, skill: agent, domain: AGENTS[agent].domain, audience: o.audience, lang: this.lang, facts: o.facts, task: o.task, fallback: this.str(o.fallback), maxWords: o.max ?? 55, route: o.route }
-      this.aiBusy = !(this.ai instanceof PreparedAi)
+      // The page-open auto-run stays on prepared text; a question the viewer typed still goes to the AI port.
+      const port = this.quiet && o.callId !== 'composer.reply' ? this.prepared : this.ai
+      this.aiBusy = !(port instanceof PreparedAi)
       this.emit()
       let r: Awaited<ReturnType<NoaAi['say']>>
-      try { r = await this.ai.say(req) } catch { r = { text: req.fallback, source: 'prepared', note: undefined } }
-      this.aiBusy = false
+      try { r = await port.say(req) } catch { r = { text: req.fallback, source: 'prepared', note: undefined } }
+      if (!run.cancelled) this.aiBusy = false
       this.live(run)
       if (r.emergency) { source = 'fixed'; text = tx('coach.emergency'); this.calls.prepared++ }
       else if (r.source === 'live') {

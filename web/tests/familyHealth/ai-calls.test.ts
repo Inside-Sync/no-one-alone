@@ -1,5 +1,30 @@
-import { FamilyHealthEngine, PreparedAi, SAY_CALLS, TEST_CASES, type NoaAi, type PersonId, type SayRequest, type UnderstandRequest } from '@/features/familyHealth'
+import { FamilyHealthEngine, PreparedAi, SAY_CALLS, TEST_CASES, type NoaAi, type PersonId, type SayRequest, type SayResult, type UnderstandRequest } from '@/features/familyHealth'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { T, drive, of } from './helpers'
+
+const SAMPLES = JSON.parse(readFileSync(join(import.meta.dirname, 'fixtures/noa-say-params.json'), 'utf8')) as Record<string, Record<string, unknown>>
+// Server QUESTIONS option sets in agents/respond/noa.py.
+const SERVER_IDS: Record<string, string[]> = {
+  rf: ['chest', 'faint', 'none', 'palp', 'weak'], sym: ['bowel', 'breast', 'chest', 'none', 'thirst'], pref: ['female', 'home', 'one'],
+  time: ['am', 'eve', 'pm', 'sat'], book: ['book', 'change', 'later', 'why'], words: ['few', 'many', 'some'],
+}
+const strings = (x: unknown): string[] => typeof x === 'string' ? [x] : Array.isArray(x) ? x.flatMap(strings) : x && typeof x === 'object' ? Object.values(x).flatMap(strings) : []
+/** Where `value` differs in type or keys from the server-shape sample (null and undefined stand for the server's optional fields). */
+function shapeErrors(sample: unknown, value: unknown, path: string): string[] {
+  if (value === null || value === undefined) return []
+  if (Array.isArray(sample)) {
+    if (!Array.isArray(value)) return [`${path}: expected an array`]
+    return sample.length ? value.flatMap((v, i) => shapeErrors(sample[0], v, `${path}[${i}]`)) : []
+  }
+  if (sample && typeof sample === 'object') {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return [`${path}: expected an object`]
+    if (path.endsWith('home_screening')) return Object.entries(value).filter(([, v]) => !['string', 'number', 'boolean'].includes(typeof v)).map(([k, v]) => `${path}.${k}: ${typeof v}`)
+    const want = Object.keys(sample).sort(), got = Object.keys(value).sort()
+    return want.join() === got.join() ? want.flatMap((k) => shapeErrors((sample as Record<string, unknown>)[k], (value as Record<string, unknown>)[k], `${path}.${k}`)) : [`${path}: keys ${got} want ${want}`]
+  }
+  return typeof value === typeof sample ? [] : [`${path}: ${typeof value} want ${typeof sample}`]
+}
 
 /** A recording port: live text (optionally with a rule id), and a fixed `understand` choice. */
 function recorder(opts: { ruleId?: string; choice?: string } = {}) {
@@ -22,13 +47,15 @@ describe('AI port: call ids and model tiers', () => {
   })
   test('every say of every journey carries a known callId and its tier; every understand is fast', async () => {
     const seen = new Set<string>()
+    const keys = new Map<string, Set<string>>()
     const runs: { k?: PersonId; tc?: (typeof TEST_CASES)[number]['id']; script?: Record<string, string | string[]> }[] = [
       ...TEST_CASES.map((t) => ({ tc: t.id })),
       { k: 'khalid', script: { book: ['why', 'change', 'later'] } }, { k: 'saeed', script: { book: 'later' } }, { k: 'hind' },
     ]
-    for (const r of runs) {
+    for (const lang of ['en', 'ar'] as const) for (const r of runs) {
       const { ai, says } = recorder()
       const e = new FamilyHealthEngine({ ai })
+      e.setLang(lang)
       void (r.tc ? e.runTestCase(r.tc) : e.startJourney(r.k as PersonId))
       await drive(e, r.script)
       await e.reply('what happens next?')
@@ -37,8 +64,17 @@ describe('AI port: call ids and model tiers', () => {
         expect(SAY_CALLS[s.callId]).toBeDefined()
         expect(s.tier).toBe(SAY_CALLS[s.callId].tier)
         seen.add(s.callId)
+        keys.set(s.callId, new Set([...(keys.get(s.callId) ?? []), ...Object.keys(s.facts), 'audience']))
+        for (const v of strings(s.facts)) expect(v.length, `${lang} ${s.callId}`).toBeLessThanOrEqual(300)
+        expect(shapeErrors(SAMPLES[s.callId], { ...s.facts, audience: s.audience }, s.callId), `${lang} ${s.callId}`).toEqual([])
+      }
+      for (const c of of(e.getSnapshot().feed, 'card')) {
+        if (c.card.type !== 'choice' || !c.card.free) continue
+        const qid = c.card.qid === 'time2' ? 'time' : c.card.qid
+        for (const o of c.card.opts) expect(SERVER_IDS[qid], `${lang} ${qid}`).toContain(o.id)
       }
     }
+    for (const [id, k] of keys) expect([...k].sort(), id).toEqual(Object.keys(SAMPLES[id]).sort())
     // The amber retry needs the slightly slurred sample (s0 uses it); every other site is reached by the runs above.
     expect([...seen].sort()).toEqual(Object.keys(SAY_CALLS).sort())
   })
@@ -163,5 +199,30 @@ describe('the keyword reader reads Arabic replies', () => {
     expect(await read('words', 'لا يتكلم بعد')).toBe('few')
     expect(await read('words', 'يقول كلمات كثيرة')).toBe('many')
     expect(await read('words', 'بعض الكلمات')).toBe('some')
+  })
+})
+
+describe('the page-open auto-run and the thinking flag', () => {
+  test('runTestCase with prepared: no say reaches the AI port; a typed reply on a free card still does', async () => {
+    const { ai, says, reads } = recorder({ choice: 'none' })
+    const e = new FamilyHealthEngine({ ai })
+    void e.runTestCase('s0', { prepared: true })
+    await drive(e, { speech: ['usual'] }, 2)
+    expect(says).toHaveLength(0)
+    await e.reply('my heart is pounding')
+    expect(reads).toHaveLength(1)
+  })
+  test('a late answer from a cancelled journey does not clear thinking for the new one', async () => {
+    const answers: ((r: SayResult) => void)[] = []
+    const ai: NoaAi = { say: () => new Promise((res) => answers.push(res)), understand: async () => ({ choice: 'none', summary: '', source: 'live' }) }
+    const e = new FamilyHealthEngine({ ai })
+    void e.startJourney('saeed')
+    await vi.waitFor(() => expect(answers).toHaveLength(1))
+    e.reset()
+    void e.startJourney('saeed')
+    await vi.waitFor(() => expect(answers).toHaveLength(2))
+    answers[0]({ text: 'Old words.', source: 'live' })
+    await new Promise((r) => setTimeout(r, 0))
+    expect(e.thinking).toBe(true)
   })
 })

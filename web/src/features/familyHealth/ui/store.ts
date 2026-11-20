@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/i18n'
-import { FamilyHealthEngine, FH_NS, instantScheduler, realScheduler, textOf, type NoaLang, type PersonId, type Snapshot } from '../index'
+import { noaSay, noaUnderstand } from '@/data/api'
+import { FamilyHealthEngine, FH_NS, RemoteAi, instantScheduler, realScheduler, textOf, type NoaLang, type PersonId, type Snapshot } from '../index'
 
 /**
  * The panel's state outside React: one journey engine for the whole app (the Family health tab and the messages button on the
@@ -10,13 +11,17 @@ import { FamilyHealthEngine, FH_NS, instantScheduler, realScheduler, textOf, typ
 export const reducedMotion = (): boolean =>
   typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+/** Live AI only on the firebase data source (mirrors `LIVE` in data/repo) with `VITE_NOA_AI=on`; tests and mock builds stay prepared. */
+export const liveAiOn = (env: Record<string, unknown> = import.meta.env): boolean =>
+  env.MODE !== 'test' && env.VITE_DATA_SOURCE === 'firebase' && env.VITE_NOA_AI === 'on'
+
 let engine: FamilyHealthEngine | null = null
 let autoRan = false
 
 export function getEngine(): FamilyHealthEngine {
   if (!engine) {
     const test = import.meta.env.MODE === 'test'
-    engine = new FamilyHealthEngine({ scheduler: test ? instantScheduler : realScheduler({ reducedMotion: reducedMotion() }) })
+    engine = new FamilyHealthEngine({ ai: liveAiOn() ? new RemoteAi({ say: noaSay, understand: noaUnderstand }) : undefined, scheduler: test ? instantScheduler : realScheduler({ reducedMotion: reducedMotion() }) })
   }
   return engine
 }

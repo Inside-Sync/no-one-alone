@@ -19,7 +19,7 @@ export class RemoteAi implements NoaAi {
 
   async say(req: SayRequest): Promise<SayResult> {
     const r = await this.post((s) => this.net.say({ callId: req.callId, lang: req.lang, params: { ...req.facts, audience: req.audience } }, s))
-    const t = (k: string) => i18next.getFixedT(req.lang, FH_NS)(k) as unknown as string
+    const t = i18next.getFixedT(req.lang, FH_NS) as unknown as (k: string) => string
     if (r === TIMEOUT) return { text: req.fallback, source: 'prepared', note: t('ai.prepared.timeout') }
     if (r && r.source === 'live' && typeof r.text === 'string' && r.text.trim()) return { text: r.text.trim(), source: 'live' }
     if (r && r.source === 'guardrail' && r.reason === 'emergency') return { text: req.fallback, source: 'guardrail', emergency: true }
