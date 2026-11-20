@@ -7,7 +7,7 @@ import { CHILD_DEV_UNDER_MONTHS, CHOICES, DIN_ROUNDS, FREE_TEXT, HYPO_RECHECK, S
 import { CLOCK_START, STAGE_MINUTES, WAIT, writingMs } from '../data/thresholds'
 import type { AdultProfile, AgentId, ChildProfile, FhIcon, FhParams, Mode, NoaLang, PersonId, Profile, QsetId, RuleId, SampleKey, StageId, TestCaseId, TimeId, Tone, Txt, VtId } from '../data/types'
 import { PERSON_IDS, RULE_IDS } from '../data/types'
-import { FIXED_CALL, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, moreUrgent, type NoaAi, type SayCallId, type SayRequest } from './ai'
+import { FIXED_CALL, GUARD_REASONS, PREPARED_REASONS, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, moreUrgent, type NoaAi, type SayCallId, type SayRequest } from './ai'
 import { detectFlags, famWorking, joinedTitles, scrCounts, scrStatus, signalRules, topFlags, urgentOf, type FamRow, type Flag, type Signal } from './flags'
 import { forecast, pct, riskTone } from './framingham'
 import { dinDefaults, qsetDefaults, qsetItems, scoreDin, scoreQ, selectTests, type DinResult, type QResult, type TestPlan } from './home'
@@ -339,7 +339,7 @@ export class FamilyHealthEngine {
       // say(): a question typed in the composer. facts: name, question, journey_stage. Emergency words get the fixed safety line,
       // which never goes through the AI port (`fixed`).
       await this.say(qrun, agent, { callId: 'composer.reply',
-        fixed: emergency,
+        fixed: emergency, emergency: tx('coach.emergency'),
         facts: { name: this.str(name(k)), question: text, journey_stage: this.j?.stage ?? null },
         audience: this.str(name(k)),
         task: 'Answer the person’s question briefly, within your role. If it needs a clinician, say so and offer to book. If it sounds like an emergency (weakness, speech trouble, chest pain, fainting), tell them to see a doctor immediately at the emergency department.',
@@ -432,6 +432,7 @@ export class FamilyHealthEngine {
         fallback: this.str(fallback),
       })
       if (r.source === 'live' && !guard(r.text)) out = r.text
+      else if (r.source === 'guardrail' && r.reason === 'emergency') out = tx('chat.emergency')
     } catch { /* prepared text */ }
     this.notify('noa', out, 'bot', true)
   }
@@ -561,6 +562,8 @@ export class FamilyHealthEngine {
     callId: SayCallId | typeof FIXED_CALL
     facts: Record<string, unknown>; task: string; fallback: Txt; audience: string; tag?: Txt; mode?: Mode; why?: Txt
     fixed?: boolean; max?: number; route?: SayRequest['route']
+    /** Free-text calls: the fixed safety line shown when the server finds emergency words (reason `emergency`); never AI text. */
+    emergency?: Txt
   }) {
     const item = this.add({ kind: 'agent', agent, mode: o.mode ?? AGENTS[agent].mode, audience: o.tag ?? null, typing: true, text: null, lang: this.lang, source: null, note: null, why: o.why ?? null }) as Extract<FeedItem, { kind: 'agent' }>
     await this.wait(run, WAIT.typing)
@@ -587,8 +590,13 @@ export class FamilyHealthEngine {
           this.calls.overruled++
           this.add({ kind: 'sys', icon: 'puzzle', text: tx('sys.overruled', { agent: tx(`agents.${r.handoffTo}.name`), rule: o.route.rule, to: tx(`agents.${o.route.to}.name`) }) })
         }
-      } else if (r.source === 'guardrail') { source = 'guardrail'; note = r.note ?? tx('ai.guardrail.other'); this.calls.guardrail++ }
-      else { this.calls.prepared++; note = r.note ?? null }
+      } else if (r.source === 'guardrail' && r.reason === 'emergency' && o.emergency) {
+        // Emergency words in a typed question: the fixed, clinician-approved safety line, never the model's words.
+        source = 'fixed'; text = o.emergency; this.calls.prepared++
+      } else if (r.source === 'guardrail') {
+        source = 'guardrail'; this.calls.guardrail++
+        note = r.reason && GUARD_REASONS.includes(r.reason) ? tx(`ai.guardrail.${r.reason}`) : r.note ?? tx('ai.guardrail.other')
+      } else { this.calls.prepared++; note = r.reason && PREPARED_REASONS.includes(r.reason) ? tx(`ai.note.${r.reason}`) : r.note ?? null }
     }
     if (source !== 'live') {
       const words = (typeof text === 'string' ? text : this.str(text)).split(/\s+/).filter(Boolean).length

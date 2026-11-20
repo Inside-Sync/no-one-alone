@@ -75,7 +75,17 @@ export interface SayResult {
   handoffTo?: AgentId | null
   /** A live turn's Orchestrator rule code it explains (shown in the "why" line when it is one of the 34 codes; else ignored). */
   ruleId?: string | null
+  /**
+   * Why the words are not live. With `guardrail`: the server's check that failed (`dose`, `diagnosis`, `againstEmergency`, `length`,
+   * `script`, `number`), or `emergency` when a typed question holds emergency words (the engine then shows the fixed safety line).
+   * With `prepared`: `busy` (rate limit) or `failed` (no answer in time, network, server error).
+   */
+  reason?: SayReason
 }
+export type SayReason = 'emergency' | 'dose' | 'diagnosis' | 'againstEmergency' | 'length' | 'script' | 'number' | 'busy' | 'failed'
+/** Reasons that have their own note text (`ai.guardrail.*` / `ai.note.*`); anything else reads as the generic one. */
+export const GUARD_REASONS: readonly string[] = ['dose', 'diagnosis', 'againstEmergency', 'length', 'script', 'number']
+export const PREPARED_REASONS: readonly string[] = ['busy', 'failed']
 export interface UnderstandRequest {
   /** Always `fast` (`UNDERSTAND_TIER`). */
   tier: ModelTier

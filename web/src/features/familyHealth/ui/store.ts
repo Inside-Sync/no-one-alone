@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/i18n'
+import { RemoteAi, liveNoaAiEnabled } from '../live/remoteAi'
 import { FamilyHealthEngine, FH_NS, instantScheduler, realScheduler, textOf, type NoaLang, type PersonId, type Snapshot } from '../index'
 
 /**
@@ -16,7 +17,9 @@ let autoRan = false
 export function getEngine(): FamilyHealthEngine {
   if (!engine) {
     const test = import.meta.env.MODE === 'test'
-    engine = new FamilyHealthEngine({ scheduler: test ? instantScheduler : realScheduler({ reducedMotion: reducedMotion() }) })
+    // Live AI (respond-agent through core-api) only with live data and VITE_NOA_AI=on; otherwise prepared text.
+    const ai = !test && liveNoaAiEnabled() ? new RemoteAi() : undefined
+    engine = new FamilyHealthEngine({ ai, scheduler: test ? instantScheduler : realScheduler({ reducedMotion: reducedMotion() }) })
   }
   return engine
 }
@@ -65,6 +68,10 @@ export function useAppLang(): NoaLang {
   return (i.resolvedLanguage ?? i.language ?? 'en').startsWith('ar') ? 'ar' : 'en'
 }
 /** `u(key, params)` for the panel chrome, `x(descriptor)` for the engine's texts, both in the app language. */
+/** Agent words in the language Noa speaks (the panel's English / Arabic switch), whatever the app language is. */
+export function useSpokenText(lang: NoaLang) {
+  return useMemo(() => textOf(i18n.getFixedT(lang, FH_NS) as unknown as T, lang), [lang])
+}
 export function useTexts() {
   const lang = useAppLang()
   const { t } = useTranslation('familyHealthUi')

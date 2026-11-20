@@ -764,3 +764,5 @@ svg.pt{max-height:44px}
 .gUp::after{content:"\00a0\25B4"}
 /* a11y: the "Fixed script" badge in the emergency night sits on a lighter fill since the sleeker bubbles; a lighter blue keeps it at AA */
 :global(body.night) .src.fix{color:#b9d0f0}
+/* The small No One Alone logo in system lines and toasts (in place of a robot icon). */
+.sysLg{display:inline-grid;place-items:center;width:16px;height:16px;vertical-align:-3px}

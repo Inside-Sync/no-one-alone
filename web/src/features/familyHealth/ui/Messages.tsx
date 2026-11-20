@@ -56,7 +56,7 @@ export function FamilyMessages() {
   return createPortal(
     <div className={c('host')}>
       <button type="button" id="fh-toast" className={c('chtoast', shownToast && 'on')} aria-label={u('chat.open')} aria-hidden={!shownToast} tabIndex={shownToast ? 0 : -1} onClick={() => open(true)}>
-        {shownToast && <><b><E n={shownToast.icon} /> {u('chat.toast', { name: who(shownToast) })}</b><span>{x(shownToast.text)}</span></>}
+        {shownToast && <><b>{shownToast.to === 'noa' ? <span className={c('sysLg')} aria-hidden="true"><AgentOrb size={16} /></span> : <E n={shownToast.icon} />} {u('chat.toast', { name: who(shownToast) })}</b><span>{x(shownToast.text)}</span></>}
       </button>
       <button type="button" className={c('fab')} ref={fab} id="fh-fab" aria-expanded={chat} aria-controls="fh-chat"
         aria-label={unread ? u('chat.fabNew', { n: unread }) : u('chat.fab')} onClick={() => open(!chat)}>

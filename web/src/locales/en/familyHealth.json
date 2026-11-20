@@ -620,7 +620,14 @@
       "dose": "Guardrail: the AI text contained a dose, so the prepared text replaced it.",
       "diagnosis": "Guardrail: the AI text contained a diagnosis, so the prepared text replaced it.",
       "againstEmergency": "Guardrail: the AI text contained advice against emergency care, so the prepared text replaced it.",
-      "other": "Guardrail: the AI text was replaced by the prepared text."
+      "other": "Guardrail: the AI text was replaced by the prepared text.",
+      "length": "Guardrail: the AI text was too long, so the prepared text replaced it.",
+      "script": "Guardrail: the AI text was not in the language Noa speaks, so the prepared text replaced it.",
+      "number": "Guardrail: the AI text had a number that is not in the facts, so the prepared text replaced it."
+    },
+    "note": {
+      "busy": "Live AI is busy; prepared text for now.",
+      "failed": "Live AI did not answer; prepared text shown."
     }
   },
   "chat": {

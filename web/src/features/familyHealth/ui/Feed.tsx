@@ -4,7 +4,8 @@ import {
   type AgentId, type Card, type DomainId, type FeedItem, type PacketLine, type PatternCard, type PersonId, type Snapshot, type Txt, type TxtList,
 } from '../index'
 import { wordEq } from '../engine/speech'
-import { getEngine, useTexts } from './store'
+import { getEngine, useSpokenText, useTexts } from './store'
+import { AgentOrb } from '@/components/noa/AgentOrb'
 import { Bold, E, c } from './bits'
 import { canDictate } from './speechIo'
 import { answerGo, feedScroll } from './layout'
@@ -111,7 +112,8 @@ export function Item({ m, snap, t, compact }: { m: FeedItem; snap: Snapshot; t: 
     case 'stage':
       return compact ? <div className={c('hst', STAGE_MODE[m.stage])}>{raw(`stages.${m.stage}.name`)}</div> : null
     case 'sys':
-      return <div className={c('sys')}><E n={m.icon} /> {x(m.text)}</div>
+      // The AI's own lines carry the No One Alone logo, never a robot.
+      return <div className={c('sys')}>{m.icon === 'bot' ? <span className={c('sysLg')} aria-hidden="true"><AgentOrb size={16} /></span> : <E n={m.icon} />} {x(m.text)}</div>
     case 'me':
       return (
         <div className={c('me')}><div className={c('bub')}><small>{x(m.who)}</small>{x(m.text)}{m.chip && <span className={c('und')}>{x(m.chip)}</span>}</div></div>
@@ -202,6 +204,11 @@ function AgentMsg({ m, snap, t, compact }: { m: Extract<FeedItem, { kind: 'agent
   const d = domainOf(m.agent)
   const src = m.source ? { live: 'live', prepared: 'prep', fixed: 'fix', guardrail: 'grd' }[m.source] : null
   const live = m.source === 'live' && typeof m.text === 'string'
+  // The words follow the "Noa speaks" switch: live text in the language it was written in, prepared and fixed text in the language
+  // chosen now (both languages are prepared), so switching to Arabic changes what Noa says at once.
+  const speak = live ? m.lang : snap.lang
+  const xs = useSpokenText(speak)
+  const rtl = speak === 'ar' ? { dir: 'rtl' as const, lang: 'ar' } : {}
   return (
     <div className={c('msg', d)}>
       <span className={c('av')}><E n={DOMAINS[d].icon} /></span>
@@ -212,12 +219,12 @@ function AgentMsg({ m, snap, t, compact }: { m: Extract<FeedItem, { kind: 'agent
           {m.audience && <span className={c('mt', m.mode === 'sys' ? 'ind' : m.mode)}>{x(m.audience)}</span>}
           {!m.typing && src && <span className={c('src', src)}>{u(`agent.src.${m.source}`)}</span>}
           {!m.typing && m.text && !compact && (
-            <button type="button" className={c('say')} aria-label={u('agent.say')} onClick={() => say(x(m.text), live ? m.lang : t.lang)}><E n="volume-2" /></button>
+            <button type="button" className={c('say')} aria-label={u('agent.say')} onClick={() => say(xs(m.text), speak)}><E n="volume-2" /></button>
           )}
         </div>
         {m.typing
           ? <div className={c('typing')}><i /><i /><i /> <span>{u(snap.thinking ? 'agent.thinking' : 'agent.writing')}</span></div>
-          : <div className={c('tx')} {...(live && m.lang === 'ar' ? { dir: 'rtl', lang: 'ar' } : {})}>{x(m.text)}</div>}
+          : <div className={c('tx')} {...rtl}>{xs(m.text)}</div>}
         {m.note && !compact && <div className={c('note')}>{x(m.note)}</div>}
         {m.why && !m.typing && !compact && <div className={c('why')}>{x(m.why)}</div>}
       </div>

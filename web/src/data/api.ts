@@ -20,7 +20,7 @@ export class ApiError extends Error {
   }
 }
 
-async function call<T>(path: string, body?: BodyInit | object): Promise<T> {
+async function call<T>(path: string, body?: BodyInit | object, signal?: AbortSignal): Promise<T> {
   const headers: Record<string, string> = { Authorization: `Bearer ${await idToken()}` }
   let payload: BodyInit | undefined
   if (body instanceof FormData) payload = body
@@ -30,7 +30,7 @@ async function call<T>(path: string, body?: BodyInit | object): Promise<T> {
   }
   let res: Response
   try {
-    res = await fetch(BASE + path, { method: 'POST', headers, body: payload })
+    res = await fetch(BASE + path, { method: 'POST', headers, body: payload, signal })
   } catch (e) {
     throw new ApiError(0, 'NETWORK', e instanceof Error ? e.message : String(e))
   }
@@ -86,4 +86,20 @@ export interface ChatRequest { question: string; mode: ChatMode; viewer?: string
 /** Asks Noa about Margaret; `502 CHAT_UNAVAILABLE` when the agent fails. */
 export function chat(body: ChatRequest) {
   return call<{ answer: string }>('/chat', body)
+}
+
+/* ---------- Noa family-health wording (respond-agent through core-api; prompts and checks live on the server) ---------- */
+
+/** One agent turn of the family-health journey: the call site, the language Noa speaks, and that call's structured params. */
+export interface NoaSayBody { callId: string; lang: 'en' | 'ar'; params: Record<string, unknown> }
+/** `live` with the words, or `guardrail` with the server's reason (`emergency` for emergency words in a typed question). */
+export interface NoaSayReply { source: 'live' | 'guardrail'; text?: string; reason?: string }
+export function noaSay(body: NoaSayBody, signal?: AbortSignal) {
+  return call<NoaSayReply>('/noa/say', body, signal)
+}
+
+/** A free-text reply read into one of the question's options (the server returns only one of their ids). */
+export interface NoaUnderstandBody { qid: string; lang: 'en' | 'ar'; options: { id: string; label: string }[]; reply: string }
+export function noaUnderstand(body: NoaUnderstandBody, signal?: AbortSignal) {
+  return call<{ choice: string }>('/noa/understand', body, signal)
 }

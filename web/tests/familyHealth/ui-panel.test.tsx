@@ -156,6 +156,22 @@ test('in Arabic the chrome is translated and Noa speaks switch only changes the 
   await waitFor(() => expect(within(seg).getByRole('button', { name: 'العربية' })).toHaveAttribute('aria-pressed', 'true'))
 })
 
+test('with the app in English, "Noa speaks: العربية" turns the agents’ prepared words into Arabic at once (and back)', async () => {
+  at('/individual/lineage')
+  await screen.findByRole('heading', { name: 'Noa · family health' })
+  await idle()
+  const bubbles = () => Array.from(now().querySelectorAll('[class*="tx"]')) as HTMLElement[]
+  await waitFor(() => expect(bubbles().length).toBeGreaterThan(0))
+  expect(bubbles().every((b) => !/[؀-ۿ]/.test(b.textContent ?? ''))).toBe(true)
+  const seg = screen.getByRole('group', { name: 'Noa speaks' })
+  fireEvent.click(within(seg).getByRole('button', { name: 'العربية' }))
+  await waitFor(() => expect(bubbles().every((b) => /[؀-ۿ]/.test(b.textContent ?? '') && b.getAttribute('dir') === 'rtl')).toBe(true))
+  // The chrome stays in the app language.
+  expect(screen.getByRole('heading', { name: 'Noa · family health' })).toBeInTheDocument()
+  fireEvent.click(within(seg).getByRole('button', { name: 'English' }))
+  await waitFor(() => expect(bubbles().every((b) => !/[؀-ۿ]/.test(b.textContent ?? ''))).toBe(true))
+})
+
 test('the messages button: unread badge, the panel marks them read, Ask Noa answers', async () => {
   render(<FamilyMessages />)
   const fab = screen.getByRole('button', { name: 'Noa messages, 3 new' })
