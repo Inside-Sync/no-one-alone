@@ -100,7 +100,10 @@ export type GuardHit = 'dose' | 'diagnosis' | 'againstEmergency'
 const GUARD: [RegExp, GuardHit][] = [
   [/\b\d+(\.\d+)?\s?(mg|mcg|micrograms?|units?|ml)\b/i, 'dose'],
   [/\byou (have|had|are having) (a |an )?(stroke|heart attack|diabetes|atrial fibrillation|af|cancer)\b/i, 'diagnosis'],
-  [/\b(don'?t|do not|no need to) (call|go to) (998|999|911|hospital|the emergency)/i, 'againstEmergency'],
+  // The same three patterns as the againstEmergency BLOCKS in agents/respond/noa.py.
+  [/\b(?:don['’]?t|do not|no need to|never)\s+(?:(?:need|have) to\s+)?(?:call|go to|visit)\s+(?:the\s+|an?\s+)?(?:998|999|911|hospital|emergency|ambulance)/i, 'againstEmergency'],
+  [/\bno need for\s+(?:the\s+|an?\s+)?(?:998|999|911|hospital|emergency|ambulance)/i, 'againstEmergency'],
+  [/(?:(?:لا\s+(?:داعي|حاجة|تحتاج)|ليس\s+من\s+الضروري)\s+(?:لل?|إلى\s+|الى\s+)?(?:اتصال|الاتصال|ذهاب|الذهاب|زيارة|الزيارة)|لا\s+(?:تتصل|تذهب))\s*(?:ب\s*(?:الرقم\s*)?|إلى\s*|الى\s*)?(?:ال)?(?:998|٩٩٨|طوارئ|مستشفى|إسعاف)/, 'againstEmergency'],
 ]
 export function guard(text: string): GuardHit | null {
   for (const [re, hit] of GUARD) if (re.test(text)) return hit

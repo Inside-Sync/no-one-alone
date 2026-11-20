@@ -327,10 +327,11 @@ export class FamilyHealthEngine {
       let pick = byAi ? u.choice : keyword.choice
       if (byAi && valid(keyword.choice)) pick = moreUrgent(qid, pick, keyword.choice)
       const id = valid(pick) ? pick : c.def
+      const aiWon = byAi && id === u.choice
       const label = (c.opts.find((o) => o.id === id) as ChoiceOption).label
-      const summary = byAi ? u.summary : ''
-      this.add({ kind: 'sys', icon: byAi ? 'bot' : 'type', text: tx(byAi ? (summary ? 'sys.readAiSummary' : 'sys.readAi') : (summary ? 'sys.readKeywordSummary' : 'sys.readKeyword'), { label, summary }) })
-      this.pickChoice(id, byAi ? 'ai' : 'keywords')
+      const summary = aiWon ? u.summary : ''
+      this.add({ kind: 'sys', icon: aiWon ? 'bot' : 'type', text: tx(aiWon ? (summary ? 'sys.readAiSummary' : 'sys.readAi') : (summary ? 'sys.readKeywordSummary' : 'sys.readKeyword'), { label, summary }) })
+      this.pickChoice(id, aiWon ? 'ai' : 'keywords')
       return
     }
     const k: PersonId = this.j?.k ?? 'khalid'
