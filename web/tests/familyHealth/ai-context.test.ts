@@ -86,7 +86,8 @@ test('routine notices are worded by the AI and marked live; the page-open auto-r
   const quiet = recorder()
   const q = new FamilyHealthEngine({ ai: quiet.ai, seedNotes: false })
   void q.runTestCase('k1', { prepared: true })
-  await drive(q)
+  await q.whenIdle()
+  expect(q.getSnapshot().pending?.type).toBe('go')
   expect(quiet.says.filter((s) => s.callId === 'family.notify')).toEqual([])
 
   const urgent = recorder()

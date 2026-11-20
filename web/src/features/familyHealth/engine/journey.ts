@@ -833,6 +833,8 @@ export class FamilyHealthEngine {
     const opts: ChoiceOption[] = [{ id: 'go', label: tx(u ? 'go.startNow' : 'go.startHome') }, { id: 'later', label: tx(u ? 'go.notNow' : 'go.later') }]
     const r = await this.ask<string>(run, { type: 'go', id: ++this.nextId, who: name(whoK), urgent: u, opts, def: 'go', msg: tx(u ? 'go.msgUrgent' : 'go.msg', { name: name(k), who: name(whoK) }) })
     this.live(run)
+    // The viewer has taken over the page-open run: from here every agent turn goes to the live AI like a run they started.
+    this.quiet = false
     const label = (opts.find((o) => o.id === r) ?? opts[0]).label
     this.add({ kind: 'me', who: name(whoK), text: label, chip: null })
     if (r === 'go') return true

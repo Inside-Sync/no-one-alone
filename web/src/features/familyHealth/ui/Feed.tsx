@@ -114,7 +114,14 @@ function FeedItems({ snap, children }: { snap: Snapshot; children: ReactNode }) 
     const el = ref.current
     if (!el || !feedScroll.follow) return
     // Glide to the newest message instead of jumping (jsdom has no scrollTo; reduced motion jumps).
-    const gap = el.scrollHeight - el.clientHeight - el.scrollTop
+    // A new item taller than the scroll area (the pathway card) shows from its top, not its bottom.
+    const lastEl = el.lastElementChild as HTMLElement | null
+    const top = lastEl ? el.scrollTop + lastEl.getBoundingClientRect().top - el.getBoundingClientRect().top : el.scrollHeight
+    const end = el.scrollHeight - el.clientHeight
+    const want = lastEl && lastEl.offsetHeight > el.clientHeight ? Math.min(end, top) : end
+    if (Math.abs(want - el.scrollTop) <= 1) return
+    if (want < end) { feedScroll.follow = false; el.scrollTo?.({ top: want, behavior: reducedMotion() ? 'auto' : 'smooth' }); last.current = want; return }
+    const gap = end - el.scrollTop
     if (gap <= 1) return
     if (typeof el.scrollTo === 'function' && !reducedMotion() && gap < 900) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
     else { el.scrollTop = el.scrollHeight; last.current = el.scrollTop }

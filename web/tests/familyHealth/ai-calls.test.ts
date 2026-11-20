@@ -228,12 +228,16 @@ describe('the keyword reader reads Arabic replies', () => {
 })
 
 describe('the page-open auto-run and the thinking flag', () => {
-  test('runTestCase with prepared: only the two Detect turns reach the AI port; a typed reply on a free card still does', async () => {
+  test('runTestCase with prepared: only the two Detect turns reach the AI port until the viewer presses Start; then every turn is live', async () => {
     const { ai, says, reads } = recorder({ choice: 'none' })
     const e = new FamilyHealthEngine({ ai })
     void e.runTestCase('s0', { prepared: true })
-    await drive(e, { speech: ['usual'] }, 2)
+    await e.whenIdle()
+    expect(e.getSnapshot().pending?.type).toBe('go')
     expect(says.map((s) => s.callId)).toEqual(['detect.guardian', 'detect.forecast'])
+    await drive(e, { speech: ['usual'] }, 2)
+    expect(says.length).toBeGreaterThan(2)
+    expect(says.slice(2).every((s) => !s.callId.startsWith('detect.'))).toBe(true)
     await e.reply('my heart is pounding')
     expect(reads).toHaveLength(1)
   })
