@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { PEOPLE, STAGE_IDS, type NoaLang } from '../index'
+import i18n from '@/i18n'
+import { FH_NS, PEOPLE, SENTENCE, STAGE_IDS, type NoaLang } from '../index'
 import { claimAutoRun, getEngine, getUi, setUi, useSnapshot, useTexts } from './store'
 import { E, WithNext, c } from './bits'
 import { Now, STAGE_MODE, syncTick } from './Feed'
@@ -9,7 +10,7 @@ import { Orchestra } from './Orchestra'
 import { QuickTests, runCase } from './QuickTests'
 import { Drawer, closeDrawer } from './Drawer'
 import { PanelContext, type PanelCtx } from './panelContext'
-import { canDictate, listen, speak, type Listening } from './speechIo'
+import { SPEECH_TAKE, canDictate, hush, listen, speak, type Listening } from './speechIo'
 import { Tree } from './Tree'
 
 const AUTO_RUN_MS = 300
@@ -52,7 +53,7 @@ export function FamilyHealthPanel() {
   }, [])
 
   // Microphone and speech out.
-  const [listening, setListening] = useState<'speech' | 'comp' | null>(null)
+  const [listening, setListening] = useState<PanelCtx['listening']>(null)
   const [liveText, setLiveText] = useState('')
   const [micMsg, setMicMsg] = useState('')
   const [draft, setDraft] = useState('')
@@ -70,12 +71,28 @@ export function FamilyHealthPanel() {
         if (!r.text) { setMicMsg(u('spx.noWords')); return }
         getEngine().submitSpeech(r.text, r.secs, 'spoken')
       } else { setDraft(r.text); askRef.current?.focus() }
-    })
+    }, target === 'speech' ? SPEECH_TAKE : undefined)
     if (rec.current) setListening(target)
     else setMicMsg(u('spx.micFail'))
   }
-  const stopListen = () => { rec.current?.stop() }
-  const ctx: PanelCtx = { listening, liveText, micMsg, startListen, stopListen, say: (t: string, l: NoaLang) => speak(t, l) }
+  // The speech check, like the night alert: Noa reads the sentence aloud first, then the microphone opens by itself and keeps
+  // listening through pauses (slow or slurred speech is heard in full) until a few seconds after the last word or Done.
+  const prompting = useRef(false)
+  const startSpeechCheck = () => {
+    const snap = getEngine().getSnapshot(), lang = snap.lang, k = snap.journey?.person
+    const fh = i18n.getFixedT(lang, FH_NS), ui = i18n.getFixedT(lang, 'familyHealthUi')
+    const prompt = ui('spx.prompt', { name: k ? fh(`people.${k}.name`) : '', sentence: SENTENCE[lang] })
+    setMicMsg('')
+    setLiveText('')
+    prompting.current = true
+    setListening('prompt')
+    speak(prompt, lang, () => { if (!prompting.current) return; prompting.current = false; startListen('speech') }, 0.9)
+  }
+  const stopListen = () => {
+    if (prompting.current) { prompting.current = false; hush(); setListening(null); return }
+    rec.current?.stop()
+  }
+  const ctx: PanelCtx = { listening, liveText, micMsg, startListen, startSpeechCheck, stopListen, say: (t: string, l: NoaLang) => speak(t, l) }
 
   // Keyboard: → runs Next (not while typing), Esc closes the record drawer.
   useEffect(() => {

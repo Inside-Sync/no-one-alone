@@ -2,6 +2,7 @@ import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { PEOPLE, PERSON_IDS, isChild, type PersonId, type Snapshot } from '../index'
 import { getEngine, setUi, useTexts, useUi } from './store'
 import { E, c } from './bits'
+import { showRun } from './layout'
 
 /** Grid row and first column of each person (each spans two of the six node columns; prototype TPOS). */
 const POS: Record<PersonId, [number, number]> = { moza: [1, 2], saeed: [1, 4], khalid: [2, 2], amna: [2, 4], hamdan: [3, 2], hind: [3, 4] }
@@ -53,6 +54,7 @@ export function Tree({ snap }: { snap: Snapshot }) {
     if (!snap.journey || snap.journey.person !== k) {
       void e.startJourney(k)
       if (window.innerWidth < 900) document.getElementById('fh-now')?.scrollIntoView({ block: 'start' })
+      else showRun()
     }
   }
   if (strip) {

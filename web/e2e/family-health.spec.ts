@@ -300,6 +300,26 @@ test('Run this case and Run Noa with these readings bring the running area under
   await expect(now(page).getByRole('button', { name: /Start the check now|Start home screening/ })).toBeVisible()
 })
 
+test('Re-run Noa from the record drawer brings the running area under the top nav', async ({ page }) => {
+  await page.setViewportSize({ width: 2048, height: 1150 })
+  await openPage(page, FH)
+  const bodyTop = () => page.locator('#fh-body').evaluate((el) => Math.round(el.getBoundingClientRect().top))
+  await page.locator('[data-person="moza"]').click()
+  const drawer = page.locator('#fh-drawer')
+  const rerun = drawer.getByRole('button', { name: 'Re-run Noa for Moza' })
+  await expect(rerun).toBeVisible()
+  // Tapping a person starts their journey and scrolls too: let that scroll settle first.
+  const settled = () => page.evaluate(async () => { const a = window.scrollY; await new Promise((r) => setTimeout(r, 250)); return window.scrollY === a })
+  await expect.poll(settled, { timeout: 5000 }).toBe(true)
+  // Scroll the page down so the running area is above the viewport (the drawer stays fixed on the side).
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight))
+  await expect.poll(bodyTop, { timeout: 5000 }).toBeLessThan(0)
+  await rerun.click()
+  await expect(drawer).not.toHaveClass(/open/)
+  await expect.poll(bodyTop, { timeout: 5000 }).toBeGreaterThanOrEqual(0)
+  expect(await bodyTop()).toBeLessThan(140)
+})
+
 test('after Next the Detect analysis stays readable: its step pill opens the folded history in the feed', async ({ page }) => {
   await openPage(page, FH)
   await page.locator('[data-tc="k1"]').getByRole('button', { name: /Run this case/ }).click()

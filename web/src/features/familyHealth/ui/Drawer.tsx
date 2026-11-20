@@ -4,6 +4,7 @@ import { ADULT_EDIT_FIELDS, CHILD_EDIT_FIELDS, EDIT_RANGES, SIGNAL, TOGGLE_FIELD
 import { getEngine, getUi, setUi, useTexts, useUi } from './store'
 import { E, c, toneOf } from './bits'
 import { FamTable } from './Feed'
+import { showRun } from './layout'
 
 export function closeDrawer() {
   const { opener } = getUi()
@@ -47,7 +48,9 @@ function DrawerBody({ k, snap, closeRef }: { k: PersonId; snap: Snapshot; closeR
   const readings = child ? '' : u('drawer.readings', { sbp: p.sbp, dbp: p.dbp, hr: p.hr, steps: p.steps })
     + (p.a1c ? u('drawer.a1c', { a1c: p.a1c }) : '')
     + (p.tc ? u('drawer.chol', { tc: p.tc, hdl: (p.hdl ?? 0).toFixed(1) }) : u('drawer.cholNever'))
-  const start = () => { setUi({ drawer: null, opener: null }); void e.startJourney(k) }
+  // Re-run / start: close the drawer and bring the running area under the top nav, like "Run this case".
+  const start = () => { setUi({ drawer: null, opener: null }); void e.startJourney(k); showRun() }
+  const back = () => { closeDrawer(); showRun() }
   const fields = child ? CHILD_EDIT_FIELDS : ADULT_EDIT_FIELDS
   const cur = (f: EditField) => (p as unknown as Record<string, number>)[f]
   const onNum = (f: EditField, s: string) => {
@@ -77,7 +80,7 @@ function DrawerBody({ k, snap, closeRef }: { k: PersonId; snap: Snapshot; closeR
         <em className={c(v.status.tone)}>{x(v.status.label)}</em>
       </div>
       {v.current
-        ? <button type="button" className={c('btn wide gNext')} onClick={closeDrawer}>{u('drawer.back', { name })}</button>
+        ? <button type="button" className={c('btn wide gNext')} onClick={back}>{u('drawer.back', { name })}</button>
         : <button type="button" className={c('btn wide gNext')} onClick={start}>{u('drawer.start')}</button>}
       </div>
       <h4>{u('drawer.details')}</h4>
