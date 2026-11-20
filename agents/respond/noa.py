@@ -35,7 +35,7 @@ def _nums(text: str) -> set[str]:
 
 
 def max_words(call_id: str) -> int:
-    return {"referral.courier": 80, "family.chat": 45}.get(call_id, 55)
+    return {"referral.courier": 80, "detect.forecast": 80, "pathway.navigator.offer": 80, "family.chat": 45}.get(call_id, 55)
 
 
 def check_say(text: str, call_id: str, lang: str, params: dict) -> str | None:

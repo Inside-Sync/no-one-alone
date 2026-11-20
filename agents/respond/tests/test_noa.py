@@ -68,6 +68,9 @@ def test_word_limits_55_80_45():
     assert noa.check_say(" ".join(["word"] * 55), "detect.guardian", "en", P) is None
     assert noa.check_say(" ".join(["word"] * 56), "detect.guardian", "en", P) == "length"
     assert noa.check_say(" ".join(["word"] * 80), "referral.courier", "en", P) is None
+    assert noa.check_say(" ".join(["word"] * 80), "detect.forecast", "en", P) is None
+    assert noa.check_say(" ".join(["word"] * 81), "detect.forecast", "en", P) == "length"
+    assert noa.check_say(" ".join(["word"] * 80), "pathway.navigator.offer", "en", P) is None
     assert noa.check_say(" ".join(["word"] * 46), "family.chat", "en", P) == "length"
 
 
