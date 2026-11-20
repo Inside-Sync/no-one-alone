@@ -1,8 +1,11 @@
 # No One Alone
 
-An AI care agent for older people who live alone. When a wearable raises a critical alert, the agent checks whether it is real, talks to the person in their own language and form of address, decides how urgent it is, and gets the right family member to the door. For a suspected stroke it sends a pre-arrival packet to a stroke-ready hospital before the ambulance gets there. After discharge it turns the hospital's plan into plain reminders.
+> [!NOTE]
+> **Future Health Digital Innovation Challenge (Department of Health Abu Dhabi):** start at [docs/submission/README.md](docs/submission/README.md). It has the live links, a 5-minute tour, architecture, responsible AI, data and assumptions, the evaluation and the path to pilot. This page covers the code: setup, run locally and deploy.
 
-Entry for the Google Cloud AI Builder Cup, Sustainability & Social Impact track. Live demo: https://noonealone.insidesync.ai
+The emergency backend below was first built as an AI care agent for older people who live alone. When a wearable raises a critical alert, the agent checks whether it is real, talks to the person in their own language and form of address, decides how urgent it is, and gets the right family member to the door. For a suspected stroke it sends a pre-arrival packet to a stroke-ready hospital before the ambulance gets there. After discharge it turns the hospital's plan into plain reminders.
+
+It began as an entry for the Google Cloud AI Builder Cup and is now the safety net inside the Abu Dhabi family-health journey. Live demo: https://noonealone.insidesync.ai
 
 > [!IMPORTANT]
 > **The live demo runs one emergency at a time and is shared by everyone who opens it. If the Emergency page says the demo is busy, or a run you started resets, someone else is trying it too. Wait a minute and reload the page.**
@@ -68,8 +71,8 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini (Vertex AI `globa
 |---|---|
 | Cloud Run | Runs core-api, respond-agent and hospital-agent. The two agents are private: core-api and respond-agent call them with Google-signed ID tokens. |
 | Vertex AI, Gemini 2.5 Flash | Three jobs in respond-agent: listens to the person's recorded answer and returns the transcript and a speech judgement (clear, slurred or missing) in one call, writes the recovery summary, and answers questions in the Ask Noa chat. |
-| Claude (Haiku 5.5 and Opus 5.5), through the Claude API (api.anthropic.com, outside Google Cloud), reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set, or Claude on Vertex AI otherwise | Writes the wording of the family-health agent messages from the facts the rules chose, reads a typed reply into one of the card's options and writes the teach-card explanation, when the live AI switch (`VITE_NOA_AI`, off by default) is on. Every reply is checked on the server; a failed check shows the prepared text. The prompt holds the structured facts for that call and no free text except what the person typed (a reply or a question). |
-| Cloud Text-to-Speech, Chirp 3 HD | Noa's voice (Aoede, en-AU and vi-VN) for check-ins, the emergency call script and recovery reminders. |
+| Claude (Haiku 5.5 and Opus 5.5), through the Claude API (api.anthropic.com, outside Google Cloud), reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set, or Claude on Vertex AI otherwise | Writes the wording of the family-health agent messages from the facts the rules chose, and reads a typed reply into one of the card's options, when the live AI switch (`VITE_NOA_AI`, with `VITE_DATA_SOURCE=firebase`) is on: on in the live demo, off by default in a local build. Every reply is checked on the server; a failed check shows the prepared text. The prompt holds the structured facts for that call and no free text except what the person typed (a reply or a question). |
+| Cloud Text-to-Speech, Chirp 3 HD | Noa's voice (Aoede, en-AU for English and ar-XA for Arabic) for check-ins, the emergency call script and recovery reminders. |
 | Agent Development Kit (ADK) | hospital-agent is an ADK agent, served over A2A. respond-agent calls Gemini directly and does not use ADK. |
 | A2A protocol | respond-agent sends the hospital handoff to hospital-agent over A2A, with a plain HTTP call as fallback. |
 | Cloud Healthcare API (FHIR R4) | A live FHIR store with each person's synthetic medical record and consent. hospital-agent reads it for the pre-arrival packet. |
@@ -92,7 +95,7 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini (Vertex AI `globa
 | Workload Identity Federation | Lets GitHub Actions deploy to Google Cloud with no stored keys. |
 | BigQuery | `AI.FORECAST` (TimesFM) over synthetic blood pressure for the day-21 forecast. Run once as an offline job; the result is stored in Firestore. |
 | Vertex AI, Gemini 2.5 Flash | Writes the plain-language explanations for the family screening and the forecast in the same offline job. Any output that is not grounded in the input facts is dropped. |
-| Cloud Text-to-Speech, Chirp 3 HD | Fixed clips shipped with the web app (`tools/gen_clips.py`): Noa's set lines (Aoede), and the simulator's autopilot voices for Margaret (Gacrux) and the 000 operator (Charon). |
+| Cloud Text-to-Speech, Chirp 3 HD | Fixed clips shipped with the web app (`tools/gen_clips.py`): Noa's set lines (Aoede), and the simulator's autopilot voices for the person's slurred answers (Gacrux) and the 998 ambulance operator (Charon). |
 
 The web also supports the Google Maps JavaScript API, but the live demo is built without a key and draws its own 3D map from OpenStreetMap data.
 

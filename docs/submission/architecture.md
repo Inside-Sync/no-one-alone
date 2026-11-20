@@ -1,12 +1,13 @@
 # Architecture
 
-Three layers, kept apart on purpose: what runs in production today, what runs in the Test case, and what is planned.
+Three layers, kept apart on purpose: what runs in production today (including the live "Noa · family health" journey), the earlier rules-engine prototype (the Test case, kept in the code and used by the benchmark, not shown in the live app), and what is planned.
 
 ```mermaid
 flowchart LR
-    subgraph Browser[Browser: Test case]
-        TC[Rules engine<br/>9 Noa agent roles<br/>deterministic, no LLM]
+    subgraph Browser[Browser: Noa · family health]
+        FH[Journey engine<br/>Orchestrator + 4 domain agents, 8 skills<br/>rules decide]
     end
+    TC[Earlier Test case prototype<br/>rules engine, no LLM<br/>hidden in the live app, runs the benchmark]
     W[Wearable alert] -->|publish| PS[(Pub/Sub alerts)]
     PS -->|push| CA
     subgraph Run[Cloud Run, asia-southeast1]
@@ -17,7 +18,9 @@ flowchart LR
     CA --> RA
     RA -->|A2A| HA
     RA --> VX[Vertex AI Gemini 2.5 Flash]
-    RA --> CL[Claude API or Vertex AI]
+    FH -->|"/api/noa/say, /api/noa/understand<br/>rate-limited"| CA
+    CA -->|"/noa/say, /noa/understand<br/>strict params"| RA
+    RA -->|"prompt, reply checked by the server"| CL[Claude API or Vertex AI]
     RA --> TTS[Chirp 3 HD TTS]
     HA --> FHIR[(Cloud Healthcare API<br/>FHIR R4 store)]
     CA --> CT[Cloud Tasks]
@@ -25,7 +28,8 @@ flowchart LR
     CA --> FS[(Firestore)]
     FS -->|realtime| WEB[Web app<br/>Firebase Hosting]
     WEB -->|/api/** rewrite| CA
-    WEB --- TC
+    WEB --- FH
+    TC -.-|same repo, not mounted| WEB
     PLAN[Planned: Malaffi and HL7, audit log, UAE hosting]
 ```
 
@@ -38,32 +42,34 @@ Checked against `README.md`, `firebase.json` and `infra/`.
 | Web app | `web/`, Firebase Hosting | Vite, React, TypeScript. Reads Firestore in real time. `/api/**` is rewritten to core-api (`firebase.json`). |
 | core-api | `core-api/`, Cloud Run | Java 17, Spring Boot. Owns the incident state machine. Takes alerts from Pub/Sub, sets escalation timers in Cloud Tasks, gets travel times from the Routes API, writes every state change to Firestore. |
 | respond-agent | `agents/respond/`, Cloud Run | Rules decide verification, triage and the escalation plan. Gemini 2.5 Flash judges recorded spoken answers, writes the recovery summary and answers chat. Chirp 3 HD speaks the lines. |
-| Family-health AI | respond-agent `/noa/say` and `/noa/understand`, core-api `/api/noa/*` | The browser sends a call id, the language and structured facts. respond-agent holds the prompts and checks the reply (numbers only from the facts, right script, no dose, no diagnosis, no advice against emergency care, word limit). Fast model Claude Haiku 5.5 for short turns and reading replies, Claude Opus 5.5 for explanations, the pathway and the referral note. One audit line per call: call id, hash of the facts, prompt version, model, check result. |
+| Family-health AI | respond-agent `/noa/say` and `/noa/understand`, core-api `/api/noa/*` | The browser sends a call id, the language and structured facts (strict params: unknown fields are refused). respond-agent holds the prompts and checks the reply (numbers only from the facts, right script, no dose, no diagnosis, no advice against emergency care, no promise of an action in chat, word limit). core-api rate-limits both routes. Emergencies use a fixed, pre-written script and never reach the AI. Fast model Claude Haiku 5.5 for short turns and reading replies, Claude Opus 5.5 for explanations, the pathway and the referral note. One audit line per call: call id, hash of the facts, prompt version, model, check result. |
 | hospital-agent | `agents/hospital/`, Cloud Run | An ADK agent served over A2A. Reads the person's FHIR R4 record, applies consent (fail closed: only an active permit shares anything) and builds the pre-arrival packet by rules, with no LLM. |
 | Data stores | Firestore, Cloud Healthcare API (FHIR R4), Cloud Storage | All content is synthetic. Firestore rules: signed-in users read, only service accounts write. |
 | Messaging | Pub/Sub topic `alerts`, Cloud Tasks queue `escalation` | Alert intake and escalation timeouts. |
 | Security basics | IAM, Secret Manager, Firebase Auth | One service account per service. Agents are private and called with Google-signed ID tokens. Visitors sign in anonymously. |
-| Claude route | respond-agent | Claude Haiku 5.5 and Opus 5.5. respond-agent calls the Claude API (api.anthropic.com), which is outside Google Cloud and outside `asia-southeast1`. It is reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set. Otherwise Claude runs on Vertex AI. Used only when the live AI switch (`VITE_NOA_AI`, off by default) is on. |
+| Claude route | respond-agent | Claude Haiku 5.5 and Opus 5.5. respond-agent calls the Claude API (api.anthropic.com), which is outside Google Cloud and outside `asia-southeast1`. It is reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set. Otherwise Claude runs on Vertex AI. Used only when the live AI switch is on (`VITE_NOA_AI=on` and `VITE_DATA_SOURCE=firebase`): on in the live demo, off by default in a local build. |
 | Delivery | GitHub Actions, Cloud Build, Workload Identity Federation | CI on pull requests and on `dev`. Deploy after green CI. |
 
-Family journey, live AI switch (off by default): with `VITE_NOA_AI=on` the family-health panel sends each agent message to core-api, and respond-agent has Claude write the wording from the facts the engine chose. A message that fails a check, times out after 8 seconds or errors shows the prepared text. Typed replies on risky questions are also read by keywords, and the more urgent reading wins. The page-open auto-run stays on prepared text.
+Family journey ("Noa · family health", `web/src/features/familyHealth`): Detect → Protect → Home screening → Right pathway → Referral for a synthetic family of six (Moza, Saeed, Khalid, Amna, Hamdan, Hind). An Orchestrator conducts 4 domain agents with 8 skills: Personal care (Guardian, Voice, Coach), Screening (Forecast, Navigator), Specialist (Insight, Courier), Government (Analyst). Rules decide; the AI only writes and reads words.
+
+Live AI switch (on in the live demo, off by default in a local build): with `VITE_NOA_AI=on` and `VITE_DATA_SOURCE=firebase` the family-health panel sends each agent message to core-api, and respond-agent has Claude write the wording from the facts the engine chose. A message that fails a check, times out after 8 seconds or errors shows the prepared text. Each message is labelled Live AI, Prepared, Fixed script or Guardrail. Typed replies on risky questions are also read by keywords, and the more urgent reading wins. On page open the auto-run sends only the two Detect turns (and a typed question) to the live AI; its other turns stay on prepared text.
 
 Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini uses the Vertex AI `global` endpoint. Claude uses the Claude API (api.anthropic.com, outside Google Cloud), reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set; otherwise it uses the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).
 
-## 2. In the Test case (browser only)
+## 2. The earlier Test case prototype (browser only, not shown in the live app)
 
-The Test case is an overlay in the live web app (`web/src/features/testcase/`). It does not call the backend and never touches a real record.
+The Test case is the earlier rules-engine prototype (the night safety net), kept in the code (`web/src/features/testcase/`) and used by the benchmark (`npm run benchmark:report`). It is not shown in the live app: `web/src/config/legacy.ts` sets `LEGACY_TEST_CASE = false`, so its entry points are not mounted. It does not call the backend and never touches a real record. The live AI feature is the family-health journey in section 1.
 
 - **Engine** (`engine/`): pure TypeScript with no React. The same engine drives the screens, the "Run it for me" autopilot and the benchmark.
 - **Rules** are published and numbered: R1 to R12 (safety), P1 to P9 (prevention), F1 and F2 (family heart score).
-- **The 9 Noa agents** (Guardian, Voice, Responder, Courier, Insight, Forecast, Coach, Navigator, Analyst) are roles in the engine. Each has a written "may do" and "may not do". They are not separate services. The hand-offs between them are shown on screen.
-- **No LLM makes a decision.** Scores and routing come from rules. The explanations are prepared text in two languages, labelled "Prepared text". "AI-written" appears only if a live explanation is loaded, and the rules still decide. No live explanation is wired in this build.
+- **The prototype's 9 agent roles** (Guardian, Voice, Responder, Courier, Insight, Forecast, Coach, Navigator, Analyst) are roles in its engine; the live journey uses the agent team in section 1. Each has a written "may do" and "may not do". They are not separate services. The hand-offs between them are shown on screen.
+- **No LLM makes a decision.** Scores and routing come from rules. The explanations are prepared text in two languages, labelled "Prepared text". The prototype has no live AI wording; live AI wording is wired only in the family-health journey (section 1).
 - **Voice:** the speech check uses the browser Web Speech API where it exists (Chrome, Edge). Typing or choosing a sample also works.
 - **Demo database:** ten tables (agents, patients, consents, observations, checkins, alerts, tasks, encounters, reports, audit), kept in memory for the run.
 - **Benchmark** (`bench/`): 252 labelled scenarios, run by the same engine. See [test-report.md](test-report.md).
 - **Loading:** the Test case text and CSS load only when it is opened, so the main bundle stays smaller.
 
-Why not use the backend for the Test case? The deployed chat service only knows Moza's case, so it cannot explain the other fictional people safely. Fixed text also gives repeatable results for judges.
+Why does the prototype not use the backend? It was built before the `/noa/*` routes, and the older Ask Noa chat route (`/chat`, `agents/respond/chat.py`) only knows Moza's case, so it cannot explain the other fictional people safely. Fixed text also keeps the benchmark repeatable. The family-health journey does not use `/chat`: it sends each call's facts to `/noa/say` and `/noa/understand`.
 
 ## 3. Planned, not built
 
