@@ -8,6 +8,7 @@ import { NIGHT_DEMO } from '@/features/individual/live/nightDemo'
 import type { LiveIncidentValue } from '@/state/LiveIncident'
 import { mockCanvas, mockLayout, mockRaf } from '../../canvas/fakeCtx'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
+import { withLegacyUi } from '../../helpers/legacyUi'
 
 vi.mock('@/app/navigation', () => ({ usePathname: () => '/individual/live/', useRouter: () => ({ push: vi.fn(), replace: vi.fn() }) }))
 
@@ -208,6 +209,39 @@ test("the dial waits for David's ring to finish", async () => {
   expect(playDial000).toHaveBeenCalledTimes(1)
 })
 
+const k = (sec: number, kind: string, text: string, memberId?: string) => ({ ...ev(sec, 'SYSTEM', kind, text), ...(memberId ? { memberId } : {}) })
+const khalidPeople: LivePeople = { person: null, members: { khalid: { displayName: 'Khalid' }, hamad: { displayName: 'Hamad' } } as unknown as LivePeople['members'] }
+function night998(hamad: boolean): LiveIncidentValue {
+  const timeline = [ev(0, 'SYSTEM', 'ALERT', 'Heart rate 137'), k(1, 'ALERTED', 'Alert sent to Khalid and Hamad'),
+    k(2, 'CALLED_115', 'Calling 998 automatically with the call script (demo call)'), k(2, 'NOTIFIED', 'Calling Khalid: Her speech is slurred.', 'khalid'),
+    ...(hamad ? [k(7, 'EXPIRED', 'Khalid did not answer in 5 s', 'khalid'), k(7, 'NOTIFIED', 'Calling Hamad: You are 6 min away.', 'hamad')] : [])]
+  const incident = {
+    personId: 'moza', status: 'ESCALATING', personInstruction: { scriptIds: [], text: 'Sit down.' }, level: 'EMERGENCY', alert: { kind: 'HR_HIGH_NO_MOVEMENT', at: at(0), hr: 137 },
+    timeline, assignments: [], ownerId: null, demo: { timerSeconds: 5, noReplySeconds: 45, clockOffsetMs: 0 },
+  } as unknown as IncidentDoc
+  return { ...idleValue, incident, people: khalidPeople, view: liveView('inc-998', incident, khalidPeople, T0 + 80_000) }
+}
+
+test('998 and Khalid in one snapshot: one dial, no ring, and Khalid is visible while the call dials', async () => {
+  const show = mountLive()
+  await show(incidentAt(0, false))
+  await show(night998(false))
+  expect(playDial000).toHaveBeenCalledTimes(1)
+  expect(playRing).not.toHaveBeenCalled()
+  expect(await screen.findByText('“Her speech is slurred.”')).toBeInTheDocument()
+  expect(screen.getByText('Dialling 998…')).toBeInTheDocument()
+})
+
+test('Hamad called after the 998 call gives no ring', async () => {
+  const show = mountLive()
+  await show(incidentAt(0, false))
+  await show(night998(false))
+  await show(night998(true))
+  await act(async () => { dialed[0]() })
+  expect(playRing).not.toHaveBeenCalled()
+  expect(playDial000).toHaveBeenCalledTimes(1)
+})
+
 describe('step 3 brings her phone into view', () => {
   beforeEach(() => { vi.useFakeTimers({ toFake: TIMERS }) })
   afterEach(() => { vi.useRealTimers() })
@@ -240,3 +274,6 @@ describe('step 3 brings her phone into view', () => {
     expect(spy).not.toHaveBeenCalled()
   })
 })
+
+// The top bar's Night alert demo is hidden by the redesign; these tests turn it back on.
+withLegacyUi()

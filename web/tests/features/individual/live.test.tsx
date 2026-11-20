@@ -9,6 +9,7 @@ import { LivePage } from '@/features/individual/live/LivePage'
 import { PAGE_REGISTRY } from '@/features/registry'
 import { mockCanvas, mockLayout, mockRaf } from '../../canvas/fakeCtx'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
+import { withLegacyUi } from '../../helpers/legacyUi'
 
 // Only the timers the demo owns: the canvas animation-frame loop is not one of them.
 const TIMERS: ('setTimeout' | 'clearTimeout' | 'setInterval' | 'clearInterval')[] = ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']
@@ -288,3 +289,6 @@ describe.each([
     expect(screen.getByRole('heading', { name: 'No active alert' })).toBeInTheDocument()
   })
 })
+
+// These tests drive the old Test case entry points and header demos, which the redesign hides by default.
+withLegacyUi()

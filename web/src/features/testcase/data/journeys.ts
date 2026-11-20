@@ -464,6 +464,11 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
             title: 'journeys.fall_em.steps.1.packet.6.title',
             detail: 'journeys.fall_em.steps.1.packet.6.detail',
           },
+          {
+            title: 'journeys.fall_em.steps.1.packet.7.title',
+            detail: 'journeys.fall_em.steps.1.packet.7.detail',
+            lowGlu: true,
+          },
         ],
         phone: {
           tone: 'info',
@@ -1577,6 +1582,11 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
           {
             title: 'journeys.hf_em.steps.1.packet.4.title',
             detail: 'journeys.hf_em.steps.1.packet.4.detail',
+          },
+          {
+            title: 'journeys.hf_em.steps.1.packet.5.title',
+            detail: 'journeys.hf_em.steps.1.packet.5.detail',
+            lowGlu: true,
           },
         ],
         phone: {

@@ -27,6 +27,9 @@ function conversation(inc: IncidentDoc, people: LivePeople, call: CallLine[], t:
     out.push({ at: ms(turn.at), ch: 'mg', agent: turn.by === 'AGENT', who: her, text: quote(turn.text) })
   }
   const idByName = (name: string) => Object.keys(people.members).find((id) => people.members[id].displayName === name) ?? null
+  const called = inc.timeline.find((e) => e.kind === 'CALLED_115')
+  // Pushed first: the stable sort keeps the 998 block above family rows that share its time.
+  if (called) call.forEach((l) => out.push({ at: ms(called.at), ch: 'ooo', agent: l.by === 'noa', who: t('talk.operator'), text: quote(l.text) }))
   for (const e of inc.timeline) {
     if (e.kind === 'NO_REPLY') out.push({ at: ms(e.at), ch: 'mg', agent: false, who: her, text: t('talk.noReply') })
     if (isMemberCall(e)) {
@@ -46,10 +49,6 @@ function conversation(inc: IncidentDoc, people: LivePeople, call: CallLine[], t:
         if (people.members[a.memberId] && a.memberId !== inc.ownerId) out.push({ at: ms(e.at), ch: a.memberId, agent: true, who: first(memberName(people, a.memberId)), text: quote(e.text) })
       }
     }
-  }
-  const called = inc.timeline.find((e) => e.kind === 'CALLED_115')
-  if (called) {
-    call.forEach((l, i) => out.push({ at: ms(called.at) + i, ch: 'ooo', agent: l.by === 'noa', who: t('talk.operator'), text: quote(l.text) }))
   }
   return out.sort((a, b) => a.at - b.at)
 }

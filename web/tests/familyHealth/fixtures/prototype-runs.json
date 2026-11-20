@@ -1,0 +1,4690 @@
+{
+ "s0": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Saeed’s glucose sensor, BP cuff and watch, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record (in parallel with the check)"
+   },
+   {
+    "rule": "P1",
+    "reason": "Safety check: consent already on file; nothing new to ask now"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Auto-prompted check: speech first, then red-flag questions"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Saeed’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, I noticed resting heart 128 bpm, far above Saeed’s usual (66–76, regular). Your usual is 66–76, regular. I’ve started a one-minute check, and a doctor review today goes first."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, Noa read your devices, your last record (Jan 2026) and the family health record. Most important: resting heart 128 bpm, far above saeed’s usual (66–76, regular); heart and stroke risk 44% in 10 years (high); 2 checks overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, because your heart is racing at rest, I’ll check your speech first. Please say “The sky is blue in Abu Dhabi”."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you. A little different from your usual. Once more, slowly please."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Abu Rashid. Noa Speech Check: score 1.00 · as usual; Falls risk: low risk (0 of 3). Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, first and most urgent: doctor review today. Then your checks: diabetes eye check (within 1 month), diabetes kidney check (within 1 month), bowel cancer home test (routine · within 3 months), ifhas adult health screening (routine · within 3 months), seasonal flu vaccine (routine · within 3 months), starting Wed 25 Nov, 09:00. Your doctor will decide on: 2 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Saeed Al Nuaimi, 64. Booked: Diabetes eye check; Diabetes kidney check; Bowel cancer home test (FIT); IFHAS adult health screening; Seasonal flu vaccine. For the doctor to decide: Doctor review today: Resting heart 128 bpm, far above Saeed’s usual (66–76, regular); Heart risk review within 2 weeks: the doctor decides on treatment. Home speech check: score 1.00, as usual."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one adult recommended 5 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "🔒 Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; Amna sees the result, as Saeed chose.",
+   "✓ Speech as usual and no red flags (rule V4): not an emergency now. The doctor review today stays first in the pathway.",
+   "📅 Diabetes eye check · His diabetes clinic, same visit · Wed 25 Nov, 09:00",
+   "📅 Diabetes kidney check · His diabetes clinic, same visit · Wed 25 Nov, 09:00",
+   "📅 Bowel cancer home test (FIT) · Al Mushrif FHC · Wed 25 Nov, 09:00",
+   "📅 IFHAS adult health screening · Al Mushrif FHC · Wed 25 Nov, 09:00",
+   "📅 Seasonal flu vaccine · Al Mushrif FHC · Wed 25 Nov, 09:00",
+   "🔁 Recall set: IFHAS in 3 years. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "sample · a little different",
+   "sample · as usual",
+   "Just my heart pounding",
+   "Falls risk: 3 key questions: Low risk (0 of 3)",
+   "One visit for everything",
+   "Weekday morning",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Resting heart 128 bpm, far above Saeed’s usual (66–76, regular)",
+      "rule": "G1",
+      "factors": [
+       "Above Saeed’s own limit (120 bpm) at rest"
+      ],
+      "src": "Watch via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "Heart and stroke risk 44% in 10 years (high)",
+      "rule": "F1",
+      "factors": [
+       "Age 64",
+       "Blood pressure 138, rising 1/yr",
+       "Non-smoker",
+       "Diabetes",
+       "Cholesterol 4.6/1"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Validated score (Framingham); not yet calibrated for Abu Dhabi"
+     },
+     {
+      "t": "Last record: Jan 2026",
+      "rule": "N1",
+      "factors": [
+       "Diabetes clinic: HbA1c 7.6%, kidney function normal (eGFR 78)",
+       "Conditions: Type 2 diabetes (2012); high blood pressure (2018)",
+       "Medicines: Metformin, gliclazide, ramipril"
+      ],
+      "src": "Al Mushrif Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "Diabetes eye check (retina photo) · last Sep 2024 (every year)",
+       "Diabetes kidney check (urine ACR) · last Sep 2024 (every year)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "3 checks due",
+      "rule": "N1",
+      "factors": [
+       "Bowel cancer home test (FIT) · last never",
+       "IFHAS adult screening · last Mar 2023",
+       "Flu vaccine · last Oct 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Already sees the diabetes clinic: bundle checks into that visit · Arabic",
+       "Lives in Al Mushrif · Emirati · speaks Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Diabetes eye check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes since 2012; last eye check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Diabetes kidney check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes; last kidney check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Bowel cancer home test (FIT)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Ages 40–75, every 2 years",
+      "you": "Age 64; never done",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Last Mar 2023",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Doctor review today: Resting heart 128 bpm, far above Saeed’s usual (66–76, regular)",
+      "urg": "Today · same-day appointment",
+      "why": "Rule G1: a reading like this is not screening"
+     },
+     {
+      "t": "Heart risk review within 2 weeks: the doctor decides on treatment",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule F1: 10-year risk 44%"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Saeed.",
+    "pop": [
+     {
+      "name": "Diabetes eye check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes since 2012; last eye check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Diabetes kidney check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes; last kidney check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Bowel cancer home test (FIT)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Ages 40–75, every 2 years",
+      "you": "Age 64; never done",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Last Mar 2023",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Doctor review today: Resting heart 128 bpm, far above Saeed’s usual (66–76, regular)",
+      "urg": "Today · same-day appointment",
+      "why": "Rule G1: a reading like this is not screening"
+     },
+     {
+      "t": "Heart risk review within 2 weeks: the doctor decides on treatment",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule F1: 10-year risk 44%"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 5 checks booked, 2 items for the doctor to decide, recall set.",
+  "rules": [
+   "G1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 11,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 8,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "s2": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Saeed’s glucose sensor, BP cuff and watch, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record (in parallel with the check)"
+   },
+   {
+    "rule": "P1",
+    "reason": "Safety check: consent already on file; nothing new to ask now"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Auto-prompted check: speech first, then red-flag questions"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, I noticed resting heart 128 bpm, far above Saeed’s usual (66–76, regular). Your usual is 66–76, regular. I’ve started a one-minute check, and a doctor review today goes first."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, Noa read your devices, your last record (Jan 2026) and the family health record. Most important: resting heart 128 bpm, far above saeed’s usual (66–76, regular); heart and stroke risk 44% in 10 years (high); 2 checks overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, because your heart is racing at rest, I’ll check your speech first. Please say “The sky is blue in Abu Dhabi”."
+   },
+   {
+    "src": "Fixed script",
+    "text": "Abu Rashid, Your speech is clearly different from your usual today. That can be a sign of a stroke. Urgency: immediate. Please see a doctor now at the nearest emergency department; ask someone to take you. If you cannot get there safely or it gets worse, call 998. I have paused your screening until a doctor has seen you."
+   }
+  ],
+  "sys": [
+   "🔒 Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; Amna sees the result, as Saeed chose.",
+   "⛔ Urgency: immediate (rule Q1). Routine screening paused. Noa does not call anyone; it advised an immediate doctor visit and keeps the result ready for the doctor. Noa follows up in 2 hours."
+  ],
+  "picks": [
+   "sample · clearly changed"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Resting heart 128 bpm, far above Saeed’s usual (66–76, regular)",
+      "rule": "G1",
+      "factors": [
+       "Above Saeed’s own limit (120 bpm) at rest"
+      ],
+      "src": "Watch via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "Heart and stroke risk 44% in 10 years (high)",
+      "rule": "F1",
+      "factors": [
+       "Age 64",
+       "Blood pressure 138, rising 1/yr",
+       "Non-smoker",
+       "Diabetes",
+       "Cholesterol 4.6/1"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Validated score (Framingham); not yet calibrated for Abu Dhabi"
+     },
+     {
+      "t": "Last record: Jan 2026",
+      "rule": "N1",
+      "factors": [
+       "Diabetes clinic: HbA1c 7.6%, kidney function normal (eGFR 78)",
+       "Conditions: Type 2 diabetes (2012); high blood pressure (2018)",
+       "Medicines: Metformin, gliclazide, ramipril"
+      ],
+      "src": "Al Mushrif Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "Diabetes eye check (retina photo) · last Sep 2024 (every year)",
+       "Diabetes kidney check (urine ACR) · last Sep 2024 (every year)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "3 checks due",
+      "rule": "N1",
+      "factors": [
+       "Bowel cancer home test (FIT) · last never",
+       "IFHAS adult screening · last Mar 2023",
+       "Flu vaccine · last Oct 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Already sees the diabetes clinic: bundle checks into that visit · Arabic",
+       "Lives in Al Mushrif · Emirati · speaks Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [],
+  "done": "✓ Screening paused: see a doctor immediately (emergency department). Nothing was booked.",
+  "rules": [
+   "G1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1"
+  ],
+  "gov": {
+   "journeys": 2,
+   "booked": 0,
+   "“why?” answered": 0,
+   "referrals": 0,
+   "rules used": 6,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 5,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "s3": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Saeed’s glucose sensor, BP cuff and watch, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record (in parallel with the check)"
+   },
+   {
+    "rule": "P1",
+    "reason": "Safety check: consent already on file; nothing new to ask now"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Auto-prompted check: speech first, then red-flag questions"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Saeed’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, I noticed glucose 2.7 mmol/L overnight: low (level 2). Your usual is 66–76, regular. I’ve started a one-minute check, and a doctor review today goes first."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, Noa read your devices, your last record (Jan 2026) and the family health record. Most important: glucose 2.7 mmol/l overnight: low (level 2); heart and stroke risk 44% in 10 years (high); 2 checks overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, because your heart is racing at rest, I’ll check your speech first. Please say “The sky is blue in Abu Dhabi”."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Abu Rashid. Low sugar: recovered after fast sugar (5.4 mmol/l). Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, first and most urgent: medicine review within 24 hours. Then your checks: diabetes eye check (within 1 month), diabetes kidney check (within 1 month), bowel cancer home test (routine · within 3 months), ifhas adult health screening (routine · within 3 months), seasonal flu vaccine (routine · within 3 months), starting Wed 25 Nov, 09:00. Your doctor will decide on: 2 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Saeed Al Nuaimi, 64. Booked: Diabetes eye check; Diabetes kidney check; Bowel cancer home test (FIT); IFHAS adult health screening; Seasonal flu vaccine. For the doctor to decide: Medicine review within 24 hours: glucose 2.7 mmol/L overnight (level 2). The doctor decides any change.; Heart risk review within 2 weeks: the doctor decides on treatment."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one adult recommended 5 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "🔒 Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; Amna sees the result, as Saeed chose.",
+   "✓ Glucose back to 5.4 (rule L1). A low this deep usually needs a medicine review: gliclazide can cause it. Escalated to his diabetes doctor within 24 hours.",
+   "📅 Diabetes eye check · His diabetes clinic, same visit · Wed 25 Nov, 09:00",
+   "📅 Diabetes kidney check · His diabetes clinic, same visit · Wed 25 Nov, 09:00",
+   "📅 Bowel cancer home test (FIT) · Al Mushrif FHC · Wed 25 Nov, 09:00",
+   "📅 IFHAS adult health screening · Al Mushrif FHC · Wed 25 Nov, 09:00",
+   "📅 Seasonal flu vaccine · Al Mushrif FHC · Wed 25 Nov, 09:00",
+   "🔁 Recall set: IFHAS in 3 years. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Better, I had juice",
+   "One visit for everything",
+   "Weekday morning",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Glucose 2.7 mmol/L overnight: low (level 2)",
+      "rule": "L1",
+      "factors": [
+       "Glucose 2.7 mmol/L overnight: low (level 2)"
+      ],
+      "src": "Watch via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "Heart and stroke risk 44% in 10 years (high)",
+      "rule": "F1",
+      "factors": [
+       "Age 64",
+       "Blood pressure 138, rising 1/yr",
+       "Non-smoker",
+       "Diabetes",
+       "Cholesterol 4.6/1"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Validated score (Framingham); not yet calibrated for Abu Dhabi"
+     },
+     {
+      "t": "Last record: Jan 2026",
+      "rule": "N1",
+      "factors": [
+       "Diabetes clinic: HbA1c 7.6%, kidney function normal (eGFR 78)",
+       "Conditions: Type 2 diabetes (2012); high blood pressure (2018)",
+       "Medicines: Metformin, gliclazide, ramipril"
+      ],
+      "src": "Al Mushrif Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "Diabetes eye check (retina photo) · last Sep 2024 (every year)",
+       "Diabetes kidney check (urine ACR) · last Sep 2024 (every year)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "3 checks due",
+      "rule": "N1",
+      "factors": [
+       "Bowel cancer home test (FIT) · last never",
+       "IFHAS adult screening · last Mar 2023",
+       "Flu vaccine · last Oct 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Already sees the diabetes clinic: bundle checks into that visit · Arabic",
+       "Lives in Al Mushrif · Emirati · speaks Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Diabetes eye check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes since 2012; last eye check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Diabetes kidney check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes; last kidney check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Bowel cancer home test (FIT)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Ages 40–75, every 2 years",
+      "you": "Age 64; never done",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Last Mar 2023",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Medicine review within 24 hours: glucose 2.7 mmol/L overnight (level 2). The doctor decides any change.",
+      "urg": "Within 24 hours · by Sat 21 Nov",
+      "why": "Rule L1: a reading like this is not screening"
+     },
+     {
+      "t": "Heart risk review within 2 weeks: the doctor decides on treatment",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule F1: 10-year risk 44%"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Saeed.",
+    "pop": [
+     {
+      "name": "Diabetes eye check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes since 2012; last eye check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Diabetes kidney check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes; last kidney check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Bowel cancer home test (FIT)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Ages 40–75, every 2 years",
+      "you": "Age 64; never done",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Last Mar 2023",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Medicine review within 24 hours: glucose 2.7 mmol/L overnight (level 2). The doctor decides any change.",
+      "urg": "Within 24 hours · by Sat 21 Nov",
+      "why": "Rule L1: a reading like this is not screening"
+     },
+     {
+      "t": "Heart risk review within 2 weeks: the doctor decides on treatment",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule F1: 10-year risk 44%"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 5 checks booked, 2 items for the doctor to decide, recall set.",
+  "rules": [
+   "L1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 2,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 11,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 7,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "s3-confused": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Saeed’s glucose sensor, BP cuff and watch, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record (in parallel with the check)"
+   },
+   {
+    "rule": "P1",
+    "reason": "Safety check: consent already on file; nothing new to ask now"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Auto-prompted check: speech first, then red-flag questions"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, I noticed glucose 2.7 mmol/L overnight: low (level 2). Your usual is 66–76, regular. I’ve started a one-minute check, and a doctor review today goes first."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, Noa read your devices, your last record (Jan 2026) and the family health record. Most important: glucose 2.7 mmol/l overnight: low (level 2); heart and stroke risk 44% in 10 years (high); 2 checks overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, because your heart is racing at rest, I’ll check your speech first. Please say “The sky is blue in Abu Dhabi”."
+   },
+   {
+    "src": "Fixed script",
+    "text": "Abu Rashid, Confusion with low sugar needs help now. Urgency: immediate. Please see a doctor now at the nearest emergency department; ask someone to take you. If you cannot get there safely or it gets worse, call 998. I have paused your screening until a doctor has seen you."
+   }
+  ],
+  "sys": [
+   "🔒 Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; Amna sees the result, as Saeed chose.",
+   "⛔ Urgency: immediate (rule L1). Routine screening paused. Noa does not call anyone; it advised an immediate doctor visit and keeps the result ready for the doctor. Noa follows up in 2 hours."
+  ],
+  "picks": [
+   "Confused, hard to think"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Glucose 2.7 mmol/L overnight: low (level 2)",
+      "rule": "L1",
+      "factors": [
+       "Glucose 2.7 mmol/L overnight: low (level 2)"
+      ],
+      "src": "Watch via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "Heart and stroke risk 44% in 10 years (high)",
+      "rule": "F1",
+      "factors": [
+       "Age 64",
+       "Blood pressure 138, rising 1/yr",
+       "Non-smoker",
+       "Diabetes",
+       "Cholesterol 4.6/1"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Validated score (Framingham); not yet calibrated for Abu Dhabi"
+     },
+     {
+      "t": "Last record: Jan 2026",
+      "rule": "N1",
+      "factors": [
+       "Diabetes clinic: HbA1c 7.6%, kidney function normal (eGFR 78)",
+       "Conditions: Type 2 diabetes (2012); high blood pressure (2018)",
+       "Medicines: Metformin, gliclazide, ramipril"
+      ],
+      "src": "Al Mushrif Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "Diabetes eye check (retina photo) · last Sep 2024 (every year)",
+       "Diabetes kidney check (urine ACR) · last Sep 2024 (every year)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "3 checks due",
+      "rule": "N1",
+      "factors": [
+       "Bowel cancer home test (FIT) · last never",
+       "IFHAS adult screening · last Mar 2023",
+       "Flu vaccine · last Oct 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Already sees the diabetes clinic: bundle checks into that visit · Arabic",
+       "Lives in Al Mushrif · Emirati · speaks Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [],
+  "done": "✓ Screening paused: see a doctor immediately (emergency department). Nothing was booked.",
+  "rules": [
+   "L1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1"
+  ],
+  "gov": {
+   "journeys": 2,
+   "booked": 0,
+   "“why?” answered": 0,
+   "referrals": 0,
+   "rules used": 6,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 4,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "s0-weak": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Saeed’s glucose sensor, BP cuff and watch, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record (in parallel with the check)"
+   },
+   {
+    "rule": "P1",
+    "reason": "Safety check: consent already on file; nothing new to ask now"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Auto-prompted check: speech first, then red-flag questions"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, I noticed resting heart 128 bpm, far above Saeed’s usual (66–76, regular). Your usual is 66–76, regular. I’ve started a one-minute check, and a doctor review today goes first."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, Noa read your devices, your last record (Jan 2026) and the family health record. Most important: resting heart 128 bpm, far above saeed’s usual (66–76, regular); heart and stroke risk 44% in 10 years (high); 2 checks overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, because your heart is racing at rest, I’ll check your speech first. Please say “The sky is blue in Abu Dhabi”."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you. A little different from your usual. Once more, slowly please."
+   },
+   {
+    "src": "Fixed script",
+    "text": "Abu Rashid, Face or arm weakness can be a sign of a stroke. Urgency: immediate. Please see a doctor now at the nearest emergency department; ask someone to take you. If you cannot get there safely or it gets worse, call 998. I have paused your screening until a doctor has seen you."
+   }
+  ],
+  "sys": [
+   "🔒 Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; Amna sees the result, as Saeed chose.",
+   "⛔ Urgency: immediate (rule V1). Routine screening paused. Noa does not call anyone; it advised an immediate doctor visit and keeps the result ready for the doctor. Noa follows up in 2 hours."
+  ],
+  "picks": [
+   "sample · a little different",
+   "sample · as usual",
+   "My face or arm feels weak"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Resting heart 128 bpm, far above Saeed’s usual (66–76, regular)",
+      "rule": "G1",
+      "factors": [
+       "Above Saeed’s own limit (120 bpm) at rest"
+      ],
+      "src": "Watch via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "Heart and stroke risk 44% in 10 years (high)",
+      "rule": "F1",
+      "factors": [
+       "Age 64",
+       "Blood pressure 138, rising 1/yr",
+       "Non-smoker",
+       "Diabetes",
+       "Cholesterol 4.6/1"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Validated score (Framingham); not yet calibrated for Abu Dhabi"
+     },
+     {
+      "t": "Last record: Jan 2026",
+      "rule": "N1",
+      "factors": [
+       "Diabetes clinic: HbA1c 7.6%, kidney function normal (eGFR 78)",
+       "Conditions: Type 2 diabetes (2012); high blood pressure (2018)",
+       "Medicines: Metformin, gliclazide, ramipril"
+      ],
+      "src": "Al Mushrif Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "Diabetes eye check (retina photo) · last Sep 2024 (every year)",
+       "Diabetes kidney check (urine ACR) · last Sep 2024 (every year)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "3 checks due",
+      "rule": "N1",
+      "factors": [
+       "Bowel cancer home test (FIT) · last never",
+       "IFHAS adult screening · last Mar 2023",
+       "Flu vaccine · last Oct 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Already sees the diabetes clinic: bundle checks into that visit · Arabic",
+       "Lives in Al Mushrif · Emirati · speaks Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [],
+  "done": "✓ Screening paused: see a doctor immediately (emergency department). Nothing was booked.",
+  "rules": [
+   "G1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "V1"
+  ],
+  "gov": {
+   "journeys": 2,
+   "booked": 0,
+   "“why?” answered": 0,
+   "referrals": 0,
+   "rules used": 7,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 5,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "s0-chest": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Saeed’s glucose sensor, BP cuff and watch, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record (in parallel with the check)"
+   },
+   {
+    "rule": "P1",
+    "reason": "Safety check: consent already on file; nothing new to ask now"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Auto-prompted check: speech first, then red-flag questions"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, I noticed resting heart 128 bpm, far above Saeed’s usual (66–76, regular). Your usual is 66–76, regular. I’ve started a one-minute check, and a doctor review today goes first."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, Noa read your devices, your last record (Jan 2026) and the family health record. Most important: resting heart 128 bpm, far above saeed’s usual (66–76, regular); heart and stroke risk 44% in 10 years (high); 2 checks overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, because your heart is racing at rest, I’ll check your speech first. Please say “The sky is blue in Abu Dhabi”."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you. A little different from your usual. Once more, slowly please."
+   },
+   {
+    "src": "Fixed script",
+    "text": "Abu Rashid, Chest pain or feeling faint with a racing heart needs help now. Urgency: immediate. Please see a doctor now at the nearest emergency department; ask someone to take you. If you cannot get there safely or it gets worse, call 998. I have paused your screening until a doctor has seen you."
+   }
+  ],
+  "sys": [
+   "🔒 Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; Amna sees the result, as Saeed chose.",
+   "⛔ Urgency: immediate (rule V2). Routine screening paused. Noa does not call anyone; it advised an immediate doctor visit and keeps the result ready for the doctor. Noa follows up in 2 hours."
+  ],
+  "picks": [
+   "sample · a little different",
+   "sample · as usual",
+   "Chest pain"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Resting heart 128 bpm, far above Saeed’s usual (66–76, regular)",
+      "rule": "G1",
+      "factors": [
+       "Above Saeed’s own limit (120 bpm) at rest"
+      ],
+      "src": "Watch via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "Heart and stroke risk 44% in 10 years (high)",
+      "rule": "F1",
+      "factors": [
+       "Age 64",
+       "Blood pressure 138, rising 1/yr",
+       "Non-smoker",
+       "Diabetes",
+       "Cholesterol 4.6/1"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Validated score (Framingham); not yet calibrated for Abu Dhabi"
+     },
+     {
+      "t": "Last record: Jan 2026",
+      "rule": "N1",
+      "factors": [
+       "Diabetes clinic: HbA1c 7.6%, kidney function normal (eGFR 78)",
+       "Conditions: Type 2 diabetes (2012); high blood pressure (2018)",
+       "Medicines: Metformin, gliclazide, ramipril"
+      ],
+      "src": "Al Mushrif Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "Diabetes eye check (retina photo) · last Sep 2024 (every year)",
+       "Diabetes kidney check (urine ACR) · last Sep 2024 (every year)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "3 checks due",
+      "rule": "N1",
+      "factors": [
+       "Bowel cancer home test (FIT) · last never",
+       "IFHAS adult screening · last Mar 2023",
+       "Flu vaccine · last Oct 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Already sees the diabetes clinic: bundle checks into that visit · Arabic",
+       "Lives in Al Mushrif · Emirati · speaks Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [],
+  "done": "✓ Screening paused: see a doctor immediately (emergency department). Nothing was booked.",
+  "rules": [
+   "G1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "V2"
+  ],
+  "gov": {
+   "journeys": 2,
+   "booked": 0,
+   "“why?” answered": 0,
+   "referrals": 0,
+   "rules used": 7,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 5,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "saeed-node": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Saeed’s glucose sensor, BP cuff and watch, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening by voice: tests chosen for Saeed"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Saeed’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, Noa read your devices, your last record (Jan 2026) and the family health record. Most important: heart and stroke risk 44% in 10 years (high); 2 checks overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, Noa will use your devices, your clinic record and your family record. Amna may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, a few minutes by voice today: hearing, falls risk, sleep apnoea, mood. Then I’ll find the right checks for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Abu Rashid. Hearing: 3 of 3 correct: pass; Falls risk: low risk (0 of 3); Sleep apnoea: score 3 of 8: intermediate risk; Mood: score 0 of 6: negative. Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Abu Rashid, your checks: diabetes eye check (within 1 month), diabetes kidney check (within 1 month), bowel cancer home test (routine · within 3 months), ifhas adult health screening (routine · within 3 months), seasonal flu vaccine (routine · within 3 months), starting Wed 25 Nov, 09:00. Your doctor will decide on: 2 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "These checks find problems before there are symptoms, when they are easiest to treat. For you: heart and stroke risk 44% in 10 years (high); 2 checks overdue."
+   },
+   {
+    "src": "Prepared",
+    "text": "Saeed Al Nuaimi, 64. Booked: Diabetes eye check; Diabetes kidney check; Bowel cancer home test (FIT); IFHAS adult health screening; Seasonal flu vaccine. For the doctor to decide: Heart risk review within 2 weeks: the doctor decides on treatment; Sleep apnoea: the doctor decides on a sleep study."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one adult recommended 5 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Saeed.",
+   "📅 Diabetes eye check · His diabetes clinic, same visit · Sat 28 Nov, 09:30",
+   "📅 Diabetes kidney check · His diabetes clinic, same visit · Sat 28 Nov, 09:30",
+   "📅 Bowel cancer home test (FIT) · Al Mushrif FHC · Sat 28 Nov, 09:30",
+   "📅 IFHAS adult health screening · Al Mushrif FHC · Sat 28 Nov, 09:30",
+   "📅 Seasonal flu vaccine · Al Mushrif FHC · Sat 28 Nov, 09:30",
+   "🔁 Recall set: IFHAS in 3 years. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Data confirmed · shared with: Amna",
+   "Hearing: 3 of 3 correct",
+   "Falls risk: 3 key questions: Low risk (0 of 3)",
+   "Sleep apnoea: STOP-BANG: Score 3 of 8: intermediate risk",
+   "Mood: PHQ-2: Score 0 of 6: negative",
+   "None of these",
+   "One visit for everything",
+   "Weekday morning",
+   "Why these, and why now?",
+   "Change the time",
+   "Saturday morning",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Heart and stroke risk 44% in 10 years (high)",
+      "rule": "F1",
+      "factors": [
+       "Age 64",
+       "Blood pressure 138, rising 1/yr",
+       "Non-smoker",
+       "Diabetes",
+       "Cholesterol 4.6/1"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Validated score (Framingham); not yet calibrated for Abu Dhabi"
+     },
+     {
+      "t": "Last record: Jan 2026",
+      "rule": "N1",
+      "factors": [
+       "Diabetes clinic: HbA1c 7.6%, kidney function normal (eGFR 78)",
+       "Conditions: Type 2 diabetes (2012); high blood pressure (2018)",
+       "Medicines: Metformin, gliclazide, ramipril"
+      ],
+      "src": "Al Mushrif Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "Diabetes eye check (retina photo) · last Sep 2024 (every year)",
+       "Diabetes kidney check (urine ACR) · last Sep 2024 (every year)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "3 checks due",
+      "rule": "N1",
+      "factors": [
+       "Bowel cancer home test (FIT) · last never",
+       "IFHAS adult screening · last Mar 2023",
+       "Flu vaccine · last Oct 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Already sees the diabetes clinic: bundle checks into that visit · Arabic",
+       "Lives in Al Mushrif · Emirati · speaks Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Diabetes eye check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes since 2012; last eye check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Diabetes kidney check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes; last kidney check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Bowel cancer home test (FIT)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Ages 40–75, every 2 years",
+      "you": "Age 64; never done",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Last Mar 2023",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Mushrif FHC · 🕒 Wed 25 Nov, 09:00"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Heart risk review within 2 weeks: the doctor decides on treatment",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule F1: 10-year risk 44%"
+     },
+     {
+      "t": "Sleep apnoea: the doctor decides on a sleep study",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "STOP-BANG Score 3 of 8: intermediate risk"
+     }
+    ]
+   },
+   {
+    "note": "Updated: same checks, new time (Sat 28 Nov, 09:30).",
+    "pop": [
+     {
+      "name": "Diabetes eye check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes since 2012; last eye check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Diabetes kidney check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes; last kidney check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Bowel cancer home test (FIT)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Ages 40–75, every 2 years",
+      "you": "Age 64; never done",
+      "where": "Al Mushrif FHC · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Last Mar 2023",
+      "where": "Al Mushrif FHC · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Mushrif FHC · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Heart risk review within 2 weeks: the doctor decides on treatment",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule F1: 10-year risk 44%"
+     },
+     {
+      "t": "Sleep apnoea: the doctor decides on a sleep study",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "STOP-BANG Score 3 of 8: intermediate risk"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Saeed.",
+    "pop": [
+     {
+      "name": "Diabetes eye check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes since 2012; last eye check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Diabetes kidney check",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "People with diabetes, every year",
+      "you": "Diabetes; last kidney check Sep 2024",
+      "where": "His diabetes clinic, same visit · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Bowel cancer home test (FIT)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Ages 40–75, every 2 years",
+      "you": "Age 64; never done",
+      "where": "Al Mushrif FHC · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Last Mar 2023",
+      "where": "Al Mushrif FHC · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Mushrif FHC · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Heart risk review within 2 weeks: the doctor decides on treatment",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule F1: 10-year risk 44%"
+     },
+     {
+      "t": "Sleep apnoea: the doctor decides on a sleep study",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "STOP-BANG Score 3 of 8: intermediate risk"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 5 checks booked, 2 items for the doctor to decide, recall set.",
+  "rules": [
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "T1",
+   "N1",
+   "T2",
+   "N2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 1,
+   "“why?” answered": 1,
+   "referrals": 1,
+   "rules used": 11,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 8,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "moza-welcome": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Moza’s watch and BP cuff, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening by voice: tests chosen for Moza"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Moza’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Umm Khalid, Noa read your devices, your last record (17 Oct 2026) and the family health record. Most important: blood pressure 146/84: high; 1 check overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Umm Khalid, Noa will use your devices, your clinic record and your family record. Khalid may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Umm Khalid, a few minutes by voice today: Noa Speech Check, hearing, falls risk, diabetes risk test, mood. Then I’ll find the right checks for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Umm Khalid. Noa Speech Check: score 1.00 · as usual; Hearing: 1 of 3 correct: refer for a full hearing test; Falls risk: at risk (2 of 3 yes); Diabetes risk test: score 6: higher risk (5 or more), hba1c advised; Mood: score 3 of 6: positive, follow-up advised. Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Umm Khalid, your checks: bone density scan (within 1 month), seasonal flu vaccine (routine · within 3 months), diabetes check (routine · within 3 months), starting Wed 25 Nov, 09:00. Your doctor will decide on: 5 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Moza Al Hammadi, 78. Booked: Bone density scan (DXA); Seasonal flu vaccine; Diabetes check (HbA1c). For the doctor to decide: Stroke clinic follow-up (booked Mon 30 Nov): the stroke team reviews blood pressure, rhythm and rehab; Mood follow-up (PHQ-9) with the doctor or a counsellor; Falls risk assessment (balance, medicines, home): doctor or physiotherapist; Blood pressure treatment review: the doctor decides any change; Full hearing test: the doctor refers to audiology. Home speech check: score 1.00, as usual."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one adult recommended 3 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Moza.",
+   "✓ Speech as usual for Moza (rule Q1). Saved to the recovery record for the speech therapist.",
+   "📅 Bone density scan (DXA) · Al Bateen FHC · Wed 25 Nov, 09:00",
+   "📅 Seasonal flu vaccine · Al Bateen FHC · Wed 25 Nov, 09:00",
+   "📅 Diabetes check (HbA1c) · Al Bateen FHC · Wed 25 Nov, 09:00",
+   "🔁 Recall set: HbA1c every year. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Data confirmed · shared with: Khalid",
+   "sample · as usual",
+   "Hearing: 1 of 3 correct",
+   "Falls risk: 3 key questions: At risk (2 of 3 yes)",
+   "Diabetes risk test: Score 6: higher risk (5 or more), HbA1c advised",
+   "Mood: PHQ-2: Score 3 of 6: positive, follow-up advised",
+   "None of these",
+   "Female clinician, women-only clinic",
+   "Weekday morning",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Blood pressure 146/84: high",
+      "rule": "B2",
+      "factors": [
+       "At or above 140/90"
+      ],
+      "src": "BP cuff via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "3240 steps a day",
+      "rule": "A1",
+      "factors": [
+       "Under 4,000 steps a day"
+      ],
+      "src": "Watch via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "Last record: 17 Oct 2026",
+      "rule": "N1",
+      "factors": [
+       "Discharged from Corniche Stroke Centre (Dr Sara Al Mazrouei): small left-sided stroke, atrial fibrillation; apixaban started. Stroke clinic Mon 30 Nov",
+       "Conditions: Stroke on 15 Oct 2026 with atrial fibrillation (Corniche Stroke Centre); high blood pressure since 61",
+       "Medicines: Apixaban, perindopril, amlodipine, atorvastatin"
+      ],
+      "src": "Al Bateen Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "1 check overdue",
+      "rule": "N1",
+      "factors": [
+       "Bone density scan (DXA) · last never (women 65+)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "1 check due",
+      "rule": "N1",
+      "factors": [
+       "Flu vaccine · last Nov 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Lives alone in Al Bateen; brother Hamad nearby · Arabic, large text and voice · mornings, female clinician",
+       "Lives in Al Bateen · Emirati · speaks Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Bone density scan (DXA)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Women 65+, and younger women at higher fracture risk",
+      "you": "Age 78; never had a scan",
+      "where": "Al Bateen FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Bateen FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Diabetes check (HbA1c)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Every year after diabetes in pregnancy; part of IFHAS",
+      "you": "Diabetes risk test score 6 (5 or more)",
+      "where": "Al Bateen FHC · 🕒 Wed 25 Nov, 09:00"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Stroke clinic follow-up (booked Mon 30 Nov): the stroke team reviews blood pressure, rhythm and rehab",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Discharged 17 Oct after a stroke with atrial fibrillation"
+     },
+     {
+      "t": "Mood follow-up (PHQ-9) with the doctor or a counsellor",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "PHQ-2 Score 3 of 6: positive, follow-up advised"
+     },
+     {
+      "t": "Falls risk assessment (balance, medicines, home): doctor or physiotherapist",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "STEADI questions: At risk (2 of 3 yes)"
+     },
+     {
+      "t": "Blood pressure treatment review: the doctor decides any change",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule B2: 146/84 on treatment"
+     },
+     {
+      "t": "Full hearing test: the doctor refers to audiology",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "Digits-in-noise: 1 of 3 correct: refer for a full hearing test"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Moza.",
+    "pop": [
+     {
+      "name": "Bone density scan (DXA)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Women 65+, and younger women at higher fracture risk",
+      "you": "Age 78; never had a scan",
+      "where": "Al Bateen FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Bateen FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Diabetes check (HbA1c)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Every year after diabetes in pregnancy; part of IFHAS",
+      "you": "Diabetes risk test score 6 (5 or more)",
+      "where": "Al Bateen FHC · 🕒 Wed 25 Nov, 09:00"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Stroke clinic follow-up (booked Mon 30 Nov): the stroke team reviews blood pressure, rhythm and rehab",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Discharged 17 Oct after a stroke with atrial fibrillation"
+     },
+     {
+      "t": "Mood follow-up (PHQ-9) with the doctor or a counsellor",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "PHQ-2 Score 3 of 6: positive, follow-up advised"
+     },
+     {
+      "t": "Falls risk assessment (balance, medicines, home): doctor or physiotherapist",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "STEADI questions: At risk (2 of 3 yes)"
+     },
+     {
+      "t": "Blood pressure treatment review: the doctor decides any change",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule B2: 146/84 on treatment"
+     },
+     {
+      "t": "Full hearing test: the doctor refers to audiology",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "Digits-in-noise: 1 of 3 correct: refer for a full hearing test"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 3 checks booked, 5 items for the doctor to decide, recall set.",
+  "rules": [
+   "B2",
+   "A1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 12,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 7,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "moza-node-later": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Moza’s watch and BP cuff, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening by voice: tests chosen for Moza"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Moza’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Umm Khalid, Noa read your devices, your last record (17 Oct 2026) and the family health record. Most important: blood pressure 146/84: high; 1 check overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Umm Khalid, Noa will use your devices, your clinic record and your family record. Khalid may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Umm Khalid, a few minutes by voice today: Noa Speech Check, hearing, falls risk, diabetes risk test, mood. Then I’ll find the right checks for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Umm Khalid. Noa Speech Check: score 1.00 · as usual; Hearing: 1 of 3 correct: refer for a full hearing test; Falls risk: at risk (2 of 3 yes); Diabetes risk test: score 6: higher risk (5 or more), hba1c advised; Mood: score 3 of 6: positive, follow-up advised. Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Umm Khalid, your checks: bone density scan (within 1 month), seasonal flu vaccine (routine · within 3 months), diabetes check (routine · within 3 months), starting Wed 25 Nov, 09:00. Your doctor will decide on: 5 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "That’s fine for the routine checks: I’ll pause them for 3 months. But stroke clinic follow-up (booked mon 30 nov) (within 2 weeks) and mood follow-up (phq-9) with the doctor or a counsellor (within 2 weeks) can’t wait, so I’ve told Dr Fatima Al Ali. They will contact you."
+   }
+  ],
+  "sys": [
+   "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Moza.",
+   "✓ Speech as usual for Moza (rule Q1). Saved to the recovery record for the speech therapist.",
+   "⬆️ Escalated (rule U1): 2 urgent items sent to Dr Fatima Al Ali. Routine checks paused for 3 months."
+  ],
+  "picks": [
+   "Data confirmed · shared with: Khalid",
+   "sample · as usual",
+   "Hearing: 1 of 3 correct",
+   "Falls risk: 3 key questions: At risk (2 of 3 yes)",
+   "Diabetes risk test: Score 6: higher risk (5 or more), HbA1c advised",
+   "Mood: PHQ-2: Score 3 of 6: positive, follow-up advised",
+   "None of these",
+   "Female clinician, women-only clinic",
+   "Weekday morning",
+   "Not now"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Blood pressure 146/84: high",
+      "rule": "B2",
+      "factors": [
+       "At or above 140/90"
+      ],
+      "src": "BP cuff via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "3240 steps a day",
+      "rule": "A1",
+      "factors": [
+       "Under 4,000 steps a day"
+      ],
+      "src": "Watch via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "Last record: 17 Oct 2026",
+      "rule": "N1",
+      "factors": [
+       "Discharged from Corniche Stroke Centre (Dr Sara Al Mazrouei): small left-sided stroke, atrial fibrillation; apixaban started. Stroke clinic Mon 30 Nov",
+       "Conditions: Stroke on 15 Oct 2026 with atrial fibrillation (Corniche Stroke Centre); high blood pressure since 61",
+       "Medicines: Apixaban, perindopril, amlodipine, atorvastatin"
+      ],
+      "src": "Al Bateen Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "1 check overdue",
+      "rule": "N1",
+      "factors": [
+       "Bone density scan (DXA) · last never (women 65+)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "1 check due",
+      "rule": "N1",
+      "factors": [
+       "Flu vaccine · last Nov 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Lives alone in Al Bateen; brother Hamad nearby · Arabic, large text and voice · mornings, female clinician",
+       "Lives in Al Bateen · Emirati · speaks Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Bone density scan (DXA)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Women 65+, and younger women at higher fracture risk",
+      "you": "Age 78; never had a scan",
+      "where": "Al Bateen FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Bateen FHC · 🕒 Wed 25 Nov, 09:00"
+     },
+     {
+      "name": "Diabetes check (HbA1c)",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Every year after diabetes in pregnancy; part of IFHAS",
+      "you": "Diabetes risk test score 6 (5 or more)",
+      "where": "Al Bateen FHC · 🕒 Wed 25 Nov, 09:00"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Stroke clinic follow-up (booked Mon 30 Nov): the stroke team reviews blood pressure, rhythm and rehab",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Discharged 17 Oct after a stroke with atrial fibrillation"
+     },
+     {
+      "t": "Mood follow-up (PHQ-9) with the doctor or a counsellor",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "PHQ-2 Score 3 of 6: positive, follow-up advised"
+     },
+     {
+      "t": "Falls risk assessment (balance, medicines, home): doctor or physiotherapist",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "STEADI questions: At risk (2 of 3 yes)"
+     },
+     {
+      "t": "Blood pressure treatment review: the doctor decides any change",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule B2: 146/84 on treatment"
+     },
+     {
+      "t": "Full hearing test: the doctor refers to audiology",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "Digits-in-noise: 1 of 3 correct: refer for a full hearing test"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Routine checks paused (“not now” respected); urgent items escalated to the doctor (rule U1).",
+  "rules": [
+   "B2",
+   "A1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "T1",
+   "N1",
+   "T2",
+   "U1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 0,
+   "“why?” answered": 0,
+   "referrals": 0,
+   "rules used": 11,
+   "not now": 1
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 6,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "khalid-welcome": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Khalid’s watch, BP cuff and scale, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening by voice: tests chosen for Khalid"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Khalid’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Khalid, Noa read your devices, your last record (Mar 2022) and the family health record. Most important: heart and stroke risk 10% in 10 years (moderate); 2 checks overdue; family health record: 1 finding that change the plan. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, Noa will use your devices, your clinic record and your family record, and your genomic result. Amna may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, a few minutes by voice today: diabetes risk test, sleep apnoea, mood. Then I’ll find the right checks for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Khalid. Diabetes risk test: score 3: below 5; Sleep apnoea: score 4 of 8: intermediate risk; Mood: score 1 of 6: negative. Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, your checks: cholesterol test (within 1 month), ifhas adult health screening (within 1 month), seasonal flu vaccine (routine · within 3 months), quit-smoking support (routine · within 3 months), starting Tue 24 Nov, 19:15. Your doctor will decide on: 2 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid Al Mansoori, 38. Booked: Cholesterol test (lipid profile); IFHAS adult health screening; Seasonal flu vaccine; Quit-smoking support. For the doctor to decide: Inherited high cholesterol: the doctor confirms the result and decides on treatment and family testing; Sleep apnoea: the doctor decides on a sleep study."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one adult recommended 4 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Khalid.",
+   "📅 Cholesterol test (lipid profile) · Same blood draw as IFHAS · Tue 24 Nov, 19:15",
+   "📅 IFHAS adult health screening · Al Ain FHC · Tue 24 Nov, 19:15",
+   "📅 Seasonal flu vaccine · Al Ain FHC · Tue 24 Nov, 19:15",
+   "📅 Quit-smoking support · Al Ain FHC · Tue 24 Nov, 19:15",
+   "👪 Family (rule X1): a note goes to Hamdan’s and Hind’s paediatrician. The paediatrician decides if and when to test; Khalid’s result itself is not shared.",
+   "🔁 Recall set: IFHAS in 3 years. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Data confirmed (genomic on) · shared with: Amna",
+   "Diabetes risk test: Score 3: below 5",
+   "Sleep apnoea: STOP-BANG: Score 4 of 8: intermediate risk",
+   "Mood: PHQ-2: Score 1 of 6: negative",
+   "None of these",
+   "Yes, add it",
+   "Home kits where possible",
+   "Weekday evening",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Smokes",
+      "rule": "K1",
+      "factors": [
+       "Raises heart, cancer and lung risk"
+      ],
+      "src": "Passport (self-reported)",
+      "cert": "Reported by Khalid"
+     },
+     {
+      "t": "Heart and stroke risk 10% in 10 years (moderate)",
+      "rule": "F1",
+      "factors": [
+       "Age 38",
+       "Blood pressure 134, rising 3/yr",
+       "Smokes",
+       "No diabetes",
+       "BMI 29.1 (cholesterol never measured)"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Estimate: no cholesterol result, so BMI is used"
+     },
+     {
+      "t": "Last record: Mar 2022",
+      "rule": "N1",
+      "factors": [
+       "Work medical: BP 128/82, no blood tests",
+       "Conditions: No check-up in 4 years",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "IFHAS adult screening (BP, HbA1c, cholesterol) · last never (every 3 years, Emiratis 18+)",
+       "Cholesterol (lipid profile) · last never (by guideline; earlier with family or genetic risk)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "1 check due",
+      "rule": "N1",
+      "factors": [
+       "Flu vaccine · last never"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 1 finding that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Mother (Moza): high blood pressure at 61 → home BP trend watched against own baseline"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Inherited high-cholesterol variant (LDLR)",
+      "rule": "P1",
+      "factors": [
+       "Makes a cholesterol test the first priority; his children may need testing later (the paediatrician decides when)"
+      ],
+      "src": "InsideSync genomic test, consented (demo)",
+      "cert": "Genomic result: needs clinical confirmation"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Lives in Al Ain; rotating shifts: evenings and Saturdays work · Arabic or English",
+       "Lives in Al Ain · Emirati · speaks Arabic, English"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Cholesterol test (lipid profile)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Part of IFHAS; earlier with family or genetic risk",
+      "you": "Genomic variant (LDLR) plus a father with diabetes: cholesterol first",
+      "where": "Same blood draw as IFHAS · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Never done; smokes; BP rising",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Quit-smoking support",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Anyone who smokes",
+      "you": "You asked for help",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Inherited high cholesterol: the doctor confirms the result and decides on treatment and family testing",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule T1: genetic risk adds a referral the doctor decides on"
+     },
+     {
+      "t": "Sleep apnoea: the doctor decides on a sleep study",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "STOP-BANG Score 4 of 8: intermediate risk"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Khalid.",
+    "pop": [
+     {
+      "name": "Cholesterol test (lipid profile)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Part of IFHAS; earlier with family or genetic risk",
+      "you": "Genomic variant (LDLR) plus a father with diabetes: cholesterol first",
+      "where": "Same blood draw as IFHAS · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Never done; smokes; BP rising",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Quit-smoking support",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Anyone who smokes",
+      "you": "You asked for help",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Inherited high cholesterol: the doctor confirms the result and decides on treatment and family testing",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule T1: genetic risk adds a referral the doctor decides on"
+     },
+     {
+      "t": "Sleep apnoea: the doctor decides on a sleep study",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "STOP-BANG Score 4 of 8: intermediate risk"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 4 checks booked, 2 items for the doctor to decide, recall set.",
+  "rules": [
+   "K1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 11,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 7,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "khalid-alt": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Khalid’s watch, BP cuff and scale, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening by voice: tests chosen for Khalid"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Khalid’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Khalid, Noa read your devices, your last record (Mar 2022) and the family health record. Most important: heart and stroke risk 10% in 10 years (moderate); 2 checks overdue; family health record: 1 finding that change the plan. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, Noa will use your devices, your clinic record and your family record, but not your genomic result. Amna may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, a few minutes by voice today: diabetes risk test, sleep apnoea, mood. Then I’ll find the right checks for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Khalid. Diabetes risk test: score 3: below 5; Sleep apnoea: score 4 of 8: intermediate risk; Mood: score 1 of 6: negative. Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, your checks: ifhas adult health screening (within 1 month), cholesterol test (within 1 month), seasonal flu vaccine (routine · within 3 months), starting Tue 24 Nov, 19:15. Your doctor will decide on: 2 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "That’s fine for the routine checks: I’ll pause them for 3 months. But doctor appointment this week (within 2 weeks) can’t wait, so I’ve told Dr Aisha Al Hosani. They will contact you."
+   }
+  ],
+  "sys": [
+   "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Khalid.",
+   "🩺 Symptoms are not screening (rule H2): “Chest tightness when walking fast” goes to a doctor’s appointment this week. Noa does not decide what it means.",
+   "⬆️ Escalated (rule U1): 1 urgent item sent to Dr Aisha Al Hosani. Routine checks paused for 3 months."
+  ],
+  "picks": [
+   "Data confirmed (genomic off) · shared with: Amna",
+   "Diabetes risk test: Score 3: below 5",
+   "Sleep apnoea: STOP-BANG: Score 4 of 8: intermediate risk",
+   "Mood: PHQ-2: Score 1 of 6: negative",
+   "Chest tightness when walking fast",
+   "Not now",
+   "Home kits where possible",
+   "Weekday evening",
+   "Not now"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Smokes",
+      "rule": "K1",
+      "factors": [
+       "Raises heart, cancer and lung risk"
+      ],
+      "src": "Passport (self-reported)",
+      "cert": "Reported by Khalid"
+     },
+     {
+      "t": "Heart and stroke risk 10% in 10 years (moderate)",
+      "rule": "F1",
+      "factors": [
+       "Age 38",
+       "Blood pressure 134, rising 3/yr",
+       "Smokes",
+       "No diabetes",
+       "BMI 29.1 (cholesterol never measured)"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Estimate: no cholesterol result, so BMI is used"
+     },
+     {
+      "t": "Last record: Mar 2022",
+      "rule": "N1",
+      "factors": [
+       "Work medical: BP 128/82, no blood tests",
+       "Conditions: No check-up in 4 years",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "IFHAS adult screening (BP, HbA1c, cholesterol) · last never (every 3 years, Emiratis 18+)",
+       "Cholesterol (lipid profile) · last never (by guideline; earlier with family or genetic risk)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "1 check due",
+      "rule": "N1",
+      "factors": [
+       "Flu vaccine · last never"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 1 finding that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Mother (Moza): high blood pressure at 61 → home BP trend watched against own baseline"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Inherited high-cholesterol variant (LDLR)",
+      "rule": "P1",
+      "factors": [
+       "Makes a cholesterol test the first priority; his children may need testing later (the paediatrician decides when)"
+      ],
+      "src": "InsideSync genomic test, consented (demo)",
+      "cert": "Genomic result: needs clinical confirmation"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Lives in Al Ain; rotating shifts: evenings and Saturdays work · Arabic or English",
+       "Lives in Al Ain · Emirati · speaks Arabic, English"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   },
+   {
+    "note": "Updated: Khalid switched the genomic result off. Noa no longer uses it, and the pathway will follow the standard guideline.",
+    "flags": [
+     {
+      "t": "Smokes",
+      "rule": "K1",
+      "factors": [
+       "Raises heart, cancer and lung risk"
+      ],
+      "src": "Passport (self-reported)",
+      "cert": "Reported by Khalid"
+     },
+     {
+      "t": "Heart and stroke risk 10% in 10 years (moderate)",
+      "rule": "F1",
+      "factors": [
+       "Age 38",
+       "Blood pressure 134, rising 3/yr",
+       "Smokes",
+       "No diabetes",
+       "BMI 29.1 (cholesterol never measured)"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Estimate: no cholesterol result, so BMI is used"
+     },
+     {
+      "t": "Last record: Mar 2022",
+      "rule": "N1",
+      "factors": [
+       "Work medical: BP 128/82, no blood tests",
+       "Conditions: No check-up in 4 years",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "IFHAS adult screening (BP, HbA1c, cholesterol) · last never (every 3 years, Emiratis 18+)",
+       "Cholesterol (lipid profile) · last never (by guideline; earlier with family or genetic risk)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "1 check due",
+      "rule": "N1",
+      "factors": [
+       "Flu vaccine · last never"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 1 finding that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Mother (Moza): high blood pressure at 61 → home BP trend watched against own baseline"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Lives in Al Ain; rotating shifts: evenings and Saturdays work · Arabic or English",
+       "Lives in Al Ain · Emirati · speaks Arabic, English"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "IFHAS adult health screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Never done; smokes; BP rising",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Cholesterol test (lipid profile)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Part of IFHAS; earlier with family or genetic risk",
+      "you": "Never measured; included in IFHAS",
+      "where": "Same blood draw as IFHAS · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Doctor appointment this week: chest tightness on exertion (before any exercise advice)",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule H2: symptoms go to a doctor, not a screening queue"
+     },
+     {
+      "t": "Sleep apnoea: the doctor decides on a sleep study",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "STOP-BANG Score 4 of 8: intermediate risk"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Routine checks paused (“not now” respected); urgent items escalated to the doctor (rule U1).",
+  "rules": [
+   "K1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "H2",
+   "T1",
+   "N1",
+   "T2",
+   "U1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 0,
+   "“why?” answered": 0,
+   "referrals": 0,
+   "rules used": 11,
+   "not now": 1
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 6,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "khalid-notnow-routine": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Khalid’s watch, BP cuff and scale, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening by voice: tests chosen for Khalid"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Khalid’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Khalid, Noa read your devices, your last record (Mar 2022) and the family health record. Most important: heart and stroke risk 10% in 10 years (moderate); 2 checks overdue; family health record: 1 finding that change the plan. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, Noa will use your devices, your clinic record and your family record, and your genomic result. Amna may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, a few minutes by voice today: diabetes risk test, sleep apnoea, mood. Then I’ll find the right checks for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Khalid. Diabetes risk test: score 3: below 5; Sleep apnoea: score 4 of 8: intermediate risk; Mood: score 1 of 6: negative. Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, your checks: cholesterol test (within 1 month), ifhas adult health screening (within 1 month), seasonal flu vaccine (routine · within 3 months), quit-smoking support (routine · within 3 months), starting Tue 24 Nov, 19:15. Your doctor will decide on: 2 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Of course. No reminders for 3 months; the pathway stays in the passport and you can book any time."
+   }
+  ],
+  "sys": [
+   "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Khalid."
+  ],
+  "picks": [
+   "Data confirmed (genomic on) · shared with: Amna",
+   "Diabetes risk test: Score 3: below 5",
+   "Sleep apnoea: STOP-BANG: Score 4 of 8: intermediate risk",
+   "Mood: PHQ-2: Score 1 of 6: negative",
+   "None of these",
+   "Yes, add it",
+   "Home kits where possible",
+   "Weekday evening",
+   "Not now"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Smokes",
+      "rule": "K1",
+      "factors": [
+       "Raises heart, cancer and lung risk"
+      ],
+      "src": "Passport (self-reported)",
+      "cert": "Reported by Khalid"
+     },
+     {
+      "t": "Heart and stroke risk 10% in 10 years (moderate)",
+      "rule": "F1",
+      "factors": [
+       "Age 38",
+       "Blood pressure 134, rising 3/yr",
+       "Smokes",
+       "No diabetes",
+       "BMI 29.1 (cholesterol never measured)"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Estimate: no cholesterol result, so BMI is used"
+     },
+     {
+      "t": "Last record: Mar 2022",
+      "rule": "N1",
+      "factors": [
+       "Work medical: BP 128/82, no blood tests",
+       "Conditions: No check-up in 4 years",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "IFHAS adult screening (BP, HbA1c, cholesterol) · last never (every 3 years, Emiratis 18+)",
+       "Cholesterol (lipid profile) · last never (by guideline; earlier with family or genetic risk)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "1 check due",
+      "rule": "N1",
+      "factors": [
+       "Flu vaccine · last never"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 1 finding that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Mother (Moza): high blood pressure at 61 → home BP trend watched against own baseline"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Inherited high-cholesterol variant (LDLR)",
+      "rule": "P1",
+      "factors": [
+       "Makes a cholesterol test the first priority; his children may need testing later (the paediatrician decides when)"
+      ],
+      "src": "InsideSync genomic test, consented (demo)",
+      "cert": "Genomic result: needs clinical confirmation"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Lives in Al Ain; rotating shifts: evenings and Saturdays work · Arabic or English",
+       "Lives in Al Ain · Emirati · speaks Arabic, English"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Cholesterol test (lipid profile)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Part of IFHAS; earlier with family or genetic risk",
+      "you": "Genomic variant (LDLR) plus a father with diabetes: cholesterol first",
+      "where": "Same blood draw as IFHAS · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Never done; smokes; BP rising",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Quit-smoking support",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Anyone who smokes",
+      "you": "You asked for help",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Inherited high cholesterol: the doctor confirms the result and decides on treatment and family testing",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule T1: genetic risk adds a referral the doctor decides on"
+     },
+     {
+      "t": "Sleep apnoea: the doctor decides on a sleep study",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "STOP-BANG Score 4 of 8: intermediate risk"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Not now, respected (rule N3). The pathway stays in the passport.",
+  "rules": [
+   "K1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "T1",
+   "N1",
+   "T2",
+   "N3"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 0,
+   "“why?” answered": 0,
+   "referrals": 0,
+   "rules used": 10,
+   "not now": 1
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 6,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "k4": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Khalid’s watch, BP cuff and scale, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record (in parallel with the check)"
+   },
+   {
+    "rule": "P1",
+    "reason": "Safety check: consent already on file; nothing new to ask now"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Auto-prompted check: speech first, then red-flag questions"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Khalid’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Khalid, I noticed blood pressure 184/112: very high. Your usual is 62–74, regular. I’ve started a one-minute check, and a doctor review today goes first."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, Noa read your devices, your last record (Mar 2022) and the family health record. Most important: blood pressure 184/112: very high; heart and stroke risk 17% in 10 years (moderate); 2 checks overdue. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, because your heart is racing at rest, I’ll check your speech first. Please say “The sky is blue in Abu Dhabi”."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Khalid. Diabetes risk test: score 3: below 5; Sleep apnoea: score 4 of 8: intermediate risk; Mood: score 1 of 6: negative. Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid, first and most urgent: doctor review today. Then your checks: cholesterol test (within 1 month), ifhas adult health screening (within 1 month), seasonal flu vaccine (routine · within 3 months), quit-smoking support (routine · within 3 months), starting Tue 24 Nov, 19:15. Your doctor will decide on: 3 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Khalid Al Mansoori, 38. Booked: Cholesterol test (lipid profile); IFHAS adult health screening; Seasonal flu vaccine; Quit-smoking support. For the doctor to decide: Doctor review today: Blood pressure 184/112: very high; Inherited high cholesterol: the doctor confirms the result and decides on treatment and family testing; Sleep apnoea: the doctor decides on a sleep study."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one adult recommended 4 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "🔒 Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; Amna sees the result, as Khalid chose.",
+   "📅 Cholesterol test (lipid profile) · Same blood draw as IFHAS · Tue 24 Nov, 19:15",
+   "📅 IFHAS adult health screening · Al Ain FHC · Tue 24 Nov, 19:15",
+   "📅 Seasonal flu vaccine · Al Ain FHC · Tue 24 Nov, 19:15",
+   "📅 Quit-smoking support · Al Ain FHC · Tue 24 Nov, 19:15",
+   "👪 Family (rule X1): a note goes to Hamdan’s and Hind’s paediatrician. The paediatrician decides if and when to test; Khalid’s result itself is not shared.",
+   "🔁 Recall set: IFHAS in 3 years. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Diabetes risk test: Score 3: below 5",
+   "Sleep apnoea: STOP-BANG: Score 4 of 8: intermediate risk",
+   "Mood: PHQ-2: Score 1 of 6: negative",
+   "Yes, add it",
+   "Home kits where possible",
+   "Weekday evening",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Blood pressure 184/112: very high",
+      "rule": "B1",
+      "factors": [
+       "At or above 180/120"
+      ],
+      "src": "BP cuff via the InsideSync app",
+      "cert": "Measured; repeated readings"
+     },
+     {
+      "t": "Smokes",
+      "rule": "K1",
+      "factors": [
+       "Raises heart, cancer and lung risk"
+      ],
+      "src": "Passport (self-reported)",
+      "cert": "Reported by Khalid"
+     },
+     {
+      "t": "Heart and stroke risk 17% in 10 years (moderate)",
+      "rule": "F1",
+      "factors": [
+       "Age 38",
+       "Blood pressure 184, rising 3/yr",
+       "Smokes",
+       "No diabetes",
+       "BMI 29.1 (cholesterol never measured)"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Estimate: no cholesterol result, so BMI is used"
+     },
+     {
+      "t": "Last record: Mar 2022",
+      "rule": "N1",
+      "factors": [
+       "Work medical: BP 128/82, no blood tests",
+       "Conditions: No check-up in 4 years",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "IFHAS adult screening (BP, HbA1c, cholesterol) · last never (every 3 years, Emiratis 18+)",
+       "Cholesterol (lipid profile) · last never (by guideline; earlier with family or genetic risk)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "1 check due",
+      "rule": "N1",
+      "factors": [
+       "Flu vaccine · last never"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 1 finding that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Mother (Moza): high blood pressure at 61 → home BP trend watched against own baseline"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Inherited high-cholesterol variant (LDLR)",
+      "rule": "P1",
+      "factors": [
+       "Makes a cholesterol test the first priority; his children may need testing later (the paediatrician decides when)"
+      ],
+      "src": "InsideSync genomic test, consented (demo)",
+      "cert": "Genomic result: needs clinical confirmation"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Lives in Al Ain; rotating shifts: evenings and Saturdays work · Arabic or English",
+       "Lives in Al Ain · Emirati · speaks Arabic, English"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Cholesterol test (lipid profile)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Part of IFHAS; earlier with family or genetic risk",
+      "you": "Genomic variant (LDLR) plus a father with diabetes: cholesterol first",
+      "where": "Same blood draw as IFHAS · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Never done; smokes; BP rising",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Quit-smoking support",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Anyone who smokes",
+      "you": "You asked for help",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Doctor review today: Blood pressure 184/112: very high",
+      "urg": "Today · same-day appointment",
+      "why": "Rule B1: a reading like this is not screening"
+     },
+     {
+      "t": "Inherited high cholesterol: the doctor confirms the result and decides on treatment and family testing",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule T1: genetic risk adds a referral the doctor decides on"
+     },
+     {
+      "t": "Sleep apnoea: the doctor decides on a sleep study",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "STOP-BANG Score 4 of 8: intermediate risk"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Khalid.",
+    "pop": [
+     {
+      "name": "Cholesterol test (lipid profile)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Part of IFHAS; earlier with family or genetic risk",
+      "you": "Genomic variant (LDLR) plus a father with diabetes: cholesterol first",
+      "where": "Same blood draw as IFHAS · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "IFHAS adult health screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Emiratis 18–75, every 3 years",
+      "you": "Never done; smokes; BP rising",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Seasonal flu vaccine",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Everyone from 6 months; priority 50+ and long-term conditions",
+      "you": "Long-term condition or 50+",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     },
+     {
+      "name": "Quit-smoking support",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Anyone who smokes",
+      "you": "You asked for help",
+      "where": "Al Ain FHC · 🕒 Tue 24 Nov, 19:15"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Doctor review today: Blood pressure 184/112: very high",
+      "urg": "Today · same-day appointment",
+      "why": "Rule B1: a reading like this is not screening"
+     },
+     {
+      "t": "Inherited high cholesterol: the doctor confirms the result and decides on treatment and family testing",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule T1: genetic risk adds a referral the doctor decides on"
+     },
+     {
+      "t": "Sleep apnoea: the doctor decides on a sleep study",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "STOP-BANG Score 4 of 8: intermediate risk"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 4 checks booked, 3 items for the doctor to decide, recall set.",
+  "rules": [
+   "B1",
+   "K1",
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 2,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 12,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 7,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "amna-node": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Amna’s watch and scale, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening by voice: tests chosen for Amna"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Amna’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Amna, Noa read your devices, your last record (Mar 2025) and the family health record. Most important: 2 checks overdue; diabetes in pregnancy (2021) and hba1c 5.9%; family health record: 3 findings that change the plan. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, Noa will use your devices, your clinic record and your family record. Khalid may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, a few minutes by voice today: diabetes risk test, mood. Then I’ll find the right checks for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Amna. Diabetes risk test: score 3: below 5; Mood: score 1 of 6: negative. Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, your checks: diabetes check (within 1 month), cervical screening (within 1 month), starting Mon 23 Nov, 15:45. Your doctor will decide on: 1 item. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna Al Nuaimi, 35. Booked: Diabetes check (HbA1c); Cervical screening. For the doctor to decide: Breast risk assessment (mother had breast cancer at 48): the doctor decides on earlier imaging or genetic counselling."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one adult recommended 2 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Amna.",
+   "📅 Diabetes check (HbA1c) · Al Ain FHC · Mon 23 Nov, 15:45",
+   "📅 Cervical screening · Women’s clinic, Al Ain FHC · Mon 23 Nov, 15:45",
+   "🔁 Recall set: HbA1c every year. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Data confirmed · shared with: Khalid",
+   "Diabetes risk test: Score 3: below 5",
+   "Mood: PHQ-2: Score 1 of 6: negative",
+   "None of these",
+   "Home kits where possible",
+   "Weekday after 15:30",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Heart and stroke risk 1% in 10 years (low)",
+      "rule": "F1",
+      "factors": [
+       "Age 35",
+       "Blood pressure 118",
+       "Non-smoker",
+       "No diabetes",
+       "Cholesterol 4.9/1.5"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Validated score (Framingham); not yet calibrated for Abu Dhabi"
+     },
+     {
+      "t": "Last record: Mar 2025",
+      "rule": "N1",
+      "factors": [
+       "HbA1c 5.9% (raised). Advised recheck in 1 year",
+       "Conditions: Diabetes in pregnancy (2021); HbA1c 5.9% (March 2025)",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "Diabetes check (HbA1c) after diabetes in pregnancy · last Mar 2025 (every year)",
+       "Cervical screening · last Feb 2022 (every 3 years, 25–65)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "Diabetes in pregnancy (2021) and HbA1c 5.9%",
+      "rule": "T1",
+      "factors": [
+       "Raises the chance of type 2 diabetes for years afterwards",
+       "Last HbA1c was in the raised range, a year ago"
+      ],
+      "src": "Personal record",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 3 findings that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Father (Saeed): type 2 diabetes at 52 → diabetes risk test today; HbA1c in the pathway",
+       "Father (Saeed): high blood pressure at 58 → home BP trend watched against own baseline",
+       "Mother (Mother): breast cancer at 48 → breast risk assessment by the doctor (outside programme age)"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Teacher: after 15:30 or Saturday · English",
+       "Lives in Al Ain · Emirati · speaks English, Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Diabetes check (HbA1c)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Every year after diabetes in pregnancy; part of IFHAS",
+      "you": "Diabetes in pregnancy; HbA1c 5.9% a year ago",
+      "where": "Al Ain FHC · 🕒 Mon 23 Nov, 15:45"
+     },
+     {
+      "name": "Cervical screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Women 25–65, every 3–5 years",
+      "you": "Last test Feb 2022",
+      "where": "Women’s clinic, Al Ain FHC · 🕒 Mon 23 Nov, 15:45"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Breast risk assessment (mother had breast cancer at 48): the doctor decides on earlier imaging or genetic counselling",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "Family record + rule T1: under 40 she is outside the population programme; family history is a clinical decision"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Amna.",
+    "pop": [
+     {
+      "name": "Diabetes check (HbA1c)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Every year after diabetes in pregnancy; part of IFHAS",
+      "you": "Diabetes in pregnancy; HbA1c 5.9% a year ago",
+      "where": "Al Ain FHC · 🕒 Mon 23 Nov, 15:45"
+     },
+     {
+      "name": "Cervical screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Women 25–65, every 3–5 years",
+      "you": "Last test Feb 2022",
+      "where": "Women’s clinic, Al Ain FHC · 🕒 Mon 23 Nov, 15:45"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Breast risk assessment (mother had breast cancer at 48): the doctor decides on earlier imaging or genetic counselling",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "Family record + rule T1: under 40 she is outside the population programme; family history is a clinical decision"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 2 checks booked, 1 item for the doctor to decide, recall set.",
+  "rules": [
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 10,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 7,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "amna-breast": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Live readings from Amna’s watch and scale, through the InsideSync app"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening by voice: tests chosen for Amna"
+   },
+   {
+    "rule": "Q1",
+    "reason": "Home screening results"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Amna’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Amna, Noa read your devices, your last record (Mar 2025) and the family health record. Most important: 2 checks overdue; diabetes in pregnancy (2021) and hba1c 5.9%; family health record: 3 findings that change the plan. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, Noa will use your devices, your clinic record and your family record. Khalid may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, a few minutes by voice today: diabetes risk test, mood. Then I’ll find the right checks for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Thank you, Amna. Diabetes risk test: score 3: below 5; Mood: score 1 of 6: negative. Now I’ll find the right pathway for you."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, your checks: diabetes check (within 1 month), cervical screening (within 1 month), starting Mon 23 Nov, 15:45. Your doctor will decide on: 2 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna Al Nuaimi, 35. Booked: Diabetes check (HbA1c); Cervical screening. For the doctor to decide: Doctor appointment this week: breast change (the doctor decides on imaging); Breast risk assessment (mother had breast cancer at 48): the doctor decides on earlier imaging or genetic counselling."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one adult recommended 2 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Amna.",
+   "🩺 Symptoms are not screening (rule H2): “A breast lump or change” goes to a doctor’s appointment this week. Noa does not decide what it means.",
+   "📅 Diabetes check (HbA1c) · Al Ain FHC · Mon 23 Nov, 15:45",
+   "📅 Cervical screening · Women-only clinic, female staff, Al Ain FHC · Mon 23 Nov, 15:45",
+   "🔁 Recall set: HbA1c every year. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Data confirmed · shared with: Khalid",
+   "Diabetes risk test: Score 3: below 5",
+   "Mood: PHQ-2: Score 1 of 6: negative",
+   "A breast lump or change",
+   "Female clinician, women-only clinic",
+   "Weekday after 15:30",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Heart and stroke risk 1% in 10 years (low)",
+      "rule": "F1",
+      "factors": [
+       "Age 35",
+       "Blood pressure 118",
+       "Non-smoker",
+       "No diabetes",
+       "Cholesterol 4.9/1.5"
+      ],
+      "src": "Wearables + clinic record",
+      "cert": "Validated score (Framingham); not yet calibrated for Abu Dhabi"
+     },
+     {
+      "t": "Last record: Mar 2025",
+      "rule": "N1",
+      "factors": [
+       "HbA1c 5.9% (raised). Advised recheck in 1 year",
+       "Conditions: Diabetes in pregnancy (2021); HbA1c 5.9% (March 2025)",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "2 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "Diabetes check (HbA1c) after diabetes in pregnancy · last Mar 2025 (every year)",
+       "Cervical screening · last Feb 2022 (every 3 years, 25–65)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "Diabetes in pregnancy (2021) and HbA1c 5.9%",
+      "rule": "T1",
+      "factors": [
+       "Raises the chance of type 2 diabetes for years afterwards",
+       "Last HbA1c was in the raised range, a year ago"
+      ],
+      "src": "Personal record",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 3 findings that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Father (Saeed): type 2 diabetes at 52 → diabetes risk test today; HbA1c in the pathway",
+       "Father (Saeed): high blood pressure at 58 → home BP trend watched against own baseline",
+       "Mother (Mother): breast cancer at 48 → breast risk assessment by the doctor (outside programme age)"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Teacher: after 15:30 or Saturday · English",
+       "Lives in Al Ain · Emirati · speaks English, Arabic"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Diabetes check (HbA1c)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Every year after diabetes in pregnancy; part of IFHAS",
+      "you": "Diabetes in pregnancy; HbA1c 5.9% a year ago",
+      "where": "Al Ain FHC · 🕒 Mon 23 Nov, 15:45"
+     },
+     {
+      "name": "Cervical screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Women 25–65, every 3–5 years",
+      "you": "Last test Feb 2022",
+      "where": "Women-only clinic, female staff, Al Ain FHC · 🕒 Mon 23 Nov, 15:45"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Doctor appointment this week: breast change (the doctor decides on imaging)",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule H2: symptoms go to a doctor, not a screening queue"
+     },
+     {
+      "t": "Breast risk assessment (mother had breast cancer at 48): the doctor decides on earlier imaging or genetic counselling",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "Family record + rule T1: under 40 she is outside the population programme; family history is a clinical decision"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Amna.",
+    "pop": [
+     {
+      "name": "Diabetes check (HbA1c)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Every year after diabetes in pregnancy; part of IFHAS",
+      "you": "Diabetes in pregnancy; HbA1c 5.9% a year ago",
+      "where": "Al Ain FHC · 🕒 Mon 23 Nov, 15:45"
+     },
+     {
+      "name": "Cervical screening",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "Women 25–65, every 3–5 years",
+      "you": "Last test Feb 2022",
+      "where": "Women-only clinic, female staff, Al Ain FHC · 🕒 Mon 23 Nov, 15:45"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Doctor appointment this week: breast change (the doctor decides on imaging)",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "why": "Rule H2: symptoms go to a doctor, not a screening queue"
+     },
+     {
+      "t": "Breast risk assessment (mother had breast cancer at 48): the doctor decides on earlier imaging or genetic counselling",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "why": "Family record + rule T1: under 40 she is outside the population programme; family history is a clinical decision"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 2 checks booked, 2 items for the doctor to decide, recall set.",
+  "rules": [
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "Q1",
+   "H2",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 11,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 7,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "hamdan-node": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Hamdan’s passport, shared by Amna"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "K2",
+    "reason": "Home screening with Amna: short questions for Hamdan’s age"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Hamdan’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Amna, for Hamdan: Noa read the passport, your last record (Nov 2025) and the family health record. Most important: family health record: 1 finding that change the plan. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, Noa will use Hamdan’s passport and the parents’ shared records. Khalid may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, a two-minute home check for Hamdan: a few questions for 5 years. Anything that needs follow-up goes to the paediatrician."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, for Hamdan: your checks: well-child visit (routine · within 3 months), school-entry vision and hearing (routine · within 3 months), starting Sat 28 Nov, 09:30. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Hamdan Al Mansoori, 60 months. Booked: Well-child visit; School-entry vision and hearing. For the doctor to decide: nothing."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one child recommended 2 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "📅 Well-child visit · Al Ain Family Health Centre, children’s clinic · Sat 28 Nov, 09:30",
+   "📅 School-entry vision and hearing · Al Ain Family Health Centre, children’s clinic · Sat 28 Nov, 09:30",
+   "🔁 Recall set: 6-year visit. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Data confirmed · shared with: Khalid",
+   "No",
+   "No",
+   "Saturday morning",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Last record: Nov 2025",
+      "rule": "N1",
+      "factors": [
+       "4-year visit: growth on track, vaccines up to date",
+       "Conditions: Healthy; vaccines up to date",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "4 checks due",
+      "rule": "N1",
+      "factors": [
+       "5-year visit (growth, development, vaccines) · last —",
+       "School-entry vision check · last —",
+       "School-entry hearing check · last newborn: passed",
+       "Dental check · last Jun 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 1 finding that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Mother (Amna): diabetes in pregnancy at 30 → growth and weight watched at every well-child visit"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Starts Year 1 in January: school-entry checks before then",
+       "Lives in Al Ain · Emirati · speaks Arabic, English"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Well-child visit",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "All children: 14 visits to age 6",
+      "you": "5-year visit is due; growth and weight watched (mother had diabetes in pregnancy)",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "School-entry vision and hearing",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Before Year 1",
+      "you": "Starts Year 1 in January",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": []
+   },
+   {
+    "note": "Booked pathway for Hamdan.",
+    "pop": [
+     {
+      "name": "Well-child visit",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "All children: 14 visits to age 6",
+      "you": "5-year visit is due; growth and weight watched (mother had diabetes in pregnancy)",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "School-entry vision and hearing",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Before Year 1",
+      "you": "Starts Year 1 in January",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": []
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 2 checks booked, 0 items for the doctor to decide, recall set.",
+  "rules": [
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "K2",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 10,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 6,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "hamdan-squint": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Hamdan’s passport, shared by Amna"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "K2",
+    "reason": "Home screening with Amna: short questions for Hamdan’s age"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Hamdan’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Amna, for Hamdan: Noa read the passport, your last record (Nov 2025) and the family health record. Most important: family health record: 1 finding that change the plan. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, Noa will use Hamdan’s passport and the parents’ shared records. Khalid may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, a two-minute home check for Hamdan: a few questions for 5 years. Anything that needs follow-up goes to the paediatrician."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, for Hamdan: your checks: well-child visit (routine · within 3 months), school-entry vision and hearing (routine · within 3 months), starting Sat 28 Nov, 09:30. Your doctor will decide on: 2 items. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Hamdan Al Mansoori, 60 months. Booked: Well-child visit; School-entry vision and hearing. For the doctor to decide: Possible eye referral: the paediatrician decides after the vision check; Full hearing test if the screen confirms: the paediatrician decides."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one child recommended 2 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "📅 Well-child visit · Al Ain Family Health Centre, children’s clinic · Sat 28 Nov, 09:30",
+   "📅 School-entry vision and hearing · Al Ain Family Health Centre, children’s clinic · Sat 28 Nov, 09:30",
+   "🔁 Recall set: 6-year visit. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Data confirmed · shared with: Khalid",
+   "Yes, sometimes",
+   "Yes, often",
+   "Saturday morning",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Last record: Nov 2025",
+      "rule": "N1",
+      "factors": [
+       "4-year visit: growth on track, vaccines up to date",
+       "Conditions: Healthy; vaccines up to date",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "4 checks due",
+      "rule": "N1",
+      "factors": [
+       "5-year visit (growth, development, vaccines) · last —",
+       "School-entry vision check · last —",
+       "School-entry hearing check · last newborn: passed",
+       "Dental check · last Jun 2025"
+      ],
+      "src": "Screening history + guideline for age and sex",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 1 finding that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Mother (Amna): diabetes in pregnancy at 30 → growth and weight watched at every well-child visit"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "Starts Year 1 in January: school-entry checks before then",
+       "Lives in Al Ain · Emirati · speaks Arabic, English"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Well-child visit",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "All children: 14 visits to age 6",
+      "you": "5-year visit is due; growth and weight watched (mother had diabetes in pregnancy)",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "School-entry vision and hearing",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Before Year 1",
+      "you": "Starts Year 1 in January",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Possible eye referral: the paediatrician decides after the vision check",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule K2: squinting reported by parent"
+     },
+     {
+      "t": "Full hearing test if the screen confirms: the paediatrician decides",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule K2: parent reports asking to repeat"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Hamdan.",
+    "pop": [
+     {
+      "name": "Well-child visit",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "All children: 14 visits to age 6",
+      "you": "5-year visit is due; growth and weight watched (mother had diabetes in pregnancy)",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "School-entry vision and hearing",
+      "st": "due",
+      "urg": "Routine · within 3 months · by Thu 18 Feb",
+      "rule": "Before Year 1",
+      "you": "Starts Year 1 in January",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Possible eye referral: the paediatrician decides after the vision check",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule K2: squinting reported by parent"
+     },
+     {
+      "t": "Full hearing test if the screen confirms: the paediatrician decides",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule K2: parent reports asking to repeat"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 2 checks booked, 2 items for the doctor to decide, recall set.",
+  "rules": [
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "K2",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 10,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 6,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "hind-node": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Hind’s passport, shared by Amna"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "K2",
+    "reason": "Home screening with Amna: short questions for Hind’s age"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Hind’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Amna, for Hind: Noa read the passport, your last record (May 2025) and the family health record. Most important: 3 checks overdue; family health record: 1 finding that change the plan. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, Noa will use Hind’s passport and the parents’ shared records. Khalid may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, a two-minute home check for Hind: a few questions for 18 months. Anything that needs follow-up goes to the paediatrician."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, for Hind: your checks: well-child visit (within 2 weeks), development check (within 1 month), starting Sat 28 Nov, 09:30. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Hind Al Mansoori, 18 months. Booked: Well-child visit; Development check (M-CHAT-R). For the doctor to decide: nothing."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one child recommended 2 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "🧒 Answers within the usual range for 18 months. The standard development check (M-CHAT-R) is still done at the visit.",
+   "📅 Well-child visit · Al Ain Family Health Centre, children’s clinic · Sat 28 Nov, 09:30",
+   "📅 Development check (M-CHAT-R) · Al Ain Family Health Centre, children’s clinic · Sat 28 Nov, 09:30",
+   "🔁 Recall set: 24-month visit and M-CHAT-R at 24 months. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Data confirmed · shared with: Khalid",
+   "3 to 10",
+   "Yes",
+   "Yes",
+   "Saturday morning",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Last record: May 2025",
+      "rule": "N1",
+      "factors": [
+       "12-month visit: growth on track, vaccines given",
+       "Conditions: Healthy; born at 39 weeks",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "3 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "18-month visit (growth, vaccines) · last — (at 18 months)",
+       "Development check at 18 months (M-CHAT-R) · last — (at 18 months)",
+       "Vaccines (MMR 2, DTaP booster) · last — (at 18 months)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 1 finding that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Mother (Amna): diabetes in pregnancy at 30 → growth and weight watched at every well-child visit"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "With grandma on school days: Saturday with mum works",
+       "Lives in Al Ain · Emirati · speaks Arabic, English at home"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Well-child visit",
+      "st": "overdue",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "rule": "All children: 14 visits to age 6",
+      "you": "18-month visit is 3 weeks overdue; vaccines due (MMR 2, DTaP booster); growth watched (mother had diabetes in pregnancy)",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Development check (M-CHAT-R)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "All children at 18 and 24 months",
+      "you": "Standard at 18 months for every child",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": []
+   },
+   {
+    "note": "Booked pathway for Hind.",
+    "pop": [
+     {
+      "name": "Well-child visit",
+      "st": "overdue",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "rule": "All children: 14 visits to age 6",
+      "you": "18-month visit is 3 weeks overdue; vaccines due (MMR 2, DTaP booster); growth watched (mother had diabetes in pregnancy)",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Development check (M-CHAT-R)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "All children at 18 and 24 months",
+      "you": "Standard at 18 months for every child",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": []
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 2 checks booked, 0 items for the doctor to decide, recall set.",
+  "rules": [
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "K2",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 1,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 10,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 6,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ },
+ "hind-few": {
+  "stages": [
+   "DETECT",
+   "PROTECT",
+   "HOME SCREENING",
+   "RIGHT PATHWAY",
+   "REFERRAL"
+  ],
+  "hand": [
+   {
+    "rule": "IN",
+    "reason": "Hind’s passport, shared by Amna"
+   },
+   {
+    "rule": "D1",
+    "reason": "Read the last personal record and the family health record"
+   },
+   {
+    "rule": "P1",
+    "reason": "Confirm what data Noa may use and who may see the pathway"
+   },
+   {
+    "rule": "K2",
+    "reason": "Home screening with Amna: short questions for Hind’s age"
+   },
+   {
+    "rule": "T1",
+    "reason": "Build Hind’s pathway within the guidelines, then fit it to their life"
+   },
+   {
+    "rule": "N1",
+    "reason": "Latest Department of Health programmes for this age and sex"
+   },
+   {
+    "rule": "N1",
+    "reason": "Programme list (demo summary, updated 18 Nov 2026)"
+   },
+   {
+    "rule": "C1",
+    "reason": "Send the referral and bookings; keep clinical decisions for the doctor"
+   }
+  ],
+  "agents": [
+   {
+    "src": "Prepared",
+    "text": "Amna, for Hind: Noa read the passport, your last record (May 2025) and the family health record. Most important: 3 checks overdue; family health record: 1 finding that change the plan. These are reasons to check, not a diagnosis."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, Noa will use Hind’s passport and the parents’ shared records. Khalid may see the pathway. Next: a short home screening by voice."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, a two-minute home check for Hind: a few questions for 18 months. Anything that needs follow-up goes to the paediatrician."
+   },
+   {
+    "src": "Prepared",
+    "text": "Amna, for Hind: your checks: well-child visit (within 2 weeks), development check (within 1 month), starting Sat 28 Nov, 09:30. Your doctor will decide on: 1 item. Shall I book?"
+   },
+   {
+    "src": "Prepared",
+    "text": "Hind Al Mansoori, 18 months. Booked: Well-child visit; Development check (M-CHAT-R). For the doctor to decide: Development review and hearing test: the paediatrician decides next steps."
+   },
+   {
+    "src": "Prepared",
+    "text": "Anonymous case counted: one child recommended 2 checks and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden."
+   }
+  ],
+  "sys": [
+   "🧒 Some answers are outside the usual range for 18 months (demo thresholds). Noa adds a development review and a hearing test for the paediatrician to decide on. Not a diagnosis.",
+   "📅 Well-child visit · Al Ain Family Health Centre, children’s clinic · Sat 28 Nov, 09:30",
+   "📅 Development check (M-CHAT-R) · Al Ain Family Health Centre, children’s clinic · Sat 28 Nov, 09:30",
+   "🔁 Recall set: 24-month visit and M-CHAT-R at 24 months. One reminder before; if missed, Noa asks why once."
+  ],
+  "picks": [
+   "Data confirmed · shared with: Khalid",
+   "None, or 1–2",
+   "Yes",
+   "Yes",
+   "Saturday morning",
+   "Yes, book it"
+  ],
+  "flags": [
+   {
+    "note": null,
+    "flags": [
+     {
+      "t": "Last record: May 2025",
+      "rule": "N1",
+      "factors": [
+       "12-month visit: growth on track, vaccines given",
+       "Conditions: Healthy; born at 39 weeks",
+       "Medicines: None"
+      ],
+      "src": "Al Ain Family Health Centre (Malaffi, demo)",
+      "cert": "From the record"
+     },
+     {
+      "t": "3 checks overdue",
+      "rule": "N1",
+      "factors": [
+       "18-month visit (growth, vaccines) · last — (at 18 months)",
+       "Development check at 18 months (M-CHAT-R) · last — (at 18 months)",
+       "Vaccines (MMR 2, DTaP booster) · last — (at 18 months)"
+      ],
+      "src": "Screening history",
+      "cert": "From the record"
+     },
+     {
+      "t": "Family health record: 1 finding that change the plan",
+      "rule": "X1",
+      "factors": [
+       "Mother (Amna): diabetes in pregnancy at 30 → growth and weight watched at every well-child visit"
+      ],
+      "src": "Family health record (see the working above)",
+      "cert": "Recorded or reported"
+     },
+     {
+      "t": "Personal circumstances",
+      "rule": "T2",
+      "factors": [
+       "With grandma on school days: Saturday with mum works",
+       "Lives in Al Ain · Emirati · speaks Arabic, English at home"
+      ],
+      "src": "Passport and past bookings",
+      "cert": "Used only to fit time, place and language"
+     }
+    ]
+   }
+  ],
+  "paths": [
+   {
+    "note": null,
+    "pop": [
+     {
+      "name": "Well-child visit",
+      "st": "overdue",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "rule": "All children: 14 visits to age 6",
+      "you": "18-month visit is 3 weeks overdue; vaccines due (MMR 2, DTaP booster); growth watched (mother had diabetes in pregnancy)",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Development check (M-CHAT-R)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "All children at 18 and 24 months",
+      "you": "Standard at 18 months for every child",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Development review and hearing test: the paediatrician decides next steps",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule K2: answers outside the usual range for age (demo thresholds)"
+     }
+    ]
+   },
+   {
+    "note": "Booked pathway for Hind.",
+    "pop": [
+     {
+      "name": "Well-child visit",
+      "st": "overdue",
+      "urg": "Within 2 weeks · by Fri 4 Dec",
+      "rule": "All children: 14 visits to age 6",
+      "you": "18-month visit is 3 weeks overdue; vaccines due (MMR 2, DTaP booster); growth watched (mother had diabetes in pregnancy)",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     },
+     {
+      "name": "Development check (M-CHAT-R)",
+      "st": "overdue",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "rule": "All children at 18 and 24 months",
+      "you": "Standard at 18 months for every child",
+      "where": "Al Ain Family Health Centre, children’s clinic · 🕒 Sat 28 Nov, 09:30"
+     }
+    ],
+    "clin": [
+     {
+      "t": "Development review and hearing test: the paediatrician decides next steps",
+      "urg": "Within 1 month · by Sun 20 Dec",
+      "why": "Rule K2: answers outside the usual range for age (demo thresholds)"
+     }
+    ]
+   }
+  ],
+  "done": "✓ Referred to the right pathway: 2 checks booked, 1 item for the doctor to decide, recall set.",
+  "rules": [
+   "IN",
+   "D1",
+   "X1",
+   "P1",
+   "K2",
+   "T1",
+   "N1",
+   "T2",
+   "C1",
+   "S1"
+  ],
+  "gov": {
+   "journeys": 2,
+   "booked": 1,
+   "“why?” answered": 0,
+   "referrals": 1,
+   "rules used": 10,
+   "not now": 0
+  },
+  "counters": {
+   "live": 0,
+   "prepared": 6,
+   "guardrail": 0,
+   "overruled": 0
+  }
+ }
+}

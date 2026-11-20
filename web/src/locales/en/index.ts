@@ -17,6 +17,8 @@ import patients from './patients.json' with { type: 'json' }
 import overview from './overview.json' with { type: 'json' }
 import guide from './guide.json' with { type: 'json' }
 import testcaseShell from './testcaseShell.json' with { type: 'json' }
+import familyHealth from './familyHealth.json' with { type: 'json' }
+import familyHealthUi from './familyHealthUi.json' with { type: 'json' }
 
 /** The UI namespaces of this language, as i18next resources (the mock's data in `./data` is read by the data layer). */
-export default { common, home, health, around, live, me, privacy, lineage, record, hospital, screening, government, overlay, chat, treatment, patients, overview, guide, testcaseShell }
+export default { common, home, health, around, live, me, privacy, lineage, record, hospital, screening, government, overlay, chat, treatment, patients, overview, guide, testcaseShell, familyHealth, familyHealthUi }

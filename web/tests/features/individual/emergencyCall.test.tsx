@@ -67,16 +67,40 @@ test("000 call: line 1 waits for Margaret's phone to finish speaking", async () 
   expect(played).toEqual(['/noa/000-1.mp3'])
 })
 
-test('000 call: a late David accept does not restart the dialogue', async () => {
+test('000 call: line 4 names Hamad when he accepted while lines 1 to 3 played', async () => {
   const dialDone = Promise.resolve()
   const { rerender } = render(<EmergencyCallCard live davidAccepted={false} dialDone={dialDone} onDone={() => {}} />)
   await flush()
   await flush()
   expect(played).toEqual(['/noa/000-1.mp3'])
   rerender(<EmergencyCallCard live davidAccepted dialDone={dialDone} onDone={() => {}} />)
+  for (let i = 0; i < 3; i++) {
+    await act(async () => { ended() })
+    await flush()
+    await flush()
+  }
+  expect(played).toEqual(['1', '2', '3', '4-david'].map((n) => `/noa/000-${n}.mp3`))
+  expect(screen.getByText(/Her brother Hamad is on his way with a key/)).toBeInTheDocument()
+})
+
+test('000 call: an accept after line 4 is said changes nothing and does not restart the call', async () => {
+  const dialDone = Promise.resolve()
+  const { rerender } = render(<EmergencyCallCard live davidAccepted={false} dialDone={dialDone} onDone={() => {}} />)
   await flush()
   await flush()
-  expect(played).toEqual(['/noa/000-1.mp3'])
+  for (let i = 0; i < 3; i++) {
+    await act(async () => { ended() })
+    await flush()
+    await flush()
+  }
+  expect(played).toEqual(['1', '2', '3', '4-alone'].map((n) => `/noa/000-${n}.mp3`))
+  rerender(<EmergencyCallCard live davidAccepted dialDone={dialDone} onDone={() => {}} />)
+  await act(async () => { ended() })
+  await flush()
+  await flush()
+  expect(played).toEqual(['1', '2', '3', '4-alone', '5'].map((n) => `/noa/000-${n}.mp3`))
+  expect(screen.getByText(/Nobody is with her\. Her neighbour Shamma holds a spare key/)).toBeInTheDocument()
+  expect(screen.queryByText(/Her brother Hamad is on his way/)).toBeNull()
 })
 
 test('000 call on reload: the whole transcript, no audio, and done is silent', async () => {

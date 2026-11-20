@@ -1976,6 +1976,10 @@
             {
               "title": "History",
               "detail": "{{hist}}"
+            },
+            {
+              "title": "Glucose",
+              "detail": "{{glu}} mmol/L, below 4.0"
             }
           ],
           "phone": {
@@ -2395,7 +2399,7 @@
           "agents": {
             "responder": [
               "Calls 998 with the fixed script; a human operator takes over",
-              "At the same time wakes {{f1s}} with a loud alarm on her phone"
+              "At the same time wakes {{f1s}} with a loud phone alarm"
             ],
             "coach": [
               "Guides {{f1s}} to use the glucagon pen in the drawer"
@@ -2408,11 +2412,11 @@
             },
             {
               "title": "Responder wakes {{f1}}",
-              "detail": "“He won’t wake properly.”"
+              "detail": "“{{She}} won’t wake properly.”"
             },
             {
               "title": "Coach guides {{f1s}}",
-              "detail": "“Don’t give food or drink if he can’t swallow. Use the glucagon pen in the drawer.”"
+              "detail": "“Don’t give food or drink if {{she}} can’t swallow. Use the glucagon pen in the drawer.”"
             },
             {
               "title": "{{f1s}} gives glucagon",
@@ -2425,7 +2429,7 @@
           },
           "fam": {
             "who": "{{f2s}}",
-            "text": "Noa: your father’s sugar is very low; ambulance called, your mother is with him."
+            "text": "Noa: {{n}}’s sugar is very low; ambulance called, {{f1s}} is with {{herO}}."
           }
         },
         {
@@ -2492,7 +2496,7 @@
             },
             {
               "title": "Cause",
-              "detail": "Insulin dose too high for his kidney function."
+              "detail": "Insulin dose too high for {{her}} kidney function."
             },
             {
               "title": "Observed for 6 hours",
@@ -2794,6 +2798,10 @@
             {
               "title": "History",
               "detail": "{{hist}}"
+            },
+            {
+              "title": "Glucose",
+              "detail": "{{glu}} mmol/L, below 4.0"
             }
           ],
           "phone": {
@@ -3919,6 +3927,7 @@
     "connectC5": "Noa Insight · new family connection: Khalid’s result → family eating and activity plan",
     "chosePlan": "{{n}} chose who sees the plan: {{who}}",
     "aiWrote": "Noa Coach · explanation written live by an AI model",
+    "aiRejected": "Noa Coach · live explanation not used · prepared text kept",
     "teachBackPassed": "Noa Coach · teach-back passed",
     "teachBackPassedAuto": "Noa Coach · teach-back passed",
     "teachBackSecond": "Noa Coach · teach-back passed on the second try",
@@ -3939,7 +3948,7 @@
     "editSex": "Profile changed by you · {{n}}: sex {{sex}}",
     "editReset": "Family profiles reset",
     "fcHighOffered": "Noa Forecast · {{n}}: 10-year heart risk {{pct}} (high) → doctor review offered",
-    "fcHighRouted": "Noa Forecast · {{n}}: 10-year heart risk {{pct}} (high) → routed to the family doctor",
+    "fcHighRouted": "Noa Forecast · {{n}}: 10-year heart risk {{pct}} (high) → routed to {{team}}",
     "fcWithdrawn": "Noa Forecast · {{n}}: risk now {{risk}}, below high · alert withdrawn",
     "fcNotScored": "not scored",
     "fcRecalc": "Noa Forecast · Khalid recalculated with cholesterol: {{pct}} ({{cat}}), heart age {{ha}}",
@@ -4040,6 +4049,7 @@
     "headCt": "On a blood thinner: head CT flagged before arrival",
     "fallMinor": "Up and talking clearly: no ambulance, fall-risk review booked",
     "hfClinic": "Breathless only lying flat: same-day nurse, not 998",
+    "hfClinicFine": "{{n}} says “I feel fine”, but the weight or oxygen reading met R4: same-day nurse, not 998",
     "lastKnownWell": "Last known well {{at}} sent ahead for the stroke team",
     "escalated": "Two rechecks stayed below 4.0, so Responder called 998 at once",
     "p2Eligibility": "Checked eligibility before sending anything",

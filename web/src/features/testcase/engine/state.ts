@@ -16,15 +16,17 @@ import { decisionChecks, prevChecks } from './checks'
 import { emptyDb, type Seq } from './db'
 import { ageText, childAlertTitle, famScore, famSignals, famUp, familySteps, fcAlertTitle, initFamily, nextAction, routeFamilyResult } from './family'
 import { fcFor, ifhasForecast, ifhasOk, pct, wcDone, wcNext, type ForecastResult } from './forecast'
-import { checkValue, familyIssue, noteKey, prevIssue, prevRange, prevStateIssues, profileStateIssues, safetyIssue, safetyStateIssues, split, type Checked, type InputIssue, type InputIssues } from './inputs'
+import { checkValue, familyIssue, issueFor, noteKey, prevIssue, prevRange, prevStateIssues, profileStateIssues, safetyIssue, safetyStateIssues, split, type Checked, type InputIssue, type InputIssues } from './inputs'
 import { dueNow, passportStep, prevSteps, routeResult, wcName } from './prevention'
 import { alertTeamKey, chads, choosePath, runLen, triggers } from './safety'
 import { samples, scoreSpeech, sentenceTxt } from './speech'
 import { clk, clkDate, hm, pad2, resolveText } from './text'
-import { DB_TABLES, type Cell, type DbRow, type DbState, type DbTable, type Explain, type FamAlert, type FamilyView, type FeedItem, type Lang, type LogClass, type LogEntry, type Snapshot, type SpeechResult, type State, type TFn } from './types'
+import { DB_TABLES, type Cell, type DbRow, type DbState, type DbTable, type Explain, type ExplainRequest, type FamAlert, type FamilyView, type FeedItem, type Lang, type LogClass, type LogEntry, type Snapshot, type SpeechResult, type State, type TFn } from './types'
 import { WC_AGES } from '../data/prevention'
 
 const T = tx
+const EXPLAIN_MAX = 500, SIMPLER_MAX = 160
+const okText = (x: unknown, max: number) => typeof x === 'string' && x.trim() !== '' && x.length <= max
 export interface EngineOptions {
   /** `t` of the `testcase` namespace. Only the speech check needs it (the target sentence and the sample answers are real strings). */
   t?: TFn
@@ -232,8 +234,8 @@ export class TestCaseEngine {
     return tAct + (a.m || 0)
   }
   private rows(rows: Row[] | undefined): Item[] {
-    const anti = this.person.anticoag
-    return (rows ?? []).map((r) => {
+    const anti = this.person.anticoag, low = !!this.S.trig?.hypo
+    return (rows ?? []).filter((r) => !r.lowGlu || low).map((r) => {
       const o = anti && r.anticoag ? { ...r, ...r.anticoag } : r
       return { at: o.at ?? 0, title: T(o.title, o.p), detail: T(o.detail) }
     })
@@ -396,7 +398,15 @@ export class TestCaseEngine {
     return { ok: false, value: k.value, issue }
   }
   setRecheckVal(v: number) { this.S.rc.val = v; this.emit() }
-  setDailyVal(v: number) { this.S.daily.val = v; this.emit() }
+  /** Today's reading at the Monitor step: outside the slider range it is refused (the previous value stays), like `setResVal`. */
+  setDailyVal(v: number): InputCheck {
+    const S = this.S, id = S.path ? this.meta().daily : null
+    if (!id) { S.daily.val = v; this.emit(); return { ok: true, value: v } }
+    const D = DAILY[id], r = { min: D.min, max: D.max, step: D.step }, c = checkValue(r, v)
+    const res = this.noteInput(noteKey('daily', 'val'), c, c.ok ? null : issueFor('daily', 'val', T(D.label), r, v, c, 'reject', S.daily.val ?? D.def), S.daily, 'val')
+    this.emit()
+    return res
+  }
   /** A result at the family results step (`member` is a result id such as `khalid_tc`); out of its range it is clamped, with a warning. */
   setFamResult(member: string, v: number): InputCheck {
     const def = FAMILY_RESULTS[member], F = this.F
@@ -722,7 +732,7 @@ export class TestCaseEngine {
             this.alert('red', T(f.lab ? 'db.fcFindingLab' : 'db.fcFindingBmi', { pct: pct(f.r) }), 'F1', team, 'routed', S.clock, T('db.famPatient', { n: this.mname(m.id) }))
           }
           F.alerts.unshift(a)
-          this.log('FORECAST', 'warn', T(ctx === 'results' ? 'log.fcHighRouted' : 'log.fcHighOffered', { n: this.mname(m.id), pct: pct(f.r) }))
+          this.log('FORECAST', 'warn', T(ctx === 'results' ? 'log.fcHighRouted' : 'log.fcHighOffered', { n: this.mname(m.id), pct: pct(f.r), team }))
         }
       } else if (ex && ex.state === 'open') {
         F.alerts.splice(F.alerts.indexOf(ex), 1)
@@ -995,13 +1005,16 @@ export class TestCaseEngine {
     if (!S.path) return null
     return S.path === 'prev' || S.path === 'fam' ? S.teachKey || 'prev_ok' : JOURNEYS[S.path].teach
   }
-  /** Accept an explanation written live by an AI (validated like the prototype: 3 options, one correct). False when the shape is wrong. */
-  applyLiveExplain(r: unknown): boolean {
-    const o = r as { explain?: unknown; q?: unknown; opts?: unknown; correct?: unknown; simpler?: unknown } | null
-    const tkey = this.teachKey()
-    if (!o || !tkey || typeof o.explain !== 'string' || !Array.isArray(o.opts) || o.opts.length !== 3 || !Number.isInteger(o.correct) || (o.correct as number) < 0 || (o.correct as number) > 2) return false
-    this.S.explain = { src: 'live', lang: this.S.lang, tkey, explain: o.explain, q: String(o.q || ''), opts: o.opts.map(String), correct: o.correct as number, simpler: String(o.simpler || '') }
-    this.S.tb = null; this.S.tbWrong = null
+  /** Live wording for the teach card: only `explain` and `simpler` change. Late, mismatched or malformed replies are refused with a GUARD line. */
+  applyLiveExplain(reply: unknown, req: ExplainRequest): boolean {
+    const S = this.S, o = reply as { explain?: unknown; simpler?: unknown } | null
+    const base = this.cur().kind === 'teach' && req.tkey === this.teachKey() && req.lang === S.lang ? this.curExplain() : null
+    if (!base || !o || !okText(o.explain, EXPLAIN_MAX) || !okText(o.simpler, SIMPLER_MAX)) {
+      this.log('GUARD', 'warn', T('log.aiRejected'))
+      this.emit()
+      return false
+    }
+    S.explain = { ...base, src: 'live', explain: String(o.explain).trim(), simpler: String(o.simpler).trim() }
     this.log('AI', 'is', T('log.aiWrote'))
     this.emit()
     return true
@@ -1045,7 +1058,7 @@ export class TestCaseEngine {
   /** Send today's reading (`setDailyVal`) at the Monitor step. Off target raises an alert for the clinician. */
   sendDaily() {
     const S = this.S, st = this.cur()
-    if (S.daily.sent) return
+    if (S.daily.sent || S.notes[noteKey('daily', 'val')]) return
     const meta = this.meta()
     if (!meta.daily) return
     const D = DAILY[meta.daily]

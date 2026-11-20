@@ -1,0 +1,471 @@
+{
+  "header": {
+    "title": "Noa · family health",
+    "sub": "Tap a person to open their record. Noa works step by step; you act when it’s your turn, or press Next<n/>.",
+    "speaks": "Noa speaks",
+    "en": "English",
+    "ar": "العربية",
+    "aiLabel": "Live AI on or off",
+    "ai": {
+      "live": "Live AI · Noa agents",
+      "thinking": "Noa agent is thinking…",
+      "off": "Prepared text (AI off)",
+      "none": "Prepared text (no live AI here)"
+    },
+    "reset": "Reset"
+  },
+  "tree": {
+    "label": "Family tree",
+    "gen": {
+      "1": "Grandparents",
+      "2": "Parents",
+      "3": "Children"
+    },
+    "open": "Open {{name}}’s record",
+    "nameAge": "{{name}}, {{age}}",
+    "months": "{{n}} mo",
+    "small": "{{rel}} · {{line}}",
+    "married": "married",
+    "parentOf": "parent of",
+    "legend": "Alia (Moza’s daughter, London) and Amna’s mother are not in this passport. Tap anyone to open their record.",
+    "heart": "{{pct}}",
+    "family": "Family",
+    "show": "Show family tree",
+    "collapse": "Collapse tree"
+  },
+  "steps": {
+    "label": "Journey"
+  },
+  "mode": "{{mode}} mode",
+  "note": {
+    "done": "Done · {{title}}"
+  },
+  "welcome": {
+    "h": "Prevention and screening for one family",
+    "p": "Tap anyone in the tree to choose them and open their record. Then a home screening: Noa <b>detects</b> from signals, the personal record and the family record, <b>protects</b> their data, runs a two-minute <b>home screening</b> (speech check and questions), and refers them to the <b>right pathway</b> within the guidelines, with the doctor’s decisions kept separate.",
+    "saeed": {
+      "t": "Saeed, 64 · demo start",
+      "d": "Racing heart today → speech check → questions → right pathway."
+    },
+    "moza": {
+      "t": "Moza, 78 · you",
+      "d": "Home after her stroke: what is still worth checking."
+    },
+    "khalid": {
+      "t": "Khalid, 38",
+      "d": "Feels fine, smokes, never screened. Genetic cholesterol risk."
+    },
+    "more": "Or pick a ready-made test case below the panel."
+  },
+  "em": {
+    "title": "Urgency: immediate",
+    "text": "{{name}} should see a doctor now (emergency department). Screening paused."
+  },
+  "sync": {
+    "live": "Live from wearables",
+    "ago": "synced {{n}} s ago · simulated in this prototype",
+    "hr": "{{n}} bpm",
+    "irr": " · irregular",
+    "bp": "{{sbp}}/{{dbp}} mmHg",
+    "wt": "BMI {{bmi}}",
+    "glu": "{{glu}} mmol/L",
+    "how": "How it syncs",
+    "s1": "Watch, BP cuff, scale and glucose sensor record readings (watch heart rate every few minutes at rest; irregular-rhythm alerts as they happen)",
+    "s2": "They land in Apple Health (HealthKit) or Health Connect on the phone",
+    "s3": "The InsideSync app syncs them in the background, within minutes",
+    "s4": "A signed, consent-checked request sends them to No One Alone (built and tested locally, not yet deployed)",
+    "s5": "The Personal care agent reads them against {{name}}’s own normal",
+    "liveAgo": "Live · {{n}} s ago",
+    "sim": "Simulated in this prototype"
+  },
+  "dom": {
+    "care": "Personal care",
+    "screen": "Screening",
+    "spec": "Specialist",
+    "gov": "Government",
+    "orch": "Orchestrator"
+  },
+  "hand": {
+    "rule": "rule {{rule}}",
+    "checked": "Orchestrator checked rule {{rule}}: {{text}}",
+    "sameFrom": "{{dom}}: {{agent}}",
+    "from": "{{dom}} · {{agent}}"
+  },
+  "agent": {
+    "skill": "{{name}} · {{role}}",
+    "src": {
+      "live": "Live AI",
+      "prepared": "Prepared",
+      "fixed": "Fixed script",
+      "guardrail": "Guardrail"
+    },
+    "say": "Read aloud",
+    "writing": "writing…",
+    "thinking": "the agent is thinking…"
+  },
+  "pattern": {
+    "lab": "Noa Guardian · live pattern check against {{name}}’s own normal · simulated readings",
+    "foot": "How it works: each reading is compared with {{name}}’s own 14-day band, not an average person. A check is prompted only when a value stays outside the band (heart: 10+ minutes at rest) or crosses a safety threshold. In real life the readings sync from the devices through the InsideSync app.",
+    "aria": {
+      "hr": "Resting heart: 14 days then today",
+      "bp": "Blood pressure, 12 months",
+      "glu": "Glucose overnight, every 20 minutes",
+      "wt": "Weight, 12 months",
+      "steps": "Steps, 14 days"
+    }
+  },
+  "push": {
+    "to": "Auto-prompt → {{to}}"
+  },
+  "famw": {
+    "lab": "Family health record · how Noa used it for {{name}}",
+    "rel": "Relative",
+    "cond": "Condition",
+    "src": "Source",
+    "eff": "Rule → effect on {{name}}",
+    "deg1": "first-degree",
+    "deg2": "second-degree",
+    "at": "{{cond}} (at {{n}})",
+    "foot": "Changes the plan · – considered, no change. Relatives’ conditions are used only with their consent; details are never shown to other relatives, only the effect.",
+    "none": "Nothing recorded."
+  },
+  "flags": {
+    "lab": "Why {{name}} is flagged · population priority, not a diagnosis"
+  },
+  "vt": {
+    "plan": "Home screening by voice · chosen for {{name}}",
+    "why": "Why: {{why}}",
+    "ev": "{{tool}} · {{ev}}",
+    "notUsed": "Not used today ({{n}})",
+    "res": "Voice screening results"
+  },
+  "path": {
+    "pp": "Population priority · within the guideline · Noa can book",
+    "cd": "Clinical decisions · only the doctor decides",
+    "item": "{{n}}. {{name}}",
+    "urg": "{{u}} · {{due}}",
+    "urgCd": "Urgency: {{u}} · {{due}}",
+    "guide": "Guideline: {{t}}",
+    "for": "For {{name}}: {{t}}",
+    "st": {
+      "overdue": "overdue",
+      "due": "due",
+      "done": "done",
+      "not yet": "not yet",
+      "ended": "ended"
+    },
+    "nonePp": "Nothing is due by the guideline right now.",
+    "noneCd": "Nothing needs a clinical decision now.",
+    "foot": "Each item has an urgency level and a due-by date (rule U1); anything urgent is escalated to the doctor even if the person says “not now”. Noa ranks and books population checks; it never diagnoses or treats. Guideline lines are a demo summary of Department of Health programmes, to be confirmed before a pilot."
+  },
+  "done": {
+    "again": "Choose someone else"
+  },
+  "card": {
+    "turn": "Your turn · {{who}}",
+    "free": "Or answer in your own words below: the AI reads it.",
+    "confirm": "Confirm",
+    "done": "Done",
+    "waiting": "waiting",
+    "protect": {
+      "q": "What may Noa use, and who may see the pathway?",
+      "data": "Data Noa may use",
+      "wear": "Wearables (InsideSync app)",
+      "clinic": "Clinic record (Malaffi, demo)",
+      "family": "Family history (relatives’ consent)",
+      "genomic": "Genomic result (optional; can be switched off)",
+      "who": "Who may see the pathway",
+      "contact": "{{name}} ({{rel}})",
+      "noAdults": "No adult relatives linked."
+    },
+    "qset": {
+      "head": "{{name}}",
+      "tool": "· {{tool}}",
+      "yes": "Yes",
+      "no": "No",
+      "auto": "{{v}} · from record",
+      "autoYes": "yes",
+      "autoNo": "no"
+    },
+    "din": {
+      "q": "Hearing: digits in noise",
+      "hint": "· press play to hear three digits over background noise, then type them. Use headphones in real life.",
+      "round": "Round {{n}} · {{noise}}",
+      "play": "Play",
+      "aria": "Digits heard in round {{n}}",
+      "foot": "Simplified 3-round demo of the digits-in-noise method (the validated test uses about 23 triplets with adaptive noise). The answers are pre-filled for the demo; change them to try."
+    }
+  },
+  "spx": {
+    "title": "Noa Speech Check",
+    "core": "Triggered check",
+    "sub": "Compares today’s voice with {{name}}’s own voice, not an average",
+    "ready": "Ready · baseline from {{n}} morning chats",
+    "lvl": {
+      "green": "Green · as usual",
+      "amber": "Amber · a little different",
+      "red": "Red · clearly changed",
+      "none": "Red · no answer"
+    },
+    "normalHis": "His normal",
+    "normalHer": "Her normal",
+    "base": "baseline · 30 days",
+    "today": "Today",
+    "second": "Today · second try",
+    "secs": "{{n}} s",
+    "typed": "typed",
+    "runsHim": "Runs when Noa needs to check on him. {{name}} repeats one short sentence.",
+    "runsHer": "Runs when Noa needs to check on her. {{name}} repeats one short sentence.",
+    "speak": "Speak it",
+    "stop": "Stop",
+    "listening": "Listening…",
+    "usual": "Use {{name}}’s usual speech",
+    "unclear": "Use slightly slurred",
+    "slurred": "Use clearly slurred",
+    "noMic": "No microphone here: type the sentence in the box below, or use a sample. ",
+    "say": "Say: ",
+    "saidSecs": " · {{n}} s",
+    "saidTyped": " · typed",
+    "m": {
+      "measure": "Measure",
+      "today": "Today",
+      "clar": "Clarity (articulation)",
+      "wpm": "Speaking speed",
+      "pause": "Pause between words",
+      "words": "Words recognised",
+      "steady": "Voice steadiness"
+    },
+    "wpmV": "{{n}} wpm",
+    "pauseV": "{{n}} s",
+    "wordsV": "{{m}} of {{n}}",
+    "steadyV": {
+      "green": "steady",
+      "amber": "a little unsteady",
+      "red": "unsteady",
+      "none": "—"
+    },
+    "c1His": "<b>Learns his voice</b> from 2-minute morning chats",
+    "c1Her": "<b>Learns her voice</b> from 2-minute morning chats",
+    "c2": "<b>One sentence</b> when Noa needs to check",
+    "c3His": "<b>5 measures</b> compared with his own normal, in under 2 seconds",
+    "c3Her": "<b>5 measures</b> compared with her own normal, in under 2 seconds",
+    "c4": "<b>Clearly changed = Red:</b> Noa stops and advises seeing a doctor immediately",
+    "foot": "Runs when Noa sees an unusual pattern, or as a recovery check after a stroke; never as a routine screening test for people without symptoms. Accent and hearing aids are part of the baseline; only the scores are kept, not the recordings. Noa’s own method, to be validated in the pilot; numbers here are illustrative.",
+    "micOff": "The microphone is off for this page. Type instead, or use a sample.",
+    "micFail": "Speech-to-text did not start. Type instead, or use a sample.",
+    "noWords": "No words came through. Try again, type it, or use a sample.",
+    "coreRecovery": "Recovery check"
+  },
+  "comp": {
+    "aria": "Message to Noa",
+    "ask": "Ask Noa a question…",
+    "working": "Noa is working…",
+    "speech": "Type what {{name}} says…",
+    "free": "Answer as {{who}} in your own words…",
+    "speak": "Speak",
+    "send": "Send",
+    "next": "Next",
+    "nextTitle": "Keyboard: →"
+  },
+  "team": {
+    "lab": "Agent orchestra",
+    "sub": "Live: who holds the case and every hand-off",
+    "wait": "Waiting for a person to look after",
+    "ruleOk": "rule {{rule}} ✓",
+    "consent": "consent ✓",
+    "logged": "logged ✓",
+    "holding": "● holding {{name}}’s case",
+    "can": "{{can}}. Cannot: {{cannot}}",
+    "log": "Hand-off log",
+    "live": "live AI turns",
+    "prepared": "prepared",
+    "guardrail": "guardrail",
+    "overruled": "AI overruled",
+    "foot": "AI agents write and read the words. The Orchestrator’s rules choose the next agent. People decide treatment.",
+    "hist": "Everything so far ({{n}})",
+    "rules": "Rules applied ({{n}})",
+    "gov": "Department of Health · no names",
+    "k": {
+      "journeys": "journeys",
+      "booked": "booked",
+      "why": "“why?” answered",
+      "referrals": "referrals",
+      "rules": "rules used",
+      "notNow": "not now"
+    }
+  },
+  "tcs": {
+    "h": "Quick test cases",
+    "sub": "Each one loads a person with preset data and answers; press Next<n/> (or →) to step through, or answer yourself. All people and data are fictional.",
+    "context": "Context",
+    "try": "Try",
+    "expect": "Expect",
+    "run": "Run this case"
+  },
+  "drawer": {
+    "label": "Personal record",
+    "close": "Close record",
+    "relAge": "{{rel}} · {{age}}",
+    "overdue": "{{n}} overdue",
+    "due": "{{n}} due",
+    "ok": "Up to date",
+    "back": "Back to {{name}}’s screening",
+    "start": "Start home screening with Noa",
+    "details": "Personal details",
+    "medical": "Medical record",
+    "history": "Screening history",
+    "family": "Family health record · how Noa uses it",
+    "try": "Try different data (for testing)",
+    "k": {
+      "nat": "Nationality",
+      "age": "Age",
+      "sex": "Sex",
+      "lang": "Language",
+      "lives": "Lives in",
+      "work": "Work",
+      "day": "Day",
+      "bmi": "BMI",
+      "clinic": "Clinic",
+      "doc": "Doctor",
+      "dev": "Devices",
+      "allergy": "Allergies",
+      "fits": "Fits best",
+      "cond": "Conditions",
+      "meds": "Medicines",
+      "last": "Last record · {{date}}",
+      "readings": "Latest home readings",
+      "gen": "Genomic"
+    },
+    "lives": "{{home}}, Abu Dhabi",
+    "growth": "on growth chart",
+    "readings": "BP {{sbp}}/{{dbp}} · heart {{hr}} bpm · {{steps}} steps/day",
+    "a1c": " · HbA1c {{a1c}}%",
+    "chol": " · cholesterol {{tc}}/{{hdl}}",
+    "cholNever": " · cholesterol never measured",
+    "th": {
+      "check": "Check",
+      "last": "Last",
+      "every": "How often",
+      "status": "Status"
+    },
+    "st": {
+      "overdue": "overdue",
+      "due": "due",
+      "done": "done",
+      "not yet": "not yet",
+      "ended": "ended by age"
+    },
+    "f": {
+      "hr": "Resting heart",
+      "sbp": "BP top",
+      "dbp": "BP bottom",
+      "age": "Age",
+      "wt": "Weight",
+      "steps": "Steps a day",
+      "ageM": "Age",
+      "overdueW": "Visit overdue by"
+    },
+    "u": {
+      "bpm": "bpm",
+      "mmHg": "mmHg",
+      "yrs": "yrs",
+      "kg": "kg",
+      "months": "months",
+      "weeks": "weeks"
+    },
+    "t": {
+      "smoker": "Smokes",
+      "bpTx": "BP tablets",
+      "dm": "Diabetes"
+    },
+    "hint": "Change a value, then re-run. Example: resting heart {{thr}}+ makes Noa prompt a check by itself.",
+    "hintChild": "Change a value, then re-run.",
+    "rerun": "Re-run Noa for {{name}}",
+    "foot": "Fictional record for the prototype. Relatives’ conditions are shown only with their consent. The screening intervals are a demo summary; confirm against the current Department of Health standards.",
+    "range": "{{min}} to {{max}}"
+  },
+  "chat": {
+    "fab": "Noa messages",
+    "fabNew": "Noa messages, {{n}} new",
+    "open": "Open Noa messages",
+    "title": "Noa · family messages",
+    "sub": "Sent to Moza’s family as things happen",
+    "close": "Close messages",
+    "empty": "No messages yet.",
+    "toast": "To {{name}}",
+    "noa": "Noa · {{t}}",
+    "to": "To {{name}} · {{t}}",
+    "you": "you",
+    "ph": "Ask Noa anything…",
+    "aria": "Ask Noa",
+    "send": "Send"
+  },
+  "nowh": {
+    "what": "What happens here",
+    "did": "What this step did"
+  },
+  "wi": {
+    "try": "Try it",
+    "readings": "{{name}}’s readings",
+    "hint": "Drag a reading or pick a scenario. Red is where Noa acts, green is healthy.",
+    "hide": "Hide",
+    "edit": "Edit readings",
+    "scenarios": "Scenarios",
+    "sc": {
+      "race": "Racing heart",
+      "slow": "Very slow heart",
+      "bp": "BP crisis",
+      "o2": "Low oxygen",
+      "hypo": "Low sugar at night",
+      "rhythm": "Rhythm alerts",
+      "normal": "All normal"
+    },
+    "f": {
+      "hr": "Resting heart",
+      "sbp": "BP top",
+      "dbp": "BP bottom",
+      "spo2": "Oxygen",
+      "glu": "Glucose",
+      "irrAlerts": "Rhythm alerts",
+      "wt": "Weight",
+      "age": "Age",
+      "ageM": "Age",
+      "overdueW": "Next visit overdue by"
+    },
+    "u": {
+      "hr": "bpm",
+      "sbp": "mmHg",
+      "dbp": "mmHg",
+      "spo2": "%",
+      "glu": "mmol/L",
+      "irrAlerts": "14 days",
+      "wt": "kg",
+      "age": "years",
+      "ageM": "months",
+      "overdueW": "weeks"
+    },
+    "t": {
+      "smoker": "Smokes",
+      "dm": "Diabetes",
+      "bpTx": "BP tablets",
+      "cvd": "Past heart attack or stroke"
+    },
+    "run": "Run Noa with these readings",
+    "reset": "Reset",
+    "heart": "Heart risk",
+    "heartV": "<b>{{pct}}</b> in 10 years ({{cat}}) · heart age {{ha}}",
+    "tests": "Voice tests",
+    "none": "none",
+    "also": "Also due: {{list}}",
+    "sum": {
+      "bp": "BP {{sbp}}/{{dbp}}",
+      "o2": "O₂ {{n}}%",
+      "glu": "Glucose {{n}}",
+      "bmi": "BMI {{n}}",
+      "child": "{{m}} months · visit {{v}}",
+      "overdue": "{{n}} wk overdue",
+      "onTime": "on time"
+    },
+    "resetAria": "Reset {{name}}’s readings"
+  }
+}

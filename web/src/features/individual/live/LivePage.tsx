@@ -183,13 +183,13 @@ function LiveIncidentPage() {
   if (error) return <PageError page="live" onRetry={() => location.reload()} />
   if (loading) return <main className="grid" data-page="live"><p className="fine c12">{t('live.loading')}</p></main>
   const shown = incident && view ? { incident, view } : null
-  // Log and conversations follow what Margaret has heard, and hold the 000 call while it dials.
+  // Log and conversations follow what Margaret has heard; the 000 call itself waits while it dials.
   const autoAt = shown && call ? shown.incident.timeline.findIndex((e) => e === call) : -1
   const heardUpTo = shown ? heardLimit(shown.incident, people, heard?.id === shown.view.id ? heard.key : null) : 0
   // Once the 000 dialogue is talking, the call itself is heard.
-  const limit = !shown ? 0 : dialogue.dialling && autoAt >= 0 ? Math.min(heardUpTo, autoAt)
-    : dialogue.lines.length && autoAt >= 0 ? Math.max(heardUpTo, autoAt + 1) : heardUpTo
-  const heardIncident = shown ? { ...shown.incident, timeline: shown.incident.timeline.slice(0, limit) } : null
+  const limit = !shown ? 0 : !dialogue.dialling && dialogue.lines.length && autoAt >= 0 ? Math.max(heardUpTo, autoAt + 1) : heardUpTo
+  const heldCall = dialogue.dialling ? call : undefined
+  const heardIncident = shown ? { ...shown.incident, timeline: shown.incident.timeline.slice(0, limit).filter((e) => e !== heldCall) } : null
   const agent = agentView(shown?.incident ?? null, people)
   const name = (people.person?.displayName ?? view?.personName ?? '').split(' ')[0]
   const num = people.person?.emergencyNumber ?? view?.emergencyNumber ?? '998'

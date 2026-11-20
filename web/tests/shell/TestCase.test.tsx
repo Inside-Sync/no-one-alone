@@ -6,6 +6,7 @@ import { TestCaseProvider } from '@/features/testcase/entry/TestCaseProvider'
 import { useTestCase } from '@/features/testcase/entry/TestCaseContext'
 import { TestCaseLayout } from '@/features/testcase/ui/TestCaseLayout'
 import { TestCaseOverlay } from '@/features/testcase/ui/TestCaseOverlay'
+import { withLegacyUi } from '../helpers/legacyUi'
 
 vi.mock('@/features/testcase/entry/TestCaseBody', () => ({
   default: function Body() {
@@ -148,3 +149,6 @@ test('only the step title is a live region, not the whole step card', async () =
   expect(document.querySelector('#card')).not.toHaveAttribute('aria-live')
   await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('1 · Start'))
 })
+
+// These tests drive the old Test case entry points and header demos, which the redesign hides by default.
+withLegacyUi()

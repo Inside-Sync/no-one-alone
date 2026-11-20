@@ -6,6 +6,7 @@ import { TestCaseOverlay } from '@/features/testcase/ui/TestCaseOverlay'
 import { useTestCaseTab } from '@/features/testcase/ui/tabContext'
 import tcBenchEn from '@/locales/en/tcBench.json'
 import tcBenchAr from '@/locales/ar/tcBench.json'
+import { withLegacyUi } from '../helpers/legacyUi'
 
 const shell = () => (
   <TestCaseProvider>
@@ -111,3 +112,6 @@ test('the English and Arabic texts have identical keys and no placeholder is los
   }
   expect(Object.values(ar).some((v) => /[؀-ۿ]/.test(v))).toBe(true)
 })
+
+// These tests drive the old Test case entry points and header demos, which the redesign hides by default.
+withLegacyUi()

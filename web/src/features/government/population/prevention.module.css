@@ -1,0 +1,45 @@
+/* "Prevention and screening" (prototype #g04k / #g04). Sizes copied from the prototype's injected style block; logical
+   properties so Arabic mirrors. Text tones use the app's text tokens (--warn-text, --bad-text), and the faded labels
+   (th, small-cell rows, "% of previous") are a little less faded than the prototype, to keep AA contrast. */
+
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpis > div { padding: 14px 16px; border-radius: 18px; display: grid; gap: 2px; }
+.kpis small { opacity: 0.7; font-size: 12.5px; }
+.kpis b { font-size: 26px; font-weight: 600; }
+.kpis span { font-size: 12px; opacity: 0.7; }
+.kpis span.warn { color: var(--warn-text); opacity: 1; }
+
+.card .intro { margin: 4px 0 12px; opacity: 0.85; max-width: 980px; }
+.row { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 18px; margin-bottom: 16px; }
+.row section { min-width: 0; }
+.card h3 { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+.card table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 13px; }
+.card th, .card td { text-align: start; padding: 6px; border-bottom: 1px solid rgba(127, 127, 160, 0.22); white-space: nowrap; }
+.card th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.75; color: var(--ink); font-weight: 500; }
+.card tr.sup td { opacity: 0.72; font-style: italic; }
+.card b.lo { color: var(--bad-text); }
+.card i { opacity: 0.7; }
+.note { font-size: 12px; opacity: 0.7; margin: 8px 0 0; }
+
+.cal { width: 100%; max-width: 420px; height: auto; display: block; direction: ltr; }
+.cal .diag { stroke: currentColor; opacity: 0.35; stroke-dasharray: 4 4; }
+.cal .ax { stroke: currentColor; opacity: 0.25; }
+.cal circle { fill: #6d4fc0; }
+.cal text { font-size: 10px; fill: currentColor; opacity: 0.7; }
+.cal text.flag { fill: var(--warn-text); opacity: 1; }
+
+.funnel .fr, .mix div { display: grid; grid-template-columns: 170px 1fr 64px 120px; gap: 8px; align-items: center; font-size: 12.5px; margin: 4px 0; }
+.mix div { grid-template-columns: minmax(0, 1fr) 120px 56px; }
+.funnel i, .mix i { display: block; height: 12px; border-radius: 6px; background: linear-gradient(90deg, #6d4fc0, #9b7ff0); }
+:global([dir='rtl']) .funnel i, :global([dir='rtl']) .mix i { background: linear-gradient(270deg, #6d4fc0, #9b7ff0); }
+.funnel em { font-style: normal; opacity: 0.75; font-size: 11.5px; }
+.safe { margin-top: 12px; }
+
+:global(html[lang='ar']) .card th { text-transform: none; letter-spacing: 0; }
+
+@media (max-width: 900px) {
+  .kpis { grid-template-columns: 1fr 1fr; }
+  .row { grid-template-columns: 1fr; }
+  .funnel .fr { grid-template-columns: 110px 1fr 56px; }
+  .funnel em { display: none; }
+}

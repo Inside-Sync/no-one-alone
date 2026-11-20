@@ -249,6 +249,26 @@ describe('journeys of the safety cases', () => {
     expect(text(f, f.db.alerts.at(-1)!.status)).toBe('accepted')
     expect(f.S.done[f.S.step]).toBe(true)
   })
+  test('the daily reading is refused outside its range; the refused value is never sent', () => {
+    const e = make('stroke')
+    e.play(); e.drain(); e.sampleSpeech('slurred'); e.answer('none')
+    e.setAuto(true)
+    for (let k = 0; k < 200 && e.cur().kind !== 'daily'; k++) { e.drain(); e.autoStep() }
+    e.setAuto(false); e.drain()
+    e.sampleSpeech('usual')
+    expect(e.setDailyVal(120)).toEqual({ ok: true, value: 120 })
+    const bad = e.setDailyVal(999)
+    expect(bad.ok).toBe(false)
+    expect(e.S.daily.val).toBe(120)
+    expect(text(e, bad.issue!.message)).toBe('Morning blood pressure, 5-day average: 999 is outside the plausible range 100 to 190 and was not accepted. Enter a value in that range.')
+    expect(e.setDailyVal(Number.NaN).ok).toBe(false)
+    e.sendDaily()
+    expect(e.S.daily.sent).toBe(false)
+    e.setDailyVal(125)
+    expect(e.inputIssues().required).toEqual([])
+    e.sendDaily()
+    expect(e.S.daily).toMatchObject({ sent: true, val: 125 })
+  })
   test('daily thresholds: stroke under 130, falls under 20, hypo 4.0 or above, heart failure up to +1.0', async () => {
     const { DAILY } = await import('@/features/testcase/data')
     const ok = (id: keyof typeof DAILY, v: number) => { const o = DAILY[id].ok; return o.op === 'lt' ? v < o.limit : o.op === 'gte' ? v >= o.limit : v <= o.limit }

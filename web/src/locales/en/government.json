@@ -2,7 +2,348 @@
   "population": {
     "sections": {
       "health": "Health and recovery",
-      "screening": "Screening to care"
+      "screening": "Screening capacity and performance"
+    },
+    "prevention": {
+      "heading": "Prevention and screening",
+      "oe": "{{v}} O/E",
+      "kpis": [
+        {
+          "label": "Eligible reached",
+          "value": 51,
+          "format": "pct",
+          "note": "{{a}} of {{b}}",
+          "args": [
+            24600,
+            48200
+          ]
+        },
+        {
+          "label": "Recommended a check",
+          "value": 14610,
+          "format": "int",
+          "note": "personalised, within guidelines"
+        },
+        {
+          "label": "Uptake after recommendation",
+          "value": 69,
+          "format": "pct",
+          "note": "target {{a}}",
+          "args": [
+            75
+          ],
+          "warn": true
+        },
+        {
+          "label": "Screenings completed",
+          "value": 10035,
+          "format": "int",
+          "note": "{{a}} of those attended",
+          "args": [
+            96
+          ]
+        },
+        {
+          "label": "False positives",
+          "value": 8.4,
+          "format": "pct",
+          "note": "flagged, not confirmed at the visit"
+        },
+        {
+          "label": "Missed within 12 months",
+          "value": 1.1,
+          "format": "pct",
+          "note": "found later in people not flagged"
+        },
+        {
+          "label": "Model calibration",
+          "value": 0.93,
+          "format": "oe",
+          "note": "top band over-predicts",
+          "warn": true
+        },
+        {
+          "label": "Recalled on time",
+          "value": 86,
+          "format": "pct",
+          "note": "of follow-ups due"
+        }
+      ],
+      "card": {
+        "title": "Who Noa reaches, and how safely",
+        "pill": "Demo data · no names",
+        "intro": "Noa ranks who to offer which check first (population priority) and books it within the Department of Health guidelines. Anything clinical, such as a symptom, a genetic result or a family history outside the programme age, goes to a doctor to decide. This page shows whether that is working, for whom, and how safely."
+      },
+      "segments": {
+        "title": "Reach, recommendation and uptake by segment",
+        "columns": {
+          "segment": "Segment",
+          "eligible": "Eligible",
+          "reached": "Reached",
+          "recommended": "Recommended",
+          "uptake": "Uptake",
+          "falsePositive": "False positive",
+          "missed": "Missed (12 mo)"
+        },
+        "suppressed": "Hidden: fewer than 10 people (small-cell rule)",
+        "none": "—",
+        "notEnoughData": "not enough data",
+        "notEnoughFollowUp": "not enough follow-up",
+        "note": "Groups under 10 are hidden. Rates are shown only when there are enough people and enough follow-up time; otherwise “not enough data”. False positive = flagged but not confirmed at the visit. Missed = a condition found within 12 months in someone not flagged.",
+        "rows": [
+          {
+            "segment": "Emirati men 30–39",
+            "eligible": 3120,
+            "reached": 1410,
+            "recommended": 612,
+            "uptake": 288,
+            "falsePositive": 7.0,
+            "missed": 0.9
+          },
+          {
+            "segment": "Emirati men 40–59",
+            "eligible": 5840,
+            "reached": 2960,
+            "recommended": 1390,
+            "uptake": 702,
+            "falsePositive": 9.0,
+            "missed": 1.2
+          },
+          {
+            "segment": "Emirati women 30–39",
+            "eligible": 3380,
+            "reached": 1690,
+            "recommended": 880,
+            "uptake": 529,
+            "falsePositive": 6.0,
+            "missed": 0.8
+          },
+          {
+            "segment": "Emirati women 40–59",
+            "eligible": 5410,
+            "reached": 2840,
+            "recommended": 1560,
+            "uptake": 1014,
+            "falsePositive": 7.0,
+            "missed": 1.0
+          },
+          {
+            "segment": "Emirati 60–74",
+            "eligible": 4120,
+            "reached": 2380,
+            "recommended": 1310,
+            "uptake": 861,
+            "falsePositive": 11.0,
+            "missed": 1.6
+          },
+          {
+            "segment": "Expat men 40–59",
+            "eligible": 12100,
+            "reached": 4180,
+            "recommended": 1110,
+            "uptake": 402,
+            "falsePositive": 12.0,
+            "missed": null
+          },
+          {
+            "segment": "Expat women 40–59",
+            "eligible": 6400,
+            "reached": 2210,
+            "recommended": 840,
+            "uptake": 419,
+            "falsePositive": 8.0,
+            "missed": null
+          },
+          {
+            "segment": "Children 0–6 (well-child)",
+            "eligible": 7778,
+            "reached": 6900,
+            "recommended": 6900,
+            "uptake": 5820,
+            "falsePositive": null,
+            "missed": null
+          },
+          {
+            "segment": "Arabic-only speakers 60+",
+            "eligible": 44,
+            "reached": 30,
+            "recommended": 12,
+            "uptake": null,
+            "falsePositive": null,
+            "missed": null
+          },
+          {
+            "segment": "Men 70+, Al Dhafra",
+            "eligible": 8,
+            "reached": null,
+            "recommended": null,
+            "uptake": null,
+            "falsePositive": null,
+            "missed": null
+          }
+        ]
+      },
+      "calibration": {
+        "title": "Is the risk model calibrated here?",
+        "ariaLabel": "Calibration: predicted versus observed 10-year heart risk by risk band, demo data",
+        "x": "Predicted 10-year risk %",
+        "y": "Observed %",
+        "flag": "top band over-predicts",
+        "note": "Each dot is a risk band: predicted vs what actually happened. Close to the line is good. The top band over-predicts by about 20%, so its threshold is reviewed before the pilot, and the model is re-checked every quarter by nationality and sex.",
+        "points": [
+          [
+            1,
+            0.9
+          ],
+          [
+            3,
+            2.6
+          ],
+          [
+            5,
+            4.8
+          ],
+          [
+            8,
+            7.1
+          ],
+          [
+            11,
+            10.6
+          ],
+          [
+            15,
+            13.9
+          ],
+          [
+            20,
+            17.2
+          ],
+          [
+            27,
+            22.4
+          ]
+        ]
+      },
+      "funnel": {
+        "title": "Outcomes: from eligible to recalled on time (last 12 months)",
+        "ofPrevious": "{{pct}} of previous",
+        "stages": [
+          {
+            "label": "Eligible",
+            "value": 48200
+          },
+          {
+            "label": "Reached by Noa",
+            "value": 24600
+          },
+          {
+            "label": "Recommended a check",
+            "value": 14610
+          },
+          {
+            "label": "Booked",
+            "value": 11200
+          },
+          {
+            "label": "Attended",
+            "value": 10420
+          },
+          {
+            "label": "Screening completed",
+            "value": 10035
+          },
+          {
+            "label": "Follow-up done",
+            "value": 7610
+          },
+          {
+            "label": "Recalled on time",
+            "value": 6540
+          }
+        ]
+      },
+      "mix": {
+        "title": "What Noa recommended",
+        "rows": [
+          {
+            "label": "IFHAS adult screening",
+            "value": 4210
+          },
+          {
+            "label": "Cholesterol first (family or genetic risk)",
+            "value": 640
+          },
+          {
+            "label": "Diabetes check after diabetes in pregnancy",
+            "value": 380
+          },
+          {
+            "label": "Diabetes eye and kidney checks",
+            "value": 1860
+          },
+          {
+            "label": "Bowel home test (FIT)",
+            "value": 2940
+          },
+          {
+            "label": "Breast screening",
+            "value": 1520
+          },
+          {
+            "label": "Cervical screening",
+            "value": 1310
+          },
+          {
+            "label": "Well-child visit and M-CHAT-R",
+            "value": 6900
+          },
+          {
+            "label": "School-entry vision and hearing",
+            "value": 1450
+          }
+        ]
+      },
+      "safeguards": [
+        {
+          "title": "Population priority kept apart from clinical decisions",
+          "detail": "{{n}} items routed to doctors (symptoms, genetic results, family history outside programme ages); Noa booked none of them itself",
+          "tone": "good",
+          "pill": "Safeguard",
+          "args": {
+            "n": 2140
+          }
+        },
+        {
+          "title": "Equity gap: expat men 40–59",
+          "detail": "Uptake {{a}} vs {{b}} for Emirati women 40–59. Action: evening workplace slots in Mussafah",
+          "tone": "warn",
+          "pill": "Act",
+          "args": {
+            "a": 36,
+            "b": 65
+          }
+        },
+        {
+          "title": "Consent and opt-outs",
+          "detail": "Genomic data switched off by {{a}} of those asked; their pathways fall back to the standard guideline",
+          "tone": "plain",
+          "pill": "Monitored",
+          "args": {
+            "a": 14
+          }
+        },
+        {
+          "title": "Home screening (speech check and questions)",
+          "detail": "{{n}} sessions; {{a}} stopped as Red and advised urgent care",
+          "tone": "plain",
+          "pill": "Monitored",
+          "args": {
+            "n": 18900,
+            "a": 0.3
+          }
+        }
+      ]
     },
     "wellbeing": {
       "title": "Health and wellbeing",

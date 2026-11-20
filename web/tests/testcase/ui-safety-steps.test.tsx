@@ -43,7 +43,7 @@ describe('teach-back', () => {
     advanceTo(e, 'teach')
     renderKind(e)
     expect(screen.getByText('Prepared text')).toBeInTheDocument()
-    act(() => { e.applyLiveExplain({ explain: 'Live', q: 'Q?', opts: ['a', 'b', 'c'], correct: 1, simpler: 's' }) })
+    act(() => { e.applyLiveExplain({ explain: 'Live', simpler: 's' }, { tkey: e.teachKey()!, lang: e.S.lang }) })
     expect(screen.queryByText('Prepared text')).toBeNull()
   })
 

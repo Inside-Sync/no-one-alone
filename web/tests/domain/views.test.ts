@@ -1,28 +1,27 @@
 import {
-  allRoutes, firstPage, LEGACY_ROUTES, pageContext, pageTitle, PAGE_TITLES, resolvePage, ROLE_REDIRECT_PAGES, tabsFor, VIEW_USERS, whoForPage,
+  allRoutes, currentTab, firstPage, INDIVIDUAL_REDIRECTS, LEGACY_ROUTES, pageContext, pageTitle, PAGE_TITLES, resolvePage, ROLE_REDIRECT_PAGES, tabsFor, VIEW_USERS, whoForPage,
 } from '@/domain/views'
 import { TOUR_STEPS, tourPath } from '@/domain/tour'
+import { LEGACY_UI_KEY } from '@/config/legacy'
 
 const ids = (view: 'individual' | 'hospital' | 'government', who: 'self' | 'family', page?: string) =>
   tabsFor(view, who, page).map((t) => t.id)
 
-test("family and carers tabs: health, care record, treatment", () => {
-  expect(ids('individual', 'family')).toEqual(['health', 'record', 'treatment'])
-  expect(tabsFor('individual', 'family').map((t) => t.label)).toEqual(['Health', 'Care record', 'Treatment'])
+test("family and carers tabs: health and care record (treatment opens from the care record)", () => {
+  expect(ids('individual', 'family')).toEqual(['health', 'record'])
+  expect(tabsFor('individual', 'family').map((t) => t.label)).toEqual(['Health', 'Care record'])
 })
 test('the night alert replay is a family tab only while its page is open', () => {
-  expect(ids('individual', 'family', 'health')).toEqual(['health', 'record', 'treatment'])
-  expect(ids('individual', 'family', 'live')).toEqual(['health', 'record', 'treatment', 'live'])
+  expect(ids('individual', 'family', 'health')).toEqual(['health', 'record'])
+  expect(ids('individual', 'family', 'live')).toEqual(['health', 'record', 'live'])
   expect(tabsFor('individual', 'family', 'live').at(-1)?.label).toBe('Night alert (replay)')
 })
 test("Moza's own app tabs", () => {
-  expect(ids('individual', 'self')).toEqual(['me', 'health', 'record', 'treatment', 'around', 'lineage', 'device'])
-  expect(tabsFor('individual', 'self').map((t) => t.label)).toEqual(
-    ['My day', 'My health', 'My care record', 'My treatment', 'Around me', 'My family health', 'My phone'],
-  )
+  expect(ids('individual', 'self')).toEqual(['lineage', 'me', 'health', 'record'])
+  expect(tabsFor('individual', 'self').map((t) => t.label)).toEqual(['Family health', 'My day', 'My health', 'My care record'])
 })
-test('the default role starts on My day, family on Health', () => {
-  expect(firstPage('individual', 'self')).toBe('me')
+test('the default role starts on Family health, family on Health', () => {
+  expect(firstPage('individual', 'self')).toBe('lineage')
   expect(firstPage('individual', 'family')).toBe('health')
 })
 test('hospital has four tabs and government two, whoever asks', () => {
@@ -38,7 +37,7 @@ test('signed-in user per view', () => {
   expect(VIEW_USERS.government.color).toBe('#6d4fc0')
 })
 test('a page of the other role redirects to the first tab of this one', () => {
-  expect(resolvePage('individual', 'around', 'family')).toEqual({ kind: 'redirect', to: '/individual/health' })
+  expect(resolvePage('individual', 'me', 'family')).toEqual({ kind: 'redirect', to: '/individual/health' })
   expect(resolvePage('individual', 'lineage', 'family')).toEqual({ kind: 'redirect', to: '/individual/health' })
 })
 test('shared pages are ok for both roles', () => {
@@ -72,7 +71,9 @@ test('allRoutes lists every tab of both roles plus the routed-only pages, once e
 })
 test('one-role individual pages imply the role; shared and other views do not', () => {
   expect(whoForPage('individual', 'me')).toBe('self')
+  expect(whoForPage('individual', 'lineage')).toBe('self')
   expect(whoForPage('individual', 'device')).toBe('self')
+  expect(whoForPage('individual', 'treatment')).toBeUndefined()
   expect(whoForPage('individual', 'health')).toBeUndefined()
   expect(whoForPage('individual', 'live')).toBeUndefined()
   expect(whoForPage('hospital', 'ed')).toBeUndefined()
@@ -117,4 +118,22 @@ test("Moza's case has 21 steps, each on a real route", () => {
   for (const s of TOUR_STEPS) expect(routes.has(`${s.view}/${s.page}`), `${s.view}/${s.page}`).toBe(true)
   expect(tourPath(TOUR_STEPS[10])).toBe('/hospital/patients?patient=moza&step=sum')
   expect(TOUR_STEPS.filter((s) => s.night)).toHaveLength(1)
+})
+test('Around me and My phone are hidden: their links open My day (unless the legacy pages are on); treatment lights the care record tab', () => {
+  expect(INDIVIDUAL_REDIRECTS).toEqual({ '/individual/around': '/individual/me', '/individual/device': '/individual/me' })
+  expect(resolvePage('individual', 'around', 'self')).toEqual({ kind: 'redirect', to: '/individual/me' })
+  expect(resolvePage('individual', 'device', 'family')).toEqual({ kind: 'redirect', to: '/individual/me' })
+  expect(resolvePage('individual', 'treatment', 'self')).toEqual({ kind: 'ok' })
+  expect(currentTab('individual', 'treatment')).toBe('record')
+  expect(currentTab('individual', 'me')).toBe('me')
+  expect(currentTab('hospital', 'overview')).toBe('overview')
+})
+test('with the legacy override on, Around me and My phone open as pages again', () => {
+  localStorage.setItem(LEGACY_UI_KEY, 'on')
+  try {
+    expect(resolvePage('individual', 'around', 'self')).toEqual({ kind: 'ok' })
+    expect(resolvePage('individual', 'device', 'family')).toEqual({ kind: 'ok' })
+  } finally {
+    localStorage.removeItem(LEGACY_UI_KEY)
+  }
 })

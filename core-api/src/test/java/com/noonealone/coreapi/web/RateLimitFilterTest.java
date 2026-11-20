@@ -88,4 +88,13 @@ class RateLimitFilterTest {
             assertThat(res.getStatus()).isEqualTo(200);
         }
     }
+
+    @Test
+    void explainHasItsOwnLimitOf5PerIpAnd20Overall() throws Exception {
+        assertThat(okCount("/api/explain", "1.1.1.1", 6)).isEqualTo(5);
+        assertThat(call("/api/chat", "1.1.1.1").getStatus()).isEqualTo(200);
+        int ok = 0;
+        for (int ip = 0; ip < 6; ip++) ok += okCount("/api/explain", "10.0.0." + ip, 5);
+        assertThat(ok).isEqualTo(15);
+    }
 }

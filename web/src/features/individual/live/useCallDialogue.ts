@@ -51,13 +51,13 @@ export function useCallDialogue({ callKey, davidAccepted, reasons = [], live, di
 }): { lines: Line[]; dialling: boolean } {
   const [state, setState] = useState<{ key: string | null; accepted: boolean; shown: number }>(
     { key: callKey, accepted: davidAccepted, shown: live ? 0 : 8 })
-  // A late David accept does not change the call already under way.
+  // Line 4 says who is coming as it stands when Noa reaches it, then stays.
   if (state.key !== callKey) setState({ key: callKey, accepted: davidAccepted, shown: live ? 0 : 8 })
   const accepted = state.key === callKey ? state.accepted : davidAccepted
   const done = useRef(onDone)
   useEffect(() => { done.current = onDone })
-  const acceptedRef = useRef(accepted)
-  useEffect(() => { acceptedRef.current = accepted })
+  const latest = useRef(davidAccepted)
+  useEffect(() => { latest.current = davidAccepted })
   const reasonsRef = useRef(reasons)
   useEffect(() => { reasonsRef.current = reasons })
 
@@ -70,10 +70,12 @@ export function useCallDialogue({ callKey, davidAccepted, reasons = [], live, di
     void (async () => {
       await dialDone
       await speechRef?.current
-      const all = callLines(acceptedRef.current, reasonsRef.current)
-      for (let i = 0; i < all.length && !stopped; i++) {
-        setState((s) => (s.key === callKey ? { ...s, shown: i + 1 } : s))
-        await playClip(all[i].clip, (a) => { audio = a })
+      let accepted = false
+      for (let i = 0; i < 8 && !stopped; i++) {
+        if (i === 3) accepted = latest.current
+        const said = accepted
+        setState((s) => (s.key === callKey ? { ...s, accepted: said, shown: i + 1 } : s))
+        await playClip(callLines(said, reasonsRef.current)[i].clip, (a) => { audio = a })
       }
       if (!stopped) done.current(false)
     })()

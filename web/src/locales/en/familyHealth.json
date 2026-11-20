@@ -1,0 +1,704 @@
+{
+  "common": { "never": "never", "everyYear": "every year", "nobody": "nobody", "none": "none", "nothing": "nothing" },
+  "join": { "and": " and " },
+  "age": { "months": "{{n}} months", "years": "{{n}} years" },
+  "sex": { "M": "Male", "F": "Female" },
+  "risk": { "high": "high", "moderate": "moderate", "low": "low" },
+  "modes": { "ind": "Individual", "hosp": "Hospital", "gov": "Government", "sys": "System" },
+  "count": {
+    "check1": "{{n}} check", "checks": "{{n}} checks", "item1": "{{n}} item", "items": "{{n}} items",
+    "urgentItem1": "{{n}} urgent item", "urgentItems": "{{n}} urgent items"
+  },
+  "people": {
+    "moza": {
+      "name": "Moza", "call": "Umm Khalid", "full": "Moza Al Hammadi", "rel": "Grandma", "sub": "78 · home after a stroke", "tree": "Khalid’s mother · lives alone",
+      "dev": "watch and BP cuff, through the InsideSync app", "usual": "60–68", "home": "Al Bateen",
+      "hist": "Stroke on 15 Oct 2026 with atrial fibrillation (Corniche Stroke Centre); high blood pressure since 61",
+      "meds": "Apixaban, perindopril, amlodipine, atorvastatin", "fh": "Brother Hamad: osteoporosis",
+      "clinic": "Al Bateen Family Health Centre", "clinicShort": "Al Bateen FHC", "doc": "Dr Fatima Al Ali",
+      "nat": "Emirati", "lang": "Arabic", "job": "Retired · lives alone; brother Hamad 450 m away", "lastDate": "17 Oct 2026",
+      "last": "Discharged from Corniche Stroke Centre (Dr Sara Al Mazrouei): small left-sided stroke, atrial fibrillation; apixaban started. Stroke clinic Mon 30 Nov",
+      "allergy": "Penicillin", "pref": "Female clinician; mornings; large text and voice", "gen": "—",
+      "ctx": "Lives alone in Al Bateen; brother Hamad nearby · Arabic, large text and voice · mornings, female clinician"
+    },
+    "saeed": {
+      "name": "Saeed", "call": "Abu Rashid", "full": "Saeed Al Nuaimi", "rel": "Grandpa", "sub": "64 · type 2 diabetes", "tree": "Amna’s father",
+      "dev": "glucose sensor, BP cuff and watch, through the InsideSync app", "usual": "66–76, regular", "home": "Al Mushrif",
+      "hist": "Type 2 diabetes (2012); high blood pressure (2018)", "meds": "Metformin, gliclazide, ramipril", "fh": "Father: type 2 diabetes",
+      "clinic": "Al Mushrif Family Health Centre", "clinicShort": "Al Mushrif FHC", "doc": "Dr Omar Haddad",
+      "nat": "Emirati", "lang": "Arabic", "job": "Retired civil servant", "lastDate": "Jan 2026",
+      "last": "Diabetes clinic: HbA1c 7.6%, kidney function normal (eGFR 78)", "allergy": "None known", "pref": "—", "gen": "—",
+      "ctx": "Already sees the diabetes clinic: bundle checks into that visit · Arabic"
+    },
+    "khalid": {
+      "name": "Khalid", "call": "Khalid", "full": "Khalid Al Mansoori", "rel": "Dad", "sub": "38 · feels fine, smokes", "tree": "married to Amna",
+      "dev": "watch, BP cuff and scale, through the InsideSync app", "usual": "62–74, regular", "home": "Al Ain",
+      "hist": "No check-up in 4 years", "meds": "None", "fh": "Father (late Abdullah): heart attack at 62",
+      "clinic": "Al Ain Family Health Centre", "clinicShort": "Al Ain FHC", "doc": "Dr Aisha Al Hosani",
+      "nat": "Emirati", "lang": "Arabic, English", "job": "Engineer, rotating shifts", "lastDate": "Mar 2022",
+      "last": "Work medical: BP 128/82, no blood tests", "allergy": "None known", "pref": "—",
+      "gen": "Inherited high-cholesterol variant (LDLR), InsideSync genomic test, consented (demo)",
+      "ctx": "Lives in Al Ain; rotating shifts: evenings and Saturdays work · Arabic or English"
+    },
+    "amna": {
+      "name": "Amna", "call": "Amna", "full": "Amna Al Nuaimi", "rel": "Mum", "sub": "35 · teacher", "tree": "married to Khalid",
+      "dev": "watch and scale, through the InsideSync app", "usual": "64–78, regular", "home": "Al Ain",
+      "hist": "Diabetes in pregnancy (2021); HbA1c 5.9% (March 2025)", "meds": "None", "fh": "Mother (not in this passport): breast cancer at 48",
+      "clinic": "Al Ain Family Health Centre", "clinicShort": "Al Ain FHC", "doc": "Dr Aisha Al Hosani",
+      "nat": "Emirati", "lang": "English, Arabic", "job": "Primary school teacher", "lastDate": "Mar 2025",
+      "last": "HbA1c 5.9% (raised). Advised recheck in 1 year", "allergy": "None known", "pref": "—", "gen": "—",
+      "ctx": "Teacher: after 15:30 or Saturday · English"
+    },
+    "hamdan": {
+      "name": "Hamdan", "call": "Hamdan", "full": "Hamdan Al Mansoori", "rel": "Son", "sub": "5 · starts school in January", "tree": "Khalid and Amna’s child",
+      "dev": "—", "usual": "—", "home": "Al Ain",
+      "hist": "Healthy; vaccines up to date", "meds": "None", "fh": "Father: inherited high-cholesterol variant (if he shares it)",
+      "clinic": "Al Ain Family Health Centre", "clinicShort": "Al Ain FHC", "doc": "Dr Noura Al Kaabi (paediatrics)",
+      "nat": "Emirati", "lang": "Arabic, English", "job": "KG2, starts Year 1 in January", "lastDate": "Nov 2025",
+      "last": "4-year visit: growth on track, vaccines up to date", "allergy": "None known", "pref": "—", "gen": "—",
+      "ctx": "Starts Year 1 in January: school-entry checks before then"
+    },
+    "hind": {
+      "name": "Hind", "call": "Hind", "full": "Hind Al Mansoori", "rel": "Daughter", "sub": "18 months", "tree": "Khalid and Amna’s child",
+      "dev": "—", "usual": "—", "home": "Al Ain",
+      "hist": "Healthy; born at 39 weeks", "meds": "None", "fh": "Mother: diabetes in pregnancy",
+      "clinic": "Al Ain Family Health Centre", "clinicShort": "Al Ain FHC", "doc": "Dr Noura Al Kaabi (paediatrics)",
+      "nat": "Emirati", "lang": "Arabic, English at home", "job": "At home with grandma on school days", "lastDate": "May 2025",
+      "last": "12-month visit: growth on track, vaccines given", "allergy": "None known", "pref": "—", "gen": "—",
+      "ctx": "With grandma on school days: Saturday with mum works"
+    }
+  },
+  "status0": {
+    "saeed": "Eye and kidney checks overdue", "moza": "Home after stroke · day 11", "khalid": "Never screened",
+    "amna": "HbA1c recheck overdue", "hamdan": "5-year visit due", "hind": "18-month visit overdue"
+  },
+  "status": {
+    "promptSent": "Prompt sent · waiting", "ready": "Ready when you are", "promptPending": "Prompt pending",
+    "watching": "Noa is watching", "unusual": "Unusual pattern", "checking": "Checking now", "home": "Home screening",
+    "seeDoctor": "See a doctor now", "pathReady": "Pathway ready", "escalated": "Escalated to doctor", "notNow": "Not now · door open",
+    "booked": "Booked · {{day}}", "cholNote": "Cholesterol note for paediatrician"
+  },
+  "records": {
+    "saeed": { "scr": {
+      "eye": { "name": "Diabetes eye check (retina photo)", "last": "Sep 2024", "every": "every year" },
+      "kidney": { "name": "Diabetes kidney check (urine ACR)", "last": "Sep 2024", "every": "every year" },
+      "foot": { "name": "Diabetes foot check", "last": "Jan 2026", "every": "every year" },
+      "bowel": { "name": "Bowel cancer home test (FIT)", "last": "never", "every": "every 2 years, 40–75" },
+      "ifhas": { "name": "IFHAS adult screening", "last": "Mar 2023", "every": "every 3 years" },
+      "flu": { "name": "Flu vaccine", "last": "Oct 2025", "every": "every year" }
+    } },
+    "moza": { "scr": {
+      "dxa": { "name": "Bone density scan (DXA)", "last": "never", "every": "women 65+" },
+      "flu": { "name": "Flu vaccine", "last": "Nov 2025", "every": "every year, priority 65+" },
+      "breast": { "name": "Breast screening (mammogram)", "last": "2016", "every": "women 40–69" },
+      "bowel": { "name": "Bowel cancer home test (FIT)", "last": "2019", "every": "ages 40–75" },
+      "cervix": { "name": "Cervical screening", "last": "2012", "every": "women 25–65" },
+      "ifhas": { "name": "IFHAS adult screening", "last": "2019", "every": "Emiratis 18–75" }
+    } },
+    "khalid": { "scr": {
+      "ifhas": { "name": "IFHAS adult screening (BP, HbA1c, cholesterol)", "last": "never", "every": "every 3 years, Emiratis 18+" },
+      "lipid": { "name": "Cholesterol (lipid profile)", "last": "never", "every": "by guideline; earlier with family or genetic risk" },
+      "bowel": { "name": "Bowel cancer home test (FIT)", "last": "—", "every": "from 40" },
+      "flu": { "name": "Flu vaccine", "last": "never", "every": "every year" }
+    } },
+    "amna": { "scr": {
+      "a1c": { "name": "Diabetes check (HbA1c) after diabetes in pregnancy", "last": "Mar 2025", "every": "every year" },
+      "cervix": { "name": "Cervical screening", "last": "Feb 2022", "every": "every 3 years, 25–65" },
+      "breast": { "name": "Breast screening (mammogram)", "last": "—", "every": "population programme from 40" },
+      "ifhas": { "name": "IFHAS adult screening", "last": "Mar 2025", "every": "every 3 years" }
+    } },
+    "hamdan": { "scr": {
+      "visit5": { "name": "5-year visit (growth, development, vaccines)", "last": "—", "every": "at 5 years" },
+      "vision": { "name": "School-entry vision check", "last": "—", "every": "before Year 1" },
+      "hearing": { "name": "School-entry hearing check", "last": "newborn: passed", "every": "before Year 1" },
+      "dental": { "name": "Dental check", "last": "Jun 2025", "every": "every 6 months" }
+    } },
+    "hind": { "scr": {
+      "visit18": { "name": "18-month visit (growth, vaccines)", "last": "—", "every": "at 18 months" },
+      "mchat": { "name": "Development check at 18 months (M-CHAT-R)", "last": "—", "every": "at 18 months" },
+      "hearing": { "name": "Hearing", "last": "newborn: passed", "every": "if concerns" },
+      "vaccines": { "name": "Vaccines (MMR 2, DTaP booster)", "last": "—", "every": "at 18 months" }
+    } }
+  },
+  "devices": {
+    "kind": { "cgm": "Glucose sensor (CGM)", "cuff": "Bluetooth BP cuff", "watch": "Apple Watch", "scale": "Smart scale" },
+    "what": {
+      "glu": "glucose every 5 min", "bp": "blood pressure after each reading", "hrSteps": "heart rate, steps",
+      "hrIrrFalls": "heart rate, irregular-rhythm alerts, falls", "hrFull": "heart rate, HRV, irregular-rhythm alerts, steps, sleep",
+      "hrSleep": "heart rate, steps, sleep", "wt": "weight and BMI each morning"
+    }
+  },
+  "genomic": {
+    "khalid": {
+      "title": "Inherited high-cholesterol variant (LDLR)", "source": "InsideSync genomic test, consented (demo)",
+      "effect": "Makes a cholesterol test the first priority; his children may need testing later (the paediatrician decides when)"
+    }
+  },
+  "prog": {
+    "dxa": { "name": "Bone density scan (DXA)", "short": "Bone density scan", "who": "Women 65+, and younger women at higher fracture risk", "what": "Low-dose scan, 15 min" },
+    "ifhas": { "name": "IFHAS adult health screening", "short": "IFHAS adult health screening", "who": "Emiratis 18–75, every 3 years", "what": "Blood pressure, HbA1c, cholesterol, BMI" },
+    "lipid": { "name": "Cholesterol test (lipid profile)", "short": "Cholesterol test", "who": "Part of IFHAS; earlier with family or genetic risk", "what": "Blood test, same draw as IFHAS" },
+    "a1c": { "name": "Diabetes check (HbA1c)", "short": "Diabetes check", "who": "Every year after diabetes in pregnancy; part of IFHAS", "what": "Blood test" },
+    "dmeye": { "name": "Diabetes eye check", "short": "Diabetes eye check", "who": "People with diabetes, every year", "what": "Retina photo, no drops needed" },
+    "dmkid": { "name": "Diabetes kidney check", "short": "Diabetes kidney check", "who": "People with diabetes, every year", "what": "Urine (ACR) and blood test" },
+    "bowel": { "name": "Bowel cancer home test (FIT)", "short": "Bowel cancer home test", "who": "Ages 40–75, every 2 years", "what": "Kit by post, done at home, returned by post" },
+    "breast": { "name": "Breast screening (mammogram)", "short": "Breast screening", "who": "Women 40–69, every 2 years", "what": "Mammogram with female staff" },
+    "cervix": { "name": "Cervical screening", "short": "Cervical screening", "who": "Women 25–65, every 3–5 years", "what": "Smear or HPV test with a female clinician" },
+    "flu": { "name": "Seasonal flu vaccine", "short": "Seasonal flu vaccine", "who": "Everyone from 6 months; priority 50+ and long-term conditions", "what": "One injection" },
+    "quit": { "name": "Quit-smoking support", "short": "Quit-smoking support", "who": "Anyone who smokes", "what": "Counsellor plus treatment the doctor chooses" },
+    "well": { "name": "Well-child visit", "short": "Well-child visit", "who": "All children: 14 visits to age 6", "what": "Growth, development and vaccines" },
+    "mchat": { "name": "Development check (M-CHAT-R)", "short": "Development check", "who": "All children at 18 and 24 months", "what": "20 questions with the parent, in the visit" },
+    "school": { "name": "School-entry vision and hearing", "short": "School-entry vision and hearing", "who": "Before Year 1", "what": "Eye chart and hearing test" }
+  },
+  "rules": {
+    "IN": "New readings arrive with consent; the Orchestrator gives them to Guardian",
+    "G0": "No rule met → no alarm; Navigator checks what screening is due",
+    "G1": "Resting heart rate 120+ for 10+ minutes while inactive (device high-heart-rate alert) → Noa prompts a speech and symptom check by itself; doctor review today",
+    "L1": "Glucose under 3.0 mmol/L (level 2 hypoglycaemia, ADA) → treat with fast sugar, recheck in 15 minutes; medicine review within 24 hours",
+    "L2": "Glucose 3.0–3.8 mmol/L (level 1, ADA) → review at the next diabetes visit",
+    "U1": "Every pathway item carries an urgency level and a due-by date; urgent items are escalated even if the person says “not now”",
+    "G2": "Irregular-rhythm alerts → heart rhythm test (ECG) first in the offer; if irregular for 10+ min tonight → Voice checks now",
+    "G3": "Resting heart rate under 40 → Voice checks now",
+    "B1": "Blood pressure 180/120 or more → same-day doctor review",
+    "B2": "Blood pressure 140/90 or more → blood pressure plan at screening",
+    "O1": "Oxygen under 92% → same-day clinician call",
+    "W1": "BMI 30 or more → weight support in the plan",
+    "A1": "Under 4,000 steps a day → activity plan",
+    "K1": "Smokes → quit support offered",
+    "V1": "Speech clearly changed or face or arm weakness (BE-FAST stroke signs) → see a doctor immediately at the emergency department; screening paused",
+    "V2": "Chest pain or fainting with a racing heart → see a doctor immediately at the emergency department; screening paused",
+    "V3": "Speech a little different → repeat once; still different → nurse video call within 1 hour",
+    "V4": "Speech as usual and no red flags → not an emergency; rhythm test within 48 hours",
+    "N1": "Offer only programmes the person is eligible for; the one the signals call for first",
+    "N2": "A barrier is found → match the support (time, place, language, why), not another reminder",
+    "N3": "“Not now” → no reminders for 3 months; it stays in the passport",
+    "F1": "Heart risk 20%+ (Framingham, ages 30–74, no heart attack or stroke) → doctor review within 2 weeks",
+    "R1": "A result outside the range → the right team within 2 weeks",
+    "H1": "Every diagnosis and treatment is decided by a clinician",
+    "C1": "Relatives see only what the person chooses to share",
+    "X1": "One person’s result can move up a relative’s screening, without sharing details",
+    "D1": "Every flag shows its main factors, its data source and how certain it is. A flag is a population priority, not a diagnosis",
+    "P1": "Only authorised data is used; the person can switch optional data, such as genomic results, off at any time",
+    "Q1": "Speech check: as usual → continue; a little different → repeat once; clearly changed → stop and advise seeing a doctor immediately",
+    "S1": "Population view: groups under 10 are hidden, and rates without enough data are not shown",
+    "H2": "Symptoms are not screening: a new symptom goes to a doctor’s appointment, not a screening queue",
+    "T1": "The pathway follows the guideline for age and sex; family history or genetic risk adds a referral that the doctor decides on",
+    "T2": "The pathway is fitted to the person’s time, place, language and clinician preference, without changing what is offered",
+    "K2": "Child development and growth outside the age range → assessment offered (demo thresholds)"
+  },
+  "agents": {
+    "orch": { "name": "Orchestrator", "role": "routing and rules", "can": "Route the case, apply the rules, check consent, log every hand-off", "cannot": "Talk to patients or make clinical decisions" },
+    "guardian": { "name": "Guardian", "role": "monitoring agent", "can": "Read home signals, the personal record and the family record against the person’s own normal, and raise flags", "cannot": "Diagnose" },
+    "voice": { "name": "Voice", "role": "check-in and speech agent", "can": "Talk with the person, run the speech check, ask about symptoms", "cannot": "Decide treatment" },
+    "coach": { "name": "Coach", "role": "education agent", "can": "Explain the plan and check understanding (teach-back)", "cannot": "Change doses" },
+    "forecast": { "name": "Forecast", "role": "risk prediction agent", "can": "Turn signals into a Framingham 10-year heart risk and a 5-year what-if", "cannot": "Score people the model was not built for" },
+    "navigator": { "name": "Navigator", "role": "programmes and booking agent", "can": "Match Department of Health programmes, find the barrier, book, follow up", "cannot": "Prescribe or pressure" },
+    "courier": { "name": "Courier", "role": "records and hand-off agent", "can": "Build packets and handovers for the next team (FHIR)", "cannot": "Change what a clinician wrote" },
+    "insight": { "name": "Insight", "role": "clinical context agent", "can": "Read results against thresholds and family history; draft options for the doctor", "cannot": "Make a diagnosis or decide treatment" },
+    "analyst": { "name": "Analyst", "role": "population agent", "can": "Count outcomes for the Department of Health", "cannot": "See names" }
+  },
+  "domains": {
+    "care": { "name": "Personal care agent", "sub": "Lives with the person at home", "does": "Reads the wearables against the person’s own normal, runs the home speech check and questions, explains the pathway" },
+    "screen": { "name": "Screening agent", "sub": "Finds what is due and gets it done", "does": "Reads personal and family records, scores risk, builds the pathway within guidelines, books" },
+    "spec": { "name": "Specialist agent", "sub": "Works with doctors and hospitals", "does": "Writes the referral for the doctor and keeps what only a clinician can decide separate" },
+    "gov": { "name": "Government agent", "sub": "Connects to the Department of Health", "does": "Brings the latest programmes in; reports reach, uptake and safety out, with no names" },
+    "orch": { "name": "Orchestrator", "sub": "Conducts the agents", "does": "Holds the case, picks the next agent by rule, checks consent, logs every hand-off" }
+  },
+  "stages": {
+    "detect": {
+      "name": "Detect", "title": "1 · Detect",
+      "body": "Noa Guardian watches {{name}}’s devices against {{name}}’s own normal and reads the last personal record and the family health record. An unusual pattern sends {{name}} a prompt; every flag shows its reasons, source and certainty (rule D1). Noa then waits: nothing moves on until the person starts it.",
+      "you": "Read the alert, then start the check when you are ready."
+    },
+    "protect": {
+      "name": "Protect", "title": "2 · Protect",
+      "body": "Before acting, Noa confirms which data it may use and who may see the pathway. Optional data, such as a genomic result, can be switched off, and Noa drops it from the flags (rule P1).",
+      "you": "Choose the data and who may see the pathway."
+    },
+    "home": {
+      "name": "Home screening", "title": "3 · Home screening",
+      "body": "A two-minute self-service check at home. Adults: the Noa Speech Check against their own voice, then questions the record cannot answer (symptoms, how and when). Children: short questions for the parent, for the child’s age.",
+      "you": "Speak or use a sample, then answer as the person."
+    },
+    "pathway": {
+      "name": "Right pathway", "title": "4 · Right pathway",
+      "body": "Noa Navigator builds the pathway from the guideline for age and sex, then fits it to {{name}}’s life: time, place, language, clinician. Population priority (what Noa may book) is shown apart from clinical decisions (what only the doctor decides).",
+      "you": "Book it, change the time, ask why, or say not now."
+    },
+    "referral": {
+      "name": "Referral", "title": "5 · Referral",
+      "body": "Bookings are made, the referral reaches the clinic before the visit, and the recall date is set. The Government agent counts the case without names (reach, recommendation, uptake by segment).",
+      "you": "Read the referral. Then try another person or a test case below."
+    }
+  },
+  "signal": {
+    "L1": "Glucose {{glu}} mmol/L overnight: low (level 2)",
+    "L2": "Glucose {{glu}} mmol/L: low (level 1)",
+    "G1": "Resting heart {{hr}} bpm, far above {{name}}’s usual ({{usual}})",
+    "G3": "Resting heart {{hr}} bpm, unusually slow",
+    "B1": "Blood pressure {{sbp}}/{{dbp}}: very high",
+    "O1": "Oxygen {{spo2}}%: low",
+    "G2one": "{{n}} irregular-rhythm alert in 14 days",
+    "G2many": "{{n}} irregular-rhythm alerts in 14 days",
+    "B2": "Blood pressure {{sbp}}/{{dbp}}: high",
+    "W1": "BMI {{bmi}}",
+    "A1": "{{steps}} steps a day",
+    "K1": "Smokes"
+  },
+  "flag": {
+    "why": {
+      "G1": "Above {{name}}’s own limit ({{thr}} bpm) at rest", "G3": "Below 40 bpm at rest", "B1": "At or above 180/120", "O1": "Below 92%",
+      "G2": "Watch rhythm alerts in the last 14 days", "B2": "At or above 140/90", "W1": "BMI 30 or more", "A1": "Under 4,000 steps a day",
+      "K1": "Raises heart, cancer and lung risk"
+    },
+    "src": {
+      "passport": "Passport (self-reported)", "scale": "Smart scale via the InsideSync app", "cuff": "BP cuff via the InsideSync app",
+      "cgm": "Glucose sensor via the InsideSync app", "watch": "Watch via the InsideSync app"
+    },
+    "cert": { "reported": "Reported by {{name}}", "measured": "Measured; repeated readings", "record": "From the record" },
+    "F1": {
+      "title": "Heart and stroke risk {{pct}} in 10 years ({{cat}})", "age": "Age {{age}}", "bp": "Blood pressure {{sbp}}",
+      "bpRising": "Blood pressure {{sbp}}, rising {{trend}}/yr", "smokes": "Smokes", "nonSmoker": "Non-smoker", "dm": "Diabetes", "noDm": "No diabetes",
+      "chol": "Cholesterol {{tc}}/{{hdl}}", "bmi": "BMI {{bmi}} (cholesterol never measured)", "src": "Wearables + clinic record",
+      "certLab": "Validated score (Framingham); not yet calibrated for Abu Dhabi", "certBmi": "Estimate: no cholesterol result, so BMI is used"
+    },
+    "last": { "title": "Last record: {{date}}", "conditions": "Conditions: {{hist}}", "medicines": "Medicines: {{meds}}", "src": "{{clinic}} (Malaffi, demo)" },
+    "overdue": { "one": "{{n}} check overdue", "many": "{{n}} checks overdue", "line": "{{name}} · last {{last}} ({{every}})", "src": "Screening history" },
+    "due": { "one": "{{n}} check due", "many": "{{n}} checks due", "line": "{{name}} · last {{last}}", "src": "Screening history + guideline for age and sex" },
+    "gdm": {
+      "title": "Diabetes in pregnancy (2021) and HbA1c 5.9%", "f1": "Raises the chance of type 2 diabetes for years afterwards",
+      "f2": "Last HbA1c was in the raised range, a year ago", "src": "Personal record"
+    },
+    "X1": {
+      "one": "Family health record: {{n}} finding that changes the plan", "many": "Family health record: {{n}} findings that change the plan",
+      "lineWhoAt": "{{rel}} ({{who}}): {{cond}} at {{onset}} → {{effect}}", "lineWho": "{{rel}} ({{who}}): {{cond}} → {{effect}}",
+      "lineAt": "{{rel}}: {{cond}} at {{onset}} → {{effect}}", "line": "{{rel}}: {{cond}} → {{effect}}",
+      "src": "Family health record (see the working above)", "cert": "Recorded or reported"
+    },
+    "genomicCert": "Genomic result: needs clinical confirmation",
+    "T2": { "title": "Personal circumstances", "lives": "Lives in {{home}} · {{nat}} · speaks {{lang}}", "src": "Passport and past bookings", "cert": "Used only to fit time, place and language" }
+  },
+  "flags": { "genomicOff": "Updated: {{name}} switched the genomic result off. Noa no longer uses it, and the pathway will follow the standard guideline." },
+  "fam": {
+    "rel": { "father": "Father", "mother": "Mother", "son": "Son", "daughter": "Daughter", "child": "Child", "brother": "Brother", "sister": "Sister", "grandfather": "Grandfather", "grandmother": "Grandmother" },
+    "cond": { "htn": "High blood pressure", "stroke": "Stroke with atrial fibrillation", "dm": "Type 2 diabetes", "fh": "Inherited high-cholesterol variant (LDLR)", "gdm": "Diabetes in pregnancy", "osteo": "Osteoporosis", "cvd": "Heart attack", "brca": "Breast cancer" },
+    "src": { "fhShared": "Shared by Khalid with consent", "fhNotShared": "Khalid has not shared it", "record": "{{name}}’s record, shared with consent", "reported": "Reported by {{name}} (not in the passport)" },
+    "eff": {
+      "dmChild1": { "rule": "First-degree: healthy-weight advice at visits", "effect": "healthy-weight advice at visits" },
+      "dmChild2": { "rule": "Second-degree: no change in childhood", "effect": "no change in childhood" },
+      "dmHas": { "rule": "Already has diabetes: no change", "effect": "no change" },
+      "dmAdult": { "rule": "First-degree relative with type 2 diabetes → diabetes risk test today; HbA1c in the pathway", "effect": "diabetes risk test today; HbA1c in the pathway" },
+      "childNoChange": { "rule": "No change for a child", "effect": "no change for a child" },
+      "htnParent": { "rule": "Parent with high blood pressure → home BP trend watched against own baseline", "effect": "home BP trend watched against own baseline" },
+      "noChange": { "rule": "No change", "effect": "no change" },
+      "fhNotShared": { "rule": "Considered only if Khalid shares his result", "effect": "considered only if Khalid shares his result" },
+      "fhChild": { "rule": "Parent carries the variant → the paediatrician decides if and when to test", "effect": "the paediatrician decides if and when to test" },
+      "fhParent": { "rule": "Son carries the variant, so one parent likely does → cholesterol review by the doctor", "effect": "cholesterol review by the doctor" },
+      "gdmChild": { "rule": "Mother had diabetes in pregnancy → growth and weight watched at every well-child visit", "effect": "growth and weight watched at every well-child visit" },
+      "brca": { "rule": "First-degree relative with breast cancer before 50 → breast risk assessment by the doctor (outside programme age)", "effect": "breast risk assessment by the doctor (outside programme age)" },
+      "cvdPrem": { "rule": "Premature heart disease or stroke in a first-degree relative → heart risk reviewed by the doctor", "effect": "heart risk reviewed by the doctor" },
+      "cvdNotPrem": { "rule": "At {{onset}}, not premature (under 55 in men, 65 in women) → no change to screening", "effect": "no change to screening" },
+      "osteoOld": { "rule": "Already due by age (women 65+); noted for the doctor", "effect": "noted for the doctor" },
+      "osteoYoung": { "rule": "Sibling with osteoporosis → the doctor considers a bone density scan earlier", "effect": "the doctor considers a bone density scan earlier" }
+    }
+  },
+  "famExt": { "saeed": "Father", "moza": "Brother Hamad", "khalid": "Father (late Abdullah)", "amna": "Mother" },
+  "hand": {
+    "in": { "adult": "Live readings from {{name}}’s {{devices}}", "child": "{{name}}’s passport, shared by {{parent}}" },
+    "d1": { "plain": "Read the last personal record and the family health record", "parallel": "Read the last personal record and the family health record (in parallel with the check)" },
+    "p1": { "urgent": "Safety check: consent already on file; nothing new to ask now", "ask": "Confirm what data Noa may use and who may see the pathway" },
+    "q1": {
+      "urgent": "Auto-prompted check: speech first, then red-flag questions", "urgentLow": "Auto-prompted check: a 15-minute recheck after fast sugar",
+      "plain": "Home screening by voice: tests chosen for {{name}}", "results": "Home screening results"
+    },
+    "k2": "Home screening with {{parent}}: short questions for {{name}}’s age",
+    "t1": "Build {{name}}’s pathway within the guidelines, then fit it to their life",
+    "n1": { "ask": "Latest Department of Health programmes for this age and sex", "list": "Programme list (demo summary, updated 18 Nov 2026)" },
+    "c1": "Send the referral and bookings; keep clinical decisions for the doctor"
+  },
+  "packet": {
+    "heart": "Heart", "bp": "BP", "oxygen": "Oxygen", "steps": "Steps", "consent": "Consent", "age": "Age", "nextVisit": "Next visit",
+    "lastRecord": "Last record", "history": "Screening history", "familyRecord": "Family record", "genomic": "Genomic", "optional": "Optional data",
+    "decides": "Decides", "told": "Told", "tests": "Tests", "notUsed": "Not used", "askedOf": "Asked of", "flags": "Flags", "answers": "Answers",
+    "preference": "Preference", "time": "Time", "person": "Person", "names": "Names", "programmes": "Programmes", "new": "New",
+    "bookings": "Bookings", "forDoctor": "For the doctor", "sharedWith": "Shared with",
+    "v": {
+      "bpm": "{{n}} bpm", "pct": "{{n}}%", "perDay": "{{n}}/day", "consentOnFile": "on file since enrolment", "months": "{{n}} months",
+      "weeksOverdue": "{{n}} weeks overdue", "onTime": "on time", "items": "{{n}} items", "facts": "{{n}} facts considered",
+      "consented": "consented result", "none": "none", "consentEnrol": "wearables, record, family history (enrolled 12 Mar 2026)",
+      "genomicResult": "genomic result", "parent": "{{name}} (parent)", "reasons": "{{n}} (reasons shown)", "person": "age {{age}}, {{sex}}, Emirati",
+      "female": "female", "male": "male", "notSent": "not sent", "newSlots": "evening and Saturday slots; women-only mornings"
+    }
+  },
+  "push": {
+    "to": "{{name}}’s phone and watch",
+    "why": "Auto-prompted by Noa Guardian (rule {{rule}}). Nobody pressed anything.",
+    "L1": "Noa: “{{call}}, your glucose dropped to {{glu}} at 03:10 while you slept. Please take fast sugar now (juice or 3–4 glucose tablets) and I’ll check again in 15 minutes.”",
+    "G1": "Noa: “{{call}}, your heart has been racing while you rest ({{hr}} bpm for {{mins}} minutes). Can we do a one-minute check now?”",
+    "G3": "Noa: “{{call}}, your heart has been unusually slow while you rest ({{hr}} bpm). Can we do a one-minute check now?”",
+    "other": "Noa: “{{call}}, a reading needs attention today: {{signal}}. Your doctor will call you; first, a quick check.”"
+  },
+  "notes": {
+    "urgent": {
+      "L1": "Your glucose dropped to {{glu}} at 03:10. Take fast sugar now; Noa checks again in 15 minutes.",
+      "G1": "Your heart has been racing at rest ({{hr}} bpm for {{mins}} min). Can we do a one-minute check now?",
+      "G3": "Your heart has been unusually slow at rest ({{hr}} bpm). Can we do a one-minute check now?",
+      "other": "A reading needs attention today: {{signal}}. Your doctor will call you."
+    },
+    "homeCheck": "Time for your few-minute home check by voice: {{tests}}.",
+    "emergencySelf": "Urgency: immediate. Please see a doctor now at the nearest emergency department. Screening is paused.",
+    "emergencyFamily": "{{name}}’s check needs a doctor now. Noa advised the emergency department; please help {{name}} get there.",
+    "pathReady": "{{whose}} pathway is ready: {{checks}}{{doctor}}. Most urgent: {{top}}.",
+    "whoseYour": "Your", "whoseChild": "{{name}}’s", "forDoctor": ", {{n}} for the doctor to decide", "nothingUrgent": "nothing urgent",
+    "u1": "Routine checks paused for 3 months. Urgent items were sent to {{doctor}}, who will contact you.",
+    "booked": "Booked for {{name}}: {{list}} · {{slot}}.",
+    "bookedFamily": "{{name}} booked {{checks}} (shared with you by {{by}}).",
+    "x1": "A note was added for Hamdan’s and Hind’s paediatrician about an inherited cholesterol risk. The paediatrician decides on testing.",
+    "seed": {
+      "moza": "Good morning, Umm Khalid. Stroke clinic on Mon 30 Nov; speech therapy on Thursday.",
+      "amna": "Hind’s 18-month visit is 3 weeks overdue. Saturday morning slots are open in Al Ain.",
+      "saeed": "Your diabetes eye and kidney checks are 14 months overdue. I can book them together."
+    }
+  },
+  "say": {
+    "why": { "rule": "Rule {{rule}}: {{text}}", "fixed": "Rule {{rule}}: {{text}}. A fixed, clinician-approved script, never free AI text." },
+    "tag": { "referral": "Referral", "department": "To the Department" },
+    "guardian": {
+      "urgentHeart": "{{call}}, I noticed {{signal}}. Your usual is {{usual}}. I’ve started a one-minute check, and a doctor review today goes first.",
+      "urgent": "{{call}}, I noticed {{signal}}. I’ve started a one-minute check, and a doctor review today goes first.",
+      "protect": "{{call}}, Noa will use your devices, your clinic record and your family record. {{share}} Next: a short home screening by voice.",
+      "protectGenOn": "{{call}}, Noa will use your devices, your clinic record and your family record, and your genomic result. {{share}} Next: a short home screening by voice.",
+      "protectGenOff": "{{call}}, Noa will use your devices, your clinic record and your family record, but not your genomic result. {{share}} Next: a short home screening by voice.",
+      "protectChild": "{{parent}}, Noa will use {{name}}’s passport and the parents’ shared records. {{share}} Next: a short home screening by voice.",
+      "share": "{{names}} may see the pathway.", "shareNobody": "Nobody else will see the pathway."
+    },
+    "forecast": {
+      "flags": "{{call}}, Noa read your devices, your last record ({{date}}) and the family health record. Most important: {{top}}. These are reasons to check, not a diagnosis.",
+      "flagsChild": "{{parent}}, for {{name}}: Noa read the passport, the last record ({{date}}) and the family health record. Most important: {{top}}. These are reasons to check, not a diagnosis.",
+      "nothingOverdue": "nothing overdue",
+      "why": "These checks find problems before there are symptoms, when they are easiest to treat. For you: {{reasons}}.",
+      "dueByAge": "they are due by age"
+    },
+    "voice": {
+      "intro": "{{call}}, a few minutes by voice today: {{tests}}. Then I’ll find the right checks for you.",
+      "introRacing": "{{call}}, because your heart is racing at rest, I’ll check your speech first. Please say “{{sentence}}”.",
+      "introSlow": "{{call}}, because your heart is unusually slow at rest, I’ll check your speech first. Please say “{{sentence}}”.",
+      "introLow": "{{call}}, your glucose dropped overnight, so in 15 minutes, after the fast sugar, I’ll check how you feel.",
+      "introOther": "{{call}}, a reading needs a doctor today, and that review goes first. Meanwhile, a few minutes by voice: {{tests}}. Then I’ll find the right checks for you.",
+      "retry": "Thank you. A little different from your usual. Once more, slowly please.",
+      "child": "{{parent}}, a two-minute home check for {{name}}: a few questions for {{age}}. Anything that needs follow-up goes to the paediatrician.",
+      "emergency": "{{call}}, {{why}} Urgency: immediate. Please see a doctor now at the nearest emergency department; ask someone to take you. If you cannot get there safely or it gets worse, call 998. I have paused your screening until a doctor has seen you."
+    },
+    "insight": {
+      "results": "Thank you, {{call}}. {{results}}. Now I’ll find the right pathway for you.",
+      "none": "Thank you, {{call}}. Now I’ll find the right pathway for you.",
+      "line": "{{test}}: {{result}}"
+    },
+    "navigator": {
+      "firstNoUrg": "first and most urgent: {{item}}. Then ",
+      "to": "{{call}}, ", "toChild": "{{parent}}, for {{name}}: ",
+      "first": "first and most urgent: {{item}} ({{urg}}). Then ",
+      "check": "{{name}} ({{urg}})",
+      "doctor": "Your doctor will decide on: {{items}}. ",
+      "offer": "{{to}}{{first}}your checks: {{checks}}, starting {{slot}}. {{doctor}}Shall I book?",
+      "offerNone": "{{to}}{{first}}your checks: starting {{slot}}. {{doctor}}Shall I book?",
+      "u1": "That’s fine for the routine checks: I’ll pause them for 3 months. But {{items}} can’t wait, so I’ve told {{doctor}}. They will contact you.",
+      "n3": "Of course. No reminders for 3 months; the pathway stays in the passport and you can book any time."
+    },
+    "courier": {
+      "note": "{{full}}, {{age}}. Booked: {{booked}}. For the doctor to decide: {{clin}}.{{speech}}",
+      "speech": " Home speech check: score {{score}}, {{level}}."
+    },
+    "analyst": {
+      "counted": "Anonymous case counted: one {{who}} recommended {{checks}} and booked. It adds to reach, recommendation and uptake for the segment; groups under 10 stay hidden.",
+      "adult": "adult", "child": "child"
+    }
+  },
+  "coach": {
+    "emergency": "If your face or arm is weak, your speech changes, or you have chest pain or feel faint, call 998 now.",
+    "pass": "Good question. I’ll pass it to {{doctor}}; you’ll hear back within 2 working days."
+  },
+  "sys": {
+    "goU1": "Noa will ask again in 10 minutes. With an alert like this, if there is still no answer it tells {{contact}} (rule U1).", "speechRecovery": "Speech as usual for {{name}} (rule Q1). Saved to the recovery record for the speech therapist.", "speechRecoveryAmber": "Speech a little different but better on repeat: shared with the speech therapist.",
+    "noPattern": "No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for {{name}}.",
+    "protectUrgent": "Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; {{name}}, the family contact on file, sees the result.",
+    "protectUrgentNobody": "Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; nobody else sees the result.",
+    "hypoOk": "Glucose back to {{glu}} (rule L1). A low this deep usually needs a medicine review: gliclazide can cause it. Escalated to his diabetes doctor within 24 hours.",
+    "v4": "Speech as usual and no red flags (rule V4): not an emergency now. The doctor review today stays first in the pathway.",
+    "h2": "Symptoms are not screening (rule H2): “{{label}}” goes to a doctor’s appointment this week. Noa does not decide what it means.",
+    "emergency": "Urgency: immediate (rule {{rule}}). Routine screening paused. Noa does not call anyone; it advised an immediate doctor visit and keeps the result ready for the doctor. Noa follows up in 2 hours.",
+    "childDevFlag": "Some answers are outside the usual range for {{n}} months (demo thresholds). Noa adds a development review and a hearing test for the paediatrician to decide on. Not a diagnosis.",
+    "childDevOk": "Answers within the usual range for {{n}} months. The standard development check (M-CHAT-R) is still done at the visit.",
+    "u1": "Escalated (rule U1): {{items}} sent to {{doctor}}. Routine checks paused for 3 months.",
+    "booking": "{{name}} · {{where}} · {{when}}",
+    "x1": "Family (rule X1): a note goes to Hamdan’s and Hind’s paediatrician. The paediatrician decides if and when to test; Khalid’s result itself is not shared.",
+    "recall": "Recall set: {{rec}}. One reminder before; if missed, Noa asks why once.",
+    "readAi": "The AI read the reply as: {{label}}",
+    "readAiSummary": "The AI read the reply as: {{label}} · “{{summary}}”",
+    "readKeyword": "Keyword reader (AI off) read it as: {{label}}",
+    "readKeywordSummary": "Keyword reader (AI off) read it as: {{label}} · “{{summary}}”",
+    "overruled": "Orchestrator: the AI suggested “{{agent}}”, but rule {{rule}} routes to {{to}}. Rule wins."
+  },
+  "stop": {
+    "Q1": "Your speech is clearly different from your usual today. That can be a sign of a stroke.",
+    "V1": "Face or arm weakness can be a sign of a stroke.",
+    "V2": "Chest pain or feeling faint with a racing heart needs help now.",
+    "L1": "Confusion with low sugar needs help now."
+  },
+  "done": {
+    "goWait": "Waiting for {{name}}: the alert stays open and Noa asks again in 10 minutes.", "goLater": "Not started: nothing booked, no reminders for 3 months unless something changes.",
+    "emergency": "Screening paused: see a doctor immediately (emergency department). Nothing was booked.",
+    "u1": "Routine checks paused (“not now” respected); urgent items escalated to the doctor (rule U1).",
+    "n3": "Not now, respected (rule N3). The pathway stays in the passport.",
+    "referred": "Referred to the right pathway: {{checks}} booked, {{items}} for the doctor to decide, recall set."
+  },
+  "recall": {
+    "hind": "24-month visit and M-CHAT-R at 24 months", "hamdan": "6-year visit", "a1c": "HbA1c every year", "ifhas": "IFHAS in 3 years",
+    "guideline": "Next due date from the guideline"
+  },
+  "path": { "noteUpdated": "Updated: same checks, new time ({{slot}}).", "noteBooked": "Booked pathway for {{name}}." },
+  "vt": {
+    "speech": { "name": "Noa Speech Check", "short": "Noa Speech Check", "tool": "Noa’s own method", "ev": "Not yet validated: to be tested in the pilot" },
+    "hypo": { "name": "Low sugar: 15-minute recheck", "short": "Low sugar", "tool": "ADA “rule of 15” for hypoglycaemia", "ev": "Guideline" },
+    "din": { "name": "Hearing: digits in noise", "short": "Hearing", "tool": "Digits-in-noise method, as in WHO hearWHO (simplified 3-round demo)", "ev": "Validated method" },
+    "falls": { "name": "Falls risk: 3 key questions", "short": "Falls risk", "tool": "CDC STEADI key questions", "ev": "Validated questions" },
+    "phq2": { "name": "Mood: PHQ-2", "short": "Mood", "tool": "PHQ-2, two questions", "ev": "Validated questionnaire" },
+    "stopbang": { "name": "Sleep apnoea: STOP-BANG", "short": "Sleep apnoea", "tool": "STOP-BANG questionnaire", "ev": "Validated questionnaire" },
+    "dmrisk": { "name": "Diabetes risk test", "short": "Diabetes risk test", "tool": "ADA diabetes risk test", "ev": "Validated questionnaire" },
+    "why": {
+      "speechRecoveryF": "After her stroke: checked against her own voice to follow recovery and catch a new stroke early", "speechRecoveryM": "After his stroke: checked against his own voice to follow recovery and catch a new stroke early",
+      "speech": "Triggered: {{signal}}. A sudden change in speech is a stroke warning sign", "age": "Age {{age}}",
+      "ageBone": "Age {{age}}; brother has osteoporosis", "gdm": "diabetes in pregnancy", "dmParent": "parent with type 2 diabetes",
+      "bmi": "BMI {{bmi}}", "list": "{{list}}", "stopbang": "Man over 35, BMI {{bmi}}, BP {{sbp}}/{{dbp}}", "phq2": "Recommended for all adults"
+    },
+    "skip": {
+      "speech": "Runs only when Noa sees an unusual pattern. It is a warning check, not a screening test for people without symptoms",
+      "safety": "Not during a safety check", "from60": "Offered from 60", "hasDm": "Already has diabetes", "noRisk": "No risk factor",
+      "profile": "Risk profile does not call for it", "phq2": "Not during a safety check; offered next week"
+    },
+    "result": {
+      "speech": "Score {{score}} · {{level}}", "hypoOk": "Recovered after fast sugar ({{glu}} mmol/L)",
+      "hypoStill": "Still symptomatic: repeat fast sugar; doctor today"
+    }
+  },
+  "speech": {
+    "level": { "green": "as usual", "amber": "a little different", "red": "clearly changed", "none": "no answer" },
+    "how": { "sample": "sample", "typed": "typed", "spoken": "spoken" }
+  },
+  "me": {
+    "speechWho": "{{name}} ({{how}})",
+    "speechChip": "Noa Voice: {{level}} · score {{score}} · {{m}}/{{total}} words",
+    "speechChipSecs": "Noa Voice: {{level}} · score {{score}} · {{m}}/{{total}} words · {{secs}} s"
+  },
+  "card": {
+    "go": { "started": "Started" },
+    "speech": { "picked": "{{how}} · {{level}}" },
+    "choice": { "readAi": "{{label}} (read by AI)", "readKeywords": "{{label}} (read by keywords)" },
+    "protect": {
+      "picked": "Data confirmed · shared with: {{names}}", "pickedOn": "Data confirmed (genomic on) · shared with: {{names}}",
+      "pickedOff": "Data confirmed (genomic off) · shared with: {{names}}"
+    },
+    "qset": { "picked": "{{test}}: {{result}}" },
+    "din": { "picked": "Hearing: {{n}} of 3 correct" }
+  },
+  "who": { "parentDecides": "{{parent}} (parent decides for {{child}})" },
+  "qs": {
+    "falls": { "fell": "Have you fallen in the past year?", "unsteady": "Do you feel unsteady when standing or walking?", "worry": "Do you worry about falling?" },
+    "phq2": { "int": "Little interest or pleasure in doing things, in the last 2 weeks", "down": "Feeling down, depressed or hopeless, in the last 2 weeks" },
+    "stopbang": {
+      "snore": "Do you snore loudly?", "tired": "Do you often feel tired or sleepy in the daytime?", "obs": "Has anyone seen you stop breathing in your sleep?",
+      "neck": "Is your collar size over 40 cm (16 in)?", "P": "High blood pressure, treated", "B": "BMI over 35", "A": "Age over 50", "G": "Male"
+    },
+    "dmrisk": {
+      "act": "Are you physically active most days (30 min)?", "age": "Age {{age}}", "sex": "Male", "gdm": "Diabetes in pregnancy",
+      "fam": "Parent or sibling with diabetes", "hbp": "Treated high blood pressure", "bmi": "BMI {{bmi}}"
+    },
+    "phqScale": { "0": "Not at all", "1": "Several days", "2": "More than half", "3": "Nearly every day" },
+    "result": {
+      "fallsRisk": "At risk ({{n}} of 3 yes)", "fallsLow": "Low risk (0 of 3)",
+      "phqPos": "Score {{n}} of 6: positive, follow-up advised", "phqNeg": "Score {{n}} of 6: negative",
+      "sb": { "high": "Score {{n}} of 8: high risk", "mid": "Score {{n}} of 8: intermediate risk", "low": "Score {{n}} of 8: low risk" },
+      "dmHigh": "Score {{n}}: higher risk (5 or more), HbA1c advised", "dmLow": "Score {{n}}: below 5"
+    }
+  },
+  "din": {
+    "noise": { "quiet": "quiet noise", "medium": "medium noise", "loud": "loud noise" },
+    "result": { "refer": "{{n}} of 3 correct: refer for a full hearing test", "pass": "{{n}} of 3 correct: pass" }
+  },
+  "choice": {
+    "hypo": { "q": "Noa Voice, 15 minutes later: “How do you feel now? Your sensor reads {{glu}}.”", "opt": { "ok": "Better, I had juice", "shaky": "Still shaky and sweaty", "confused": "Confused, hard to think" } },
+    "rf": { "q": "Noa Voice: “Right now, do you have any of these?”", "opt": { "none": "No, I feel OK", "palp": "Just my heart pounding", "weak": "My face or arm feels weak", "chest": "Chest pain", "faint": "I feel faint or dizzy" } },
+    "sym": { "q": "Noa Voice: “In the last month, have you noticed any of these?”", "opt": { "none": "None of these", "thirst": "Very thirsty, tired, passing urine more", "bowel": "Blood in stool or a change in bowel habit", "breast": "A breast lump or change", "chest": "Chest tightness when walking fast" } },
+    "quit": { "q": "Noa Voice: “Would you like help to stop smoking? Free, and you choose the pace.”", "opt": { "yes": "Yes, add it", "no": "Not now" } },
+    "pref": { "q": "Noa Voice: “How would you like to do your checks?”", "opt": { "one": "One visit for everything", "home": "Home kits where possible", "female": "Female clinician, women-only clinic" } },
+    "time": { "q": "Noa Voice: “When suits you best?”" },
+    "timeChild": { "q": "Noa Voice: “When can you bring {{name}}?”" },
+    "time2": { "q": "Noa Navigator: “Which works better?”" },
+    "book": { "q": "Reply as {{name}}", "opt": { "book": "Yes, book it", "change": "Change the time", "why": "Why these, and why now?", "later": "Not now" } },
+    "words": { "q": "Noa Voice: “How many words does {{name}} use, besides mama and baba?”", "opt": { "few": "None, or 1–2", "some": "3 to 10", "many": "More than 10" } },
+    "point": { "q": "Noa Voice: “Does {{name}} point to show you something interesting?”", "opt": { "yes": "Yes", "no": "Not yet" } },
+    "name": { "qF": "Noa Voice: “Does {{name}} turn when you call her name?”", "qM": "Noa Voice: “Does {{name}} turn when you call his name?”", "opt": { "yes": "Yes", "no": "Not usually" } },
+    "vision": { "qM": "Noa Voice: “Does {{name}} squint, tilt his head, or sit very close to screens?”", "qF": "Noa Voice: “Does {{name}} squint, tilt her head, or sit very close to screens?”", "opt": { "none": "No", "squint": "Yes, sometimes" } },
+    "hearing": { "q": "Noa Voice: “Does {{name}} often ask you to repeat things, or turn the TV up?”", "opt": { "none": "No", "repeat": "Yes, often" } }
+  },
+  "times": { "eve": "Weekday evening", "sat": "Saturday morning", "am": "Weekday morning", "pm": "Weekday after 15:30" },
+  "slots": {
+    "eve": { "full": "Tue 24 Nov, 19:15", "day": "Tue 24 Nov" },
+    "sat": { "full": "Sat 28 Nov, 09:30", "day": "Sat 28 Nov" },
+    "am": { "full": "Wed 25 Nov, 09:00", "day": "Wed 25 Nov" },
+    "pm": { "full": "Mon 23 Nov, 15:45", "day": "Mon 23 Nov" }
+  },
+  "where": {
+    "children": "{{clinic}}, children’s clinic", "kit": "Kit posted to {{home}}", "kitHome": "Kit posted to {{home}}; done at home",
+    "womenOnly": "Women-only clinic, female staff, {{fhc}}", "women": "Women’s clinic, {{fhc}}", "diabetesClinic": "His diabetes clinic, same visit",
+    "sameDraw": "Same blood draw as IFHAS"
+  },
+  "when": { "post": "This week by post" },
+  "you": {
+    "dmeye": "Diabetes since 2012; last eye check {{last}}", "dmkid": "Diabetes; last kidney check {{last}}",
+    "bowelNever": "Age {{age}}; never done", "bowel": "Age {{age}}; last {{last}}", "breast": "Age {{age}}; last mammogram {{last}}",
+    "cervix": "Last test {{last}}", "dxa": "Age {{age}}; never had a scan", "ifhasNever": "Never done; smokes; BP rising", "ifhas": "Last {{last}}",
+    "lipidGen": "Genomic variant (LDLR) plus a father with diabetes: cholesterol first", "lipid": "Never measured; included in IFHAS",
+    "a1cGdm": "Diabetes in pregnancy; HbA1c 5.9% a year ago", "a1c": "Due by the guideline", "flu": "Long-term condition or 50+",
+    "lipidGenAdded": "Genomic variant: cholesterol first", "quit": "You asked for help", "a1cParent": "Parent with type 2 diabetes (family record)",
+    "a1cRisk": "Diabetes risk test score {{n}} (5 or more)",
+    "hind": "18-month visit is {{w}} weeks overdue; vaccines due (MMR 2, DTaP booster)",
+    "hindGrowth": "18-month visit is {{w}} weeks overdue; vaccines due (MMR 2, DTaP booster); growth watched (mother had diabetes in pregnancy)",
+    "mchat": "Standard at 18 months for every child", "hamdan": "5-year visit is due",
+    "hamdanGrowth": "5-year visit is due; growth and weight watched (mother had diabetes in pregnancy)", "school": "Starts Year 1 in January"
+  },
+  "clin": {
+    "symWhy": "Rule H2: symptoms go to a doctor, not a screening queue",
+    "urgentDoc": { "t": "Doctor review today: {{signal}}", "short": "Doctor review today", "why": "Rule {{rule}}: a reading like this is not screening" },
+    "medReview": { "t": "Medicine review within 24 hours: glucose {{glu}} mmol/L overnight (level 2). The doctor decides any change.", "short": "Medicine review within 24 hours" },
+    "symThirst": { "t": "Doctor appointment this week: thirst and tiredness (the doctor decides on HbA1c and glucose)", "short": "Doctor appointment this week" },
+    "symBowel": { "t": "Doctor appointment this week: bowel symptoms (the doctor decides on tests; no home kit)", "short": "Doctor appointment this week" },
+    "symBreast": { "t": "Doctor appointment this week: breast change (the doctor decides on imaging)", "short": "Doctor appointment this week" },
+    "symChest": { "t": "Doctor appointment this week: chest tightness on exertion (before any exercise advice)", "short": "Doctor appointment this week" },
+    "childDev": { "t": "Development review and hearing test: the paediatrician decides next steps", "short": "Development review and hearing test", "why": "Rule K2: answers outside the usual range for age (demo thresholds)" },
+    "childEye": { "t": "Possible eye referral: the paediatrician decides after the vision check", "short": "Possible eye referral", "why": "Rule K2: squinting reported by parent" },
+    "childHearing": { "t": "Full hearing test if the screen confirms: the paediatrician decides", "short": "Full hearing test if the screen confirms", "why": "Rule K2: parent reports asking to repeat" },
+    "childFh": { "t": "Father’s inherited cholesterol variant: the paediatrician decides if and when to test", "short": "Father’s inherited cholesterol variant", "why": "Rule X1: shared by Khalid with consent" },
+    "genomic": { "t": "Inherited high cholesterol: the doctor confirms the result and decides on treatment and family testing", "short": "Inherited high cholesterol", "why": "Rule T1: genetic risk adds a referral the doctor decides on" },
+    "brca": {
+      "t": "Breast risk assessment (mother had breast cancer at 48): the doctor decides on earlier imaging or genetic counselling", "short": "Breast risk assessment (mother had breast cancer at 48)",
+      "why": "Family record + rule T1: family history is a clinical decision",
+      "whyUnder40": "Family record + rule T1: under 40 she is outside the population programme; family history is a clinical decision"
+    },
+    "bone": { "t": "Bone health: the doctor decides on a bone density scan (DXA) using a fracture risk score", "short": "Bone health", "why": "Family record: brother with osteoporosis" },
+    "fhpar": { "t": "Cholesterol review: Khalid carries an inherited variant, so one parent likely does; the doctor decides on testing", "short": "Cholesterol review", "why": "Family record + rule X1 (shared by Khalid)" },
+    "stroke": { "t": "Stroke clinic follow-up (booked Mon 30 Nov): the stroke team reviews blood pressure, rhythm and rehab", "short": "Stroke clinic follow-up (booked Mon 30 Nov)", "why": "Discharged 17 Oct after a stroke with atrial fibrillation" },
+    "hearing": { "t": "Full hearing test: the doctor refers to audiology", "short": "Full hearing test", "why": "Digits-in-noise: {{result}}" },
+    "falls": { "t": "Falls risk assessment (balance, medicines, home): doctor or physiotherapist", "short": "Falls risk assessment (balance, medicines, home)", "why": "STEADI questions: {{result}}" },
+    "sleep": { "t": "Sleep apnoea: the doctor decides on a sleep study", "short": "Sleep apnoea", "why": "STOP-BANG {{result}}" },
+    "mood": { "t": "Mood follow-up (PHQ-9) with the doctor or a counsellor", "short": "Mood follow-up (PHQ-9) with the doctor or a counsellor", "why": "PHQ-2 {{result}}" },
+    "heart": { "t": "Heart risk review within 2 weeks: the doctor decides on treatment", "short": "Heart risk review within 2 weeks", "why": "Rule F1: 10-year risk {{pct}}" },
+    "bp": { "t": "Blood pressure treatment review: the doctor decides any change", "short": "Blood pressure treatment review", "why": "Rule B2: {{sbp}}/{{dbp}} on treatment" }
+  },
+  "urgency": {
+    "now": "Immediate", "today": "Today", "h24": "Within 24 hours", "w1": "Within 1 week", "w2": "Within 2 weeks", "m1": "Within 1 month",
+    "m3": "Routine · within 3 months",
+    "due": { "now": "act now", "today": "same-day appointment", "by": "by {{date}}" }
+  },
+  "pattern": {
+    "hr": {
+      "title": "Resting heart rate", "caption": "Own normal {{lo}}–{{hi}} bpm (14-day band) · alert at {{thr}}+ for 10 min at rest",
+      "hot": "Today 08:18–08:40: {{hr}} bpm while resting (no activity on the watch), sustained {{mins}} min → unusual (rule G1)",
+      "slow": "Today: {{hr}} bpm while resting → unusually slow (rule G3)", "ok": "Today {{hr}} bpm: within own normal"
+    },
+    "bp": {
+      "title": "Blood pressure (top number)", "caption": "Healthy band 110–135 · 12 months, monthly average",
+      "hot": "{{sbp}}/{{dbp}} today → doctor today (rule B1)", "rising": "Rising about {{trend}} a year · now {{sbp}}/{{dbp}}",
+      "now": "Now {{sbp}}/{{dbp}}", "nowTx": "Now {{sbp}}/{{dbp}} on treatment"
+    },
+    "glu": { "title": "Glucose overnight (CGM)", "caption": "Target range 3.9–10 mmol/L · last night", "hot": "03:10: {{glu}} mmol/L while asleep → level 2 low (rule L1)", "ok": "In range overnight" },
+    "wt": { "title": "Weight", "caption": "12 months · BMI {{bmi}}", "rising": "Slowly rising", "stable": "Stable" },
+    "steps": { "title": "Steps a day", "caption": "Goal 7,000+ a day", "low": "Average {{steps}}: low", "avg": "Average {{steps}}" }
+  },
+  "ai": {
+    "guardrail": {
+      "dose": "Guardrail: the AI text contained a dose, so the prepared text replaced it.",
+      "diagnosis": "Guardrail: the AI text contained a diagnosis, so the prepared text replaced it.",
+      "againstEmergency": "Guardrail: the AI text contained advice against emergency care, so the prepared text replaced it.",
+      "other": "Guardrail: the AI text was replaced by the prepared text."
+    }
+  },
+  "chat": {
+    "emergency": "If anyone has slurred speech, face or arm weakness, chest pain or confusion, they should see a doctor immediately at the emergency department.",
+    "working": "I’m working on {{name}}’s screening now ({{stage}}). I’ll message the family here when something is booked or needs action.",
+    "starting": "starting",
+    "idle": "Tap anyone in the family tree and I’ll check what is due for them. New messages for the family appear here."
+  },
+  "testCases": {
+    "s0": {
+      "title": "Saeed · racing heart, auto-prompted check (start here)",
+      "context": "64, type 2 diabetes. His watch reads 128 bpm at rest for 22 minutes (usual 66–76). Nobody presses anything: Noa spots the pattern and prompts the check.",
+      "try": "Next › all the way. The first speech try is slightly slurred (Amber); the repeat is his usual voice.",
+      "expect": "Auto-prompt (G1) → speech Amber, then Green → no red flags → doctor review today first; then eye and kidney checks bundled at his diabetes clinic, bowel kit and flu vaccine, each with an urgency and due date."
+    },
+    "s2": {
+      "title": "Saeed · speech clearly changed", "context": "Same racing heart, but the speech check is clearly slurred.", "try": "Next ›.",
+      "expect": "Red (V1), urgency immediate: Noa pauses screening and advises seeing a doctor now at the emergency department. Noa calls nobody; nothing is booked."
+    },
+    "s3": {
+      "title": "Saeed · low sugar at night", "context": "His glucose sensor drops to 2.7 mmol/L at 03:10 while asleep. He takes gliclazide.", "try": "Next ›.",
+      "expect": "Auto-prompt (L1): fast sugar and a 15-minute recheck → recovered → medicine review within 24 hours heads the pathway; routine checks follow."
+    },
+    "k1": {
+      "title": "Khalid · feels fine, never screened",
+      "context": "38, smokes, BP rising, cholesterol never measured. Family record: mother’s stroke at 78 and father’s heart attack at 62 are considered but not premature. Consented genomic result: inherited high-cholesterol variant (demo).",
+      "try": "Next › all the way.",
+      "expect": "No speech check (nothing triggered it). Voice tests: diabetes risk 3, STOP-BANG 4, mood negative. Cholesterol first in the IFHAS blood draw within a month; quit support; the variant and a sleep-study decision go to the doctor."
+    },
+    "k3": {
+      "title": "Khalid · chest tightness, then “not now”", "context": "He reports chest tightness on exertion, then answers “not now” to booking.", "try": "Next › (preset answers).",
+      "expect": "Symptoms are not screening (H2): a doctor’s appointment within 1 week heads the pathway. “Not now” pauses the routine checks, but Noa escalates the urgent item to his doctor (U1)."
+    },
+    "k4": {
+      "title": "Khalid · BP 184/112 today", "context": "His BP cuff reads 184/112.", "try": "Next ›.",
+      "expect": "Noa flags it by itself (B1): urgency today, first in the pathway. No speech check: blood pressure alone does not call for one."
+    },
+    "a1": {
+      "title": "Amna · family history beats age", "context": "35, diabetes in pregnancy 2021, HbA1c 5.9%; mother had breast cancer at 48 (family record).", "try": "Next ›.",
+      "expect": "HbA1c and cervical screening (overdue, within a month) after 15:30. Under 40 she is outside the breast programme, so a breast risk assessment goes to the doctor."
+    },
+    "m1": {
+      "title": "Moza · 78, home after her stroke",
+      "context": "The signed-in user. 11 days after a stroke with atrial fibrillation; lives alone; hard of hearing; low mood since the stroke. Programme screening has ended at her age.",
+      "try": "Next ›.",
+      "expect": "Noa Speech Check against her own voice (after her stroke). No mammogram, bowel or cervical screening (aged out, by the guideline). Instead: bone density scan (women 65+) and flu vaccine; hearing 1 of 3 → hearing referral; falls and mood follow-up; stroke clinic and BP review for the doctor."
+    },
+    "h1": {
+      "title": "Hind · 18-month visit overdue, few words", "context": "18 months; mum says 1–2 words. Mother had diabetes in pregnancy (family record).", "try": "Next ›.",
+      "expect": "Vaccines and the 18-month visit within 2 weeks, with M-CHAT-R; growth watched; development review and hearing test for the paediatrician within a month."
+    },
+    "d1": {
+      "title": "Hamdan · school entry, squints", "context": "5, starts Year 1 in January; squints at screens.", "try": "Next ›.",
+      "expect": "5-year visit with school-entry vision and hearing; possible eye referral for the paediatrician within a month."
+    }
+  },
+  "go": { "startNow": "Start the check now", "notNow": "Not now", "startHome": "Start home screening", "later": "Later", "msgUrgent": "Noa has sent {{name}} a prompt on the phone and watch. Nothing happens until {{who}} starts it.", "msg": "Noa found what is due for {{name}}. Start the home screening when it suits {{who}}.", "familyContact": "the family contact" },
+  "wi": {
+    "visitM": "{{n}}-month visit",
+    "visitY": "{{n}}-year visit",
+    "bmi": { "high": "BMI {{bmi}} · weight support", "over": "BMI {{bmi}} · diabetes risk test", "under": "BMI {{bmi}} · underweight", "ok": "BMI {{bmi}} · healthy" },
+    "age": { "bowel": "bowel test", "mammo": "mammogram", "bone": "bone scan", "ended": "programmes ended by age", "due": "Due by age: {{list}}", "adult": "Adult checks" },
+    "next": "Next: {{visit}}",
+    "allDone": "All visits done",
+    "zone": {
+      "hr": { "0": "Too slow · Noa checks now", "1": "Normal", "2": "Fast: Noa watches", "3": "Racing · Noa checks now" },
+      "sbp": { "0": "Low: watch", "1": "Normal", "2": "High · BP plan", "3": "Crisis · doctor today" },
+      "dbp": { "0": "Normal", "1": "High · BP plan", "2": "Crisis · doctor today" },
+      "spo2": { "0": "Low · clinician today", "1": "A little low", "2": "Normal" },
+      "glu": { "0": "Very low · sugar now", "1": "Low", "2": "In range", "3": "High" },
+      "irrAlerts": { "0": "None", "1": "ECG first" },
+      "overdueW": { "0": "On time", "1": "Due now", "2": "Overdue · Noa asks why" }
+    },
+    "head": { "speech": "Noa checks on {{name}} now: speech test, then a doctor today", "sugar": "Noa asks for fast sugar now, then rechecks in 15 minutes", "doctor": "Noa asks for a doctor today, before any screening", "plan": "No alarm: Noa adds these to the plan", "calm": "All calm: routine screening only" },
+    "kind": { "now": "Noa acts now", "plan": "Added to the plan", "clear": "All clear" },
+    "act": { "G1": "speech check now", "G3": "speech check now", "B1": "doctor today", "O1": "clinician today", "L1": "sugar now, recheck in 15 min", "L2": "diabetes review", "G2": "ECG first", "B2": "BP plan", "W1": "weight support", "A1": "activity plan", "K1": "quit support" },
+    "child": { "mchat": "development check (M-CHAT-R)", "school": "school-entry vision and hearing", "overdue": "Overdue {{n}} weeks: Noa asks {{parent}} why, once, and offers a Saturday slot", "due": "Due now: one friendly reminder", "ok": "Up to date: celebrated, not nudged" },
+    "why": { "child": "Children are followed by well-child visits, not a heart score", "cvd": "After a heart attack or stroke the clinic manages heart risk directly, so no score", "under30": "The Framingham score is valid from 30, so Noa talks about lifelong habits instead", "over74": "The Framingham score is valid up to 74, so the doctor decides" },
+    "ha": { "atMost30": "30 or less", "over100": "over 100" }
+  }
+}

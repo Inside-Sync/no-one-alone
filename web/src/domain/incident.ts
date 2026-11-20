@@ -289,7 +289,9 @@ export function helperStatus(inc: IncidentDoc, people: LivePeople): HelperStatus
     || e.kind === 'DECLINED' || e.kind === 'ACCEPTED' || e.kind === 'ARRIVED')
   const last = events[events.length - 1]
   if (!last) return null
-  const status = (name: string, text: string): HelperStatus => ({ text, clip: clip(name), key: `${name} ${last.at}` })
+  // Statuses after Noa's own 998 call are text only, so nothing talks over the call.
+  const afterCall = events.slice(0, -1).some((e) => e.kind === 'CALLED_115')
+  const status = (name: string, text: string, voiced = !afterCall): HelperStatus => ({ text, clip: voiced ? clip(name) : null, key: `${name} ${last.at}` })
   const num = people.person?.emergencyNumber ?? '998'
   if (last.kind === 'CALLED_115') {
     const accepted = [...events].reverse().find((e) => e.kind === 'ACCEPTED')
@@ -301,6 +303,7 @@ export function helperStatus(inc: IncidentDoc, people: LivePeople): HelperStatus
   if (last.kind === 'ACCEPTED') return status('on-the-way', s('onTheWay', { name: x }))
   if (last.kind !== 'NOTIFIED') return null
   const prev = events[events.length - 2]
+  if (prev?.kind === 'CALLED_115') return status(`calling-998-${x.toLowerCase()}`, s('calling998', { num, name: x }), true)
   if (prev && (prev.kind === 'EXPIRED' || prev.kind === 'DECLINED')) {
     const p = firstOf(memberOf(prev))
     return status(`no-answer-${p.toLowerCase()}-calling-${x.toLowerCase()}`, s('noAnswer', { prev: p, name: x }))

@@ -5,10 +5,12 @@ import os
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 import chat
 import checkin
+import claude
+import explain
 import gcp
 import plan
 import recovery
@@ -22,6 +24,7 @@ assessor = gcp.GeminiAssessor()
 voice = gcp.ChirpVoice()
 writer = gcp.GeminiWriter()
 chatter = gcp.GeminiChat()
+explainer = claude.ClaudeExplainer()
 
 
 @app.get("/health")
@@ -133,3 +136,20 @@ def chat_route(body: ChatIn):
     if text is None:
         raise HTTPException(status_code=503, detail="chat failed")
     return {"answer": text}
+
+
+class ExplainIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    tkey: Literal["stroke", "fall", "hypo", "hf"]
+    lang: Literal["en", "ar"]
+
+
+@app.post("/explain")
+def explain_route(body: ExplainIn):
+    system, user = explain.prompt(body.tkey, body.lang)
+    raw = explainer(system, user)
+    out = None if raw is None else explain.validate(raw, body.tkey, body.lang)
+    if out is None:
+        log.warning("explain rejected: %s %s", body.tkey, body.lang)
+        raise HTTPException(status_code=503, detail="explain failed")
+    return out

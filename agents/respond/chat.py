@@ -11,7 +11,7 @@ Case facts:
 - Hospital: Corniche Stroke Centre, about 11 minutes away. Clinician Dr Sara Al Mazrouei, stroke specialist.
 - Warning rule: heart rate above 120 for 10 minutes while she is not moving, or a fall. That night her heart rate was 142 and she had been still for 10 minutes.
 - Noa checks on her first: asks if she is all right, then the speech check "The sky is blue in Abu Dhabi.", then asks about chest pain, dizziness, arm or face weakness or a fall. Slurred speech, no answer, chest pain, weakness or a fall means red: possible stroke, call for help now. Dizzy but clear means amber. Clear and well means green.
-- Red path: alert the whole circle, call Khalid, call Hamad, call 998 with the call script, send her record to the hospital, stay with her until the paramedics take over.
+- Red path: alert the whole circle and call 998 with the call script at once; Khalid, then Hamad, are called in the same minute. Send her record to the hospital, stay with her until the paramedics take over.
 - The 998 call: Noa tells the operator it is a possible stroke at Villa 12, Street 18, Al Bateen, slurred speech at 02:04, last seen well at 01:22, awake and breathing but confused, heart rate 142, not on blood thinners, allergic to penicillin. The ambulance is about 12 minutes away. The operator says not to give her anything to eat or drink.
 - Corniche Stroke Centre receives the pre-arrival packet and replies: stroke call activated, CT scanner on standby.
 - Recovery: after discharge the hospital approves a plan and Noa turns it into plain reminders in her language; the snapshot holds the summary and reminders once sent."""
