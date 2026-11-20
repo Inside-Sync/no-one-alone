@@ -41,6 +41,7 @@ Checked against `README.md`, `firebase.json` and `infra/`.
 | Data stores | Firestore, Cloud Healthcare API (FHIR R4), Cloud Storage | All content is synthetic. Firestore rules: signed-in users read, only service accounts write. |
 | Messaging | Pub/Sub topic `alerts`, Cloud Tasks queue `escalation` | Alert intake and escalation timeouts. |
 | Security basics | IAM, Secret Manager, Firebase Auth | One service account per service. Agents are private and called with Google-signed ID tokens. Visitors sign in anonymously. |
+| Claude route | respond-agent | Claude Haiku 5.5 and Opus 5.5. When `ANTHROPIC_API_KEY` is set, respond-agent calls the Claude API (api.anthropic.com), which is outside Google Cloud and outside `asia-southeast1`. Without it, Claude runs on Vertex AI. Used only when the live AI switch (`VITE_NOA_AI`, off by default) is on. |
 | Delivery | GitHub Actions, Cloud Build, Workload Identity Federation | CI on pull requests and on `dev`. Deploy after green CI. |
 
 Region: everything runs in `asia-southeast1` (Singapore). Exceptions: Gemini uses the Vertex AI `global` endpoint. Firebase Hosting and the Routes API are global. The demo is not hosted in the UAE (see section 3).

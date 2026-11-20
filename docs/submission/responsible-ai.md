@@ -33,6 +33,8 @@ Every number a person can type has a plausible range (`engine/inputs.ts`). There
 
 Family profile values are kept inside their range, with a warning.
 
+What a Claude call receives (live AI switch on, off by default): the structured facts for that one call, with no free text except the person's own typed reply. For a message, that is the agent, the language, the reader and the facts the rules chose, which include a first name where the card shows one. For a typed reply, it is the question, the options and the reply. The teach-card explanation sends only the card key and the language. The call goes to the Claude API (outside Google Cloud) when `ANTHROPIC_API_KEY` is set, otherwise to Claude on Vertex AI.
+
 ## 4. Rules decide, not a model
 
 Scores and routing use published, numbered rules. The rule table is shown after each decision. The speech check is a demo score (words matched and time taken). It is not a validated stroke test.

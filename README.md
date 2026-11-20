@@ -70,6 +70,7 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini (Vertex AI `globa
 | Cloud Text-to-Speech, Chirp 3 HD | Noa's voice (Aoede, en-AU and vi-VN) for check-ins, the emergency call script and recovery reminders. |
 | Agent Development Kit (ADK) | hospital-agent is an ADK agent, served over A2A. respond-agent calls Gemini directly and does not use ADK. |
 | A2A protocol | respond-agent sends the hospital handoff to hospital-agent over A2A, with a plain HTTP call as fallback. |
+| Claude (Haiku 5.5 and Opus 5.5), Claude API or Vertex AI | Writes the wording of the family-health panel messages, reads a typed reply into one of the card's options and writes the teach-card explanation, only when the live AI switch (`VITE_NOA_AI`, off by default) is on. With `ANTHROPIC_API_KEY` set, respond-agent calls the Claude API (api.anthropic.com, outside Google Cloud and outside `asia-southeast1`). Without it, Claude runs on Vertex AI. The prompt holds the structured facts for that call and no free text except the person's own typed reply. |
 | Cloud Healthcare API (FHIR R4) | A live FHIR store with each person's synthetic medical record and consent. hospital-agent reads it for the pre-arrival packet. |
 | Pub/Sub | Alert intake: topic `alerts` with a push subscription to core-api. |
 | Cloud Tasks | Escalation timers: queue `escalation` calls core-api back when a step times out. |
@@ -78,7 +79,7 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini (Vertex AI `globa
 | Google Maps Platform, Routes API | Real travel times: each relative's ETA to the person, and the ETA to each hospital when choosing where to send the packet. |
 | Firebase Hosting | Serves the web app and rewrites `/api/**` to core-api. |
 | Firebase Authentication | Anonymous sign-in for every visitor. Firestore and Storage only allow reads from signed-in users. |
-| Secret Manager | Holds the Maps API key. Cloud Run reads it when an instance starts. |
+| Secret Manager | Holds the Maps API key. Cloud Run reads it when an instance starts. To use the Claude API, add a secret `anthropic-api-key` yourself and set it on respond-agent as `ANTHROPIC_API_KEY`; `infra/setup.ps1` does not create it. |
 | IAM | One service account per service with only the roles it needs. |
 | Cloud Logging and Cloud Monitoring | Logs and metrics for the three Cloud Run services. |
 

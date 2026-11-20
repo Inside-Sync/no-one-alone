@@ -89,6 +89,25 @@ def test_api_key_selects_the_claude_api_with_7_s_and_no_retries(monkeypatch):
     assert seen == {"timeout": 7, "max_retries": 0}
 
 
+def test_blank_api_key_still_uses_vertex(monkeypatch):
+    seen = {}
+
+    class FakeVertex:
+        def __init__(self, **kw):
+            seen.update(kw)
+
+    class NoApi:
+        def __init__(self, **kw):
+            raise AssertionError("Claude API used with a blank key")
+
+    monkeypatch.setattr(anthropic, "AnthropicVertex", FakeVertex)
+    monkeypatch.setattr(anthropic, "Anthropic", NoApi)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "   ")
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "p1")
+    assert isinstance(claude.ClaudeExplainer()._get_client(), FakeVertex)
+    assert seen["project_id"] == "p1"
+
+
 def test_schema_and_model_arguments_reach_the_request():
     other = {"type": "object", "properties": {"text": {"type": "string"}}, "required": ["text"], "additionalProperties": False}
     m = Messages(text='{"text": "t"}')
