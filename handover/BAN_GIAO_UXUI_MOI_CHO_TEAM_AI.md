@@ -462,6 +462,16 @@ Chạy trong PowerShell từ **`D:\WORK\no-one-alone\web`** (chữ **D hoa**; `d
 4. **`route` / `handoffTo` / `ruleId` chưa có trong schema trả về:** "AI overruled" và mã luật trên tin nhắn sẽ không xuất hiện. Được cho demo.
 5. **Khi bật thật:** chạy lại 10 quick test case, cả EN và AR. Các bước, luật, pathway và trạng thái cuối phải giống hệt chế độ chữ soạn sẵn; chỉ chữ của agent được khác.
 
+**Trạng thái ngày 20/11 (team AI):**
+- **Dòng 1, đã xong.** Không dùng Vertex nữa. respond-agent gọi Claude API qua Workload Identity Federation, không có khóa API lưu ở đâu (PR #80). Biến repo `VITE_NOA_AI=on` đã bật trên production.
+- **Dòng 2, đã xong** (PR #84). `say` cho 60 lượt/phút/IP và 150 lượt/phút toàn bộ. `understand` cho 30 và 60. Mỗi instance core-api có trần 1000 lượt mỗi ngày, tối đa 2 instance.
+- **Dòng 3, đã xong** (PR #85). Không đếm các thuật ngữ Latin có sẵn trong giá trị của `params`, như HbA1c, M-CHAT-R, G1, IFHAS. Chữ tiếng Anh thường như "Heart" vẫn bị tính.
+- **Dòng 4:** vẫn như trên, chấp nhận cho demo.
+- **Dòng 5, đã xong.**
+  - PR #82 thêm test `web/tests/familyHealth/live-parity.test.ts`. Test chạy 10 case bằng cả EN và AR với một AI giả cố tình làm sai mọi thứ, và kết quả giống hệt chế độ chữ soạn sẵn.
+  - Lần chạy Playwright với AI thật của team web (`Y_TUONG_AI_NANG_CAO.md` mục 1) cho cùng kết luận.
+- **Thêm:** PR #83 nâng giới hạn của `detect.forecast` và `pathway.navigator.offer` lên 80 chữ. PR #81 thêm ghi chú "AI đang khởi động" khi lượt đầu chậm quá 8 giây.
+
 ### PR #74 đã merge vào dev
 Team AI đã sửa 6 lỗi nhỏ của engine Test case cũ theo danh sách trong file bàn giao đợt 1 (đại từ trong `hypo_em`, đường huyết trong gói 998, nhãn F1, kiểm khoảng giá trị đo hằng ngày, câu tự kiểm R10, số agent trong chú thích). Các sửa này chỉ chạm lớp phủ cũ, không ảnh hưởng bảng mới.
 
@@ -509,7 +519,7 @@ Server đang cấm trường lạ, nên **team AI mở rộng params trước**,
 
 **Câu hỏi cho team AI:** đồng ý schema trên không, và khi nào server nhận được? Team web gửi các trường này ngay khi server sẵn sàng; test hợp đồng ở `web/tests/familyHealth/ai-calls.test.ts` sẽ cập nhật theo.
 
-**Trả lời của team AI (20/11):** đồng ý schema trên, có vài giới hạn. Server nhận được ngay khi PR B (`feat/noa-chat-context`) deploy lên `respond`.
+**Trả lời của team AI (20/11):** đồng ý schema trên, có vài giới hạn. PR #86 đã merge và deploy lên `respond`, nên server đã nhận các trường mới.
 - Mọi trường mới đều không bắt buộc. Payload cũ 3 trường vẫn chạy.
 - `composer.reply` thêm:
   - `history`: tối đa 6 lượt `{ by: "person" | "noa", text }`, mỗi `text` 1 đến 500 ký tự.
