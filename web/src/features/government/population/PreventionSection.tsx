@@ -1,6 +1,9 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { guard } from '@/features/familyHealth'
+import { sayOutside } from '@/features/familyHealth/ui'
 import { Icon } from '@/components/ui/Icon'
 import { TableScroll } from '@/components/ui/TableScroll'
 import { suppressRate, isSuppressed } from '@/domain/suppression'
@@ -68,6 +71,7 @@ function PreventionCard({ p }: { p: Prevention }) {
         <span className="pill plain">{p.card.pill}</span>
       </div>
       <p className={s.intro}>{p.card.intro}</p>
+      <WeeklySummary p={p} />
       <div className={s.row}>
         <section><SegmentTable p={p} /></section>
         <section><CalibrationChart p={p} /></section>
@@ -80,6 +84,52 @@ function PreventionCard({ p }: { p: Prevention }) {
         </section>
       </div>
     </article>
+  )
+}
+
+type SegRow = { segment: string; eligible: number; recommended: number | null; uptake: number | null }
+/** Uptake by segment as whole percents, only for groups the table shows (10 or more people recommended). */
+function weeklyGroups(p: Prevention) {
+  return (p.segments.rows as SegRow[]).flatMap((r) => {
+    if (isSuppressed(r.eligible) || r.recommended == null || r.uptake == null || r.recommended < 10) return []
+    const u = suppressRate((r.uptake / r.recommended) * 100, r.recommended)
+    return u == null ? [] : [{ segment: r.segment, recommended: r.recommended, uptake_pct: Math.round(u) }]
+  }).slice(0, 12)
+}
+
+/**
+ * "This period": the Analyst sums up uptake for the programme manager. Prepared text from the same numbers at once; with the
+ * live AI on, the model's two or three sentences (aggregates only, every number from the params, checked by the server).
+ */
+function WeeklySummary({ p }: { p: Prevention }) {
+  const { t, i18n } = useTranslation('government')
+  const lang = i18n.language?.startsWith('ar') ? 'ar' : 'en'
+  const w = p.weekly
+  const groups = weeklyGroups(p)
+  const sorted = [...groups].sort((a, b) => a.uptake_pct - b.uptake_pct)
+  const low = sorted[0], high = sorted[sorted.length - 1]
+  const fallback = low && high ? t('population.prevention.weekly.prepared', { low: low.segment, lowPct: pct(low.uptake_pct), high: high.segment, highPct: pct(high.uptake_pct) }) : ''
+  const [live, setLive] = useState<{ lang: string; text: string } | null>(null)
+  const key = JSON.stringify(groups)
+  useEffect(() => {
+    if (!groups.length) return
+    let on = true
+    void sayOutside({
+      callId: 'analyst.weekly', tier: 'fast', skill: 'analyst', domain: 'gov', audience: w.audience, lang, maxWords: 60,
+      facts: { period: w.period, groups },
+      task: 'For a health department manager, two or three sentences on screening uptake: the lowest and highest groups and one plain observation. Aggregates only.',
+      fallback,
+    }).then((r) => { if (on && r?.source === 'live' && !guard(r.text)) setLive({ lang, text: r.text }) })
+    return () => { on = false }
+    // The groups and texts change only with the language.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang, key])
+  if (!fallback) return null
+  const text = live?.lang === lang ? live.text : null
+  return (
+    <p className={s.weekly} id="g04w">
+      <b>{w.title}</b> <span>{text ?? fallback}</span> <span className={`pill plain ${text ? s.liveTag : ''}`}>{text ? w.live : w.prep}</span>
+    </p>
   )
 }
 

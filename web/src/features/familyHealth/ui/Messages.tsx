@@ -76,7 +76,7 @@ export function FamilyMessages() {
               <div key={n.id} className={c('cm', n.to === 'noa' && 'noa')}>
                 <span className={c('ca', n.to === 'noa' && 'lgc')}>{n.to === 'noa' ? <AgentOrb size={34} /> : <E n={PEOPLE[n.to as PersonId].icon} />}</span>
                 <div>
-                  <small>{n.to === 'noa' ? u('chat.noa', { t: n.t }) : <><E n={n.icon} /> {u('chat.to', { name: who(n), t: n.t })}</>}</small>
+                  <small>{n.to === 'noa' ? u('chat.noa', { t: n.t }) : <><E n={n.icon} /> {u('chat.to', { name: who(n), t: n.t })}</>}{n.source === 'live' && <em className={c('src live')}>{u('agent.src.live')}</em>}</small>
                   <span>{x(n.text)}</span>
                 </div>
               </div>

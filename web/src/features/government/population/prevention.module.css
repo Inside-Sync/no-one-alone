@@ -43,3 +43,9 @@
   .funnel .fr { grid-template-columns: 110px 1fr 56px; }
   .funnel em { display: none; }
 }
+
+/* "This period": the Analyst's summary of uptake (live AI or prepared). */
+.weekly { margin: 0 0 14px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; max-width: 980px; line-height: 1.5; }
+.weekly b { font-weight: 700; }
+.weekly span:first-of-type { flex: 1 1 320px; min-width: 0; }
+.liveTag { color: var(--good, #1d7a45); }

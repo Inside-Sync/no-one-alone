@@ -37,9 +37,11 @@ export const SAY_CALLS = {
   'referral.analyst': { tier: 'strong', purpose: 'Analyst counts the case for the Department of Health, no names' },
   'composer.reply': { tier: 'fast', purpose: 'The agent holding the case (or Coach) answers a question typed in the composer' },
   'family.chat': { tier: 'fast', purpose: 'Noa answers the family in the family messages panel' },
+  'family.notify': { tier: 'fast', purpose: 'Noa words a routine family notice for the person it goes to (never an urgent one)' },
+  'analyst.weekly': { tier: 'fast', purpose: 'Analyst sums up screening uptake by segment for the Department of Health, aggregates only' },
 } as const satisfies Record<string, { tier: ModelTier; purpose: string }>
 export type SayCallId = keyof typeof SAY_CALLS
-/** The emergency script's call site: a fixed, clinician-approved text that never reaches the AI port. */
+/** The emergency script's call site: a fixed, pre-written text that never reaches the AI port. */
 export const FIXED_CALL = 'stop.voice.emergency'
 /** Every `understand` call is a short classification: the fast tier. */
 export const UNDERSTAND_TIER: ModelTier = 'fast'
@@ -49,7 +51,7 @@ export interface SayRequest {
   /** The model class this call needs (`SAY_CALLS[callId].tier`). */
   tier: ModelTier
   /** The skill (sub-agent) speaking, or `familyChat` for the family messages panel. */
-  skill: AgentId | 'familyChat'
+  skill: AgentId | 'familyChat' | 'familyNotify'
   domain: DomainId
   /** Who the words are for, e.g. "Saeed", "Amna (parent of Hind)", "the clinic team (Dr Omar Haddad)". */
   audience: string
@@ -61,7 +63,7 @@ export interface SayRequest {
   task: string
   /** The prepared text in `lang`: shown when the AI is off, fails or is overruled by the guardrail. */
   fallback: string
-  /** Word limit (55 by default, 80 for the referral note, 45 for family messages). */
+  /** Word limit (55 by default, 80 for the referral note, 45 for family messages, 30 for a family notice, 60 for the weekly summary). */
   maxWords: number
   /** The hand-off the rules make after this turn, if any. */
   route?: { rule: RuleId; to: AgentId; options: AgentId[] }

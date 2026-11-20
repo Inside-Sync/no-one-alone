@@ -60,8 +60,13 @@ interface Journey {
   genomic: boolean
   share: PersonId[]
   tc: TestCaseId | null
+  /** The population checks were booked (the referral step ran). */
+  booked: boolean
 }
 interface ChoiceResult { id: string; label: Txt }
+/** One turn of a conversation sent to the AI as `history`. */
+interface Turn { by: 'person' | 'noa'; text: string }
+const clip = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1)}…` : s)
 
 /** The AI port's question for each free-text card (English, for the model; prototype `free.q`). */
 const FREE_QUESTION: Record<string, string> = {
@@ -117,6 +122,9 @@ export class FamilyHealthEngine {
   private aiBusy = false
   private quiet = false
   private nextId = 0
+  /** The composer conversation of this journey and the family-messages conversation (sent to the AI as `history`). */
+  private chat: Turn[] = []
+  private famChat: Turn[] = []
 
   constructor(opts: EngineOptions = {}) {
     this.liveAi = opts.ai && !(opts.ai instanceof PreparedAi) ? opts.ai : null
@@ -230,6 +238,7 @@ export class FamilyHealthEngine {
     this.gov = { journeys: 0, booked: 0, barriers: 0, referrals: 0, notNow: 0, emergencies: 0, handoffs: 0 }
     this.clock = CLOCK_START
     this.tc = null
+    this.chat = []
     this.emit()
   }
 
@@ -343,16 +352,18 @@ export class FamilyHealthEngine {
     // asked (a booking, a home visit, a time), the answer is the fixed line that repeats the urgent advice and says screening waits.
     const inEmergency = this.j?.branch === 'em'
     try {
-      // say(): a question typed in the composer. facts: name, question, journey_stage. Emergency words get the fixed safety line,
-      // which never goes through the AI port (`fixed`).
-      await this.say(qrun, agent, { callId: 'composer.reply',
+      // say(): a question typed in the composer. facts: name, question, journey_stage, and the case so far (history, detect,
+      // pathway, can_do). Emergency words get the fixed safety line, which never goes through the AI port (`fixed`).
+      const r = await this.say(qrun, agent, { callId: 'composer.reply',
         fixed: emergency || inEmergency,
-        facts: { name: this.str(name(k)), question: text, journey_stage: this.j?.stage ?? null },
+        facts: this.composerFacts(k, text),
         audience: this.str(name(k)),
-        task: 'Answer the person’s question briefly, within your role. If it needs a clinician, say so and offer to book. If it sounds like an emergency (weakness, speech trouble, chest pain, fainting), tell them to see a doctor immediately at the emergency department.',
+        task: 'Answer the person’s latest question in two or three short sentences, within your role. Greet only if history is empty. Never say you will book or send anything; point to an item in can_do. If it needs a clinician, say a doctor decides.',
         fallback: inEmergency ? tx('coach.emergencyActive', { name: name(k) })
           : emergency ? tx('coach.emergency') : tx('coach.pass', { doctor: tx(`people.${k}.doc`) }),
       })
+      // A turn answered with the fixed emergency line stays out of the history: the server would keep answering with it.
+      if (r.source !== 'fixed') this.chat = [...this.chat, { by: 'person' as const, text: clip(text, 500) }, { by: 'noa' as const, text: clip(r.text, 500) }].slice(-6)
     } catch (e) { if (!(e instanceof Cancelled)) throw e }
   }
 
@@ -431,21 +442,27 @@ export class FamilyHealthEngine {
     const inEmergency = j?.branch === 'em'
     const fallback = inEmergency ? tx('chat.emergencyActive', { name: name(j.k) }) : em ? tx('chat.emergency')
       : j ? tx('chat.working', { name: name(j.k), stage: j.stage ? lc(tx(`stages.${j.stage}.name`)) : tx('chat.starting') }) : tx('chat.idle')
-    let out: string | Txt = fallback
+    let out: string | Txt = fallback, live = false
     // Emergency words: the fixed safety line only, never the AI port.
     if (em || inEmergency) { this.notify('noa', out, 'bot', true); return }
     try {
       // say(): the family messages panel. facts: recent notifications ("To <name>: <text>", newest first, at most 6).
       const r = await this.ai.say({
         callId: 'family.chat', tier: SAY_CALLS['family.chat'].tier, skill: 'familyChat', domain: 'care', audience: 'Moza’s family', lang: this.lang, maxWords: 45,
-        facts: { notifications: this.notes.filter((n) => n.to !== 'me' && n.to !== 'noa').slice(0, 6).map((n) => `To ${this.str(name(n.to as PersonId))}: ${this.str(n.text)}`), question: text },
-        task: 'Answer the family’s question in at most 45 plain words. Never diagnose or name a dose; a doctor decides treatment; for stroke signs, chest pain or confusion advise seeing a doctor immediately.',
+        facts: {
+          notifications: this.notes.filter((n) => n.to !== 'me' && n.to !== 'noa').slice(0, 6).map((n) => clip(`To ${this.str(name(n.to as PersonId))}: ${this.str(n.text)}`, 300)),
+          question: clip(text, 500), family: this.familyFacts(), history: this.famChat.slice(-4),
+        },
+        task: 'Answer the family’s question in at most 45 plain words from the notifications and each member’s state. Never promise an action; a doctor decides treatment.',
         fallback: this.str(fallback),
       })
       if (r.emergency) out = tx('chat.emergency')
-      else if (r.source === 'live' && !guard(r.text)) out = r.text
+      else if (r.source === 'live' && !guard(r.text)) { out = r.text; live = true }
+      if (!r.emergency) this.famChat = [...this.famChat, { by: 'person' as const, text: clip(text, 500) }, { by: 'noa' as const, text: clip(this.str(out), 500) }].slice(-4)
     } catch { /* prepared text */ }
-    this.notify('noa', out, 'bot', true)
+    this.notify('noa', out, 'bot', false)
+    if (live) this.notes[0].source = 'live'
+    this.emit()
   }
 
   /* ================================================================ internals: feed, cards, agents */
@@ -471,6 +488,68 @@ export class FamilyHealthEngine {
     this.running = false
     this.aiBusy = false
     if (p) p.reject(new Cancelled())
+  }
+  /** The case so far for `composer.reply`: the conversation, what Detect found, what is booked, and what the person can press. */
+  private composerFacts(k: PersonId, text: string): Record<string, unknown> {
+    const j = this.j
+    const f: Record<string, unknown> = { name: this.str(name(k)), question: clip(text, 500), journey_stage: j?.stage ?? null, history: this.chat.slice(-6), detect: null, pathway: null }
+    if (j && (j.urgent || j.flagList.length)) {
+      f.detect = {
+        urgent_rule: j.urgent ? j.urgent.rule : null,
+        signal: j.urgent ? clip(this.str(j.urgent.text), 300) : null,
+        flags: j.flagList.filter((x) => x.lvl !== 'muted').slice(0, 3).map((x) => clip(this.str(x.title), 300)),
+      }
+    }
+    if (j?.path) {
+      f.pathway = {
+        booked: j.booked ? j.path.pop.slice(0, 6).map((x) => ({ check: clip(this.str(x.short), 120), where: clip(this.str(x.where), 120), when: clip(this.str(x.when), 120) })) : [],
+        for_the_doctor: j.path.clin.slice(0, 10).map((x) => clip(this.str(x.short), 120)),
+      }
+    }
+    f.can_do = this.canDo()
+    return f
+  }
+  /** What the person can do on screen now (the AI points to these instead of promising to act). */
+  private canDo(): string[] {
+    const c = this.pending?.card, out: Txt[] = []
+    if (c?.type === 'go') out.push(tx('can.go'))
+    else if (c?.type === 'choice' && (c.qid === 'book' || c.qid === 'time2')) out.push(tx('can.book'))
+    else if (c?.type === 'speech') out.push(tx('can.speech'))
+    else if (c) out.push(tx('can.answer'))
+    if (c) out.push(tx('can.next'))
+    out.push(tx('can.record'), tx('can.tryIt'))
+    return out.map((x) => clip(this.str(x), 120))
+  }
+  /** Each family member's state for `family.chat`. */
+  private familyFacts() {
+    const j = this.j
+    return PERSON_IDS.map((k) => ({
+      name: clip(this.str(name(k)), 120),
+      stage: clip(this.str(this.status[k].label), 120),
+      booked: j && j.k === k && j.booked && j.path ? j.path.pop.slice(0, 6).map((x) => clip(`${this.str(x.short)} · ${this.str(x.when)}`, 120)) : [],
+      emergency: !!j && j.k === k && j.branch === 'em',
+    }))
+  }
+  /**
+   * A routine family notice: the prepared text at once; with a live AI (not the page-open auto-run) Noa rewords it for the person
+   * (`family.notify`) and the note is marked Live AI. Urgent and emergency notices never use this.
+   */
+  private notifyFamily(to: PersonId, text: Txt, icon: FhIcon, urgency: 'routine' | 'soon' = 'routine') {
+    this.notify(to, text, icon)
+    const note = this.notes[0]
+    if (this.quiet || this.ai instanceof PreparedAi) return
+    const event = this.str(text)
+    this.ai.say({
+      callId: 'family.notify', tier: SAY_CALLS['family.notify'].tier, skill: 'familyNotify', domain: 'care', audience: this.str(name(to)), lang: this.lang, maxWords: 30,
+      facts: { to: clip(this.str(name(to)), 120), relation: clip(`${this.str(tx(`people.${to}.rel`))} · ${this.str(tx(`people.${to}.tree`))}`, 120), event: clip(event, 300), urgency },
+      task: 'Tell the person about the event in one or two warm sentences suited to their relation. Facts only; no advice.',
+      fallback: event,
+    }).then((r) => {
+      if (r.source !== 'live' || guard(r.text) || !this.notes.includes(note)) return
+      note.text = r.text
+      note.source = 'live'
+      this.emit()
+    }).catch(() => { /* the prepared notice stays */ })
   }
   private famCtx() { const j = this.j; return { fhShared: this.fhShared || !!(j && j.k === 'khalid' && j.genomic && j.share.length) } }
   private fam(k: PersonId): FamRow[] { return famWorking(k, this.profiles, this.famCtx()) }
@@ -616,6 +695,7 @@ export class FamilyHealthEngine {
     item.lang = this.lang
     this.emit()
     await this.wait(run, WAIT.afterSay)
+    return { source, text: this.str(text) }
   }
   private async handoff(run: Run, from: AgentId, to: AgentId, rule: RuleId, reason: Txt, packet: PacketLine[]) {
     this.live(run)
@@ -639,7 +719,8 @@ export class FamilyHealthEngine {
     this.rulesHit = new Map()
     this.active = 'orch'
     this.clock = CLOCK_START
-    this.j = { k, stage: null, seen: [], branch: null, done: null, sig: [], urgent: null, flagList: [], ans: {}, vt: {}, tests: null, speech: null, spN: 0, path: null, genomic: true, share: [], tc: this.tc?.id ?? null }
+    this.j = { k, stage: null, seen: [], branch: null, done: null, sig: [], urgent: null, flagList: [], ans: {}, vt: {}, tests: null, speech: null, spN: 0, path: null, genomic: true, share: [], tc: this.tc?.id ?? null, booked: false }
+    this.chat = []
     this.gov.journeys++
     this.running = true
     this.emit()
@@ -830,7 +911,7 @@ export class FamilyHealthEngine {
       { label: tx('packet.tests'), value: list(names, ', ') }, { label: tx('packet.notUsed'), value: tx('packet.v.reasons', { n: T.skip.length }) },
     ])
     this.add({ kind: 'vtplan', person: k, use: T.use, skip: T.skip })
-    if (!j.urgent) this.notify(k, tx('notes.homeCheck', { tests: shorts }), 'speech')
+    if (!j.urgent) this.notifyFamily(k, tx('notes.homeCheck', { tests: shorts }), 'speech')
     const u = j.urgent
     // B6: the opening line follows the alert: racing or slow heart (speech first), low glucose (how you feel), other (doctor first).
     const intro = !u ? 'say.voice.intro' : u.rule === 'G1' ? 'say.voice.introRacing' : u.rule === 'G3' ? 'say.voice.introSlow' : u.rule === 'L1' ? 'say.voice.introLow' : 'say.voice.introOther'
@@ -1018,7 +1099,7 @@ export class FamilyHealthEngine {
     this.hit('T2')
     this.add({ kind: 'path', person: k, path, note: null })
     const lead = path.clin[0] && urgencyIndex(path.clin[0].u) <= urgencyIndex(ESCALATE_UP_TO) ? path.clin[0].short : path.pop[0] ? path.pop[0].name : tx('notes.nothingUrgent')
-    this.notify(m.child ? 'amna' : k, tx('notes.pathReady', {
+    this.notifyFamily(m.child ? 'amna' : k, tx('notes.pathReady', {
       whose: m.child ? tx('notes.whoseChild', { name: name(k) }) : tx('notes.whoseYour'),
       checks: tx(path.pop.length === 1 ? 'count.check1' : 'count.checks', { n: path.pop.length }),
       doctor: path.clin.length ? tx('notes.forDoctor', { n: path.clin.length }) : '',
@@ -1047,7 +1128,7 @@ export class FamilyHealthEngine {
           task: 'Respect the choice for the routine checks, but explain kindly that these items cannot wait, with their urgency, and that you have told the doctor.',
           fallback: tx('say.navigator.u1', { items: list(urgentItems.map((x) => tx('say.navigator.check', { name: lc(x.name), urg: lc(tx(`urgency.${x.u}`)) })), tx('join.and')), doctor }),
         })
-        this.notify(k, tx('notes.u1', { doctor }), 'arrow-up')
+        this.notifyFamily(k, tx('notes.u1', { doctor }), 'arrow-up', 'soon')
         this.add({ kind: 'sys', icon: 'arrow-up', text: tx('sys.u1', { items: tx(urgentItems.length > 1 ? 'count.urgentItems' : 'count.urgentItem1', { n: urgentItems.length }), doctor }) })
         this.gov.notNow++
         this.setSt(k, 'status.escalated', 'warn')
@@ -1092,6 +1173,7 @@ export class FamilyHealthEngine {
   private async referral(run: Run) {
     const j = this.j as Journey, k = j.k, m = PEOPLE[k], p = this.profiles[k], path = j.path as Pathway
     this.stage('referral')
+    j.booked = true
     this.gov.booked++
     this.gov.referrals++
     await this.handoff(run, 'navigator', 'courier', 'C1', tx('hand.c1'), [
@@ -1100,8 +1182,8 @@ export class FamilyHealthEngine {
     ])
     this.add({ kind: 'path', person: k, path, note: tx('path.noteBooked', { name: name(k) }) })
     const owner: PersonId = m.child ? 'amna' : k
-    this.notify(owner, tx('notes.booked', { name: name(k), list: list(path.pop.map((x) => x.short), ', '), slot: path.slot }), 'calendar')
-    for (const x of j.share.filter((y) => y !== owner)) this.notify(x, tx('notes.bookedFamily', { name: name(k), checks: tx(path.pop.length === 1 ? 'count.check1' : 'count.checks', { n: path.pop.length }), by: name(m.child ? (m.parent as PersonId) : k) }), 'calendar')
+    this.notifyFamily(owner, tx('notes.booked', { name: name(k), list: list(path.pop.map((x) => x.short), ', '), slot: path.slot }), 'calendar')
+    for (const x of j.share.filter((y) => y !== owner)) this.notifyFamily(x, tx('notes.bookedFamily', { name: name(k), checks: tx(path.pop.length === 1 ? 'count.check1' : 'count.checks', { n: path.pop.length }), by: name(m.child ? (m.parent as PersonId) : k) }), 'calendar')
     for (const x of path.pop) this.add({ kind: 'sys', icon: x.kit ? 'package' : 'calendar', text: tx('sys.booking', { name: x.name, where: x.where, when: x.when }) })
     const age: Txt | number = p.child ? (p.ageM < 24 ? tx('age.months', { n: p.ageM }) : tx('age.years', { n: Math.floor(p.ageM / 12) })) : p.age
     const speech = j.speech ? tx('say.courier.speech', { score: fixed(j.speech.score, 2), level: tx(`speech.level.${j.speech.lvl}`) }) : ''
@@ -1124,7 +1206,7 @@ export class FamilyHealthEngine {
       this.fhShared = true
       this.hit('X1')
       for (const kid of REL[k].kids ?? []) this.setSt(kid, 'status.cholNote', 'warn')
-      this.notify('amna', tx('notes.x1'), 'family')
+      this.notifyFamily('amna', tx('notes.x1'), 'family')
       this.add({ kind: 'sys', icon: 'family', text: tx('sys.x1') })
     }
     const rec = m.child ? (k === 'hind' ? 'recall.hind' : 'recall.hamdan') : path.pop.some((x) => x.id === 'a1c') ? 'recall.a1c' : path.pop.some((x) => x.id === 'ifhas') ? 'recall.ifhas' : 'recall.guideline'

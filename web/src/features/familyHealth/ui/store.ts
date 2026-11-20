@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/i18n'
-import { FamilyHealthEngine, FH_NS, RemoteAi, instantScheduler, realScheduler, textOf, type NoaLang, type NoaTransport, type PersonId, type Snapshot } from '../index'
+import { FamilyHealthEngine, FH_NS, RemoteAi, instantScheduler, realScheduler, textOf, type NoaLang, type NoaTransport, type PersonId, type SayRequest, type SayResult, type Snapshot } from '../index'
 
 /**
  * The panel's state outside React: one journey engine for the whole app (the Family health tab and the messages button on the
@@ -21,6 +21,13 @@ export const liveAiOn = (env: Record<string, unknown> = import.meta.env): boolea
   env.MODE !== 'test' && env.VITE_DATA_SOURCE === 'firebase' && env.VITE_NOA_AI === 'on'
 
 let engine: FamilyHealthEngine | null = null
+let outsideAi: RemoteAi | null = null
+/** One AI `say` outside the journey (the Government page's weekly summary). Null when the live AI is off; never throws. */
+export async function sayOutside(req: SayRequest): Promise<SayResult | null> {
+  if (!liveAiOn()) return null
+  outsideAi ??= new RemoteAi(LAZY_NET)
+  return outsideAi.say(req)
+}
 let autoRan = false
 
 export function getEngine(): FamilyHealthEngine {

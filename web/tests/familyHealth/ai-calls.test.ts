@@ -11,15 +11,17 @@ const SERVER_IDS: Record<string, string[]> = {
 }
 const strings = (x: unknown): string[] => typeof x === 'string' ? [x] : Array.isArray(x) ? x.flatMap(strings) : x && typeof x === 'object' ? Object.values(x).flatMap(strings) : []
 // Server models in agents/respond/noa.py: Short 120 chars, Text 300, Question 500, list caps, integer fields.
-const SHORT = new Set(['audience', 'name', 'call', 'parent', 'child', 'patient', 'age', 'segment', 'certainty', 'test', 'journey_stage', 'symptom', 'risk', 'tests', 'shared_with'])
+const SHORT = new Set(['audience', 'name', 'call', 'parent', 'child', 'patient', 'age', 'segment', 'certainty', 'test', 'journey_stage', 'symptom', 'risk', 'tests', 'shared_with', 'urgent_rule', 'check', 'where', 'when', 'can_do', 'stage', 'to', 'relation', 'period'])
 const CAPS: Record<string, number> = {
   'detect.forecast.flags': 12, 'detect.forecast.flags[].factors': 8, 'detect.forecast.family_effects': 8, 'protect.guardian.shared_with': 8,
   'home.voice.intro.tests': 8, 'home.insight.results': 8, 'pathway.navigator.offer.population_priority': 10, 'pathway.navigator.offer.for_the_doctor': 10,
   'pathway.forecast.why.flags': 6, 'pathway.forecast.why.pathway': 10, 'pathway.navigator.u1.urgent': 10, 'referral.courier.booked': 10,
   'referral.courier.for_doctor_decision': 10, 'referral.courier.flags': 12, 'family.chat.notifications': 6,
+  'composer.reply.history': 6, 'composer.reply.detect.flags': 3, 'composer.reply.pathway.booked': 6, 'composer.reply.pathway.for_the_doctor': 10,
+  'composer.reply.can_do': 6, 'family.chat.family': 6, 'family.chat.family[].booked': 6, 'family.chat.history': 4, 'analyst.weekly.groups': 12,
 }
-const OPTIONAL = new Set(['symptom', 'risk', 'journey_stage'])
-const INTEGERS = new Set(['home.voice.child.age_months', 'referral.analyst.booked'])
+const OPTIONAL = new Set(['symptom', 'risk', 'journey_stage', 'detect', 'pathway', 'urgent_rule', 'signal'])
+const INTEGERS = new Set(['home.voice.child.age_months', 'referral.analyst.booked', 'analyst.weekly.groups[].recommended', 'analyst.weekly.groups[].uptake_pct'])
 /** Where `value` differs from the server-shape sample in keys, types, string length, list size or integer-ness (null only for the optional fields). */
 function shapeErrors(sample: unknown, value: unknown, path: string): string[] {
   const key = path.replace(/\[\d+\]/g, '[]'), name = key.split('.').pop()!.replace(/\[\]/g, '')
@@ -42,7 +44,7 @@ function shapeErrors(sample: unknown, value: unknown, path: string): string[] {
   if (typeof value !== typeof sample) return [`${path}: ${typeof value} want ${typeof sample}`]
   if (INTEGERS.has(key) && !Number.isInteger(value)) return [`${path}: not an integer`]
   if (typeof value === 'string') {
-    const max = name === 'question' ? 500 : SHORT.has(name) ? 120 : 300
+    const max = name === 'question' || name === 'text' ? 500 : SHORT.has(name) ? 120 : 300
     if (value.length > max) return [`${path}: ${value.length} chars, max ${max}`]
   }
   return []
@@ -57,11 +59,11 @@ function recorder(opts: { ruleId?: string; choice?: string } = {}) {
   }
   return { ai, says, reads }
 }
-const FAST = ['detect.guardian', 'protect.guardian', 'home.voice.intro', 'home.voice.retry', 'home.voice.child', 'composer.reply', 'family.chat']
+const FAST = ['detect.guardian', 'protect.guardian', 'home.voice.intro', 'home.voice.retry', 'home.voice.child', 'composer.reply', 'family.chat', 'family.notify', 'analyst.weekly']
 
 describe('AI port: call ids and model tiers', () => {
-  test('SAY_CALLS lists the 15 call sites; fast = Guardian, Voice, composer, family chat; the rest strong', () => {
-    expect(Object.keys(SAY_CALLS)).toHaveLength(15)
+  test('SAY_CALLS lists the 17 call sites; fast = Guardian, Voice, composer, family chat and notices, weekly summary; the rest strong', () => {
+    expect(Object.keys(SAY_CALLS)).toHaveLength(17)
     for (const [id, c] of Object.entries(SAY_CALLS)) {
       expect(c.tier).toBe(FAST.includes(id) ? 'fast' : 'strong')
       expect(c.purpose.length).toBeGreaterThan(10)
@@ -97,8 +99,9 @@ describe('AI port: call ids and model tiers', () => {
       }
     }
     for (const [id, k] of keys) expect([...k].sort(), id).toEqual(Object.keys(SAMPLES[id]).sort())
-    // The amber retry needs the slightly slurred sample (s0 uses it); every other site is reached by the runs above.
-    expect([...seen].sort()).toEqual(Object.keys(SAY_CALLS).sort())
+    // The amber retry needs the slightly slurred sample (s0 uses it); every other site is reached by the runs above, except the
+    // Government page's weekly summary (analyst.weekly), which is not part of a journey.
+    expect([...seen].sort()).toEqual(Object.keys(SAY_CALLS).filter((id) => id !== 'analyst.weekly').sort())
   })
   test('understand gets the fast tier', async () => {
     const { ai, reads } = recorder({ choice: 'none' })

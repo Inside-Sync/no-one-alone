@@ -58,7 +58,7 @@ export interface HeartPill { pct: string; cat: 'high' | 'moderate' | 'low'; tone
 export interface Counters { live: number; prepared: number; guardrail: number; overruled: number }
 /** Department of Health tiles (journeys, booked, "why?" answered, referrals, not now) plus two counted but not shown. */
 export interface GovCounters { journeys: number; booked: number; barriers: number; referrals: number; notNow: number; emergencies: number; handoffs: number }
-export interface Note { id: number; to: PersonId | 'noa' | 'me'; icon: FhIcon; text: Txt | string; t: string; read: boolean }
+export interface Note { id: number; to: PersonId | 'noa' | 'me'; icon: FhIcon; text: Txt | string; t: string; read: boolean; /** 'live' when the AI worded it. */ source?: 'live' }
 
 export interface JourneyView {
   person: PersonId

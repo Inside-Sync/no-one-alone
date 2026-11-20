@@ -5,6 +5,14 @@
       "screening": "Screening capacity and performance"
     },
     "prevention": {
+      "weekly": {
+        "title": "This period",
+        "period": "16 to 22 Nov 2026",
+        "audience": "Department of Health programme team",
+        "prepared": "Uptake is lowest among {{low}} ({{lowPct}}) and highest among {{high}} ({{highPct}}). Outreach to the lowest groups is the clearest next step.",
+        "live": "Live AI · aggregates only",
+        "prep": "Prepared"
+      },
       "heading": "Prevention and screening",
       "oe": "{{v}} O/E",
       "kpis": [

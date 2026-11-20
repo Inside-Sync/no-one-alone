@@ -1,4 +1,13 @@
 {
+  "can": {
+    "go": "Start home screening: the button on the Detect card",
+    "book": "Book, change the time, ask why or say not now: the buttons on the pathway card",
+    "speech": "Say the sentence or use a sample: the buttons on the speech card",
+    "answer": "Answer the card on screen",
+    "next": "Press Next to go on with the suggested answer",
+    "record": "Open someone’s record: tap them in the family tree",
+    "tryIt": "Try different readings: the Try it panel above"
+  },
   "common": { "never": "never", "everyYear": "every year", "nobody": "nobody", "none": "none", "nothing": "nothing" },
   "join": { "and": " and " },
   "age": { "months": "{{n}} months", "years": "{{n}} years" },
