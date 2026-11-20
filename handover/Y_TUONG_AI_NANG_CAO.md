@@ -70,6 +70,7 @@ Trả lời ghi thẳng vào file này hoặc tạo file mới trong `handover/`
 **Câu 2. Ai deploy core-api.**
 - Team AI đã deploy core-api bằng tay, nên `/api/noa/*` đã có trên production.
 - PR #84 nâng giới hạn số lượt gọi `say` và `understand` trên core-api.
+- `deploy.yml` đang được sửa để so với lần deploy thành công gần nhất thay vì `HEAD~1`. Trong lúc chờ, team AI kiểm tra và deploy tay sau mỗi lần merge.
 
 **Câu 4. `family.notify` và `analyst.weekly`.** Làm được. Dùng được khi PR C đã merge và deploy cả respond-agent lẫn core-api.
 
