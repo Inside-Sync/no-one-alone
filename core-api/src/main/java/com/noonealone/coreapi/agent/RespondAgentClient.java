@@ -19,23 +19,27 @@ public class RespondAgentClient {
 
     public record ExplainResult(String explain, String simpler) {}
 
-    private static final Duration EXPLAIN_READ_TIMEOUT = Duration.ofSeconds(10);
+    public record NoaSayResult(String source, String text, String reason) {}
+
+    public record NoaUnderstandResult(String choice) {}
+
+    private static final Duration SHORT_READ_TIMEOUT = Duration.ofSeconds(10);
 
     private final RestClient http;
-    private final RestClient explainHttp;
+    private final RestClient shortHttp;
 
     @Autowired
     public RespondAgentClient(NoaProperties props, RestClient.Builder builder) {
-        this(props, builder, EXPLAIN_READ_TIMEOUT);
+        this(props, builder, SHORT_READ_TIMEOUT);
     }
 
-    /** `explainRead` null shares the main client; /explain gets its own short read timeout so the card falls back fast. */
-    RespondAgentClient(NoaProperties props, RestClient.Builder builder, Duration explainRead) {
+    /** `shortRead` null shares the main client; /explain and /noa/* get a short read timeout so the web falls back fast. */
+    RespondAgentClient(NoaProperties props, RestClient.Builder builder, Duration shortRead) {
         builder.baseUrl(props.respondAgent().url());
         if (props.respondAgent().auth()) {
             builder.requestInterceptor(new IdTokenInterceptor(props.respondAgent().url()));
         }
-        this.explainHttp = explainRead == null ? null : builder.clone().requestFactory(explainFactory(explainRead)).build();
+        this.shortHttp = shortRead == null ? null : builder.clone().requestFactory(shortFactory(shortRead)).build();
         this.http = builder.build();
     }
 
@@ -71,15 +75,36 @@ public class RespondAgentClient {
         return r;
     }
 
-    private static JdkClientHttpRequestFactory explainFactory(Duration read) {
+    private static JdkClientHttpRequestFactory shortFactory(Duration read) {
         JdkClientHttpRequestFactory f = new JdkClientHttpRequestFactory(
                 java.net.http.HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5)).build());
         f.setReadTimeout(read);
         return f;
     }
 
+    private RestClient shortClient() {
+        return shortHttp == null ? http : shortHttp;
+    }
+
+    public NoaSayResult noaSay(Map<String, Object> body) {
+        NoaSayResult r = post(shortClient(), "/noa/say", body, NoaSayResult.class);
+        boolean live = "live".equals(r.source()) && r.text() != null && !r.text().isBlank();
+        if (!live && !"guardrail".equals(r.source())) {
+            throw new AgentException("Bad reply from respond-agent /noa/say", null);
+        }
+        return r;
+    }
+
+    public NoaUnderstandResult noaUnderstand(Map<String, Object> body) {
+        NoaUnderstandResult r = post(shortClient(), "/noa/understand", body, NoaUnderstandResult.class);
+        if (r.choice() == null || r.choice().isBlank()) {
+            throw new AgentException("Empty choice from respond-agent /noa/understand", null);
+        }
+        return r;
+    }
+
     public ExplainResult explain(Map<String, Object> body) {
-        ExplainResult r = post(explainHttp == null ? http : explainHttp, "/explain", body, ExplainResult.class);
+        ExplainResult r = post(shortClient(), "/explain", body, ExplainResult.class);
         if (r.explain() == null || r.explain().isBlank() || r.simpler() == null || r.simpler().isBlank()) {
             throw new AgentException("Empty explanation from respond-agent /explain", null);
         }

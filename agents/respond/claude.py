@@ -1,4 +1,4 @@
-"""Claude on Vertex AI for the teach card's wording. Returns None on any error."""
+"""Claude on Vertex AI for Noa's wording (teach card and family-health panel). Returns None on any error."""
 import json
 import logging
 import os
@@ -22,14 +22,14 @@ class ClaudeExplainer:
                                            timeout=TIMEOUT_S, max_retries=0)
         return self._client
 
-    def __call__(self, system: str, user: str) -> dict | None:
+    def __call__(self, system: str, user: str, schema: dict = SCHEMA, model: str | None = None) -> dict | None:
         try:
-            model = os.environ.get("CLAUDE_MODEL", "claude-opus-5-5")
+            model = model or os.environ.get("CLAUDE_MODEL", "claude-opus-5-5")
             # Opus 5.5 rejects thinking disabled; Haiku 5.5 accepts it at low effort.
             extra = {"thinking": {"type": "disabled"}} if model.startswith("claude-haiku") else {}
             resp = self._get_client().messages.create(
                 model=model, max_tokens=2000, system=system, messages=[{"role": "user", "content": user}],
-                output_config={"effort": "low", "format": {"type": "json_schema", "schema": SCHEMA}}, **extra)
+                output_config={"effort": "low", "format": {"type": "json_schema", "schema": schema}}, **extra)
             if resp.stop_reason != "end_turn":
                 log.warning("claude stopped: %s", resp.stop_reason)
                 return None

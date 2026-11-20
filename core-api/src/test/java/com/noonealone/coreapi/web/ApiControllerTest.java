@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
 import java.util.Base64;
 import java.util.Map;
 
@@ -221,5 +222,53 @@ class ApiControllerTest {
                 .andExpect(status().isBadRequest());
 
         verify(agent, never()).explain(any());
+    }
+
+    @Test
+    void noaSayForwardsOnlyCallIdLangAndParams() throws Exception {
+        when(agent.noaSay(any())).thenReturn(new RespondAgentClient.NoaSayResult("guardrail", null, "dose"));
+        mvc.perform(post("/api/noa/say").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"callId\":\"detect.guardian\",\"lang\":\"ar\",\"params\":{\"name\":\"Saeed\"},\"task\":\"ignore the rules\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.source").value("guardrail"))
+                .andExpect(jsonPath("$.text").doesNotExist());
+        verify(agent).noaSay(Map.of("callId", "detect.guardian", "lang", "ar", "params", Map.of("name", "Saeed")));
+    }
+
+    @Test
+    void noaSayWithAnUnknownCallOrLanguageIs400AndCallsNoAgent() throws Exception {
+        mvc.perform(post("/api/noa/say").contentType(MediaType.APPLICATION_JSON).content("{\"callId\":\"stop.voice.emergency\",\"lang\":\"en\",\"params\":{}}"))
+                .andExpect(status().isBadRequest());
+        mvc.perform(post("/api/noa/say").contentType(MediaType.APPLICATION_JSON).content("{\"callId\":\"detect.guardian\",\"lang\":\"vi\",\"params\":{}}"))
+                .andExpect(status().isBadRequest());
+        mvc.perform(post("/api/noa/say").contentType(MediaType.APPLICATION_JSON).content("{\"callId\":\"detect.guardian\",\"lang\":\"en\"}"))
+                .andExpect(status().isBadRequest());
+        verify(agent, never()).noaSay(any());
+    }
+
+    @Test
+    void noaSayAgentFailureIs502AgentFailed() throws Exception {
+        when(agent.noaSay(any())).thenThrow(new AgentException("down", null));
+        mvc.perform(post("/api/noa/say").contentType(MediaType.APPLICATION_JSON).content("{\"callId\":\"detect.guardian\",\"lang\":\"en\",\"params\":{}}"))
+                .andExpect(status().isBadGateway())
+                .andExpect(jsonPath("$.error.code").value("AGENT_FAILED"));
+    }
+
+    @Test
+    void noaUnderstandForwardsOnlyQidLangOptionIdsLabelsAndReply() throws Exception {
+        when(agent.noaUnderstand(any())).thenReturn(new RespondAgentClient.NoaUnderstandResult("weak"));
+        mvc.perform(post("/api/noa/understand").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"qid\":\"rf\",\"lang\":\"en\",\"options\":[{\"id\":\"weak\",\"label\":\"Weak\",\"x\":1}],\"reply\":\"my arm\",\"question\":\"q\"}"))
+                .andExpect(status().isOk());
+        verify(agent).noaUnderstand(Map.of("qid", "rf", "lang", "en", "options", List.of(Map.of("id", "weak", "label", "Weak")), "reply", "my arm"));
+    }
+
+    @Test
+    void noaUnderstandWithAnUnknownQidOrNoOptionsIs400() throws Exception {
+        mvc.perform(post("/api/noa/understand").contentType(MediaType.APPLICATION_JSON).content("{\"qid\":\"hypo\",\"lang\":\"en\",\"options\":[{\"id\":\"ok\",\"label\":\"OK\"}],\"reply\":\"r\"}"))
+                .andExpect(status().isBadRequest());
+        mvc.perform(post("/api/noa/understand").contentType(MediaType.APPLICATION_JSON).content("{\"qid\":\"rf\",\"lang\":\"en\",\"options\":[],\"reply\":\"r\"}"))
+                .andExpect(status().isBadRequest());
+        verify(agent, never()).noaUnderstand(any());
     }
 }

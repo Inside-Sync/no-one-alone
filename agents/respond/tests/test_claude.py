@@ -68,3 +68,11 @@ def test_client_is_vertex_with_7_s_and_no_retries(monkeypatch):
     monkeypatch.setenv("CLAUDE_LOCATION", "us-east5")
     claude.ClaudeExplainer()._get_client()
     assert seen["region"] == "us-east5"
+
+
+def test_schema_and_model_arguments_reach_the_request():
+    other = {"type": "object", "properties": {"text": {"type": "string"}}, "required": ["text"], "additionalProperties": False}
+    m = Messages(text='{"text": "t"}')
+    assert explainer(m)("S", "U", schema=other, model="claude-haiku-5-5") == {"text": "t"}
+    assert m.seen["model"] == "claude-haiku-5-5" and m.seen["thinking"] == {"type": "disabled"}
+    assert m.seen["output_config"] == {"effort": "low", "format": {"type": "json_schema", "schema": other}}
