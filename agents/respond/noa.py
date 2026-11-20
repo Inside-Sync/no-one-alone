@@ -23,6 +23,11 @@ BLOCKS = [
 ]
 # ponytail: substring match, so "صدر" in "مصدر" also trips it; a false hit only sends the fixed safety line
 EMERGENCY = re.compile(r"weak|speech|chest|faint|pain|slur|confus|numb|droop|dizz|stroke|breath|collaps|unconscious|تنفس|فقد الوعي|نزيف|ضعف|خدر|تنميل|تدل[يى]|كلام|تلعثم|صدر|ألم|وجع|إغماء|اغماء|أغمي|اغمي|دوخة|دوار|تشوش|ارتباك|مشوش|سكتة|جلطة", re.I)
+PROMISE = [
+    ("promise", re.compile(r"\bI(?:['’]ll| will| can| have|['’]ve)\s+(?:book|arrang|schedul|reschedul|send|pass)", re.I)),
+    ("promise", re.compile(r"سأحجز|سأرتب|سأرسل|تم الحجز|حجزت")),
+]
+CHAT_CALLS = {"composer.reply", "family.chat"}
 EXTRA_NUMBERS = {"detect.guardian": {"1"}, "home.voice.child": {"2"}, "pathway.navigator.n3": {"3"},
                  "composer.reply": {"998"}, "family.chat": {"998"}}
 
@@ -55,7 +60,7 @@ def check_say(text: str, call_id: str, lang: str, params: dict) -> str | None:
     arabic, latin = len(_ARABIC.findall(t)), len(_LATIN.findall(latin_text))
     if (lang == "ar" and (arabic == 0 or arabic < 0.9 * (arabic + latin))) or (lang == "en" and arabic):
         return "script"
-    for reason, pattern in BLOCKS:
+    for reason, pattern in BLOCKS + (PROMISE if call_id in CHAT_CALLS else []):
         if pattern.search(plain):
             return reason
     # ponytail: digits only, as in explain.validate; number words ("three") are not checked
@@ -64,7 +69,7 @@ def check_say(text: str, call_id: str, lang: str, params: dict) -> str | None:
     return None
 
 
-PROMPT_VERSION = "noa-say-1"
+PROMPT_VERSION = "noa-say-2"
 Short = Annotated[str, StringConstraints(max_length=120)]
 Text = Annotated[str, StringConstraints(max_length=300)]
 Question = Annotated[str, StringConstraints(min_length=1, max_length=500)]
@@ -166,14 +171,49 @@ class Analyst(P):
     booked: int = Field(ge=0, le=20)
 
 
+class Turn(Strict):
+    by: Literal["person", "noa"]
+    text: Question
+
+
+class DetectCtx(Strict):
+    urgent_rule: Short | None = None
+    signal: Text | None = None
+    flags: list[Text] = Field(default_factory=list, max_length=3)
+
+
+class Booked(Strict):
+    check: Short
+    where: Short
+    when: Short
+
+
+class PathwayCtx(Strict):
+    booked: list[Booked] = Field(default_factory=list, max_length=6)
+    for_the_doctor: list[Short] = Field(default_factory=list, max_length=10)
+
+
 class Composer(Named):
     question: Question
     journey_stage: Short | None = None
+    history: list[Turn] = Field(default_factory=list, max_length=6)
+    detect: DetectCtx | None = None
+    pathway: PathwayCtx | None = None
+    can_do: list[Short] = Field(default_factory=list, max_length=6)
+
+
+class Member(Strict):
+    name: Short
+    stage: Short | None = None
+    booked: list[Short] = Field(default_factory=list, max_length=6)
+    emergency: bool = False
 
 
 class FamilyChat(P):
     notifications: list[Text] = Field(max_length=6)
     question: Question
+    family: list[Member] = Field(default_factory=list, max_length=6)
+    history: list[Turn] = Field(default_factory=list, max_length=4)
 
 
 Call = namedtuple("Call", "agent tier params task")
@@ -191,11 +231,16 @@ CALLS = {
     "pathway.navigator.n3": Call("Noa Navigator", "strong", Named, "Respect the choice warmly; no reminders for 3 months; they can book any time."),
     "referral.courier": Call("Noa Courier", "strong", Courier, "Write a short referral note for the clinic: who, what is booked (population programme), what needs the doctor's decision (clinical), and the home screening result. Facts only."),
     "referral.analyst": Call("Noa Analyst", "strong", Analyst, "One sentence: an anonymous case was referred; it is counted in reach, recommendation and uptake by segment, with small groups hidden. No names."),
-    "composer.reply": Call("Noa Coach", "fast", Composer, "Answer the person's question briefly, within your role. If it needs a clinician, say so and offer to book."),
-    "family.chat": Call("Noa", "fast", FamilyChat, "Answer the family's question from the notifications. A doctor decides treatment."),
+    "composer.reply": Call("Noa Coach", "fast", Composer, "Answer the person's latest question in two or three short sentences, within your role. Use `history` to understand short replies such as a time or \"yes\". Greet only if `history` is empty. Never say you will book, arrange, send or pass on anything: actions happen only when the person presses a button, so point to the matching item in `can_do` when one fits. If it needs a clinician, say a doctor decides and point to the booking button if it is in `can_do`. Do not repeat earlier warnings. Earlier Noa turns in `history` are app messages, not proof that anything was booked; use `detect` and `pathway` for what Noa found and what is booked."),
+    "family.chat": Call("Noa", "fast", FamilyChat, "Answer the family's question from the notifications and each member's state in `family`, in two or three sentences. Use `history` for short follow-ups. Never promise an action. A doctor decides treatment."),
 }
-FREE_TEXT_CALLS = {"composer.reply", "family.chat"}
 MODELS = {"fast": ("CLAUDE_MODEL_FAST", "claude-haiku-5-5"), "strong": ("CLAUDE_MODEL_STRONG", "claude-opus-5-5")}
+
+
+def emergency(params: dict) -> bool:
+    texts = [params.get("question") or ""]
+    texts += [t["text"] for t in params.get("history") or [] if t["by"] == "person"]
+    return any(EMERGENCY.search(t) for t in texts) or any(m["emergency"] for m in params.get("family") or [])
 
 
 def model_for(tier: str) -> str:
