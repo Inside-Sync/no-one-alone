@@ -38,12 +38,21 @@ def max_words(call_id: str) -> int:
     return {"referral.courier": 80, "detect.forecast": 80, "pathway.navigator.offer": 80, "family.chat": 45}.get(call_id, 55)
 
 
+def _terms(params) -> set[str]:
+    if isinstance(params, str):
+        return {w.rstrip("-") for w in re.findall(r"[A-Za-z][A-Za-z0-9-]*", params) if re.search(r"[A-Z0-9]", w[1:])}
+    items = params.values() if isinstance(params, dict) else params if isinstance(params, list) else []
+    return set().union(*(_terms(v) for v in items))
+
+
 def check_say(text: str, call_id: str, lang: str, params: dict) -> str | None:
     t = text.strip()
     plain = _MARKS.sub("", t)
     if len(t.split()) > max_words(call_id):
         return "length"
-    arabic, latin = len(_ARABIC.findall(t)), len(_LATIN.findall(t))
+    terms = _terms(params) if lang == "ar" else set()
+    latin_text = re.sub(r"[A-Za-z][A-Za-z0-9-]*", lambda m: " " if m.group().rstrip("-") in terms else m.group(), t)
+    arabic, latin = len(_ARABIC.findall(t)), len(_LATIN.findall(latin_text))
     if (lang == "ar" and (arabic == 0 or arabic < 0.9 * (arabic + latin))) or (lang == "en" and arabic):
         return "script"
     for reason, pattern in BLOCKS:
