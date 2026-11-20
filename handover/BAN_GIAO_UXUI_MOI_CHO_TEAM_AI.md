@@ -24,6 +24,7 @@
 13. [Đánh giá bản demo AI và cách nối vào bảng mới](#13)
    - [13b. Đối chiếu với kiến trúc](#13b)
    - [13c. PR #78 và #79](#13c)
+14. [Ô "Ask Noa" và tin nhắn gia đình: ngữ cảnh cho AI](#14)
 
 ---
 
@@ -463,3 +464,47 @@ Chạy trong PowerShell từ **`D:\WORK\no-one-alone\web`** (chữ **D hoa**; `d
 
 ### PR #74 đã merge vào dev
 Team AI đã sửa 6 lỗi nhỏ của engine Test case cũ theo danh sách trong file bàn giao đợt 1 (đại từ trong `hypo_em`, đường huyết trong gói 998, nhãn F1, kiểm khoảng giá trị đo hằng ngày, câu tự kiểm R10, số agent trong chú thích). Các sửa này chỉ chạm lớp phủ cũ, không ảnh hưởng bảng mới.
+
+
+<a id="14"></a>
+## 14. Ô "Ask Noa" và tin nhắn gia đình: ngữ cảnh cho AI (cập nhật 20/11)
+
+### 14.1 Lỗi thấy khi chạy với AI thật
+Ảnh chụp ngày 20/11, Moza đang ở nhánh **cấp cứu** (thanh đỏ "Moza should see a doctor now"):
+| # | Hiện tượng | Nguyên nhân |
+|---|---|---|
+| 1 | Gõ "10h" thì AI hỏi lại "bạn hỏi gì?". Câu nào AI cũng chào "Hi Moza, I'm Noa Coach" | `composer.reply` chỉ gửi `{ name, question, journey_stage }`, **không có lịch sử hội thoại** |
+| 2 | AI hứa "I can arrange", "I'll pass your request along", nhưng không có lịch nào được đặt | Chữ AI viết không gây ra hành động (đúng thiết kế), nhưng AI **không biết** app làm được gì nên vẫn hứa |
+| 3 | Đang cấp cứu mà AI bàn chuyện hẹn bác sĩ tới nhà Chủ nhật | AI **không biết** ca đang ở nhánh cấp cứu |
+| 4 | Câu dài, lặp lời chào và lặp câu cảnh báo | Prompt chưa tính tới hội thoại nhiều lượt |
+
+### 14.2 Team web đã làm (trên dev)
+- **Đang cấp cứu thì ô "Ask Noa" và khung tin nhắn gia đình không gọi AI.** Hỏi gì cũng nhận câu cố định nhắc lại lời khuyên đi cấp cứu, và báo screening cùng đặt lịch tạm dừng tới khi bác sĩ khám (khóa `coach.emergencyActive`, `chat.emergencyActive`, en + ar). Đây là luật an toàn nên thuộc engine. Có test: `web/tests/familyHealth/emergency-chat.test.ts`.
+
+### 14.3 Đề xuất: gửi đủ ngữ cảnh cho AI (cần hai team làm cùng lúc)
+Server đang cấm trường lạ, nên **team AI mở rộng params trước**, team web gửi thêm sau. Đề xuất params mới cho `composer.reply`, mọi trường đều đã có sẵn trong engine:
+```json
+{
+  "audience": "Moza", "name": "Moza", "question": "10am pls", "journey_stage": "pathway",
+  "history": [ { "by": "person", "text": "please book a visit this sunday" }, { "by": "noa", "text": "…" } ],
+  "detect": { "urgent_rule": "G1", "signal": "Resting heart 128 bpm, far above her usual", "flags": ["High blood pressure 146/84", "2 checks overdue"] },
+  "pathway": { "booked": [ { "check": "Bone density scan", "where": "Al Bateen FHC", "when": "Wed 25 Nov, 09:00" } ], "for_the_doctor": ["Stroke clinic follow-up"] },
+  "can_do": ["Start home screening (button on the card)", "Change the time (on the booking card)", "Open the record (tap the person in the tree)"]
+}
+```
+- `history`: 4–6 lượt gần nhất (người dùng và Noa), mỗi lượt có giới hạn độ dài.
+- `detect`: những gì Detect đã thấy (luật khẩn nếu có, tín hiệu, 3 cờ quan trọng nhất).
+- `pathway`: các mục đã đặt lịch và mục chờ bác sĩ quyết (nếu đã tới bước đó).
+- `can_do`: các việc người dùng **tự bấm** được trên app ở bước hiện tại. AI chỉ được hướng dẫn tới đúng nút, **không được hứa tự đặt lịch hay gửi yêu cầu**.
+- Không cần gửi `emergency`: khi cấp cứu, engine đã không gọi AI (14.2).
+
+**Prompt phía server:**
+- chỉ chào ở lượt đầu tiên của hội thoại;
+- trả lời ngắn (2–3 câu);
+- dùng `history` để hiểu câu ngắn kiểu "10h", "yes pls";
+- không hứa hành động; muốn đặt hay đổi lịch thì chỉ tới nút trong `can_do`;
+- chỉ nhắc "đi cấp cứu" khi câu hỏi có dấu hiệu khẩn (server đã có danh sách `EMERGENCY`).
+
+**Tương tự cho `family.chat`:** thêm tình trạng hiện tại của từng người trong gia đình (bước, đã đặt gì, có đang cấp cứu không) và 4 lượt hội thoại gần nhất, ngoài 6 thông báo đã gửi.
+
+**Câu hỏi cho team AI:** đồng ý schema trên không, và khi nào server nhận được? Team web gửi các trường này ngay khi server sẵn sàng; test hợp đồng ở `web/tests/familyHealth/ai-calls.test.ts` sẽ cập nhật theo.
