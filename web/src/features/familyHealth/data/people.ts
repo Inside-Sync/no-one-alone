@@ -169,16 +169,20 @@ export const EDIT_RANGES = {
   hr: { min: 30, max: 200, step: 1, unit: 'bpm' },
   sbp: { min: 80, max: 240, step: 1, unit: 'mmHg' },
   dbp: { min: 40, max: 140, step: 1, unit: 'mmHg' },
-  age: { min: 18, max: 90, step: 1, unit: 'yrs' },
+  age: { min: 18, max: 95, step: 1, unit: 'yrs' },
   wt: { min: 30, max: 200, step: 0.5, unit: 'kg' },
   steps: { min: 0, max: 30000, step: 100, unit: '' },
+  spo2: { min: 80, max: 100, step: 1, unit: '%' },
+  glu: { min: 2, max: 20, step: 0.1, unit: 'mmol/L' },
+  irrAlerts: { min: 0, max: 10, step: 1, unit: '' },
   ageM: { min: 1, max: 72, step: 1, unit: 'months' },
   overdueW: { min: 0, max: 26, step: 1, unit: 'weeks' },
 } as const
 export type EditField = keyof typeof EDIT_RANGES
 export const ADULT_EDIT_FIELDS: readonly EditField[] = ['hr', 'sbp', 'dbp', 'age', 'wt', 'steps']
 export const CHILD_EDIT_FIELDS: readonly EditField[] = ['ageM', 'overdueW']
-export const TOGGLE_FIELDS = ['smoker', 'bpTx', 'dm'] as const
-export type ToggleField = (typeof TOGGLE_FIELDS)[number]
+export type ToggleField = 'smoker' | 'bpTx' | 'dm' | 'cvd'
+/** The drawer's switches (the "Try it" panel adds `cvd`). */
+export const TOGGLE_FIELDS: readonly ToggleField[] = ['smoker', 'bpTx', 'dm']
 
 export type { ChildProfile }

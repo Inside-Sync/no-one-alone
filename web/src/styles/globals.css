@@ -72,7 +72,7 @@ body.night .scene::after{opacity:1}
 .topnav .locale{flex:none}
 .brand{display:flex;align-items:center;gap:10px;flex:none}
 /* The animated Noa globe; its 44px box (orbit ring included) sits in the old 32px logo slot. */
-.logo{display:grid;place-items:center;width:32px;height:32px;flex:none}
+.logo{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none}
 .brand b{font-size:15.5px;font-weight:600;letter-spacing:-.2px;display:block;line-height:1.1}
 .brand small{font-size:11px;color:var(--muted-text)}
 .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1;padding:2px}

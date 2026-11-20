@@ -23,7 +23,7 @@ export function lcFirst(s: string): string {
   const m = /^(\S+)/.exec(s)
   if (!m) return s
   const w = m[1]
-  if (/[A-Z]/.test(w.slice(1))) return s
+  if (/[A-Z]/.test(w.slice(1)) || w === 'Noa') return s
   return s.charAt(0).toLowerCase() + s.slice(1)
 }
 

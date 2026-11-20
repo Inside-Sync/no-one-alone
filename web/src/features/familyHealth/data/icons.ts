@@ -11,11 +11,11 @@ import type { FhIcon } from './types'
  *   landmark 🏛️ Government agent · conductor 🎼
  *   droplet 🩸 · stethoscope 🩺 · watch ⌚ · scale ⚖️ · ear 👂 · footprints 🚶 · message-circle 💬 · bed 😴
  *   check ✓ · lock 🔒 · stop ⛔ · arrow-up ⬆️ · family 👪 · recall 🔁 · calendar 📅 · child 🧒 · bot 🤖 · type 🔤
- *   bell 🔔 · sun 🌞 · heart ❤ · activity 🚶
+ *   bell 🔔 · sun 🌞 · heart ❤ · activity 🚶 · timer ⏱️
  */
 export const FH_ICONS: readonly FhIcon[] = [
   'grandma', 'grandpa', 'dad', 'mum', 'son', 'daughter', 'orchestrator', 'puzzle', 'shield', 'speech', 'graduation-cap', 'trend',
   'compass', 'package', 'search', 'chart-column', 'home', 'clinic', 'xray', 'landmark', 'conductor', 'droplet', 'stethoscope',
   'watch', 'scale', 'ear', 'footprints', 'message-circle', 'bed', 'check', 'lock', 'stop', 'arrow-up', 'family', 'recall',
-  'calendar', 'child', 'bot', 'type', 'bell', 'sun', 'heart', 'activity',
+  'calendar', 'child', 'bot', 'type', 'bell', 'sun', 'heart', 'activity', 'timer',
 ]

@@ -12,9 +12,42 @@ import type { AgentId, DomainId, NoaLang, RuleId } from '../data/types'
  * - `route` (optional) is the hand-off the Orchestrator's rule makes next. If a live reply suggests another agent
  *   (`handoffTo`), the rule still wins and the engine counts it as "AI overruled".
  * - `understand` reads a free-text reply into one of the card's options. `PreparedAi` uses the prototype's keyword readers.
+ * - `callId` names the call site (one of `SAY_CALLS` below, stable across releases, for logs, evals and prompts per call) and
+ *   `tier` the model class it needs: `fast` for the short, frequent turns (Guardian, Voice, the composer, family chat and every
+ *   `understand`), `strong` for the reasoning ones (Forecast, Insight, Navigator, Courier, Analyst).
+ * - `SayResult.ruleId` (optional): the Orchestrator rule a live turn explains (Guardian returns "text plus the rule ID"). A valid
+ *   code is shown in the bubble's "why" line; anything else is ignored. It never changes routing or any decision.
  */
 export type SaySource = 'live' | 'prepared' | 'guardrail'
+export type ModelTier = 'fast' | 'strong'
+/** Every `say` call site of the journey: a stable id, what it is for, and its model tier. */
+export const SAY_CALLS = {
+  'detect.guardian': { tier: 'fast', purpose: 'Guardian tells the person what it noticed against their own normal (urgent alert)' },
+  'detect.forecast': { tier: 'strong', purpose: 'Forecast explains the flags from the readings, last record and family record' },
+  'protect.guardian': { tier: 'fast', purpose: 'Guardian confirms which data Noa uses and who may see the pathway' },
+  'home.voice.intro': { tier: 'fast', purpose: 'Voice says what the home screening by voice covers today' },
+  'home.voice.retry': { tier: 'fast', purpose: 'Voice asks for the speech sentence once more, slowly' },
+  'home.voice.child': { tier: 'fast', purpose: 'Voice opens a child’s home check with the parent' },
+  'home.insight': { tier: 'strong', purpose: 'Insight sums up the home screening results and what they change' },
+  'pathway.navigator.offer': { tier: 'strong', purpose: 'Navigator offers the pathway (population priority vs doctor decisions) and asks to book' },
+  'pathway.forecast.why': { tier: 'strong', purpose: 'Forecast answers “why these checks, now?”' },
+  'pathway.navigator.u1': { tier: 'strong', purpose: 'Navigator respects “not now” but escalates the urgent items (rule U1)' },
+  'pathway.navigator.n3': { tier: 'strong', purpose: 'Navigator respects “not now” for routine checks (rule N3)' },
+  'referral.courier': { tier: 'strong', purpose: 'Courier writes the referral note for the clinic' },
+  'referral.analyst': { tier: 'strong', purpose: 'Analyst counts the case for the Department of Health, no names' },
+  'composer.reply': { tier: 'fast', purpose: 'The agent holding the case (or Coach) answers a question typed in the composer' },
+  'family.chat': { tier: 'fast', purpose: 'Noa answers the family in the family messages panel' },
+} as const satisfies Record<string, { tier: ModelTier; purpose: string }>
+export type SayCallId = keyof typeof SAY_CALLS
+/** The emergency script's call site: a fixed, clinician-approved text that never reaches the AI port. */
+export const FIXED_CALL = 'stop.voice.emergency'
+/** Every `understand` call is a short classification: the fast tier. */
+export const UNDERSTAND_TIER: ModelTier = 'fast'
 export interface SayRequest {
+  /** The call site (`SAY_CALLS`). */
+  callId: SayCallId
+  /** The model class this call needs (`SAY_CALLS[callId].tier`). */
+  tier: ModelTier
   /** The skill (sub-agent) speaking, or `familyChat` for the family messages panel. */
   skill: AgentId | 'familyChat'
   domain: DomainId
@@ -40,8 +73,12 @@ export interface SayResult {
   note?: string
   /** A live model's suggested next agent (compared with `route`). */
   handoffTo?: AgentId | null
+  /** A live turn's Orchestrator rule code it explains (shown in the "why" line when it is one of the 34 codes; else ignored). */
+  ruleId?: string | null
 }
 export interface UnderstandRequest {
+  /** Always `fast` (`UNDERSTAND_TIER`). */
+  tier: ModelTier
   /** The card's question id (rf, sym, pref, time, book, words). */
   qid: string
   /** The question in plain English, for the model. */

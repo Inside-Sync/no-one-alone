@@ -68,7 +68,7 @@
    },
    {
     "src": "Prepared",
-    "text": "Abu Rashid, first and most urgent: doctor review today (today). Then your checks: diabetes eye check (within 1 month), diabetes kidney check (within 1 month), bowel cancer home test (routine · within 3 months), ifhas adult health screening (routine · within 3 months), seasonal flu vaccine (routine · within 3 months), starting Wed 25 Nov, 09:00. Your doctor will decide on: 2 items. Shall I book?"
+    "text": "Abu Rashid, first and most urgent: doctor review today. Then your checks: diabetes eye check (within 1 month), diabetes kidney check (within 1 month), bowel cancer home test (routine · within 3 months), ifhas adult health screening (routine · within 3 months), seasonal flu vaccine (routine · within 3 months), starting Wed 25 Nov, 09:00. Your doctor will decide on: 2 items. Shall I book?"
    },
    {
     "src": "Prepared",
@@ -524,7 +524,7 @@
    },
    {
     "src": "Prepared",
-    "text": "Abu Rashid, first and most urgent: medicine review within 24 hours (within 24 hours). Then your checks: diabetes eye check (within 1 month), diabetes kidney check (within 1 month), bowel cancer home test (routine · within 3 months), ifhas adult health screening (routine · within 3 months), seasonal flu vaccine (routine · within 3 months), starting Wed 25 Nov, 09:00. Your doctor will decide on: 2 items. Shall I book?"
+    "text": "Abu Rashid, first and most urgent: medicine review within 24 hours. Then your checks: diabetes eye check (within 1 month), diabetes kidney check (within 1 month), bowel cancer home test (routine · within 3 months), ifhas adult health screening (routine · within 3 months), seasonal flu vaccine (routine · within 3 months), starting Wed 25 Nov, 09:00. Your doctor will decide on: 2 items. Shall I book?"
    },
    {
     "src": "Prepared",
@@ -1640,11 +1640,11 @@
    },
    {
     "src": "Prepared",
-    "text": "Umm Khalid, a few minutes by voice today: hearing, falls risk, diabetes risk test, mood. Then I’ll find the right checks for you."
+    "text": "Umm Khalid, a few minutes by voice today: Noa Speech Check, hearing, falls risk, diabetes risk test, mood. Then I’ll find the right checks for you."
    },
    {
     "src": "Prepared",
-    "text": "Thank you, Umm Khalid. Hearing: 1 of 3 correct: refer for a full hearing test; Falls risk: at risk (2 of 3 yes); Diabetes risk test: score 6: higher risk (5 or more), hba1c advised; Mood: score 3 of 6: positive, follow-up advised. Now I’ll find the right pathway for you."
+    "text": "Thank you, Umm Khalid. Noa Speech Check: score 1.00 · as usual; Hearing: 1 of 3 correct: refer for a full hearing test; Falls risk: at risk (2 of 3 yes); Diabetes risk test: score 6: higher risk (5 or more), hba1c advised; Mood: score 3 of 6: positive, follow-up advised. Now I’ll find the right pathway for you."
    },
    {
     "src": "Prepared",
@@ -1652,7 +1652,7 @@
    },
    {
     "src": "Prepared",
-    "text": "Moza Al Hammadi, 78. Booked: Bone density scan (DXA); Seasonal flu vaccine; Diabetes check (HbA1c). For the doctor to decide: Stroke clinic follow-up (booked Mon 30 Nov): the stroke team reviews blood pressure, rhythm and rehab; Mood follow-up (PHQ-9) with the doctor or a counsellor; Falls risk assessment (balance, medicines, home): doctor or physiotherapist; Blood pressure treatment review: the doctor decides any change; Full hearing test: the doctor refers to audiology."
+    "text": "Moza Al Hammadi, 78. Booked: Bone density scan (DXA); Seasonal flu vaccine; Diabetes check (HbA1c). For the doctor to decide: Stroke clinic follow-up (booked Mon 30 Nov): the stroke team reviews blood pressure, rhythm and rehab; Mood follow-up (PHQ-9) with the doctor or a counsellor; Falls risk assessment (balance, medicines, home): doctor or physiotherapist; Blood pressure treatment review: the doctor decides any change; Full hearing test: the doctor refers to audiology. Home speech check: score 1.00, as usual."
    },
    {
     "src": "Prepared",
@@ -1661,6 +1661,7 @@
   ],
   "sys": [
    "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Moza.",
+   "✓ Speech as usual for Moza (rule Q1). Saved to the recovery record for the speech therapist.",
    "📅 Bone density scan (DXA) · Al Bateen FHC · Wed 25 Nov, 09:00",
    "📅 Seasonal flu vaccine · Al Bateen FHC · Wed 25 Nov, 09:00",
    "📅 Diabetes check (HbA1c) · Al Bateen FHC · Wed 25 Nov, 09:00",
@@ -1668,6 +1669,7 @@
   ],
   "picks": [
    "Data confirmed · shared with: Khalid",
+   "sample · as usual",
    "Hearing: 1 of 3 correct",
    "Falls risk: 3 key questions: At risk (2 of 3 yes)",
    "Diabetes risk test: Score 6: higher risk (5 or more), HbA1c advised",
@@ -1937,11 +1939,11 @@
    },
    {
     "src": "Prepared",
-    "text": "Umm Khalid, a few minutes by voice today: hearing, falls risk, diabetes risk test, mood. Then I’ll find the right checks for you."
+    "text": "Umm Khalid, a few minutes by voice today: Noa Speech Check, hearing, falls risk, diabetes risk test, mood. Then I’ll find the right checks for you."
    },
    {
     "src": "Prepared",
-    "text": "Thank you, Umm Khalid. Hearing: 1 of 3 correct: refer for a full hearing test; Falls risk: at risk (2 of 3 yes); Diabetes risk test: score 6: higher risk (5 or more), hba1c advised; Mood: score 3 of 6: positive, follow-up advised. Now I’ll find the right pathway for you."
+    "text": "Thank you, Umm Khalid. Noa Speech Check: score 1.00 · as usual; Hearing: 1 of 3 correct: refer for a full hearing test; Falls risk: at risk (2 of 3 yes); Diabetes risk test: score 6: higher risk (5 or more), hba1c advised; Mood: score 3 of 6: positive, follow-up advised. Now I’ll find the right pathway for you."
    },
    {
     "src": "Prepared",
@@ -1954,10 +1956,12 @@
   ],
   "sys": [
    "✓ No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for Moza.",
+   "✓ Speech as usual for Moza (rule Q1). Saved to the recovery record for the speech therapist.",
    "⬆️ Escalated (rule U1): 2 urgent items sent to Dr Fatima Al Ali. Routine checks paused for 3 months."
   ],
   "picks": [
    "Data confirmed · shared with: Khalid",
+   "sample · as usual",
    "Hearing: 1 of 3 correct",
    "Falls risk: 3 key questions: At risk (2 of 3 yes)",
    "Diabetes risk test: Score 6: higher risk (5 or more), HbA1c advised",
@@ -3060,7 +3064,7 @@
    },
    {
     "src": "Prepared",
-    "text": "Khalid, first and most urgent: doctor review today (today). Then your checks: cholesterol test (within 1 month), ifhas adult health screening (within 1 month), seasonal flu vaccine (routine · within 3 months), quit-smoking support (routine · within 3 months), starting Tue 24 Nov, 19:15. Your doctor will decide on: 3 items. Shall I book?"
+    "text": "Khalid, first and most urgent: doctor review today. Then your checks: cholesterol test (within 1 month), ifhas adult health screening (within 1 month), seasonal flu vaccine (routine · within 3 months), quit-smoking support (routine · within 3 months), starting Tue 24 Nov, 19:15. Your doctor will decide on: 3 items. Shall I book?"
    },
    {
     "src": "Prepared",

@@ -1,7 +1,7 @@
 {
   "header": {
     "title": "Noa · family health",
-    "sub": "Detect → Protect → Home screening → Right pathway. Tap a person to see their record; you act when it’s your turn, or press Next<n/>.",
+    "sub": "Tap a person to open their record. Noa works step by step; you act when it’s your turn, or press Next<n/>.",
     "speaks": "Noa speaks",
     "en": "English",
     "ar": "العربية",
@@ -28,7 +28,10 @@
     "married": "married",
     "parentOf": "parent of",
     "legend": "Alia (Moza’s daughter, London) and Amna’s mother are not in this passport. Tap anyone to open their record.",
-    "heart": "{{pct}}"
+    "heart": "{{pct}}",
+    "family": "Family",
+    "show": "Show family tree",
+    "collapse": "Collapse tree"
   },
   "steps": {
     "label": "Journey"
@@ -66,12 +69,14 @@
     "bp": "{{sbp}}/{{dbp}} mmHg",
     "wt": "BMI {{bmi}}",
     "glu": "{{glu}} mmol/L",
-    "how": "How it syncs in real life",
+    "how": "How it syncs",
     "s1": "Watch, BP cuff, scale and glucose sensor record readings (watch heart rate every few minutes at rest; irregular-rhythm alerts as they happen)",
     "s2": "They land in Apple Health (HealthKit) or Health Connect on the phone",
     "s3": "The InsideSync app syncs them in the background, within minutes",
     "s4": "A signed, consent-checked request sends them to No One Alone (built and tested locally, not yet deployed)",
-    "s5": "The Personal care agent reads them against {{name}}’s own normal"
+    "s5": "The Personal care agent reads them against {{name}}’s own normal",
+    "liveAgo": "Live · {{n}} s ago",
+    "sim": "Simulated in this prototype"
   },
   "dom": {
     "care": "Personal care",
@@ -245,10 +250,11 @@
     "c3His": "<b>5 measures</b> compared with his own normal, in under 2 seconds",
     "c3Her": "<b>5 measures</b> compared with her own normal, in under 2 seconds",
     "c4": "<b>Clearly changed = Red:</b> Noa stops and advises seeing a doctor immediately",
-    "foot": "Runs only when Noa sees an unusual pattern, never as a routine screening test. Accent and hearing aids are part of the baseline; only the scores are kept, not the recordings. Noa’s own method, to be validated in the pilot; numbers here are illustrative.",
+    "foot": "Runs when Noa sees an unusual pattern, or as a recovery check after a stroke; never as a routine screening test for people without symptoms. Accent and hearing aids are part of the baseline; only the scores are kept, not the recordings. Noa’s own method, to be validated in the pilot; numbers here are illustrative.",
     "micOff": "The microphone is off for this page. Type instead, or use a sample.",
     "micFail": "Speech-to-text did not start. Type instead, or use a sample.",
-    "noWords": "No words came through. Try again, type it, or use a sample."
+    "noWords": "No words came through. Try again, type it, or use a sample.",
+    "coreRecovery": "Recovery check"
   },
   "comp": {
     "aria": "Message to Noa",
@@ -393,5 +399,73 @@
     "ph": "Ask Noa anything…",
     "aria": "Ask Noa",
     "send": "Send"
+  },
+  "nowh": {
+    "what": "What happens here",
+    "did": "What this step did"
+  },
+  "wi": {
+    "try": "Try it",
+    "readings": "{{name}}’s readings",
+    "hint": "Drag a reading or pick a scenario. Red is where Noa acts, green is healthy.",
+    "hide": "Hide",
+    "edit": "Edit readings",
+    "scenarios": "Scenarios",
+    "sc": {
+      "race": "Racing heart",
+      "slow": "Very slow heart",
+      "bp": "BP crisis",
+      "o2": "Low oxygen",
+      "hypo": "Low sugar at night",
+      "rhythm": "Rhythm alerts",
+      "normal": "All normal"
+    },
+    "f": {
+      "hr": "Resting heart",
+      "sbp": "BP top",
+      "dbp": "BP bottom",
+      "spo2": "Oxygen",
+      "glu": "Glucose",
+      "irrAlerts": "Rhythm alerts",
+      "wt": "Weight",
+      "age": "Age",
+      "ageM": "Age",
+      "overdueW": "Next visit overdue by"
+    },
+    "u": {
+      "hr": "bpm",
+      "sbp": "mmHg",
+      "dbp": "mmHg",
+      "spo2": "%",
+      "glu": "mmol/L",
+      "irrAlerts": "14 days",
+      "wt": "kg",
+      "age": "years",
+      "ageM": "months",
+      "overdueW": "weeks"
+    },
+    "t": {
+      "smoker": "Smokes",
+      "dm": "Diabetes",
+      "bpTx": "BP tablets",
+      "cvd": "Past heart attack or stroke"
+    },
+    "run": "Run Noa with these readings",
+    "reset": "Reset",
+    "heart": "Heart risk",
+    "heartV": "<b>{{pct}}</b> in 10 years ({{cat}}) · heart age {{ha}}",
+    "tests": "Voice tests",
+    "none": "none",
+    "also": "Also due: {{list}}",
+    "sum": {
+      "bp": "BP {{sbp}}/{{dbp}}",
+      "o2": "O₂ {{n}}%",
+      "glu": "Glucose {{n}}",
+      "bmi": "BMI {{n}}",
+      "child": "{{m}} months · visit {{v}}",
+      "overdue": "{{n}} wk overdue",
+      "onTime": "on time"
+    },
+    "resetAria": "Reset {{name}}’s readings"
   }
 }

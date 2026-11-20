@@ -24,7 +24,7 @@ export function getEngine(): FamilyHealthEngine {
 export function resetFamilyHealthStore(e?: FamilyHealthEngine) {
   engine = e ?? null
   autoRan = false
-  ui = { drawer: null, opener: null, chat: false, toast: null }
+  ui = { ...UI0 }
   emitUi()
 }
 /** Decision (c): the first time the tab opens in this page load, run test case s0 after 300 ms (prototype). */
@@ -41,8 +41,15 @@ export function useSnapshot(): Snapshot {
 
 /* ---------------------------------------------------------------- UI-only state */
 /** `opener`: what opened the drawer, so closing it gives focus back there. `toast`: the note shown in the toast. */
-export interface UiState { drawer: PersonId | null; opener: HTMLElement | null; chat: boolean; toast: number | null }
-let ui: UiState = { drawer: null, opener: null, chat: false, toast: null }
+export interface UiState {
+  drawer: PersonId | null; opener: HTMLElement | null; chat: boolean; toast: number | null
+  /** Family tree: the full tree (null: no check started yet, or true) or the strip of person chips (false, once a check starts). */
+  treeOpen: boolean | null
+  /** The "Try it" readings panel is open (until the person starts a check, or the viewer closes it). */
+  wiOpen: boolean
+}
+const UI0: UiState = { drawer: null, opener: null, chat: false, toast: null, treeOpen: null, wiOpen: true }
+let ui: UiState = { ...UI0 }
 const uiListeners = new Set<() => void>()
 const emitUi = () => uiListeners.forEach((l) => l())
 const subUi = (fn: () => void) => { uiListeners.add(fn); return () => { uiListeners.delete(fn) } }

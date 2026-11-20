@@ -96,4 +96,4 @@ export type FhIcon =
   | 'home' | 'clinic' | 'xray' | 'landmark' | 'conductor'
   | 'droplet' | 'stethoscope' | 'watch' | 'scale' | 'ear' | 'footprints' | 'message-circle' | 'bed'
   | 'check' | 'lock' | 'stop' | 'arrow-up' | 'family' | 'recall' | 'calendar' | 'child' | 'bot' | 'type' | 'bell' | 'sun'
-  | 'heart' | 'activity'
+  | 'heart' | 'activity' | 'timer'

@@ -3,8 +3,10 @@ import {
 } from '@/features/familyHealth'
 import { TAR, T, drive, engine, of, view } from './helpers'
 
-const start = async (e: FamilyHealthEngine, who: PersonId) => { void e.startJourney(who); await e.whenIdle() }
-const runCase = async (e: FamilyHealthEngine, id: TestCaseId) => { void e.runTestCase(id); await e.whenIdle() }
+/** Noa stops at Detect on the go card; most tests start the check right away (Next). */
+const pastGo = async (e: FamilyHealthEngine) => { await e.whenIdle(); if (e.getSnapshot().pending?.type === 'go') { e.next(); await e.whenIdle() } }
+const start = async (e: FamilyHealthEngine, who: PersonId) => { void e.startJourney(who); await pastGo(e) }
+const runCase = async (e: FamilyHealthEngine, id: TestCaseId) => { void e.runTestCase(id); await pastGo(e) }
 
 describe('Framingham heart pills', () => {
   test('match the prototype: Saeed 44% high, Khalid 10% moderate, Amna 1% low; none for Moza (after stroke) and the children', () => {
@@ -376,7 +378,7 @@ describe('AI port', () => {
     await runCase(e, 's0')
     await e.reply('The sky is blue in Abu Dhabi')
     await e.whenIdle()
-    const me = of(e.getSnapshot().feed, 'me')[0]
+    const me = of(e.getSnapshot().feed, 'me').at(-1) as ReturnType<typeof of<'me'>>[number]
     expect(T(me.who)).toBe('Saeed (typed)')
     expect(T(me.chip as Txt)).toBe('Noa Voice: as usual · score 1.00 · 7/7 words')
   })
@@ -493,10 +495,10 @@ describe('card edits and live box', () => {
     const s = await drive(e, { din: (c) => (c.type === 'din' ? ['472', '000', '386'] : []) }, 2)
     expect(of(s.feed, 'card').map((x) => T(x.picked))).toContain('Hearing: 2 of 3 correct')
   })
-  test('the live box shows the recorded blood pressure (B10) and today’s heart only for a heart alert', async () => {
+  test('the live box shows the recorded blood pressure (B10) and the recorded heart rate (newer prototype)', async () => {
     const { syncValues, PROFILES0 } = await import('@/features/familyHealth')
     const p = PROFILES0.saeed as Exclude<typeof PROFILES0.saeed, { child: true }>
-    expect(syncValues('saeed', p, null)).toMatchObject({ hr: 71, sbp: 138, dbp: 82, glu: 6.8 })
+    expect(syncValues('saeed', p, null)).toMatchObject({ hr: 72, sbp: 138, dbp: 82, glu: 6.8, hot: false })
     expect(syncValues('saeed', { ...p, hr: 128 }, 'G1')).toMatchObject({ hr: 128, hot: true })
   })
 })

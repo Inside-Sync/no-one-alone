@@ -73,6 +73,7 @@
     "amna": "HbA1c recheck overdue", "hamdan": "5-year visit due", "hind": "18-month visit overdue"
   },
   "status": {
+    "promptSent": "Prompt sent · waiting", "ready": "Ready when you are", "promptPending": "Prompt pending",
     "watching": "Noa is watching", "unusual": "Unusual pattern", "checking": "Checking now", "home": "Home screening",
     "seeDoctor": "See a doctor now", "pathReady": "Pathway ready", "escalated": "Escalated to doctor", "notNow": "Not now · door open",
     "booked": "Booked · {{day}}", "cholNote": "Cholesterol note for paediatrician"
@@ -206,8 +207,8 @@
   "stages": {
     "detect": {
       "name": "Detect", "title": "1 · Detect",
-      "body": "Noa Guardian watches {{name}}’s devices against {{name}}’s own normal and reads the last personal record and the family health record. An unusual pattern prompts a check by itself; every flag shows its reasons, source and certainty (rule D1).",
-      "you": "Nothing to press yet: Noa asks when it needs you. To try other numbers, open {{name}}’s record from the tree."
+      "body": "Noa Guardian watches {{name}}’s devices against {{name}}’s own normal and reads the last personal record and the family health record. An unusual pattern sends {{name}} a prompt; every flag shows its reasons, source and certainty (rule D1). Noa then waits: nothing moves on until the person starts it.",
+      "you": "Read the alert, then start the check when you are ready."
     },
     "protect": {
       "name": "Protect", "title": "2 · Protect",
@@ -394,6 +395,7 @@
       "line": "{{test}}: {{result}}"
     },
     "navigator": {
+      "firstNoUrg": "first and most urgent: {{item}}. Then ",
       "to": "{{call}}, ", "toChild": "{{parent}}, for {{name}}: ",
       "first": "first and most urgent: {{item}} ({{urg}}). Then ",
       "check": "{{name}} ({{urg}})",
@@ -417,6 +419,7 @@
     "pass": "Good question. I’ll pass it to {{doctor}}; you’ll hear back within 2 working days."
   },
   "sys": {
+    "goU1": "Noa will ask again in 10 minutes. With an alert like this, if there is still no answer it tells {{contact}} (rule U1).", "speechRecovery": "Speech as usual for {{name}} (rule Q1). Saved to the recovery record for the speech therapist.", "speechRecoveryAmber": "Speech a little different but better on repeat: shared with the speech therapist.",
     "noPattern": "No unusual pattern in the last 14 days. Noa moves to the routine part: what is due for {{name}}.",
     "protectUrgent": "Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; {{name}}, the family contact on file, sees the result.",
     "protectUrgentNobody": "Protect (rule P1): consent from enrolment covers this safety check. Noa asks nothing new now; nobody else sees the result.",
@@ -443,6 +446,7 @@
     "L1": "Confusion with low sugar needs help now."
   },
   "done": {
+    "goWait": "Waiting for {{name}}: the alert stays open and Noa asks again in 10 minutes.", "goLater": "Not started: nothing booked, no reminders for 3 months unless something changes.",
     "emergency": "Screening paused: see a doctor immediately (emergency department). Nothing was booked.",
     "u1": "Routine checks paused (“not now” respected); urgent items escalated to the doctor (rule U1).",
     "n3": "Not now, respected (rule N3). The pathway stays in the passport.",
@@ -462,6 +466,7 @@
     "stopbang": { "name": "Sleep apnoea: STOP-BANG", "short": "Sleep apnoea", "tool": "STOP-BANG questionnaire", "ev": "Validated questionnaire" },
     "dmrisk": { "name": "Diabetes risk test", "short": "Diabetes risk test", "tool": "ADA diabetes risk test", "ev": "Validated questionnaire" },
     "why": {
+      "speechRecoveryF": "After her stroke: checked against her own voice to follow recovery and catch a new stroke early", "speechRecoveryM": "After his stroke: checked against his own voice to follow recovery and catch a new stroke early",
       "speech": "Triggered: {{signal}}. A sudden change in speech is a stroke warning sign", "age": "Age {{age}}",
       "ageBone": "Age {{age}}; brother has osteoporosis", "gdm": "diabetes in pregnancy", "dmParent": "parent with type 2 diabetes",
       "bmi": "BMI {{bmi}}", "list": "{{list}}", "stopbang": "Man over 35, BMI {{bmi}}, BP {{sbp}}/{{dbp}}", "phq2": "Recommended for all adults"
@@ -486,6 +491,7 @@
     "speechChipSecs": "Noa Voice: {{level}} · score {{score}} · {{m}}/{{total}} words · {{secs}} s"
   },
   "card": {
+    "go": { "started": "Started" },
     "speech": { "picked": "{{how}} · {{level}}" },
     "choice": { "readAi": "{{label}} (read by AI)", "readKeywords": "{{label}} (read by keywords)" },
     "protect": {
@@ -660,7 +666,7 @@
       "title": "Moza · 78, home after her stroke",
       "context": "The signed-in user. 11 days after a stroke with atrial fibrillation; lives alone; hard of hearing; low mood since the stroke. Programme screening has ended at her age.",
       "try": "Next ›.",
-      "expect": "No mammogram, bowel or cervical screening (aged out, by the guideline). Instead: bone density scan (women 65+) and flu vaccine; hearing 1 of 3 → hearing referral; falls and mood follow-up; stroke clinic and BP review for the doctor."
+      "expect": "Noa Speech Check against her own voice (after her stroke). No mammogram, bowel or cervical screening (aged out, by the guideline). Instead: bone density scan (women 65+) and flu vaccine; hearing 1 of 3 → hearing referral; falls and mood follow-up; stroke clinic and BP review for the doctor."
     },
     "h1": {
       "title": "Hind · 18-month visit overdue, few words", "context": "18 months; mum says 1–2 words. Mother had diabetes in pregnancy (family record).", "try": "Next ›.",
@@ -670,5 +676,29 @@
       "title": "Hamdan · school entry, squints", "context": "5, starts Year 1 in January; squints at screens.", "try": "Next ›.",
       "expect": "5-year visit with school-entry vision and hearing; possible eye referral for the paediatrician within a month."
     }
+  },
+  "go": { "startNow": "Start the check now", "notNow": "Not now", "startHome": "Start home screening", "later": "Later", "msgUrgent": "Noa has sent {{name}} a prompt on the phone and watch. Nothing happens until {{who}} starts it.", "msg": "Noa found what is due for {{name}}. Start the home screening when it suits {{who}}.", "familyContact": "the family contact" },
+  "wi": {
+    "visitM": "{{n}}-month visit",
+    "visitY": "{{n}}-year visit",
+    "bmi": { "high": "BMI {{bmi}} · weight support", "over": "BMI {{bmi}} · diabetes risk test", "under": "BMI {{bmi}} · underweight", "ok": "BMI {{bmi}} · healthy" },
+    "age": { "bowel": "bowel test", "mammo": "mammogram", "bone": "bone scan", "ended": "programmes ended by age", "due": "Due by age: {{list}}", "adult": "Adult checks" },
+    "next": "Next: {{visit}}",
+    "allDone": "All visits done",
+    "zone": {
+      "hr": { "0": "Too slow · Noa checks now", "1": "Normal", "2": "Fast: Noa watches", "3": "Racing · Noa checks now" },
+      "sbp": { "0": "Low: watch", "1": "Normal", "2": "High · BP plan", "3": "Crisis · doctor today" },
+      "dbp": { "0": "Normal", "1": "High · BP plan", "2": "Crisis · doctor today" },
+      "spo2": { "0": "Low · clinician today", "1": "A little low", "2": "Normal" },
+      "glu": { "0": "Very low · sugar now", "1": "Low", "2": "In range", "3": "High" },
+      "irrAlerts": { "0": "None", "1": "ECG first" },
+      "overdueW": { "0": "On time", "1": "Due now", "2": "Overdue · Noa asks why" }
+    },
+    "head": { "speech": "Noa checks on {{name}} now: speech test, then a doctor today", "sugar": "Noa asks for fast sugar now, then rechecks in 15 minutes", "doctor": "Noa asks for a doctor today, before any screening", "plan": "No alarm: Noa adds these to the plan", "calm": "All calm: routine screening only" },
+    "kind": { "now": "Noa acts now", "plan": "Added to the plan", "clear": "All clear" },
+    "act": { "G1": "speech check now", "G3": "speech check now", "B1": "doctor today", "O1": "clinician today", "L1": "sugar now, recheck in 15 min", "L2": "diabetes review", "G2": "ECG first", "B2": "BP plan", "W1": "weight support", "A1": "activity plan", "K1": "quit support" },
+    "child": { "mchat": "development check (M-CHAT-R)", "school": "school-entry vision and hearing", "overdue": "Overdue {{n}} weeks: Noa asks {{parent}} why, once, and offers a Saturday slot", "due": "Due now: one friendly reminder", "ok": "Up to date: celebrated, not nudged" },
+    "why": { "child": "Children are followed by well-child visits, not a heart score", "cvd": "After a heart attack or stroke the clinic manages heart risk directly, so no score", "under30": "The Framingham score is valid from 30, so Noa talks about lifelong habits instead", "over74": "The Framingham score is valid up to 74, so the doctor decides" },
+    "ha": { "atMost30": "30 or less", "over100": "over 100" }
   }
 }

@@ -1,5 +1,5 @@
 export { FamilyHealthEngine, type EngineOptions } from './journey'
-export { PreparedAi, guard, KEYWORDS, type NoaAi, type SayRequest, type SayResult, type SaySource, type UnderstandRequest, type UnderstandResult, type GuardHit } from './ai'
+export { PreparedAi, guard, KEYWORDS, SAY_CALLS, FIXED_CALL, UNDERSTAND_TIER, type SayCallId, type ModelTier, type NoaAi, type SayRequest, type SayResult, type SaySource, type UnderstandRequest, type UnderstandResult, type GuardHit } from './ai'
 export { realScheduler, instantScheduler, type Scheduler } from './scheduler'
 export { FH_NS, tx, lc, list, date, fixed, resolveText, textOf, lcFirst, formatDay, hhmm, type RawT } from './text'
 export { forecast, pct, project, riskCat, riskTone, type Forecast, type RiskCat } from './framingham'
@@ -9,3 +9,4 @@ export { selectTests, qsetItems, qsetDefaults, scoreQ, dinDefaults, scoreDin, ty
 export { buildPath, dueBy, leadItem, urgencyIndex, type Pathway, type PopItem, type ClinItem, type ClinId } from './pathway'
 export { patternCards, syncValues, hsh, rnd, type PatternCard } from './pattern'
 export type * from './types'
+export { whatIf, whatIfFields, zoneOf, trackStops, scenariosFor, showsGlucose, wellChildName, CHILD_FIELDS, WELL_CHILD, SCENARIOS, SCENARIO_IDS, SCENARIO_FIELDS, ZONE_COLOR, type WhatIf, type WhatIfField, type SliderDef, type ZoneBand, type Zone, type ScenarioId } from './whatif'

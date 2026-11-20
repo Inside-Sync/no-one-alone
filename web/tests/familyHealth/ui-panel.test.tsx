@@ -45,7 +45,12 @@ test('header, tree, stepper and orchestra render; Saeed (s0) auto-runs once afte
   await waitFor(() => expect(getEngine().getSnapshot().journey?.testCase).toBe('s0'), { timeout: 8000 })
   await idle()
   expect(within(tree).getByRole('button', { name: 'Open Saeed’s record' })).toHaveAttribute('aria-pressed', 'true')
-  expect(await within(now()).findByText('Triggered check')).toBeInTheDocument()
+  // Noa stops at Detect: the alert and the go card, nothing past Detect runs by itself.
+  expect(await within(now()).findByText(/Noa has sent Saeed a prompt on the phone and watch/)).toBeInTheDocument()
+  expect(within(now()).getByRole('button', { name: 'Start the check now' })).toBeInTheDocument()
+  expect(within(now()).getByRole('button', { name: 'Not now' })).toBeInTheDocument()
+  expect(getEngine().getSnapshot().journey?.seen).toEqual(['detect'])
+  expect(within(tree).getByRole('button', { name: 'Open Saeed’s record' })).toHaveTextContent('Prompt sent · waiting')
   expect(next()).toBeEnabled()
   expect(document.querySelectorAll('[class*="baton"]:not([hidden])')).toHaveLength(0)
 })
@@ -53,6 +58,9 @@ test('header, tree, stepper and orchestra render; Saeed (s0) auto-runs once afte
 test('Next and the → key step through Saeed’s journey to the referral', async () => {
   at('/individual/lineage')
   await waitFor(() => expect(getEngine().getSnapshot().pending).not.toBeNull(), { timeout: 8000 })
+  fireEvent.click(next()) // the go card: start the check
+  await idle()
+  expect(await within(now()).findByText('Triggered check')).toBeInTheDocument()
   fireEvent.click(next())
   await idle()
   expect(await within(now()).findByText('Today · second try')).toBeInTheDocument()
@@ -69,6 +77,8 @@ test('Next and the → key step through Saeed’s journey to the referral', asyn
 test('→ does nothing while typing in the composer', async () => {
   at('/individual/lineage')
   await waitFor(() => expect(getEngine().getSnapshot().pending).not.toBeNull(), { timeout: 8000 })
+  fireEvent.click(next())
+  await idle()
   const before = getEngine().getSnapshot().pending?.id
   const input = screen.getByRole('textbox', { name: 'Message to Noa' })
   expect(input).toHaveAttribute('placeholder', 'Type what Saeed says…')
@@ -109,6 +119,8 @@ test('Reset shows the welcome; Khalid’s protect card confirms with the chosen 
   expect(await screen.findByText('Prevention and screening for one family')).toBeInTheDocument()
   fireEvent.click(screen.getByRole('button', { name: /Khalid, 38/ }))
   await idle()
+  fireEvent.click(within(now()).getByRole('button', { name: 'Start home screening' }))
+  await idle()
   expect(await within(now()).findByText('What may Noa use, and who may see the pathway?')).toBeInTheDocument()
   fireEvent.click(screen.getByRole('checkbox', { name: /Genomic result/ }))
   fireEvent.click(screen.getByRole('button', { name: 'Confirm' }))
@@ -121,6 +133,8 @@ test('an emergency turns the app to night and Reset brings it back', async () =>
   at('/individual/lineage')
   await waitFor(() => expect(getEngine().getSnapshot().journey).not.toBeNull(), { timeout: 8000 })
   act(() => { void getEngine().runTestCase('s2') })
+  await idle()
+  fireEvent.click(within(now()).getByRole('button', { name: 'Start the check now' }))
   await idle()
   fireEvent.click(screen.getByRole('button', { name: 'Use clearly slurred' }))
   await idle()
@@ -161,4 +175,74 @@ test('the messages button: unread badge, the panel marks them read, Ask Noa answ
 test('the messages button shows on Individual tabs only', async () => {
   at('/individual/me')
   expect(await screen.findByRole('button', { name: /^Noa messages/ })).toBeInTheDocument()
+})
+
+test('the go card: “Start the check now” collapses the tree to a strip and closes Try it; the strip opens the tree again', async () => {
+  at('/individual/lineage')
+  await waitFor(() => expect(getEngine().getSnapshot().pending?.type).toBe('go'), { timeout: 8000 })
+  const wi = document.getElementById('fh-wi') as HTMLDetailsElement
+  expect(wi.open).toBe(true)
+  fireEvent.click(within(now()).getByRole('button', { name: 'Start the check now' }))
+  await idle()
+  expect(getEngine().getSnapshot().journey?.seen).toContain('home')
+  expect(wi.open).toBe(false)
+  const tree = screen.getByRole('group', { name: 'Family tree' })
+  expect(within(tree).getByText('Family')).toBeInTheDocument()
+  expect(within(tree).getByRole('button', { name: /Open Saeed’s record/ })).toHaveAttribute('aria-pressed', 'true')
+  fireEvent.click(within(tree).getByRole('button', { name: /^Show family tree/ }))
+  expect(within(tree).getByRole('button', { name: /^Collapse tree/ })).toBeInTheDocument()
+  expect(within(tree).getByRole('button', { name: 'Open Hind’s record' })).toHaveTextContent('Hind, 18 mo')
+  fireEvent.click(within(tree).getByRole('button', { name: /^Collapse tree/ }))
+  expect(within(tree).getByRole('button', { name: /^Show family tree/ })).toBeInTheDocument()
+})
+
+test('“Not now” on the alert keeps it open (U1) and the journey ends at Detect', async () => {
+  at('/individual/lineage')
+  await waitFor(() => expect(getEngine().getSnapshot().pending?.type).toBe('go'), { timeout: 8000 })
+  fireEvent.click(within(now()).getByRole('button', { name: 'Not now' }))
+  await idle()
+  expect(await within(now()).findByText(/Noa will ask again in 10 minutes/)).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Open Saeed’s record' })).toHaveTextContent('Prompt pending')
+  expect(getEngine().getSnapshot().journey?.seen).toEqual(['detect'])
+})
+
+test('Try it: a slider, a scenario and a toggle change Noa’s answer live; Reset puts the readings back; Run re-runs', async () => {
+  at('/individual/lineage')
+  await waitFor(() => expect(getEngine().getSnapshot().pending?.type).toBe('go'), { timeout: 8000 })
+  const wi = document.getElementById('fh-wi') as HTMLElement
+  expect(within(wi).getByText('Noa checks on Saeed now: speech test, then a doctor today')).toBeInTheDocument()
+  fireEvent.change(within(wi).getByRole('slider', { name: 'Resting heart' }), { target: { value: '72' } })
+  expect(within(wi).getByText('All calm: routine screening only')).toBeInTheDocument()
+  expect(getEngine().getSnapshot().profiles.saeed).toMatchObject({ hr: 72 })
+  fireEvent.click(within(wi).getByRole('button', { name: 'BP crisis' }))
+  expect(within(wi).getByText('Noa asks for a doctor today, before any screening')).toBeInTheDocument()
+  expect(within(wi).getAllByText('Crisis · doctor today').length).toBeGreaterThan(0)
+  const smokes = within(wi).getByRole('button', { name: 'Smokes' })
+  fireEvent.click(smokes)
+  expect(smokes).toHaveAttribute('aria-pressed', 'true')
+  expect(within(wi).getByText('quit support')).toBeInTheDocument()
+  fireEvent.click(within(wi).getByRole('button', { name: 'Reset Saeed’s readings' }))
+  expect(getEngine().getSnapshot().profiles.saeed).toMatchObject({ hr: 72, sbp: 138, smoker: false })
+  fireEvent.click(within(wi).getByRole('button', { name: 'Racing heart' }))
+  fireEvent.click(within(wi).getByRole('button', { name: 'Run Noa with these readings' }))
+  await idle()
+  expect(getEngine().getSnapshot().journey).toMatchObject({ person: 'saeed', urgent: 'G1', testCase: null })
+})
+
+test('the feed scrolls by itself to new messages unless the viewer scrolled up', async () => {
+  at('/individual/lineage')
+  await waitFor(() => expect(getEngine().getSnapshot().pending?.type).toBe('go'), { timeout: 8000 })
+  const items = now().querySelector('[data-feed]') as HTMLElement
+  let top = 0
+  Object.defineProperty(items, 'scrollHeight', { configurable: true, get: () => 1000 })
+  Object.defineProperty(items, 'clientHeight', { configurable: true, get: () => 300 })
+  Object.defineProperty(items, 'scrollTop', { configurable: true, get: () => top, set: (v: number) => { top = v } })
+  fireEvent.click(next())
+  await idle()
+  expect(top).toBe(1000)
+  top = 100
+  fireEvent.scroll(items)
+  fireEvent.click(next())
+  await idle()
+  expect(top).toBe(100)
 })
