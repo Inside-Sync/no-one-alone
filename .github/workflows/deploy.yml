@@ -64,7 +64,6 @@ jobs:
         # Web config is public by design (contract section 6); mock mode stays the local default.
         env:
           VITE_DATA_SOURCE: ${{ vars.VITE_DATA_SOURCE }}
-          # Family health live AI: set the repository variable to "on" once the /api/noa routes have model quota (unset = prepared text).
           VITE_NOA_AI: ${{ vars.VITE_NOA_AI }}
           VITE_FIREBASE_API_KEY: ${{ vars.VITE_FIREBASE_API_KEY }}
           VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID }}

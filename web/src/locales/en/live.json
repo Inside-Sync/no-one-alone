@@ -109,7 +109,7 @@
     "callToast": "Dialling 998 · ask for ambulance",
     "copy": "Copy address",
     "copied": "Address copied",
-    "note": "Noa prepares this. A person makes the call."
+    "note": "Noa calls 998 with this script. You can call again if you need to."
   },
   "liveSubtitleShort": "Live · {{time}}",
   "phase": {
@@ -203,7 +203,7 @@
       "help": ""
     },
     {
-      "d": "Hamad and you are alerted",
+      "d": "Noa calls 998 · Hamad and you are alerted",
       "s": "Alia in London gets updates",
       "own": [
         "Hamad · alerted",
@@ -212,7 +212,7 @@
       ],
       "what": "",
       "sub": "",
-      "q": "I've called Hamad.",
+      "q": "I've called 998 and Hamad.",
       "small": "",
       "help": ""
     },
@@ -231,7 +231,7 @@
       "help": "Hamad · 6 min away"
     },
     {
-      "d": "You call 998 with the prepared script",
+      "d": "Ambulance on its way · Noa read the prepared script",
       "s": "Address, age, symptoms, medicines, access",
       "own": [
         "",
@@ -240,7 +240,7 @@
       ],
       "what": "",
       "sub": "",
-      "q": "Khalid is calling an ambulance.",
+      "q": "An ambulance is on its way.",
       "small": "",
       "help": "Hamad · 5 min away"
     },
@@ -355,6 +355,7 @@
         "noAnswer": "{{prev}} didn't answer, so I've left him a message. I'm calling {{name}} now.",
         "onTheWay": "{{name}} is on the way. Help is coming.",
         "calling000": "I'm calling {{num}} for an ambulance now. Stay where you are. Help is coming.",
+        "calling998": "I'm calling {{num}} for an ambulance now, and {{name}} too. Please stay sitting.",
         "onTheWayCalling": "{{name}} is on his way. He has a key. I'm calling {{num}} now.",
         "ambulance": "Help is on the way, Umm Khalid. The ambulance is 12 minutes away. Stay sitting. I'm right here with you."
       }

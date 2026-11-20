@@ -41,6 +41,10 @@ final class EscalationRules {
     }
 
     static void autoCall(Incident inc, String now, Map<String, Person> people) {
+        // One automatic call per incident: start, accept and no-nearby all come through here.
+        if (inc.timeline.stream().anyMatch(t -> "SYSTEM".equals(t.actor) && "CALLED_115".equals(t.kind))) {
+            return;
+        }
         Person p = people.get(inc.personId);
         String number = emergencyNumber(p);
         inc.log(now, "SYSTEM", "CALLED_115", "Calling " + number + " automatically with the call script (demo call)", null,

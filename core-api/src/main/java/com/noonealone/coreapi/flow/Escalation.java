@@ -23,6 +23,7 @@ import com.noonealone.coreapi.model.Assignment;
 import com.noonealone.coreapi.model.AssignmentState;
 import com.noonealone.coreapi.model.CircleEntry;
 import com.noonealone.coreapi.model.Incident;
+import com.noonealone.coreapi.model.Level;
 import com.noonealone.coreapi.model.Params;
 import com.noonealone.coreapi.model.Person;
 import com.noonealone.coreapi.model.PersonInstruction;
@@ -124,6 +125,9 @@ public class Escalation {
             x.log(now, "SYSTEM", "ALERTED", alertText(x, person, circle, people), null,
                     Params.of("memberIds", circle.stream().sorted(Comparator.comparing((CircleEntry c) -> c.role != Role.DISTANT))
                             .map(c -> c.memberId).toList(), "suspectedStroke", x.suspectedStroke()));
+            if (x.level == Level.EMERGENCY) {
+                EscalationRules.autoCall(x, now, people);
+            }
             for (CircleEntry c : circle) {
                 Assignment a = new Assignment();
                 a.memberId = c.memberId;

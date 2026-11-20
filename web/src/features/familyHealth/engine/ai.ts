@@ -73,19 +73,11 @@ export interface SayResult {
   note?: string
   /** A live model's suggested next agent (compared with `route`). */
   handoffTo?: AgentId | null
+  /** The server refused the typed question as an emergency: the engine shows its fixed safety line, not the prepared text. */
+  emergency?: boolean
   /** A live turn's Orchestrator rule code it explains (shown in the "why" line when it is one of the 34 codes; else ignored). */
   ruleId?: string | null
-  /**
-   * Why the words are not live. With `guardrail`: the server's check that failed (`dose`, `diagnosis`, `againstEmergency`, `length`,
-   * `script`, `number`), or `emergency` when a typed question holds emergency words (the engine then shows the fixed safety line).
-   * With `prepared`: `busy` (rate limit) or `failed` (no answer in time, network, server error).
-   */
-  reason?: SayReason
 }
-export type SayReason = 'emergency' | 'dose' | 'diagnosis' | 'againstEmergency' | 'length' | 'script' | 'number' | 'busy' | 'failed'
-/** Reasons that have their own note text (`ai.guardrail.*` / `ai.note.*`); anything else reads as the generic one. */
-export const GUARD_REASONS: readonly string[] = ['dose', 'diagnosis', 'againstEmergency', 'length', 'script', 'number']
-export const PREPARED_REASONS: readonly string[] = ['busy', 'failed']
 export interface UnderstandRequest {
   /** Always `fast` (`UNDERSTAND_TIER`). */
   tier: ModelTier
@@ -115,14 +107,17 @@ export function guard(text: string): GuardHit | null {
   return null
 }
 
+/** Emergency words (English and Arabic), the same list as `EMERGENCY` in agents/respond/noa.py: a typed question with one gets the fixed safety line, never the AI. */
+export const EMERGENCY = /weak|speech|chest|faint|pain|slur|confus|numb|droop|dizz|stroke|breath|collaps|unconscious|تنفس|فقد الوعي|نزيف|ضعف|خدر|تنميل|تدل[يى]|كلام|تلعثم|صدر|ألم|وجع|إغماء|اغماء|أغمي|اغمي|دوخة|دوار|تشوش|ارتباك|مشوش|سكتة|جلطة/i
+
 /** The prototype keyword readers (used when the AI is off). Input is lower-cased. */
 export const KEYWORDS: Record<string, (t: string) => string> = {
-  rf: (t) => (/weak|numb|droop|arm|face/.test(t) ? 'weak' : /chest|pain/.test(t) ? 'chest' : /faint|dizzy/.test(t) ? 'faint' : /pound|racing|heart/.test(t) ? 'palp' : 'none'),
-  sym: (t) => (/thirst|tired|urin|pee/.test(t) ? 'thirst' : /blood|stool|bowel/.test(t) ? 'bowel' : /breast|lump/.test(t) ? 'breast' : /chest|tight/.test(t) ? 'chest' : 'none'),
+  rf: (t) => (/weak|numb|droop|arm|face|ضعف|خدر|تنميل|تدل[يى]|ذراع|وجه|كلام|تلعثم/.test(t) ? 'weak' : /chest|pain|صدر|ألم|وجع/.test(t) ? 'chest' : /faint|dizzy|إغماء|اغماء|أغمي|اغمي|دوخة|دوار/.test(t) ? 'faint' : /pound|racing|heart|خفقان|نبض|قلب/.test(t) ? 'palp' : 'none'),
+  sym: (t) => (/thirst|tired|urin|pee|عطش|تعب|إرهاق|ارهاق|تبول/.test(t) ? 'thirst' : /blood|stool|bowel|نزيف|براز|أمعاء|امعاء|إمساك|امساك|إسهال|اسهال/.test(t) ? 'bowel' : /breast|lump|ثدي|كتلة|ورم/.test(t) ? 'breast' : /chest|tight|صدر|ضيق/.test(t) ? 'chest' : 'none'),
   pref: (t) => (/female|woman|lady/.test(t) ? 'female' : /home|kit/.test(t) ? 'home' : 'one'),
   time: (t) => (/even|night/.test(t) ? 'eve' : /sat|weekend/.test(t) ? 'sat' : /after|15|school/.test(t) ? 'pm' : 'am'),
   book: (t) => (/not now|later|no thanks/.test(t) ? 'later' : /time|change|evening|morning|saturday/.test(t) ? 'change' : /why|fine|bother/.test(t) ? 'why' : 'book'),
-  words: (t) => (/none|no |one|two|1|2/.test(t) ? 'few' : /many|lots|more/.test(t) ? 'many' : 'some'),
+  words: (t) => (/none|no |one|two|1|2|لا شيء|لا يتكلم|لا تتكلم|لا ينطق|واحدة|كلمتين|كلمتان|١|٢/.test(t) ? 'few' : /many|lots|more|كثير|أكثر|اكثر|جمل/.test(t) ? 'many' : 'some'),
 }
 
 /**

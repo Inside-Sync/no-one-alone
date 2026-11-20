@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 
+import chat
 import gcp
 import main
 
@@ -79,3 +80,8 @@ def test_gemini_chat_keeps_facts_in_system_instruction():
     assert c("FACTS", "Question: who?") == "Hamad is coming."
     assert seen["contents"] == ["Question: who?"] and seen["config"].system_instruction == "FACTS"
     assert seen["config"].temperature == 0.2 and seen["config"].max_output_tokens == 400
+
+
+def test_red_path_calls_998_with_the_family_not_after_them():
+    red = next(line for line in chat.FACTS.splitlines() if line.startswith("- Red path:"))
+    assert red.index("998") < red.index("Khalid") < red.index("Hamad")

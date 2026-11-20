@@ -18,7 +18,7 @@ All people, places, facilities and numbers in the product are fictional. Noa sup
 
 The Family health tab opens first and plays Saeed's demo by itself. Press **Next** (or the → key) to step through, answer as the person yourself, tap anyone in the family tree, or run a quick test case below the panel. It works in English and Arabic.
 
-The live site is shared by everyone who opens it. The family journey runs in your own browser, so other visitors do not affect it.
+The live site is shared by everyone who opens it. The family journey runs in your own browser, so other visitors do not affect it. When the live AI switch is on (off by default), the agents' wording goes through the backend.
 
 ## What to look at in 5 minutes
 
@@ -27,12 +27,12 @@ The live site is shared by everyone who opens it. The family journey runs in you
 3. **Quick test case "Saeed · speech clearly changed".** Noa advises seeing a doctor now with a fixed, clinician-approved script that never goes through AI, and pauses screening.
 4. **Agent orchestra, beside the journey.** An Orchestrator and four agents (Personal care, Screening, Specialist, Government). Every hand-off names its rule and shows consent and logging. Every message is labelled Live AI, Prepared, Fixed script or Guardrail.
 5. **Government view, Prevention and screening.** Reach, recommendation, uptake, false positives, missed cases and calibration by group. Groups under 10 people are hidden.
-6. **[test-report.md](test-report.md).** 249 labelled synthetic scenarios run through the rule engine: 248 match the rule table; for "998 now", sensitivity 46 of 46 and specificity 83 of 83. This checks that Noa follows its own rules. It is not clinical validation.
+6. **[test-report.md](test-report.md).** 252 labelled synthetic scenarios run through the rule engine: all 252 match the rule table; for "998 now", sensitivity 49 of 49 and specificity 83 of 83. This checks that Noa follows its own rules. It is not clinical validation.
 
 ## What is built, and what is not
 
 - **Built and deployed:** the web app, core-api, respond-agent and hospital-agent on Google Cloud, with a FHIR R4 store (all synthetic data).
-- **Built in the family journey:** a deterministic rules engine that runs in the browser: the Orchestrator's rules pick every next agent. Agent messages use prepared text (labelled "Prepared") until the live AI connection is switched on.
+- **Built in the family journey:** a deterministic rules engine that runs in the browser: the Orchestrator's rules pick every next agent. When the live AI switch is on, Claude writes the wording of agent messages from the facts the rules chose and reads typed replies into one of the card's options. Every message still has prepared text behind it and shows its source: Live AI, Prepared, Fixed script or Guardrail. Emergency advice is always a fixed script.
 - **Planned, not built:** Malaffi and HL7 link, a production audit log, UAE hosting, clinical sign-off of the rules and scripts.
 
 ## The other documents

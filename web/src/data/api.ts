@@ -88,18 +88,16 @@ export function chat(body: ChatRequest) {
   return call<{ answer: string }>('/chat', body)
 }
 
-/* ---------- Noa family-health wording (respond-agent through core-api; prompts and checks live on the server) ---------- */
-
-/** One agent turn of the family-health journey: the call site, the language Noa speaks, and that call's structured params. */
 export interface NoaSayBody { callId: string; lang: 'en' | 'ar'; params: Record<string, unknown> }
-/** `live` with the words, or `guardrail` with the server's reason (`emergency` for emergency words in a typed question). */
 export interface NoaSayReply { source: 'live' | 'guardrail'; text?: string; reason?: string }
+export interface NoaUnderstandBody { qid: string; lang: 'en' | 'ar'; options: { id: string; label: string }[]; reply: string }
+
+/** Family-health wording (`503`/`502 AGENT_FAILED` when the model fails or is checked out); the caller aborts after 8 s. */
 export function noaSay(body: NoaSayBody, signal?: AbortSignal) {
   return call<NoaSayReply>('/noa/say', body, signal)
 }
 
-/** A free-text reply read into one of the question's options (the server returns only one of their ids). */
-export interface NoaUnderstandBody { qid: string; lang: 'en' | 'ar'; options: { id: string; label: string }[]; reply: string }
+/** Reads a typed reply into one of the card's option ids. */
 export function noaUnderstand(body: NoaUnderstandBody, signal?: AbortSignal) {
   return call<{ choice: string }>('/noa/understand', body, signal)
 }

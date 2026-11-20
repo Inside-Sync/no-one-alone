@@ -69,9 +69,13 @@
       "label": "Calculated",
       "desc": "Worked out by a rule or a formula"
     },
+    "prepared": {
+      "label": "Prepared text",
+      "desc": "Wording written and checked by the team before the demo. It explains; it never decides"
+    },
     "ai": {
       "label": "AI-written",
-      "desc": "Wording written by AI. It explains; it never decides"
+      "desc": "Wording written live by an AI model. It explains; it never decides"
     },
     "clinician": {
       "label": "Clinician confirmed",
@@ -98,6 +102,7 @@
       "clinician": "the hospital team’s action"
     },
     "teach": {
+      "prepared": "explanation and questions",
       "ai": "explanation and questions",
       "calculated": "teach-back check"
     },

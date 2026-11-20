@@ -50,12 +50,12 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
             detail: 'journeys.stroke_em.steps.0.items.0.detail',
           },
           {
-            at: 1,
+            at: 0,
             title: 'journeys.stroke_em.steps.0.items.1.title',
             detail: 'journeys.stroke_em.steps.0.items.1.detail',
           },
           {
-            at: 2,
+            at: 1,
             title: 'journeys.stroke_em.steps.0.items.2.title',
             detail: 'journeys.stroke_em.steps.0.items.2.detail',
           },
@@ -390,12 +390,12 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
             detail: 'journeys.fall_em.steps.0.items.0.detail',
           },
           {
-            at: 1,
+            at: 0,
             title: 'journeys.fall_em.steps.0.items.1.title',
             detail: 'journeys.fall_em.steps.0.items.1.detail',
           },
           {
-            at: 2,
+            at: 1,
             title: 'journeys.fall_em.steps.0.items.2.title',
             detail: 'journeys.fall_em.steps.0.items.2.detail',
           },
@@ -463,6 +463,11 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
           {
             title: 'journeys.fall_em.steps.1.packet.6.title',
             detail: 'journeys.fall_em.steps.1.packet.6.detail',
+          },
+          {
+            title: 'journeys.fall_em.steps.1.packet.7.title',
+            detail: 'journeys.fall_em.steps.1.packet.7.detail',
+            lowGlu: true,
           },
         ],
         phone: {
@@ -1062,8 +1067,8 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
         ],
         flow: [
           { agent: 'responder' },
-          { label: 'flow.f1s' },
           { label: 'flow.998_operator' },
+          { label: 'flow.f1s' },
           { agent: 'courier' },
         ],
         items: [
@@ -1073,12 +1078,12 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
             detail: 'journeys.hypo_em.steps.0.items.0.detail',
           },
           {
-            at: 1,
+            at: 0,
             title: 'journeys.hypo_em.steps.0.items.1.title',
             detail: 'journeys.hypo_em.steps.0.items.1.detail',
           },
           {
-            at: 2,
+            at: 1,
             title: 'journeys.hypo_em.steps.0.items.2.title',
             detail: 'journeys.hypo_em.steps.0.items.2.detail',
           },
@@ -1521,12 +1526,12 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
             detail: 'journeys.hf_em.steps.0.items.0.detail',
           },
           {
-            at: 1,
+            at: 0,
             title: 'journeys.hf_em.steps.0.items.1.title',
             detail: 'journeys.hf_em.steps.0.items.1.detail',
           },
           {
-            at: 2,
+            at: 0,
             title: 'journeys.hf_em.steps.0.items.2.title',
             detail: 'journeys.hf_em.steps.0.items.2.detail',
           },
@@ -1577,6 +1582,11 @@ export const JOURNEYS: Record<JourneyId, JourneyDef> = {
           {
             title: 'journeys.hf_em.steps.1.packet.4.title',
             detail: 'journeys.hf_em.steps.1.packet.4.detail',
+          },
+          {
+            title: 'journeys.hf_em.steps.1.packet.5.title',
+            detail: 'journeys.hf_em.steps.1.packet.5.detail',
+            lowGlu: true,
           },
         ],
         phone: {

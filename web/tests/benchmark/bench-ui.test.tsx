@@ -77,9 +77,8 @@ test('Run shows progress, then the metrics, the confusion matrix, the subgroups 
   expect(within(dlg).getByRole('table', { name: /Confusion matrix/ })).toBeInTheDocument()
   expect(within(dlg).getByText('Subgroups')).toBeInTheDocument()
   expect(within(dlg).getByText('Accuracy by rule')).toBeInTheDocument()
-  // the differences are listed, with the first step and agent
-  expect(within(dlg).getAllByText('C-hf-nospeech').length).toBeGreaterThan(0)
-  expect(within(dlg).getAllByText(/First difference: decision, Noa, rule/).length).toBeGreaterThan(0)
+  expect(status(dlg).textContent).toMatch(new RegExp(`^Finished: ${SCENARIOS.length} of ${SCENARIOS.length} scenarios match`))
+  expect(within(dlg).getByText('No differences. Every scenario that ran matches the rule table.')).toBeInTheDocument()
   // filter by group and open one as a case
   fireEvent.change(within(dlg).getByLabelText('Group'), { target: { value: 'family-results' } })
   expect(within(dlg).getByText(`Showing 22 of ${SCENARIOS.length}`)).toBeInTheDocument()

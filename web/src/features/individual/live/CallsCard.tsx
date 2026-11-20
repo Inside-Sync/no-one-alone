@@ -14,9 +14,9 @@ export function CallsCard({ agent }: { agent: AgentView }) {
     <GlassCard span={4} id="callsCard">
       <div className="ch"><h2><Glyph name="phone" />{t('agent.calls.title')}</h2><span className="meta">{t('agent.calls.meta')}</span></div>
       <div className="callcards">
-        {agent.calls.map((c, i) => (
+        {agent.calls.map((c) => (
           <div key={c.id} className={`ccard ${c.cls}${c.id === 'ooo' ? ' ooo' : ''}`.trim()}>
-            <span className="n" aria-hidden="true">{c.id === 'ooo' ? <span className="ic"><Icon name="ambulance" /></span> : i + 1}</span>
+            <span className="n" aria-hidden="true">{c.id === 'ooo' ? <span className="ic"><Icon name="ambulance" /></span> : agent.calls.filter((x) => x.id !== 'ooo').indexOf(c) + 1}</span>
             {c.id === 'ooo'
               ? <span className="av sm" style={{ '--c': c.color } as CSSProperties}>{c.initials}</span>
               : <Avatar name={c.name} className="av sm" style={{ '--c': c.color } as CSSProperties}>{c.initials}</Avatar>}

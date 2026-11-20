@@ -38,7 +38,7 @@
     "means": "What this means"
   },
   "team": {
-    "title": "Noa is a team of 9 AI agents",
+    "title": "Noa is a team of 9 agents that follow written rules",
     "note": "An orchestrator passes the case to the right agent and logs every hand-off. Tap an agent for its story.",
     "agentName": "Noa {{n}}",
     "close": "Close",
@@ -326,7 +326,7 @@
     },
     "to998": {
       "label": "Minutes from alert to the 998 call",
-      "note": "From the voice check to the call, on the engine’s clock."
+      "note": "From the voice check (or the second low recheck) to the call, on the engine’s clock."
     },
     "teach": {
       "label": "Teach-back right the first time",

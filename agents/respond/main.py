@@ -5,11 +5,14 @@ import os
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 import chat
 import checkin
+import claude
+import explain
 import gcp
+import noa
 import plan
 import recovery
 import rules
@@ -22,6 +25,7 @@ assessor = gcp.GeminiAssessor()
 voice = gcp.ChirpVoice()
 writer = gcp.GeminiWriter()
 chatter = gcp.GeminiChat()
+explainer = claude.ClaudeExplainer()
 
 
 @app.get("/health")
@@ -133,3 +137,63 @@ def chat_route(body: ChatIn):
     if text is None:
         raise HTTPException(status_code=503, detail="chat failed")
     return {"answer": text}
+
+
+class ExplainIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    tkey: Literal["stroke", "fall", "hypo", "hf"]
+    lang: Literal["en", "ar"]
+
+
+@app.post("/explain")
+def explain_route(body: ExplainIn):
+    system, user = explain.prompt(body.tkey, body.lang)
+    raw = explainer(system, user)
+    out = None if raw is None else explain.validate(raw, body.tkey, body.lang)
+    if out is None:
+        log.warning("explain rejected: %s %s", body.tkey, body.lang)
+        raise HTTPException(status_code=503, detail="explain failed")
+    return out
+
+
+class NoaSayIn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    callId: str = Field(max_length=40)
+    lang: Literal["en", "ar"]
+    params: dict
+
+
+@app.post("/noa/say")
+def noa_say(body: NoaSayIn):
+    call = noa.CALLS.get(body.callId)
+    if call is None:
+        raise HTTPException(status_code=422, detail="unknown callId")
+    try:
+        params = call.params.model_validate(body.params).model_dump()
+    except ValidationError:
+        raise HTTPException(status_code=422, detail="bad params")
+    if body.callId in noa.FREE_TEXT_CALLS and noa.EMERGENCY.search(params["question"]):
+        noa.audit(body.callId, params, None, "guardrail:emergency")
+        return {"source": "guardrail", "reason": "emergency"}
+    model = noa.model_for(call.tier)
+    system, user = noa.say_prompt(body.callId, body.lang, params)
+    raw = explainer(system, user, schema=noa.SAY_SCHEMA, model=model)
+    text = raw.get("text") if isinstance(raw, dict) else None
+    if not isinstance(text, str) or not text.strip():
+        noa.audit(body.callId, params, model, "failed")
+        raise HTTPException(status_code=503, detail="say failed")
+    reason = noa.check_say(text, body.callId, body.lang, params)
+    noa.audit(body.callId, params, model, "live" if reason is None else f"guardrail:{reason}")
+    return {"source": "live", "text": text.strip()} if reason is None else {"source": "guardrail", "reason": reason}
+
+
+@app.post("/noa/understand")
+def noa_understand(body: noa.UnderstandIn):
+    model = noa.model_for("fast")
+    system, user, schema = noa.understand_prompt(body)
+    choice = noa.check_choice(explainer(system, user, schema=schema, model=model), [o.id for o in body.options])
+    noa.audit(f"understand.{body.qid}", {"options": [o.model_dump() for o in body.options], "reply": body.reply}, model,
+              "live" if choice else "failed")
+    if choice is None:
+        raise HTTPException(status_code=503, detail="understand failed")
+    return {"choice": choice}

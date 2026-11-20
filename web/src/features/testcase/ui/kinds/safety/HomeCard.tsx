@@ -155,7 +155,7 @@ export function HomeCard({ engine, snap, r }: KindProps) {
         <div className="decision" id="tc-decision">
           <div className={`result status ${em ? 'st-red' : d.path ? 'st-amber' : 'st-green'}`}>
             <b>{t('home.decision', { rule: d.rule, name: r(d.name) })}</b> <ProvTag kind="calculated" />
-            {d.why ? r(d.why) : em ? t('home.called', { at: hm((S.tAct ?? 0) + 2) }) : snap.steps[1] ? t('home.nextIs', { title: r(tx(snap.steps[1].title)) }) : ''}
+            {d.why ? r(d.why) : em ? t('home.called', { at: hm(S.tAct ?? 0) }) : snap.steps[1] ? t('home.nextIs', { title: r(tx(snap.steps[1].title)) }) : ''}
           </div>
           <div className="checks">
             <span className="lab">{t('home.checksTitle')}</span>

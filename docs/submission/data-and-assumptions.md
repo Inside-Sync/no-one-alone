@@ -11,7 +11,7 @@
 | Family history | Invented, kept in Firestore (`families/{personId}`, see [../data-contract.md](../data-contract.md)). |
 | Sensor readings | Simulated by the Test case engine. Real devices are not read in the Test case. |
 | Government view figures | Invented. |
-| Benchmark scenarios (249) | Written by hand from the published rule table (`web/src/features/testcase/bench/scenarios.ts`). |
+| Benchmark scenarios (252) | Written by hand from the published rule table (`web/src/features/testcase/bench/scenarios.ts`). |
 | Blood pressure for the offline forecast job | Synthetic (`data/predict/`). |
 
 ## 2. Assumptions
@@ -34,10 +34,11 @@
 - **Hosting:** the demo runs in `asia-southeast1` (Singapore), not in the UAE. The data is fictional.
 - **Forecast** uses a model built on a US population and needs UAE calibration.
 - **Not built:** Malaffi and HL7 link, a production audit log, UAE hosting, the IFHAS data feed. See [architecture.md](architecture.md).
+- **Live AI in the family journey.** With the live AI switch on, the journey sends Claude on Vertex AI the facts for one message: first names, the readings and flags shown on screen, the pathway items, and any question the viewer typed. All of it is synthetic. Nothing is stored by our service beyond a hash in the audit line.
 - **The Test case does not call the backend.** It shows the logic, not the live integration.
 - **Not load-tested.**
 - **Small-cell suppression** covers the Government view cells it is applied to, not a full disclosure-control review.
 
 ## 4. Known differences, in test-report.md
 
-The generated [test-report.md](test-report.md) lists every difference between the rule table and the engine. At the time of writing, 248 of 249 scenarios match. The one difference is `C-hf-nospeech` (weight up, no answer to the speech check). The table says R5 and the engine records R8. Both lead to "998 now", so the decision is the same. The report also lists what the benchmark found and we fixed. Re-run `npm run benchmark:report` for current numbers.
+The generated [test-report.md](test-report.md) lists every difference between the rule table and the engine. At the time of writing, all 252 scenarios match. Low sugar no longer hides another emergency sign: the 998 lines (R6, R7, R5, R8) are checked before the home lines (R9, R11, R10). The report also lists what the benchmark or a review found and we fixed. Re-run `npm run benchmark:report` for current numbers.

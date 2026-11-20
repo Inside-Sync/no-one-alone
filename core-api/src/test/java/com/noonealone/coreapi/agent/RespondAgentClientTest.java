@@ -31,7 +31,7 @@ class RespondAgentClientTest {
         server = MockRestServiceServer.bindTo(builder).build();
         NoaProperties props = new NoaProperties("p", "r", "", new NoaProperties.Agent("http://agent", false),
                 null, null, null, null, null);
-        client = new RespondAgentClient(props, builder);
+        client = new RespondAgentClient(props, builder, null);
     }
 
     @Test
@@ -112,5 +112,76 @@ class RespondAgentClientTest {
                 .andRespond(withSuccess("{\"status\":\"RECEIVED\",\"packet\":{},\"fallback\":false}", MediaType.APPLICATION_JSON));
 
         assertThat(client.handoff(Map.of()).status()).isEqualTo("RECEIVED");
+    }
+
+    @Test
+    void explainPostsTkeyAndLangAndParsesTheWording() {
+        server.expect(requestTo("http://agent/explain")).andExpect(method(HttpMethod.POST))
+                .andExpect(jsonPath("$.tkey").value("hf")).andExpect(jsonPath("$.lang").value("ar"))
+                .andRespond(withSuccess("{\"explain\":\"e\",\"simpler\":\"s\"}", MediaType.APPLICATION_JSON));
+
+        RespondAgentClient.ExplainResult r = client.explain(Map.of("tkey", "hf", "lang", "ar"));
+
+        assertThat(r.explain()).isEqualTo("e");
+        assertThat(r.simpler()).isEqualTo("s");
+        server.verify();
+    }
+
+    @Test
+    void explainWithABlankFieldIsAgentException() {
+        server.expect(requestTo("http://agent/explain"))
+                .andRespond(withSuccess("{\"explain\":\"e\",\"simpler\":\" \"}", MediaType.APPLICATION_JSON));
+
+        assertThatThrownBy(() -> client.explain(Map.of())).isInstanceOf(AgentException.class);
+    }
+
+    @Test
+    void explainGivesUpAtItsOwnReadTimeoutWhileASlowUpstreamIsStillThinking() throws Exception {
+        var slow = com.sun.net.httpserver.HttpServer.create(new java.net.InetSocketAddress("127.0.0.1", 0), 0);
+        slow.createContext("/explain", ex -> {
+            try { Thread.sleep(2000); } catch (InterruptedException ignored) { }
+            byte[] b = "{\"explain\":\"e\",\"simpler\":\"s\"}".getBytes();
+            ex.getResponseHeaders().add("Content-Type", "application/json");
+            ex.sendResponseHeaders(200, b.length);
+            try (var o = ex.getResponseBody()) { o.write(b); } catch (java.io.IOException ignored) { }
+        });
+        slow.start();
+        try {
+            NoaProperties props = new NoaProperties("p", "r", "", new NoaProperties.Agent("http://127.0.0.1:" + slow.getAddress().getPort(), false),
+                    null, null, null, null, null);
+            RespondAgentClient c = new RespondAgentClient(props, RestClient.builder(), java.time.Duration.ofMillis(500));
+            long t0 = System.nanoTime();
+
+            assertThatThrownBy(() -> c.explain(Map.of("tkey", "hf", "lang", "en"))).isInstanceOf(AgentException.class);
+
+            assertThat((System.nanoTime() - t0) / 1_000_000).isLessThan(1800);
+        } finally {
+            slow.stop(0);
+        }
+    }
+
+    @Test
+    void noaSayPostsToNoaSayAndKeepsAGuardrailReason() {
+        server.expect(requestTo("http://agent/noa/say")).andExpect(method(HttpMethod.POST))
+                .andRespond(withSuccess("{\"source\":\"guardrail\",\"reason\":\"dose\"}", MediaType.APPLICATION_JSON));
+        assertThat(client.noaSay(Map.of("callId", "detect.guardian")).reason()).isEqualTo("dose");
+    }
+
+    @Test
+    void noaSayLiveWithBlankTextOrAnUnknownSourceIsAgentException() {
+        server.expect(requestTo("http://agent/noa/say"))
+                .andRespond(withSuccess("{\"source\":\"live\",\"text\":\" \"}", MediaType.APPLICATION_JSON));
+        assertThatThrownBy(() -> client.noaSay(Map.of())).isInstanceOf(AgentException.class);
+        server.reset();
+        server.expect(requestTo("http://agent/noa/say"))
+                .andRespond(withSuccess("{\"source\":\"prepared\",\"text\":\"t\"}", MediaType.APPLICATION_JSON));
+        assertThatThrownBy(() -> client.noaSay(Map.of())).isInstanceOf(AgentException.class);
+    }
+
+    @Test
+    void noaUnderstandWithABlankChoiceIsAgentException() {
+        server.expect(requestTo("http://agent/noa/understand"))
+                .andRespond(withSuccess("{\"choice\":\"\"}", MediaType.APPLICATION_JSON));
+        assertThatThrownBy(() -> client.noaUnderstand(Map.of())).isInstanceOf(AgentException.class);
     }
 }

@@ -2096,7 +2096,7 @@
             "Heart rate above 120 for 10 min while not moving",
             "Slurred speech on Noa's voice check (score 0.41)",
             "Awake, confused, alone",
-            "Noa called Khalid, Hamad, then 998"
+            "Noa called 998 and Khalid at 01:34, and Hamad right after"
           ],
           "entry": "y1"
         },
@@ -2587,7 +2587,7 @@
             ],
             [
               "Action",
-              "Possible stroke · call list started"
+              "Possible stroke · 998 called, family alerted"
             ]
           ],
           "summary": "Noa asked a simple question. The answer came out slurred, a sign of stroke.",
@@ -2598,13 +2598,17 @@
         },
         {
           "id": "y3",
-          "when": "15 Oct 2026 · 01:36",
+          "when": "15 Oct 2026 · 01:34",
           "stage": "sym",
           "kind": "Calls",
           "title": "998 called · record sent ahead",
           "where": "Home to Corniche Stroke Centre",
           "who": "Noa",
           "findings": [
+            [
+              "Ambulance",
+              "Called 01:34"
+            ],
             [
               "Khalid",
               "No answer"
@@ -2614,15 +2618,11 @@
               "On his way, 450 m"
             ],
             [
-              "Ambulance",
-              "Called 01:36"
-            ],
-            [
               "Hospital packet",
               "Sent 02:07, 17 min before arrival"
             ]
           ],
-          "summary": "Khalid did not answer, Hamad came, and Noa called an ambulance and sent her details to the hospital.",
+          "summary": "Noa called an ambulance at once and sent her details to the hospital. Khalid did not answer, and Hamad came.",
           "source": "Noa case log",
           "related": [
             "r1"

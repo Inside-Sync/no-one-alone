@@ -38,6 +38,15 @@ describe('tl and btn', () => {
 })
 
 describe('teach-back', () => {
+  test('a live explanation hides the Prepared text pill', () => {
+    const e = make('stroke')
+    advanceTo(e, 'teach')
+    renderKind(e)
+    expect(screen.getByText('Prepared text')).toBeInTheDocument()
+    act(() => { e.applyLiveExplain({ explain: 'Live', simpler: 's' }, { tkey: e.teachKey()!, lang: e.S.lang }) })
+    expect(screen.queryByText('Prepared text')).toBeNull()
+  })
+
   test('wrong answer: gentle feedback and simpler words; right answer passes; language switch; plan', () => {
     const e = make('stroke')
     advanceTo(e, 'teach')

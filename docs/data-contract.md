@@ -101,3 +101,4 @@ If the caller sends no key, core-api finds one by looking for a lowercase word i
 - The person's spoken language is `people/{id}.locale`: `en-*` is English, `ar-*` is Arabic, anything else is English. The seed uses `en-AE`.
 - The emergency number is `998`. It comes from `people/{id}.emergencyNumber`, with `998` as the default.
 - `CALLED_115` (as a kind and as an action) keeps its name because it is a contract value, even though it now means the emergency call.
+- The automatic `CALLED_115` is written once per incident: at escalation start for an `EMERGENCY`, otherwise when no one nearby accepts.

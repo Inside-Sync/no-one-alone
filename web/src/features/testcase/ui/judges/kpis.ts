@@ -60,7 +60,7 @@ export function computeKpis(e: TestCaseEngine): KpiSet {
   const d = S.dec
   if (!d) { out.to998 = WAIT; out.care = WAIT; return out }
   const em = d.path != null && /_em$/.test(d.path)
-  if (em && S.tAct != null && S.tCheck != null) out.to998 = ready(S.tAct + 2 - S.tCheck, 1)
+  if (em && S.tAct != null && S.tCheck != null) out.to998 = ready(d.escalated ? 0 : S.tAct - S.tCheck, 1)
   if (d.path) out.care = ready(steps.some((st, i) => st.kind === 'btn' && !!S.done[i]) ? 1 : 0, 1)
   return out
 }

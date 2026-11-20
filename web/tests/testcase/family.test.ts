@@ -209,8 +209,8 @@ describe('results: routes, heart risk, connections C4 and C5, badges', () => {
     expect(F.badges).toEqual(['hamdan', 'trip', 'first', 'sultan', 'plan', 'hind8', 'heart'])
     expect(F.alerts.slice(0, 6).map((a) => a.id)).toEqual(['c5', 'fc_khalid', 'fc_saeed', 'r_saeed_acr', 'r_amna_a1c', 'r_khalid_a1c'])
     expect(logs(e)).toContain('Noa Forecast · Khalid recalculated with cholesterol: 26% (high), heart age 77')
-    expect(logs(e)).toContain('Noa Forecast · Khalid: 10-year heart risk 26% (high) → routed to the family doctor')
-    expect(logs(e)).toContain('Noa Forecast · Saeed: 10-year heart risk 40% (high) → routed to the family doctor')
+    expect(logs(e)).toContain('Noa Forecast · Khalid: 10-year heart risk 26% (high) → routed to Family doctor · Dr Aisha Al Hosani')
+    expect(logs(e)).toContain('Noa Forecast · Saeed: 10-year heart risk 40% (high) → routed to Diabetes clinic · Capital General Hospital')
     // Khalid's own cholesterol and blood pressure went into his profile
     expect(F.prof.khalid).toMatchObject({ tc: 6.4, hdl: 0.9, sbp: 142 })
     // one P9 alert per referral, plus the two F1 heart-risk alerts, all routed

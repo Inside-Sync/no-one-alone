@@ -190,7 +190,7 @@ export function orbitTargets(i: number): EmOrbitTargets {
   return {
     mode: i >= 3 ? 'sos' : 'check',
     app: APP_PROGRESS[i],
-    call: i >= 6 ? 1 : i >= 4 ? 0.35 : 0,
+    call: i >= 4 ? 1 : 0,
     hosp: i >= 7 ? 1 : 0,
     arrived: i >= 8 ? 1 : 0,
   }

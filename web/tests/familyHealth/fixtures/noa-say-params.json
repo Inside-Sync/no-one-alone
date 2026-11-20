@@ -1,0 +1,17 @@
+{
+  "detect.guardian": { "audience": "Saeed", "name": "Saeed", "signal": "Heart 128 bpm at rest for 22 min", "usual": "62 to 78 bpm", "rule": "A resting heart rate far above the person's own usual starts a check" },
+  "detect.forecast": { "audience": "Saeed", "name": "Saeed", "flags": [{ "flag": "Heart and stroke risk", "factors": ["Blood pressure 148/92", "Father had a stroke"], "source": "Watch and last record", "certainty": "High" }], "family_effects": ["A father's stroke raises the priority of a heart check"] },
+  "protect.guardian": { "audience": "Saeed", "name": "Saeed", "shared_with": ["Moza"], "genomic_used": true },
+  "home.voice.intro": { "audience": "Saeed", "call": "Saeed", "tests": ["Speech check", "Hearing in noise"] },
+  "home.voice.retry": { "audience": "Saeed", "score": 0.71 },
+  "home.voice.child": { "audience": "Amna", "parent": "Amna", "child": "Hind", "age_months": 30 },
+  "home.insight": { "audience": "Saeed", "name": "Saeed", "results": [{ "test": "Speech check", "result": "0.92, as usual" }], "symptom": "none" },
+  "pathway.navigator.offer": { "audience": "Saeed", "name": "Saeed", "population_priority": [{ "check": "Diabetes blood test", "why_for_you": "Overdue since 2023", "where": "Family health centre", "when": "Sat 22 Nov, 09:00" }], "for_the_doctor": ["Blood pressure review"] },
+  "pathway.forecast.why": { "audience": "Saeed", "name": "Saeed", "flags": ["Heart and stroke risk"], "risk": "14%", "pathway": ["Diabetes blood test"] },
+  "pathway.navigator.u1": { "audience": "Saeed", "name": "Saeed", "urgent": ["Blood pressure review (Within 1 week)"] },
+  "pathway.navigator.n3": { "audience": "Saeed", "name": "Saeed" },
+  "referral.courier": { "audience": "the clinic team (Dr Omar Haddad)", "patient": "Saeed Al Mansoori", "age": "64", "booked": ["Diabetes blood test"], "for_doctor_decision": ["Blood pressure review"], "home_screening": { "speech_score": 0.92 }, "flags": ["Heart and stroke risk"] },
+  "referral.analyst": { "audience": "Department of Health programme team", "segment": "men 60s", "booked": 2 },
+  "composer.reply": { "audience": "Khalid", "name": "Khalid", "question": "what happens next?", "journey_stage": "referral" },
+  "family.chat": { "audience": "Moza’s family", "notifications": ["To Saeed: Your pathway is ready"], "question": "how is grandpa?" }
+}

@@ -1,4 +1,4 @@
-import { isCallEntry, type TimelineLike } from '@/domain/timeline'
+import { isAutoCall, isCallEntry, type TimelineLike } from '@/domain/timeline'
 
 /** One key per call to a nearby member (`NOTIFIED` "Calling ...") or to the emergency number, so each call rings once. */
 export function callKeys(timeline: readonly TimelineLike[], incidentId = ''): string[] {
@@ -73,10 +73,12 @@ export const playRing = (totalMs = 4000) => playTones(ringTones(totalMs))
 /** Plays the keypad dialling 000, then the ring. */
 export const playDial000 = () => playTones(dialSequence(6000))
 
-/** Which sound the newest calls need: `dial` when one of them is the automatic emergency call. Adds them to `seen`. */
+/** Which sound the newest calls need: `dial` for Noa's own emergency call, `ring` for a family call before it. Adds them to `seen`. */
 export function freshCallSound(timeline: readonly TimelineLike[], seen: Set<string>, incidentId = ''): 'dial' | 'ring' | null {
   const fresh = timeline.filter((e) => isCallEntry(e) && !seen.has(callKey(e, incidentId)))
   fresh.forEach((e) => seen.add(callKey(e, incidentId)))
   if (!fresh.length) return null
-  return fresh.some((e) => e.kind === 'CALLED_115') ? 'dial' : 'ring'
+  if (fresh.some((e) => e.kind === 'CALLED_115')) return 'dial'
+  // Family calls placed after Noa's own 998 call stay silent under it.
+  return timeline.some(isAutoCall) ? null : 'ring'
 }

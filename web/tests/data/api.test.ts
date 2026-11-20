@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import { chat, startDemo } from '@/data/api'
+import { chat, noaSay, startDemo } from '@/data/api'
 
 vi.mock('@/lib/firebase', () => ({ idToken: async () => 'token' }))
 
@@ -34,4 +34,14 @@ test('chat sends lang when given and leaves it out when not', async () => {
   fetchMock.mockClear()
   await chat({ question: 'q', mode: 'self' })
   expect(sentBody()).toEqual({ question: 'q', mode: 'self' })
+})
+
+test('noaSay posts callId, lang and params to /api/noa/say with the abort signal', async () => {
+  fetchMock.mockResolvedValueOnce(new Response('{"source":"guardrail","reason":"dose"}', { status: 200 }))
+  const ctl = new AbortController()
+  await noaSay({ callId: 'detect.guardian', lang: 'ar', params: { name: 'سعيد' } }, ctl.signal)
+  const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit]
+  expect(url).toBe('/api/noa/say')
+  expect(init.signal).toBe(ctl.signal)
+  expect(sentBody()).toEqual({ callId: 'detect.guardian', lang: 'ar', params: { name: 'سعيد' } })
 })

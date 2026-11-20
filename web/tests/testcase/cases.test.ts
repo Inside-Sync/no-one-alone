@@ -1,6 +1,7 @@
 import { CASES, CASE_GROUPS, JOURNEYS, REPORT } from '@/features/testcase/data'
 import { DB_TABLES, TestCaseEngine, famScore, runAutopilot, type CaseId } from '@/features/testcase/engine'
 import runs from './fixtures/prototype-runs.json'
+import { computeKpis } from '@/features/testcase/ui/judges/kpis'
 import { auto, make, t, text } from './helpers'
 
 /**
@@ -8,6 +9,7 @@ import { auto, make, t, text } from './helpers'
  * (new3.html) showed after the same run in a browser: stepper, table sizes, the event log and the rows of the demo database.
  * The engine must give the same, line for line.
  */
+// 998 now: the emergency journeys call 998 and the family in the same minute, unlike the prototype.
 const IDS = ['family', 'wellchild', 'ifhas', 'expat', 'bone', 'stroke', 'fall', 'hypo', 'hf', 'own'] as const
 type Run = { steps: string[]; db: Record<string, number>; log: string[]; rows: Record<string, string[]>; kpi: string[] }
 const RUNS = runs as unknown as Record<CaseId, Run>
@@ -148,6 +150,23 @@ describe('journeys of the safety cases', () => {
       ['stroke_em', 3], ['fall_em', 3], ['fall_minor', 1], ['hypo_home', 1], ['hypo_em', 3], ['hf_clinic', -1], ['hf_em', -1],
     ])
   })
+  test('every emergency journey calls 998 first, at the decision', () => {
+    for (const id of ['stroke_em', 'fall_em', 'hypo_em', 'hf_em'] as const) {
+      const items = JOURNEYS[id].steps[0].items!
+      expect(items.findIndex((it) => t(it.title).includes('998'))).toBe(0)
+      expect(items[0].at).toBe(0)
+    }
+  })
+  test('every emergency journey wakes the first family member at the decision, with 998', () => {
+    for (const id of ['stroke_em', 'fall_em', 'hypo_em', 'hf_em'] as const) {
+      const f1 = JOURNEYS[id].steps[0].items!.find((it) => /^Responder (calls|wakes) \{\{f1\}\}$/.test(t(it.title)))
+      expect(f1?.at, id).toBe(0)
+    }
+  })
+  test('the stroke run stamps the 998 call at the decision', () => {
+    const { e } = auto('stroke')
+    expect(e.db.audit.find((r) => text(e, r.event) === '998 call')?.at).toBe('15 Oct 01:34')
+  })
   test('the stroke packet depends on the blood thinner: Moza has none, Hessa takes apixaban', () => {
     const moza = make('stroke')
     const rows = (e: TestCaseEngine, i: number) => e.packet(JOURNEYS.stroke_em.steps[i]).map((r) => `${text(e, r.title)}: ${text(e, r.detail)}`)
@@ -182,6 +201,8 @@ describe('journeys of the safety cases', () => {
     expect(e.S.tAct).toBe(tAct + 30)
     expect(e.S.done).toEqual({})
     expect(e.decisionChecks().map((c) => text(e, c))).toContain('Two rechecks stayed below 4.0, so Responder called 998 at once')
+    expect(e.decisionChecks().map((c) => text(e, c))).toContain('998 called at 03:23, 0 min after the second low recheck (target ≤ 3)')
+    expect(computeKpis(e).to998).toEqual({ state: 'ready', a: 0, b: 1 })
     expect(e.db.alerts.at(-1)).toMatchObject({ level: 'red' })
     expect(e.cur().kind).toBe('tl')
   })
@@ -227,6 +248,26 @@ describe('journeys of the safety cases', () => {
     f.accept()
     expect(text(f, f.db.alerts.at(-1)!.status)).toBe('accepted')
     expect(f.S.done[f.S.step]).toBe(true)
+  })
+  test('the daily reading is refused outside its range; the refused value is never sent', () => {
+    const e = make('stroke')
+    e.play(); e.drain(); e.sampleSpeech('slurred'); e.answer('none')
+    e.setAuto(true)
+    for (let k = 0; k < 200 && e.cur().kind !== 'daily'; k++) { e.drain(); e.autoStep() }
+    e.setAuto(false); e.drain()
+    e.sampleSpeech('usual')
+    expect(e.setDailyVal(120)).toEqual({ ok: true, value: 120 })
+    const bad = e.setDailyVal(999)
+    expect(bad.ok).toBe(false)
+    expect(e.S.daily.val).toBe(120)
+    expect(text(e, bad.issue!.message)).toBe('Morning blood pressure, 5-day average: 999 is outside the plausible range 100 to 190 and was not accepted. Enter a value in that range.')
+    expect(e.setDailyVal(Number.NaN).ok).toBe(false)
+    e.sendDaily()
+    expect(e.S.daily.sent).toBe(false)
+    e.setDailyVal(125)
+    expect(e.inputIssues().required).toEqual([])
+    e.sendDaily()
+    expect(e.S.daily).toMatchObject({ sent: true, val: 125 })
   })
   test('daily thresholds: stroke under 130, falls under 20, hypo 4.0 or above, heart failure up to +1.0', async () => {
     const { DAILY } = await import('@/features/testcase/data')
