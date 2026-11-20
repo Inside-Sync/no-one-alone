@@ -82,14 +82,18 @@ def test_arabic_does_not_allow_plain_english_words_found_in_params():
     assert noa.check_say("نبض Heart 128 bpm at rest for 22 min", "home.voice.intro", "ar", params) == "script"
 
 
-def test_word_limits_55_80_45():
+def test_word_limits_55_80_100():
     assert noa.check_say(" ".join(["word"] * 55), "detect.guardian", "en", P) is None
     assert noa.check_say(" ".join(["word"] * 56), "detect.guardian", "en", P) == "length"
     assert noa.check_say(" ".join(["word"] * 80), "referral.courier", "en", P) is None
     assert noa.check_say(" ".join(["word"] * 80), "detect.forecast", "en", P) is None
     assert noa.check_say(" ".join(["word"] * 81), "detect.forecast", "en", P) == "length"
     assert noa.check_say(" ".join(["word"] * 80), "pathway.navigator.offer", "en", P) is None
-    assert noa.check_say(" ".join(["word"] * 46), "family.chat", "en", P) == "length"
+    # The chat answers carry the case context (history, Detect, pathway), so they get more room.
+    assert noa.check_say(" ".join(["word"] * 100), "composer.reply", "en", P) is None
+    assert noa.check_say(" ".join(["word"] * 101), "composer.reply", "en", P) == "length"
+    assert noa.check_say(" ".join(["word"] * 80), "family.chat", "en", P) is None
+    assert noa.check_say(" ".join(["word"] * 81), "family.chat", "en", P) == "length"
 
 
 def test_emergency_words_both_languages():

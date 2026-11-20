@@ -40,7 +40,7 @@ def _nums(text: str) -> set[str]:
 
 
 def max_words(call_id: str) -> int:
-    return {"referral.courier": 80, "detect.forecast": 80, "pathway.navigator.offer": 80, "family.chat": 45, "family.notify": 30, "analyst.weekly": 60}.get(call_id, 55)
+    return {"referral.courier": 80, "detect.forecast": 80, "pathway.navigator.offer": 80, "composer.reply": 100, "family.chat": 80, "family.notify": 30, "analyst.weekly": 60}.get(call_id, 55)
 
 
 def _terms(params) -> set[str]:

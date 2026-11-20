@@ -359,7 +359,7 @@ export class FamilyHealthEngine {
       // say(): a question typed in the composer. facts: name, question, journey_stage, and the case so far (history, detect,
       // pathway, can_do). Emergency words get the fixed safety line, which never goes through the AI port (`fixed`).
       const r = await this.say(qrun, agent, { callId: 'composer.reply',
-        fixed: emergency || inEmergency,
+        fixed: emergency || inEmergency, max: 100,
         facts: this.composerFacts(k, text),
         audience: this.str(name(k)),
         task: 'Answer the person’s latest question in two or three short sentences, within your role. Greet only if history is empty. Never say you will book or send anything; point to an item in can_do. If it needs a clinician, say a doctor decides.',
@@ -452,12 +452,12 @@ export class FamilyHealthEngine {
     try {
       // say(): the family messages panel. facts: recent notifications ("To <name>: <text>", newest first, at most 6).
       const r = await this.ai.say({
-        callId: 'family.chat', tier: SAY_CALLS['family.chat'].tier, skill: 'familyChat', domain: 'care', audience: 'Moza’s family', lang: this.lang, maxWords: 45,
+        callId: 'family.chat', tier: SAY_CALLS['family.chat'].tier, skill: 'familyChat', domain: 'care', audience: 'Moza’s family', lang: this.lang, maxWords: 80,
         facts: {
           notifications: this.notes.filter((n) => n.to !== 'me' && n.to !== 'noa').slice(0, 6).map((n) => clip(`To ${this.str(name(n.to as PersonId))}: ${this.str(n.text)}`, 300)),
           question: clip(text, 500), family: this.familyFacts(), history: this.famChat.slice(-4),
         },
-        task: 'Answer the family’s question in at most 45 plain words from the notifications and each member’s state. Never promise an action; a doctor decides treatment.',
+        task: 'Answer the family’s question in at most 80 plain words from the notifications and each member’s state. Never promise an action; a doctor decides treatment.',
         fallback: this.str(fallback),
       })
       if (r.emergency) out = tx('chat.emergency')
