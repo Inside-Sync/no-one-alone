@@ -153,4 +153,7 @@ powershell -ExecutionPolicy Bypass -File infra\deploy.ps1 -ProjectId <project-id
 ## CI/CD
 
 - CI (`.github/workflows/ci.yml`) runs the tests for every part on each pull request and on pushes to `dev`.
-- Deploy (`.github/workflows/deploy.yml`) runs after a green CI on `dev` and deploys only the parts that changed, through `infra/deploy.ps1`.
+- Deploy (`.github/workflows/deploy.yml`) runs after a green CI from a push to `dev`. It deploys the parts that changed since the last deployed commit, through `infra/deploy.ps1`.
+- The ref `refs/deploy/dev` marks the last deployed commit. `infra/pick-targets.sh` diffs against it. The ref moves after each successful automatic deploy, or a dispatch with `target=all`. If the ref is missing, everything is deployed.
+- Deploy runs from main's copy of `deploy.yml`. A manual dispatch runs the copy on the ref you pick.
+- Force a full deploy: `gh workflow run Deploy --ref dev -f target=all`.
