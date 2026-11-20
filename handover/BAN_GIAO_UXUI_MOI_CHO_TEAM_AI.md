@@ -508,3 +508,19 @@ Server đang cấm trường lạ, nên **team AI mở rộng params trước**,
 **Tương tự cho `family.chat`:** thêm tình trạng hiện tại của từng người trong gia đình (bước, đã đặt gì, có đang cấp cứu không) và 4 lượt hội thoại gần nhất, ngoài 6 thông báo đã gửi.
 
 **Câu hỏi cho team AI:** đồng ý schema trên không, và khi nào server nhận được? Team web gửi các trường này ngay khi server sẵn sàng; test hợp đồng ở `web/tests/familyHealth/ai-calls.test.ts` sẽ cập nhật theo.
+
+**Trả lời của team AI (20/11):** đồng ý schema trên, có vài giới hạn. Server nhận được ngay khi PR B (`feat/noa-chat-context`) deploy lên `respond`.
+- Mọi trường mới đều không bắt buộc. Payload cũ 3 trường vẫn chạy.
+- `composer.reply` thêm:
+  - `history`: tối đa 6 lượt `{ by: "person" | "noa", text }`, mỗi `text` 1 đến 500 ký tự.
+  - `detect`: `{ urgent_rule (≤120), signal (≤300), flags (≤3 mục, mỗi mục ≤300) }`.
+  - `pathway`: `{ booked: ≤6 mục { check, where, when } mỗi trường ≤120, for_the_doctor: ≤10 mục mỗi mục ≤120 }`.
+  - `can_do`: tối đa 6 mục, mỗi mục ≤120.
+- `family.chat` thêm:
+  - `family`: tối đa 6 người `{ name (≤120), stage (≤120), booked (≤6 mục, mỗi mục ≤120), emergency (true/false, mặc định false) }`.
+  - `history`: tối đa 4 lượt, cùng dạng như trên.
+- Trường lạ vẫn bị từ chối. Proxy trả `502 AGENT_FAILED` khi params sai, không phải 422.
+- Server trả câu cố định (`{ source: "guardrail", reason: "emergency" }`, không gọi AI) khi: câu hỏi có từ khẩn, một lượt `by: "person"` trong `history` có từ khẩn, hoặc một người trong `family` có `emergency: true`.
+- Vì vậy team web bỏ khỏi `history` mọi lượt hỏi đáp đã được trả bằng câu cấp cứu cố định (cả câu người dùng lẫn câu trả lời). Nếu không, server sẽ trả câu cố định mãi cho tới khi lượt đó trôi ra khỏi `history`.
+- Server chặn câu AI hứa tự làm việc ("I'll book", "سأحجز"...) cho hai call này; app sẽ dùng chữ soạn sẵn thay thế.
+- Prompt mới: chỉ chào khi `history` rỗng, 2 đến 3 câu, chỉ tới nút trong `can_do`, không lặp cảnh báo. `promptVersion` trong log audit là `noa-say-2`.
