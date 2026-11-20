@@ -23,7 +23,7 @@
 - **Barriers:** the prevention logic assumes six barriers (does not know, access, trust or language, "I feel fine", forgot, later) and one enabler for each. Choosing "later" is respected for 3 months.
 - **Emergency number:** 998, from the data contract (`people/{id}.emergencyNumber`, default 998).
 - **Pilot figures** in [pilot.md](pilot.md) are proposals, not agreed plans.
-- **Claude hosting.** With the live AI switch on (off by default), Claude Haiku 5.5 and Opus 5.5 write the family-health wording and read typed replies. If `ANTHROPIC_API_KEY` is set, those calls go to the Claude API (api.anthropic.com), outside Google Cloud and outside `asia-southeast1`; otherwise they use Claude on Vertex AI. The data sent is synthetic.
+- **Claude hosting.** With the live AI switch on (off by default), Claude Haiku 5.5 and Opus 5.5 write the family-health wording and read typed replies. Those calls go to the Claude API (api.anthropic.com), outside Google Cloud and outside `asia-southeast1`, reached with Workload Identity Federation (respond-agent's Cloud Run service account identity, no stored key) when the federation ids are set, or an API key when `ANTHROPIC_API_KEY` is set; otherwise they use Claude on Vertex AI. The data sent is synthetic.
 
 ## 3. Limitations
 

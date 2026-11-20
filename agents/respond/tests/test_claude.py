@@ -108,6 +108,86 @@ def test_blank_api_key_still_uses_vertex(monkeypatch):
     assert seen["project_id"] == "p1"
 
 
+WIF_ENV = {"ANTHROPIC_FEDERATION_RULE_ID": "fdrl_abc", "ANTHROPIC_ORGANIZATION_ID": "11111111-2222-3333-4444-555555555555",
+           "ANTHROPIC_SERVICE_ACCOUNT_ID": "svac_def", "ANTHROPIC_WORKSPACE_ID": "wrkspc_ghi"}
+
+
+def _forbid(name):
+    class Forbidden:
+        def __init__(self, **kw):
+            raise AssertionError(name + " used")
+    return Forbidden
+
+
+def test_federation_ids_select_workload_identity_with_7_s_and_no_retries(monkeypatch):
+    seen, creds = {}, {}
+
+    class FakeApi:
+        def __init__(self, **kw):
+            seen.update(kw)
+
+    class FakeCreds:
+        def __init__(self, **kw):
+            creds.update(kw)
+
+    monkeypatch.setattr(anthropic, "Anthropic", FakeApi)
+    monkeypatch.setattr(anthropic, "WorkloadIdentityCredentials", FakeCreds)
+    monkeypatch.setattr(anthropic, "AnthropicVertex", _forbid("Vertex"))
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
+    for k, v in WIF_ENV.items():
+        monkeypatch.setenv(k, v)
+    assert isinstance(claude.ClaudeExplainer()._get_client(), FakeApi)
+    assert isinstance(seen.pop("credentials"), FakeCreds) and seen == {"timeout": 7, "max_retries": 0}
+    assert creds.pop("identity_token_provider") is claude._google_id_token
+    assert creds == {"federation_rule_id": "fdrl_abc", "organization_id": "11111111-2222-3333-4444-555555555555",
+                     "service_account_id": "svac_def", "workspace_id": "wrkspc_ghi"}
+
+
+def test_unset_optional_federation_ids_are_none(monkeypatch):
+    creds = {}
+
+    class FakeCreds:
+        def __init__(self, **kw):
+            creds.update(kw)
+
+    monkeypatch.setattr(anthropic, "Anthropic", lambda **kw: object())
+    monkeypatch.setattr(anthropic, "WorkloadIdentityCredentials", FakeCreds)
+    monkeypatch.setenv("ANTHROPIC_FEDERATION_RULE_ID", "fdrl_abc")
+    monkeypatch.setenv("ANTHROPIC_ORGANIZATION_ID", "o")
+    monkeypatch.delenv("ANTHROPIC_SERVICE_ACCOUNT_ID", raising=False)
+    monkeypatch.delenv("ANTHROPIC_WORKSPACE_ID", raising=False)
+    claude.ClaudeExplainer()._get_client()
+    assert creds["service_account_id"] is None and creds["workspace_id"] is None
+
+
+def test_google_id_token_asks_for_the_anthropic_audience(monkeypatch):
+    import google.oauth2.id_token
+    got = {}
+
+    def fake_fetch(request, audience):
+        got["audience"] = audience
+        return "tok"
+
+    monkeypatch.setattr(google.oauth2.id_token, "fetch_id_token", fake_fetch)
+    assert claude._google_id_token() == "tok" and got["audience"] == "https://api.anthropic.com"
+
+
+def test_federation_rule_without_organization_falls_back_to_vertex(monkeypatch):
+    seen = {}
+
+    class FakeVertex:
+        def __init__(self, **kw):
+            seen.update(kw)
+
+    monkeypatch.setattr(anthropic, "AnthropicVertex", FakeVertex)
+    monkeypatch.setattr(anthropic, "Anthropic", _forbid("Claude API"))
+    monkeypatch.setenv("ANTHROPIC_FEDERATION_RULE_ID", "fdrl_abc")
+    monkeypatch.delenv("ANTHROPIC_ORGANIZATION_ID", raising=False)
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "p1")
+    assert isinstance(claude.ClaudeExplainer()._get_client(), FakeVertex)
+
+
 def test_schema_and_model_arguments_reach_the_request():
     other = {"type": "object", "properties": {"text": {"type": "string"}}, "required": ["text"], "additionalProperties": False}
     m = Messages(text='{"text": "t"}')
