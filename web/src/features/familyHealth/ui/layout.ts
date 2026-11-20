@@ -1,3 +1,4 @@
+import type { StageId } from '../index'
 import { getEngine, reducedMotion, setUi } from './store'
 
 /**
@@ -24,6 +25,21 @@ export function collapseTop() {
   })
 }
 
+/**
+ * "Run this case" and "Run Noa with these readings": bring the running area (the stage feed and the agent orchestra, `#fh-body`)
+ * to just under the sticky top nav, once the new journey has rendered, so the viewer sees it start.
+ */
+export function showRun() {
+  followFeed()
+  if (typeof window === 'undefined' || typeof requestAnimationFrame === 'undefined' || /jsdom/i.test(navigator.userAgent)) return
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const body = document.getElementById('fh-body')
+    if (!body) return
+    const y = body.getBoundingClientRect().top + window.scrollY - TOP_GAP
+    if (Math.abs(window.scrollY - y) > 8) window.scrollTo({ top: Math.max(0, y), behavior: reducedMotion() ? 'auto' : 'smooth' })
+  }))
+}
+
 /** Next ▸ (button or →): on the go card it starts the check, so the top collapses first, like the go button. */
 export function nextStep() {
   const e = getEngine(), p = e.getSnapshot().pending
@@ -35,4 +51,15 @@ export function answerGo(id: number, value: 'go' | 'later') {
   if (value === 'go') collapseTop()
   followFeed()
   getEngine().answer(id, value)
+}
+
+/** Opens an earlier stage's folded history in the feed and brings it into view (the step pills call this). */
+export function openPast(stage: StageId) {
+  const d = document.getElementById(`fh-past-${stage}`) as HTMLDetailsElement | null
+  if (!d) return
+  d.open = true
+  feedScroll.follow = false
+  const box = d.closest('[data-feed]') as HTMLElement | null
+  if (box) box.scrollTo({ top: box.scrollTop + d.getBoundingClientRect().top - box.getBoundingClientRect().top, behavior: reducedMotion() ? 'auto' : 'smooth' })
+  d.querySelector('summary')?.focus({ preventScroll: true })
 }

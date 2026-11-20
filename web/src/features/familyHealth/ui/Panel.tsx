@@ -3,7 +3,7 @@ import { PEOPLE, STAGE_IDS, type NoaLang } from '../index'
 import { claimAutoRun, getEngine, getUi, setUi, useSnapshot, useTexts } from './store'
 import { E, WithNext, c } from './bits'
 import { Now, STAGE_MODE, syncTick } from './Feed'
-import { followFeed, nextStep } from './layout'
+import { followFeed, nextStep, openPast } from './layout'
 import { WhatIf } from './WhatIf'
 import { Orchestra } from './Orchestra'
 import { QuickTests, runCase } from './QuickTests'
@@ -125,7 +125,15 @@ export function FamilyHealthPanel() {
           <ol className={c('steps')} aria-label={u('steps.label')}>
             {STAGE_IDS.map((k) => {
               const cur = j?.stage === k && !j.done, seen = j?.seen.includes(k)
-              return <li key={k} className={c('st', STAGE_MODE[k], cur ? 'cur' : seen ? 'done' : '')} aria-current={cur ? 'step' : undefined}><span>{raw(`stages.${k}.name`)}</span></li>
+              // A finished earlier step opens its folded history in the feed, so the analysis can be read again after Next.
+              const past = seen && j?.stage !== k
+              return (
+                <li key={k} className={c('st', STAGE_MODE[k], cur ? 'cur' : seen ? 'done' : '')} aria-current={cur ? 'step' : undefined}>
+                  {past
+                    ? <button type="button" title={u('nowh.open', { stage: raw(`stages.${k}.title`) })} onClick={() => openPast(k)}><span>{raw(`stages.${k}.name`)}</span></button>
+                    : <span>{raw(`stages.${k}.name`)}</span>}
+                </li>
+              )
             })}
           </ol>
           <WhatIf snap={snap} />

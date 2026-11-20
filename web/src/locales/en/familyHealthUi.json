@@ -402,7 +402,9 @@
   },
   "nowh": {
     "what": "What happens here",
-    "did": "What this step did"
+    "did": "What this step did",
+    "past": "{{stage}} · what happened ({{n}})",
+    "open": "Show what happened in {{stage}}"
   },
   "wi": {
     "try": "Try it",

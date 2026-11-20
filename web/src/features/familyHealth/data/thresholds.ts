@@ -29,8 +29,11 @@ export const FAMILY = { prematureMale: 55, prematureFemale: 65, dxaFrom: 65 } as
 /** Programme eligibility used by the screening history (prototype scrStatus). */
 export const ELIGIBLE = { bowel: [40, 75], ifhas: [18, 75], dxaFrom: 65, breast: [40, 69], cervix: [25, 65], breastProgrammeFrom: 40 } as const
 
-/** Waits (ms) of the prototype: around an agent's words, a hand-off, the pattern check. Zero under reduced motion and in tests. */
-export const WAIT = { typing: 250, afterSay: 450, handoff: 1100, pattern: 500 } as const
+/**
+ * Waits (ms) around an agent's words, a hand-off, the pattern check. Zero under reduced motion and in tests. The pause after an
+ * agent's words is longer than the prototype's 450 ms so a viewer can read each message before the next one arrives.
+ */
+export const WAIT = { typing: 250, afterSay: 1000, handoff: 1200, pattern: 600 } as const
 /**
  * Without live AI the prototype's "writing…" dots show for only 250 ms. Prepared and fixed turns keep the dots up like a chat agent
  * writing: a base plus a little per word, capped. Live turns already take the model's own time, so they add nothing.

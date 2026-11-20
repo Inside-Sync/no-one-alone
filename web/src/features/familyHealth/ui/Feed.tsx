@@ -1,10 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import {
   AGENTS, DEVICES, DOMAINS, PEOPLE, SENTENCE, SPEECH_BASE, SPEECH_BASE_DEFAULT, URGENCY, VT, dueBy, hsh, isChild, rnd, words,
-  type AgentId, type Card, type DomainId, type FeedItem, type PacketLine, type PatternCard, type PersonId, type Snapshot, type Txt, type TxtList,
+  type AgentId, type Card, type DomainId, type FeedItem, type PacketLine, type PatternCard, type PersonId, type Snapshot, type StageId, type Txt, type TxtList,
 } from '../index'
 import { wordEq } from '../engine/speech'
-import { getEngine, useSpokenText, useTexts } from './store'
+import { getEngine, reducedMotion, useSpokenText, useTexts } from './store'
 import { AgentOrb } from '@/components/noa/AgentOrb'
 import { Bold, E, c } from './bits'
 import { canDictate } from './speechIo'
@@ -43,9 +43,8 @@ export function Now({ snap }: { snap: Snapshot }) {
       </div>
     )
   }
-  let from = -1
-  snap.feed.forEach((m, i) => { if (m.kind === 'stage') from = i })
-  const cur = snap.feed.slice(Math.max(0, from))
+  const groups = stageGroups(snap.feed)
+  const cur = groups.pop()?.items ?? []
   const mode = j.stage ? STAGE_MODE[j.stage] : 'ind'
   const k = j.person
   return (
@@ -56,10 +55,28 @@ export function Now({ snap }: { snap: Snapshot }) {
       <StageHead snap={snap} mode={mode} />
       {!PEOPLE[k].child && <SyncBox snap={snap} />}
       <FeedItems snap={snap}>
+        {/* Earlier stages stay readable: folded above the current one (the newer prototype only showed the current stage). */}
+        {groups.map((g) => g.stage && (
+          <details key={g.id} className={c('past', STAGE_MODE[g.stage])} id={`fh-past-${g.stage}`}>
+            <summary>{u('nowh.past', { stage: raw(`stages.${g.stage}.title`), n: g.items.filter((m) => m.kind !== 'hand').length })}</summary>
+            <div className={c('pastItems')}>{g.items.map((m) => <Item key={m.id} m={m} snap={snap} t={t} />)}</div>
+          </details>
+        ))}
         {cur.map((m) => <Item key={m.id} m={m} snap={snap} t={t} />)}
       </FeedItems>
     </div>
   )
+}
+
+/** The feed cut at each stage marker; the last group is the current stage. */
+function stageGroups(feed: FeedItem[]) {
+  const out: { id: number; stage: StageId | null; items: FeedItem[] }[] = [{ id: -1, stage: null, items: [] }]
+  for (const m of feed) {
+    if (m.kind === 'stage') out.push({ id: m.id, stage: m.stage, items: [m] })
+    else out[out.length - 1].items.push(m)
+  }
+  if (out.length > 1 && !out[0].items.length) out.shift()
+  return out
 }
 
 /** One stage header (newer prototype): the stage title, the person, and "What happens here" folded in (open on the first stage). */
@@ -90,14 +107,26 @@ function StageHead({ snap, mode }: { snap: Snapshot; mode: string }) {
  */
 function FeedItems({ snap, children }: { snap: Snapshot; children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
+  const last = useRef(0)
   const journeyNo = snap.gov.journeys
   useLayoutEffect(() => { feedScroll.follow = true }, [journeyNo])
   useLayoutEffect(() => {
     const el = ref.current
-    if (el && feedScroll.follow) el.scrollTop = el.scrollHeight
+    if (!el || !feedScroll.follow) return
+    // Glide to the newest message instead of jumping (jsdom has no scrollTo; reduced motion jumps).
+    const gap = el.scrollHeight - el.clientHeight - el.scrollTop
+    if (gap <= 1) return
+    if (typeof el.scrollTo === 'function' && !reducedMotion() && gap < 900) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
+    else { el.scrollTop = el.scrollHeight; last.current = el.scrollTop }
   })
   return (
-    <div className={c('items')} ref={ref} data-feed="" onScroll={(ev) => { const t = ev.currentTarget; feedScroll.follow = t.scrollHeight - t.scrollTop - t.clientHeight < 48 }}>
+    <div className={c('items')} ref={ref} data-feed="" onScroll={(ev) => {
+      // Only scrolling up stops the follow (a smooth glide down passes through mid positions); back near the end follows again.
+      const t = ev.currentTarget, near = t.scrollHeight - t.scrollTop - t.clientHeight < 48
+      if (near) feedScroll.follow = true
+      else if (t.scrollTop < last.current - 2) feedScroll.follow = false
+      last.current = t.scrollTop
+    }}>
       {children}
     </div>
   )

@@ -1,5 +1,5 @@
 import {
-  FamilyHealthEngine, PreparedAi, SAMPLES, TEST_CASES, levelOf, scoreSpeech, type NoaAi, type PersonId, type SayRequest, type Scheduler, type TestCaseId, type Txt, WRITING, writingMs,
+  FamilyHealthEngine, PreparedAi, SAMPLES, TEST_CASES, levelOf, scoreSpeech, type NoaAi, type PersonId, type SayRequest, type Scheduler, type TestCaseId, type Txt, WAIT, WRITING, writingMs,
 } from '@/features/familyHealth'
 import { TAR, T, drive, engine, of, view } from './helpers'
 
@@ -248,12 +248,12 @@ describe('clock and timing', () => {
     expect(new Set(times).size).toBeGreaterThan(2)
     expect(s.time > '08:40').toBe(true)
   })
-  test('every wait goes through the scheduler (250 / 450 around words, 1100 per hand-off, 500 for the pattern, writing time)', async () => {
+  test('every wait goes through the scheduler (around words, per hand-off, for the pattern, writing time)', async () => {
     const waits: number[] = []
     const sched: Scheduler = { wait: (ms) => { waits.push(ms); return Promise.resolve() } }
     const e = new FamilyHealthEngine({ scheduler: sched })
     await runCase(e, 's0')
-    const fixed = new Set([1100, 500, 250, 450])
+    const fixed = new Set<number>(Object.values(WAIT))
     expect(waits.filter((w) => fixed.has(w)).length).toBeGreaterThan(0)
     // The rest is the chat-like writing time of prepared turns: base + per word, capped.
     const writing = waits.filter((w) => !fixed.has(w))
@@ -269,7 +269,7 @@ describe('clock and timing', () => {
     const live: NoaAi = { say: async () => ({ text: 'Hello from Claude.', source: 'live' }), understand: async (r) => ({ choice: r.options[0]?.id ?? '', summary: '', source: 'live' }) }
     const e = new FamilyHealthEngine({ scheduler: sched, ai: live })
     await start(e, 'amna')
-    expect(waits.some((w) => w >= WRITING.base && ![1100, 500, 250, 450].includes(w))).toBe(false)
+    expect(waits.some((w) => w >= WRITING.base && !(Object.values(WAIT) as number[]).includes(w))).toBe(false)
   })
 })
 

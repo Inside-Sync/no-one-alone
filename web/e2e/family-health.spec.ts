@@ -279,3 +279,36 @@ test('the Noa logo is centred in its circles (top nav, messages button, messages
   })
   for (const d of off) expect(d).toBeLessThanOrEqual(1)
 })
+
+test('Run this case and Run Noa with these readings bring the running area under the top nav', async ({ page }) => {
+  await page.setViewportSize({ width: 2048, height: 1150 })
+  await openPage(page, FH)
+  const bodyTop = () => page.locator('#fh-body').evaluate((el) => Math.round(el.getBoundingClientRect().top))
+  // From the quick test cases at the bottom of the page.
+  const card = page.locator('[data-tc="k1"]')
+  await card.scrollIntoViewIfNeeded()
+  expect(await bodyTop()).toBeLessThan(0)
+  await card.getByRole('button', { name: /Run this case/ }).click()
+  await expect.poll(bodyTop, { timeout: 5000 }).toBeGreaterThanOrEqual(0)
+  expect(await bodyTop()).toBeLessThan(140)
+  // From the Try it panel, after scrolling back to the top.
+  await page.evaluate(() => window.scrollTo(0, 0))
+  const wi = page.locator('#fh-wi')
+  if ((await wi.getAttribute('open')) === null) await wi.locator('summary').click()
+  await wi.getByRole('button', { name: 'Run Noa with these readings' }).click()
+  await expect.poll(bodyTop, { timeout: 5000 }).toBeLessThan(140)
+  await expect(now(page).getByRole('button', { name: /Start the check now|Start home screening/ })).toBeVisible()
+})
+
+test('after Next the Detect analysis stays readable: its step pill opens the folded history in the feed', async ({ page }) => {
+  await openPage(page, FH)
+  await page.locator('[data-tc="k1"]').getByRole('button', { name: /Run this case/ }).click()
+  await expect(now(page).getByRole('button', { name: /Start the check now|Start home screening/ })).toBeVisible()
+  await nextBtn(page).click()
+  const past = page.locator('#fh-past-detect')
+  await expect(past).toHaveCount(1)
+  await expect(past).not.toHaveAttribute('open', '')
+  await panel(page).getByRole('list', { name: 'Journey' }).getByRole('button', { name: 'Detect' }).click()
+  await expect(past).toHaveAttribute('open', '')
+  await expect(past.locator('[class*="mb"]').first()).toBeVisible()
+})

@@ -5,7 +5,7 @@ import {
 } from '../index'
 import { getEngine, reducedMotion, setUi, useTexts, useUi } from './store'
 import { Bold, c } from './bits'
-import { followFeed } from './layout'
+import { showRun } from './layout'
 
 type Texts = ReturnType<typeof useTexts>
 const TOGGLES: readonly ToggleField[] = ['smoker', 'dm', 'bpTx', 'cvd']
@@ -22,7 +22,7 @@ export function WhatIf({ snap }: { snap: Snapshot }) {
   if (!j) return <div className={c('wi')} />
   const k = j.person, p = snap.profiles[k], name = raw(`people.${k}.name`)
   const e = getEngine()
-  const run = () => { followFeed(); void e.startJourney(k) }
+  const run = () => { void e.startJourney(k); showRun() }
   return (
     <div className={c('wi')}>
       <details className={c('wiw')} open={wiOpen} id="fh-wi" onToggle={(ev) => { const o = (ev.currentTarget as HTMLDetailsElement).open; if (o !== wiOpen) setUi({ wiOpen: o }) }}>

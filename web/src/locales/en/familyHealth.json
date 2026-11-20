@@ -416,7 +416,8 @@
   },
   "coach": {
     "emergency": "If your face or arm is weak, your speech changes, or you have chest pain or feel faint, call 998 now.",
-    "pass": "Good question. I’ll pass it to {{doctor}}; you’ll hear back within 2 working days."
+    "pass": "Good question. I’ll pass it to {{doctor}}; you’ll hear back within 2 working days.",
+    "emergencyActive": "{{name}}, please see a doctor now at the nearest emergency department; ask someone to take you, or call 998 if you cannot get there safely. Screening and bookings are paused until a doctor has seen you."
   },
   "sys": {
     "goU1": "Noa will ask again in 10 minutes. With an alert like this, if there is still no answer it tells {{contact}} (rule U1).", "speechRecovery": "Speech as usual for {{name}} (rule Q1). Saved to the recovery record for the speech therapist.", "speechRecoveryAmber": "Speech a little different but better on repeat: shared with the speech therapist.",
@@ -629,6 +630,7 @@
   },
   "chat": {
     "emergency": "If anyone has slurred speech, face or arm weakness, chest pain or confusion, they should see a doctor immediately at the emergency department.",
+    "emergencyActive": "{{name}} has been advised to see a doctor now at the emergency department. Please help {{name}} get there, or call 998 if that is not safe. Screening is paused until a doctor has seen {{name}}.",
     "working": "I’m working on {{name}}’s screening now ({{stage}}). I’ll message the family here when something is booked or needs action.",
     "starting": "starting",
     "idle": "Tap anyone in the family tree and I’ll check what is due for them. New messages for the family appear here."

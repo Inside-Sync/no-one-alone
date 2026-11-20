@@ -339,15 +339,19 @@ export class FamilyHealthEngine {
     const agent: AgentId = this.active && this.active !== 'orch' ? this.active : 'coach'
     this.add({ kind: 'me', who: name(k), text, chip: null })
     const emergency = EMERGENCY.test(text)
+    // While the journey is on the emergency branch (rule-decided: see a doctor now), the composer never reaches the AI: whatever is
+    // asked (a booking, a home visit, a time), the answer is the fixed line that repeats the urgent advice and says screening waits.
+    const inEmergency = this.j?.branch === 'em'
     try {
       // say(): a question typed in the composer. facts: name, question, journey_stage. Emergency words get the fixed safety line,
       // which never goes through the AI port (`fixed`).
       await this.say(qrun, agent, { callId: 'composer.reply',
-        fixed: emergency,
+        fixed: emergency || inEmergency,
         facts: { name: this.str(name(k)), question: text, journey_stage: this.j?.stage ?? null },
         audience: this.str(name(k)),
         task: 'Answer the person’s question briefly, within your role. If it needs a clinician, say so and offer to book. If it sounds like an emergency (weakness, speech trouble, chest pain, fainting), tell them to see a doctor immediately at the emergency department.',
-        fallback: emergency ? tx('coach.emergency') : tx('coach.pass', { doctor: tx(`people.${k}.doc`) }),
+        fallback: inEmergency ? tx('coach.emergencyActive', { name: name(k) })
+          : emergency ? tx('coach.emergency') : tx('coach.pass', { doctor: tx(`people.${k}.doc`) }),
       })
     } catch (e) { if (!(e instanceof Cancelled)) throw e }
   }
@@ -423,11 +427,13 @@ export class FamilyHealthEngine {
     this.emit()
     const j = this.j
     const em = EMERGENCY.test(text)
-    const fallback = em ? tx('chat.emergency')
+    // During a rule-decided emergency the family hear the same fixed advice, never AI text.
+    const inEmergency = j?.branch === 'em'
+    const fallback = inEmergency ? tx('chat.emergencyActive', { name: name(j.k) }) : em ? tx('chat.emergency')
       : j ? tx('chat.working', { name: name(j.k), stage: j.stage ? lc(tx(`stages.${j.stage}.name`)) : tx('chat.starting') }) : tx('chat.idle')
     let out: string | Txt = fallback
     // Emergency words: the fixed safety line only, never the AI port.
-    if (em) { this.notify('noa', out, 'bot', true); return }
+    if (em || inEmergency) { this.notify('noa', out, 'bot', true); return }
     try {
       // say(): the family messages panel. facts: recent notifications ("To <name>: <text>", newest first, at most 6).
       const r = await this.ai.say({
