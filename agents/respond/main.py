@@ -172,7 +172,7 @@ def noa_say(body: NoaSayIn):
         params = call.params.model_validate(body.params).model_dump()
     except ValidationError:
         raise HTTPException(status_code=422, detail="bad params")
-    if body.callId in noa.FREE_TEXT_CALLS and noa.EMERGENCY.search(params["question"]):
+    if noa.emergency(params):
         noa.audit(body.callId, params, None, "guardrail:emergency")
         return {"source": "guardrail", "reason": "emergency"}
     model = noa.model_for(call.tier)
