@@ -24,11 +24,14 @@ class ClaudeExplainer:
         env = os.environ.get
         if self._client is None and env("ANTHROPIC_FEDERATION_RULE_ID", "").strip():
             if env("ANTHROPIC_ORGANIZATION_ID", "").strip():
+                import httpx2
                 from anthropic import Anthropic, WorkloadIdentityCredentials
                 creds = WorkloadIdentityCredentials(
                     identity_token_provider=_google_id_token, federation_rule_id=env("ANTHROPIC_FEDERATION_RULE_ID").strip(),
                     organization_id=env("ANTHROPIC_ORGANIZATION_ID").strip(),
-                    service_account_id=env("ANTHROPIC_SERVICE_ACCOUNT_ID") or None, workspace_id=env("ANTHROPIC_WORKSPACE_ID") or None)
+                    service_account_id=(env("ANTHROPIC_SERVICE_ACCOUNT_ID") or "").strip() or None,
+                    workspace_id=(env("ANTHROPIC_WORKSPACE_ID") or "").strip() or None,
+                    http_client=httpx2.Client(timeout=TIMEOUT_S))
                 self._client = Anthropic(credentials=creds, timeout=TIMEOUT_S, max_retries=0)
             else:
                 log.warning("ANTHROPIC_FEDERATION_RULE_ID is set without ANTHROPIC_ORGANIZATION_ID; ignoring it")

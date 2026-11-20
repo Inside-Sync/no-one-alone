@@ -1,6 +1,7 @@
 import types
 
 import anthropic
+import pytest
 
 import claude
 
@@ -18,6 +19,13 @@ class Messages:
             raise self.error
         blocks = [types.SimpleNamespace(type="thinking", thinking=""), types.SimpleNamespace(type="text", text=self.text)]
         return types.SimpleNamespace(stop_reason=self.stop, content=blocks)
+
+
+@pytest.fixture(autouse=True)
+def clean_env(monkeypatch):
+    for k in ("ANTHROPIC_FEDERATION_RULE_ID", "ANTHROPIC_ORGANIZATION_ID", "ANTHROPIC_SERVICE_ACCOUNT_ID",
+              "ANTHROPIC_WORKSPACE_ID", "ANTHROPIC_API_KEY"):
+        monkeypatch.delenv(k, raising=False)
 
 
 def explainer(messages):
@@ -139,6 +147,7 @@ def test_federation_ids_select_workload_identity_with_7_s_and_no_retries(monkeyp
     assert isinstance(claude.ClaudeExplainer()._get_client(), FakeApi)
     assert isinstance(seen.pop("credentials"), FakeCreds) and seen == {"timeout": 7, "max_retries": 0}
     assert creds.pop("identity_token_provider") is claude._google_id_token
+    assert creds.pop("http_client").timeout.read == 7
     assert creds == {"federation_rule_id": "fdrl_abc", "organization_id": "11111111-2222-3333-4444-555555555555",
                      "service_account_id": "svac_def", "workspace_id": "wrkspc_ghi"}
 
@@ -154,8 +163,7 @@ def test_unset_optional_federation_ids_are_none(monkeypatch):
     monkeypatch.setattr(anthropic, "WorkloadIdentityCredentials", FakeCreds)
     monkeypatch.setenv("ANTHROPIC_FEDERATION_RULE_ID", "fdrl_abc")
     monkeypatch.setenv("ANTHROPIC_ORGANIZATION_ID", "o")
-    monkeypatch.delenv("ANTHROPIC_SERVICE_ACCOUNT_ID", raising=False)
-    monkeypatch.delenv("ANTHROPIC_WORKSPACE_ID", raising=False)
+    monkeypatch.setenv("ANTHROPIC_SERVICE_ACCOUNT_ID", "  ")
     claude.ClaudeExplainer()._get_client()
     assert creds["service_account_id"] is None and creds["workspace_id"] is None
 

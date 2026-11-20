@@ -5,6 +5,7 @@ param(
     [Parameter(Mandatory = $true)] [string] $ServiceAccountId,
     [Parameter(Mandatory = $true)] [string] $WorkspaceId
 )
+# Undo: gcloud run services update respond-agent --region asia-southeast1 --project no-one-alone-511616 --remove-env-vars ANTHROPIC_FEDERATION_RULE_ID,ANTHROPIC_ORGANIZATION_ID,ANTHROPIC_SERVICE_ACCOUNT_ID,ANTHROPIC_WORKSPACE_ID
 $ErrorActionPreference = "Stop"
 $project = "no-one-alone-511616"
 $region = "asia-southeast1"

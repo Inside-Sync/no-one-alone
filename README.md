@@ -80,7 +80,7 @@ Everything runs in `asia-southeast1` (Singapore) except Gemini (Vertex AI `globa
 | Google Maps Platform, Routes API | Real travel times: each relative's ETA to the person, and the ETA to each hospital when choosing where to send the packet. |
 | Firebase Hosting | Serves the web app and rewrites `/api/**` to core-api. |
 | Firebase Authentication | Anonymous sign-in for every visitor. Firestore and Storage only allow reads from signed-in users. |
-| Secret Manager | Holds the Maps API key. Cloud Run reads it when an instance starts. To use the Claude API with Workload Identity Federation, run `infra/set-anthropic-wif.ps1`; no key is stored. Only as the fallback, run `infra/set-anthropic-key.ps1`. It stores the key as the secret `anthropic-api-key` and gives it to respond-agent as `ANTHROPIC_API_KEY`; `infra/setup.ps1` does not create it. |
+| Secret Manager | Holds the Maps API key. Cloud Run reads it when an instance starts. To use the Claude API with Workload Identity Federation, run `infra/set-anthropic-wif.ps1`; no key is stored. Only when the federation ids are unset, the key is used instead: run `infra/set-anthropic-key.ps1`. It stores the key as the secret `anthropic-api-key` and gives it to respond-agent as `ANTHROPIC_API_KEY`; `infra/setup.ps1` does not create it. |
 | IAM | One service account per service with only the roles it needs. |
 | Cloud Logging and Cloud Monitoring | Logs and metrics for the three Cloud Run services. |
 
