@@ -1,5 +1,5 @@
 import { FamilyHealthEngine, type NoaAi, type SayRequest } from '@/features/familyHealth'
-import { drive } from './helpers'
+import { T, drive } from './helpers'
 
 /**
  * The chat calls carry the case so far (server PR #86): the conversation, what Detect found, what is booked and what the person
@@ -95,4 +95,18 @@ test('routine notices are worded by the AI and marked live; the page-open auto-r
   await drive(u, { speech: 'slurred' })
   expect(u.getSnapshot().emergency).toBe(true)
   expect(urgent.says.filter((s) => s.callId === 'family.notify').map((s) => s.facts.event)).toEqual([])
+})
+
+test('a refusal blocked by the guardrail gets an answer that respects the choice, not "ask the doctor"', async () => {
+  const ai: NoaAi = {
+    say: async (r) => ({ text: r.fallback, source: 'guardrail', note: 'Guardrail: the AI text promised an action the app does not take, so the prepared text replaced it.' }),
+    understand: async (r) => ({ choice: r.options[0]?.id ?? '', summary: '', source: 'live' }),
+  }
+  const e = new FamilyHealthEngine({ ai })
+  void e.runTestCase('s0')
+  await e.whenIdle()
+  await e.reply('i dont want to start now')
+  const last = e.getSnapshot().feed.filter((m) => m.kind === 'agent').at(-1) as { source: string; text: unknown }
+  expect(last.source).toBe('guardrail')
+  expect(T(last.text as never)).toMatch(/^That’s your choice, Saeed\. Nothing moves on until you choose/)
 })

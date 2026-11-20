@@ -9,7 +9,8 @@ export interface NoaTransport {
   understand(body: NoaUnderstandBody, signal: AbortSignal): Promise<{ choice: string }>
 }
 
-const NOTED: readonly string[] = ['dose', 'diagnosis', 'againstEmergency'] satisfies GuardHit[]
+/** Server guardrail reasons the note names (GuardHit plus the server-only checks); any other reason gets the generic note. */
+const NOTED: readonly string[] = ['dose', 'diagnosis', 'againstEmergency', 'length', 'number', 'promise', 'script'] satisfies (GuardHit | 'length' | 'number' | 'promise' | 'script')[]
 const TIMEOUT = Symbol('timeout')
 
 /** The live AI port: never throws; a timeout, error or bad reply gives the prepared text (say) or the keyword reader (understand). */

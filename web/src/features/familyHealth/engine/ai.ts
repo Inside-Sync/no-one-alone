@@ -7,7 +7,7 @@ import type { AgentId, DomainId, NoaLang, RuleId } from '../data/types'
  * Contract (see the call sites in `journey.ts`, each documents its `facts` and `task`):
  * - `say` writes one agent turn. It must return `fallback` (source `prepared`) when it cannot do better, and must never diagnose,
  *   name a medicine dose, discourage emergency care, or decide treatment. The engine re-checks live text with `guard()` and swaps in
- *   the prepared text (source `guardrail`) when it fails. Emergency advice never reaches `say`: it is a fixed, clinician-approved
+ *   the prepared text (source `guardrail`) when it fails. Emergency advice never reaches `say`: it is a fixed, pre-written
  *   script (source `fixed`).
  * - `route` (optional) is the hand-off the Orchestrator's rule makes next. If a live reply suggests another agent
  *   (`handoffTo`), the rule still wins and the engine counts it as "AI overruled".

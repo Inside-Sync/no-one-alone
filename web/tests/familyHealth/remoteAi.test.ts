@@ -32,10 +32,12 @@ test('an error or a malformed reply gives the prepared text with the failed note
   expect(await new RemoteAi(net(async () => ({ source: 'live', text: ' ' }))).say(req('ar'))).toEqual(failed)
   expect(await new RemoteAi(net(async () => 'nonsense' as never)).say(req('ar'))).toEqual(failed)
 })
-test('a server guardrail keeps the prepared text; known reasons get their note, others none', async () => {
+test('a server guardrail keeps the prepared text; every known reason gets its note, unknown ones none', async () => {
   expect(await new RemoteAi(net(async () => ({ source: 'guardrail', reason: 'dose' }))).say(req())).toEqual({ text: 'Prepared words.', source: 'guardrail', note: 'Guardrail: the AI text contained a dose, so the prepared text replaced it.' })
   expect(await new RemoteAi(net(async () => ({ source: 'guardrail', reason: 'emergency' }))).say(req())).toEqual({ text: 'Prepared words.', source: 'guardrail', emergency: true })
-  expect(await new RemoteAi(net(async () => ({ source: 'guardrail', reason: 'number' }))).say(req())).toEqual({ text: 'Prepared words.', source: 'guardrail', note: undefined })
+  expect(await new RemoteAi(net(async () => ({ source: 'guardrail', reason: 'number' }))).say(req())).toEqual({ text: 'Prepared words.', source: 'guardrail', note: 'Guardrail: the AI text used a number that is not in Noa’s data, so the prepared text replaced it.' })
+  expect(await new RemoteAi(net(async () => ({ source: 'guardrail', reason: 'promise' }))).say(req())).toEqual({ text: 'Prepared words.', source: 'guardrail', note: 'Guardrail: the AI text promised an action the app does not take, so the prepared text replaced it.' })
+  expect(await new RemoteAi(net(async () => ({ source: 'guardrail', reason: 'unknown' }))).say(req())).toEqual({ text: 'Prepared words.', source: 'guardrail', note: undefined })
 })
 test('understand: a listed id is live; a label, an unknown id, an error or a timeout falls back to the keyword reader', async () => {
   expect(await new RemoteAi(net(never, async () => ({ choice: 'weak' }))).understand(und)).toEqual({ choice: 'weak', summary: '', source: 'live' })

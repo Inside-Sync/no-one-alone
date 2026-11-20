@@ -68,6 +68,8 @@ interface ChoiceResult { id: string; label: Txt }
 interface Turn { by: 'person' | 'noa'; text: string }
 /** Calls the page-open auto-run still sends to a live AI: the typed question and the two Detect turns. */
 const QUIET_LIVE = new Set<string>(['composer.reply', 'detect.guardian', 'detect.forecast'])
+/** A typed "not now" or refusal (English or Arabic): its prepared answer respects the choice instead of passing it to the doctor. */
+const REFUSAL = /\b(?:not now|later|don['’]?t want|do not want|no thanks|not ready|refuse)\b|ليس الآن|لاحقا|لاحقاً|لا أريد|لا اريد/i
 const clip = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1)}…` : s)
 
 /** The AI port's question for each free-text card (English, for the model; prototype `free.q`). */
@@ -362,7 +364,7 @@ export class FamilyHealthEngine {
         audience: this.str(name(k)),
         task: 'Answer the person’s latest question in two or three short sentences, within your role. Greet only if history is empty. Never say you will book or send anything; point to an item in can_do. If it needs a clinician, say a doctor decides.',
         fallback: inEmergency ? tx('coach.emergencyActive', { name: name(k) })
-          : emergency ? tx('coach.emergency') : tx('coach.pass', { doctor: tx(`people.${k}.doc`) }),
+          : emergency ? tx('coach.emergency') : REFUSAL.test(text) ? tx('coach.notNow', { name: name(k) }) : tx('coach.pass', { doctor: tx(`people.${k}.doc`) }),
       })
       // A turn answered with the fixed emergency line stays out of the history: the server would keep answering with it.
       if (r.source !== 'fixed') this.chat = [...this.chat, { by: 'person' as const, text: clip(text, 500) }, { by: 'noa' as const, text: clip(r.text, 500) }].slice(-6)
@@ -648,7 +650,7 @@ export class FamilyHealthEngine {
 
   /**
    * One agent turn through the AI port. `fallback` is the prepared text (a descriptor, kept so the UI can re-translate it);
-   * `fixed` turns are the clinician-approved emergency script and never reach the AI.
+   * `fixed` turns are the pre-written emergency script and never reach the AI.
    */
   private async say(run: Run, agent: AgentId, o: {
     callId: SayCallId | typeof FIXED_CALL
@@ -1047,7 +1049,7 @@ export class FamilyHealthEngine {
     this.gov.emergencies++
     this.setSt(k, 'status.seeDoctor', 'bad')
     this.emit()
-    // Fixed, clinician-approved script: never sent to the AI (source "fixed").
+    // Fixed, pre-written script: never sent to the AI (source "fixed").
     await this.say(run, 'voice', { callId: 'stop.voice.emergency',
       fixed: true, facts: {}, task: '', audience: this.str(name(k)),
       why: tx('say.why.fixed', { rule, text: tx(`rules.${rule}`) }),

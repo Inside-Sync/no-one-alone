@@ -370,7 +370,7 @@
     }
   },
   "say": {
-    "why": { "rule": "Rule {{rule}}: {{text}}", "fixed": "Rule {{rule}}: {{text}}. A fixed, clinician-approved script, never free AI text." },
+    "why": { "rule": "Rule {{rule}}: {{text}}", "fixed": "Rule {{rule}}: {{text}}. A fixed, pre-written script, never free AI text." },
     "tag": { "referral": "Referral", "department": "To the Department" },
     "guardian": {
       "urgentHeart": "{{call}}, I noticed {{signal}}. Your usual is {{usual}}. I’ve started a one-minute check, and a doctor review today goes first.",
@@ -425,7 +425,8 @@
   },
   "coach": {
     "emergency": "If your face or arm is weak, your speech changes, or you have chest pain or feel faint, call 998 now.",
-    "pass": "Good question. {{doctor}} is the right person to answer that; you can ask at your visit, or book one from the pathway card.",
+    "pass": "{{doctor}} is the right person to answer that; you can ask at your visit, or use the buttons on the card on screen.",
+    "notNow": "That’s your choice, {{name}}. Nothing moves on until you choose; you can press Not now on the card, or start when you are ready. If you feel unwell, please see a doctor.",
     "emergencyActive": "{{name}}, please see a doctor now at the nearest emergency department; ask someone to take you, or call 998 if you cannot get there safely. Screening and bookings are paused until a doctor has seen you."
   },
   "sys": {
@@ -634,6 +635,10 @@
       "dose": "Guardrail: the AI text contained a dose, so the prepared text replaced it.",
       "diagnosis": "Guardrail: the AI text contained a diagnosis, so the prepared text replaced it.",
       "againstEmergency": "Guardrail: the AI text contained advice against emergency care, so the prepared text replaced it.",
+      "length": "Guardrail: the AI text was too long, so the prepared text replaced it.",
+      "number": "Guardrail: the AI text used a number that is not in Noa’s data, so the prepared text replaced it.",
+      "promise": "Guardrail: the AI text promised an action the app does not take, so the prepared text replaced it.",
+      "script": "Guardrail: the AI text was in the wrong language, so the prepared text replaced it.",
       "other": "Guardrail: the AI text was replaced by the prepared text."
     }
   },
