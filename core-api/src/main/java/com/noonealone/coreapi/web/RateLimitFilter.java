@@ -32,10 +32,10 @@ public class RateLimitFilter extends OncePerRequestFilter {
     private static final int INCIDENTS_PER_IP = 60;
     private static final int CHAT_GLOBAL = 200;
     private static final int EXPLAIN_GLOBAL = 20;
-    private static final int NOA_SAY_PER_IP = 20;
-    private static final int NOA_UNDERSTAND_PER_IP = 10;
-    private static final int NOA_SAY_GLOBAL = 30;
-    private static final int NOA_UNDERSTAND_GLOBAL = 20;
+    private static final int NOA_SAY_PER_IP = 60;
+    private static final int NOA_UNDERSTAND_PER_IP = 30;
+    private static final int NOA_SAY_GLOBAL = 150;
+    private static final int NOA_UNDERSTAND_GLOBAL = 60;
     private static final int NOA_SAY_DAILY = 1000;
     private static final int NOA_UNDERSTAND_DAILY = 1000;
     private static final int NOA_MAX_BODY = 16_384;
