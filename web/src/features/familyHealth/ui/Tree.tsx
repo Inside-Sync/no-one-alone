@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { PEOPLE, PERSON_IDS, isChild, type PersonId, type Snapshot } from '../index'
-import { getEngine, setUi, useTexts } from './store'
+import { getEngine, setUi, useTexts, useUi } from './store'
 import { E, c } from './bits'
 
 /** Grid row and first column of each person (each spans two of the six node columns; prototype TPOS). */
@@ -9,6 +9,8 @@ const POS: Record<PersonId, [number, number]> = { moza: [1, 2], saeed: [1, 4], k
 /** The family tree: nodes in a grid, lines drawn from the real node rectangles (redrawn on resize). */
 export function Tree({ snap }: { snap: Snapshot }) {
   const { u, x, raw } = useTexts()
+  const { treeOpen } = useUi()
+  const strip = !!snap.journey && treeOpen === false
   const grid = useRef<HTMLDivElement>(null)
   const nodes = useRef<Partial<Record<PersonId, HTMLButtonElement | null>>>({})
   const [lines, setLines] = useState<{ w: number; h: number; d: string; dm: string; cx: number; cy: number } | null>(null)
@@ -42,7 +44,7 @@ export function Tree({ snap }: { snap: Snapshot }) {
     const ro = new ResizeObserver(() => draw())
     ro.observe(g)
     return () => ro.disconnect()
-  }, [draw])
+  }, [draw, strip])
   useLayoutEffect(() => { draw() }, [draw, snap.version])
 
   const open = (k: PersonId, el: HTMLElement) => {
@@ -52,6 +54,25 @@ export function Tree({ snap }: { snap: Snapshot }) {
       void e.startJourney(k)
       if (window.innerWidth < 900) document.getElementById('fh-now')?.scrollIntoView({ block: 'start' })
     }
+  }
+  if (strip) {
+    return (
+      <div className={c('fam')} role="group" aria-label={u('tree.label')} data-tour="lineage">
+        <div className={c('fstrip')}>
+          <span className={c('fsl')}>{u('tree.family')}</span>
+          {PERSON_IDS.map((k) => {
+            const st = snap.status[k], act = snap.journey?.person === k, name = raw(`people.${k}.name`)
+            return (
+              <button type="button" key={k} className={c('fch', act && 'act')} data-person={k} aria-pressed={act}
+                aria-label={`${u('tree.open', { name })} · ${x(st.label)}`} onClick={(ev) => open(k, ev.currentTarget)}>
+                <span><E n={PEOPLE[k].icon} /></span><b>{name}</b><i className={c(st.tone)} title={x(st.label)} />
+              </button>
+            )
+          })}
+          <button type="button" className={c('fexp gDown')} aria-expanded={false} onClick={() => setUi({ treeOpen: true })}>{u('tree.show')}</button>
+        </div>
+      </div>
+    )
   }
   return (
     <div className={c('fam')} role="group" aria-label={u('tree.label')} data-tour="lineage">
@@ -85,6 +106,7 @@ export function Tree({ snap }: { snap: Snapshot }) {
             <span><i className={c('lm')} />{u('tree.married')}</span>
             <span><i className={c('lp')} />{u('tree.parentOf')}</span>
             <span className={c('mut')}>{u('tree.legend')}</span>
+            {snap.journey && <button type="button" className={c('fexp gUp')} aria-expanded onClick={() => setUi({ treeOpen: false })}>{u('tree.collapse')}</button>}
           </div>
         </div>
       </div>

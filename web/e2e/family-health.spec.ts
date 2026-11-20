@@ -23,42 +23,54 @@ async function nextUntil(page: Page, done: () => Promise<boolean>, max = 25) {
   }
 }
 
-test('Family health is the landing tab and auto-runs Saeed’s case', async ({ page }) => {
+test('Family health is the landing tab and auto-runs Saeed’s case up to the alert (Noa stops at Detect)', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('/')
   await expect(page).toHaveURL(/\/individual\/lineage$/)
   await expect(page.getByRole('heading', { name: 'Noa · family health' })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Open Saeed’s record' })).toHaveAttribute('aria-pressed', 'true', { timeout: 15_000 })
   await expect(now(page).getByText('Saeed Al Nuaimi')).toBeVisible()
-  await expect(now(page).getByText('Triggered check')).toBeVisible({ timeout: 20_000 })
+  await expect(now(page).getByRole('button', { name: 'Start the check now' })).toBeVisible({ timeout: 20_000 })
+  await expect(now(page).getByText(/Noa has sent Saeed a prompt/)).toBeVisible()
+  await expect(panel(page).getByRole('list', { name: 'Journey' }).locator('li').nth(1)).not.toHaveClass(/cur|done/)
   await expect(nextBtn(page)).toBeEnabled()
+  // Nothing past Detect runs by itself.
+  await page.waitForTimeout(1500)
+  await expect(now(page).getByText('Triggered check')).toHaveCount(0)
+  await now(page).getByRole('button', { name: 'Start the check now' }).click()
+  await expect(now(page).getByText('Triggered check')).toBeVisible({ timeout: 20_000 })
+  await expect(page.locator('#fh-wi')).not.toHaveAttribute('open', '')
+  await expect(panel(page).getByRole('button', { name: /^Show family tree/ })).toBeVisible()
 })
 
 test('Khalid’s journey reaches the referral', async ({ page }) => {
   await openPage(page, FH)
-  await panel(page).getByRole('button', { name: 'Reset' }).click()
+  await panel(page).getByRole('button', { name: 'Reset', exact: true }).click()
   await now(page).getByRole('button', { name: /Khalid, 38/ }).click()
+  await now(page).getByRole('button', { name: 'Start home screening' }).click()
   await expect(now(page).getByText('What may Noa use, and who may see the pathway?')).toBeVisible()
   await nextUntil(page, async () => (await now(page).getByRole('button', { name: 'Choose someone else' }).count()) > 0)
   await expect(panel(page).getByRole('list', { name: 'Journey' }).locator('li').last()).toContainText('Referral')
   await expect(now(page).getByText(/Referred to the right pathway/)).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Open Khalid’s record' })).toContainText('Booked')
+  // The tree is the strip of chips once a check has started: the status is in the chip's name.
+  await expect(page.getByRole('button', { name: /^Open Khalid’s record/ })).toHaveAccessibleName(/Booked/)
 })
 
 test('an emergency (s2) turns the app to night; Reset brings the day back', async ({ page }) => {
   await openPage(page, FH)
   await page.locator('[data-tc="s2"] button').click()
+  await now(page).getByRole('button', { name: 'Start the check now' }).click()
   await expect(now(page).getByText('Triggered check')).toBeVisible()
   await nextBtn(page).click()
   await expect(now(page).getByRole('alert')).toContainText('Saeed should see a doctor now')
   await expect(page.locator('body')).toHaveClass(/night/)
-  await panel(page).getByRole('button', { name: 'Reset' }).click()
+  await panel(page).getByRole('button', { name: 'Reset', exact: true }).click()
   await expect(page.locator('body')).not.toHaveClass(/night/)
 })
 
 test('after Reset another person’s journey runs (Hind)', async ({ page }) => {
   await openPage(page, FH)
-  await panel(page).getByRole('button', { name: 'Reset' }).click()
+  await panel(page).getByRole('button', { name: 'Reset', exact: true }).click()
   await page.getByRole('button', { name: 'Open Hind’s record' }).click()
   await page.keyboard.press('Escape')
   await expect(page.locator('#fh-drawer')).toHaveAttribute('aria-hidden', 'true')
@@ -78,13 +90,13 @@ test('the record drawer: edit data and re-run', async ({ page }) => {
   await drawer.getByRole('button', { name: /Re-run Noa for Khalid/ }).click()
   await expect(drawer).toHaveAttribute('aria-hidden', 'true')
   await expect(now(page).locator('details').first()).toBeVisible()
-  await expect(now(page).getByText(/Auto-prompt/)).toBeVisible()
+  await expect(now(page).getByText(/Auto-prompt/).first()).toBeVisible()
 })
 
 test('390 px: no horizontal overflow; the composer sticks to the bottom', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await openPage(page, FH)
-  await expect(now(page).getByText('Triggered check')).toBeVisible()
+  await expect(now(page).getByRole('button', { name: 'Start the check now' })).toBeVisible()
   const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
   expect(over).toBeLessThanOrEqual(0)
   const pos = await page.locator('#fh-ask').evaluate((e) => getComputedStyle(e.parentElement as Element).position)
@@ -169,7 +181,7 @@ for (const theme of ['light', 'dark'] as const) {
   test(`panel: axe and text contrast (${theme})`, async ({ page }) => {
     test.setTimeout(90_000)
     await openPage(page, FH, 'en', theme)
-    await expect(now(page).getByText('Triggered check')).toBeVisible()
+    await expect(now(page).getByRole('button', { name: 'Start the check now' })).toBeVisible()
     // Open the folded parts so they are checked too.
     await page.evaluate(() => document.querySelectorAll('#fh-panel details').forEach((d) => { (d as HTMLDetailsElement).open = true }))
     expect(await serious(page, '#fh-panel')).toEqual([])
@@ -196,6 +208,8 @@ test('panel: axe and text contrast in an emergency (night)', async ({ page }) =>
   test.setTimeout(90_000)
   await openPage(page, FH)
   await page.locator('[data-tc="s2"] button').click()
+  await nextBtn(page).click() // the go card
+  await expect(now(page).getByText('Triggered check')).toBeVisible()
   await nextBtn(page).click()
   await expect(page.locator('body')).toHaveClass(/night/)
   expect(await serious(page, '#fh-panel')).toEqual([])
@@ -217,4 +231,51 @@ test('messages: toast, panel and Ask Noa (axe clean when open)', async ({ page }
   await page.keyboard.press('Escape')
   await expect(chat).toHaveAttribute('aria-hidden', 'true')
   await expect(fab).toBeFocused()
+})
+
+test('Try it: a slider drag and a scenario change Noa’s answer live; Run re-runs with them', async ({ page }) => {
+  await openPage(page, FH)
+  const wi = page.locator('#fh-wi')
+  await expect(wi).toHaveAttribute('open', '')
+  await expect(wi.getByText('Noa checks on Saeed now: speech test, then a doctor today')).toBeVisible()
+  const hr = wi.getByRole('slider', { name: 'Resting heart' })
+  await hr.focus()
+  for (let i = 0; i < 56; i++) await page.keyboard.press('ArrowLeft')
+  await expect(hr).toHaveValue('72')
+  await expect(wi.getByText('All calm: routine screening only')).toBeVisible()
+  await wi.getByRole('button', { name: 'BP crisis' }).click()
+  await expect(wi.getByText('Noa asks for a doctor today, before any screening')).toBeVisible()
+  await wi.getByRole('button', { name: 'Run Noa with these readings' }).click()
+  await expect(now(page).getByRole('button', { name: 'Start the check now' })).toBeVisible()
+  await wi.locator('summary').click()
+  await expect(wi).not.toHaveAttribute('open', '')
+  await expect(wi.getByText('BP 184/112')).toBeVisible()
+})
+
+test('quick test cases: every “Run this case” sits at the bottom of its card, in a row they line up', async ({ page }) => {
+  for (const [w, lang] of [[1440, 'en'], [390, 'en'], [1440, 'ar']] as const) { // ar last: openPage's locale init script stays on the page
+    await page.setViewportSize({ width: w, height: 900 })
+    await openPage(page, FH, lang)
+    const cards = page.locator('#fh-tcs [data-tc]')
+    const n = await cards.count()
+    for (let i = 0; i < n; i++) {
+      const c = await cards.nth(i).boundingBox(), b = await cards.nth(i).locator('button').boundingBox()
+      expect(Math.abs(c!.y + c!.height - (b!.y + b!.height))).toBeLessThanOrEqual(12)
+    }
+  }
+})
+
+test('the Noa logo is centred in its circles (top nav, messages button, messages header)', async ({ page }) => {
+  await openPage(page, FH)
+  await page.locator('#fh-fab').click()
+  const off = await page.evaluate(() => {
+    const centre = (e: Element) => { const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2] }
+    const pairs: [Element | null, Element | null | undefined][] = [
+      [document.querySelector('.topnav .logo'), document.querySelector('.topnav .logo svg')],
+      [document.getElementById('fh-fab'), document.querySelector('#fh-fab svg')],
+      [document.querySelector('#fh-chat svg')?.closest('span[class*="orb2"]') ?? null, document.querySelector('#fh-chat svg')],
+    ]
+    return pairs.map(([box, svg]) => { const a = centre(box!), b = centre(svg!); return Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1])) })
+  })
+  for (const d of off) expect(d).toBeLessThanOrEqual(1)
 })

@@ -87,5 +87,7 @@ export function patternCards(k: PersonId, p: AdultProfile): PatternCard[] {
 export function syncValues(k: PersonId, p: AdultProfile, urgentRule: string | null) {
   const wake = !!urgentRule && urgentRule.startsWith('G')
   const u = PEOPLE[k].usual ?? [62, 72]
-  return { hr: wake ? p.hr : Math.round((u[0] + u[1]) / 2), irr: wake && p.irr, hot: wake && p.hr >= SIGNAL.hrHigh, sbp: p.sbp, dbp: p.dbp, bmi: p.bmi, glu: p.glu ?? null, steps: p.steps }
+  // Newer prototype: the box follows the recorded heart rate (the what-if sliders move it); the usual band only fills a gap.
+  const hr = p.hr || Math.round((u[0] + u[1]) / 2)
+  return { hr, irr: wake && p.irr, hot: hr >= SIGNAL.hrHigh, sbp: p.sbp, dbp: p.dbp, bmi: p.bmi, glu: p.glu ?? null, steps: p.steps }
 }

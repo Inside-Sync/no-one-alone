@@ -43,6 +43,8 @@ export type Card =
   | { type: 'choice'; id: number; qid: string; who: Txt; q: Txt; opts: ChoiceOption[]; def: string; free: boolean }
   | { type: 'qset'; id: number; test: QsetId; who: Txt; items: QItem[]; vals: QVals }
   | { type: 'din'; id: number; who: Txt; rounds: { digits: string; noise: Txt }[]; answers: string[] }
+  /** After Detect Noa waits: the person starts the check (`go`) or not (`later`). Nothing moves on by itself. */
+  | { type: 'go'; id: number; who: Txt; urgent: boolean; msg: Txt; opts: ChoiceOption[]; def: 'go' }
 export type CardType = Card['type']
 
 /** The value `answer(cardId, value)` takes, per card type. */

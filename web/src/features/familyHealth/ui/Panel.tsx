@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { PEOPLE, STAGE_IDS, type NoaLang, type Snapshot } from '../index'
-import { claimAutoRun, getEngine, getUi, reducedMotion, useSnapshot, useTexts } from './store'
+import { PEOPLE, STAGE_IDS, type NoaLang } from '../index'
+import { claimAutoRun, getEngine, getUi, setUi, useSnapshot, useTexts } from './store'
 import { E, WithNext, c } from './bits'
 import { Now, STAGE_MODE, syncTick } from './Feed'
+import { followFeed, nextStep } from './layout'
+import { WhatIf } from './WhatIf'
 import { Orchestra } from './Orchestra'
 import { QuickTests, runCase } from './QuickTests'
 import { Drawer, closeDrawer } from './Drawer'
@@ -41,8 +43,9 @@ export function FamilyHealthPanel() {
       if (!j || PEOPLE[j.person].child) return
       const p = s.profiles[j.person]
       if (p.child) return
+      // Newer prototype (syncVals): the stream follows the recorded heart rate, which the "Try it" sliders change.
       const wake = !!j.urgent && j.urgent.startsWith('G'), us = PEOPLE[j.person].usual ?? [62, 72]
-      syncTick(wake ? p.hr : Math.round((us[0] + us[1]) / 2), wake && p.irr)
+      syncTick(p.hr || Math.round((us[0] + us[1]) / 2), wake && p.irr)
       setTick((n) => n + 1)
     }, SYNC_MS)
     return () => clearInterval(iv)
@@ -82,35 +85,13 @@ export function FamilyHealthPanel() {
       if (tg && /^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName) && (tg as HTMLInputElement).type !== 'range') return
       if (tg?.isContentEditable) return
       if (ev.altKey || ev.ctrlKey || ev.metaKey || ev.shiftKey) return
-      if (ev.key === 'ArrowRight' && getEngine().getSnapshot().pending && (tg as HTMLInputElement | null)?.type !== 'range') { ev.preventDefault(); getEngine().next() }
+      if (ev.key === 'ArrowRight' && getEngine().getSnapshot().pending && (tg as HTMLInputElement | null)?.type !== 'range') { ev.preventDefault(); nextStep() }
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [])
 
-  // A new "Your turn" card comes into view only while the viewer has not been working in the panel (prototype: only when focus is on
-  // <body>; a click inside its shadow host keeps focus there, so after a click it never scrolls). Instant, nearest, never smooth, so
-  // answering a card does not move the page. A click outside the panel lets it follow again.
-  const touched = useRef(false)
-  useEffect(() => {
-    const onDown = (ev: PointerEvent) => {
-      const panel = document.getElementById('fh-panel')
-      const t = ev.target instanceof Element ? ev.target : null
-      const inside = !!panel && !!t && panel.contains(t)
-      // A click on another control (the theme button, a tab…) keeps focus there, so like the prototype the card does not jump either.
-      if (inside || t?.closest('button,a,input,select,textarea,[role="button"]')) { touched.current = true; return }
-      touched.current = false
-    }
-    document.addEventListener('pointerdown', onDown, true)
-    return () => document.removeEventListener('pointerdown', onDown, true)
-  }, [])
-  const pendingId = snap.pending?.id
-  useEffect(() => {
-    if (pendingId == null || touched.current || reducedMotion()) return
-    const a = document.activeElement
-    if (a && a !== document.body) return
-    document.querySelector(`[data-card="${pendingId}"]`)?.scrollIntoView?.({ block: 'nearest' })
-  }, [pendingId])
+  // Newer prototype: the page no longer jumps to a new "Your turn" card; the feed's own scroll area follows it (Feed.tsx).
 
   const j = snap.journey
   const send = () => { const t = draft.trim(); if (!t) return; setDraft(''); void e.reply(t) }
@@ -137,7 +118,7 @@ export function FamilyHealthPanel() {
                 <i className={c('dot', snap.ai === 'live' && snap.thinking && 'pulse')} />
                 {u(snap.ai === 'none' ? 'header.ai.none' : snap.ai === 'off' ? 'header.ai.off' : snap.thinking ? 'header.ai.thinking' : 'header.ai.live')}
               </button>
-              <button type="button" className={c('chip')} onClick={() => { closeDrawer(); e.reset() }}>{u('header.reset')}</button>
+              <button type="button" className={c('chip')} onClick={() => { closeDrawer(); setUi({ treeOpen: null, wiOpen: true }); followFeed(); e.reset() }}>{u('header.reset')}</button>
             </div>
           </div>
           <Tree snap={snap} />
@@ -147,7 +128,7 @@ export function FamilyHealthPanel() {
               return <li key={k} className={c('st', STAGE_MODE[k], cur ? 'cur' : seen ? 'done' : '')} aria-current={cur ? 'step' : undefined}><span>{raw(`stages.${k}.name`)}</span></li>
             })}
           </ol>
-          <StageNote snap={snap} />
+          <WhatIf snap={snap} />
           <div className={c('body')} id="fh-body">
             <div>
               <Now snap={snap} />
@@ -158,7 +139,7 @@ export function FamilyHealthPanel() {
                   ? <button type="button" className={c('btn rec sm gStopOnly')} aria-label={u('spx.stop')} onClick={stopListen} />
                   : <button type="button" className={c('btn ghost sm')} aria-label={u('comp.speak')} onClick={() => startListen('comp')}><E n="mic-studio" /></button>)}
                 <button type="button" className={c('btn ghost sm')} onClick={send}>{u('comp.send')}</button>
-                <button type="button" className={c('btn next gNext')} disabled={!pend} title={u('comp.nextTitle')} aria-keyshortcuts="ArrowRight" onClick={() => e.next()}>{u('comp.next')}</button>
+                <button type="button" className={c('btn next gNext')} disabled={!pend} title={u('comp.nextTitle')} aria-keyshortcuts="ArrowRight" onClick={nextStep}>{u('comp.next')}</button>
               </div>
             </div>
             <Orchestra snap={snap} />
@@ -171,21 +152,3 @@ export function FamilyHealthPanel() {
   )
 }
 
-
-function StageNote({ snap }: { snap: Snapshot }) {
-  const { u, raw } = useTexts()
-  const j = snap.journey
-  if (!j || !j.stage) return <div className={c('tnote')} hidden aria-live="polite" />
-  const k = j.stage, mode = STAGE_MODE[k], name = raw(`people.${j.person}.name`)
-  const title = raw(`stages.${k}.title`)
-  return (
-    <div className={c('tnote', mode)} aria-live="polite" key={`${k}-${!!j.done}`}>
-      <span className={c('mtag')}>{u('mode', { mode: raw(`modes.${mode}`) })}</span>
-      <div>
-        <b>{j.done ? u('note.done', { title }) : title}</b>
-        <p>{raw(`stages.${k}.body`, { name })}</p>
-        {!j.done && <p className={c('you')}><E n="point-right" /> {raw(`stages.${k}.you`, { name })}</p>}
-      </div>
-    </div>
-  )
-}

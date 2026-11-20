@@ -14,6 +14,7 @@ export function selectTests(k: PersonId, p: AdultProfile, urgent: Signal | null,
   const trig = !!(urgent && /^(G|L1)/.test(urgent.rule)), spk = !!(urgent && urgent.rule.startsWith('G'))
   const use: TestChoice[] = [], skip: TestChoice[] = [], dmFam = famHas(fam, 'dm')
   if (spk && urgent) use.push({ id: 'speech', why: tx('vt.why.speech', { signal: urgent.text }) })
+  else if (p.cvd) use.push({ id: 'speech', why: tx(p.sex === 'F' ? 'vt.why.speechRecoveryF' : 'vt.why.speechRecoveryM') })
   else skip.push({ id: 'speech', why: tx('vt.skip.speech') })
   if (p.age >= SELECT.dinFrom && !trig) use.push({ id: 'din', why: tx('vt.why.age', { age: p.age }) })
   else skip.push({ id: 'din', why: tx(trig ? 'vt.skip.safety' : 'vt.skip.from60') })

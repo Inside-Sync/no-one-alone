@@ -6,13 +6,14 @@ import { SEEDED_NOTES, testCase, type TestCase, type TestCaseAnswers } from '../
 import { CHILD_DEV_UNDER_MONTHS, CHOICES, DIN_ROUNDS, FREE_TEXT, HYPO_RECHECK, SAMPLES, SENTENCE, type ChoiceQid, type QVals } from '../data/tests'
 import { CLOCK_START, STAGE_MINUTES, WAIT, writingMs } from '../data/thresholds'
 import type { AdultProfile, AgentId, ChildProfile, FhIcon, FhParams, Mode, NoaLang, PersonId, Profile, QsetId, RuleId, SampleKey, StageId, TestCaseId, TimeId, Tone, Txt, VtId } from '../data/types'
-import { PERSON_IDS } from '../data/types'
-import { PreparedAi, guard, moreUrgent, type NoaAi, type SayRequest } from './ai'
+import { PERSON_IDS, RULE_IDS } from '../data/types'
+import { FIXED_CALL, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, moreUrgent, type NoaAi, type SayCallId, type SayRequest } from './ai'
 import { detectFlags, famWorking, joinedTitles, scrCounts, scrStatus, signalRules, topFlags, urgentOf, type FamRow, type Flag, type Signal } from './flags'
 import { forecast, pct, riskTone } from './framingham'
 import { dinDefaults, qsetDefaults, qsetItems, scoreDin, scoreQ, selectTests, type DinResult, type QResult, type TestPlan } from './home'
 import { buildPath, leadItem, urgencyIndex, type HomeAnswers, type Pathway } from './pathway'
 import { patternCards } from './pattern'
+import { SCENARIOS, SCENARIO_FIELDS, whatIf, type ScenarioId, type WhatIf } from './whatif'
 import { instantScheduler, type Scheduler } from './scheduler'
 import { scoreSpeech, type SpeechHow, type SpeechResult } from './speech'
 import { FH_NS, fixed, hhmm, lc, list, resolveText, tx } from './text'
@@ -239,6 +240,7 @@ export class FamilyHealthEngine {
     if (c.type === 'speech' && typeof value === 'object' && !Array.isArray(value) && 'said' in value) { const v = value as SpeechValue; return this.submitSpeech(v.said, v.secs, v.how) }
     if (c.type === 'qset' && typeof value === 'object' && !Array.isArray(value)) return this.answerQset({ ...c.vals, ...(value as QVals) })
     if (c.type === 'din' && Array.isArray(value)) return this.answerDin(value)
+    if (c.type === 'go' && typeof value === 'string') return this.answerGo(value)
     return false
   }
   /** Next ▸ (or →): answer the open card with its default (the test case's answer, the person's default, or what is on the card). */
@@ -254,6 +256,7 @@ export class FamilyHealthEngine {
       return this.useSample(key)
     }
     if (c.type === 'qset') return this.answerQset(c.vals)
+    if (c.type === 'go') return this.answerGo('go', true)
     return this.answerDin(c.answers)
   }
   /** Edit the open card before confirming (protect checkboxes, questionnaire answers, digits). */
@@ -301,10 +304,10 @@ export class FamilyHealthEngine {
       this.emit()
       let u: { choice: string; summary: string; source: 'live' | 'keyword' }
       const qid = c.qid === 'time2' ? 'time' : c.qid
-      const keyword = await this.prepared.understand({ qid, question: '', options: [], reply: text, lang: this.lang })
+      const keyword = await this.prepared.understand({ tier: UNDERSTAND_TIER, qid, question: '', options: [], reply: text, lang: this.lang })
       try {
         // understand(): `question` is the card's question in plain English, `options` its choices in the "Noa speaks" language.
-        u = await this.ai.understand({ qid, question: FREE_QUESTION[c.qid] ?? '', options: c.opts.map((o) => ({ id: o.id, label: this.str(o.label) })), reply: text, lang: this.lang })
+        u = await this.ai.understand({ tier: UNDERSTAND_TIER, qid, question: FREE_QUESTION[c.qid] ?? '', options: c.opts.map((o) => ({ id: o.id, label: this.str(o.label) })), reply: text, lang: this.lang })
       } catch {
         u = keyword
       }
@@ -315,12 +318,16 @@ export class FamilyHealthEngine {
       // The engine, not the model, keeps the choice valid and safe: an answer outside the options falls back to the keyword reading,
       // and on the risky questions (red flags, symptoms, a child's words) the more urgent of the two readings wins.
       const valid = (x: string) => c.opts.some((o) => o.id === x)
-      let pick = valid(u.choice) ? u.choice : keyword.choice
-      if (u.source === 'live' && valid(keyword.choice)) pick = moreUrgent(qid, pick, keyword.choice)
+      // A missing or invalid model choice is never taken as an answer (on rf, 'none' would mean "no red flags"): the keyword
+      // reader decides, and the reply is shown as read by keywords.
+      const byAi = u.source === 'live' && valid(u.choice)
+      let pick = byAi ? u.choice : keyword.choice
+      if (byAi && valid(keyword.choice)) pick = moreUrgent(qid, pick, keyword.choice)
       const id = valid(pick) ? pick : c.def
       const label = (c.opts.find((o) => o.id === id) as ChoiceOption).label
-      this.add({ kind: 'sys', icon: u.source === 'live' ? 'bot' : 'type', text: tx(u.source === 'live' ? (u.summary ? 'sys.readAiSummary' : 'sys.readAi') : (u.summary ? 'sys.readKeywordSummary' : 'sys.readKeyword'), { label, summary: u.summary }) })
-      this.pickChoice(id, u.source === 'live' ? 'ai' : 'keywords')
+      const summary = byAi ? u.summary : ''
+      this.add({ kind: 'sys', icon: byAi ? 'bot' : 'type', text: tx(byAi ? (summary ? 'sys.readAiSummary' : 'sys.readAi') : (summary ? 'sys.readKeywordSummary' : 'sys.readKeyword'), { label, summary }) })
+      this.pickChoice(id, byAi ? 'ai' : 'keywords')
       return
     }
     const k: PersonId = this.j?.k ?? 'khalid'
@@ -331,7 +338,7 @@ export class FamilyHealthEngine {
     try {
       // say(): a question typed in the composer. facts: name, question, journey_stage. Emergency words get the fixed safety line,
       // which never goes through the AI port (`fixed`).
-      await this.say(qrun, agent, {
+      await this.say(qrun, agent, { callId: 'composer.reply',
         fixed: emergency,
         facts: { name: this.str(name(k)), question: text, journey_stage: this.j?.stage ?? null },
         audience: this.str(name(k)),
@@ -360,6 +367,32 @@ export class FamilyHealthEngine {
     p[field] = !p[field]
     this.emit()
     return p[field]
+  }
+  /** "Try it": a scenario's readings (racing heart, BP crisis…), or `normal` to put the readings back to the person's own. */
+  applyScenario(k: PersonId, id: ScenarioId): boolean {
+    const p = this.profiles[k]
+    if (!isAdult(p)) return false
+    const patch = SCENARIOS[id]
+    if (patch) Object.assign(p, patch)
+    else {
+      const base = PROFILES0[k] as AdultProfile
+      for (const f of SCENARIO_FIELDS) (p as unknown as Record<string, unknown>)[f] = base[f]
+    }
+    p.bmi = bmiOf(p)
+    this.emit()
+    return true
+  }
+  /** "Try it" Reset: the person's data back to the start (nothing else changes; re-run to use it). */
+  resetProfile(k: PersonId) {
+    const p = structuredClone(PROFILES0[k])
+    if (isAdult(p)) p.bmi = bmiOf(p)
+    this.profiles[k] = p
+    this.emit()
+  }
+  /** What Noa would do with a person's current readings (the "Try it" answer card). */
+  whatIf(k: PersonId): WhatIf {
+    const m = PEOPLE[k]
+    return whatIf(k, this.profiles[k], this.fam(k), name(k), m.child ? name(m.parent as PersonId) : null)
   }
   /** Everything the record drawer shows for a person (texts are descriptors; the UI adds its labels). */
   recordView(k: PersonId) {
@@ -393,7 +426,7 @@ export class FamilyHealthEngine {
     try {
       // say(): the family messages panel. facts: recent notifications ("To <name>: <text>", newest first, at most 6).
       const r = await this.ai.say({
-        skill: 'familyChat', domain: 'care', audience: 'Moza’s family', lang: this.lang, maxWords: 45,
+        callId: 'family.chat', tier: SAY_CALLS['family.chat'].tier, skill: 'familyChat', domain: 'care', audience: 'Moza’s family', lang: this.lang, maxWords: 45,
         facts: { notifications: this.notes.filter((n) => n.to !== 'me' && n.to !== 'noa').slice(0, 6).map((n) => `To ${this.str(name(n.to as PersonId))}: ${this.str(n.text)}`), question: text },
         task: 'Answer the family’s question in at most 45 plain words. Never diagnose or name a dose; a doctor decides treatment; for stroke signs, chest pain or confusion advise seeing a doctor immediately.',
         fallback: this.str(fallback),
@@ -493,6 +526,15 @@ export class FamilyHealthEngine {
     this.close(tx('card.qset.picked', { test: tx(`vt.${c.test}.name`), result: r.txt }), r)
     return true
   }
+  /** The go card: a button picks its own label; Next ▸ starts it ("Started", as the prototype). */
+  private answerGo(id: string, byNext = false): boolean {
+    const p = this.pending
+    if (!p || p.card.type !== 'go') return false
+    const o = p.card.opts.find((x) => x.id === id)
+    if (!o) return false
+    this.close(byNext ? tx('card.go.started') : o.label, id)
+    return true
+  }
   private answerDin(answers: string[]): boolean {
     const p = this.pending
     if (!p || p.card.type !== 'din') return false
@@ -516,6 +558,7 @@ export class FamilyHealthEngine {
    * `fixed` turns are the clinician-approved emergency script and never reach the AI.
    */
   private async say(run: Run, agent: AgentId, o: {
+    callId: SayCallId | typeof FIXED_CALL
     facts: Record<string, unknown>; task: string; fallback: Txt; audience: string; tag?: Txt; mode?: Mode; why?: Txt
     fixed?: boolean; max?: number; route?: SayRequest['route']
   }) {
@@ -524,7 +567,8 @@ export class FamilyHealthEngine {
     let text: Txt | string = o.fallback, source: Source = 'prepared', note: Txt | string | null = null
     if (o.fixed) { source = 'fixed'; this.calls.prepared++ }
     else {
-      const req: SayRequest = { skill: agent, domain: AGENTS[agent].domain, audience: o.audience, lang: this.lang, facts: o.facts, task: o.task, fallback: this.str(o.fallback), maxWords: o.max ?? 55, route: o.route }
+      const callId = o.callId as SayCallId
+      const req: SayRequest = { callId, tier: SAY_CALLS[callId].tier, skill: agent, domain: AGENTS[agent].domain, audience: o.audience, lang: this.lang, facts: o.facts, task: o.task, fallback: this.str(o.fallback), maxWords: o.max ?? 55, route: o.route }
       this.aiBusy = !(this.ai instanceof PreparedAi)
       this.emit()
       let r: Awaited<ReturnType<NoaAi['say']>>
@@ -534,7 +578,11 @@ export class FamilyHealthEngine {
       if (r.source === 'live') {
         const g = guard(r.text)
         if (g) { source = 'guardrail'; note = tx(`ai.guardrail.${g}`); this.calls.guardrail++ }
-        else { source = 'live'; text = r.text; this.calls.live++ }
+        else {
+          source = 'live'; text = r.text; this.calls.live++
+          // The rule a live turn explains: shown in its why line when it is a real Orchestrator code; it never routes or decides.
+          if (r.ruleId && (RULE_IDS as readonly string[]).includes(r.ruleId)) item.why = tx('say.why.rule', { rule: r.ruleId, text: tx(`rules.${r.ruleId}`) })
+        }
         if (o.route && r.handoffTo && r.handoffTo !== o.route.to) {
           this.calls.overruled++
           this.add({ kind: 'sys', icon: 'puzzle', text: tx('sys.overruled', { agent: tx(`agents.${r.handoffTo}.name`), rule: o.route.rule, to: tx(`agents.${o.route.to}.name`) }) })
@@ -589,6 +637,7 @@ export class FamilyHealthEngine {
 
   private async journey(run: Run) {
     await this.detect(run)
+    if (!(await this.waitUser(run))) return
     await this.protect(run)
     const go = await this.home(run)
     if (!go) return
@@ -621,7 +670,7 @@ export class FamilyHealthEngine {
         this.notify(k, tx(`notes.urgent.${kind}`, { glu: p.glu, hr: p.hr, mins: 22, signal: u.text }), 'bell')
         this.add({ kind: 'push', to: tx('push.to', { name: name(k) }), text: tx(`push.${kind}`, { call: call(k), glu: p.glu, hr: p.hr, mins: 22, signal: u.text }), why: tx('push.why', { rule: u.rule }) })
         // say(): Guardian tells the person what it noticed. facts: name, signal, usual (own heart band), rule (its text).
-        await this.say(run, 'guardian', {
+        await this.say(run, 'guardian', { callId: 'detect.guardian',
           facts: { name: this.str(name(k)), signal: this.str(u.text), usual: this.str(tx(`people.${k}.usual`)), rule: this.str(tx(`rules.${u.rule}`)) },
           audience: this.str(name(k)),
           task: `Tell ${this.str(call(k))} calmly what you noticed compared with their own usual, that you started a one-minute check, and that a doctor review today goes first in the pathway.`,
@@ -652,7 +701,7 @@ export class FamilyHealthEngine {
     const top = topFlags(j.flagList)
     const child = !!m.child, to = child ? (m.parent as PersonId) : k
     // say(): Forecast explains the flags. facts: name, flags [{flag, factors, source, certainty}] (not the muted T2), family_effects.
-    await this.say(run, 'forecast', {
+    await this.say(run, 'forecast', { callId: 'detect.forecast',
       facts: {
         name: this.str(name(k)),
         flags: j.flagList.filter((x) => x.lvl !== 'muted').map((x) => ({ flag: this.str(x.title), factors: x.factors.map((f) => this.str(f)), source: this.str(x.src), certainty: this.str(x.cert) })),
@@ -667,6 +716,36 @@ export class FamilyHealthEngine {
       why: tx('say.why.rule', { rule: 'D1', text: tx('rules.D1') }),
       route: { rule: 'P1', to: 'guardian', options: ['guardian', 'navigator'] },
     })
+  }
+
+  /* ---------------------------------------------------------------- after Detect: the person decides when to start */
+  /**
+   * Noa stops at Detect: an urgent alert has sent the person a prompt, a routine case is ready. Nothing moves on until the person
+   * (or the parent, for a child) starts it. "Not now" on an alert keeps it open and Noa asks again (U1); "Later" on a routine case
+   * respects it (N3).
+   */
+  private async waitUser(run: Run): Promise<boolean> {
+    const j = this.j as Journey, k = j.k, m = PEOPLE[k], u = !!j.urgent
+    const whoK: PersonId = m.child ? (m.parent as PersonId) : k
+    this.setSt(k, u ? 'status.promptSent' : 'status.ready', u ? 'bad' : 'info')
+    this.emit()
+    const opts: ChoiceOption[] = [{ id: 'go', label: tx(u ? 'go.startNow' : 'go.startHome') }, { id: 'later', label: tx(u ? 'go.notNow' : 'go.later') }]
+    const r = await this.ask<string>(run, { type: 'go', id: ++this.nextId, who: name(whoK), urgent: u, opts, def: 'go', msg: tx(u ? 'go.msgUrgent' : 'go.msg', { name: name(k), who: name(whoK) }) })
+    this.live(run)
+    const label = (opts.find((o) => o.id === r) ?? opts[0]).label
+    this.add({ kind: 'me', who: name(whoK), text: label, chip: null })
+    if (r === 'go') return true
+    if (u) {
+      this.hit('U1')
+      this.add({ kind: 'sys', icon: 'timer', text: tx('sys.goU1', { contact: j.share[0] ? name(j.share[0]) : tx('go.familyContact') }) })
+      this.setSt(k, 'status.promptPending', 'warn')
+      this.finish(run, tx('done.goWait', { name: name(k) }))
+    } else {
+      this.hit('N3')
+      this.setSt(k, 'status.notNow', 'muted')
+      this.finish(run, tx('done.goLater'))
+    }
+    return false
   }
 
   /* ---------------------------------------------------------------- 2 · Protect */
@@ -707,7 +786,7 @@ export class FamilyHealthEngine {
     }
     const share = pr.contacts.length ? tx('say.guardian.share', { names: list(pr.contacts.map(name), tx('join.and')) }) : tx('say.guardian.shareNobody')
     // say(): Guardian confirms the data and who may see the pathway. facts: name, shared_with (names), genomic_used.
-    await this.say(run, 'guardian', {
+    await this.say(run, 'guardian', { callId: 'protect.guardian',
       facts: { name: this.str(name(k)), shared_with: pr.contacts.map((x) => this.str(name(x))), genomic_used: pr.genomic },
       audience: this.str(name(m.child ? (parent as PersonId) : k)),
       task: 'Confirm which data Noa will use and who may see the pathway, then say a short home screening comes next.',
@@ -741,7 +820,7 @@ export class FamilyHealthEngine {
     // B6: the opening line follows the alert: racing or slow heart (speech first), low glucose (how you feel), other (doctor first).
     const intro = !u ? 'say.voice.intro' : u.rule === 'G1' ? 'say.voice.introRacing' : u.rule === 'G3' ? 'say.voice.introSlow' : u.rule === 'L1' ? 'say.voice.introLow' : 'say.voice.introOther'
     // say(): Voice says what the check covers. facts: call (how Noa addresses the person), tests (names).
-    await this.say(run, 'voice', {
+    await this.say(run, 'voice', { callId: 'home.voice.intro',
       facts: { call: this.str(call(k)), tests: names.map((n) => this.str(n)) },
       audience: this.str(name(k)),
       task: `Tell ${this.str(call(k))} what the voice check will cover today, in one or two sentences, and that it takes a few minutes.`,
@@ -761,7 +840,7 @@ export class FamilyHealthEngine {
         if (sp.lvl === 'amber') {
           this.hit('Q1')
           // say(): Voice asks for one more try. facts: score.
-          await this.say(run, 'voice', { facts: { score: sp.score }, audience: this.str(name(k)), task: `Kindly ask ${this.str(call(k))} to say the sentence once more, slowly.`, fallback: tx('say.voice.retry') })
+          await this.say(run, 'voice', { callId: 'home.voice.retry', facts: { score: sp.score }, audience: this.str(name(k)), task: `Kindly ask ${this.str(call(k))} to say the sentence once more, slowly.`, fallback: tx('say.voice.retry') })
           const s2 = await this.ask<SpeechResult>(run, { type: 'speech', id: ++this.nextId, who: name(k), retry: true, person: k, result: null })
           this.live(run)
           sp = s2.lvl === 'green' ? s2 : { ...s2, lvl: s2.lvl === 'none' ? 'red' : s2.lvl }
@@ -769,6 +848,11 @@ export class FamilyHealthEngine {
         j.speech = sp
         j.vt.speech = { txt: tx('vt.result.speech', { score: fixed(sp.score, 2), level: tx(`speech.level.${sp.lvl}`) }), lvl: sp.lvl === 'green' ? 'good' : sp.lvl === 'amber' ? 'warn' : 'bad', score: sp.score }
         if (sp.lvl === 'red' || sp.lvl === 'none') return this.stopUrgent(run, 'Q1', 'stop.Q1')
+        if (!j.urgent) {
+          // Recovery check after a stroke: saved for the speech therapist, no red-flag questions.
+          this.add({ kind: 'sys', icon: sp.lvl === 'green' ? 'check' : 'speech', text: tx(sp.lvl === 'green' ? 'sys.speechRecovery' : 'sys.speechRecoveryAmber', { name: name(k) }) })
+          continue
+        }
         const rf = await this.choose(run, 'rf', name(k), tx('choice.rf.q'), CHOICES.rf, 'palp')
         j.ans.rf = rf.id
         if (rf.id === 'weak') return this.stopUrgent(run, 'V1', 'stop.V1')
@@ -811,7 +895,7 @@ export class FamilyHealthEngine {
     this.add({ kind: 'vtres', person: k, results })
     await this.handoff(run, 'voice', 'insight', 'Q1', tx('hand.q1.results'), results.map((r) => ({ label: tx(`vt.${r.test}.short`), value: r.txt })))
     // say(): Insight sums up the home screening. facts: name, results [{test, result}], symptom (option id).
-    await this.say(run, 'insight', {
+    await this.say(run, 'insight', { callId: 'home.insight',
       facts: { name: this.str(name(k)), results: results.map((r) => ({ test: this.str(tx(`vt.${r.test}.name`)), result: this.str(r.txt) })), symptom: j.ans.sym },
       audience: this.str(name(k)),
       task: `Tell ${this.str(call(k))} in two sentences what the voice checks showed and what they change in the plan. Not a diagnosis.`,
@@ -828,7 +912,7 @@ export class FamilyHealthEngine {
     ])
     const age = p.ageM < CHILD_DEV_UNDER_MONTHS ? tx('age.months', { n: p.ageM }) : tx('age.years', { n: Math.round(p.ageM / 12) })
     // say(): Voice opens the child's check with the parent. facts: parent, child, age_months.
-    await this.say(run, 'voice', {
+    await this.say(run, 'voice', { callId: 'home.voice.child',
       facts: { parent: this.str(name(parent)), child: this.str(name(k)), age_months: p.ageM },
       audience: this.str(name(parent)),
       task: `Tell ${this.str(name(parent))} this is a two-minute home check for ${this.str(name(k))}, a few questions for their age, and that a doctor decides anything that needs follow-up.`,
@@ -865,7 +949,7 @@ export class FamilyHealthEngine {
     this.setSt(k, 'status.seeDoctor', 'bad')
     this.emit()
     // Fixed, clinician-approved script: never sent to the AI (source "fixed").
-    await this.say(run, 'voice', {
+    await this.say(run, 'voice', { callId: 'stop.voice.emergency',
       fixed: true, facts: {}, task: '', audience: this.str(name(k)),
       why: tx('say.why.fixed', { rule, text: tx(`rules.${rule}`) }),
       // B7: the reason continues the sentence in lower case ("Abu Rashid, your speech…").
@@ -890,7 +974,9 @@ export class FamilyHealthEngine {
   private offerText(path: Pathway, k: PersonId): Txt {
     const m = PEOPLE[k], lead = leadItem(path)
     const to = m.child ? tx('say.navigator.toChild', { parent: name(m.parent as PersonId), name: name(k) }) : tx('say.navigator.to', { call: call(k) })
-    const first = lead ? tx('say.navigator.first', { item: lc(lead.short), urg: lc(tx(`urgency.${lead.u}`)) }) : ''
+    // An item that already says when ("Doctor review today", "within 24 hours") does not repeat its urgency.
+    const when = lead && /today|24 hours/i.test(this.translate(lead.short, 'en'))
+    const first = lead ? tx(when ? 'say.navigator.firstNoUrg' : 'say.navigator.first', { item: lc(lead.short), urg: lc(tx(`urgency.${lead.u}`)) }) : ''
     const checks = list(path.pop.map((x) => tx('say.navigator.check', { name: lc(x.short), urg: lc(tx(`urgency.${x.u}`)) })), ', ')
     const doctor = path.clin.length ? tx('say.navigator.doctor', { items: tx(path.clin.length > 1 ? 'count.items' : 'count.item1', { n: path.clin.length }) }) : ''
     return tx(path.pop.length ? 'say.navigator.offer' : 'say.navigator.offerNone', { to, first, checks, slot: path.slot, doctor })
@@ -925,7 +1011,7 @@ export class FamilyHealthEngine {
     }), 'compass')
     const audience = this.str(name(m.child ? (m.parent as PersonId) : k))
     // say(): Navigator offers the pathway and asks to book. facts: name, population_priority [{check, why_for_you, where, when}], for_the_doctor.
-    await this.say(run, 'navigator', {
+    await this.say(run, 'navigator', { callId: 'pathway.navigator.offer',
       facts: { name: this.str(name(k)), population_priority: path.pop.map((x) => ({ check: this.str(x.name), why_for_you: this.str(x.you), where: this.str(x.where), when: this.str(x.when) })), for_the_doctor: path.clin.map((x) => this.str(x.t)) },
       audience,
       task: `Offer ${m.child ? `${audience} the pathway for ${this.str(name(k))}` : `${this.str(call(k))} their pathway`} in plain words: the checks the guideline offers, in order, where and when (fitted to them), and separately what only the doctor will decide. Ask if Noa can book.`,
@@ -940,7 +1026,7 @@ export class FamilyHealthEngine {
       if (r.id === 'later' && urgentItems.length) {
         this.hit('U1')
         // say(): Navigator respects "not now" for routine checks but escalates the urgent ones. facts: name, urgent ["item (urgency)"].
-        await this.say(run, 'navigator', {
+        await this.say(run, 'navigator', { callId: 'pathway.navigator.u1',
           facts: { name: this.str(name(k)), urgent: urgentItems.map((x) => `${this.str(x.name)} (${this.str(tx(`urgency.${x.u}`))})`) },
           audience,
           task: 'Respect the choice for the routine checks, but explain kindly that these items cannot wait, with their urgency, and that you have told the doctor.',
@@ -958,7 +1044,7 @@ export class FamilyHealthEngine {
         this.gov.notNow++
         this.setSt(k, 'status.notNow', 'muted')
         // say(): Navigator respects "not now". facts: name.
-        await this.say(run, 'navigator', { facts: { name: this.str(name(k)) }, audience, task: 'Respect the choice warmly; no reminders for 3 months; they can book any time.', fallback: tx('say.navigator.n3') })
+        await this.say(run, 'navigator', { callId: 'pathway.navigator.n3', facts: { name: this.str(name(k)) }, audience, task: 'Respect the choice warmly; no reminders for 3 months; they can book any time.', fallback: tx('say.navigator.n3') })
         this.finish(run, tx('done.n3'))
         return
       }
@@ -967,7 +1053,7 @@ export class FamilyHealthEngine {
         this.gov.barriers++
         const f = forecast(p), top = topFlags(j.flagList)
         // say(): Forecast explains why these checks, now. facts: name, flags (titles), risk (10-year %), pathway (programme names).
-        await this.say(run, 'forecast', {
+        await this.say(run, 'forecast', { callId: 'pathway.forecast.why',
           facts: { name: this.str(name(k)), flags: top.map((x) => this.str(x.title)), risk: f.ok ? pct(f.r) : null, pathway: path.pop.map((x) => this.str(x.name)) },
           audience,
           task: 'Explain briefly why these checks, for this person, now: what they find before symptoms, and the person’s own reasons from the flags. No pressure.',
@@ -1005,7 +1091,7 @@ export class FamilyHealthEngine {
     const age: Txt | number = p.child ? (p.ageM < 24 ? tx('age.months', { n: p.ageM }) : tx('age.years', { n: Math.floor(p.ageM / 12) })) : p.age
     const speech = j.speech ? tx('say.courier.speech', { score: fixed(j.speech.score, 2), level: tx(`speech.level.${j.speech.lvl}`) }) : ''
     // say(): Courier writes the referral note for the clinic (up to 80 words). facts: patient, age, booked, for_doctor_decision, home_screening, flags.
-    await this.say(run, 'courier', {
+    await this.say(run, 'courier', { callId: 'referral.courier',
       facts: {
         patient: this.str(tx(`people.${k}.full`)), age: this.str(age), booked: path.pop.map((x) => this.str(x.name)), for_doctor_decision: path.clin.map((x) => this.str(x.t)),
         home_screening: j.speech ? { speech_score: j.speech.score } : j.ans, flags: j.flagList.filter((x) => x.lvl !== 'muted').map((x) => this.str(x.title)),
@@ -1032,7 +1118,7 @@ export class FamilyHealthEngine {
     this.hit('S1')
     const n = path.pop.length
     // say(): Analyst counts the case for the Department, no names. facts: segment ("men 60s", "children 0–6"), booked (count).
-    await this.say(run, 'analyst', {
+    await this.say(run, 'analyst', { callId: 'referral.analyst',
       facts: { segment: p.child ? 'children 0–6' : `${p.sex === 'F' ? 'women' : 'men'} ${Math.floor(p.age / 10) * 10}s`, booked: n },
       audience: 'Department of Health programme team', tag: tx('say.tag.department'), mode: 'gov',
       task: 'One sentence: an anonymous case was referred; it is counted in reach, recommendation and uptake by segment, with small groups hidden. No names.',

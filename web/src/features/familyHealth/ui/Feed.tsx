@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import {
   AGENTS, DEVICES, DOMAINS, PEOPLE, SENTENCE, SPEECH_BASE, SPEECH_BASE_DEFAULT, URGENCY, VT, dueBy, hsh, isChild, rnd, words,
   type AgentId, type Card, type DomainId, type FeedItem, type PacketLine, type PatternCard, type PersonId, type Snapshot, type Txt, type TxtList,
@@ -7,6 +7,7 @@ import { wordEq } from '../engine/speech'
 import { getEngine, useTexts } from './store'
 import { Bold, E, c } from './bits'
 import { canDictate } from './speechIo'
+import { answerGo, feedScroll } from './layout'
 import { usePanel } from './panelContext'
 
 type Texts = ReturnType<typeof useTexts>
@@ -51,15 +52,52 @@ export function Now({ snap }: { snap: Snapshot }) {
       {snap.emergency && (
         <div className={c('embar')} role="alert"><i /><b>{u('em.title')}</b><span>{u('em.text', { name: raw(`people.${k}.name`) })}</span></div>
       )}
-      <div className={c('nowh', mode)}>
-        <span className={c('mtag')}>{u('mode', { mode: raw(`modes.${mode}`) })}</span>
-        <b>{j.stage ? raw(`stages.${j.stage}.name`) : ''}</b>
+      <StageHead snap={snap} mode={mode} />
+      {!PEOPLE[k].child && <SyncBox snap={snap} />}
+      <FeedItems snap={snap}>
+        {cur.map((m) => <Item key={m.id} m={m} snap={snap} t={t} />)}
+      </FeedItems>
+    </div>
+  )
+}
+
+/** One stage header (newer prototype): the stage title, the person, and "What happens here" folded in (open on the first stage). */
+function StageHead({ snap, mode }: { snap: Snapshot; mode: string }) {
+  const { u, raw } = useTexts()
+  const j = snap.journey!
+  const k = j.person, name = raw(`people.${k}.name`), st = j.stage
+  const title = st ? raw(`stages.${st}.title`) : ''
+  return (
+    <div className={c('nowh', mode)}>
+      <div className={c('nwt')}>
+        <b>{j.done ? u('note.done', { title }) : title}</b>
         <span className={c('who')}><E n={PEOPLE[k].icon} /> {raw(`people.${k}.full`)}</span>
       </div>
-      {!PEOPLE[k].child && <SyncBox snap={snap} />}
-      <div className={c('items')}>
-        {cur.map((m) => <Item key={m.id} m={m} snap={snap} t={t} />)}
-      </div>
+      {st && (
+        <details className={c('nwd')} key={`${st}-${!!j.done}`} open={j.seen.length <= 1 && !j.done ? true : undefined}>
+          <summary>{u(j.done ? 'nowh.did' : 'nowh.what')}{!j.done && <> · <span className={c('you')}><E n="point-right" /> {raw(`stages.${st}.you`, { name })}</span></>}</summary>
+          <p>{raw(`stages.${st}.body`, { name })}</p>
+        </details>
+      )}
+    </div>
+  )
+}
+
+/**
+ * The feed's own scroll area: it follows new messages unless the viewer scrolled up (prototype FOLLOW), and a new journey
+ * follows again.
+ */
+function FeedItems({ snap, children }: { snap: Snapshot; children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const journeyNo = snap.gov.journeys
+  useLayoutEffect(() => { feedScroll.follow = true }, [journeyNo])
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (el && feedScroll.follow) el.scrollTop = el.scrollHeight
+  })
+  return (
+    <div className={c('items')} ref={ref} data-feed="" onScroll={(ev) => { const t = ev.currentTarget; feedScroll.follow = t.scrollHeight - t.scrollTop - t.clientHeight < 48 }}>
+      {children}
     </div>
   )
 }
@@ -127,9 +165,11 @@ export function Item({ m, snap, t, compact }: { m: FeedItem; snap: Snapshot; t: 
       return (
         <div className={c('vtp')}>
           <span className={c('lab')}>{u('vt.plan', { name: name(m.person) })}</span>
-          {m.use.map((y) => (
-            <div key={y.id} className={c('vt on')}><span><E n={VT[y.id].icon} /></span><div><b>{raw(`vt.${y.id}.name`)}</b><small>{u('vt.why', { why: x(y.why) })}</small><small className={c('ev')}>{u('vt.ev', { tool: raw(`vt.${y.id}.tool`), ev: raw(`vt.${y.id}.ev`) })}</small></div></div>
-          ))}
+          <div className={c('vtg')}>
+            {m.use.map((y) => (
+              <div key={y.id} className={c('vt on')}><span><E n={VT[y.id].icon} /></span><div><b>{raw(`vt.${y.id}.name`)}</b><small>{x(y.why)}</small><small className={c('ev')}>{u('vt.ev', { tool: raw(`vt.${y.id}.tool`), ev: raw(`vt.${y.id}.ev`) })}</small></div></div>
+            ))}
+          </div>
           <details>
             <summary>{u('vt.notUsed', { n: m.skip.length })}</summary>
             {m.skip.map((y) => <div key={y.id} className={c('vt')}><span><E n={VT[y.id].icon} /></span><div><b>{raw(`vt.${y.id}.name`)}</b><small>{x(y.why)}</small></div></div>)}
@@ -209,9 +249,11 @@ function SyncBox({ snap }: { snap: Snapshot }) {
   if (isChild(p)) return null
   const wake = !!j.urgent && j.urgent.startsWith('G')
   const usual = PEOPLE[k].usual ?? [62, 72]
-  const hr = wake ? p.hr : Math.round((usual[0] + usual[1]) / 2)
+  // Newer prototype (syncVals): the recorded heart rate; the stream's last value only while it is near it (a slider jump shows at once).
+  const hr = p.hr || Math.round((usual[0] + usual[1]) / 2)
   const irr = wake && p.irr
-  const shown = SY.hr.length ? SY.hr[SY.hr.length - 1] : hr
+  const last = SY.hr.length ? SY.hr[SY.hr.length - 1] : null
+  const shown = last != null && Math.abs(last - hr) < 15 ? last : hr
   const ago = Math.max(1, Math.round((now - SY.last) / 1000))
   const devs = DEVICES_OF(k)
   const W = 110, H = 26, pts = SY.hr.slice(-24), mx = Math.max(130, ...pts, hr), mn = Math.min(50, ...pts)
@@ -222,15 +264,15 @@ function SyncBox({ snap }: { snap: Snapshot }) {
     : v === 'bp' ? u('sync.bp', { sbp: p.sbp, dbp: p.dbp }) : v === 'wt' ? u('sync.wt', { bmi: p.bmi }) : u('sync.glu', { glu: k === 'saeed' ? 6.8 : '—' })
   return (
     <div className={c('sync')} id="fh-sync">
-      <div className={c('syh')}><span className={c('lv')}><i />{u('sync.live')}</span><span className={c('mut sm')}>{u('sync.ago', { n: ago })}</span></div>
-      <div className={c('devs')}>
+      <div className={c('syr')}>
+        <span className={c('lv')} title={u('sync.sim')}><i />{u('sync.liveAgo', { n: ago })}</span>
         {devs.map((d, i) => (
-          <div key={i} className={c('dev')}>
+          <span key={i} className={c('dch', d.value === 'hr' && hr >= 120 && 'hot')} title={`${raw(`devices.kind.${d.kind}`)}: ${raw(`devices.what.${d.what}`)}`}>
             <span className={c('dv')}><E n={d.icon} /></span>
-            <div><b>{raw(`devices.kind.${d.kind}`)}</b><small>{raw(`devices.what.${d.what}`)}</small></div>
-            <span className={c('val', d.value === 'hr' && hr >= 120 && 'hot')}>{val(d.value)}</span>
+            <span className={c('dn')}>{raw(`devices.kind.${d.kind}`)}</span>
+            <b className={c('val')}>{val(d.value)}</b>
             {d.value === 'hr' && spark}
-          </div>
+          </span>
         ))}
       </div>
       <details className={c('path')} open={open} onToggle={(e) => setOpen((e.target as HTMLDetailsElement).open)}>
@@ -370,6 +412,16 @@ function CardBody({ card, snap, t }: { card: Card; snap: Snapshot; t: Texts }) {
   const { u, x, raw, lang } = t
   const { say } = usePanel()
   const e = getEngine()
+  if (card.type === 'go') {
+    return (
+      <>
+        <p className={c('q')}>{card.urgent && <><E n="bell" /> </>}{x(card.msg)}</p>
+        <div className={c('btnrow')}>
+          {card.opts.map((o, i) => <button type="button" key={o.id} className={c('btn', i > 0 && 'ghost')} data-go={o.id} onClick={() => answerGo(card.id, o.id as 'go' | 'later')}>{x(o.label)}</button>)}
+        </div>
+      </>
+    )
+  }
   if (card.type === 'choice') {
     return (
       <>
@@ -516,7 +568,7 @@ function SpeechCheck({ card, open, snap, t }: { card: Extract<Card, { type: 'spe
       <div className={c('sxh')}>
         <span className={c('orb')} />
         <b>{u('spx.title')}</b>
-        <span className={c('core')}>{u('spx.core')}</span>
+        <span className={c('core')}>{u(snap.journey?.urgent ? 'spx.core' : 'spx.coreRecovery')}</span>
         <span className={c('sub')}>{u('spx.sub', { name: nm })}</span>
         <span className={c('pill', lv)}>● {r ? u(`spx.lvl.${r.lvl}`) : u('spx.ready', { n: b.chats })}</span>
       </div>

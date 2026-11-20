@@ -114,7 +114,8 @@ describe.each(Object.keys(PLAYS))('prototype run %s', (name) => {
   })
   test('same system lines and picked answers', () => {
     expect(got.sys).toEqual(fix(name, want.sys.map(strip)))
-    expect(got.picks.filter((x) => x !== 'waiting')).toEqual(fix(name, want.picks))
+    // The newer prototype stops at Detect on the go card ("Started" when Next starts it); the logs predate it.
+    expect(got.picks.filter((x) => x !== 'waiting' && x !== 'Started')).toEqual(fix(name, want.picks))
   })
   test('same flags', () => {
     const exp = fix(name, want.flags) as { flags: { src: string; rule: string }[] }[]
