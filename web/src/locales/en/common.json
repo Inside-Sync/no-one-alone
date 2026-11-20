@@ -220,7 +220,12 @@
     "replayBadge": "REPLAY",
     "themeDark": "Dark mode",
     "themeLight": "Light mode",
-    "tour": "Moza's case"
+    "tour": "Moza's case",
+    "benchmark": "Benchmark",
+    "benchmarkLabel": "Run the benchmark",
+    "benchmarkTitle": "Benchmark",
+    "benchmarkClose": "Close the benchmark",
+    "benchmarkLoading": "Loading the benchmark…"
   },
   "views": {
     "buttons": {

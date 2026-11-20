@@ -5,6 +5,9 @@ import ar from '@/locales/ar/data/screening.json'
 import en from '@/locales/en/data/screening.json'
 import { ReferralsPage } from '@/features/hospital/referrals/ReferralsPage'
 import { ReviewPage } from '@/features/hospital/review/ReviewPage'
+import { FamilyHealthEngine, instantScheduler } from '@/features/familyHealth'
+import { resetFamilyHealthStore } from '@/features/familyHealth/ui/store'
+import { drive } from '../../familyHealth/helpers'
 import { mockCanvas, mockLayout, mockRaf } from '../../canvas/fakeCtx'
 import { renderWithProviders } from '../../helpers/renderWithProviders'
 
@@ -134,5 +137,102 @@ describe('Arabic', () => {
     renderWithProviders(<ReferralsPage />, opts)
     await screen.findByText('صندوق الإحالات')
     expect(document.querySelectorAll('#refList .msg')).toHaveLength(4)
+  })
+})
+
+describe('the referral Noa sent from a family-health journey', () => {
+  /** Saeed's racing-heart journey (s0) driven to the Referral step on the panel's engine. */
+  const journey = async () => {
+    const e = new FamilyHealthEngine({ scheduler: instantScheduler, seedNotes: false })
+    resetFamilyHealthStore(e)
+    void e.runTestCase('s0')
+    await drive(e)
+    expect(e.getSnapshot().referral).not.toBeNull()
+    return e
+  }
+  afterEach(async () => { resetFamilyHealthStore(); await i18n.changeLanguage('en') })
+
+  test('comes first in the inbox, selected, with the home test results and the Courier note; the demo rows stay below', async () => {
+    await journey()
+    renderWithProviders(<ReferralsPage />, opts)
+    await screen.findByText('Referral inbox')
+    const rows = document.querySelectorAll<HTMLElement>('#refList .msg')
+    expect(rows).toHaveLength(5)
+    expect(rows[0]).toHaveAttribute('aria-pressed', 'true')
+    expect(within(rows[0]).getByText('New · from Noa')).toBeInTheDocument()
+    const card = document.querySelector<HTMLElement>('#refCard')!
+    expect(within(card).getByRole('heading', { name: 'Saeed Al Nuaimi, 64' })).toBeInTheDocument()
+    expect(Array.from(card.querySelectorAll('.packet > div > span')).map((s) => s.textContent)).toEqual(['To', 'From', 'Why', 'Understood', 'Preferences', 'Consent'])
+    expect(within(card).getByText('Next step ✓ · urgency ✓ · reason ✓')).toBeInTheDocument()
+    for (const h of ['Booked by Noa', 'For you to decide', 'Home test results', 'Referral note', 'Noa suggests']) expect(within(card).getByText(h)).toBeInTheDocument()
+    expect(card.querySelectorAll('#refBooked li').length).toBeGreaterThan(0)
+    expect(card.querySelectorAll('#refDecide li').length).toBeGreaterThan(0)
+    expect(within(card.querySelector<HTMLElement>('#refResults')!).getByText(/as usual · score 1\.00 · 7\/7 words/)).toBeInTheDocument()
+    expect(within(card.querySelector<HTMLElement>('#refNote')!).getByText('Prepared text')).toBeInTheDocument()
+    expect(card.querySelector('#refNote b')?.textContent).toContain('Saeed Al Nuaimi')
+  })
+
+  test('Accept and book stores the decision in the engine: the pill and the detail come from the snapshot and survive navigation', async () => {
+    const e = await journey()
+    const first = renderWithProviders(<ReferralsPage />, opts)
+    await screen.findByText('Referral inbox')
+    fireEvent.click(screen.getByRole('button', { name: 'Accept and book' }))
+    expect(screen.getByRole('status')).toHaveTextContent('Accepted · Saeed and the family are told')
+    expect(e.getSnapshot().referral?.decision?.outcome).toBe('accepted')
+    expect(within(document.querySelectorAll<HTMLElement>('#refList .msg')[0]).getByText('Accepted')).toBeInTheDocument()
+    expect(document.querySelector('#refDecision')?.textContent).toMatch(/^Accepted by Dr Omar Haddad at \d\d:\d\d · Saeed and the family were told$/)
+    // Leave the page and come back: the decision is still there.
+    first.unmount()
+    renderWithProviders(<ReferralsPage />, opts)
+    await screen.findByText('Referral inbox')
+    expect(within(document.querySelectorAll<HTMLElement>('#refList .msg')[0]).getByText('Accepted')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Accept and book' })).toBeNull()
+    // The demo rows keep their own detail and buttons.
+    fireEvent.click(screen.getByRole('button', { name: /Ravi Menon/ }))
+    expect(within(document.querySelector('#refCard')!).getByRole('heading', { name: 'Ravi Menon, 57' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Accept and book' })).toBeInTheDocument()
+  })
+
+  test('Decline with a reason opens the reason picker; Cancel closes it; confirming stores the reason', async () => {
+    const e = await journey()
+    renderWithProviders(<ReferralsPage />, opts)
+    await screen.findByText('Referral inbox')
+    fireEvent.click(screen.getByRole('button', { name: 'Decline with a reason' }))
+    const picker = document.querySelector<HTMLElement>('#refReasons')!
+    expect(within(picker).getAllByRole('radio').map((r) => r.closest('label')?.textContent)).toEqual(['Needs another specialist', 'Already seen recently', 'Needs more tests first', 'Other reason'])
+    const confirm = within(picker).getByRole('button', { name: 'Confirm decline' })
+    expect(confirm).toBeDisabled()
+    fireEvent.click(within(picker).getByRole('button', { name: 'Cancel' }))
+    expect(document.querySelector('#refReasons')).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: 'Decline with a reason' }))
+    fireEvent.click(screen.getByRole('radio', { name: 'Other reason' }))
+    expect(screen.getByRole('button', { name: 'Confirm decline' })).toBeDisabled()
+    fireEvent.change(screen.getByRole('textbox', { name: 'Type the reason' }), { target: { value: 'Cardiology first' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Confirm decline' }))
+    expect(screen.getByRole('status')).toHaveTextContent('Declined · the family is told why')
+    expect(e.getSnapshot().referral?.decision).toMatchObject({ outcome: 'declined', reason: 'other', note: 'Cardiology first' })
+    expect(within(document.querySelectorAll<HTMLElement>('#refList .msg')[0]).getByText('Declined')).toBeInTheDocument()
+    expect(document.querySelector('#refDecision')?.textContent).toMatch(/^Declined by Dr Omar Haddad at \d\d:\d\d: Cardiology first · the family was told why$/)
+  })
+
+  test('a listed reason is shown in the doctor’s words', async () => {
+    const e = await journey()
+    renderWithProviders(<ReferralsPage />, opts)
+    await screen.findByText('Referral inbox')
+    fireEvent.click(screen.getByRole('button', { name: 'Decline with a reason' }))
+    fireEvent.click(screen.getByRole('radio', { name: 'Already seen recently' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Confirm decline' }))
+    expect(e.getSnapshot().referral?.decision).toMatchObject({ outcome: 'declined', reason: 'seen' })
+    expect(document.querySelector('#refDecision')?.textContent).toContain(': Already seen recently · ')
+  })
+
+  test('renders in Arabic', async () => {
+    await journey()
+    await i18n.changeLanguage('ar')
+    renderWithProviders(<ReferralsPage />, opts)
+    await screen.findByText('صندوق الإحالات')
+    expect(document.querySelectorAll('#refList .msg')).toHaveLength(5)
+    expect(within(document.querySelector<HTMLElement>('#refCard')!).getByText('نتائج الفحوصات المنزلية')).toBeInTheDocument()
+    expect(within(document.querySelectorAll<HTMLElement>('#refList .msg')[0]).getByText('جديدة · من نوا')).toBeInTheDocument()
   })
 })

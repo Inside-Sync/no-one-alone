@@ -1,4 +1,4 @@
-import type { AgentId, FhIcon, Mode, NoaLang, PersonId, Profile, QsetId, RuleId, StageId, TestCaseId, Tone, Txt, TxtList, VtId } from '../data/types'
+import type { AgentId, FhIcon, Mode, NoaLang, PersonId, Profile, QsetId, RuleId, StageId, TestCaseId, Tone, Txt, TxtList, UrgencyId, VtId } from '../data/types'
 import type { Flag, FamRow } from './flags'
 import type { QItem, TestChoice } from './home'
 import type { Pathway } from './pathway'
@@ -57,7 +57,7 @@ export interface Status { label: Txt; tone: Tone }
 export interface HeartPill { pct: string; cat: 'high' | 'moderate' | 'low'; tone: 'bad' | 'warn' | 'good' }
 export interface Counters { live: number; prepared: number; guardrail: number; overruled: number }
 /** Department of Health tiles (journeys, booked, "why?" answered, referrals, not now) plus two counted but not shown. */
-export interface GovCounters { journeys: number; booked: number; barriers: number; referrals: number; notNow: number; emergencies: number; handoffs: number }
+export interface GovCounters { journeys: number; booked: number; barriers: number; referrals: number; notNow: number; emergencies: number; handoffs: number; refAccepted: number; refDeclined: number }
 export interface Note { id: number; to: PersonId | 'noa' | 'me'; icon: FhIcon; text: Txt | string; t: string; read: boolean; /** 'live' when the AI worded it. */ source?: 'live' }
 
 export interface JourneyView {
@@ -71,6 +71,65 @@ export interface JourneyView {
   genomic: boolean
   share: PersonId[]
   urgent: RuleId | null
+}
+
+/**
+ * The referral Courier sent when a journey reached the Referral step (Hospital > Referrals shows it first). Every text is a
+ * descriptor (`Txt`) or a literal, so the page shows it in the current language; only a live AI note is the model's string.
+ */
+export interface FamilyReferral {
+  /** `fh-<person>-<journey number>`: changes with every journey. */
+  id: string
+  person: PersonId
+  /** "Saeed Al Nuaimi, 64". */
+  title: Txt
+  /** The person's clinic and doctor. */
+  to: Txt
+  /** "Noa · Courier, Specialist agent". */
+  from: Txt
+  /** The urgent signal, else the top flag, else "due by age and guideline". */
+  why: Txt
+  /** The pathway was accepted (Noa checked the next step, the urgency and the reason). */
+  understood: boolean
+  /** Population checks Noa booked. */
+  booked: { name: Txt; where: Txt; when: Txt; u: UrgencyId }[]
+  /** Clinical items only the doctor decides. */
+  forDoctor: { text: Txt; u: UrgencyId; due: Txt }[]
+  /** The speech check, if it ran. */
+  speech: { score: number; lvl: SpeechResult['lvl']; matched: number; total: number; secs: number | null } | null
+  /** Home tests and questionnaires (speech check first): name, result, level (`good` / `warn` / `bad`). */
+  homeResults: { id: VtId; label: Txt; txt: Txt; lvl: string }[]
+  /** Red-flag and symptom answers (and the child's questions) in plain words. */
+  answers: { label: Txt; value: Txt }[]
+  /** Visit preference, chosen time, language. */
+  preferences: Txt
+  /** Who sees the pathway and whether genomic data was used. */
+  consent: Txt
+  share: PersonId[]
+  genomic: boolean
+  /** What Noa suggests: the slot. */
+  slot: Txt
+  /** The Courier note as shown in the feed (live AI string or prepared descriptor) and where it came from. */
+  note: { text: Txt | string; source: Source; lang: NoaLang }
+  /** The journey clock when the referral was sent ("09:25"). */
+  createdAt: string
+  /** The doctor's decision in Hospital > Referrals (once), or null while it waits. */
+  decision: ReferralDecision | null
+}
+
+/** Why the doctor declined a referral: another specialist, already seen recently, more tests first, or a free-text reason. */
+export type RefReason = 'specialist' | 'seen' | 'tests' | 'other'
+
+export interface ReferralDecision {
+  outcome: 'accepted' | 'declined'
+  /** Declined only. */
+  reason?: RefReason
+  /** The doctor's own words (reason `other`). */
+  note?: string
+  /** The doctor who decided ("Dr Omar Haddad"). */
+  by: Txt
+  /** The clock when it was decided ("09:40"). */
+  at: string
 }
 
 export interface Snapshot {
@@ -106,4 +165,6 @@ export interface Snapshot {
   thinking: boolean
   /** The AI port: `none` (prepared text only, no live port plugged in), `live` (a live port, switched on) or `off` (switched off). */
   ai: 'none' | 'live' | 'off'
+  /** The referral of the last journey that reached the Referral step (none after an emergency, "not now", Reset or a new journey). */
+  referral: FamilyReferral | null
 }

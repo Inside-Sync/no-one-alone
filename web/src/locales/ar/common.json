@@ -220,7 +220,12 @@
     "replayBadge": "إعادة عرض",
     "themeDark": "الوضع الداكن",
     "themeLight": "الوضع الفاتح",
-    "tour": "حالة موزة"
+    "tour": "حالة موزة",
+    "benchmark": "اختبار الأداء",
+    "benchmarkLabel": "تشغيل اختبار الأداء",
+    "benchmarkTitle": "اختبار الأداء",
+    "benchmarkClose": "إغلاق اختبار الأداء",
+    "benchmarkLoading": "جارٍ تحميل اختبار الأداء…"
   },
   "views": {
     "buttons": {

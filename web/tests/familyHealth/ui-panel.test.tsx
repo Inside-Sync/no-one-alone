@@ -5,6 +5,8 @@ import i18n from '@/i18n'
 import { App } from '@/app/App'
 import { PAGE_REGISTRY } from '@/features/registry'
 import { FamilyHealthPage, FamilyMessages, getEngine, resetFamilyHealthStore } from '@/features/familyHealth/ui'
+import type { Txt } from '@/features/familyHealth'
+import { T, drive } from './helpers'
 
 // The whole app renders in each test: generous timeouts so a loaded machine (full suite in parallel) does not flake.
 configure({ asyncUtilTimeout: 8000 })
@@ -72,6 +74,28 @@ test('Next and the → key step through Saeed’s journey to the referral', asyn
   expect(await screen.findByRole('button', { name: 'Choose someone else' })).toBeInTheDocument()
   expect(within(now()).getByText(/Referred to the right pathway/)).toBeInTheDocument()
   expect(next()).toBeDisabled()
+  // The done card opens the referral as the doctor sees it: Hospital > Referrals, Noa's referral first and selected.
+  fireEvent.click(screen.getByRole('button', { name: 'Check referral as doctor →' }))
+  const list = await waitFor(() => { const el = document.getElementById('refList'); if (!el) throw new Error('no referral inbox yet'); return el })
+  const rows = within(list).getAllByRole('button')
+  expect(rows[0]).toHaveAttribute('aria-pressed', 'true')
+  expect(within(rows[0]).getByText('New · from Noa')).toBeInTheDocument()
+  const card = document.getElementById('refCard') as HTMLElement
+  expect(within(card).getByText('Home test results')).toBeInTheDocument()
+  expect(within(card).getByText('Noa Speech Check')).toBeInTheDocument()
+})
+
+test('the done card shows the doctor’s decision on the referral, and the family messages carry the notice', async () => {
+  at('/individual/lineage')
+  await waitFor(() => expect(getEngine().getSnapshot().journey?.testCase).toBe('s0'), { timeout: 8000 })
+  await act(async () => { await drive(getEngine()) })
+  expect(await screen.findByRole('button', { name: 'Check referral as doctor →' })).toBeInTheDocument()
+  expect(document.getElementById('fhRefDecision')).toBeNull()
+  const id = getEngine().getSnapshot().referral?.id as string
+  act(() => { getEngine().decideReferral(id, 'declined', 'tests') })
+  await waitFor(() => expect(document.getElementById('fhRefDecision')?.textContent).toMatch(/^Declined by Dr Omar Haddad · \d\d:\d\d: more tests are needed first$/))
+  expect(screen.getByRole('button', { name: 'Check referral as doctor →' })).toBeInTheDocument()
+  expect(T(getEngine().getSnapshot().notes[0].text as Txt)).toMatch(/declined .*referral: more tests are needed first\. Noa will book the tests first\.$/)
 })
 
 test('→ does nothing while typing in the composer', async () => {

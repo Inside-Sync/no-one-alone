@@ -18,6 +18,7 @@ import { useLiveIncident } from '@/state/LiveIncident'
 import { useNightDemo } from '@/state/useNightDemo'
 import { useTour } from '@/state/Tour'
 import { TestCaseButton } from '@/features/testcase/entry/TestCaseButton'
+import { BenchmarkButton } from '@/features/benchmark/BenchmarkButton'
 import { legacyHeaderDemosOn, legacyTestCaseOn } from '@/config/legacy'
 
 interface Props {
@@ -84,6 +85,7 @@ export function TopNav({ onBellClick, onAvatarClick }: Props) {
           </button>
         )}
         {legacyTestCaseOn() && <TestCaseButton />}
+        <BenchmarkButton />
         {demos && (
           <button
             type="button"

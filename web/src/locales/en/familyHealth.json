@@ -85,7 +85,8 @@
     "promptSent": "Prompt sent · waiting", "ready": "Ready when you are", "promptPending": "Prompt pending",
     "watching": "Noa is watching", "unusual": "Unusual pattern", "checking": "Checking now", "home": "Home screening",
     "seeDoctor": "See a doctor now", "pathReady": "Pathway ready", "escalated": "Escalated to doctor", "notNow": "Not now · door open",
-    "booked": "Booked · {{day}}", "cholNote": "Cholesterol note for paediatrician"
+    "booked": "Booked · {{day}}", "cholNote": "Cholesterol note for paediatrician",
+    "refAccepted": "Referral accepted", "refDeclined": "Referral declined · see why"
   },
   "records": {
     "saeed": { "scr": {
@@ -363,6 +364,20 @@
     "booked": "Booked for {{name}}: {{list}} · {{slot}}.",
     "bookedFamily": "{{name}} booked {{checks}} (shared with you by {{by}}).",
     "x1": "A note was added for Hamdan’s and Hind’s paediatrician about an inherited cholesterol risk. The paediatrician decides on testing.",
+    "ref": {
+      "review": "{{urgency}} ({{due}})",
+      "accepted": "{{doctor}} accepted your referral. Your doctor review is {{review}}; your checks stay on {{slot}}.",
+      "acceptedFor": "{{doctor}} accepted {{name}}’s referral. The doctor review is {{review}}; the checks stay on {{slot}}.",
+      "acceptedNoReview": "{{doctor}} accepted your referral. Your checks stay on {{slot}}.",
+      "acceptedForNoReview": "{{doctor}} accepted {{name}}’s referral. The checks stay on {{slot}}.",
+      "declined": "{{doctor}} declined your referral: {{reason}}. {{next}}",
+      "declinedFor": "{{doctor}} declined {{name}}’s referral: {{reason}}. {{next}}",
+      "reason": { "specialist": "it needs another specialist", "seen": "already seen recently", "tests": "more tests are needed first", "other": "another reason" },
+      "next": {
+        "specialist": "Noa will suggest the right clinic.", "seen": "No new visit is needed; the record is updated.",
+        "tests": "Noa will book the tests first.", "other": "Noa will follow up with the clinic and keep you posted."
+      }
+    },
     "seed": {
       "moza": "Good morning, Umm Khalid. Stroke clinic on Mon 30 Nov; speech therapy on Thursday.",
       "amna": "Hind’s 18-month visit is 3 weeks overdue. Saturday morning slots are open in Al Ain.",
@@ -537,20 +552,20 @@
     "result": { "refer": "{{n}} of 3 correct: refer for a full hearing test", "pass": "{{n}} of 3 correct: pass" }
   },
   "choice": {
-    "hypo": { "q": "Noa Voice, 15 minutes later: “How do you feel now? Your sensor reads {{glu}}.”", "opt": { "ok": "Better, I had juice", "shaky": "Still shaky and sweaty", "confused": "Confused, hard to think" } },
-    "rf": { "q": "Noa Voice: “Right now, do you have any of these?”", "opt": { "none": "No, I feel OK", "palp": "Just my heart pounding", "weak": "My face or arm feels weak", "chest": "Chest pain", "faint": "I feel faint or dizzy" } },
-    "sym": { "q": "Noa Voice: “In the last month, have you noticed any of these?”", "opt": { "none": "None of these", "thirst": "Very thirsty, tired, passing urine more", "bowel": "Blood in stool or a change in bowel habit", "breast": "A breast lump or change", "chest": "Chest tightness when walking fast" } },
-    "quit": { "q": "Noa Voice: “Would you like help to stop smoking? Free, and you choose the pace.”", "opt": { "yes": "Yes, add it", "no": "Not now" } },
-    "pref": { "q": "Noa Voice: “How would you like to do your checks?”", "opt": { "one": "One visit for everything", "home": "Home kits where possible", "female": "Female clinician, women-only clinic" } },
-    "time": { "q": "Noa Voice: “When suits you best?”" },
-    "timeChild": { "q": "Noa Voice: “When can you bring {{name}}?”" },
+    "hypo": { "q": "15 minutes later: How do you feel now? Your sensor reads {{glu}}.", "opt": { "ok": "Better, I had juice", "shaky": "Still shaky and sweaty", "confused": "Confused, hard to think" } },
+    "rf": { "q": "Right now, do you have any of these?", "opt": { "none": "No, I feel OK", "palp": "Just my heart pounding", "weak": "My face or arm feels weak", "chest": "Chest pain", "faint": "I feel faint or dizzy" } },
+    "sym": { "q": "In the last month, have you noticed any of these?", "opt": { "none": "None of these", "thirst": "Very thirsty, tired, passing urine more", "bowel": "Blood in stool or a change in bowel habit", "breast": "A breast lump or change", "chest": "Chest tightness when walking fast" } },
+    "quit": { "q": "Would you like help to stop smoking? Free, and you choose the pace.", "opt": { "yes": "Yes, add it", "no": "Not now" } },
+    "pref": { "q": "How would you like to do your checks?", "opt": { "one": "One visit for everything", "home": "Home kits where possible", "female": "Female clinician, women-only clinic" } },
+    "time": { "q": "When suits you best?" },
+    "timeChild": { "q": "When can you bring {{name}}?" },
     "time2": { "q": "Noa Navigator: “Which works better?”" },
-    "book": { "q": "Reply as {{name}}", "opt": { "book": "Yes, book it", "change": "Change the time", "why": "Why these, and why now?", "later": "Not now" } },
-    "words": { "q": "Noa Voice: “How many words does {{name}} use, besides mama and baba?”", "opt": { "few": "None, or 1–2", "some": "3 to 10", "many": "More than 10" } },
-    "point": { "q": "Noa Voice: “Does {{name}} point to show you something interesting?”", "opt": { "yes": "Yes", "no": "Not yet" } },
-    "name": { "qF": "Noa Voice: “Does {{name}} turn when you call her name?”", "qM": "Noa Voice: “Does {{name}} turn when you call his name?”", "opt": { "yes": "Yes", "no": "Not usually" } },
-    "vision": { "qM": "Noa Voice: “Does {{name}} squint, tilt his head, or sit very close to screens?”", "qF": "Noa Voice: “Does {{name}} squint, tilt her head, or sit very close to screens?”", "opt": { "none": "No", "squint": "Yes, sometimes" } },
-    "hearing": { "q": "Noa Voice: “Does {{name}} often ask you to repeat things, or turn the TV up?”", "opt": { "none": "No", "repeat": "Yes, often" } }
+    "book": { "q": "", "opt": { "book": "Yes, book it", "change": "Change the time", "why": "Why these, and why now?", "later": "Not now" } },
+    "words": { "q": "How many words does {{name}} use, besides mama and baba?", "opt": { "few": "None, or 1–2", "some": "3 to 10", "many": "More than 10" } },
+    "point": { "q": "Does {{name}} point to show you something interesting?", "opt": { "yes": "Yes", "no": "Not yet" } },
+    "name": { "qF": "Does {{name}} turn when you call her name?", "qM": "Does {{name}} turn when you call his name?", "opt": { "yes": "Yes", "no": "Not usually" } },
+    "vision": { "qM": "Does {{name}} squint, tilt his head, or sit very close to screens?", "qF": "Does {{name}} squint, tilt her head, or sit very close to screens?", "opt": { "none": "No", "squint": "Yes, sometimes" } },
+    "hearing": { "q": "Does {{name}} often ask you to repeat things, or turn the TV up?", "opt": { "none": "No", "repeat": "Yes, often" } }
   },
   "times": { "eve": "Weekday evening", "sat": "Saturday morning", "am": "Weekday morning", "pm": "Weekday after 15:30" },
   "slots": {
@@ -720,5 +735,15 @@
     "child": { "mchat": "development check (M-CHAT-R)", "school": "school-entry vision and hearing", "overdue": "Overdue {{n}} weeks: Noa asks {{parent}} why, once, and offers a Saturday slot", "due": "Due now: one friendly reminder", "ok": "Up to date: celebrated, not nudged" },
     "why": { "child": "Children are followed by well-child visits, not a heart score", "cvd": "After a heart attack or stroke the clinic manages heart risk directly, so no score", "under30": "The Framingham score is valid from 30, so Noa talks about lifelong habits instead", "over74": "The Framingham score is valid up to 74, so the doctor decides" },
     "ha": { "atMost30": "30 or less", "over100": "over 100" }
+  },
+  "hospitalReferral": {
+    "title": "{{name}}, {{age}}", "to": "{{clinic}} · {{doc}}", "from": "Noa · {{agent}}, {{domain}}", "whyDue": "Checks due by age and guideline",
+    "speech": "{{level}} · score {{score}} · {{m}}/{{total}} words · {{secs}} s", "speechNoSecs": "{{level}} · score {{score}} · {{m}}/{{total}} words",
+    "prefs": "{{pref}} · {{time}} · speaks {{lang}}", "consent": "Pathway shared with {{names}} · {{genomic}}",
+    "genOn": "genomic result used", "genOff": "genomic result not used", "genNone": "no genomic data",
+    "ans": {
+      "hypo": "Low sugar, 15 minutes later", "rf": "Red flags right now", "sym": "Symptoms in the last month", "quit": "Help to stop smoking",
+      "words": "Words used", "point": "Points to show things", "name": "Turns to own name", "vision": "Squints or sits close to screens", "hearing": "Asks to repeat, TV loud"
+    }
   }
 }

@@ -1,9 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import {
   AGENTS, DEVICES, DOMAINS, PEOPLE, SENTENCE, SPEECH_BASE, SPEECH_BASE_DEFAULT, URGENCY, VT, dueBy, hsh, isChild, rnd, words,
-  type AgentId, type Card, type DomainId, type FeedItem, type PacketLine, type PatternCard, type PersonId, type Snapshot, type StageId, type Txt, type TxtList,
+  type AgentId, type Card, type DomainId, type FamilyReferral, type FeedItem, type PacketLine, type PatternCard, type PersonId, type Snapshot, type StageId, type Txt, type TxtList,
 } from '../index'
 import { wordEq } from '../engine/speech'
+import { useRouter } from '@/app/navigation'
 import { getEngine, reducedMotion, useSpokenText, useTexts } from './store'
 import { AgentOrb } from '@/components/noa/AgentOrb'
 import { Bold, E, c } from './bits'
@@ -223,14 +224,40 @@ export function Item({ m, snap, t, compact }: { m: FeedItem; snap: Snapshot; t: 
         </div>
       )
     case 'path': return <PathView m={m} snap={snap} t={t} />
-    case 'done':
+    case 'done': {
+      // The referral this journey sent (Hospital > Referrals), if it reached the Referral step.
+      const referral = snap.referral && snap.referral.person === snap.journey?.person ? snap.referral : null
       return (
         <div className={c('fin')}>
           <b>✓ {x(m.text)}</b>
-          {!compact && <div className={c('btnrow')}><button type="button" className={c('btn')} onClick={() => getEngine().clearJourney()}>{u('done.again')}</button></div>}
+          {referral?.decision && <Decision r={referral} t={t} />}
+          {!compact && (
+            <div className={c('btnrow')}>
+              {referral && <DoctorButton id={referral.id} label={u('done.doctor')} />}
+              <button type="button" className={c('btn', referral && 'ghost')} onClick={() => getEngine().clearJourney()}>{u('done.again')}</button>
+            </div>
+          )}
         </div>
       )
+    }
   }
+}
+
+/** The doctor's decision on this journey's referral (Hospital > Referrals): accepted, or declined with the reason. */
+function Decision({ r, t }: { r: FamilyReferral; t: Texts }) {
+  const { u, x, raw } = t
+  const d = r.decision
+  if (!d) return null
+  const doctor = x(d.by)
+  return d.outcome === 'accepted'
+    ? <p className={c('dec')} id="fhRefDecision">{u('done.accepted', { doctor, clinic: raw(`people.${r.person}.clinicShort`), time: d.at })}</p>
+    : <p className={c('dec no')} id="fhRefDecision">{u('done.declined', { doctor, time: d.at, reason: d.note ?? raw(`notes.ref.reason.${d.reason ?? 'other'}`) })}</p>
+}
+
+/** "Check referral as doctor →": Hospital > Referrals with this journey's referral selected. */
+function DoctorButton({ id, label }: { id: string; label: string }) {
+  const router = useRouter()
+  return <button type="button" className={c('btn')} onClick={() => router.push(`/hospital/referrals?ref=${encodeURIComponent(id)}`)}>{label}</button>
 }
 
 /* ---------------------------------------------------------------- agent bubble */
@@ -468,7 +495,7 @@ function CardBody({ card, snap, t }: { card: Card; snap: Snapshot; t: Texts }) {
   if (card.type === 'choice') {
     return (
       <>
-        <p className={c('q')}>{x(card.q)}</p>
+        {x(card.q) && <p className={c('q')}>{x(card.q)}</p>}
         <div className={c('opts')}>{card.opts.map((o) => <button type="button" key={o.id} className={c('opt')} onClick={() => e.answer(card.id, o.id)}>{x(o.label)}</button>)}</div>
         {card.free && <p className={c('mut sm')}>{u('card.free')}</p>}
       </>
@@ -587,7 +614,14 @@ function SpeechCheck({ card, open, snap, t }: { card: Extract<Card, { type: 'spe
     return () => clearTimeout(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, card.id])
-  useEffect(() => { if (!open && busy) stopListen() }, [open, busy, stopListen])
+  // Only the moment THIS card closes stops the microphone (answered by a sample, typing or Next while listening). A card that
+  // closed earlier must not stop the next card's prompt or take (the retry after an unclear first try).
+  const wasOpen = useRef(open)
+  useEffect(() => {
+    if (wasOpen.current && !open && busy) stopListen()
+    wasOpen.current = open
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
   const e = getEngine()
   const k = card.person, nm = raw(`people.${k}.name`), his = PEOPLE[k].sex === 'M'
   const b = SPEECH_BASE[k] ?? SPEECH_BASE_DEFAULT

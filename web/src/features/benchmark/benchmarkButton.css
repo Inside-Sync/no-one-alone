@@ -1,0 +1,4 @@
+/* Header Benchmark button (#runBench) and the note shown while the dialog loads. The dialog's own styles load with it (benchmark.css). */
+@media (max-width:1023px){.tn-right #runBench span.t{display:none}}
+.bmk-loading{position:fixed;inset-block-end:16px;inset-inline-start:50%;transform:translateX(-50%);margin:0;padding:8px 16px;border-radius:12px;background:var(--solid,#fff);color:var(--ink,#111);box-shadow:0 4px 16px rgba(0,0,0,.18);font-size:13px;z-index:9001}
+[dir="rtl"] .bmk-loading{transform:translateX(50%)}

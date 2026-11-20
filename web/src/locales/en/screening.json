@@ -98,6 +98,30 @@
       "declinedNote": "Declined with a reason. Back to the coordinator today.",
       "acceptedToast": "Accepted · booking deadline started",
       "declinedToast": "Declined · the coordinator has it today"
+    },
+    "noa": {
+      "tag": "New · from Noa",
+      "meta": "FHIR ServiceRequest · from Noa at {{time}}",
+      "understood": "Next step ✓ · urgency ✓ · reason ✓",
+      "notUnderstood": "Not confirmed yet",
+      "booked": "Booked by Noa",
+      "bookedNone": "Nothing booked.",
+      "decide": "For you to decide",
+      "decideNone": "Nothing for the doctor to decide.",
+      "results": "Home test results",
+      "resultsNone": "No home tests were run.",
+      "note": "Referral note",
+      "level": { "good": "Normal", "warn": "Borderline", "bad": "Flagged", "plain": "Noted" },
+      "source": { "live": "Written by the live AI", "prepared": "Prepared text", "guardrail": "Guardrail: prepared text", "fixed": "Fixed script" },
+      "acceptedToast": "Accepted · {{name}} and the family are told",
+      "declinedToast": "Declined · the family is told why",
+      "acceptedAt": "Accepted by {{doctor}} at {{time}} · {{name}} and the family were told",
+      "declinedAt": "Declined by {{doctor}} at {{time}}: {{reason}} · the family was told why",
+      "reasonTitle": "Why decline?",
+      "reason": { "specialist": "Needs another specialist", "seen": "Already seen recently", "tests": "Needs more tests first", "other": "Other reason" },
+      "otherPlaceholder": "Type the reason",
+      "confirm": "Confirm decline",
+      "cancel": "Cancel"
     }
   }
 }

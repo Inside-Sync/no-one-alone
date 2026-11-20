@@ -11,13 +11,13 @@ import { EMERGENCY, FIXED_CALL, PreparedAi, SAY_CALLS, UNDERSTAND_TIER, guard, m
 import { detectFlags, famWorking, joinedTitles, scrCounts, scrStatus, signalRules, topFlags, urgentOf, type FamRow, type Flag, type Signal } from './flags'
 import { forecast, pct, riskTone } from './framingham'
 import { dinDefaults, qsetDefaults, qsetItems, scoreDin, scoreQ, selectTests, type DinResult, type QResult, type TestPlan } from './home'
-import { buildPath, leadItem, urgencyIndex, type HomeAnswers, type Pathway } from './pathway'
+import { buildPath, dueBy, leadItem, urgencyIndex, type HomeAnswers, type Pathway } from './pathway'
 import { patternCards } from './pattern'
 import { SCENARIOS, SCENARIO_FIELDS, whatIf, type ScenarioId, type WhatIf } from './whatif'
 import { instantScheduler, type Scheduler } from './scheduler'
 import { scoreSpeech, type SpeechHow, type SpeechResult } from './speech'
 import { FH_NS, fixed, hhmm, lc, list, resolveText, tx } from './text'
-import type { AnswerValue, Card, ChoiceOption, Counters, FeedItem, GovCounters, HandoffLog, HeartPill, JourneyView, Note, PacketLine, ProtectValue, Snapshot, Source, SpeechValue, Status } from './types'
+import type { AnswerValue, Card, ChoiceOption, Counters, FamilyReferral, FeedItem, GovCounters, HandoffLog, HeartPill, JourneyView, Note, PacketLine, ProtectValue, RefReason, Snapshot, Source, SpeechValue, Status } from './types'
 
 /**
  * The family-health journey engine: Detect → Protect → Home screening → (emergency stop) → Right pathway → Referral, exactly as
@@ -117,7 +117,7 @@ export class FamilyHealthEngine {
   private rulesHit = new Map<RuleId, number>()
   private active: AgentId | null = null
   private calls: Counters = { live: 0, prepared: 0, guardrail: 0, overruled: 0 }
-  private gov: GovCounters = { journeys: 0, booked: 0, barriers: 0, referrals: 0, notNow: 0, emergencies: 0, handoffs: 0 }
+  private gov: GovCounters = { journeys: 0, booked: 0, barriers: 0, referrals: 0, notNow: 0, emergencies: 0, handoffs: 0, refAccepted: 0, refDeclined: 0 }
   private clock = CLOCK_START
   private notes: Note[] = []
   private tc: TestCase | null = null
@@ -129,6 +129,8 @@ export class FamilyHealthEngine {
   /** The composer conversation of this journey and the family-messages conversation (sent to the AI as `history`). */
   private chat: Turn[] = []
   private famChat: Turn[] = []
+  /** The referral of the last journey that reached the Referral step (Hospital > Referrals). */
+  private sent: FamilyReferral | null = null
 
   constructor(opts: EngineOptions = {}) {
     this.liveAi = opts.ai && !(opts.ai instanceof PreparedAi) ? opts.ai : null
@@ -176,6 +178,7 @@ export class FamilyHealthEngine {
       unread: this.notes.filter((n) => !n.read).length,
       thinking: this.aiBusy,
       ai: !this.liveAi ? 'none' : this.aiEnabled ? 'live' : 'off',
+      referral: this.sent ? structuredClone(this.sent) : null,
     }
     return this.snap
   }
@@ -239,11 +242,52 @@ export class FamilyHealthEngine {
     this.rulesHit = new Map()
     this.active = null
     this.calls = { live: 0, prepared: 0, guardrail: 0, overruled: 0 }
-    this.gov = { journeys: 0, booked: 0, barriers: 0, referrals: 0, notNow: 0, emergencies: 0, handoffs: 0 }
+    this.gov = { journeys: 0, booked: 0, barriers: 0, referrals: 0, notNow: 0, emergencies: 0, handoffs: 0, refAccepted: 0, refDeclined: 0 }
     this.clock = CLOCK_START
     this.tc = null
     this.chat = []
+    this.sent = null
     this.emit()
+  }
+
+  /**
+   * The doctor's decision on the referral Noa sent (Hospital > Referrals), once: stored on the referral (it survives navigation
+   * and is cleared with it), the person's status in the family tree, the Department counter, and routine family notices to the
+   * person (the parent for a child) and everyone the pathway is shared with. Declines say why and what happens next.
+   * Returns false when there is no such referral or it was already decided.
+   */
+  decideReferral(id: string, outcome: 'accepted' | 'declined', reason?: RefReason, note?: string): boolean {
+    const r = this.sent
+    if (!r || r.id !== id || r.decision) return false
+    const k = r.person, m = PEOPLE[k]
+    const doctor = tx(`people.${k}.doc`)
+    const why: RefReason | undefined = outcome === 'declined' ? reason ?? 'other' : undefined
+    const free = why === 'other' && note?.trim() ? clip(note.trim().replace(/[.!?؟]+$/, ''), 200) : undefined
+    this.clock += 5 * 60000
+    r.decision = { outcome, ...(why ? { reason: why } : {}), ...(free ? { note: free } : {}), by: doctor, at: hhmm(this.clock) }
+    const owner: PersonId = m.child ? (m.parent as PersonId) : k
+    const to = [owner, ...r.share.filter((x) => x !== owner)]
+    const D = 'notes.ref'
+    if (outcome === 'accepted') {
+      this.gov.refAccepted++
+      this.setSt(k, 'status.refAccepted', 'good')
+      const first = r.forDoctor[0]
+      const review = first ? tx(`${D}.review`, { urgency: lc(tx(`urgency.${first.u}`)), due: first.due }) : null
+      for (const x of to) {
+        const own = x === k
+        const key = review ? (own ? `${D}.accepted` : `${D}.acceptedFor`) : (own ? `${D}.acceptedNoReview` : `${D}.acceptedForNoReview`)
+        this.notifyFamily(x, tx(key, { doctor, name: name(k), review, slot: r.slot }), 'check', 'routine')
+      }
+    } else {
+      this.gov.refDeclined++
+      this.setSt(k, 'status.refDeclined', 'warn')
+      const because: Txt | string = free || tx(`${D}.reason.${why}`)
+      for (const x of to) {
+        this.notifyFamily(x, tx(x === k ? `${D}.declined` : `${D}.declinedFor`, { doctor, name: name(k), reason: because, next: tx(`${D}.next.${why}`) }), 'arrow-up', 'soon')
+      }
+    }
+    this.emit()
+    return true
   }
 
   /** Answer the open card. Values: choice option id; protect {genomic, contacts}; speech {said, secs, how}; qset answers; din digits. */
@@ -700,7 +744,8 @@ export class FamilyHealthEngine {
     item.lang = this.lang
     this.emit()
     await this.wait(run, WAIT.afterSay)
-    return { source, text: this.str(text) }
+    // `raw`: the text as shown (a live string, or the prepared descriptor that re-translates with the language).
+    return { source, text: this.str(text), raw: text }
   }
   private async handoff(run: Run, from: AgentId, to: AgentId, rule: RuleId, reason: Txt, packet: PacketLine[]) {
     this.live(run)
@@ -726,6 +771,7 @@ export class FamilyHealthEngine {
     this.clock = CLOCK_START
     this.j = { k, stage: null, seen: [], branch: null, done: null, sig: [], urgent: null, flagList: [], ans: {}, vt: {}, tests: null, speech: null, spN: 0, path: null, genomic: true, share: [], tc: this.tc?.id ?? null, booked: false }
     this.chat = []
+    this.sent = null
     this.gov.journeys++
     this.running = true
     this.emit()
@@ -1195,7 +1241,7 @@ export class FamilyHealthEngine {
     const age: Txt | number = p.child ? (p.ageM < 24 ? tx('age.months', { n: p.ageM }) : tx('age.years', { n: Math.floor(p.ageM / 12) })) : p.age
     const speech = j.speech ? tx('say.courier.speech', { score: fixed(j.speech.score, 2), level: tx(`speech.level.${j.speech.lvl}`) }) : ''
     // say(): Courier writes the referral note for the clinic (up to 80 words). facts: patient, age, booked, for_doctor_decision, home_screening, flags.
-    await this.say(run, 'courier', { callId: 'referral.courier',
+    const note = await this.say(run, 'courier', { callId: 'referral.courier',
       facts: {
         patient: this.str(tx(`people.${k}.full`)), age: this.str(age), booked: path.pop.map((x) => this.str(x.name)), for_doctor_decision: path.clin.map((x) => this.str(x.t)),
         home_screening: j.speech ? { speech_score: j.speech.score } : j.ans, flags: j.flagList.filter((x) => x.lvl !== 'muted').map((x) => this.str(x.title)),
@@ -1209,6 +1255,7 @@ export class FamilyHealthEngine {
         speech,
       }),
     })
+    this.sent = this.referralRecord(age, note.raw, note.source)
     if (GENOMIC[k] && j.genomic && j.share.length) {
       this.fhShared = true
       this.hit('X1')
@@ -1232,6 +1279,55 @@ export class FamilyHealthEngine {
       checks: tx(n === 1 ? 'count.check1' : 'count.checks', { n }),
       items: tx(path.clin.length === 1 ? 'count.item1' : 'count.items', { n: path.clin.length }),
     }))
+  }
+
+  /** The referral Hospital > Referrals shows: who, why, what was booked, what the doctor decides, the home results, the note. */
+  private referralRecord(age: Txt | number, noteText: Txt | string, source: Source): FamilyReferral {
+    const j = this.j as Journey, k = j.k, path = j.path as Pathway, R = 'hospitalReferral'
+    const top = topFlags(j.flagList)[0]
+    const sp = j.speech
+    const homeResults: FamilyReferral['homeResults'] = (Object.keys(j.vt) as VtId[])
+      .sort((a, b) => (a === 'speech' ? -1 : b === 'speech' ? 1 : 0))
+      .map((id) => {
+        const v = j.vt[id] as { txt: Txt; lvl: string }
+        const txt = id === 'speech' && sp
+          ? tx(sp.secs != null ? `${R}.speech` : `${R}.speechNoSecs`, { level: tx(`speech.level.${sp.lvl}`), score: fixed(sp.score, 2), m: sp.matched, total: sp.total, secs: sp.secs != null ? fixed(sp.secs, 1) : '' })
+          : v.txt
+        return { id, label: tx(`vt.${id}.name`), txt, lvl: v.lvl }
+      })
+    // Plain-words answers: red flags and symptoms (the symptom question is not asked on an urgent journey), the child's questions.
+    const qs = ['hypo', 'rf', ...(j.urgent ? [] : ['sym']), 'quit', 'words', 'point', 'name', 'vision', 'hearing']
+    const answers = qs.flatMap((q) => {
+      const v = j.ans[q]
+      return typeof v === 'string' ? [{ label: tx(`${R}.ans.${q}`), value: tx(`choice.${q}.opt.${v}`) }] : []
+    })
+    const genomic = GENOMIC[k] ? (j.genomic ? 'genOn' : 'genOff') : 'genNone'
+    return {
+      id: `fh-${k}-${this.gov.journeys}`,
+      person: k,
+      title: tx(`${R}.title`, { name: tx(`people.${k}.full`), age }),
+      to: tx(`${R}.to`, { clinic: tx(`people.${k}.clinicShort`), doc: tx(`people.${k}.doc`) }),
+      from: tx(`${R}.from`, { agent: tx('agents.courier.name'), domain: tx('domains.spec.name') }),
+      why: j.urgent ? j.urgent.text : top ? top.title : tx(`${R}.whyDue`),
+      understood: true,
+      booked: path.pop.map((x) => ({ name: x.name, where: x.where, when: x.when, u: x.u })),
+      forDoctor: path.clin.map((x) => ({ text: x.t, u: x.u, due: dueBy(x.u, this.clock) })),
+      speech: sp ? { score: sp.score, lvl: sp.lvl, matched: sp.matched, total: sp.total, secs: sp.secs } : null,
+      homeResults,
+      answers,
+      preferences: tx(`${R}.prefs`, {
+        pref: j.ans.pref ? tx(`choice.pref.opt.${j.ans.pref}`) : tx('common.none'),
+        time: j.ans.time ? tx(`times.${j.ans.time}`) : tx('common.none'),
+        lang: tx(`people.${k}.lang`),
+      }),
+      consent: tx(`${R}.consent`, { names: j.share.length ? list(j.share.map(name), tx('join.and')) : tx('common.nobody'), genomic: tx(`${R}.${genomic}`) }),
+      share: j.share.slice(),
+      genomic: j.genomic && !!GENOMIC[k],
+      slot: path.slot,
+      note: { text: noteText, source, lang: this.lang },
+      createdAt: hhmm(this.clock),
+      decision: null,
+    }
   }
 }
 

@@ -159,11 +159,14 @@
     "foot": "Each item has an urgency level and a due-by date (rule U1); anything urgent is escalated to the doctor even if the person says “not now”. Noa ranks and books population checks; it never diagnoses or treats. Guideline lines are a demo summary of Department of Health programmes, to be confirmed before a pilot."
   },
   "done": {
-    "again": "Choose someone else"
+    "again": "Choose someone else",
+    "doctor": "Check referral as doctor →",
+    "accepted": "✓ Accepted by {{doctor}} · {{clinic}} · {{time}}",
+    "declined": "Declined by {{doctor}} · {{time}}: {{reason}}"
   },
   "card": {
     "turn": "Your turn · {{who}}",
-    "free": "Or answer in your own words below: the AI reads it.",
+    "free": "Tap an answer, or type it below.",
     "confirm": "Confirm",
     "done": "Done",
     "waiting": "waiting",
@@ -295,7 +298,9 @@
       "why": "“why?” answered",
       "referrals": "referrals",
       "rules": "rules used",
-      "notNow": "not now"
+      "notNow": "not now",
+      "refAccepted": "accepted",
+      "refDeclined": "declined"
     }
   },
   "tcs": {

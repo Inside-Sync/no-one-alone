@@ -162,6 +162,8 @@ export function Orchestra({ snap }: { snap: Snapshot }) {
           <span><b>{snap.gov.booked}</b>{u('team.k.booked')}</span>
           <span><b>{snap.gov.barriers}</b>{u('team.k.why')}</span>
           <span><b>{snap.gov.referrals}</b>{u('team.k.referrals')}</span>
+          <span><b>{snap.gov.refAccepted}</b>{u('team.k.refAccepted')}</span>
+          <span><b>{snap.gov.refDeclined}</b>{u('team.k.refDeclined')}</span>
           <span><b>{snap.rulesHit.length}</b>{u('team.k.rules')}</span>
           <span><b>{snap.gov.notNow}</b>{u('team.k.notNow')}</span>
         </div>
