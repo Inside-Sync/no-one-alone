@@ -100,3 +100,33 @@ test('Arabic place and hospital names have a single spelling', () => {
   expect(all).toContain('أبوظبي')
   expect(all).toContain('الكورنيش')
 })
+
+type NightEntry = { id: string; when: string; findings: [string, string][] }
+const y3 = (entries: NightEntry[]) => entries.find((e) => e.id === 'y3')!
+
+test.each([
+  ['en', EN, ['Ambulance', 'Called 01:34'], 'Khalid'],
+  ['ar', AR, ['الإسعاف', 'طُلب 01:34'], 'خالد'],
+] as const)('%s: the stroke night calls 998 at 01:34, before the family', (_lng, files, ambulance, khalid) => {
+  const record = y3((files['data/record.json'] as { careRecord: { entries: NightEntry[] } }).careRecord.entries)
+  const moza = (files['data/patients.json'] as { patients: { moza: { entries: NightEntry[]; journey: { lines: string[] }[] } } }).patients.moza
+  for (const e of [record, y3(moza.entries)]) {
+    expect(e.when.endsWith('01:34')).toBe(true)
+    expect(e.findings[0]).toEqual(ambulance)
+    expect(e.findings[1][0]).toBe(khalid)
+  }
+  const tour = (files['guide.json'] as { tour: { steps: { text: string }[] } }).tour.steps[7].text
+  for (const s of [moza.journey[1].lines[3], tour]) {
+    expect(s).toContain(khalid)
+    expect(s).toContain('998')
+    expect(s).toContain('01:34')
+    expect(s.indexOf('998')).toBeLessThan(s.indexOf(khalid))
+  }
+})
+
+test.each([
+  ['en', EN, 'Noa calls 998 with this script. You can call again if you need to.'],
+  ['ar', AR, 'تتصل نوا بـ 998 بهذا النص. يمكن الاتصال مرة أخرى عند الحاجة.'],
+] as const)('%s: the 998 script note says Noa calls 998', (_lng, files, note) => {
+  expect((files['live.json'] as { sos: { note: string } }).sos.note).toBe(note)
+})
