@@ -237,3 +237,40 @@ def test_understand_label_instead_of_id_or_failure_is_503_never_none(monkeypatch
     assert client.post("/noa/understand", json=UND).status_code == 503
     monkeypatch.setattr(main, "explainer", Writer(None))
     assert client.post("/noa/understand", json=UND).status_code == 503
+
+
+WIDE = [
+    ("dose", "ar", "تناول ٥ ميليغرام."), ("dose", "ar", "تناول 500 ملي غرام."), ("dose", "ar", "تناول ٥ كبسولات."),
+    ("dose", "ar", "تناول ٢ مكغ."), ("dose", "en", "Take 2 tablets."), ("dose", "en", "Take 5 milligrams."),
+    ("diagnosis", "ar", "لديك مرض السكري."), ("diagnosis", "ar", "تعاني من مرض السكري."), ("diagnosis", "ar", "أنت مصاب بداء السكري."),
+    ("diagnosis", "ar", "لديكِ سكتة."), ("diagnosis", "ar", "أُصبت بجلطة."), ("diagnosis", "en", "You have type 2 diabetes."),
+    ("diagnosis", "en", "You've had a stroke."), ("diagnosis", "en", "You are diabetic."),
+    ("againstEmergency", "ar", "لا حاجة للاتصال بـ 998"), ("againstEmergency", "ar", "لا داعي للاتصال بالرقم 998"),
+    ("againstEmergency", "ar", "لا تحتاج إلى الذهاب إلى المستشفى"), ("againstEmergency", "ar", "ليس من الضروري الاتصال بالإسعاف"),
+    ("againstEmergency", "ar", "لا داعي لزيارة الطوارئ"), ("againstEmergency", "en", "You don’t need to call 998"),
+    ("againstEmergency", "en", "You don't have to call 998"), ("againstEmergency", "en", "There is no need for an ambulance"),
+]
+
+
+@pytest.mark.parametrize("reason,lang,text", WIDE)
+def test_widened_blocks(reason, lang, text):
+    p = {**P, "rule": "5 2 500 998"}
+    assert noa.check_say(text, "detect.guardian", lang, p) == reason
+
+
+def test_leading_zeros_do_not_make_a_number_foreign():
+    assert noa.check_say("See you at 9:00.", "detect.guardian", "en", {**P, "rule": "Booked 09:00"}) is None
+    assert noa.check_say("See you at 9:30.", "detect.guardian", "en", {**P, "rule": "Booked 09:00"}) == "number"
+
+
+NEW_EMERGENCY = ["my face is numb", "I feel dizzy", "I am having a stroke", "can't breathe", "he collapsed",
+                 "أعاني من ضيق في التنفس", "لقد فقد الوعي", "هناك نزيف"]
+
+
+@pytest.mark.parametrize("question", NEW_EMERGENCY)
+@pytest.mark.parametrize("call_id", ["composer.reply", "family.chat"])
+def test_new_emergency_words_never_reach_the_model(monkeypatch, call_id, question):
+    w = Writer({"text": "x"})
+    monkeypatch.setattr(main, "explainer", w)
+    r = say(call_id, "en", {**SAMPLES[call_id], "question": question})
+    assert r.json() == {"source": "guardrail", "reason": "emergency"} and w.seen == []
