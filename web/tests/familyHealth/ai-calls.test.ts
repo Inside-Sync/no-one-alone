@@ -22,7 +22,7 @@ const OPTIONAL = new Set(['symptom', 'risk', 'journey_stage'])
 const INTEGERS = new Set(['home.voice.child.age_months', 'referral.analyst.booked'])
 /** Where `value` differs from the server-shape sample in keys, types, string length, list size or integer-ness (null only for the optional fields). */
 function shapeErrors(sample: unknown, value: unknown, path: string): string[] {
-  const key = path.replace(/[d+]/g, '[]'), name = key.split('.').pop()!.replace('[]', '')
+  const key = path.replace(/\[\d+\]/g, '[]'), name = key.split('.').pop()!.replace(/\[\]/g, '')
   if (value === null || value === undefined) return OPTIONAL.has(name) ? [] : [`${path}: null`]
   if (Array.isArray(sample)) {
     if (!Array.isArray(value)) return [`${path}: expected an array`]
