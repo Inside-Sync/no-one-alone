@@ -159,4 +159,29 @@ class RespondAgentClientTest {
             slow.stop(0);
         }
     }
+
+    @Test
+    void noaSayPostsToNoaSayAndKeepsAGuardrailReason() {
+        server.expect(requestTo("http://agent/noa/say")).andExpect(method(HttpMethod.POST))
+                .andRespond(withSuccess("{\"source\":\"guardrail\",\"reason\":\"dose\"}", MediaType.APPLICATION_JSON));
+        assertThat(client.noaSay(Map.of("callId", "detect.guardian")).reason()).isEqualTo("dose");
+    }
+
+    @Test
+    void noaSayLiveWithBlankTextOrAnUnknownSourceIsAgentException() {
+        server.expect(requestTo("http://agent/noa/say"))
+                .andRespond(withSuccess("{\"source\":\"live\",\"text\":\" \"}", MediaType.APPLICATION_JSON));
+        assertThatThrownBy(() -> client.noaSay(Map.of())).isInstanceOf(AgentException.class);
+        server.reset();
+        server.expect(requestTo("http://agent/noa/say"))
+                .andRespond(withSuccess("{\"source\":\"prepared\",\"text\":\"t\"}", MediaType.APPLICATION_JSON));
+        assertThatThrownBy(() -> client.noaSay(Map.of())).isInstanceOf(AgentException.class);
+    }
+
+    @Test
+    void noaUnderstandWithABlankChoiceIsAgentException() {
+        server.expect(requestTo("http://agent/noa/understand"))
+                .andRespond(withSuccess("{\"choice\":\"\"}", MediaType.APPLICATION_JSON));
+        assertThatThrownBy(() -> client.noaUnderstand(Map.of())).isInstanceOf(AgentException.class);
+    }
 }

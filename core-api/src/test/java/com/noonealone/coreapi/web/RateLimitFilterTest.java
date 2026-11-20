@@ -97,4 +97,52 @@ class RateLimitFilterTest {
         for (int ip = 0; ip < 6; ip++) ok += okCount("/api/explain", "10.0.0." + ip, 5);
         assertThat(ok).isEqualTo(15);
     }
+
+    @Test
+    void noaSayHasItsOwnLimitOf20PerIpAnd30Overall() throws Exception {
+        assertThat(okCount("/api/noa/say", "1.1.1.1", 21)).isEqualTo(20);
+        assertThat(call("/api/noa/understand", "1.1.1.1").getStatus()).isEqualTo(200);
+        int ok = 0;
+        for (int ip = 0; ip < 4; ip++) ok += okCount("/api/noa/say", "10.0.0." + ip, 20);
+        assertThat(ok).isEqualTo(10);
+    }
+
+    @Test
+    void noaUnderstandHasItsOwnLimitOf10PerIpAnd20Overall() throws Exception {
+        assertThat(okCount("/api/noa/understand", "1.1.1.1", 11)).isEqualTo(10);
+        int ok = 0;
+        for (int ip = 0; ip < 4; ip++) ok += okCount("/api/noa/understand", "10.0.0." + ip, 10);
+        assertThat(ok).isEqualTo(10);
+    }
+
+    @Test
+    void noaSayStopsAt1000PerUtcDayAcrossMinutes() throws Exception {
+        int ok = 0;
+        for (int m = 0; m < 34; m++) {
+            now.set(Instant.parse("2026-10-18T14:00:05Z").plusSeconds(60L * m));
+            ok += okCount("/api/noa/say", "10.0.1." + m, 20) + okCount("/api/noa/say", "10.0.2." + m, 10);
+        }
+        assertThat(ok).isEqualTo(1000);
+        now.set(Instant.parse("2026-10-18T15:00:05Z"));
+        assertThat(call("/api/noa/say", "3.3.3.3").getStatus()).isEqualTo(429);
+        now.set(Instant.parse("2026-10-19T00:00:05Z"));
+        assertThat(call("/api/noa/say", "3.3.3.3").getStatus()).isEqualTo(200);
+    }
+
+    @Test
+    void aNoaBodyOver16384BytesIs413() throws Exception {
+        assertThat(sized("/api/noa/say", 16385).getStatus()).isEqualTo(413);
+        assertThat(sized("/api/noa/understand", 16385).getStatus()).isEqualTo(413);
+        assertThat(sized("/api/noa/say", 16384).getStatus()).isEqualTo(200);
+    }
+
+    private MockHttpServletResponse sized(String path, int bytes) throws Exception {
+        MockHttpServletRequest req = new MockHttpServletRequest("POST", path);
+        req.setRequestURI(path);
+        req.addHeader("X-Forwarded-For", "4.4.4.4, 66.249.82.232");
+        req.setContent(new byte[bytes]);
+        MockHttpServletResponse res = new MockHttpServletResponse();
+        filter.doFilter(req, res, new MockFilterChain());
+        return res;
+    }
 }

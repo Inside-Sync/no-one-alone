@@ -26,11 +26,20 @@ public class RateLimitFilter extends OncePerRequestFilter {
     private static final int INCIDENTS_PER_IP = 60;
     private static final int CHAT_GLOBAL = 200;
     private static final int EXPLAIN_GLOBAL = 20;
+    private static final int NOA_SAY_PER_IP = 20;
+    private static final int NOA_UNDERSTAND_PER_IP = 10;
+    private static final int NOA_SAY_GLOBAL = 30;
+    private static final int NOA_UNDERSTAND_GLOBAL = 20;
+    private static final int NOA_SAY_DAILY = 1000;
+    private static final int NOA_UNDERSTAND_DAILY = 1000;
+    private static final int NOA_MAX_BODY = 16_384;
 
     private final Clock clock;
     private final int trustedHops;
     private final Map<String, AtomicInteger> counts = new ConcurrentHashMap<>();
+    private final Map<String, AtomicInteger> dayCounts = new ConcurrentHashMap<>();
     private long minute = -1;
+    private long day = -1;
 
     /** @param trustedHops proxies that append to X-Forwarded-For after the client (Hosting adds one, seen by Cloud Run). */
     public RateLimitFilter(Clock clock, int trustedHops) {
@@ -41,6 +50,8 @@ public class RateLimitFilter extends OncePerRequestFilter {
     private static String group(String path) {
         if (path.equals("/api/chat")) return "chat";
         if (path.equals("/api/explain")) return "explain";
+        if (path.equals("/api/noa/say")) return "noaSay";
+        if (path.equals("/api/noa/understand")) return "noaUnderstand";
         if (path.startsWith("/api/demo/")) return "demo";
         if (path.startsWith("/api/incidents/")) return "incidents";
         return null;
@@ -50,6 +61,8 @@ public class RateLimitFilter extends OncePerRequestFilter {
         return switch (group) {
             case "chat" -> CHAT_PER_IP;
             case "explain" -> EXPLAIN_PER_IP;
+            case "noaSay" -> NOA_SAY_PER_IP;
+            case "noaUnderstand" -> NOA_UNDERSTAND_PER_IP;
             case "demo" -> DEMO_PER_IP;
             default -> INCIDENTS_PER_IP;
         };
@@ -60,6 +73,17 @@ public class RateLimitFilter extends OncePerRequestFilter {
         return switch (group) {
             case "chat" -> CHAT_GLOBAL;
             case "explain" -> EXPLAIN_GLOBAL;
+            case "noaSay" -> NOA_SAY_GLOBAL;
+            case "noaUnderstand" -> NOA_UNDERSTAND_GLOBAL;
+            default -> 0;
+        };
+    }
+
+    /** Cap per instance per UTC day; 0 means none. In memory, so a restart resets it. */
+    private static int daily(String group) {
+        return switch (group) {
+            case "noaSay" -> NOA_SAY_DAILY;
+            case "noaUnderstand" -> NOA_UNDERSTAND_DAILY;
             default -> 0;
         };
     }
@@ -82,6 +106,16 @@ public class RateLimitFilter extends OncePerRequestFilter {
         return counts.computeIfAbsent(key, k -> new AtomicInteger()).incrementAndGet();
     }
 
+    private int nextDay(String group, long today) {
+        synchronized (this) {
+            if (today != day) {
+                day = today;
+                dayCounts.clear();
+            }
+        }
+        return dayCounts.computeIfAbsent(group, k -> new AtomicInteger()).incrementAndGet();
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
@@ -90,11 +124,18 @@ public class RateLimitFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
             return;
         }
+        if (group.startsWith("noa") && request.getContentLengthLong() > NOA_MAX_BODY) {
+            response.setStatus(413);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\":{\"code\":\"PAYLOAD_TOO_LARGE\",\"message\":\"Request body too large\"}}");
+            return;
+        }
         long millis = clock.millis();
         long now = millis / 60_000;
         String ip = clientIp(request);
         boolean over = next(group + "|" + ip, now) > limit(group)
-                || (global(group) > 0 && next(group + "|*", now) > global(group));
+                || (global(group) > 0 && next(group + "|*", now) > global(group))
+                || (daily(group) > 0 && nextDay(group, millis / 86_400_000) > daily(group));
         if (over) {
             log.warn("Rate limited {} ip={} xff={}", group, ip, request.getHeader("X-Forwarded-For"));
             response.setStatus(429);
