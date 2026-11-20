@@ -70,9 +70,11 @@ Trả lời ghi thẳng vào file này hoặc tạo file mới trong `handover/`
 **Câu 2. Ai deploy core-api.**
 - Team AI đã deploy core-api bằng tay, nên `/api/noa/*` đã có trên production.
 - PR #84 nâng giới hạn số lượt gọi `say` và `understand` trên core-api.
-- `deploy.yml` đang được sửa để so với lần deploy thành công gần nhất thay vì `HEAD~1`. Trong lúc chờ, team AI kiểm tra và deploy tay sau mỗi lần merge.
+- PR #88 sửa `deploy.yml`. Giờ nó so với commit deploy thành công gần nhất, đánh dấu bằng ref `refs/deploy/dev`, thay vì `HEAD~1`.
+  - Deploy tự động chạy bản `deploy.yml` trên `main`, nên cách mới chỉ có hiệu lực khi `dev` đã merge vào `main`.
+  - Muốn deploy hết thì chạy `gh workflow run Deploy --ref dev -f target=all`.
 
-**Câu 4. `family.notify` và `analyst.weekly`.** Làm được. Dùng được khi PR C đã merge và deploy cả respond-agent lẫn core-api.
+**Câu 4. `family.notify` và `analyst.weekly`.** Đã xong (PR #87). respond-agent và core-api đã deploy lúc 17:28 (giờ VN) ngày 20/11, trong lượt deploy toàn bộ. Lượt này cũng đặt mốc `refs/deploy/dev` lần đầu.
 
 `family.notify` (mô hình nhanh, tối đa 30 chữ):
 - `params`: `audience`, `to`, `relation` (mỗi trường tối đa 120 ký tự), `event` (tối đa 300 ký tự), `urgency` (`"routine"` hoặc `"soon"`).
