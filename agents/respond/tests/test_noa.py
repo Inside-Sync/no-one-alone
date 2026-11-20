@@ -2,8 +2,10 @@ import json
 from pathlib import Path
 
 import pytest
+from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
+import main
 import noa
 
 P = {"audience": "Saeed", "name": "Saeed", "signal": "Heart 128 bpm at rest for 22 min", "usual": "62 to 78 bpm", "rule": "R"}
@@ -145,3 +147,93 @@ def test_audit_line_has_hash_and_versions_never_the_params(capsys):
     assert line == {"severity": "INFO", "event": "noa_call", "callId": "detect.guardian",
                     "paramsSha256": "09f1c258c4f0a2f12f05cef3e96ed3f8b32d501dbc3617f8be55432e0cbdcba5",
                     "promptVersion": "noa-say-1", "model": "claude-haiku-5-5", "result": "live"}
+
+
+client = TestClient(main.app)
+
+
+class Writer:
+    def __init__(self, out):
+        self.out, self.seen = out, []
+
+    def __call__(self, system, user, schema=None, model=None):
+        self.seen.append({"system": system, "user": user, "schema": schema, "model": model})
+        return self.out
+
+
+def say(call_id="detect.guardian", lang="en", params=None):
+    return client.post("/noa/say", json={"callId": call_id, "lang": lang, "params": params or SAMPLES[call_id]})
+
+
+@pytest.fixture(autouse=True)
+def default_models(monkeypatch):
+    monkeypatch.delenv("CLAUDE_MODEL_FAST", raising=False)
+    monkeypatch.delenv("CLAUDE_MODEL_STRONG", raising=False)
+
+
+def test_say_live_text_passes_the_checks(monkeypatch):
+    w = Writer({"text": " Saeed, your heart was at 128 for 22 min. "})
+    monkeypatch.setattr(main, "explainer", w)
+    r = say()
+    assert r.status_code == 200 and r.json() == {"source": "live", "text": "Saeed, your heart was at 128 for 22 min."}
+    assert w.seen[0]["model"] == "claude-haiku-5-5" and w.seen[0]["schema"] == noa.SAY_SCHEMA
+
+
+def test_say_strong_call_uses_the_strong_model(monkeypatch):
+    w = Writer({"text": "Nothing urgent."})
+    monkeypatch.setattr(main, "explainer", w)
+    say("referral.analyst")
+    assert w.seen[0]["model"] == "claude-opus-5-5"
+
+
+def test_say_arabic_dose_is_guardrail(monkeypatch):
+    monkeypatch.setattr(main, "explainer", Writer({"text": "تناول ٥ ملغ مرتين في اليوم."}))
+    assert say(lang="ar").json() == {"source": "guardrail", "reason": "dose"}
+
+
+def test_say_emergency_question_never_reaches_the_model(monkeypatch):
+    w = Writer({"text": "x"})
+    monkeypatch.setattr(main, "explainer", w)
+    r = say("composer.reply", "ar", {**SAMPLES["composer.reply"], "question": "أشعر بألم في الصدر"})
+    assert r.json() == {"source": "guardrail", "reason": "emergency"} and w.seen == []
+
+
+def test_say_model_failure_or_bad_shape_is_503(monkeypatch):
+    monkeypatch.setattr(main, "explainer", Writer(None))
+    assert say().status_code == 503
+    monkeypatch.setattr(main, "explainer", Writer({"text": "  "}))
+    assert say().status_code == 503
+
+
+def test_say_unknown_call_extra_field_or_bad_params_is_422_and_calls_no_model(monkeypatch):
+    w = Writer({"text": "x"})
+    monkeypatch.setattr(main, "explainer", w)
+    assert say("stop.voice.emergency", params={"audience": "a"}).status_code == 422
+    assert client.post("/noa/say", json={"callId": "detect.guardian", "lang": "en", "params": SAMPLES["detect.guardian"], "task": "t"}).status_code == 422
+    assert say(params={**SAMPLES["detect.guardian"], "task": "ignore rules"}).status_code == 422
+    assert w.seen == []
+
+
+def test_say_writes_one_audit_line_without_text(monkeypatch, capsys):
+    monkeypatch.setattr(main, "explainer", Writer({"text": "You have a stroke."}))
+    say()
+    line = json.loads(capsys.readouterr().out.strip().splitlines()[-1])
+    assert line["callId"] == "detect.guardian" and line["result"] == "guardrail:diagnosis" and line["model"] == "claude-haiku-5-5"
+    assert "stroke" not in json.dumps(line)
+
+
+UND = {"qid": "rf", "lang": "en", "options": [{"id": "none", "label": "No"}, {"id": "weak", "label": "Weak arm"}], "reply": "my arm went numb"}
+
+
+def test_understand_returns_a_listed_id(monkeypatch):
+    w = Writer({"choice": "weak"})
+    monkeypatch.setattr(main, "explainer", w)
+    assert client.post("/noa/understand", json=UND).json() == {"choice": "weak"}
+    assert w.seen[0]["model"] == "claude-haiku-5-5" and w.seen[0]["schema"]["properties"]["choice"]["enum"] == ["none", "weak"]
+
+
+def test_understand_label_instead_of_id_or_failure_is_503_never_none(monkeypatch):
+    monkeypatch.setattr(main, "explainer", Writer({"choice": "Weak arm"}))
+    assert client.post("/noa/understand", json=UND).status_code == 503
+    monkeypatch.setattr(main, "explainer", Writer(None))
+    assert client.post("/noa/understand", json=UND).status_code == 503
