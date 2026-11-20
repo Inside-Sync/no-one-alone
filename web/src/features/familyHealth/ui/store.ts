@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/i18n'
-import { noaSay, noaUnderstand } from '@/data/api'
-import { FamilyHealthEngine, FH_NS, RemoteAi, instantScheduler, realScheduler, textOf, type NoaLang, type PersonId, type Snapshot } from '../index'
+import { FamilyHealthEngine, FH_NS, RemoteAi, instantScheduler, realScheduler, textOf, type NoaLang, type NoaTransport, type PersonId, type Snapshot } from '../index'
 
 /**
  * The panel's state outside React: one journey engine for the whole app (the Family health tab and the messages button on the
@@ -10,6 +9,12 @@ import { FamilyHealthEngine, FH_NS, RemoteAi, instantScheduler, realScheduler, t
  */
 export const reducedMotion = (): boolean =>
   typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+/** The api module (and the Firebase SDK behind it) loads on the first call, inside the 8 s race, not with the main bundle. */
+const LAZY_NET: NoaTransport = {
+  say: async (b, s) => (await import('@/data/api')).noaSay(b, s),
+  understand: async (b, s) => (await import('@/data/api')).noaUnderstand(b, s),
+}
 
 /** Live AI only on the firebase data source (mirrors `LIVE` in data/repo) with `VITE_NOA_AI=on`; tests and mock builds stay prepared. */
 export const liveAiOn = (env: Record<string, unknown> = import.meta.env): boolean =>
@@ -21,7 +26,7 @@ let autoRan = false
 export function getEngine(): FamilyHealthEngine {
   if (!engine) {
     const test = import.meta.env.MODE === 'test'
-    engine = new FamilyHealthEngine({ ai: liveAiOn() ? new RemoteAi({ say: noaSay, understand: noaUnderstand }) : undefined, scheduler: test ? instantScheduler : realScheduler({ reducedMotion: reducedMotion() }) })
+    engine = new FamilyHealthEngine({ ai: liveAiOn() ? new RemoteAi(LAZY_NET) : undefined, scheduler: test ? instantScheduler : realScheduler({ reducedMotion: reducedMotion() }) })
   }
   return engine
 }

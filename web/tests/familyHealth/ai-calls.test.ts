@@ -1,4 +1,4 @@
-import { FamilyHealthEngine, PreparedAi, SAY_CALLS, TEST_CASES, type NoaAi, type PersonId, type SayRequest, type SayResult, type UnderstandRequest } from '@/features/familyHealth'
+import { EMERGENCY, FamilyHealthEngine, PreparedAi, SAY_CALLS, TEST_CASES, type NoaAi, type PersonId, type SayRequest, type SayResult, type UnderstandRequest } from '@/features/familyHealth'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { T, drive, of } from './helpers'
@@ -10,20 +10,42 @@ const SERVER_IDS: Record<string, string[]> = {
   time: ['am', 'eve', 'pm', 'sat'], book: ['book', 'change', 'later', 'why'], words: ['few', 'many', 'some'],
 }
 const strings = (x: unknown): string[] => typeof x === 'string' ? [x] : Array.isArray(x) ? x.flatMap(strings) : x && typeof x === 'object' ? Object.values(x).flatMap(strings) : []
-/** Where `value` differs in type or keys from the server-shape sample (null and undefined stand for the server's optional fields). */
+// Server models in agents/respond/noa.py: Short 120 chars, Text 300, Question 500, list caps, integer fields.
+const SHORT = new Set(['audience', 'name', 'call', 'parent', 'child', 'patient', 'age', 'segment', 'certainty', 'test', 'journey_stage', 'symptom', 'risk', 'tests', 'shared_with'])
+const CAPS: Record<string, number> = {
+  'detect.forecast.flags': 12, 'detect.forecast.flags[].factors': 8, 'detect.forecast.family_effects': 8, 'protect.guardian.shared_with': 8,
+  'home.voice.intro.tests': 8, 'home.insight.results': 8, 'pathway.navigator.offer.population_priority': 10, 'pathway.navigator.offer.for_the_doctor': 10,
+  'pathway.forecast.why.flags': 6, 'pathway.forecast.why.pathway': 10, 'pathway.navigator.u1.urgent': 10, 'referral.courier.booked': 10,
+  'referral.courier.for_doctor_decision': 10, 'referral.courier.flags': 12, 'family.chat.notifications': 6,
+}
+const OPTIONAL = new Set(['symptom', 'risk', 'journey_stage'])
+const INTEGERS = new Set(['home.voice.child.age_months', 'referral.analyst.booked'])
+/** Where `value` differs from the server-shape sample in keys, types, string length, list size or integer-ness (null only for the optional fields). */
 function shapeErrors(sample: unknown, value: unknown, path: string): string[] {
-  if (value === null || value === undefined) return []
+  const key = path.replace(/[d+]/g, '[]'), name = key.split('.').pop()!.replace('[]', '')
+  if (value === null || value === undefined) return OPTIONAL.has(name) ? [] : [`${path}: null`]
   if (Array.isArray(sample)) {
     if (!Array.isArray(value)) return [`${path}: expected an array`]
-    return sample.length ? value.flatMap((v, i) => shapeErrors(sample[0], v, `${path}[${i}]`)) : []
+    const cap = CAPS[key] === undefined ? [] : value.length > CAPS[key] ? [`${path}: ${value.length} items, cap ${CAPS[key]}`] : []
+    return [...cap, ...(sample.length ? value.flatMap((v, i) => shapeErrors(sample[0], v, `${path}[${i}]`)) : [])]
   }
   if (sample && typeof sample === 'object') {
     if (!value || typeof value !== 'object' || Array.isArray(value)) return [`${path}: expected an object`]
-    if (path.endsWith('home_screening')) return Object.entries(value).filter(([, v]) => !['string', 'number', 'boolean'].includes(typeof v)).map(([k, v]) => `${path}.${k}: ${typeof v}`)
+    if (path.endsWith('home_screening')) {
+      const e = Object.entries(value)
+      return [...(e.length > 12 ? [`${path}: ${e.length} keys, cap 12`] : []),
+        ...e.flatMap(([k, v]) => !['string', 'number', 'boolean'].includes(typeof v) ? [`${path}.${k}: ${typeof v}`] : typeof v === 'string' && v.length > 120 ? [`${path}.${k}: longer than 120`] : [])]
+    }
     const want = Object.keys(sample).sort(), got = Object.keys(value).sort()
     return want.join() === got.join() ? want.flatMap((k) => shapeErrors((sample as Record<string, unknown>)[k], (value as Record<string, unknown>)[k], `${path}.${k}`)) : [`${path}: keys ${got} want ${want}`]
   }
-  return typeof value === typeof sample ? [] : [`${path}: ${typeof value} want ${typeof sample}`]
+  if (typeof value !== typeof sample) return [`${path}: ${typeof value} want ${typeof sample}`]
+  if (INTEGERS.has(key) && !Number.isInteger(value)) return [`${path}: not an integer`]
+  if (typeof value === 'string') {
+    const max = name === 'question' ? 500 : SHORT.has(name) ? 120 : 300
+    if (value.length > max) return [`${path}: ${value.length} chars, max ${max}`]
+  }
+  return []
 }
 
 /** A recording port: live text (optionally with a rule id), and a fixed `understand` choice. */
@@ -224,5 +246,58 @@ describe('the page-open auto-run and the thinking flag', () => {
     answers[0]({ text: 'Old words.', source: 'live' })
     await new Promise((r) => setTimeout(r, 0))
     expect(e.thinking).toBe(true)
+  })
+})
+
+describe('one emergency word list, the same as the server one', () => {
+  test('the web pattern is the server EMERGENCY pattern', () => {
+    const py = readFileSync(join(import.meta.dirname, '../../../agents/respond/noa.py'), 'utf8')
+    const server = /^EMERGENCY = re\.compile\(r"(.*)", re\.I\)$/m.exec(py)?.[1]
+    expect(EMERGENCY.source).toBe(server)
+    expect(EMERGENCY.flags).toBe('i')
+  })
+  test('composer: slurring, confused, numb, stroke give the fixed safety line with the AI off', async () => {
+    for (const w of ['he is slurring', 'she looks confused', 'my hand is numb', 'maybe a stroke']) {
+      const e = new FamilyHealthEngine()
+      await e.reply(w)
+      await e.whenIdle()
+      expect(of(e.getSnapshot().feed, 'agent').at(-1)?.source, w).toBe('fixed')
+    }
+  })
+  test('family chat: pain gives the fixed safety line with the AI off', async () => {
+    const e = new FamilyHealthEngine()
+    await e.askNoa('grandpa has pain')
+    expect(T(e.getSnapshot().notes[0].text)).toBe('If anyone has slurred speech, face or arm weakness, chest pain or confusion, they should see a doctor immediately at the emergency department.')
+  })
+})
+
+describe('cancelled runs', () => {
+  const held = () => {
+    const answers: ((r: SayResult) => void)[] = []
+    const ai: NoaAi = { say: () => new Promise((res) => answers.push(res)), understand: async () => ({ choice: 'none', summary: '', source: 'live' }) }
+    return { ai, answers }
+  }
+  test('reset cancels a composer question asked with no journey running', async () => {
+    const { ai, answers } = held()
+    const e = new FamilyHealthEngine({ ai })
+    void e.reply('what happens next?')
+    await vi.waitFor(() => expect(answers).toHaveLength(1))
+    e.reset()
+    answers[0]({ text: 'Late words.', source: 'live' })
+    await new Promise((r) => setTimeout(r, 0))
+    expect(e.getSnapshot().calls.live).toBe(0)
+  })
+  test('a typed reply read after reset is dropped, not applied', async () => {
+    let release: (r: { choice: string; summary: string; source: 'live' }) => void = () => {}
+    const ai: NoaAi = { say: async () => ({ text: 'Words.', source: 'live' }), understand: () => new Promise((res) => { release = res }) }
+    const e = new FamilyHealthEngine({ ai })
+    void e.runTestCase('s0')
+    await drive(e, { speech: ['usual'] }, 2)
+    const typed = e.reply('my heart is pounding')
+    await new Promise((r) => setTimeout(r, 0))
+    e.reset()
+    release({ choice: 'none', summary: '', source: 'live' })
+    await typed
+    expect(e.getSnapshot().calls.live).toBe(0)
   })
 })

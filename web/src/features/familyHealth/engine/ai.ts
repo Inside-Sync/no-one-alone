@@ -107,10 +107,8 @@ export function guard(text: string): GuardHit | null {
   return null
 }
 
-/** Arabic emergency words (weakness, numbness, speech, chest, pain, fainting, dizziness, confusion, stroke): fixed safety line, never the AI. */
-export const EMERGENCY_AR = /ضعف|خدر|تنميل|تدل[يى]|كلام|تلعثم|صدر|ألم|وجع|إغماء|اغماء|أغمي|اغمي|دوخة|دوار|تشوش|ارتباك|مشوش|سكتة|جلطة|تنفس|فقد الوعي|نزيف/
-/** The wider English emergency words the server also refuses (the composer and family chat regexes add these). */
-export const EMERGENCY_EN_MORE = /numb|droop|dizz|stroke|breath|collaps|unconscious/i
+/** Emergency words (English and Arabic), the same list as `EMERGENCY` in agents/respond/noa.py: a typed question with one gets the fixed safety line, never the AI. */
+export const EMERGENCY = /weak|speech|chest|faint|pain|slur|confus|numb|droop|dizz|stroke|breath|collaps|unconscious|تنفس|فقد الوعي|نزيف|ضعف|خدر|تنميل|تدل[يى]|كلام|تلعثم|صدر|ألم|وجع|إغماء|اغماء|أغمي|اغمي|دوخة|دوار|تشوش|ارتباك|مشوش|سكتة|جلطة/i
 
 /** The prototype keyword readers (used when the AI is off). Input is lower-cased. */
 export const KEYWORDS: Record<string, (t: string) => string> = {
