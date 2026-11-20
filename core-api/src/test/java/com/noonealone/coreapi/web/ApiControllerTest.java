@@ -236,6 +236,16 @@ class ApiControllerTest {
     }
 
     @Test
+    void noaSayForwardsAFamilyNotifyCall() throws Exception {
+        when(agent.noaSay(any())).thenReturn(new RespondAgentClient.NoaSayResult("live", "Your checks are booked.", null));
+        mvc.perform(post("/api/noa/say").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"callId\":\"family.notify\",\"lang\":\"en\",\"params\":{\"to\":\"Moza\",\"urgency\":\"routine\"}}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.text").value("Your checks are booked."));
+        verify(agent).noaSay(Map.of("callId", "family.notify", "lang", "en", "params", Map.of("to", "Moza", "urgency", "routine")));
+    }
+
+    @Test
     void noaSayWithAnUnknownCallOrLanguageIs400AndCallsNoAgent() throws Exception {
         mvc.perform(post("/api/noa/say").contentType(MediaType.APPLICATION_JSON).content("{\"callId\":\"stop.voice.emergency\",\"lang\":\"en\",\"params\":{}}"))
                 .andExpect(status().isBadRequest());

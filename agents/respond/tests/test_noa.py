@@ -99,9 +99,10 @@ def test_emergency_words_both_languages():
         assert not noa.EMERGENCY.search(t), t
 
 
-def test_the_15_call_ids_and_their_tiers():
-    fast = {"detect.guardian", "protect.guardian", "home.voice.intro", "home.voice.retry", "home.voice.child", "composer.reply", "family.chat"}
-    assert len(noa.CALLS) == 15
+def test_the_17_call_ids_and_their_tiers():
+    fast = {"detect.guardian", "protect.guardian", "home.voice.intro", "home.voice.retry", "home.voice.child", "composer.reply", "family.chat",
+            "family.notify", "analyst.weekly"}
+    assert len(noa.CALLS) == 17
     assert {k for k, c in noa.CALLS.items() if c.tier == "fast"} == fast
 
 
@@ -347,3 +348,43 @@ def test_chat_replies_may_not_promise_an_action():
     assert noa.check_say("I can't book it; use the Change the time button", "composer.reply", "en", p) is None
     assert noa.check_say("سأحجز الموعد لك", "family.chat", "ar", p) == "promise"
     assert noa.check_say("I'll book that for you", "detect.guardian", "en", P) is None
+
+
+EN = json.loads((Path(__file__).resolve().parents[3] / "web" / "src" / "locales" / "en" / "familyHealth.json").read_text(encoding="utf-8"))
+
+
+def test_urgent_notifications_are_422_and_never_reach_the_model(monkeypatch):
+    w = Writer({"text": "x"})
+    monkeypatch.setattr(main, "explainer", w)
+    assert say("family.notify", params={**SAMPLES["family.notify"], "urgency": "urgent"}).status_code == 422 and w.seen == []
+
+
+def test_the_real_home_check_notice_reaches_the_model(monkeypatch):
+    w = Writer({"text": "Moza, a few-minute voice check is ready for you."})
+    monkeypatch.setattr(main, "explainer", w)
+    tests = f"{EN['vt']['speech']['short'].lower()}, {EN['vt']['din']['short'].lower()}"
+    event = EN["notes"]["homeCheck"].replace("{{tests}}", tests)
+    assert event == "Time for your few-minute home check by voice: noa speech check, hearing."
+    assert say("family.notify", params={**SAMPLES["family.notify"], "event": event}).json()["source"] == "live" and len(w.seen) == 1
+
+
+def test_word_limits_30_for_notify_and_60_for_weekly():
+    assert noa.check_say(" ".join(["word"] * 30), "family.notify", "en", P) is None
+    assert noa.check_say(" ".join(["word"] * 31), "family.notify", "en", P) == "length"
+    assert noa.check_say(" ".join(["word"] * 60), "analyst.weekly", "en", P) is None
+    assert noa.check_say(" ".join(["word"] * 61), "analyst.weekly", "en", P) == "length"
+
+
+def test_weekly_rejects_groups_under_10_recommended(monkeypatch):
+    w = Writer({"text": "x"})
+    monkeypatch.setattr(main, "explainer", w)
+    small = {**SAMPLES["analyst.weekly"], "groups": [{"segment": "national men 18-39", "recommended": 9, "uptake_pct": 33}]}
+    assert say("analyst.weekly", params=small).status_code == 422 and w.seen == []
+
+
+def test_weekly_numbers_must_come_from_params():
+    p = SAMPLES["analyst.weekly"]
+    assert noa.check_say("Uptake was lowest in non-national men 40-59 at 36% and highest in national women 50-69 at 71%.", "analyst.weekly", "en", p) is None
+    assert noa.check_say("Uptake was lowest in non-national men 40-59 at 35%.", "analyst.weekly", "en", p) == "number"
+    system, _ = noa.say_prompt("analyst.weekly", "en", p)
+    assert "Write each number exactly as it appears in params." in system and "at most 60 words" in system

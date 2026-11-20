@@ -60,3 +60,35 @@
 | 4 | 2.2 và 2.3: làm được `family.notify` và `analyst.weekly` không, khi nào? |
 
 Trả lời ghi thẳng vào file này hoặc tạo file mới trong `handover/`. Team web làm phần giao diện ngay khi có `callId`.
+
+## 4. Team AI trả lời (câu 1, 2, 4)
+
+**Câu 1. Giới hạn chữ và 503.**
+- PR #83 nâng giới hạn của `detect.forecast` và `pathway.navigator.offer` lên 80 chữ.
+- Các lần 503 là do mô hình Opus hết thời gian chờ, không phải mô hình trả rỗng. Web vẫn hiện chữ soạn sẵn như cũ.
+
+**Câu 2. Ai deploy core-api.**
+- Team AI đã deploy core-api bằng tay, nên `/api/noa/*` đã có trên production.
+- PR #84 nâng giới hạn số lượt gọi `say` và `understand` trên core-api.
+- `deploy.yml` đang được sửa để so với lần deploy thành công gần nhất thay vì `HEAD~1`. Trong lúc chờ, team AI kiểm tra và deploy tay sau mỗi lần merge.
+
+**Câu 4. `family.notify` và `analyst.weekly`.** Làm được. Dùng được khi PR C đã merge và deploy cả respond-agent lẫn core-api.
+
+`family.notify` (mô hình nhanh, tối đa 30 chữ):
+- `params`: `audience`, `to`, `relation` (mỗi trường tối đa 120 ký tự), `event` (tối đa 300 ký tự), `urgency` (`"routine"` hoặc `"soon"`).
+- `lang` không nằm trong `params`. Nó là trường `lang` của request như mọi `callId` khác.
+- `audience` bắt buộc. `RemoteAi` đã tự thêm trường này.
+- `urgency: "urgent"` bị từ chối. Thông báo khẩn không bao giờ gọi `say`, web giữ chữ cố định.
+- Server không chặn theo từ cấp cứu trong `event`, vì `event` là chữ của engine.
+- Kết quả là guardrail (bất kỳ lý do nào) thì web giữ chữ soạn sẵn.
+
+`analyst.weekly` (mô hình nhanh, tối đa 60 chữ):
+- `params`: `audience`, `period` (tối đa 120 ký tự), `groups` (1 đến 12 nhóm).
+- Mỗi nhóm: `segment` (tối đa 120 ký tự), `recommended` (số nguyên 10 đến 1.000.000), `uptake_pct` (số nguyên 0 đến 100).
+- Nhóm có `recommended` dưới 10 làm cả request bị từ chối. Web phải bỏ các nhóm này trước khi gửi.
+- Mọi con số trong câu trả lời phải có trong `params`, nếu không là guardrail `number`.
+- `params` chỉ có số tổng hợp, không có tên người. Prompt cũng dặn không ghi tên.
+
+Lỗi `params` (sai trường, quá dài, `urgent`, nhóm dưới 10) trả 502 `AGENT_FAILED` qua core-api.
+
+Câu 3 (chi phí của 2.1) chờ chủ dự án trả lời.
